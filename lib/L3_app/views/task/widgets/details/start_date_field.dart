@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -28,16 +27,16 @@ class TaskStartDateField extends StatelessWidget {
 
     return MTField(
       _controller.fData(TaskFCode.startDate.index),
-      leading: CalendarIcon(color: _task.canEdit ? mainColor : f2Color),
+      leading: CalendarIcon(color: _task.canEdit ? mainColor : f2Color, startMark: true),
       value: date != null
-          ? Row(children: [
-              BaseText(date.strMedium, padding: const EdgeInsets.only(right: P), maxLines: 1),
-              BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
-            ])
+          ? Row(
+              children: [
+                BaseText(date.strMedium, padding: const EdgeInsets.only(right: P), maxLines: 1),
+                BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
+              ],
+            )
           : null,
       compact: compact,
-      bottomDivider: _task.hasDueDate || _task.canEdit,
-      dividerIndent: P10,
       onTap: _task.canEdit ? () => _controller.datesController.selectDate(context, TaskFCode.startDate) : null,
     );
   }

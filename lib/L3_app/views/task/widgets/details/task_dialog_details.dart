@@ -24,7 +24,7 @@ class TaskDialogDetails extends StatelessWidget {
   final TaskController _controller;
 
   Task get _task => _controller.task!;
-  bool get _showStatusRow => _task.canShowStatus || _task.canClose || _task.closed;
+  bool get _showStatusRow => _task.canShowStatus || _task.closed;
   bool get _showDescription => _task.hasDescription || _task.canEdit;
 
   @override

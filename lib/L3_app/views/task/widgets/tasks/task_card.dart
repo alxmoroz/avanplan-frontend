@@ -70,7 +70,7 @@ class TaskCard extends StatelessWidget {
   Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
   Widget get _date => Row(
         children: [
-          CalendarIcon(color: _dateColor, size: P3),
+          CalendarIcon(color: _dateColor, size: P3, endMark: true),
           const SizedBox(width: P_2),
           SmallText(task.dueDate!.strMedium, color: _dateColor, maxLines: 1),
         ],

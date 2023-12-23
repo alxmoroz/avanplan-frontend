@@ -91,13 +91,33 @@ class BoardIcon extends MTIcon {
 }
 
 class CalendarIcon extends MTIcon {
-  const CalendarIcon({super.color, super.size});
+  const CalendarIcon({super.color, super.size, this.startMark = false, this.endMark = false});
+  final bool startMark;
+  final bool endMark;
+
   @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.calendar,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
-      );
+  Widget build(BuildContext context) {
+    final _size = size ?? P5;
+    final _markSize = _size / 2;
+    final _color = (color ?? mainColor).resolve(context);
+    final _markColor = _color.withAlpha(180);
+    return Stack(
+      alignment: Alignment.centerLeft,
+      children: [
+        Icon(CupertinoIcons.calendar, color: _color, size: _size),
+        if (startMark)
+          Container(
+            padding: EdgeInsets.only(top: _size / 7, left: _size / 8),
+            child: Icon(CupertinoIcons.arrowtriangle_right_fill, size: _markSize, color: _markColor),
+          ),
+        if (endMark)
+          Container(
+            padding: EdgeInsets.only(top: _size / 7, left: _size - _markSize - _size / 8),
+            child: Icon(CupertinoIcons.arrowtriangle_left_fill, size: _markSize, color: _markColor),
+          ),
+      ],
+    );
+  }
 }
 
 class CaretIcon extends StatelessWidget {

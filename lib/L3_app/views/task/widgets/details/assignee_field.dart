@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
@@ -24,16 +25,18 @@ class TaskAssigneeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTField(
-      _controller.fData(TaskFCode.assignee.index),
-      leading: _task.hasAssignee
-          ? _task.assignee!.icon(P5 / 2, borderColor: mainColor)
-          : PersonIcon(
-              color: _task.canAssign ? mainColor : f2Color,
-            ),
-      value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
-      compact: compact,
-      onTap: _task.canAssign ? _controller.assigneeController.startAssign : null,
+    return Observer(
+      builder: (_) => MTField(
+        _controller.fData(TaskFCode.assignee.index),
+        leading: _task.hasAssignee
+            ? _task.assignee!.icon(P5 / 2, borderColor: mainColor)
+            : PersonIcon(
+                color: _task.canAssign ? mainColor : f2Color,
+              ),
+        value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
+        compact: compact,
+        onTap: _task.canAssign ? _controller.assigneeController.startAssign : null,
+      ),
     );
   }
 }

@@ -27,7 +27,7 @@ class TaskDueDateField extends StatelessWidget {
 
     return MTField(
       _controller.fData(TaskFCode.dueDate.index),
-      leading: CalendarIcon(color: _task.canEdit ? mainColor : f2Color),
+      leading: CalendarIcon(color: _task.canEdit ? mainColor : f2Color, endMark: true),
       value: date != null
           ? Row(
               children: [

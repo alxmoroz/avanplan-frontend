@@ -15,8 +15,9 @@ import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskEstimateField extends StatelessWidget {
-  const TaskEstimateField(this._controller);
+  const TaskEstimateField(this._controller, {this.compact = false});
   final TaskController _controller;
+  final bool compact;
 
   Task get _task => _controller.task!;
 
@@ -26,6 +27,7 @@ class TaskEstimateField extends StatelessWidget {
       _controller.fData(TaskFCode.estimate.index),
       leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
       value: _task.hasEstimate ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}', maxLines: 1) : null,
+      compact: compact,
       onTap: _task.canEstimate ? _controller.estimateController.select : null,
     );
   }

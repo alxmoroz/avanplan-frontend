@@ -80,13 +80,13 @@ class BellIcon extends MTIcon {
 }
 
 class BoardIcon extends MTIcon {
-  const BoardIcon({super.color, super.size, this.active = false});
-  final bool active;
+  const BoardIcon({super.color, super.size, super.circled});
   @override
-  Widget build(BuildContext context) => Icon(
-        active ? CupertinoIcons.rectangle_split_3x1_fill : CupertinoIcons.rectangle_split_3x1,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4 * (active ? 0.8 : 1),
+  Widget build(BuildContext context) => _Inner(
+        CupertinoIcons.rectangle_split_3x1,
+        color: color ?? mainColor,
+        size: size ?? P4,
+        circled: circled,
       );
 }
 
@@ -350,16 +350,14 @@ class LinkOutIcon extends MTIcon {
 }
 
 class ListIcon extends MTIcon {
-  const ListIcon({super.color, super.size, this.active = false});
-  final bool active;
+  const ListIcon({super.color, super.size, super.circled});
   @override
-  Widget build(BuildContext context) => RotatedBox(
-      quarterTurns: 1,
-      child: Icon(
-        active ? CupertinoIcons.rectangle_split_3x1_fill : CupertinoIcons.rectangle_split_3x1,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4 * (active ? 0.8 : 1),
-      ));
+  Widget build(BuildContext context) => _Inner(
+        CupertinoIcons.list_dash,
+        color: color ?? mainColor,
+        size: size ?? P4,
+        circled: circled,
+      );
 }
 
 class LocalExportIcon extends MTIcon {
@@ -383,6 +381,7 @@ class LocalImportIcon extends MTIcon {
       CupertinoIcons.arrow_down,
       color: color ?? mainColor,
       size: size ?? P4,
+      circled: circled,
     );
   }
 }
@@ -414,7 +413,7 @@ class MenuIcon extends MTIcon {
   Widget build(BuildContext context) => _Inner(
         CupertinoIcons.ellipsis_vertical,
         color: color ?? mainColor,
-        size: size,
+        size: size ?? P4,
         circled: circled,
       );
 }

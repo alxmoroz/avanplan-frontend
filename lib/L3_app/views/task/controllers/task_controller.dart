@@ -78,30 +78,30 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     await TaskRouter().navigate(rootKey.currentContext!, args: this);
   }
 
-  Future taskAction(TaskActionType? actionType) async {
+  Future taskAction(TaskAction? actionType) async {
     switch (actionType) {
-      case TaskActionType.details:
+      case TaskAction.details:
         await showDetailsDialog(this);
         break;
-      case TaskActionType.close:
+      case TaskAction.close:
         await statusController.setStatus(_task, close: true);
         break;
-      case TaskActionType.reopen:
+      case TaskAction.reopen:
         await statusController.setStatus(_task, close: false);
         break;
-      case TaskActionType.localExport:
+      case TaskAction.localExport:
         await localExportController.localExport();
         break;
-      case TaskActionType.duplicate:
+      case TaskAction.duplicate:
         await DuplicateController().duplicate(_task);
         break;
-      // case TaskActionType.go2source:
+      // case TaskAction.go2source:
       //   await _task.go2source();
       //   break;
-      case TaskActionType.unlink:
+      case TaskAction.unlink:
         await _task.unlink();
         break;
-      case TaskActionType.delete:
+      case TaskAction.delete:
         await DeleteController().delete(_task);
         break;
       default:
@@ -140,5 +140,5 @@ abstract class _TaskControllerBase extends EditController with Store {
   @observable
   bool showBoard = true;
   @action
-  void toggleMode() => showBoard = !showBoard;
+  void toggleBoardMode() => showBoard = !showBoard;
 }

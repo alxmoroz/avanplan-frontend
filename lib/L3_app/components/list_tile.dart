@@ -104,7 +104,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
                         SizedBox(height: minHeight ?? P6),
                         if (_hasLeading) ...[
                           leading!,
-                          const SizedBox(width: P2),
+                          if (_hasMiddle || _hasSubtitle) const SizedBox(width: P2),
                         ],
                         Expanded(
                           child: Column(

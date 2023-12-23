@@ -358,6 +358,7 @@
   "tariff_type_premium_title": "Premium",
   "tariff_type_request_title": "Special",
 
+  "task_actions_menu_title": "More Actions",
   "task_assignee_nobody": "Nobody",
   "task_assignee_label": "Assigned",
   "task_assignee_placeholder": "Assign",
@@ -414,6 +415,9 @@
   "task_unlink_action_title": "Delete link",
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",
   "task_unlink_dialog_title": "Unlink a source?",
+
+  "task_view_mode_board_action_title": "Switch to board view",
+  "task_view_mode_list_action_title": "Switch to list view",
 
   "team_empty_hint": "Invite members to collaborate effectively",
   "team_empty_title": "The team is waiting for an invitation",

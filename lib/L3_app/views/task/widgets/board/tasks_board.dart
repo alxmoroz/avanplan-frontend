@@ -16,8 +16,8 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/status_controller.dart';
-import '../board/drag_and_drop_lists.dart';
-import 'task_card.dart';
+import '../tasks/task_card.dart';
+import 'drag_and_drop_lists.dart';
 
 class _ItemTarget extends StatelessWidget {
   @override

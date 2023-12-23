@@ -358,6 +358,7 @@
   "tariff_type_premium_title": "Премиум",
   "tariff_type_request_title": "Особые условия",
 
+  "task_actions_menu_title": "Другие действия",
   "task_assignee_nobody": "Никому",
   "task_assignee_label": "Назначено",
   "task_assignee_placeholder": "Назначить ответственного",
@@ -414,6 +415,9 @@
   "task_unlink_action_title": "Удалить связь",
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
   "task_unlink_dialog_title": "Удалить связь с источником?",
+
+  "task_view_mode_board_action_title": "Переключить на доску",
+  "task_view_mode_list_action_title": "Переключить на список",
 
   "team_empty_hint": "Пригласите участников для эффективной совместной работы",
   "team_empty_title": "Команда ждёт приглашения",

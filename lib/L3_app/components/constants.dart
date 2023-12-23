@@ -11,6 +11,7 @@ const double P6 = P * 6; // 36
 const double P7 = P * 7; // 42
 const double P8 = P * 8; // 48
 const double P10 = P * 10; // 60
+const double P11 = P * 11; // 66
 const double P12 = P * 12; // 72
 
 const double P_2 = P / 2; // 3
@@ -31,8 +32,9 @@ const double SCR_S_HEIGHT = 640;
 const double SCR_M_WIDTH = 640;
 const double SCR_M_HEIGHT = 860;
 
-const double SCR_L_WIDTH = 860;
-const double SCR_XL_WIDTH = 980;
+const double SCR_L_WIDTH = 760;
+const double SCR_XL_WIDTH = 960;
+const double SCR_XXL_WIDTH = 1280;
 
 double get cardElevation => isWeb ? 3 : 1;
 double get buttonElevation => isWeb ? 3 : 1;

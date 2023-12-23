@@ -65,7 +65,6 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
         parentTaskController,
         type: ButtonType.secondary,
         margin: const EdgeInsets.only(top: P3),
-        uf: false,
         onTap: controller.addTask,
       );
 

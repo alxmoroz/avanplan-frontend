@@ -16,7 +16,7 @@ import 'task_transfer.dart';
 import 'task_tree.dart';
 import 'ws_actions.dart';
 
-enum TaskActionType {
+enum TaskAction {
   details,
   close,
   reopen,
@@ -79,14 +79,14 @@ extension TaskActionsUC on Task {
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;
 
-  Iterable<TaskActionType> get actions => [
-        if (canShowDetails) TaskActionType.details,
-        if (canClose) TaskActionType.close,
-        if (canReopen) TaskActionType.reopen,
-        if (canLocalExport) TaskActionType.localExport,
-        if (canCreate) TaskActionType.duplicate,
-        // if (didImported) TaskActionType.go2source,
-        if (canUnlink) TaskActionType.unlink,
-        if (canDelete) TaskActionType.delete,
+  Iterable<TaskAction> get actions => [
+        if (canShowDetails) TaskAction.details,
+        if (canClose) TaskAction.close,
+        if (canReopen) TaskAction.reopen,
+        if (canLocalExport) TaskAction.localExport,
+        if (canCreate) TaskAction.duplicate,
+        // if (didImported) TaskAction.go2source,
+        if (canUnlink) TaskAction.unlink,
+        if (canDelete) TaskAction.delete,
       ];
 }

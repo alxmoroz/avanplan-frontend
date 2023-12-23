@@ -16,8 +16,9 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskDescriptionField extends StatelessWidget {
-  const TaskDescriptionField(this._controller);
+  const TaskDescriptionField(this._controller, {this.compact = false});
   final TaskController _controller;
+  final bool compact;
 
   Task get _task => _controller.task!;
 
@@ -37,6 +38,7 @@ class TaskDescriptionField extends StatelessWidget {
               maxLines: maxLines,
             )
           : null,
+      compact: compact,
       crossAxisAlignment: _task.isTask && _task.hasDescription ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       onTap: _task.canEdit ? _controller.titleController.editDescription : null,
     );

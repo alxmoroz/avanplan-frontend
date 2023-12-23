@@ -8,8 +8,8 @@ import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../usecases/task_actions.dart';
 import 'controllers/task_controller.dart';
-import 'widgets/toolbar/note_toolbar.dart';
-import 'widgets/toolbar/task_right_toolbar.dart';
+import 'widgets/actions/note_toolbar.dart';
+import 'widgets/actions/right_toolbar.dart';
 
 class TaskDialog extends StatelessWidget {
   const TaskDialog(this._controller, this._scrollController, this._title, this._body);

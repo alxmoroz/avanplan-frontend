@@ -16,8 +16,9 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskStartDateField extends StatelessWidget {
-  const TaskStartDateField(this._controller);
+  const TaskStartDateField(this._controller, {this.compact = false});
   final TaskController _controller;
+  final bool compact;
 
   Task get _task => _controller.task!;
 
@@ -34,6 +35,7 @@ class TaskStartDateField extends StatelessWidget {
               BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
             ])
           : null,
+      compact: compact,
       bottomDivider: _task.hasDueDate || _task.canEdit,
       dividerIndent: P10,
       onTap: _task.canEdit ? () => _controller.datesController.selectDate(context, TaskFCode.startDate) : null,

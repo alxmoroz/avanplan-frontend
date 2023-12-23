@@ -30,7 +30,7 @@ class TaskBottomToolbar extends StatelessWidget {
         middle: Row(
           children: [
             const SizedBox(width: P2),
-            if (_task.canShowBoard) TaskViewToggleButton(_controller),
+            if (_task.canShowBoard) TaskToggleViewButton(_controller),
             const Spacer(),
             if (_task.canLocalImport)
               MTButton.secondary(
@@ -40,7 +40,7 @@ class TaskBottomToolbar extends StatelessWidget {
               ),
             if (_task.canCreate) ...[
               const SizedBox(width: P2),
-              CreateTaskButton(_controller, compact: true),
+              CreateTaskButton(_controller, compact: true, type: ButtonType.main),
             ],
             const SizedBox(width: P2),
           ],

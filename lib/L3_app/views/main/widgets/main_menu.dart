@@ -1,21 +1,21 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
-import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
-import '../../../components/divider.dart';
 import '../../../components/icons.dart';
 import '../../../components/icons_workspace.dart';
 import '../../../components/images.dart';
+import '../../../components/list_tile.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/person.dart';
 import '../../my_tasks/my_tasks_view.dart';
 import '../../projects/projects_view.dart';
-import '../../settings/account_btn.dart';
 import '../../settings/settings_view.dart';
 
 class MainMenu extends StatelessWidget {
@@ -37,36 +37,48 @@ class MainMenu extends StatelessWidget {
     await MyTasksRouter().navigate(_navContext);
   }
 
-  Widget get _divider => const MTDivider(verticalIndent: P2);
-
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Container(
-        color: b2Color.resolve(context),
-        width: P10,
-        child: MTCardButton(
-          // elevation: 2,
-          padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),
+      builder: (_) => GestureDetector(
+        child: Container(
+          width: P11,
+          color: b3Color.resolve(context),
           child: SafeArea(
             child: Column(
               children: [
-                MTButton.icon(MTImage(ImageName.app_icon.name, height: P5, width: P5), onTap: _popTop),
-                if (tasksMainController.projects.isNotEmpty) ...[
-                  _divider,
-                  MTButton.icon(const ProjectsIcon(color: mainColor), onTap: _goToProjects),
-                ],
-                if (tasksMainController.myTasks.isNotEmpty) ...[
-                  _divider,
-                  MTButton.icon(const TasksIcon(color: mainColor), onTap: _goToTasks),
-                ],
+                MTListTile(
+                  leading: MTImage(ImageName.app_icon.name, height: P5, width: P5),
+                  dividerIndent: P2,
+                  dividerEndIndent: P2,
+                  bottomDivider: tasksMainController.projects.isNotEmpty,
+                  onTap: _popTop,
+                ),
+                if (tasksMainController.projects.isNotEmpty)
+                  MTListTile(
+                    leading: const ProjectsIcon(color: mainColor),
+                    dividerIndent: P2,
+                    dividerEndIndent: P2,
+                    bottomDivider: tasksMainController.myTasks.isNotEmpty,
+                    onTap: _goToProjects,
+                  ),
+                if (tasksMainController.myTasks.isNotEmpty)
+                  MTListTile(
+                    leading: const TasksIcon(color: mainColor),
+                    bottomDivider: false,
+                    onTap: _goToTasks,
+                  ),
                 const Spacer(),
-                AccountButton(_goToSettings),
+                MTListTile(
+                  leading: accountController.user!.icon(P5 / 2, borderColor: mainColor),
+                  bottomDivider: false,
+                  onTap: _goToSettings,
+                )
               ],
             ),
           ),
-          // onTap: () {},
         ),
+        // onTap: () {},
       ),
     );
   }

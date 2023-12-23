@@ -16,8 +16,9 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskAssigneeField extends StatelessWidget {
-  const TaskAssigneeField(this._controller);
+  const TaskAssigneeField(this._controller, {this.compact = false});
   final TaskController _controller;
+  final bool compact;
 
   Task get _task => _controller.task!;
 
@@ -31,6 +32,7 @@ class TaskAssigneeField extends StatelessWidget {
               color: _task.canAssign ? mainColor : f2Color,
             ),
       value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
+      compact: compact,
       onTap: _task.canAssign ? _controller.assigneeController.startAssign : null,
     );
   }

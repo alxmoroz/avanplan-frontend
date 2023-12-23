@@ -5,10 +5,14 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/icons_workspace.dart';
+import '../../../../components/list_tile.dart';
+import '../../../../components/text.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
@@ -21,20 +25,17 @@ class CreateTaskButton extends StatelessWidget {
   const CreateTaskButton(
     TaskController parentTaskController, {
     bool compact = false,
-    bool uf = true,
     EdgeInsets? margin,
     ButtonType? type,
     Function()? onTap,
   })  : _parentTaskController = parentTaskController,
+        _type = type,
         _compact = compact,
         _margin = margin,
-        _uf = uf,
-        _onTap = onTap,
-        _type = type;
+        _onTap = onTap;
 
   final TaskController _parentTaskController;
   final bool _compact;
-  final bool _uf;
   final EdgeInsets? _margin;
   final ButtonType? _type;
   final Function()? _onTap;
@@ -42,35 +43,57 @@ class CreateTaskButton extends StatelessWidget {
   Workspace get _ws => _parent.ws;
   Task get _parent => _parentTaskController.task!;
 
+  bool get _showBadge => !_ws.plCreate(_parent);
+
   Widget get _plusIcon => PlusIcon(
         color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor,
         size: _compact ? P5 : P4,
       );
 
   Future _tap(BuildContext context) async {
-    final newTask = await _ws.createTask(_parent);
-    if (newTask != null) {
-      final tc = TaskController(newTask, isNew: true);
-      if (newTask.isGoal) {
-        await CreateGoalQuizRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateGoalQuizController(tc)));
-      } else {
-        await tc.showTask();
+    if (_onTap != null) {
+      _onTap!();
+    } else {
+      final newTask = await _ws.createTask(_parent);
+      if (newTask != null) {
+        final tc = TaskController(newTask, isNew: true);
+        if (newTask.isGoal) {
+          await CreateGoalQuizRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateGoalQuizController(tc)));
+        } else {
+          await tc.showTask();
+        }
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MTBadgeButton(
-      margin: _margin,
-      showBadge: !_ws.plCreate(_parent),
-      type: _type ?? ButtonType.main,
-      leading: _compact ? null : _plusIcon,
-      titleText: _compact ? null : addSubtaskActionTitle(_parent),
-      middle: _compact ? _plusIcon : null,
-      constrained: !_compact,
-      uf: _uf,
-      onTap: _onTap != null ? _onTap : () => _tap(context),
-    );
+    return isBigScreen && _type == null
+        ? MTListTile(
+            leading: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                const PlusIcon(size: P5, circled: true),
+                if (_showBadge)
+                  Container(
+                    padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
+                    child: const RoubleCircleIcon(size: P2),
+                  ),
+              ],
+            ),
+            middle: !_compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
+            bottomDivider: false,
+            onTap: () => _tap(context),
+          )
+        : MTBadgeButton(
+            leading: _compact ? null : _plusIcon,
+            margin: _margin,
+            showBadge: _showBadge,
+            type: _type ?? ButtonType.main,
+            titleText: _compact ? null : addSubtaskActionTitle(_parent),
+            middle: _compact ? _plusIcon : null,
+            constrained: !_compact,
+            onTap: () => _tap(context),
+          );
   }
 }

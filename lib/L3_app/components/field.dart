@@ -25,6 +25,7 @@ class MTField extends StatelessWidget {
     this.loading = false,
     this.onTap,
     this.onHover,
+    this.compact = false,
   });
 
   final MTFieldData fd;
@@ -43,6 +44,7 @@ class MTField extends StatelessWidget {
   final double? minHeight;
   final CrossAxisAlignment? crossAxisAlignment;
   final bool loading;
+  final bool compact;
 
   bool get _hasValue => value != null;
 
@@ -50,8 +52,18 @@ class MTField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: leading != null ? Container(width: P5, child: leading, alignment: Alignment.center) : null,
-      middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, maxLines: 1) : null,
-      subtitle: _hasValue ? value : BaseText.f3(fd.placeholder, maxLines: 1),
+      middle: compact
+          ? null
+          : _hasValue && fd.label.isNotEmpty
+              ? SmallText(fd.label, color: f3Color, maxLines: 1)
+              : null,
+      subtitle: compact
+          ? null
+          : _hasValue
+              ? value
+              : fd.placeholder.isNotEmpty
+                  ? BaseText.f3(fd.placeholder, maxLines: 1)
+                  : null,
       bottomDivider: bottomDivider,
       dividerIndent: dividerIndent,
       dividerEndIndent: dividerEndIndent,

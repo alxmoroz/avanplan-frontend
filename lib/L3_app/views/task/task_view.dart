@@ -10,7 +10,6 @@ import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/error_sheet.dart';
-import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
@@ -23,23 +22,26 @@ import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
 import 'task_dialog.dart';
+import 'widgets/actions/bottom_toolbar.dart';
+import 'widgets/actions/note_toolbar.dart';
+import 'widgets/actions/popup_menu.dart';
+import 'widgets/actions/right_toolbar.dart';
+import 'widgets/board/tasks_board.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
 import 'widgets/header/task_header.dart';
-import 'widgets/header/task_popup_menu.dart';
-import 'widgets/tasks/tasks_board.dart';
 import 'widgets/tasks/tasks_list_view.dart';
-import 'widgets/toolbar/note_toolbar.dart';
-import 'widgets/toolbar/task_bottom_toolbar.dart';
-import 'widgets/toolbar/task_right_toolbar.dart';
 
 class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
 
   @override
   bool get isDialog => _task?.isTask == true;
+
+  @override
+  double get maxWidth => SCR_L_WIDTH;
 
   @override
   RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)\$');
@@ -199,12 +201,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
             leading: showSideMenu ? Container() : null,
             middle: _title,
-            trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty
-                ? TaskPopupMenu(
-                    controller,
-                    icon: const MenuIcon(),
-                  )
-                : null,
+            trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
           ),
           body: SafeArea(top: false, bottom: false, child: _body),
           bottomBar: _showNoteToolbar

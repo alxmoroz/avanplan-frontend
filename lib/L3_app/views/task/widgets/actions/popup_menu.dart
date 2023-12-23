@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -7,25 +7,24 @@ import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/material_wrapper.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../toolbar/action_item.dart';
+import 'action_item.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
-  const TaskPopupMenu(this.controller, {this.icon, this.child});
+  const TaskPopupMenu(this.controller);
   final TaskController controller;
-  final Widget? icon;
-  final Widget? child;
 
   Task get _task => controller.task!;
 
   @override
   Widget build(BuildContext context) {
     return material(
-      PopupMenuButton<TaskActionType>(
-        icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P2), child: icon),
-        itemBuilder: (_) => [for (final at in _task.actions) PopupMenuItem<TaskActionType>(value: at, child: TaskActionItem(at))],
+      PopupMenuButton<TaskAction>(
+        icon: const Padding(padding: EdgeInsets.symmetric(horizontal: P2), child: MenuIcon()),
+        itemBuilder: (_) => [for (final at in _task.actions) PopupMenuItem<TaskAction>(value: at, child: TaskActionItem(at))],
         onOpened: () => unfocus(context),
         onSelected: controller.taskAction,
         padding: EdgeInsets.zero,

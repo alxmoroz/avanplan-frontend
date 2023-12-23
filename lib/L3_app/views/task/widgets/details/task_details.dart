@@ -35,9 +35,10 @@ import 'start_date_field.dart';
 import 'task_status_field.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(this._controller, {this.standalone = false});
+  const TaskDetails(this._controller, {this.standalone = false, this.compact = false});
   final TaskController _controller;
   final bool standalone;
+  final bool compact;
 
   bool get _isTaskDialog => isBigScreen && _task.isTask;
 
@@ -56,10 +57,10 @@ class TaskDetails extends StatelessWidget {
           if (_showStatusRow) TaskStatusField(_controller),
 
           /// Описание
-          if (_showDescription) TaskDescriptionField(_controller),
+          if (_showDescription) TaskDescriptionField(_controller, compact: compact),
 
           /// Назначенный
-          if (_showAssignee) TaskAssigneeField(_controller),
+          if (_showAssignee) TaskAssigneeField(_controller, compact: compact),
 
           /// Кнопка для добавления чек-листа
           if (!_isTaskDialog && _task.canAddChecklist) TaskChecklistAddField(_controller),
@@ -72,13 +73,13 @@ class TaskDetails extends StatelessWidget {
 
           /// Даты
           if (standalone) const SizedBox(height: P3),
-          TaskStartDateField(_controller),
-          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller),
+          TaskStartDateField(_controller, compact: compact),
+          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact),
 
           /// Оценки
           if (_task.canEstimate) ...[
             if (standalone) const SizedBox(height: P3),
-            TaskEstimateField(_controller),
+            TaskEstimateField(_controller, compact: compact),
           ],
 
           /// Вложения
@@ -106,6 +107,7 @@ class TaskDetails extends StatelessWidget {
               margin: EdgeInsets.only(top: standalone ? P3 : 0),
               leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
+              compact: compact,
               onTap: _task.canEditFeatureSets ? () => showFeatureSetsDialog(_controller) : null,
             ),
 
@@ -116,6 +118,7 @@ class TaskDetails extends StatelessWidget {
               margin: EdgeInsets.only(top: standalone ? P3 : 0),
               leading: const StatusIcon(),
               value: _task.projectStatuses.isNotEmpty ? BaseText(_controller.projectStatusesController.statusesStr, maxLines: 1) : null,
+              compact: compact,
               onTap: () => showProjectStatusesDialog(_controller.projectStatusesController),
             ),
 
@@ -124,8 +127,8 @@ class TaskDetails extends StatelessWidget {
             MTListTile(
               margin: EdgeInsets.only(top: standalone ? P3 : 0),
               leading: _task.source?.type.icon(size: P5),
-              titleText: loc.task_go2source_title,
-              trailing: const LinkOutIcon(),
+              titleText: !compact ? loc.task_go2source_title : null,
+              trailing: !compact ? const LinkOutIcon() : null,
               bottomDivider: false,
               onTap: () => launchUrlString(_task.taskSource!.urlString),
             ),

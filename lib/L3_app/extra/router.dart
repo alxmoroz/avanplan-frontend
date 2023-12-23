@@ -83,6 +83,7 @@ abstract class MTRouter {
   String get title => '';
   RouteSettings? get settings => null;
   bool get isDialog => false;
+  double get maxWidth => SCR_M_WIDTH;
 
   String get path => '/';
   RegExp get pathRe => RegExp('^$path\$');
@@ -99,12 +100,12 @@ abstract class MTRouter {
 
   static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
 
-  static Widget _pageWidget(Widget child, bool isDialog) {
+  static Widget _pageWidget(Widget child, bool isDialog, double maxWidth) {
     return Observer(
       builder: (_) => Stack(
         alignment: Alignment.center,
         children: [
-          authController.authorized ? (isDialog ? MTAdaptiveDialog(child, maxWidth: SCR_M_WIDTH) : child) : AuthView(),
+          authController.authorized ? (isDialog ? MTAdaptiveDialog(child, maxWidth: maxWidth) : child) : AuthView(),
           if (loader.loading) LoaderScreen(),
         ],
       ),
@@ -120,7 +121,7 @@ abstract class MTRouter {
       if (page != null) {
         return showSideMenu
             ? PageRouteBuilder(
-                pageBuilder: (_, __, ___) => _pageWidget(page, isDialog),
+                pageBuilder: (_, __, ___) => _pageWidget(page, isDialog, r.maxWidth),
                 reverseTransitionDuration: const Duration(milliseconds: 150),
                 settings: settings ?? rs,
                 fullscreenDialog: isDialog,
@@ -129,7 +130,7 @@ abstract class MTRouter {
                 barrierColor: barrierColor,
               )
             : CupertinoPageRoute<dynamic>(
-                builder: (_) => _pageWidget(page, isDialog),
+                builder: (_) => _pageWidget(page, isDialog, r.maxWidth),
                 fullscreenDialog: isDialog,
                 barrierDismissible: isDialog,
                 settings: settings ?? rs,

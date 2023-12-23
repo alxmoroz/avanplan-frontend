@@ -32,7 +32,8 @@ class TaskRightToolbar extends StatelessWidget {
               TaskDetails(_controller),
               const Spacer(),
               // TODO: в целях и проектах вместо попапа можно раскрывать в высоту просто. После нажатия скрывать обратно
-              for (final at in _task.actionTypes)
+
+              for (final at in _task.actions)
                 MTListTile(
                   middle: TaskActionItem(at),
                   bottomDivider: false,

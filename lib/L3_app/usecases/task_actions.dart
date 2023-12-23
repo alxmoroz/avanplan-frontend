@@ -79,7 +79,7 @@ extension TaskActionsUC on Task {
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;
 
-  Iterable<TaskActionType> get actionTypes => [
+  Iterable<TaskActionType> get actions => [
         if (canShowDetails) TaskActionType.details,
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,

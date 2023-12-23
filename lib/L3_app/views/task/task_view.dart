@@ -199,7 +199,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
             leading: showSideMenu ? Container() : null,
             middle: _title,
-            trailing: !_isBigGroup && task!.loading != true && task!.actionTypes.isNotEmpty
+            trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty
                 ? TaskPopupMenu(
                     controller,
                     icon: const MenuIcon(),

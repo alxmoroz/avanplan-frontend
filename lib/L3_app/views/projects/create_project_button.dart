@@ -19,7 +19,7 @@ class CreateProjectButton extends StatelessWidget {
   final CreateProjectController _controller;
   final bool _compact;
 
-  Widget get _plusIcon => const PlusIcon(color: mainBtnTitleColor);
+  Widget get _plusIcon => const PlusIcon(color: mainBtnTitleColor, size: P5);
 
   @override
   Widget build(BuildContext context) {

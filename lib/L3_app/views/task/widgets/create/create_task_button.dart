@@ -7,6 +7,7 @@ import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
@@ -41,7 +42,10 @@ class CreateTaskButton extends StatelessWidget {
   Workspace get _ws => _parent.ws;
   Task get _parent => _parentTaskController.task!;
 
-  Widget get _plusIcon => PlusIcon(color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor);
+  Widget get _plusIcon => PlusIcon(
+        color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor,
+        size: _compact ? P5 : P4,
+      );
 
   Future _tap(BuildContext context) async {
     final newTask = await _ws.createTask(_parent);

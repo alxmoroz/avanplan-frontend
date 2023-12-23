@@ -26,7 +26,7 @@ class TaskAssigneeField extends StatelessWidget {
     return MTField(
       _controller.fData(TaskFCode.assignee.index),
       leading: _task.hasAssignee
-          ? _task.assignee!.icon(P3, borderColor: mainColor)
+          ? _task.assignee!.icon(P5 / 2, borderColor: mainColor)
           : PersonIcon(
               color: _task.canAssign ? mainColor : f2Color,
             ),

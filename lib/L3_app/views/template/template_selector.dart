@@ -43,6 +43,8 @@ class TemplateSelector extends StatelessWidget {
   const TemplateSelector(this._controller);
   final TemplateController _controller;
 
+  static const _iconSize = P8;
+
   Widget _groupBuilder(BuildContext context, int gIndex) {
     final group = _controller.templatesGroups[gIndex];
     final templates = group.value;
@@ -58,10 +60,10 @@ class TemplateSelector extends StatelessWidget {
             itemBuilder: (_, tIndex) {
               final template = templates[tIndex];
               return MTListTile(
-                leading: MTImage(template.icon ?? 'tmpl_task_list', height: P8, width: P8),
+                leading: MTImage(template.icon ?? 'tmpl_task_list', height: _iconSize, width: _iconSize),
                 middle: BaseText.medium(template.title, maxLines: 2),
                 subtitle: template.description.isNotEmpty ? SmallText(template.description, maxLines: 2) : null,
-                dividerIndent: P8 + P5,
+                dividerIndent: _iconSize + P5,
                 bottomDivider: tIndex < templates.length - 1,
                 onTap: () => Navigator.of(context).pop(template),
               );

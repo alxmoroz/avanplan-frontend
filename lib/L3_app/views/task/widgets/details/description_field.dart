@@ -23,19 +23,21 @@ class TaskDescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maxLines = _task.isTask ? 20 : 2;
     return MTField(
       _controller.fData(TaskFCode.description.index),
       leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
       value: _task.hasDescription
           ? SelectableLinkify(
               text: _task.description,
-              style: const BaseText('').style(context),
-              linkStyle: const BaseText('', color: mainColor).style(context),
+              style: BaseText('', maxLines: maxLines).style(context),
+              linkStyle: BaseText('', maxLines: maxLines, color: mainColor).style(context),
               onOpen: (link) async => await launchUrlString(link.url),
               minLines: 1,
-              maxLines: _task.isTask ? 20 : 2,
+              maxLines: maxLines,
             )
           : null,
+      crossAxisAlignment: _task.isTask && _task.hasDescription ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       onTap: _task.canEdit ? _controller.titleController.editDescription : null,
     );
   }

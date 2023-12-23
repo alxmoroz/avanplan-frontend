@@ -58,10 +58,10 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     final fNode = tc.focusNode(TaskFCode.title.index);
     fNode?.addListener(() => setState(() {}));
     final hasFocus = fNode?.hasFocus == true;
-    final tfMaxLines = hasFocus ? 1 : 2;
+    final tfMaxLines = hasFocus ? 1 : 5;
 
     final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: _fieldHover ? 0 : P3);
-    const doneIconSize = P6;
+    const doneIconSize = P5;
     const deleteIconSize = P4;
     return Row(
       children: [
@@ -73,13 +73,14 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
               solid: task.closed,
             ),
-            padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3 + P_2, right: 0),
-            margin: const EdgeInsets.only(right: P3),
+            padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
+            margin: const EdgeInsets.only(right: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
             onTap: (_controller.parent.closed && task.closed) ? null : _toggleDone,
           ),
         Expanded(
           child: Stack(
+            alignment: Alignment.centerLeft,
             children: [
               Opacity(
                 opacity: kIsWeb || hasFocus ? 1 : 0,
@@ -103,14 +104,9 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               ),
               if (!kIsWeb && !hasFocus)
                 Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [b3Color.resolve(context), b3Color.resolve(context).withAlpha(0)],
-                      stops: const [0.5, 1],
-                    ),
-                  ),
+                  color: Colors.transparent,
                   padding: tfPadding,
-                  height: _minHeight,
+                  constraints: BoxConstraints(minHeight: _minHeight),
                   alignment: Alignment.centerLeft,
                   child: BaseText(roText, maxLines: tfMaxLines, color: task.closed ? f3Color : null),
                 ),
@@ -136,7 +132,6 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       fData,
       loading: _taskEditing && task.loading == true,
       minHeight: _minHeight,
-      crossAxisAlignment: CrossAxisAlignment.center,
       value: kIsWeb
           ? _fieldValue(context)
           : Slidable(
@@ -160,7 +155,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: tc.task!.isCheckItem ? P12 : P3,
+      dividerIndent: tc.task!.isCheckItem ? P10 : P3,
       dividerEndIndent: P3,
       bottomDivider: tc.task!.isCheckItem || _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,

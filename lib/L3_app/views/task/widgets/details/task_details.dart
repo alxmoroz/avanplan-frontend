@@ -8,11 +8,9 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
-import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -29,6 +27,7 @@ import '../notes/notes.dart';
 import '../project_statuses/project_statuses.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
+import 'checklist_add_field.dart';
 import 'description_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
@@ -45,7 +44,6 @@ class TaskDetails extends StatelessWidget {
   Task get _task => _controller.task!;
   bool get _showStatusRow => !isBigScreen && _task.isTask && (_task.canShowStatus || _task.canClose || _task.closed);
   bool get _showAssignee => _task.canShowAssignee;
-  bool get _showEstimate => _task.canShowEstimate;
   bool get _showDescription => !_isTaskDialog && (_task.hasDescription || _task.canEdit);
 
   @override
@@ -64,14 +62,7 @@ class TaskDetails extends StatelessWidget {
           if (_showAssignee) TaskAssigneeField(_controller),
 
           /// Кнопка для добавления чек-листа
-          if (!_isTaskDialog && _task.canAddChecklist)
-            MTField(
-              MTFieldData(-1, placeholder: '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
-              margin: const EdgeInsets.only(top: P3),
-              leading: const PlusCircleIcon(color: mainColor),
-              crossAxisAlignment: CrossAxisAlignment.center,
-              onTap: () async => await _controller.subtasksController.addTask(),
-            ),
+          if (!_isTaskDialog && _task.canAddChecklist) TaskChecklistAddField(_controller),
 
           /// Чек-лист
           if (!_isTaskDialog && _task.isCheckList) ...[
@@ -85,7 +76,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller),
 
           /// Оценки
-          if (_showEstimate) ...[
+          if (_task.canEstimate) ...[
             if (standalone) const SizedBox(height: P3),
             TaskEstimateField(_controller),
           ],

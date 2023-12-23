@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
@@ -20,9 +21,8 @@ class TaskChecklist extends StatelessWidget {
 
   Widget get _addButton => MTField(
         MTFieldData(-1),
-        leading: const PlusCircleIcon(),
+        leading: const PlusIcon(circled: true, size: P5),
         value: BaseText.f2(addSubtaskActionTitle(_taskController.task)),
-        crossAxisAlignment: CrossAxisAlignment.center,
         onTap: _controller.addTask,
       );
 

@@ -47,18 +47,18 @@ class MainMenu extends StatelessWidget {
         width: P10,
         child: MTCardButton(
           // elevation: 2,
-          padding: const EdgeInsets.symmetric(horizontal: P),
+          padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),
           child: SafeArea(
             child: Column(
               children: [
-                MTButton.icon(MTImage(ImageName.app_icon.name, height: P6, width: P6), onTap: _popTop),
+                MTButton.icon(MTImage(ImageName.app_icon.name, height: P5, width: P5), onTap: _popTop),
                 if (tasksMainController.projects.isNotEmpty) ...[
                   _divider,
-                  MTButton.icon(const ProjectsIcon(size: P6, color: mainColor), onTap: _goToProjects),
+                  MTButton.icon(const ProjectsIcon(color: mainColor), onTap: _goToProjects),
                 ],
                 if (tasksMainController.myTasks.isNotEmpty) ...[
                   _divider,
-                  MTButton.icon(const TasksIcon(size: P6, color: mainColor), onTap: _goToTasks),
+                  MTButton.icon(const TasksIcon(color: mainColor), onTap: _goToTasks),
                 ],
                 const Spacer(),
                 AccountButton(_goToSettings),

@@ -44,7 +44,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       MTFieldData(TaskFCode.status.index),
       MTFieldData(TaskFCode.title.index, text: creating == true ? '' : _task.title),
       MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
-      MTFieldData(TaskFCode.description.index, text: _task.description, label: loc.description, placeholder: loc.description),
+      MTFieldData(TaskFCode.description.index, text: _task.description, placeholder: loc.description),
       MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
       MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
       MTFieldData(

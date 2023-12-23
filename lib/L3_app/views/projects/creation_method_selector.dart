@@ -24,7 +24,7 @@ class CreationMethodSelector extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MTListTile(
-            leading: const PlusIcon(size: P5),
+            leading: const PlusIcon(size: P5, circled: true),
             titleText: loc.create_from_scratch_action_title,
             dividerIndent: _dividerIndent,
             subtitle: SmallText(loc.create_from_scratch_action_description),

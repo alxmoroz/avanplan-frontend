@@ -7,7 +7,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
@@ -35,7 +34,6 @@ class TaskRightToolbar extends StatelessWidget {
               // TODO: в целях и проектах вместо попапа можно раскрывать в высоту просто. После нажатия скрывать обратно
               for (final at in _task.actionTypes)
                 MTListTile(
-                  padding: const EdgeInsets.symmetric(horizontal: P4, vertical: P2),
                   middle: TaskActionItem(at),
                   bottomDivider: false,
                   onTap: () => _controller.taskAction(at),

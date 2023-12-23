@@ -5,19 +5,17 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
-import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
+import 'checklist_add_field.dart';
 import 'description_field.dart';
 import 'task_status_field.dart';
 
@@ -46,14 +44,7 @@ class TaskDialogDetails extends StatelessWidget {
           ],
 
           /// Кнопка для добавления чек-листа
-          if (_task.canAddChecklist)
-            MTField(
-              MTFieldData(-1, placeholder: '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
-              margin: const EdgeInsets.only(top: P3),
-              leading: const PlusCircleIcon(color: mainColor),
-              crossAxisAlignment: CrossAxisAlignment.center,
-              onTap: () async => await _controller.subtasksController.addTask(),
-            ),
+          if (_task.canAddChecklist) TaskChecklistAddField(_controller),
 
           /// Чек-лист
           if (_task.isCheckList) ...[

@@ -35,7 +35,7 @@ class TaskStartDateField extends StatelessWidget {
             ])
           : null,
       bottomDivider: _task.hasDueDate || _task.canEdit,
-      dividerIndent: P7 + P5,
+      dividerIndent: P10,
       onTap: _task.canEdit ? () => _controller.datesController.selectDate(context, TaskFCode.startDate) : null,
     );
   }

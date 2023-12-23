@@ -12,20 +12,22 @@ import '../../presenters/person.dart';
 import 'user_dialog.dart';
 
 class UserTile extends StatelessWidget {
-  const UserTile(this.user, {required this.bottomBorder});
-  final User user;
+  const UserTile(this._user, {required this.bottomBorder});
+  final User _user;
   final bool bottomBorder;
+
+  static const _iconSize = P8;
 
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: user.icon(P4, borderColor: mainColor),
-      middle: BaseText('$user', maxLines: 1),
-      subtitle: SmallText(user.rolesStr, maxLines: 1),
+      leading: _user.icon(_iconSize / 2, borderColor: mainColor),
+      middle: BaseText('$_user', maxLines: 1),
+      subtitle: SmallText(_user.rolesStr, maxLines: 1),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
-      dividerIndent: P8 + P5,
-      onTap: () async => await showUserDialog(user),
+      dividerIndent: _iconSize + P5,
+      onTap: () async => await showUserDialog(_user),
     );
   }
 }

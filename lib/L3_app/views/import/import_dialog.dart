@@ -55,10 +55,7 @@ class ImportDialog extends StatelessWidget {
               value: s.id,
               child: Padding(
                 padding: const EdgeInsets.only(right: P2),
-                child: s.listTile(
-                  padding: EdgeInsets.zero,
-                  standAlone: false,
-                ),
+                child: s.listTile(padding: EdgeInsets.zero, standAlone: false),
               ),
             )
         ],

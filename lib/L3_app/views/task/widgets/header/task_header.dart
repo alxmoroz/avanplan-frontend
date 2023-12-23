@@ -36,7 +36,6 @@ class TaskHeader extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: kIsWeb ? P : 0),
               color: Colors.transparent,
               minHeight: P4,
-              crossAxisAlignment: CrossAxisAlignment.center,
             ),
 
           /// Название

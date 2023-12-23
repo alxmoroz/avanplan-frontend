@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../usecases/task_actions.dart';
@@ -25,7 +26,10 @@ class TaskDialog extends StatelessWidget {
       scrollController: _scrollController,
       topBar: MTToolBar(middle: _title),
       body: _body,
-      rightBar: TaskRightToolbar(_controller),
+      rightBar: MediaQuery(
+        data: MediaQuery.of(context).copyWith(padding: const EdgeInsets.symmetric(vertical: P2)),
+        child: TaskRightToolbar(_controller),
+      ),
       bottomBar: _task.canComment ? NoteToolbar(_controller) : null,
     );
   }

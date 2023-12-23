@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../components/button.dart';
 import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
@@ -14,9 +15,8 @@ class AccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.icon(
-      accountController.user!.icon(21, borderColor: mainColor),
+      accountController.user!.icon(P3, borderColor: mainColor),
       onTap: onTap,
-      // padding: const EdgeInsets.only(left: P3),
     );
   }
 }

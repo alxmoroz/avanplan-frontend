@@ -13,14 +13,11 @@ import '../../../../usecases/task_actions.dart';
 class TaskActionItem extends StatelessWidget {
   const TaskActionItem(this._at);
   final TaskActionType _at;
-  double get _iconSize => isBigScreen ? P7 : P4;
+  double get _iconSize => isBigScreen ? P6 : P4;
 
   Widget _tile({Widget? leading, String? title, Color? color}) => Row(children: [
         Container(width: _iconSize + _iconSize / 3, child: leading, alignment: Alignment.centerLeft),
-        if (title != null)
-          Expanded(
-            child: isBigScreen ? H3(title, color: color ?? mainColor, maxLines: 1) : BaseText(title, color: color ?? mainColor, maxLines: 1),
-          ),
+        if (title != null) Expanded(child: BaseText(title, color: color ?? mainColor, maxLines: 1)),
       ]);
 
   @override

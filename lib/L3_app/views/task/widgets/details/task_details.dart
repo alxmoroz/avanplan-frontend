@@ -53,7 +53,6 @@ class TaskDetails extends StatelessWidget {
     return Observer(
       builder: (_) => ListView(
         shrinkWrap: true,
-        physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
           if (_showStatusRow) TaskStatusField(_controller),

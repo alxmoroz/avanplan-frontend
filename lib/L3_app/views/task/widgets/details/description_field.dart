@@ -16,9 +16,8 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskDescriptionField extends StatelessWidget {
-  const TaskDescriptionField(this._controller, {this.bottomDivider = false});
+  const TaskDescriptionField(this._controller);
   final TaskController _controller;
-  final bool bottomDivider;
 
   Task get _task => _controller.task!;
 
@@ -26,7 +25,6 @@ class TaskDescriptionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTField(
       _controller.fData(TaskFCode.description.index),
-      // margin: const EdgeInsets.only(top: P3),
       leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
       value: _task.hasDescription
           ? SelectableLinkify(

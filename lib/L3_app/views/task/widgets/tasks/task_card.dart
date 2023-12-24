@@ -149,21 +149,28 @@ class TaskCard extends StatelessWidget {
               Row(
                 children: [
                   if (_showDate) _date,
-                  const Spacer(),
-                  if (withDetails) ...[
-                    if (_showChecklistMark) ...[_checklistMark],
-                    if (_showAttachmentsMark) ...[if (_showChecklistMark) _divider, _attachmentsMark],
-                    if (_showNotesMark) ...[if (_showChecklistMark || _showAttachmentsMark) _divider, _notesMark],
-                  ],
-                  if (_showEstimate) ...[
-                    if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark)) _divider,
-                    _estimate,
-                  ],
-                  if (_showStatus) ...[
-                    if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark) || _showEstimate) _divider,
-                    _status
-                  ],
-                  if (_showAssignee) ...[const SizedBox(width: P), _assignee],
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const SizedBox(width: P2),
+                        if (withDetails) ...[
+                          if (_showChecklistMark) ...[_checklistMark],
+                          if (_showAttachmentsMark) ...[if (_showChecklistMark) _divider, _attachmentsMark],
+                          if (_showNotesMark) ...[if (_showChecklistMark || _showAttachmentsMark) _divider, _notesMark],
+                        ],
+                        if (_showEstimate) ...[
+                          if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark)) _divider,
+                          _estimate,
+                        ],
+                        if (_showStatus) ...[
+                          if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark) || _showEstimate) _divider,
+                          Flexible(child: _status),
+                        ],
+                        if (_showAssignee) ...[const SizedBox(width: P), _assignee],
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ],

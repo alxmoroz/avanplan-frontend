@@ -39,7 +39,7 @@ class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
 
   @override
-  bool get isDialog => isBigScreen && _task?.isTask == true;
+  bool get isDialog => isBigScreen && rs!.uri.path.startsWith('/projects/tasks');
 
   @override
   double get maxWidth => SCR_L_WIDTH;

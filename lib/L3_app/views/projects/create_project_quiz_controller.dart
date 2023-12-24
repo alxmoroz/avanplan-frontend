@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/feature_set.dart';
 import '../../../L1_domain/entities/task.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_tree.dart';
 import '../../usecases/ws_tasks.dart';
@@ -46,14 +47,14 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
       _fsController ??= FeatureSetsController(_taskController);
-      await FeatureSetsQuizRouter().navigate(context, args: FSQuizArgs(_fsController!, this));
+      await MTRouter.navigate(FeatureSetsQuizRouter, context, args: FSQuizArgs(_fsController!, this));
     } else if (step.code == _StepCode.statuses.name) {
       if (_taskController.projectStatusesController.sortedStatuses.isEmpty) {
         _taskController.projectStatusesController.createDefaults();
       }
-      await ProjectStatusesQuizRouter().navigate(context, args: PSQuizArgs(_taskController.projectStatusesController, this));
+      await MTRouter.navigate(ProjectStatusesQuizRouter, context, args: PSQuizArgs(_taskController.projectStatusesController, this));
     } else if (step.code == _StepCode.team.name) {
-      await TeamInvitationQuizRouter().navigate(context, args: TIQuizArgs(_taskController, this));
+      await MTRouter.navigate(TeamInvitationQuizRouter, context, args: TIQuizArgs(_taskController, this));
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) {
         final newGoal = await _project.ws.createTask(_project);
@@ -62,10 +63,10 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
         }
       }
       if (_goalController != null) {
-        await CreateGoalQuizRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
+        await MTRouter.navigate(CreateGoalQuizRouter, context, args: CreateTaskQuizArgs(_goalController!, this));
       }
     } else if (step.code == _StepCode.tasks.name) {
-      await CreateMultiTaskQuizRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this));
+      await MTRouter.navigate(CreateMultiTaskQuizRouter, context, args: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this));
     }
   }
 
@@ -74,10 +75,10 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
     _goalController?.dispose();
 
-    ProjectsRouter().navigate(context);
+    MTRouter.navigate(ProjectsRouter, context);
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    TaskRouter().navigate(context, args: TaskController(_project));
+    MTRouter.navigate(TaskRouter, context, args: TaskController(_project));
   }
 }
 

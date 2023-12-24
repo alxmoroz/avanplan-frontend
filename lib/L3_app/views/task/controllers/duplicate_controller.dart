@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../main.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_edit.dart';
 import '../task_view.dart';
@@ -17,7 +18,7 @@ class DuplicateController {
     Navigator.of(rootKey.currentContext!).pop();
     final newTask = await task.duplicate();
     if (newTask != null) {
-      TaskRouter().navigate(rootKey.currentContext!, args: TaskController(newTask));
+      MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: TaskController(newTask));
     }
     loader.stop();
   }

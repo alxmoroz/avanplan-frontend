@@ -8,6 +8,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../account/account_view.dart';
@@ -25,7 +26,7 @@ class AccountListTile extends StatelessWidget {
       subtitle: _mail != _name ? BaseText.f2(_mail, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: false,
-      onTap: () async => AccountRouter().navigate(context),
+      onTap: () async => MTRouter.navigate(AccountRouter, context),
     );
   }
 }

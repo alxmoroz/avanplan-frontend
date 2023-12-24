@@ -26,8 +26,8 @@ class TaskHeader extends StatelessWidget {
   Task get _task => _controller.task!;
 
   Future _toParent(BuildContext context) async {
-    popTop();
-    TaskRouter().navigate(context, args: TaskController(_task.parent!));
+    final parent = _task.parent!;
+    (MTRouter.routerForType(TaskRouter) as TaskRouter).navigateBreadcrumbs(context, parent);
   }
 
   @override

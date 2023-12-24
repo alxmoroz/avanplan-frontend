@@ -12,6 +12,7 @@ import '../../../components/icons.dart';
 import '../../../components/icons_workspace.dart';
 import '../../../components/images.dart';
 import '../../../components/list_tile.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
 import '../../my_tasks/my_tasks_view.dart';
@@ -24,17 +25,17 @@ class MainMenu extends StatelessWidget {
 
   Future _goToSettings() async {
     _popTop();
-    await SettingsRouter().navigate(_navContext);
+    await MTRouter.navigate(SettingsRouter, _navContext);
   }
 
   Future _goToProjects() async {
     _popTop();
-    await ProjectsRouter().navigate(_navContext);
+    await MTRouter.navigate(ProjectsRouter, _navContext);
   }
 
   Future _goToTasks() async {
     _popTop();
-    await MyTasksRouter().navigate(_navContext);
+    await MTRouter.navigate(MyTasksRouter, _navContext);
   }
 
   @override

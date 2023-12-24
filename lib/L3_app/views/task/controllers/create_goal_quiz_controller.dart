@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
 import '../../projects/projects_view.dart';
@@ -27,18 +28,18 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.tasks.name) {
-      await CreateMultiTaskQuizRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController, this));
+      await MTRouter.navigate(CreateMultiTaskQuizRouter, context, args: CreateMultiTaskQuizArgs(_goalController, this));
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
-    ProjectsRouter().navigate(context);
-    TaskRouter().navigate(context, args: TaskController(_goal.project!));
+    MTRouter.navigate(ProjectsRouter, context);
+    MTRouter.navigate(TaskRouter, context, args: TaskController(_goal.project!));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    TaskRouter().navigate(context, args: TaskController(_goal));
+    MTRouter.navigate(TaskRouter, context, args: TaskController(_goal));
   }
 }
 

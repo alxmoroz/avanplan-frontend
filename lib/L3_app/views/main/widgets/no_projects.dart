@@ -8,6 +8,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';
 import '../../../components/text.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../projects/create_project_button.dart';
 import '../../projects/create_project_controller.dart';
@@ -32,7 +33,7 @@ class NoProjects extends StatelessWidget {
               MTButton(
                 leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
                 middle: H2(loc.are_closed_suffix, maxLines: 1),
-                onTap: () async => await ProjectsRouter().navigate(context),
+                onTap: () async => await MTRouter.navigate(ProjectsRouter, context),
               )
             else
               H2(loc.project_list_empty_title, align: TextAlign.center),

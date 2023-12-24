@@ -8,6 +8,7 @@ import '../../../components/button.dart';
 import '../../../components/constants.dart';
 import '../../../components/shadowed.dart';
 import '../../../components/text.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
 import '../../projects/projects_view.dart';
@@ -17,7 +18,7 @@ class Projects extends StatelessWidget {
   const Projects({this.compact = true});
   final bool compact;
 
-  Future _goToProjects() async => await ProjectsRouter().navigate(rootKey.currentContext!);
+  Future _goToProjects() async => await MTRouter.navigate(ProjectsRouter, rootKey.currentContext!);
 
   Widget _contents(BuildContext context) {
     final overallState = tasksMainController.overallProjectsState;

@@ -29,7 +29,7 @@ class UsersRouter extends MTRouter {
   String get title => '${wsMainController.ws(_id).code} | ${loc.user_list_title}';
 
   @override
-  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
+  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
 class UserListView extends StatelessWidget {

@@ -13,6 +13,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/icons_workspace.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
@@ -58,7 +59,7 @@ class CreateTaskButton extends StatelessWidget {
       if (newTask != null) {
         final tc = TaskController(newTask, isNew: true);
         if (newTask.isGoal) {
-          await CreateGoalQuizRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateGoalQuizController(tc)));
+          await MTRouter.navigate(CreateGoalQuizRouter, context, args: CreateTaskQuizArgs(tc, CreateGoalQuizController(tc)));
         } else {
           await tc.showTask();
         }

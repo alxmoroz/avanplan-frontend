@@ -69,7 +69,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                   ? null
                   : MTAppBar(
                       isBottom: true,
-                      leading: accountController.user != null ? AccountButton(() async => await SettingsRouter().navigate(context)) : null,
+                      leading: accountController.user != null ? AccountButton(() async => await MTRouter.navigate(SettingsRouter, context)) : null,
                       trailing: MTButton.icon(const RefreshIcon(size: P7), onTap: mainController.manualUpdate),
                     ),
             ),

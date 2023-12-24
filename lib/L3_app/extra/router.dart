@@ -78,8 +78,10 @@ final _routers = <MTRouter>[
 ];
 
 abstract class MTRouter {
+  String? previousName;
   // для title и settings
   RouteSettings? rs;
+
   String get title => '';
   RouteSettings? get settings => null;
   bool get isDialog => false;
@@ -96,9 +98,11 @@ abstract class MTRouter {
   }
 
   Widget? get page => null;
-  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(path, arguments: args);
+  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(path, arguments: args);
 
+  static MTRouter routerForType(Type type) => _routers.firstWhere((r) => r.runtimeType == type);
   static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
+  static Future navigate(Type type, BuildContext context, {Object? args}) async => routerForType(type).pushNamed(context, args: args);
 
   static Widget _pageWidget(Widget child, bool isDialog, double maxWidth) {
     return Observer(
@@ -150,35 +154,57 @@ Future setWebpageTitle(String title) async {
   ));
 }
 
-void _setTitle(RouteSettings? rs) {
-  // Только для веба
-  if (kIsWeb && rs != null) {
-    setWebpageTitle(MTRouter.router(rs)?.title ?? '');
-  }
-}
-
 class MTRouteObserver extends NavigatorObserver {
+  void _setTitle(MTRouter r) {
+    // Только для веба
+    if (kIsWeb) {
+      setWebpageTitle(r.title);
+    }
+  }
+
+  void _setTitleWithRS(RouteSettings? rs) {
+    if (rs != null) {
+      final r = MTRouter.router(rs);
+      if (r != null) {
+        _setTitle(r);
+      }
+    }
+  }
+
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _setTitle(route.settings);
+    final rs = route.settings;
+    final r = MTRouter.router(rs);
+    if (r != null) {
+      _setTitle(r);
+      r.previousName = previousRoute?.settings.name;
+    }
     super.didPush(route, previousRoute);
   }
 
   @override
   void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _setTitle(previousRoute?.settings);
+    _setTitleWithRS(previousRoute?.settings);
     super.didRemove(route, previousRoute);
   }
 
   @override
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-    _setTitle(newRoute?.settings);
+    final newRS = newRoute?.settings;
+    if (newRS != null) {
+      final r = MTRouter.router(newRS);
+      if (r != null) {
+        _setTitle(r);
+        r.previousName = oldRoute?.settings.name;
+      }
+    }
+
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _setTitle(previousRoute?.settings);
+    _setTitleWithRS(previousRoute?.settings);
     super.didPop(route, previousRoute);
   }
 }

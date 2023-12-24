@@ -14,6 +14,7 @@ import '../../components/images.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/task_view.dart';
@@ -33,7 +34,7 @@ Future importTemplate(int wsId) async {
     if (p != null) {
       changes?.affected.forEach((t) => tasksMainController.setTask(t));
       tasksMainController.setTask(p);
-      TaskRouter().navigate(rootKey.currentContext!, args: TaskController(p));
+      MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: TaskController(p));
     }
     loader.stop();
   }

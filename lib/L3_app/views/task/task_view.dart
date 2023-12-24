@@ -38,7 +38,7 @@ class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
 
   @override
-  bool get isDialog => _task?.isTask == true;
+  bool get isDialog => isBigScreen && _task?.isTask == true;
 
   @override
   double get maxWidth => SCR_L_WIDTH;
@@ -73,10 +73,33 @@ class TaskRouter extends MTRouter {
 
   String _navPath(Task _task) => '${_navPrefix(_task)}/${_task.wsId}/${_task.id}';
   @override
-  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
+  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
         _navPath((args as TaskController).task!),
         arguments: args,
       );
+
+  Future navigateBreadcrumbs(BuildContext context, Task parent) async {
+    // переходим назад
+    Navigator.of(context).pop();
+
+    // если переход из Мои задачи, то нужно запушить родителя
+    if (previousName == '/my_tasks') {
+      pushNamed(context, args: TaskController(parent));
+    }
+
+    // MTRouter.routerForType(ProjectsRouter).navigate(context);
+
+    // final parents = [];
+    // Task? parent = target.parent;
+    // while (parent != null) {
+    //   parents.add(parent);
+    //   parent = parent.parent;
+    // }
+    // for (Task t in parents.reversed) {
+    //   navigate(context, args: TaskController(t));
+    // }
+    // navigate(context, args: TaskController(target));
+  }
 }
 
 class TaskView extends StatefulWidget {

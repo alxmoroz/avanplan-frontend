@@ -10,6 +10,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/shadowed.dart';
 import '../../../components/text.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../my_tasks/my_tasks_view.dart';
 import '../../task/widgets/tasks/tasks_group.dart';
@@ -18,7 +19,7 @@ class MyTasks extends StatelessWidget {
   const MyTasks({this.compact = true});
   final bool compact;
 
-  Future _goToTasks() async => await MyTasksRouter().navigate(rootKey.currentContext!);
+  Future _goToTasks() async => await MTRouter.navigate(MyTasksRouter, rootKey.currentContext!);
 
   Widget _mainInfo(BuildContext context) => SizedBox(
         height: defaultImageHeight(context),

@@ -48,7 +48,7 @@ class SettingsView extends StatelessWidget {
           const ChevronIcon(),
         ]),
         bottomDivider: false,
-        onTap: () async => await NotificationsRouter().navigate(rootKey.currentContext!),
+        onTap: () async => await MTRouter.navigate(NotificationsRouter, rootKey.currentContext!),
       );
 
   Widget get _workspaces => Column(
@@ -64,7 +64,7 @@ class SettingsView extends StatelessWidget {
               return WorkspaceListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () async => await WorkspaceRouter().navigate(rootKey.currentContext!, args: ws.id!),
+                onTap: () async => await MTRouter.navigate(WorkspaceRouter, rootKey.currentContext!, args: ws.id!),
               );
             },
           ),

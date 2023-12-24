@@ -8,6 +8,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../main.dart';
 import '../../../components/field_data.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
@@ -75,7 +76,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
   Future showTask() async {
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
-    await TaskRouter().navigate(rootKey.currentContext!, args: this);
+    await MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: this);
   }
 
   Future taskAction(TaskAction? actionType) async {

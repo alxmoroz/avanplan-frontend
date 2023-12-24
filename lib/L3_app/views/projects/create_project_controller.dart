@@ -4,6 +4,7 @@ import 'package:avanplan/main.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
@@ -75,7 +76,7 @@ abstract class _CreateProjectControllerBase with Store {
       //TODO: нужно ли в этом месте создавать контроллеры, может, тут достаточно отправить айдишники или задачу?
       final tc = TaskController(newP, isNew: true);
       // rootKey тут, потому что если добавлять с главной, то кнопка добавления пропадает оттуда
-      await CreateProjectQuizRouter().navigate(rootKey.currentContext!, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
+      await MTRouter.navigate(CreateProjectQuizRouter, rootKey.currentContext!, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
     }
   }
 

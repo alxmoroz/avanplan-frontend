@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../main.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -46,7 +45,7 @@ class WorkspaceRouter extends MTRouter {
   String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
 
   @override
-  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_prefix/${args as int}');
+  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_prefix/${args as int}');
 }
 
 class WorkspaceView extends StatelessWidget {
@@ -106,23 +105,23 @@ class WorkspaceView extends StatelessWidget {
         onTap: () async => await _ws.changeTariff(),
       );
 
-  Widget get _users => MTListTile(
+  Widget _users(BuildContext context) => MTListTile(
         leading: const PeopleIcon(size: P5),
         titleText: loc.user_list_title,
         subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
         trailing: const ChevronIcon(),
         dividerIndent: P10,
-        onTap: () async => await UsersRouter().navigate(rootKey.currentContext!, args: _ws.id!),
+        onTap: () async => await MTRouter.navigate(UsersRouter, context, args: _ws.id!),
       );
 
-  Widget get _sources => MTListTile(
+  Widget _sources(BuildContext context) => MTListTile(
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
       bottomDivider: false,
       onTap: () async {
         _ws.checkSources();
-        await SourcesRouter().navigate(rootKey.currentContext!, args: _ws.id!);
+        await MTRouter.navigate(SourcesRouter, context, args: _ws.id!);
       });
 
   @override
@@ -150,8 +149,8 @@ class WorkspaceView extends StatelessWidget {
                   _balance,
                   _tariff,
                   const SizedBox(height: P3),
-                  if (_ws.hpMemberRead) _users,
-                  if (_ws.hpSourceCreate) _sources,
+                  if (_ws.hpMemberRead) _users(context),
+                  if (_ws.hpSourceCreate) _sources(context),
                 ],
               ),
             ),

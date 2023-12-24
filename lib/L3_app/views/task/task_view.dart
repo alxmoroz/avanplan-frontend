@@ -31,6 +31,7 @@ import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
+import 'widgets/header/parent_title.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 
@@ -82,8 +83,8 @@ class TaskRouter extends MTRouter {
     // переходим назад
     Navigator.of(context).pop();
 
-    // если переход из Мои задачи, то нужно запушить родителя
-    if (previousName == '/my_tasks') {
+    // если переход из Мои задачи или с главной то нужно запушить родителя
+    if (!(previousName ?? '').startsWith('/projects')) {
       pushNamed(context, args: TaskController(parent));
     }
 
@@ -123,14 +124,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   bool get _isTaskDialog => isBigScreen && task!.isTask;
   bool get _isBigGroup => isBigScreen && !task!.isTask;
-  double get _headerHeight => P12 + (_hasParent ? P4 : 0);
+  double get _headerHeight => P8 + (_hasParent ? P4 : 0);
   bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    final offset = _headerHeight / 2;
+    final offset = _headerHeight;
     _scrollController.addListener(() {
       if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
         setState(() => _hasScrolled = !_hasScrolled);
@@ -174,7 +175,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   : !task!.hasSubtasks
                       ? SizedBox(
                           // TODO: хардкод ((
-                          height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 150 : 0),
+                          height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
                           child: NoTasks(controller),
                         )
                       : Observer(
@@ -201,16 +202,15 @@ class TaskViewState<T extends TaskView> extends State<T> {
         );
       });
 
-  Widget get _parentTitle => _isBigGroup
-      ? BaseText.f2(task!.parent!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2))
-      : SmallText(task!.parent!.title, maxLines: 1);
+  Widget get _parentTitle => _isBigGroup ? TaskParentTitle(controller) : SmallText(task!.parent!.title, maxLines: 1);
   Widget? get _title => _hasScrolled
       ? Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
           children: [
             if (_hasParent) _parentTitle,
-            _isBigGroup ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2)) : H3(task!.title, maxLines: 1),
+            _isBigGroup ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)) : H3(task!.title, maxLines: 1),
           ],
         )
       : null;
@@ -220,9 +220,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
       : MTPage(
           scrollController: _scrollController,
           appBar: MTAppBar(
-            height: _isBigGroup ? P10 : null,
+            height: _isBigGroup && task!.parent != null ? P10 : null,
             bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
-            leading: showSideMenu ? Container() : null,
+            leading: _isBigGroup ? Container() : null,
             middle: _title,
             trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
           ),

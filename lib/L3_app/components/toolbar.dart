@@ -36,6 +36,7 @@ class MTToolBar extends StatelessWidget {
       color: (color ?? b2Color).resolve(context),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Stack(
             alignment: Alignment.center,
@@ -107,8 +108,8 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
         transitionBetweenRoutes: !isBottom || transitionBetweenRoutes == true,
         automaticallyImplyLeading: false,
         automaticallyImplyMiddle: false,
-        padding: EdgeInsetsDirectional.only(top: pTop, bottom: pBottom),
-        middle: MTToolBar(
+        padding: EdgeInsetsDirectional.only(top: pTop, bottom: pBottom, start: 0, end: 0),
+        leading: MTToolBar(
           showCloseButton: showCloseButton,
           leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),
           titleText: title,

@@ -6,7 +6,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../../controllers/task_controller.dart';
-import '../header/state_title.dart';
+import '../analytics/state_title.dart';
 import 'tasks_group.dart';
 
 class TasksListView extends StatelessWidget {

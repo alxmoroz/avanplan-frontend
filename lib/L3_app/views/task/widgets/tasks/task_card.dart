@@ -28,7 +28,7 @@ import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../header/state_title.dart';
+import '../analytics/state_title.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard(

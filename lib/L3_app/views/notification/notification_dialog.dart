@@ -13,9 +13,9 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 
-Future notificationDialog(BuildContext context) async => await showMTDialog<void>(NotificationView());
+Future showNotificationDialog() async => await showMTDialog<void>(NotificationDialog());
 
-class NotificationView extends StatelessWidget {
+class NotificationDialog extends StatelessWidget {
   MTNotification get nf => notificationController.selectedNotification!;
 
   Future _tryGo(BuildContext context) async {

@@ -16,6 +16,7 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../main/widgets/main_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
@@ -107,6 +108,7 @@ class ProjectStatusesQuizView extends StatelessWidget {
     return Observer(
       builder: (_) => MTPage(
         appBar: QuizHeader(_qController),
+        leftBar: MainMenu(),
         body: SafeArea(
           top: false,
           bottom: false,

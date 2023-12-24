@@ -4,10 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/adaptive.dart';
-import '../../components/constants.dart';
-import '../../components/page.dart';
-import '../../components/shadowed.dart';
+import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
@@ -19,11 +16,14 @@ class UsersRouter extends MTRouter {
   static const _suffix = 'users';
 
   @override
+  bool get isDialog => true;
+
+  @override
   RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
   int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
-  Widget get page => UserListView(_id);
+  Widget get page => UserListDialog(_id);
 
   @override
   String get title => '${wsMainController.ws(_id).code} | ${loc.user_list_title}';
@@ -32,8 +32,8 @@ class UsersRouter extends MTRouter {
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
-class UserListView extends StatelessWidget {
-  const UserListView(this._wsId);
+class UserListDialog extends StatelessWidget {
+  const UserListDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);
@@ -46,23 +46,12 @@ class UserListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${_ws.code} | ${loc.user_list_title}'));
-      return MTPage(
-        appBar: MTAppBar(
-          middle: _ws.subPageTitle(loc.user_list_title),
-          trailing: const SizedBox(width: P8),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: MTShadowed(
-            child: MTAdaptive(
-              child: ListView.builder(
-                itemBuilder: _userBuilder,
-                itemCount: _ws.users.length,
-              ),
-            ),
-          ),
+      return MTDialog(
+        topBar: MTToolBar(middle: _ws.subPageTitle(loc.user_list_title)),
+        body: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: _userBuilder,
+          itemCount: _ws.users.length,
         ),
       );
     });

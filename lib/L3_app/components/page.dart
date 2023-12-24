@@ -7,8 +7,9 @@ import 'background.dart';
 class MTPage extends StatelessWidget {
   const MTPage({
     this.scrollController,
-    required this.body,
     this.appBar,
+    required this.body,
+    this.leftBar,
     this.bottomBar,
     this.rightBar,
   });
@@ -16,6 +17,7 @@ class MTPage extends StatelessWidget {
   final ScrollController? scrollController;
   final PreferredSizeWidget? appBar;
   final Widget body;
+  final Widget? leftBar;
   final Widget? bottomBar;
   final Widget? rightBar;
 
@@ -24,6 +26,7 @@ class MTPage extends StatelessWidget {
         onTap: FocusScope.of(context).unfocus,
         child: Row(
           children: [
+            if (leftBar != null) leftBar!,
             Expanded(
               child: MTBackgroundWrapper(
                 Scaffold(

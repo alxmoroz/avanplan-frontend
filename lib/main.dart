@@ -7,11 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'L2_data/services/firebase_options.dart';
-import 'L3_app/components/adaptive.dart';
 import 'L3_app/components/background.dart';
 import 'L3_app/components/circular_progress.dart';
 import 'L3_app/components/colors.dart';
@@ -20,7 +18,6 @@ import 'L3_app/components/constants.dart';
 import 'L3_app/extra/router.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
-import 'L3_app/views/main/widgets/main_menu.dart';
 
 Future main() async {
   setup();
@@ -73,28 +70,16 @@ class App extends StatelessWidget {
     return FutureBuilder(
       future: getIt.allReady(),
       builder: (_, snapshot) => snapshot.hasData
-          ? Observer(
-              builder: (_) => Directionality(
-                textDirection: TextDirection.ltr,
-                child: Row(children: [
-                  if (authController.authorized && accountController.user != null && showSideMenu) MainMenu(),
-                  Expanded(
-                    child: MaterialApp(
-                      debugShowCheckedModeBanner: _DEBUG_BANNER,
-                      theme: themeData,
-                      localizationsDelegates: localizationsDelegates,
-                      supportedLocales: supportedLocales,
-                      navigatorKey: rootKey,
-                      onGenerateRoute: MTRouter.generateRoute,
-                      navigatorObservers: [MTRouteObserver()],
-                    ),
-                  ),
-                ]),
-              ),
+          ? MaterialApp(
+              debugShowCheckedModeBanner: _DEBUG_BANNER,
+              theme: themeData,
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              navigatorKey: rootKey,
+              onGenerateRoute: MTRouter.generateRoute,
+              navigatorObservers: [MTRouteObserver()],
             )
-          : const MTBackgroundWrapper(
-              Center(child: MTCircularProgress(color: mainColor, size: P10)),
-            ),
+          : const MTBackgroundWrapper(Center(child: MTCircularProgress(color: mainColor, size: P10))),
     );
   }
 }

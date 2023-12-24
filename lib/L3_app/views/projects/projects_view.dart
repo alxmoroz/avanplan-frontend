@@ -8,6 +8,7 @@ import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../main/widgets/main_menu.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'create_project_button.dart';
 import 'create_project_controller.dart';
@@ -28,6 +29,7 @@ class ProjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTPage(
       appBar: MTAppBar(title: loc.project_list_title),
+      leftBar: MainMenu(),
       body: SafeArea(
         top: false,
         bottom: false,

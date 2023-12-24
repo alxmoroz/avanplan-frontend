@@ -7,15 +7,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/page.dart';
-import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -28,13 +26,16 @@ class NotificationsRouter extends MTRouter {
   String get path => '/settings/my_notifications';
 
   @override
+  bool get isDialog => true;
+
+  @override
   String get title => loc.notification_list_title;
 
   @override
-  Widget get page => NotificationListView();
+  Widget get page => NotificationListDialog();
 }
 
-class NotificationListView extends StatelessWidget {
+class NotificationListDialog extends StatelessWidget {
   NotificationController get _controller => notificationController;
 
   Widget _itemBuilder(BuildContext context, int index) {
@@ -84,23 +85,15 @@ class NotificationListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.notification_list_title));
-      return MTPage(
-        appBar: MTAppBar(title: loc.notification_list_title),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: _controller.notifications.isEmpty
-              ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
-              : MTShadowed(
-                  bottomShadow: !_controller.pushAuthorized,
-                  child: MTAdaptive(
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => _itemBuilder(context, index),
-                      itemCount: _controller.notifications.length + 1,
-                    ),
-                  ),
-                ),
-        ),
+      return MTDialog(
+        topBar: MTToolBar(titleText: loc.notification_list_title),
+        body: _controller.notifications.isEmpty
+            ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
+            : ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (_, index) => _itemBuilder(context, index),
+                itemCount: _controller.notifications.length + 1,
+              ),
         bottomBar: !isWeb && !_controller.pushAuthorized
             ? MTAppBar(
                 isBottom: true,

@@ -20,6 +20,7 @@ import '../../presenters/task_type.dart';
 import '../../presenters/task_view.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
+import '../main/widgets/main_menu.dart';
 import 'controllers/task_controller.dart';
 import 'task_dialog.dart';
 import 'widgets/actions/bottom_toolbar.dart';
@@ -226,6 +227,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             middle: _title,
             trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
           ),
+          leftBar: MainMenu(),
           body: SafeArea(top: false, bottom: false, child: _body),
           bottomBar: _showNoteToolbar
               ? NoteToolbar(controller)

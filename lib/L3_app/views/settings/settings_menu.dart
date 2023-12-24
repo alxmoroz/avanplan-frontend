@@ -7,51 +7,31 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../../main.dart';
-import '../../components/adaptive.dart';
 import '../../components/constants.dart';
+import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/page.dart';
-import '../../components/shadowed.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
-import '../notification/notification_list_view.dart';
+import '../workspace/workspace_dialog.dart';
 import '../workspace/workspace_list_tile.dart';
-import '../workspace/workspace_view.dart';
-import 'account_list_tile.dart';
+import 'account_button.dart';
 import 'app_version.dart';
+import 'notifications_button.dart';
 
-class SettingsRouter extends MTRouter {
-  @override
-  String get path => '/settings';
+Future showSettingsMenu() async => await showMTDialog<void>(SettingsMenu());
 
-  @override
-  Widget get page => SettingsView();
-}
-
-class SettingsView extends StatelessWidget {
+class SettingsMenu extends StatelessWidget {
   List<Workspace> get _wss => wsMainController.workspaces;
 
-  Widget get _notifications => MTListTile(
-        leading: BellIcon(hasUnread: notificationController.hasUnread),
-        titleText: loc.notification_list_title,
-        trailing: Row(children: [
-          if (notificationController.notifications.isNotEmpty)
-            BaseText(
-              '${notificationController.notifications.length}',
-              padding: const EdgeInsets.only(right: P),
-            ),
-          const ChevronIcon(),
-        ]),
-        bottomDivider: false,
-        onTap: () async => await MTRouter.navigate(NotificationsRouter, rootKey.currentContext!),
-      );
+  void _toWS(BuildContext context, int wsId) {
+    Navigator.of(context).pop();
+    MTRouter.navigate(WorkspaceRouter, context, args: wsId);
+  }
 
-  Widget get _workspaces => Column(
+  Widget _workspaces(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           MTListSection(titleText: loc.workspaces_title),
@@ -64,7 +44,7 @@ class SettingsView extends StatelessWidget {
               return WorkspaceListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () async => await MTRouter.navigate(WorkspaceRouter, rootKey.currentContext!, args: ws.id!),
+                onTap: () async => _toWS(context, ws.id!),
               );
             },
           ),
@@ -103,29 +83,21 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(''));
-      return MTPage(
-        appBar: const MTAppBar(),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: MTShadowed(
-            child: MTAdaptive(
-              child: ListView(
-                children: [
-                  AccountListTile(),
-                  const SizedBox(height: P3),
-                  _notifications,
-                  if (_wss.isNotEmpty) _workspaces,
-                  _about,
+      return MTDialog(
+        topBar: const MTToolBar(),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            AccountButton(),
+            const SizedBox(height: P3),
+            NotificationsButton(),
+            if (_wss.isNotEmpty) _workspaces(context),
+            _about,
 
-                  /// версия
-                  const SizedBox(height: P3),
-                  const AppVersion(),
-                ],
-              ),
-            ),
-          ),
+            /// версия
+            const SizedBox(height: P3),
+            const AppVersion(),
+          ],
         ),
       );
     });

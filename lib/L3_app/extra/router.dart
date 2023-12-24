@@ -12,25 +12,24 @@ import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/dialog.dart';
 import '../extra/services.dart';
-import '../views/account/account_view.dart';
+import '../views/account/account_dialog.dart';
 import '../views/auth/auth_view.dart';
 import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/loader/loader_screen.dart';
 import '../views/main/main_view.dart';
 import '../views/my_tasks/my_tasks_view.dart';
-import '../views/notification/notification_list_view.dart';
+import '../views/notification/notification_list_dialog.dart';
 import '../views/projects/projects_view.dart';
-import '../views/settings/settings_view.dart';
-import '../views/source/source_list_view.dart';
+import '../views/source/source_list_dialog.dart';
 import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/project_statuses/project_statuses.dart';
 import '../views/task/widgets/team/team_invitation_quiz_view.dart';
-import '../views/user/user_list_view.dart';
-import '../views/workspace/workspace_view.dart';
+import '../views/user/user_list_dialog.dart';
+import '../views/workspace/workspace_dialog.dart';
 
 extension RouteSettingsExt on RouteSettings {
   Uri get uri => Uri.parse(name ?? '/');
@@ -63,8 +62,6 @@ final _routers = <MTRouter>[
   // Projects - Tasks / Goals
   TaskRouter(),
 
-  // Settings
-  SettingsRouter(),
   // Settings - My Account
   AccountRouter(),
   // Settings - My Notifications

@@ -10,11 +10,10 @@ import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
+import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
-import '../../components/page.dart';
-import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -26,8 +25,8 @@ import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../../usecases/ws_tariff.dart';
 import '../iap/iap_view.dart';
-import '../source/source_list_view.dart';
-import '../user/user_list_view.dart';
+import '../source/source_list_dialog.dart';
+import '../user/user_list_dialog.dart';
 import 'workspace_edit_view.dart';
 
 class WorkspaceRouter extends MTRouter {
@@ -36,10 +35,13 @@ class WorkspaceRouter extends MTRouter {
   static const _prefix = '/settings/workspaces';
 
   @override
+  bool get isDialog => true;
+
+  @override
   RegExp get pathRe => RegExp('^$_prefix/\\d+\$');
 
   @override
-  Widget get page => WorkspaceView(_wsId);
+  Widget get page => WorkspaceDialog(_wsId);
 
   @override
   String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
@@ -48,8 +50,8 @@ class WorkspaceRouter extends MTRouter {
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_prefix/${args as int}');
 }
 
-class WorkspaceView extends StatelessWidget {
-  const WorkspaceView(this._wsId);
+class WorkspaceDialog extends StatelessWidget {
+  const WorkspaceDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);
@@ -127,10 +129,9 @@ class WorkspaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${loc.workspace_title_short} ${_ws.code}'));
-      return MTPage(
-        appBar: MTAppBar(
-            title: loc.workspace_title,
+      return MTDialog(
+        topBar: MTToolBar(
+            titleText: loc.workspace_title,
             trailing: _ws.hpInfoUpdate
                 ? MTButton.icon(
                     const EditIcon(),
@@ -138,23 +139,16 @@ class WorkspaceView extends StatelessWidget {
                     margin: const EdgeInsets.only(right: P2),
                   )
                 : null),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: MTShadowed(
-            child: MTAdaptive(
-              child: ListView(
-                children: [
-                  _header,
-                  _balance,
-                  _tariff,
-                  const SizedBox(height: P3),
-                  if (_ws.hpMemberRead) _users(context),
-                  if (_ws.hpSourceCreate) _sources(context),
-                ],
-              ),
-            ),
-          ),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            _header,
+            _balance,
+            _tariff,
+            const SizedBox(height: P3),
+            if (_ws.hpMemberRead) _users(context),
+            if (_ws.hpSourceCreate) _sources(context),
+          ],
         ),
       );
     });

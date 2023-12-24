@@ -11,7 +11,7 @@ import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import 'notification_view.dart';
+import 'notification_dialog.dart';
 
 part 'notification_controller.g.dart';
 
@@ -44,7 +44,7 @@ abstract class _NotificationControllerBase with Store {
 
   Future showNotification(BuildContext context, {required MTNotification n}) async {
     _selectNotification(n);
-    await notificationDialog(context);
+    await showNotificationDialog();
 
     if (!n.isRead) {
       n.isRead = true;

@@ -12,9 +12,9 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../projects/create_project_controller.dart';
-import '../settings/account_btn.dart';
-import '../settings/settings_view.dart';
+import '../settings/settings_button.dart';
 import 'widgets/main_dashboard.dart';
+import 'widgets/main_menu.dart';
 import 'widgets/no_projects.dart';
 
 class MainRouter extends MTRouter {
@@ -65,11 +65,12 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 bottom: false,
                 child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(CreateProjectController()),
               ),
+              leftBar: MainMenu(),
               bottomBar: showSideMenu
                   ? null
                   : MTAppBar(
                       isBottom: true,
-                      leading: accountController.user != null ? AccountButton(() async => await MTRouter.navigate(SettingsRouter, context)) : null,
+                      leading: accountController.user != null ? SettingsButton() : null,
                       trailing: MTButton.icon(const RefreshIcon(size: P7), onTap: mainController.manualUpdate),
                     ),
             ),

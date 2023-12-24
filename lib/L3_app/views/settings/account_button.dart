@@ -11,9 +11,9 @@ import '../../components/text.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
-import '../account/account_view.dart';
+import '../account/account_dialog.dart';
 
-class AccountListTile extends StatelessWidget {
+class AccountButton extends StatelessWidget {
   User? get user => accountController.user;
 
   @override

@@ -7,16 +7,14 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
+import 'settings_menu.dart';
 
-class AccountButton extends StatelessWidget {
-  const AccountButton(this.onTap);
-  final Function() onTap;
-
+class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.icon(
       accountController.user!.icon(P3, borderColor: mainColor),
-      onTap: onTap,
+      onTap: showSettingsMenu,
     );
   }
 }

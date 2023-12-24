@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import 'notification_view.dart';
 
@@ -66,7 +67,7 @@ abstract class _NotificationControllerBase with Store {
   Future _tryNavigate(RemoteMessage msg) async {
     final uri = _uri(msg);
     if (uri != null) {
-      Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() != true);
+      popTop();
       String rName = '';
       for (var ps in uri.pathSegments) {
         rName += '/$ps';

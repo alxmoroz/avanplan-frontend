@@ -182,3 +182,5 @@ class MTRouteObserver extends NavigatorObserver {
     super.didPop(route, previousRoute);
   }
 }
+
+void popTop() => Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() == false);

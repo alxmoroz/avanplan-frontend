@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/errors.dart';
 import '../../../main.dart';
 import '../../components/images.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 
 part 'auth_controller.g.dart';
@@ -89,7 +90,7 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future signOut() async {
-    Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() == false);
+    popTop();
     authorized = false;
     await authUC.signOut();
   }

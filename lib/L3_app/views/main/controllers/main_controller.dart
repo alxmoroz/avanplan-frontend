@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
@@ -14,11 +13,11 @@ part 'main_controller.g.dart';
 class MainController extends _MainControllerBase with _$MainController {}
 
 abstract class _MainControllerBase with Store {
-  @observable
-  DateTime? _updatedDate;
+  // @observable
+  // DateTime? _updatedDate;
 
-  @action
-  void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
+  // @action
+  // void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
   Future _update() async {
     loader.setLoading();
@@ -31,7 +30,7 @@ abstract class _MainControllerBase with Store {
     await wsMainController.getData();
     await tasksMainController.getData();
 
-    _setUpdateDate(now);
+    // _setUpdateDate(now);
     await loader.stop();
   }
 
@@ -89,8 +88,9 @@ abstract class _MainControllerBase with Store {
 
   Future _tryUpdate() async {
     final invited = await _tryRedeemInvitation();
-    final timeToUpdate = _updatedDate == null || _updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
-    if (invited || timeToUpdate) {
+    // final timeToUpdate = _updatedDate == null || _updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
+    if (invited) {
+      // || timeToUpdate) {
       await _update();
     } else if (iapController.waitingPayment) {
       loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
@@ -123,7 +123,7 @@ abstract class _MainControllerBase with Store {
   }
 
   // static const _updatePeriod = Duration(hours: 1);
-  static const _updatePeriod = Duration(minutes: 30);
+  // static const _updatePeriod = Duration(minutes: 30);
 
   Future _authorizedStartupActions() async {
     await _tryUpdate();
@@ -152,7 +152,7 @@ abstract class _MainControllerBase with Store {
     wsMainController.clearData();
     tasksMainController.clearData();
 
-    _setUpdateDate(null);
+    // _setUpdateDate(null);
 
     refsController.clearData();
     accountController.clearData();

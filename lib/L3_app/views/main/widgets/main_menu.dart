@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../main.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
@@ -21,21 +20,14 @@ import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
 class MainMenu extends StatelessWidget {
-  BuildContext get _navContext => rootKey.currentContext!;
-  void _popTop() => Navigator.of(_navContext).popUntil((r) => r.navigator?.canPop() != true);
-
-  Future _goToSettings() async {
-    await showSettingsMenu();
+  Future _goToProjects(BuildContext context) async {
+    popTop();
+    await MTRouter.navigate(ProjectsRouter, context);
   }
 
-  Future _goToProjects() async {
-    _popTop();
-    await MTRouter.navigate(ProjectsRouter, _navContext);
-  }
-
-  Future _goToTasks() async {
-    _popTop();
-    await MTRouter.navigate(MyTasksRouter, _navContext);
+  Future _goToTasks(BuildContext context) async {
+    popTop();
+    await MTRouter.navigate(MyTasksRouter, context);
   }
 
   @override
@@ -60,7 +52,7 @@ class MainMenu extends StatelessWidget {
                         dividerIndent: P2,
                         dividerEndIndent: P2,
                         bottomDivider: tasksMainController.projects.isNotEmpty,
-                        onTap: _popTop,
+                        onTap: popTop,
                       ),
                       if (tasksMainController.projects.isNotEmpty)
                         MTListTile(
@@ -68,20 +60,20 @@ class MainMenu extends StatelessWidget {
                           dividerIndent: P2,
                           dividerEndIndent: P2,
                           bottomDivider: tasksMainController.myTasks.isNotEmpty,
-                          onTap: _goToProjects,
+                          onTap: () => _goToProjects(context),
                         ),
                       if (tasksMainController.myTasks.isNotEmpty)
                         MTListTile(
                           leading: const TasksIcon(color: mainColor),
                           bottomDivider: false,
-                          onTap: _goToTasks,
+                          onTap: () => _goToTasks(context),
                         ),
                       const Spacer(),
                       if (accountController.user != null)
                         MTListTile(
                           leading: accountController.user!.icon(P5 / 2, borderColor: mainColor),
                           bottomDivider: false,
-                          onTap: _goToSettings,
+                          onTap: showSettingsMenu,
                         )
                     ],
                   ),

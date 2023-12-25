@@ -40,7 +40,7 @@ class TaskBottomToolbar extends StatelessWidget {
               ),
             if (_task.canCreate) ...[
               const SizedBox(width: P2),
-              CreateTaskButton(_controller, compact: true, type: ButtonType.main),
+              CreateTaskButton(_controller, compact: true, type: ButtonType.secondary),
             ],
             const SizedBox(width: P2),
           ],

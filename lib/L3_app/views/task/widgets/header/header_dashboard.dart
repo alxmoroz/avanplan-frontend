@@ -37,11 +37,15 @@ class TaskHeaderDashboard extends StatelessWidget {
   Widget _card(String title, {Widget? body, Function()? onTap}) => MTButton(
         padding: const EdgeInsets.all(P2),
         type: ButtonType.card,
-        middle: Column(
-          children: [
-            BaseText.f2(title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
-            if (body != null) body,
-          ],
+        middle: Container(
+          constraints: const BoxConstraints(maxWidth: 250),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseText.f2(title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
+              if (body != null) body,
+            ],
+          ),
         ),
         onTap: onTap,
       );
@@ -51,6 +55,7 @@ class TaskHeaderDashboard extends StatelessWidget {
     return Observer(
       builder: (_) => Container(
         height: _dashboardHeight,
+        margin: EdgeInsets.only(top: P2),
         child: ListView(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
@@ -62,7 +67,7 @@ class TaskHeaderDashboard extends StatelessWidget {
             if (_task.hasAnalytics)
               _card(
                 _task.overallStateTitle,
-                body: _task.canShowTimeChart ? Container(width: 242, child: TimingChart(_task, showDueLabel: false)) : null,
+                body: _task.canShowTimeChart ? TimingChart(_task, showDueLabel: false) : null,
                 onTap: () => showAnalyticsDialog(_task),
               ),
 

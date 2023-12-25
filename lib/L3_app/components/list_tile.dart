@@ -31,6 +31,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.uf = true,
     this.loading,
     this.minHeight,
+    this.decoration,
   });
   final Widget? leading;
   final Widget? middle;
@@ -51,6 +52,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final bool uf;
   final bool? loading;
   final double? minHeight;
+  final BoxDecoration? decoration;
 
   static const _defaultIndent = P3;
 
@@ -77,12 +79,13 @@ class MTListTile extends StatelessWidget with FocusManaging {
       children: [
         Container(
           margin: margin ?? EdgeInsets.zero,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [bgColor, bgColor.withAlpha(0)],
-              stops: const [0.5, 1],
-            ),
-          ),
+          decoration: decoration ??
+              BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [bgColor, bgColor.withAlpha(0)],
+                  stops: const [0.5, 1],
+                ),
+              ),
           child: material(
             InkWell(
               onTap: _onPressed,

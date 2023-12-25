@@ -8,34 +8,15 @@ import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
-import 'material_wrapper.dart';
 
 Color get barrierColor => b0Color.resolve(globalContext).withAlpha(220);
 
-BoxConstraints _constrains(double? maxWidth) => BoxConstraints(
+BoxConstraints dialogConstrains(double? maxWidth) => BoxConstraints(
       maxWidth: isBigScreen ? min(screenSize.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
       maxHeight: isBigScreen ? screenSize.height - screenPadding.vertical - P6 : double.infinity,
     );
 
-class MTAdaptiveDialog extends StatelessWidget {
-  const MTAdaptiveDialog(this._child, {this.maxWidth});
-  final Widget _child;
-  final double? maxWidth;
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: isBigScreen
-          ? UnconstrainedBox(
-              // TODO: проверить Container с constraints вместо UnconstrainedBox
-              child: ConstrainedBox(
-                constraints: _constrains(maxWidth),
-                child: material(_child),
-              ),
-            )
-          : _child,
-    );
-  }
-}
+Widget constrainedDialog(Widget child, {double? maxWidth}) => Container(constraints: dialogConstrains(maxWidth), child: child);
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
   return isBigScreen
@@ -43,16 +24,17 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
           context: globalContext,
           barrierColor: barrierColor,
           useRootNavigator: false,
-          useSafeArea: false,
-          builder: (_) => MTAdaptiveDialog(child, maxWidth: maxWidth),
+          useSafeArea: true,
+          builder: (_) => constrainedDialog(child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: globalContext,
           barrierColor: barrierColor,
           isScrollControlled: true,
-          useSafeArea: false,
-          constraints: _constrains(maxWidth),
-          builder: (_) => MTAdaptiveDialog(child),
+          useRootNavigator: false,
+          useSafeArea: true,
+          constraints: dialogConstrains(maxWidth),
+          builder: (_) => child,
         );
 }
 

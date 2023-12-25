@@ -23,10 +23,10 @@ class _PersonIcon extends StatelessWidget {
         radius: radius,
         backgroundColor: (borderColor ?? f3Color).resolve(context),
         child: CircleAvatar(
-          radius: radius - 1,
+          radius: radius - 2,
           backgroundColor: b3Color.resolve(context),
           child: CircleAvatar(
-            radius: radius - 2,
+            radius: radius - 3,
             backgroundColor: b2Color.resolve(context),
             backgroundImage: NetworkImage('https://www.gravatar.com/avatar/$_hash?s=${radius * 6}&d=identicon'),
           ),

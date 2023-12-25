@@ -74,7 +74,7 @@ class CreateTaskButton extends StatelessWidget {
             leading: Stack(
               alignment: Alignment.topCenter,
               children: [
-                const PlusIcon(size: P5, circled: true),
+                const PlusIcon(size: P5, circled : true),
                 if (_showBadge)
                   Container(
                     padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),

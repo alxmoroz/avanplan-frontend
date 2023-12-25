@@ -38,10 +38,7 @@ class TaskDialogDetails extends StatelessWidget {
           if (_showStatusRow) TaskStatusField(_controller),
 
           /// Описание
-          if (_showDescription) ...[
-            const SizedBox(height: P3),
-            TaskDescriptionField(_controller),
-          ],
+          if (_showDescription) TaskDescriptionField(_controller, hasMargin: true),
 
           /// Кнопка для добавления чек-листа
           if (_task.canAddChecklist) TaskChecklistAddField(_controller),

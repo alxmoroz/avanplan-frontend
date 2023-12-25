@@ -16,6 +16,11 @@ import '../account/account_dialog.dart';
 class AccountButton extends StatelessWidget {
   User? get user => accountController.user;
 
+  void _toUser(BuildContext context) {
+    Navigator.of(context).pop();
+    MTRouter.navigate(AccountRouter, context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _name = '$user';
@@ -26,7 +31,7 @@ class AccountButton extends StatelessWidget {
       subtitle: _mail != _name ? BaseText.f2(_mail, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: false,
-      onTap: () async => MTRouter.navigate(AccountRouter, context),
+      onTap: () => _toUser(context),
     );
   }
 }

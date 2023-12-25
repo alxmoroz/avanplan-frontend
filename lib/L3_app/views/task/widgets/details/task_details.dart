@@ -40,27 +40,30 @@ class TaskDetails extends StatelessWidget {
   final bool standalone;
   final bool compact;
 
-  bool get _isTaskDialog => isBigScreen && _task.isTask;
-
   Task get _task => _controller.task!;
-  bool get _showStatusRow => !isBigScreen && _task.isTask && (_task.canShowStatus || _task.canClose || _task.closed);
-  bool get _showAssignee => _task.canShowAssignee;
+
+  bool get _isTaskDialog => isBigScreen && _task.isTask;
+  bool get _isTaskView => !isBigScreen && _task.isTask;
+  bool get _showStatusRow => _isTaskView && (_task.canShowStatus || _task.canClose || _task.closed);
   bool get _showDescription => !_isTaskDialog && (_task.hasDescription || _task.canEdit);
+
+  bool get _hasMargins => standalone || _isTaskView;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ListView(
         shrinkWrap: true,
+        physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
           if (_showStatusRow) TaskStatusField(_controller),
 
           /// Описание
-          if (_showDescription) TaskDescriptionField(_controller, compact: compact),
+          if (_showDescription) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins && !_showStatusRow),
 
           /// Назначенный
-          if (_showAssignee) TaskAssigneeField(_controller, compact: compact),
+          if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins),
 
           /// Кнопка для добавления чек-листа
           if (!_isTaskDialog && _task.canAddChecklist) TaskChecklistAddField(_controller),
@@ -72,21 +75,17 @@ class TaskDetails extends StatelessWidget {
           ],
 
           /// Даты
-          if (standalone) const SizedBox(height: P3),
-          TaskStartDateField(_controller, compact: compact),
-          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact),
+          TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins),
+          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins),
 
           /// Оценки
-          if (_task.canEstimate) ...[
-            if (standalone) const SizedBox(height: P3),
-            TaskEstimateField(_controller, compact: compact),
-          ],
+          if (_task.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins),
 
           /// Вложения
           if (!_isTaskDialog && _task.attachments.isNotEmpty)
             MTField(
               _controller.fData(TaskFCode.attachment.index),
-              margin: const EdgeInsets.only(top: P3),
+              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
               leading: const AttachmentIcon(),
               value: Row(children: [
                 Flexible(child: BaseText(_controller.attachmentsController.attachmentsStr, maxLines: 1)),
@@ -104,7 +103,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.canShowFeatureSets)
             MTField(
               _controller.fData(TaskFCode.features.index),
-              margin: EdgeInsets.only(top: standalone ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
               leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
               compact: compact,
@@ -115,7 +114,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.canEditProjectStatuses)
             MTField(
               _controller.fData(TaskFCode.statuses.index),
-              margin: EdgeInsets.only(top: standalone ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
               leading: const StatusIcon(),
               value: _task.projectStatuses.isNotEmpty ? BaseText(_controller.projectStatusesController.statusesStr, maxLines: 1) : null,
               compact: compact,
@@ -125,7 +124,7 @@ class TaskDetails extends StatelessWidget {
           /// Связь с источником импорта
           if (_task.didImported)
             MTListTile(
-              margin: EdgeInsets.only(top: standalone ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
               leading: _task.source?.type.icon(size: P5),
               titleText: !compact ? loc.task_go2source_title : null,
               trailing: !compact ? const LinkOutIcon() : null,

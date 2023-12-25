@@ -15,9 +15,10 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskDueDateField extends StatelessWidget {
-  const TaskDueDateField(this._controller, {this.compact = false});
+  const TaskDueDateField(this._controller, {this.compact = false, this.hasMargin = false});
   final TaskController _controller;
   final bool compact;
+  final bool hasMargin;
 
   Task get _task => _controller.task!;
 
@@ -37,6 +38,7 @@ class TaskDueDateField extends StatelessWidget {
             )
           : null,
       compact: compact,
+      margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       onTap: _task.canEdit ? () => _controller.datesController.selectDate(context, TaskFCode.dueDate) : null,
     );
   }

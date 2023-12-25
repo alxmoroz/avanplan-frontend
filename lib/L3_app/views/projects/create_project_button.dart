@@ -19,7 +19,12 @@ class CreateProjectButton extends StatelessWidget {
   final CreateProjectController _controller;
   final bool _compact;
 
-  Widget get _plusIcon => const PlusIcon(color: mainBtnTitleColor, size: P5);
+  static const _type = ButtonType.secondary;
+
+  Widget get _plusIcon => PlusIcon(
+        color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor,
+        size: _compact ? P5 : P4,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class CreateProjectButton extends StatelessWidget {
       builder: (_) => MTBadgeButton(
         margin: EdgeInsets.only(right: _compact ? P2 : 0),
         showBadge: _controller.mustPay,
-        type: ButtonType.main,
+        type: _type,
         leading: _compact ? null : _plusIcon,
         titleText: _compact ? null : addSubtaskActionTitle(null),
         middle: _compact ? _plusIcon : null,

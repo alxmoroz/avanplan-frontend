@@ -4,15 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
-import '../../components/button.dart';
+import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/icons_workspace.dart';
+import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../presenters/person.dart';
+import '../my_tasks/my_tasks_view.dart';
 import '../projects/create_project_controller.dart';
-import '../settings/settings_button.dart';
+import '../projects/projects_view.dart';
+import '../settings/settings_menu.dart';
 import 'widgets/main_dashboard.dart';
 import 'widgets/main_menu.dart';
 import 'widgets/no_projects.dart';
@@ -70,8 +76,51 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                   ? null
                   : MTAppBar(
                       isBottom: true,
-                      leading: accountController.user != null ? SettingsButton() : null,
-                      trailing: MTButton.icon(const RefreshIcon(size: P7), onTap: mainController.manualUpdate),
+                      bgColor: b2Color,
+                      paddingTop: 0,
+                      middle: Row(
+                        children: [
+                          if (tasksMainController.projects.isNotEmpty)
+                            Flexible(
+                              child: MTListTile(
+                                middle: const ProjectsIcon(color: mainColor, size: P6),
+                                padding: const EdgeInsets.only(top: P2),
+                                color: Colors.transparent,
+                                bottomDivider: false,
+                                onTap: () => MTRouter.navigate(ProjectsRouter, context),
+                              ),
+                            ),
+                          if (tasksMainController.myTasks.isNotEmpty)
+                            Flexible(
+                              child: MTListTile(
+                                middle: const TasksIcon(color: mainColor, size: P6),
+                                padding: const EdgeInsets.only(top: P2),
+                                color: Colors.transparent,
+                                bottomDivider: false,
+                                onTap: () => MTRouter.navigate(MyTasksRouter, context),
+                              ),
+                            ),
+                          if (accountController.user != null)
+                            Flexible(
+                              child: MTListTile(
+                                middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
+                                padding: const EdgeInsets.only(top: P2),
+                                color: Colors.transparent,
+                                bottomDivider: false,
+                                onTap: showSettingsMenu,
+                              ),
+                            ),
+                          Flexible(
+                            child: MTListTile(
+                              middle: const RefreshIcon(size: P6),
+                              padding: const EdgeInsets.only(top: P2),
+                              color: Colors.transparent,
+                              bottomDivider: false,
+                              onTap: mainController.manualUpdate,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
             ),
     );

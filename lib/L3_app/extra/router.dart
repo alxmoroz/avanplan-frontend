@@ -3,6 +3,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -101,41 +102,49 @@ abstract class MTRouter {
   static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
   static Future navigate(Type type, BuildContext context, {Object? args}) async => routerForType(type).pushNamed(context, args: args);
 
-  static Widget _pageWidget(Widget child, bool isDialog, double maxWidth) {
+  static Widget _pageWidget(Widget child) {
     return Observer(
       builder: (_) => Stack(
         alignment: Alignment.center,
         children: [
-          authController.authorized ? (isDialog ? MTAdaptiveDialog(child, maxWidth: maxWidth) : child) : AuthView(),
+          authController.authorized ? child : AuthView(),
           if (loader.loading) LoaderScreen(),
         ],
       ),
     );
   }
 
-  static PageRoute? generateRoute(RouteSettings rs) {
+  static Route? generateRoute(RouteSettings rs) {
     final r = router(rs);
     if (r != null) {
       final page = r.page;
       final settings = r.settings;
       final isDialog = r.isDialog;
       if (page != null) {
-        return showSideMenu
-            ? PageRouteBuilder(
-                pageBuilder: (_, __, ___) => _pageWidget(page, isDialog, r.maxWidth),
-                reverseTransitionDuration: const Duration(milliseconds: 150),
-                settings: settings ?? rs,
-                fullscreenDialog: isDialog,
-                barrierDismissible: isDialog,
-                opaque: false,
-                barrierColor: barrierColor,
-              )
-            : CupertinoPageRoute<dynamic>(
-                builder: (_) => _pageWidget(page, isDialog, r.maxWidth),
-                fullscreenDialog: isDialog,
-                barrierDismissible: isDialog,
-                settings: settings ?? rs,
-              );
+        return isDialog
+            ? isBigScreen
+                ? DialogRoute(
+                    context: globalContext,
+                    barrierColor: barrierColor,
+                    builder: (_) => constrainedDialog(_pageWidget(page), maxWidth: r.maxWidth),
+                  )
+                : ModalBottomSheetRoute(
+                    builder: (_) => _pageWidget(page),
+                    useSafeArea: true,
+                    constraints: dialogConstrains(r.maxWidth),
+                    modalBarrierColor: barrierColor,
+                    isScrollControlled: true,
+                  )
+            : isBigScreen
+                ? PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => _pageWidget(page),
+                    reverseTransitionDuration: const Duration(milliseconds: 150),
+                    settings: settings ?? rs,
+                  )
+                : CupertinoPageRoute<dynamic>(
+                    builder: (_) => _pageWidget(page),
+                    settings: settings ?? rs,
+                  );
       } else if (settings != null) {
         return generateRoute(settings);
       }

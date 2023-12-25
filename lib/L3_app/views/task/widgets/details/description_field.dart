@@ -9,6 +9,7 @@ import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
@@ -16,9 +17,10 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskDescriptionField extends StatelessWidget {
-  const TaskDescriptionField(this._controller, {this.compact = false});
+  const TaskDescriptionField(this._controller, {this.compact = false, this.hasMargin = false});
   final TaskController _controller;
   final bool compact;
+  final bool hasMargin;
 
   Task get _task => _controller.task!;
 
@@ -39,6 +41,7 @@ class TaskDescriptionField extends StatelessWidget {
             )
           : null,
       compact: compact,
+      margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       crossAxisAlignment: _task.isTask && _task.hasDescription ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       onTap: _task.canEdit ? _controller.titleController.editDescription : null,
     );

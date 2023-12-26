@@ -27,7 +27,7 @@ class TaskStatusField extends StatelessWidget {
       bottomDivider: false,
       color: Colors.transparent,
       padding: const EdgeInsets.all(P3),
-      leading: _task.canShowStatus
+      middle: _task.canShowStatus
           ? MTButton.main(
               titleText: '${_task.status}',
               color: _task.closed ? greenColor : null,

@@ -186,7 +186,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (leading != null) ...[leading!, const SizedBox(width: P)],
-        middle ?? (titleText != null ? BaseText.medium(titleText!, color: _titleColor, maxLines: 1) : Container()),
+        middle ?? (titleText != null ? Flexible(child: BaseText.medium(titleText!, color: _titleColor, maxLines: 1)) : Container()),
         if (trailing != null) ...[const SizedBox(width: P), trailing!],
       ],
     );

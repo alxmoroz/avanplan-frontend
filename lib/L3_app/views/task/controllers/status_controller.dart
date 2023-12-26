@@ -96,7 +96,7 @@ class StatusController {
           children: [
             if (selected && !closed) const SizedBox(width: P2),
             if (closed) ...[const DoneIcon(true, color: f2Color), const SizedBox(width: P)],
-            selected ? H3(text, maxLines: 1) : BaseText(text, maxLines: 1),
+            Flexible(child: selected ? H3(text, maxLines: 1) : BaseText(text, maxLines: 1)),
             if (closed) SizedBox(width: P3 - (selected ? P2 : 0)),
           ],
         );

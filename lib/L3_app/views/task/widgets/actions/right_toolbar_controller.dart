@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../components/constants.dart';
+import '../../../../views/_base/vertical_toolbar_controller.dart';
 import '../../controllers/task_controller.dart';
 
 part 'right_toolbar_controller.g.dart';
@@ -11,20 +11,12 @@ part 'right_toolbar_controller.g.dart';
 class TaskRightToolbarController extends _TaskRightToolbarControllerBase with _$TaskRightToolbarController {
   TaskRightToolbarController(TaskController taskController) {
     _taskController = taskController;
-    width = _taskController.task?.isTask == true ? _TaskRightToolbarControllerBase._wideWidth : _TaskRightToolbarControllerBase._compactWidth;
+    compact = _taskController.task?.isTask == false;
   }
 }
 
-abstract class _TaskRightToolbarControllerBase with Store {
+abstract class _TaskRightToolbarControllerBase extends VerticalToolbarController with Store {
   late final TaskController _taskController;
-
-  static const _wideWidth = 300.0;
-  static const _compactWidth = P11;
-
-  @observable
-  double width = _wideWidth;
-  @computed
-  bool get compact => width == _compactWidth;
 
   @observable
   bool showActions = false;
@@ -32,9 +24,10 @@ abstract class _TaskRightToolbarControllerBase with Store {
   @action
   void toggleShowActions() => showActions = !showActions;
 
+  @override
   @action
   void toggleWidth() {
-    width = compact ? _wideWidth : _compactWidth;
+    super.toggleWidth();
     showActions = false;
   }
 }

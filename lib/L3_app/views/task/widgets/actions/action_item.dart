@@ -16,7 +16,7 @@ class TaskActionItem extends StatelessWidget {
   final bool compact;
   final bool popup;
 
-  double get _iconSize => isBigScreen ? P5 : P4;
+  double get _iconSize => isBigScreen ? P6 : P4;
   double get _iconPadding => compact ? 0 : (isBigScreen ? P2 : P);
 
   Widget _tile({Widget? leading, String? title, Color? color}) => Row(children: [

@@ -148,6 +148,7 @@ class ProjectStatusesDialog extends StatelessWidget {
       bottomBar: MTAppBar(
         isBottom: true,
         bgColor: b2Color,
+        paddingBottom: isBigScreen ? P2 : null,
         middle: _CreateStatusButton(_controller),
       ),
     );

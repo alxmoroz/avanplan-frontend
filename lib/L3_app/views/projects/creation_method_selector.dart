@@ -15,7 +15,7 @@ Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<Creat
 enum CreationMethod { create, template, import }
 
 class CreationMethodSelector extends StatelessWidget {
-  static const _dividerIndent = P10;
+  static const _dividerIndent = P11;
   @override
   Widget build(BuildContext context) {
     return MTDialog(
@@ -24,7 +24,7 @@ class CreationMethodSelector extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MTListTile(
-            leading: const PlusIcon(size: P5, circled: true),
+            leading: const PlusIcon(size: P6, circled: true),
             titleText: loc.create_from_scratch_action_title,
             dividerIndent: _dividerIndent,
             subtitle: SmallText(loc.create_from_scratch_action_description),

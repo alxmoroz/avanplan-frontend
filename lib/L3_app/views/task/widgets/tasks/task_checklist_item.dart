@@ -61,7 +61,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     final tfMaxLines = hasFocus ? 1 : 5;
 
     final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: _fieldHover ? 0 : P3);
-    const doneIconSize = P5;
+    const doneIconSize = P6;
     const deleteIconSize = P4;
     return Row(
       children: [
@@ -155,7 +155,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: tc.task!.isCheckItem ? P10 : P3,
+      dividerIndent: tc.task!.isCheckItem ? P11 : P3,
       dividerEndIndent: P3,
       bottomDivider: tc.task!.isCheckItem || _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,

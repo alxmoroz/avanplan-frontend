@@ -14,7 +14,7 @@ class MTCircularProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = size ?? P5;
+    final _size = size ?? P6;
     final ci = CircularProgressIndicator(
       color: color?.resolve(context),
       strokeWidth: strokeWidth ?? 4,

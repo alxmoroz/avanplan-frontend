@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/checkbox.dart';
 import '../../components/colors.dart';
@@ -136,6 +137,7 @@ class ImportDialog extends StatelessWidget {
           isBottom: true,
           bgColor: b2Color,
           height: P10 + P + 2,
+          paddingBottom: isBigScreen ? P2 : null,
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

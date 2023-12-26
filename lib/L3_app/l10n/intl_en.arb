@@ -189,7 +189,7 @@
   "my_account_delete_dialog_title": "Delete your account?",
   "my_account_title": "Account",
 
-  "my_tasks_all_title": "Assigned to me",
+  "my_tasks_upcoming_all_title": "Assigned to me",
   "my_tasks_empty_hint": "Assign yourself tasks from projects or add new ones",
   "my_tasks_future_title": "Future",
   "my_tasks_no_due_title": "No due date",
@@ -235,6 +235,8 @@
   "recommendation_close_tasks_title": "Let's take the first step",
   "recommendation_goto_goals": "Go to goals",
   "recommendation_goto_tasks": "Go to tasks",
+
+  "refresh_action_title": "Refresh data",
 
   "register_completed_description": "This is needed to confirm your email",
   "register_completed_hint": "Follow the link from the letter",

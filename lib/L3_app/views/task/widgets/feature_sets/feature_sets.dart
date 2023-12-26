@@ -150,6 +150,7 @@ class FeatureSetsDialog extends StatelessWidget {
       body: _FSBody(_controller),
       bottomBar: MTAppBar(
         isBottom: true,
+        paddingBottom: isBigScreen ? P2 : null,
         bgColor: b2Color,
         middle: MTButton.main(
           titleText: loc.save_action_title,

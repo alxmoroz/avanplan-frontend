@@ -44,9 +44,9 @@ class _TaskRightToolbarState extends State<TaskRightToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => GestureDetector(
-        child: Container(
+    return GestureDetector(
+      child: Observer(
+        builder: (_) => Container(
           width: _controller.width,
           color: b3Color.resolve(context),
           child: SafeArea(
@@ -62,7 +62,7 @@ class _TaskRightToolbarState extends State<TaskRightToolbar> {
                 if (_task.canCreate && !_task.isTask) CreateTaskButton(_taskController, compact: _controller.compact),
                 if (_task.canLocalImport)
                   MTListTile(
-                    leading: const LocalImportIcon(circled: true, size: P5),
+                    leading: const LocalImportIcon(circled: true, size: P6),
                     middle: _controller.compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
                     bottomDivider: false,
                     onTap: () => localImportDialog(_taskController),
@@ -82,7 +82,7 @@ class _TaskRightToolbarState extends State<TaskRightToolbar> {
                       )
                   else
                     MTListTile(
-                      leading: const MenuIcon(circled: true, size: P5),
+                      leading: const MenuIcon(circled: true, size: P6),
                       middle: _controller.compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor),
                       bottomDivider: false,
                       onTap: _controller.toggleShowActions,
@@ -92,8 +92,9 @@ class _TaskRightToolbarState extends State<TaskRightToolbar> {
             ),
           ),
         ),
-        onTap: _controller.toggleWidth,
       ),
+      onTap: _controller.toggleWidth,
+      // onHorizontalDragUpdate: _controller.swiped,
     );
   }
 }

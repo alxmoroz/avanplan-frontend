@@ -47,8 +47,9 @@ class CreateTaskButton extends StatelessWidget {
   bool get _showBadge => !_ws.plCreate(_parent);
 
   Widget get _plusIcon => PlusIcon(
-        color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor,
-        size: _compact ? P5 : P4,
+        color: _type == ButtonType.main ? mainBtnTitleColor : mainColor,
+        size: _type != null ? P4 : P6,
+        circled: isBigScreen && _type == null,
       );
 
   Future _tap(BuildContext context) async {
@@ -74,7 +75,7 @@ class CreateTaskButton extends StatelessWidget {
             leading: Stack(
               alignment: Alignment.topCenter,
               children: [
-                const PlusIcon(size: P5, circled : true),
+                _plusIcon,
                 if (_showBadge)
                   Container(
                     padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),

@@ -48,7 +48,7 @@ class LoaderScreen extends StatelessWidget {
                     const Center(child: MTCircularProgress(color: mainColor, size: P10)),
                   ],
                   if (loader.actionWidget != null) ...[
-                    const SizedBox(height: P5),
+                    const SizedBox(height: P6),
                     MTAdaptive.xxs(child: loader.actionWidget),
                   ]
                 ],

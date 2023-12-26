@@ -58,8 +58,9 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
               bottom: _controller.stepTitle.trim().isNotEmpty
                   ? BaseText.medium(
                       _controller.stepTitle,
+                      align: TextAlign.center,
                       maxLines: 1,
-                      padding: const EdgeInsets.only(top: P, bottom: P),
+                      padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
                     )
                   : null,
               height: preferredSize.height,

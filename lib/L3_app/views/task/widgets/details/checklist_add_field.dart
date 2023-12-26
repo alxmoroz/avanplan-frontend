@@ -19,7 +19,7 @@ class TaskChecklistAddField extends StatelessWidget {
     return MTField(
       MTFieldData(-1, placeholder: '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
       margin: const EdgeInsets.only(top: P3),
-      leading: const PlusIcon(color: mainColor, size: P5, circled: true),
+      leading: const PlusIcon(color: mainColor, size: P6, circled: true),
       onTap: () async => await _controller.subtasksController.addTask(),
     );
   }

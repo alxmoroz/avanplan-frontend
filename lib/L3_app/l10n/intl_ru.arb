@@ -189,7 +189,7 @@
   "my_account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "my_account_title": "Моя учётная запись",
 
-  "my_tasks_all_title": "Назначены мне",
+  "my_tasks_upcoming_all_title": "Назначены мне",
   "my_tasks_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
   "my_tasks_future_title": "Будущие",
   "my_tasks_no_due_title": "Без срока",
@@ -235,6 +235,8 @@
   "recommendation_close_tasks_title": "Сделаем первый шаг",
   "recommendation_goto_goals": "Перейти к целям",
   "recommendation_goto_tasks": "Перейти к задачам",
+
+  "refresh_action_title": "Обновить данные",
 
   "register_completed_description": "Это нужно для подтверждения вашей почты",
   "register_completed_hint": "Перейдите по ссылке из письма",

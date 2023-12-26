@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
+import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
@@ -99,6 +100,7 @@ class NotificationListDialog extends StatelessWidget {
         bottomBar: !isWeb && !_controller.pushAuthorized
             ? MTAppBar(
                 isBottom: true,
+                paddingBottom: isBigScreen ? P2 : null,
                 bgColor: b2Color,
                 middle: MTButton(
                   leading: const PrivacyIcon(),

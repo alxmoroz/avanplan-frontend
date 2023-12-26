@@ -21,11 +21,11 @@ class TaskToggleViewButton extends StatelessWidget {
   Widget get _icon => _controller.showBoard
       ? ListIcon(
           circled: isBigScreen,
-          size: isBigScreen ? P5 : P4,
+          size: isBigScreen ? P6 : P4,
         )
       : BoardIcon(
           circled: isBigScreen,
-          size: isBigScreen ? P5 : P4,
+          size: isBigScreen ? P6 : P4,
         );
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -47,7 +48,7 @@ class SourceListDialog extends StatelessWidget {
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];
     return s.listTile(
-      iconSize: P5,
+      iconSize: P6,
       bottomBorder: index < _ws.sortedSources.length - 1,
       onTap: () => editSource(_ws, src: s),
     );
@@ -68,6 +69,7 @@ class SourceListDialog extends StatelessWidget {
         bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
             ? MTAppBar(
                 isBottom: true,
+                paddingBottom: isBigScreen ? P2 : null,
                 bgColor: b2Color,
                 trailing: MTPlusButton(() => startAddSource(_ws)),
               )

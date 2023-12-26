@@ -125,7 +125,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.didImported)
             MTListTile(
               margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
-              leading: _task.source?.type.icon(size: P5),
+              leading: _task.source?.type.icon(size: P6),
               titleText: !compact ? loc.task_go2source_title : null,
               trailing: !compact ? const LinkOutIcon() : null,
               bottomDivider: false,

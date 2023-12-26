@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L2_data/repositories/project_transfer_repo.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
@@ -37,6 +36,7 @@ import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/note_repo.dart';
 import '../../L2_data/repositories/project_status_repo.dart';
+import '../../L2_data/repositories/project_transfer_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
@@ -52,6 +52,7 @@ import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/iap/iap_controller.dart';
 import '../views/loader/loader_controller.dart';
+import '../views/main/controllers/left_menu_controller.dart';
 import '../views/main/controllers/main_controller.dart';
 import '../views/main/controllers/tasks_main_controller.dart';
 import '../views/main/controllers/ws_main_controller.dart';
@@ -77,6 +78,7 @@ NotificationController get notificationController => GetIt.I<NotificationControl
 RegistrationTokenController get registrationTokenController => GetIt.I<RegistrationTokenController>();
 InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
 IAPController get iapController => GetIt.I<IAPController>();
+LeftMenuController get leftMenuController => GetIt.I<LeftMenuController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
@@ -153,4 +155,5 @@ void setup() {
   getIt.registerSingleton<InvitationTokenController>(InvitationTokenController());
   getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
   getIt.registerSingleton<IAPController>(IAPController());
+  getIt.registerSingleton<LeftMenuController>(LeftMenuController());
 }

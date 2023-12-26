@@ -78,7 +78,7 @@ abstract class _TasksMainControllerBase with Store {
       ? loc.my_tasks_today_title
       : _myThisWeekTasks.isNotEmpty
           ? loc.my_tasks_this_week_title
-          : loc.my_tasks_all_title;
+          : loc.my_tasks_upcoming_all_title;
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {

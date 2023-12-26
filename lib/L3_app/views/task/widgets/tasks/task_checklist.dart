@@ -21,7 +21,7 @@ class TaskChecklist extends StatelessWidget {
 
   Widget get _addButton => MTField(
         const MTFieldData(-1),
-        leading: const PlusIcon(circled: true, size: P5),
+        leading: const PlusIcon(circled: true, size: P6),
         value: BaseText.f2(addSubtaskActionTitle(_taskController.task)),
         onTap: _controller.addTask,
       );

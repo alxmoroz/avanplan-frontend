@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/colors.dart';
@@ -107,6 +108,7 @@ class LocalImportDialog extends StatelessWidget {
           bottomBar: controller.sourceSelected
               ? MTAppBar(
                   isBottom: true,
+                  paddingBottom: isBigScreen ? P2 : null,
                   bgColor: b2Color,
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),

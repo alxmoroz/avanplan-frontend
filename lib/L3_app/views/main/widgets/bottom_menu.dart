@@ -64,7 +64,7 @@ class BottomMenu extends StatelessWidget {
                     ),
                   Flexible(
                     child: MTListTile(
-                      middle: const RefreshIcon(size: P6),
+                      middle: const RefreshIcon(),
                       padding: const EdgeInsets.only(top: P2),
                       color: Colors.transparent,
                       bottomDivider: false,

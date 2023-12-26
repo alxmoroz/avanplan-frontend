@@ -40,7 +40,6 @@ class TaskHeaderDashboard extends StatelessWidget {
         middle: Container(
           constraints: const BoxConstraints(maxWidth: 250),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
               BaseText.f2(title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
               if (body != null) body,

@@ -23,7 +23,7 @@ class CreateProjectButton extends StatelessWidget {
 
   Widget get _plusIcon => PlusIcon(
         color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor,
-        size: _compact ? P5 : P4,
+        size: _compact ? P6 : P4,
       );
 
   @override

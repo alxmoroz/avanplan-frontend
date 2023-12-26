@@ -207,7 +207,7 @@ abstract class _BaseDecorText extends BaseText {
   }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w600, maxLines: 1);
 
   @override
-  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa', fontSize: 27);
+  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa', fontSize: 26);
 }
 
 // название приложения

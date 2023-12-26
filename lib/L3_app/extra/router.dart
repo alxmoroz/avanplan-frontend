@@ -108,7 +108,7 @@ abstract class MTRouter {
         alignment: Alignment.center,
         children: [
           authController.authorized ? child : AuthView(),
-          if (loader.loading) LoaderScreen(),
+          if (loader.loading) const LoaderScreen(),
         ],
       ),
     );

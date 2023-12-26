@@ -3,7 +3,7 @@
 import '../extra/services.dart';
 
 class MTFieldData {
-  MTFieldData(
+  const MTFieldData(
     this.code, {
     this.text = '',
     this.label = '',

@@ -14,6 +14,8 @@ import '../../presenters/person.dart';
 import '../account/account_dialog.dart';
 
 class AccountButton extends StatelessWidget {
+  const AccountButton();
+
   User? get user => accountController.user;
 
   void _toUser(BuildContext context) {

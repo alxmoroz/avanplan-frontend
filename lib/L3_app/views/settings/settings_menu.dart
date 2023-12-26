@@ -21,9 +21,11 @@ import 'account_button.dart';
 import 'app_version.dart';
 import 'notifications_button.dart';
 
-Future showSettingsMenu() async => await showMTDialog<void>(SettingsMenu());
+Future showSettingsMenu() async => await showMTDialog<void>(const SettingsMenu());
 
 class SettingsMenu extends StatelessWidget {
+  const SettingsMenu();
+
   List<Workspace> get _wss => wsMainController.workspaces;
 
   void _toWS(BuildContext context, int wsId) {
@@ -88,9 +90,9 @@ class SettingsMenu extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: [
-            AccountButton(),
+            const AccountButton(),
             const SizedBox(height: P3),
-            NotificationsButton(),
+            const NotificationsButton(),
             if (_wss.isNotEmpty) _workspaces(context),
             _about,
 

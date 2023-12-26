@@ -9,7 +9,7 @@ import '../../../../components/page.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../main/widgets/main_menu.dart';
+import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../controllers/task_controller.dart';
@@ -67,7 +67,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
               children: [
                 MTPage(
                   appBar: QuizHeader(qController),
-                  leftBar: MainMenu(),
+                  leftBar: const LeftMenu(),
                   body: SafeArea(
                     bottom: false,
                     child: ListView(

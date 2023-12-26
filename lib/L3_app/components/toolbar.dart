@@ -99,7 +99,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     final pTop = paddingTop ?? (isBottom ? P2 : 0);
     final topHeight = pTop + (isBottom ? 0 : mqPadding.top);
 
-    final pBottom = (paddingBottom ?? 0) + (isBottom ? bottomPadding(context) : 0);
+    final pBottom = paddingBottom ?? (isBottom ? defaultBottomPadding(context) : 0);
     final bottomHeight = pBottom;
 
     return Container(

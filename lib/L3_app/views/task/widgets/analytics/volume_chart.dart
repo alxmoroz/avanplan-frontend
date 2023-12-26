@@ -22,7 +22,7 @@ class TaskVolumeChart extends StatelessWidget {
   static const _borderWidth = P_2;
   static const _barWidth = _bgWidth - _borderWidth * 2;
 
-  MTPieChartData get _bgBar => MTPieChartData(_maxValue, strokeWidth: _bgWidth);
+  MTPieChartData get _bgBar => const MTPieChartData(_maxValue, strokeWidth: _bgWidth);
   MTPieChartData get _mainBar => MTPieChartData(_task.progress, start: 0, color: mainColor, strokeWidth: _barWidth);
 
   String get _chartText => '${_task.progress.percents}';

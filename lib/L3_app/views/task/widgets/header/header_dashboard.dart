@@ -55,7 +55,7 @@ class TaskHeaderDashboard extends StatelessWidget {
     return Observer(
       builder: (_) => Container(
         height: _dashboardHeight,
-        margin: EdgeInsets.only(top: P2),
+        margin: const EdgeInsets.only(top: P2),
         child: ListView(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,

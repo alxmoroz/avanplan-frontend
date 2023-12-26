@@ -20,6 +20,8 @@ import '../tasks/task_card.dart';
 import 'drag_and_drop_lists.dart';
 
 class _ItemTarget extends StatelessWidget {
+  const _ItemTarget();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,7 +89,7 @@ class TasksBoard extends StatelessWidget {
       children: [for (final t in tasks) _taskBuilder(t)],
       canDrag: false,
       contentsWhenEmpty: Container(),
-      lastTarget: tasks.isEmpty ? _ItemTarget() : null,
+      lastTarget: tasks.isEmpty ? const _ItemTarget() : null,
       footer: status.closed && extra != null ? Center(child: extra) : null,
     );
   }

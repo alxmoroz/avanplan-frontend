@@ -36,12 +36,14 @@ Future main() async {
 
   usePathUrlStrategy();
 
-  runApp(App());
+  runApp(const App());
 }
 
 final rootKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {
+  const App();
+
   @override
   Widget build(BuildContext context) {
     const Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [

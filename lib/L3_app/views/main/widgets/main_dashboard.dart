@@ -12,6 +12,8 @@ import 'my_tasks.dart';
 import 'projects.dart';
 
 class MainDashboard extends StatelessWidget {
+  const MainDashboard();
+
   static const _spacing_s = P4;
   static const _spacing_xs = P2;
 

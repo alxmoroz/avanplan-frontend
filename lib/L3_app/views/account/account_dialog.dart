@@ -24,13 +24,15 @@ class AccountRouter extends MTRouter {
   bool get isDialog => true;
 
   @override
-  Widget get page => AccountDialog();
+  Widget get page => const AccountDialog();
 
   @override
   String get title => loc.my_account_title;
 }
 
 class AccountDialog extends StatelessWidget {
+  const AccountDialog();
+
   User? get _user => accountController.user;
 
   @override

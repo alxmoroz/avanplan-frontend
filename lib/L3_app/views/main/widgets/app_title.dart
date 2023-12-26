@@ -8,6 +8,8 @@ import '../../../components/text.dart';
 import '../../../extra/services.dart';
 
 class AppTitle extends StatelessWidget {
+  const AppTitle();
+
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -8,6 +8,7 @@ import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
+import 'material_wrapper.dart';
 
 Color get barrierColor => b0Color.resolve(globalContext).withAlpha(220);
 
@@ -16,7 +17,12 @@ BoxConstraints dialogConstrains(double? maxWidth) => BoxConstraints(
       maxHeight: isBigScreen ? screenSize.height - screenPadding.vertical - P6 : double.infinity,
     );
 
-Widget constrainedDialog(Widget child, {double? maxWidth}) => Container(constraints: dialogConstrains(maxWidth), child: child);
+Widget constrainedDialog(Widget child, {double? maxWidth}) => UnconstrainedBox(
+      child: Container(
+        constraints: dialogConstrains(maxWidth),
+        child: material(child),
+      ),
+    );
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
   return isBigScreen
@@ -67,12 +73,13 @@ class MTDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bPadding = bottomPadding(context);
+    final big = isBigScreen;
+    final bPadding = big ? P2 : defaultBottomPadding(context);
     final mq = MediaQuery.of(context);
     final double bbHeight = bPadding + (bottomBar != null ? (bottomBarHeight ?? P2 + MIN_BTN_HEIGHT) : 0);
     final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
-    final big = isBigScreen;
+
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Padding(

@@ -51,18 +51,19 @@ class _StoreDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-        topBar: MTToolBar(titleText: loc.balance_replenish_store_title),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            if (_reason.isNotEmpty) BaseText(_reason, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: _payButton,
-              itemCount: iapController.products.length,
-            ),
-          ],
-        ));
+      topBar: MTToolBar(titleText: loc.balance_replenish_store_title),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          if (_reason.isNotEmpty) BaseText(_reason, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: _payButton,
+            itemCount: iapController.products.length,
+          ),
+        ],
+      ),
+    );
   }
 }

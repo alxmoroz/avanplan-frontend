@@ -10,6 +10,8 @@ import '../../presenters/person.dart';
 import 'settings_menu.dart';
 
 class SettingsButton extends StatelessWidget {
+  const SettingsButton();
+
   @override
   Widget build(BuildContext context) {
     return MTButton.icon(

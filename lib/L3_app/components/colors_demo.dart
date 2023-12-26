@@ -7,6 +7,8 @@ import 'colors_base.dart';
 import 'text.dart';
 
 class ColorsDemo extends StatelessWidget {
+  const ColorsDemo();
+
   String _printColor(CupertinoDynamicColor cdColor) {
     final color = cdColor.color;
     final darkColor = cdColor.darkColor;

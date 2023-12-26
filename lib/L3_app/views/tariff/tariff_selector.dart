@@ -60,7 +60,7 @@ class TariffSelector extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
       );
     } else {
-      card = RequestTariffCard();
+      card = const RequestTariffCard();
     }
     return card;
   }

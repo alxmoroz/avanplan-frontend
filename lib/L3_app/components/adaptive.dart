@@ -69,9 +69,7 @@ class MTAdaptive extends StatelessWidget {
 
 double defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));
 
-double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P4);
+double defaultBottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P4);
 
 // отображаем боковое меню для больших экранов или в пейзажном режиме для маленькой высоты экрана
-bool get showSideMenu {
-  return isBigScreen || screenSize.height < SCR_XS_HEIGHT;
-}
+bool get showLeftMenu => isBigScreen || screenSize.height < SCR_XS_HEIGHT;

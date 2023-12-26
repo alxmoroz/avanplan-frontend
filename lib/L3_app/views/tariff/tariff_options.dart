@@ -12,11 +12,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class _TariffOptionTile extends StatelessWidget {
-  const _TariffOptionTile({
-    this.value,
-    this.description,
-  });
-
+  const _TariffOptionTile({this.value, this.description});
   final num? value;
   final String? description;
 

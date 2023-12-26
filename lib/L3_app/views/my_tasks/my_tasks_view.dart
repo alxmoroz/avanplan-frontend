@@ -7,7 +7,7 @@ import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../main/widgets/main_menu.dart';
+import '../main/widgets/left_menu.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 
@@ -19,15 +19,17 @@ class MyTasksRouter extends MTRouter {
   String get title => loc.my_tasks_title;
 
   @override
-  Widget get page => MyTasksView();
+  Widget get page => const MyTasksView();
 }
 
 class MyTasksView extends StatelessWidget {
+  const MyTasksView();
+
   @override
   Widget build(BuildContext context) {
     return MTPage(
       appBar: MTAppBar(title: loc.my_tasks_title),
-      leftBar: MainMenu(),
+      leftBar: const LeftMenu(),
       body: SafeArea(
         top: false,
         bottom: false,

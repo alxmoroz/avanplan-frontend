@@ -1,6 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -19,7 +19,9 @@ import '../../my_tasks/my_tasks_view.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
-class MainMenu extends StatelessWidget {
+class LeftMenu extends StatelessWidget {
+  const LeftMenu();
+
   Future _goToProjects(BuildContext context) async {
     popTop();
     await MTRouter.navigate(ProjectsRouter, context);
@@ -32,12 +34,12 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return !isBigScreen
+    return !showLeftMenu
         ? Container()
         : Observer(
             builder: (_) => GestureDetector(
               child: Container(
-                width: P11 + MediaQuery.paddingOf(context).left,
+                width: P12 + MediaQuery.paddingOf(context).left,
                 decoration: BoxDecoration(
                   color: b3Color.resolve(context),
                   // borderRadius: const BorderRadius.horizontal(right: Radius.circular(DEF_BORDER_RADIUS)),
@@ -48,7 +50,7 @@ class MainMenu extends StatelessWidget {
                   child: Column(
                     children: [
                       MTListTile(
-                        leading: MTImage(ImageName.app_icon.name, height: P5, width: P5),
+                        middle: MTImage(ImageName.app_icon.name, height: P6, width: P6),
                         dividerIndent: P2,
                         dividerEndIndent: P2,
                         bottomDivider: tasksMainController.projects.isNotEmpty,
@@ -56,7 +58,7 @@ class MainMenu extends StatelessWidget {
                       ),
                       if (tasksMainController.projects.isNotEmpty)
                         MTListTile(
-                          leading: const ProjectsIcon(color: mainColor),
+                          middle: const ProjectsIcon(color: mainColor, size: P6),
                           dividerIndent: P2,
                           dividerEndIndent: P2,
                           bottomDivider: tasksMainController.myTasks.isNotEmpty,
@@ -64,14 +66,20 @@ class MainMenu extends StatelessWidget {
                         ),
                       if (tasksMainController.myTasks.isNotEmpty)
                         MTListTile(
-                          leading: const TasksIcon(color: mainColor),
+                          middle: const TasksIcon(color: mainColor, size: P6),
                           bottomDivider: false,
                           onTap: () => _goToTasks(context),
                         ),
                       const Spacer(),
+                      if (!kIsWeb)
+                        MTListTile(
+                          middle: const RefreshIcon(size: P7),
+                          bottomDivider: false,
+                          onTap: mainController.manualUpdate,
+                        ),
                       if (accountController.user != null)
                         MTListTile(
-                          leading: accountController.user!.icon(P5 / 2, borderColor: mainColor),
+                          middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
                           bottomDivider: false,
                           onTap: showSettingsMenu,
                         )

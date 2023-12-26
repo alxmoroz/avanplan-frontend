@@ -9,7 +9,7 @@ import 'colors_base.dart';
 import 'constants.dart';
 
 class MTPieChartData {
-  MTPieChartData(
+  const MTPieChartData(
     this.value, {
     this.start,
     this.color,

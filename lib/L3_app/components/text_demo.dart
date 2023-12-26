@@ -6,6 +6,8 @@ import 'constants.dart';
 import 'text.dart';
 
 class TextDemo extends StatelessWidget {
+  const TextDemo();
+
   Widget _t(BaseText text, BuildContext context) {
     final style = text.style(context);
     return Column(

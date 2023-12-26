@@ -13,6 +13,8 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class LoaderScreen extends StatelessWidget {
+  const LoaderScreen();
+
   Widget get _title => H3(
         loader.titleText!,
         align: TextAlign.center,

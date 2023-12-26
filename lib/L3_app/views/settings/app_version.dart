@@ -10,6 +10,7 @@ import '../../extra/services.dart';
 
 class AppVersion extends StatelessWidget {
   const AppVersion();
+
   @override
   Widget build(BuildContext context) {
     return Column(

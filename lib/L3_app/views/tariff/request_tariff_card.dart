@@ -14,6 +14,8 @@ import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 
 class RequestTariffCard extends StatelessWidget {
+  const RequestTariffCard();
+
   @override
   Widget build(BuildContext context) {
     final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;

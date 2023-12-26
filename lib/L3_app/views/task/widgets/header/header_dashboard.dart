@@ -56,7 +56,8 @@ class TaskHeaderDashboard extends StatelessWidget {
         height: _dashboardHeight,
         margin: const EdgeInsets.only(top: P2),
         child: ListView(
-          clipBehavior: Clip.none,
+          // TODO: можно раскомментить, если слева и справа - stacked
+          // clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
           // shrinkWrap: true,
           children: [

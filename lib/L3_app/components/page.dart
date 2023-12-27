@@ -27,12 +27,7 @@ class MTPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           key: key,
           appBar: appBar,
-          body: scrollController != null
-              ? PrimaryScrollController(
-                  controller: scrollController!,
-                  child: body,
-                )
-              : body,
+          body: PrimaryScrollController(controller: scrollController!, child: body),
           extendBody: true,
           extendBodyBehindAppBar: true,
           bottomNavigationBar: bottomBar,

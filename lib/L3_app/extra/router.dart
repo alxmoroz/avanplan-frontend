@@ -126,24 +126,26 @@ abstract class MTRouter {
                 ? DialogRoute(
                     context: globalContext,
                     barrierColor: barrierColor,
+                    settings: settings ?? rs,
                     builder: (_) => constrainedDialog(_pageWidget(page), maxWidth: r.maxWidth),
                   )
                 : ModalBottomSheetRoute(
-                    builder: (_) => _pageWidget(page),
                     useSafeArea: true,
                     constraints: dialogConstrains(r.maxWidth),
                     modalBarrierColor: barrierColor,
                     isScrollControlled: true,
+                    settings: settings ?? rs,
+                    builder: (_) => _pageWidget(page),
                   )
             : isBigScreen
                 ? PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => _pageWidget(page),
                     reverseTransitionDuration: const Duration(milliseconds: 150),
                     settings: settings ?? rs,
+                    pageBuilder: (_, __, ___) => _pageWidget(page),
                   )
                 : CupertinoPageRoute<dynamic>(
-                    builder: (_) => _pageWidget(page),
                     settings: settings ?? rs,
+                    builder: (_) => _pageWidget(page),
                   );
       } else if (settings != null) {
         return generateRoute(settings);

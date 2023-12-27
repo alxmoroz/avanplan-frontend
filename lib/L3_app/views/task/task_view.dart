@@ -87,7 +87,8 @@ class TaskRouter extends MTRouter {
 
     // если переход из Мои задачи или с главной то нужно запушить родителя
     if (!(previousName ?? '').startsWith('/projects')) {
-      pushNamed(context, args: TaskController(parent));
+      print(previousName);
+      await pushNamed(context, args: TaskController(parent));
     }
 
     // MTRouter.routerForType(ProjectsRouter).navigate(context);

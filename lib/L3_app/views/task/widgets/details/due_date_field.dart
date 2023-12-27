@@ -33,7 +33,7 @@ class TaskDueDateField extends StatelessWidget {
           ? Row(
               children: [
                 BaseText(date.strMedium, padding: const EdgeInsets.only(right: P), maxLines: 1),
-                BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
+                Expanded(child: BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1)),
               ],
             )
           : null,

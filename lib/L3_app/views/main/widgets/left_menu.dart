@@ -20,7 +20,7 @@ import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 import 'app_title.dart';
 
-class LeftMenu extends StatelessWidget {
+class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   const LeftMenu();
 
   Future _goToProjects(BuildContext context) async {
@@ -34,63 +34,64 @@ class LeftMenu extends StatelessWidget {
   }
 
   @override
+  Size get preferredSize => Size.fromWidth(leftMenuController.width);
+
+  @override
   Widget build(BuildContext context) {
     return !showLeftMenu
-        ? Container()
+        ? const SizedBox()
         : GestureDetector(
             child: Observer(builder: (_) {
               final compact = leftMenuController.compact;
               return Container(
-                width: leftMenuController.width + MediaQuery.paddingOf(context).left,
+                width: preferredSize.width,
+                padding: MediaQuery.paddingOf(context).copyWith(right: 0),
                 decoration: BoxDecoration(
                   color: b3Color.resolve(context),
-                  // borderRadius: const BorderRadius.horizontal(right: Radius.circular(DEF_BORDER_RADIUS)),
-                  // border: const Border(right: BorderSide(strokeAlign: BorderSide.strokeAlignInside)),
-                  // boxShadow: const [BoxShadow(offset: Offset(P, 0))],
+                  borderRadius: const BorderRadius.horizontal(right: Radius.circular(DEF_BORDER_RADIUS)),
+                  boxShadow: [BoxShadow(blurRadius: P, offset: const Offset(1, 0), color: b1Color.resolve(context))],
                 ),
-                child: SafeArea(
-                  child: Column(
-                    children: [
+                child: Column(
+                  children: [
+                    MTListTile(
+                      middle: AppTitle(compact: compact),
+                      bottomDivider: false,
+                      onTap: popTop,
+                    ),
+                    if (tasksMainController.projects.isNotEmpty)
                       MTListTile(
-                        middle: AppTitle(compact: compact),
-                        bottomDivider: false,
-                        onTap: popTop,
+                        leading: const ProjectsIcon(color: mainColor, size: P6),
+                        middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
+                        trailing: compact ? null : const ChevronIcon(),
+                        dividerIndent: P6 + P5,
+                        bottomDivider: tasksMainController.myTasks.isNotEmpty,
+                        onTap: () => _goToProjects(context),
                       ),
-                      if (tasksMainController.projects.isNotEmpty)
-                        MTListTile(
-                          leading: const ProjectsIcon(color: mainColor, size: P6),
-                          middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
-                          trailing: compact ? null : const ChevronIcon(),
-                          dividerIndent: P6 + P5,
-                          bottomDivider: tasksMainController.myTasks.isNotEmpty,
-                          onTap: () => _goToProjects(context),
-                        ),
-                      if (tasksMainController.myTasks.isNotEmpty)
-                        MTListTile(
-                          leading: const TasksIcon(color: mainColor, size: P6),
-                          middle: compact ? null : BaseText(loc.my_tasks_title, maxLines: 1),
-                          trailing: compact ? null : const ChevronIcon(),
-                          bottomDivider: false,
-                          onTap: () => _goToTasks(context),
-                        ),
-                      const Spacer(),
-                      if (!kIsWeb)
-                        MTListTile(
-                          leading: const RefreshIcon(),
-                          middle: compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
-                          bottomDivider: false,
-                          onTap: mainController.manualUpdate,
-                        ),
-                      if (accountController.user != null)
-                        MTListTile(
-                          leading: accountController.user!.icon(P6 / 2, borderColor: mainColor),
-                          middle: compact ? null : BaseText('${accountController.user!}', maxLines: 1),
-                          trailing: compact ? null : const ChevronIcon(),
-                          bottomDivider: false,
-                          onTap: showSettingsMenu,
-                        )
-                    ],
-                  ),
+                    if (tasksMainController.myTasks.isNotEmpty)
+                      MTListTile(
+                        leading: const TasksIcon(color: mainColor, size: P6),
+                        middle: compact ? null : BaseText(loc.my_tasks_title, maxLines: 1),
+                        trailing: compact ? null : const ChevronIcon(),
+                        bottomDivider: false,
+                        onTap: () => _goToTasks(context),
+                      ),
+                    const Spacer(),
+                    if (!kIsWeb)
+                      MTListTile(
+                        leading: const RefreshIcon(),
+                        middle: compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
+                        bottomDivider: false,
+                        onTap: mainController.manualUpdate,
+                      ),
+                    if (accountController.user != null)
+                      MTListTile(
+                        leading: accountController.user!.icon(P6 / 2, borderColor: mainColor),
+                        middle: compact ? null : BaseText('${accountController.user!}', maxLines: 1),
+                        trailing: compact ? null : const ChevronIcon(),
+                        bottomDivider: false,
+                        onTap: showSettingsMenu,
+                      )
+                  ],
                 ),
               );
             }),

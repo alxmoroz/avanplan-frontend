@@ -9,14 +9,14 @@ import '../../controllers/task_controller.dart';
 part 'right_toolbar_controller.g.dart';
 
 class TaskRightToolbarController extends _TaskRightToolbarControllerBase with _$TaskRightToolbarController {
-  TaskRightToolbarController(TaskController taskController) {
-    _taskController = taskController;
-    compact = _taskController.task?.isTask == false;
+  TaskRightToolbarController(TaskController _taskController) {
+    taskController = _taskController;
+    compact = taskController.task?.isTask == false;
   }
 }
 
 abstract class _TaskRightToolbarControllerBase extends VerticalToolbarController with Store {
-  late final TaskController _taskController;
+  late final TaskController taskController;
 
   @observable
   bool showActions = false;

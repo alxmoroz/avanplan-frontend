@@ -24,7 +24,7 @@ class BottomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return showLeftMenu
-        ? Container()
+        ? const SizedBox()
         : Observer(
             builder: (_) => MTAppBar(
               isBottom: true,

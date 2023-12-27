@@ -27,6 +27,7 @@ import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
+import 'widgets/actions/right_toolbar_controller.dart';
 import 'widgets/board/tasks_board.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
@@ -125,14 +126,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   bool get _isTaskDialog => isBigScreen && task!.isTask;
   bool get _isBigGroup => isBigScreen && !task!.isTask;
-  double get _headerHeight => P8 + (_hasParent ? P4 : 0);
+  double get _headerHeight => P8 + (_hasParent ? P5 : 0);
   bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    final offset = _headerHeight;
+    final offset = _headerHeight + (_hasParent ? P_2 : P);
     _scrollController.addListener(() {
       if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
         setState(() => _hasScrolled = !_hasScrolled);
@@ -160,7 +161,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget get _body => LayoutBuilder(builder: (ctx, size) {
         final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
-        // TODO: для большого экрана не нужна тень снизу
         return MTShadowed(
           topShadow: _hasScrolled,
           topPaddingIndent: _isTaskDialog ? 0 : P,
@@ -184,7 +184,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       : Observer(
                           builder: (_) => task!.canShowBoard && controller.showBoard
                               ? Container(
-                                  height: expandedHeight - _bottomPaddingIndent,
+                                  height: expandedHeight - _bottomPaddingIndent + P_2,
                                   padding: const EdgeInsets.only(top: P3),
                                   child: TasksBoard(
                                     controller.statusController,
@@ -209,35 +209,49 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget? get _title => _hasScrolled
       ? Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
           children: [
             if (_hasParent) _parentTitle,
-            _isBigGroup ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)) : H3(task!.title, maxLines: 1),
+            _isBigGroup
+                ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
+                : H3(task!.title, maxLines: 1),
           ],
         )
       : null;
 
-  Widget get _page => _isTaskDialog
-      ? TaskDialog(controller, _scrollController, _title, _body)
-      : MTPage(
-          scrollController: _scrollController,
-          appBar: MTAppBar(
-            height: _isBigGroup && task!.parent != null ? P10 : null,
-            bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
-            leading: _isBigGroup ? Container() : null,
-            middle: _title,
-            trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
-          ),
-          leftBar: const LeftMenu(),
-          body: SafeArea(top: false, bottom: false, child: _body),
-          bottomBar: _showNoteToolbar
-              ? NoteToolbar(controller)
-              : _hasQuickActions && !_isBigGroup
-                  ? TaskBottomToolbar(controller)
-                  : null,
-          rightBar: _isBigGroup ? TaskRightToolbar(controller) : null,
-        );
+  Widget _page(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    return _isTaskDialog
+        ? TaskDialog(controller, _scrollController, _title, _body)
+        : MTPage(
+            scrollController: _scrollController,
+            appBar: _isBigGroup && !_hasScrolled
+                ? null
+                : MTAppBar(
+                    height: _headerHeight,
+                    paddingTop: P,
+                    bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
+                    leading: _isBigGroup ? Container() : null,
+                    middle: _title,
+                    trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
+                  ),
+            leftBar: const LeftMenu(),
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: MediaQuery(
+                data: mq.copyWith(padding: mq.padding.copyWith(top: mq.padding.top + (_isBigGroup ? _headerHeight : 0))),
+                child: _body,
+              ),
+            ),
+            bottomBar: _showNoteToolbar
+                ? NoteToolbar(controller)
+                : _hasQuickActions && !_isBigGroup
+                    ? TaskBottomToolbar(controller)
+                    : null,
+            rightBar: _isBigGroup ? TaskRightToolbar(TaskRightToolbarController(controller)) : null,
+          );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +260,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           ? Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                _page,
+                _page(context),
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {
                     task!.error = null;

@@ -8,7 +8,6 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/list_tile.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
@@ -21,18 +20,19 @@ class TaskStatusField extends StatelessWidget {
   Task get _task => _controller.task!;
   MTFieldData get _statusFD => _controller.fData(TaskFCode.status.index);
 
+  static const _padding = EdgeInsets.symmetric(horizontal: P3);
+
   @override
   Widget build(BuildContext context) {
-    return MTListTile(
-      bottomDivider: false,
-      color: Colors.transparent,
-      padding: const EdgeInsets.all(P3),
-      middle: _task.canShowStatus
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: _task.canShowStatus
           ? MTButton.main(
               titleText: '${_task.status}',
               color: _task.closed ? greenColor : null,
               constrained: false,
-              padding: const EdgeInsets.symmetric(horizontal: P3),
+              margin: _padding,
+              padding: _padding,
               trailing: _task.canSetStatus
                   ? const Padding(
                       padding: EdgeInsets.only(left: P_2, top: P_2),
@@ -48,7 +48,8 @@ class TaskStatusField extends StatelessWidget {
                   leading: const DoneIcon(true, color: mainBtnTitleColor),
                   constrained: false,
                   color: greenColor,
-                  padding: const EdgeInsets.symmetric(horizontal: P3),
+                  margin: _padding,
+                  padding: _padding,
                   loading: _statusFD.loading,
                   onTap: () => _controller.statusController.setStatus(_task, close: true),
                 )
@@ -57,7 +58,8 @@ class TaskStatusField extends StatelessWidget {
                   type: ButtonType.card,
                   color: greenLightColor,
                   titleColor: greenColor,
-                  padding: const EdgeInsets.symmetric(horizontal: P3),
+                  margin: _padding,
+                  padding: _padding,
                 ),
     );
   }

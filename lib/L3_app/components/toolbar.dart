@@ -92,6 +92,16 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(_innerHeight);
 
+  Widget _toolbar(BuildContext context) => MTToolBar(
+        showCloseButton: showCloseButton,
+        leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),
+        titleText: title,
+        middle: middle,
+        bottom: bottom,
+        trailing: trailing != null ? trailing : null,
+        color: Colors.transparent,
+      );
+
   @override
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
@@ -104,23 +114,21 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return Container(
       height: topHeight + _innerHeight + bottomHeight,
-      child: CupertinoNavigationBar(
-        transitionBetweenRoutes: !isBottom || transitionBetweenRoutes == true,
-        automaticallyImplyLeading: false,
-        automaticallyImplyMiddle: false,
-        padding: EdgeInsetsDirectional.only(top: pTop, bottom: pBottom, start: 0, end: 0),
-        leading: MTToolBar(
-          showCloseButton: showCloseButton,
-          leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),
-          titleText: title,
-          middle: middle,
-          bottom: bottom,
-          trailing: trailing != null ? trailing : null,
-          color: Colors.transparent,
-        ),
-        backgroundColor: bgColor ?? navbarDefaultBgColor,
-        border: null,
-      ),
+      child: isBigScreen
+          ? Container(
+              padding: mqPadding.copyWith(top: topHeight, bottom: bottomHeight),
+              child: _toolbar(context),
+              color: bgColor?.resolve(context),
+            )
+          : CupertinoNavigationBar(
+              transitionBetweenRoutes: !isBottom || transitionBetweenRoutes == true,
+              automaticallyImplyLeading: false,
+              automaticallyImplyMiddle: false,
+              padding: EdgeInsetsDirectional.only(top: pTop, bottom: pBottom, start: 0, end: 0),
+              leading: _toolbar(context),
+              backgroundColor: bgColor ?? navbarDefaultBgColor,
+              border: null,
+            ),
     );
   }
 }

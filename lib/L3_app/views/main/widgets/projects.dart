@@ -25,6 +25,7 @@ class Projects extends StatelessWidget {
     final image = imageForState(overallState, size: compact ? MediaQuery.sizeOf(context).width : null);
     return MTCardButton(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           BaseText.f2(loc.project_list_title, align: TextAlign.center),
           compact ? Expanded(child: image) : image,
@@ -47,7 +48,7 @@ class Projects extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: P + P_2),
                   child: MTShadowed(
-                    child: TasksGroup(tasksMainController.dashboardProjects),
+                    child: TasksGroup(tasksMainController.dashboardProjects, standalone: false),
                   ),
                 ),
               ],

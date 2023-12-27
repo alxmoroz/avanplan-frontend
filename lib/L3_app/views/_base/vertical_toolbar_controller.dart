@@ -14,7 +14,7 @@ abstract class _VerticalToolbarControllerBase with Store {
   bool compact = false;
 
   @computed
-  double get wideWidth => 300.0;
+  double get wideWidth => 290.0;
   @computed
   double get compactWidth => P12;
 

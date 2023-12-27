@@ -54,7 +54,7 @@ class MyTasks extends StatelessWidget {
                 const SizedBox(height: P_2),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: P + P_2),
-                  child: MTShadowed(child: TasksGroup(tasksMainController.myTasksGroups.first.value, isMine: true)),
+                  child: MTShadowed(child: TasksGroup(tasksMainController.myTasksGroups.first.value, isMine: true, standalone: false)),
                 ),
               ],
             ),

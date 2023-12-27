@@ -10,6 +10,7 @@ import '../../usecases/task_actions.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/right_toolbar.dart';
+import 'widgets/actions/right_toolbar_controller.dart';
 
 class TaskDialog extends StatelessWidget {
   const TaskDialog(this._controller, this._scrollController, this._title, this._body);
@@ -28,7 +29,7 @@ class TaskDialog extends StatelessWidget {
       body: _body,
       rightBar: MediaQuery(
         data: MediaQuery.of(context).copyWith(padding: const EdgeInsets.symmetric(vertical: P2)),
-        child: TaskRightToolbar(_controller),
+        child: TaskRightToolbar(TaskRightToolbarController(_controller)),
       ),
       bottomBar: _task.canComment ? NoteToolbar(_controller) : null,
     );

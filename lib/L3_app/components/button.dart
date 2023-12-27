@@ -26,7 +26,7 @@ mixin FocusManaging {
     }
   }
 
-  Future tapAction(BuildContext context, bool uf, Function callback, {FeedbackType? fbType}) async {
+  Future tapAction(BuildContext context, bool uf, Function action, {FeedbackType? fbType}) async {
     if (fbType != null) {
       switch (fbType) {
         case FeedbackType.light:
@@ -51,7 +51,7 @@ mixin FocusManaging {
     if (uf) {
       unfocus(context);
     }
-    await callback();
+    await action();
   }
 }
 

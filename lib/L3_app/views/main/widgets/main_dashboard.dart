@@ -49,7 +49,7 @@ class MainDashboard extends StatelessWidget {
     return Observer(
       builder: (_) => isBig || !_hasTasks
           ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topInnerPadding),
+              padding: padding.add(const EdgeInsets.symmetric(horizontal: P3)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -62,7 +62,7 @@ class MainDashboard extends StatelessWidget {
               ),
             )
           : GridView(
-              padding: padding.add(EdgeInsets.symmetric(vertical: topInnerPadding, horizontal: P3).copyWith(bottom: bottomPadding)),
+              padding: padding.add(const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topInnerPadding, bottom: bottomPadding)),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: SCR_S_WIDTH,
                 crossAxisSpacing: spacing,

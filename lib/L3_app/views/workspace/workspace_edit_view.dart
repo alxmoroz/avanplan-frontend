@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
@@ -53,7 +54,7 @@ class _WSEditViewState extends State<WSEditView> {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: loc.workspace_title),
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.workspace_title),
       body: _form,
     );
   }

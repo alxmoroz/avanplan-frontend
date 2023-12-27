@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -47,7 +48,7 @@ class UserListDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTToolBar(middle: _ws.subPageTitle(loc.user_list_title)),
+        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _ws.subPageTitle(loc.user_list_title)),
         body: ListView.builder(
           shrinkWrap: true,
           itemBuilder: _userBuilder,

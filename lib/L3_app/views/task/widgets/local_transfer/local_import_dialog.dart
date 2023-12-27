@@ -50,8 +50,11 @@ class LocalImportDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTDialog(
-          topBar: MTToolBar(
-            titleText: loc.task_transfer_title,
+          topBar: MTAppBar(
+            showCloseButton: true,
+            bgColor: b2Color,
+            title: loc.task_transfer_title,
+            height: P * 20.5 + (_showSelectAll ? P8 : 0),
             bottom: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -94,7 +97,6 @@ class LocalImportDialog extends StatelessWidget {
               ],
             ),
           ),
-          topBarHeight: P * 20.5 + (_showSelectAll ? P8 : 0),
           body: MTShadowed(
             topPaddingIndent: 0,
             shadowColor: b1Color,

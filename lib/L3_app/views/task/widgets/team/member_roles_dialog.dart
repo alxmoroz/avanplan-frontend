@@ -8,6 +8,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/text.dart';
@@ -41,7 +42,10 @@ class MemberRolesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTToolBar(
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
+          height: P * 12,
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -51,7 +55,6 @@ class MemberRolesDialog extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P * 12,
         body: ListView(
           shrinkWrap: true,
           children: [

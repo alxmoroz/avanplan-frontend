@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
+import '../../components/icons.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
@@ -58,7 +58,18 @@ class SourceListDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTToolBar(middle: _ws.subPageTitle(loc.source_list_title)),
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
+          middle: _ws.subPageTitle(loc.source_list_title),
+          trailing: _ws.sources.isNotEmpty && _ws.hpSourceCreate
+              ? MTButton.icon(
+                  const PlusIcon(circled: true, size: P5),
+                  padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                  onTap: () => startAddSource(_ws),
+                )
+              : null,
+        ),
         body: _ws.sources.isEmpty
             ? Center(child: NoSources(_ws))
             : ListView.builder(
@@ -66,14 +77,6 @@ class SourceListDialog extends StatelessWidget {
                 itemBuilder: _sourceBuilder,
                 itemCount: _ws.sources.length,
               ),
-        bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
-            ? MTAppBar(
-                isBottom: true,
-                paddingBottom: isBigScreen ? P2 : null,
-                bgColor: b2Color,
-                trailing: MTPlusButton(() => startAddSource(_ws)),
-              )
-            : null,
       );
     });
   }

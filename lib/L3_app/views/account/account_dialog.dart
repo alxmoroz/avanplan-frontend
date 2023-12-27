@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/colors_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -39,8 +40,10 @@ class AccountDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTToolBar(
-          titleText: loc.my_account_title,
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
+          title: loc.my_account_title,
           trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),
         ),
         body: _user != null

@@ -86,7 +86,6 @@ class TaskRouter extends MTRouter {
 
     // если переход из Мои задачи или с главной то нужно запушить родителя
     if (!(previousName ?? '').startsWith('/projects')) {
-      print(previousName);
       await pushNamed(context, args: TaskController(parent));
     }
   }
@@ -190,9 +189,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget _page(BuildContext context) {
     return _isTaskDialog
-        ? TaskDialog(controller, _title, _body)
+        ? TaskDialog(controller, _title, _body, scrollHeaderOffset: _headerHeight)
         : MTPage(
-            scrollHeaderHeight: _headerHeight,
+            scrollOffsetTop: _headerHeight,
             appBar: MTAppBar(
               height: _headerHeight,
               paddingTop: P,

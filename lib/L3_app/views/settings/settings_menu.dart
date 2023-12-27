@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -86,7 +87,10 @@ class SettingsMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: const MTToolBar(),
+        topBar: const MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
+        ),
         body: ListView(
           shrinkWrap: true,
           children: [

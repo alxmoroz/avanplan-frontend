@@ -37,7 +37,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
     return Observer(
       builder: (_) => VerticalToolbar(
         _controller,
-        padding: MediaQuery.paddingOf(context).copyWith(left: 0, top: 0),
+        padding: MediaQuery.paddingOf(context).copyWith(left: 0, top: P2, bottom: P2),
         child: Column(
           children: [
             /// параметры задачи

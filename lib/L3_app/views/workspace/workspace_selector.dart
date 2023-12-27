@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -24,7 +25,7 @@ class WorkspaceSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTToolBar(titleText: loc.workspace_selector_title),
+        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.workspace_selector_title),
         body: ListView.builder(
           shrinkWrap: true,
           itemCount: _wss.length + (_canCreate ? 1 : 0),

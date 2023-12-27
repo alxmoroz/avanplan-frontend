@@ -6,6 +6,7 @@ import '../../L1_domain/entities/base_entity.dart';
 import 'button.dart';
 import 'circle.dart';
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'icons.dart';
@@ -69,8 +70,10 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: MTToolBar(
-          titleText: titleText,
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
+          title: titleText,
           trailing: onReset != null && selectedId != null
               ? MTButton.icon(
                   const DeleteIcon(),

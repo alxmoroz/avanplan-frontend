@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/field_data.dart';
@@ -26,7 +27,7 @@ class TextEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: _title),
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: _title),
       body: Observer(
         builder: (ctx) => Padding(
           padding: MediaQuery.paddingOf(ctx),

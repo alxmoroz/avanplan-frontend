@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/list_tile.dart';
@@ -20,7 +21,7 @@ class UserDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: loc.user_title),
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.user_title),
       body: ListView(
         shrinkWrap: true,
         children: [

@@ -28,9 +28,9 @@ Future showProjectStatusesDialog(ProjectStatusesController controller) async {
 }
 
 class _PSBody extends StatelessWidget {
-  const _PSBody(this._controller, {this.shrinkWrap = true});
+  const _PSBody(this._controller, {this.footer});
   final ProjectStatusesController _controller;
-  final bool shrinkWrap;
+  final Widget? footer;
 
   Widget itemBuilder(BuildContext context, int index) {
     final status = _controller.sortedStatuses.elementAt(index);
@@ -52,10 +52,17 @@ class _PSBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => ListView.builder(
-        shrinkWrap: shrinkWrap,
-        itemBuilder: itemBuilder,
-        itemCount: _controller.sortedStatuses.length,
+      builder: (_) => ListView(
+        shrinkWrap: true,
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: itemBuilder,
+            itemCount: _controller.sortedStatuses.length,
+          ),
+          if (footer != null) footer!,
+        ],
       ),
     );
   }
@@ -67,6 +74,7 @@ class _CreateStatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTButton.secondary(
+        margin: const EdgeInsets.only(top: P3),
         leading: const PlusIcon(),
         titleText: loc.status_create_action_title,
         onTap: _controller.create,
@@ -112,23 +120,22 @@ class ProjectStatusesQuizView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: MTAdaptive(child: _PSBody(_controller, shrinkWrap: false)),
-        ),
-        bottomBar: MTAppBar(
-          isBottom: true,
-          bgColor: b2Color,
-          height: P8 + P8 + P3,
-          middle: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _CreateStatusButton(_controller),
-              const SizedBox(height: P3),
-              QuizNextButton(
-                _qController,
-                loading: _controller.project.loading,
-                margin: EdgeInsets.zero,
+          child: MTAdaptive(
+            child: _PSBody(
+              _controller,
+              footer: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _CreateStatusButton(_controller),
+                  const SizedBox(height: P3),
+                  QuizNextButton(
+                    _qController,
+                    loading: _controller.project.loading,
+                    margin: EdgeInsets.zero,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -143,13 +150,10 @@ class ProjectStatusesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: loc.status_list_title),
-      body: _PSBody(_controller),
-      bottomBar: MTAppBar(
-        isBottom: true,
-        bgColor: b2Color,
-        paddingBottom: isBigScreen ? P2 : null,
-        middle: _CreateStatusButton(_controller),
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.status_list_title),
+      body: _PSBody(
+        _controller,
+        footer: _CreateStatusButton(_controller),
       ),
     );
   }

@@ -22,8 +22,9 @@ class MTErrorSheet extends StatelessWidget {
     return MTAdaptive(
       force: true,
       child: MTDialog(
-        topBar: MTToolBar(
-          color: warningDarkColor,
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: warningDarkColor,
           middle: BaseText.medium(
             error.title,
             maxLines: 2,

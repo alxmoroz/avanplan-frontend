@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../main.dart';
 import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
@@ -76,7 +77,7 @@ class TemplateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: loc.template_selector_title),
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.template_selector_title),
       body: Observer(
         builder: (_) => _controller.loading
             ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress(color: mainColor)))

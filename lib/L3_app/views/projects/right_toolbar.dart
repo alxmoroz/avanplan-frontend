@@ -23,6 +23,7 @@ class ProjectsRightToolbar extends StatelessWidget implements PreferredSizeWidge
         _controller,
         child: Column(
           children: [
+            const Spacer(),
             CreateProjectButton(CreateProjectController(), compact: _controller.compact),
           ],
         ),

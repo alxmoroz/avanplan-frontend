@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import '../../../../components/colors_base.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
@@ -9,7 +10,7 @@ import 'task_details.dart';
 
 Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
       MTDialog(
-        topBar: MTToolBar(middle: controller.task!.subPageTitle(loc.details)),
+        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: controller.task!.subPageTitle(loc.details)),
         body: TaskDetails(controller, standalone: true),
       ),
     );

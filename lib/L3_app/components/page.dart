@@ -5,12 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'adaptive.dart';
 import 'background.dart';
-import 'constants.dart';
-import 'shadowed.dart';
+import 'scrollable.dart';
 
 class MTPage extends StatefulWidget {
   const MTPage({
-    this.scrollHeaderHeight,
+    this.scrollOffsetTop,
     this.appBar,
     required this.body,
     this.leftBar,
@@ -18,7 +17,7 @@ class MTPage extends StatefulWidget {
     this.rightBar,
   });
 
-  final double? scrollHeaderHeight;
+  final double? scrollOffsetTop;
   final PreferredSizeWidget? appBar;
   final Widget body;
   final PreferredSizeWidget? leftBar;
@@ -30,26 +29,7 @@ class MTPage extends StatefulWidget {
 }
 
 class _MTPageState extends State<MTPage> {
-  late final ScrollController _scrollController;
   bool _hasScrolled = false;
-
-  @override
-  void initState() {
-    _scrollController = ScrollController();
-    final offset = widget.scrollHeaderHeight ?? 0 + P8;
-    _scrollController.addListener(() {
-      if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
-        setState(() => _hasScrolled = !_hasScrolled);
-      }
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   Widget get _scaffold {
     return Builder(builder: (context) {
@@ -59,18 +39,21 @@ class _MTPageState extends State<MTPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           key: widget.key,
-          appBar: isBigScreen && !_hasScrolled ? null : widget.appBar,
-          body: PrimaryScrollController(
-            controller: _scrollController,
-            child: MediaQuery(
-              data: mq.copyWith(
-                padding: mqPadding.copyWith(
-                  top: mq.padding.top + (isBigScreen ? widget.scrollHeaderHeight ?? 0 : 0),
-                ),
-              ),
-              child: MTShadowed(topShadow: _hasScrolled, topPaddingIndent: P, child: widget.body),
-            ),
-          ),
+          appBar: isBigScreen && widget.scrollOffsetTop != null && !_hasScrolled ? null : widget.appBar,
+          body: widget.scrollOffsetTop != null
+              ? MediaQuery(
+                  data: mq.copyWith(
+                    padding: mqPadding.copyWith(
+                      top: mq.padding.top + (isBigScreen ? widget.scrollOffsetTop ?? 0 : 0),
+                    ),
+                  ),
+                  child: MTScrollable(
+                    scrollOffsetTop: widget.scrollOffsetTop,
+                    child: widget.body,
+                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                  ),
+                )
+              : widget.body,
           extendBody: true,
           extendBodyBehindAppBar: true,
           bottomNavigationBar: widget.bottomBar,

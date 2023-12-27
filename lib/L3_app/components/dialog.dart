@@ -3,12 +3,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
+import 'scrollable.dart';
 
 Color get barrierColor => b0Color.resolve(globalContext).withAlpha(220);
 
@@ -48,36 +50,64 @@ class MTDialog extends StatelessWidget {
   const MTDialog({
     required this.body,
     this.topBar,
-    this.topBarHeight,
     this.bottomBar,
     this.bottomBarHeight,
     this.bottomBarColor,
     this.rightBar,
     this.bgColor,
-    this.scrollController,
+    this.scrollOffsetTop,
+    this.onScrolled,
   });
 
   final Widget body;
 
-  final Widget? topBar;
-  final double? topBarHeight;
+  final PreferredSizeWidget? topBar;
+  final PreferredSizeWidget? rightBar;
 
   final Widget? bottomBar;
   final double? bottomBarHeight;
 
-  final Widget? rightBar;
-
   final Color? bottomBarColor;
   final Color? bgColor;
-  final ScrollController? scrollController;
+
+  final double? scrollOffsetTop;
+  final Function(bool)? onScrolled;
+
+  Widget get _center {
+    return Builder(builder: (context) {
+      final mq = MediaQuery.of(context);
+      final mqPadding = mq.padding;
+      final bPadding = isBigScreen ? P2 : defaultBottomPadding(context);
+      final double bbHeight = bPadding + (bottomBar != null ? (bottomBarHeight ?? P2 + MIN_BTN_HEIGHT) : 0);
+
+      return Stack(
+        children: [
+          MediaQuery(
+            data: mq.copyWith(
+              padding: mqPadding.copyWith(
+                top: (topBar?.preferredSize ?? Size.zero).height,
+                bottom: bbHeight,
+              ),
+            ),
+            child: scrollOffsetTop != null
+                ? MTScrollable(
+                    scrollOffsetTop: scrollOffsetTop,
+                    child: body,
+                    onScrolled: onScrolled,
+                  )
+                : body,
+          ),
+          if (topBar != null) topBar!,
+          if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+        ],
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final big = isBigScreen;
-    final bPadding = big ? P2 : defaultBottomPadding(context);
     final mq = MediaQuery.of(context);
-    final double bbHeight = bPadding + (bottomBar != null ? (bottomBarHeight ?? P2 + MIN_BTN_HEIGHT) : 0);
-    final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
+    final mqPadding = mq.padding;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
 
     return GestureDetector(
@@ -91,42 +121,25 @@ class MTDialog extends StatelessWidget {
             borderRadius: BorderRadius.only(
               topLeft: radius,
               topRight: radius,
-              bottomLeft: big ? radius : Radius.zero,
-              bottomRight: big ? radius : Radius.zero,
+              bottomLeft: isBigScreen ? radius : Radius.zero,
+              bottomRight: isBigScreen ? radius : Radius.zero,
             ),
           ),
-          child: Row(
+          child: Stack(
             children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    MediaQuery(
-                      data: mq.copyWith(
-                        padding: mq.padding.copyWith(
-                          top: tbHeight,
-                          bottom: bbHeight,
+              rightBar != null
+                  ? Observer(builder: (_) {
+                      return MediaQuery(
+                        data: mq.copyWith(
+                          padding: mq.padding.copyWith(
+                            right: mqPadding.right + (rightBar?.preferredSize ?? Size.zero).width,
+                          ),
                         ),
-                      ),
-                      child: PrimaryScrollController(controller: scrollController ?? ScrollController(), child: body),
-                    ),
-                    if (topBar != null)
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: topBar!,
-                      ),
-                    if (bottomBar != null)
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: bottomBar!,
-                      ),
-                  ],
-                ),
-              ),
-              if (rightBar != null) rightBar!,
+                        child: _center,
+                      );
+                    })
+                  : _center,
+              if (rightBar != null) Align(alignment: Alignment.centerRight, child: rightBar!),
             ],
           ),
         ),

@@ -93,7 +93,7 @@ class DragAndDropList implements DragAndDropListInterface {
                 top: 0,
                 left: 0,
                 right: 0,
-                child: MTToolBar(middle: header, showCloseButton: false),
+                child: MTAppBar(bgColor: b2Color, middle: header, leading: SizedBox()),
               ),
             // if (bottomBar != null)
             //   Positioned(

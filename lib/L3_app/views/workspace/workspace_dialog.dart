@@ -130,8 +130,10 @@ class WorkspaceDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTToolBar(
-            titleText: loc.workspace_title,
+        topBar: MTAppBar(
+            showCloseButton: true,
+            bgColor: b2Color,
+            title: loc.workspace_title,
             trailing: _ws.hpInfoUpdate
                 ? MTButton.icon(
                     const EditIcon(),

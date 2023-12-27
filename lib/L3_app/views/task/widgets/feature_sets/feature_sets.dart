@@ -26,9 +26,9 @@ import '../../controllers/task_controller.dart';
 Future showFeatureSetsDialog(TaskController controller) async => await showMTDialog<void>(FeatureSetsDialog(FeatureSetsController(controller)));
 
 class _FSBody extends StatelessWidget {
-  const _FSBody(this._controller, {this.shrinkWrap = true});
+  const _FSBody(this._controller, {this.footer});
   final FeatureSetsController _controller;
-  final bool shrinkWrap;
+  final Widget? footer;
 
   static const _iconSize = P8;
   Widget _icon(int index) => MTImage(
@@ -48,7 +48,7 @@ class _FSBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ListView(
-        shrinkWrap: shrinkWrap,
+        shrinkWrap: true,
         children: [
           MTListSection(titleText: loc.feature_sets_always_on_label),
           MTCheckBoxTile(
@@ -78,6 +78,7 @@ class _FSBody extends StatelessWidget {
             },
           ),
           const SizedBox(height: P3),
+          if (footer != null) footer!,
         ],
       ),
     );
@@ -123,15 +124,15 @@ class FeatureSetsQuizView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
-        ),
-        bottomBar: MTAppBar(
-          isBottom: true,
-          bgColor: b2Color,
-          middle: QuizNextButton(
-            _qController,
-            loading: _controller.project.loading,
-            margin: EdgeInsets.zero,
+          child: MTAdaptive(
+            child: _FSBody(
+              _controller,
+              footer: QuizNextButton(
+                _qController,
+                loading: _controller.project.loading,
+                margin: EdgeInsets.zero,
+              ),
+            ),
           ),
         ),
       ),
@@ -146,13 +147,10 @@ class FeatureSetsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: loc.feature_sets_title),
-      body: _FSBody(_controller),
-      bottomBar: MTAppBar(
-        isBottom: true,
-        paddingBottom: isBigScreen ? P2 : null,
-        bgColor: b2Color,
-        middle: MTButton.main(
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.feature_sets_title),
+      body: _FSBody(
+        _controller,
+        footer: MTButton.main(
           titleText: loc.save_action_title,
           onTap: _controller.save,
         ),

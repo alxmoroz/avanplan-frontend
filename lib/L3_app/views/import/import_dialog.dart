@@ -165,11 +165,13 @@ class ImportDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTToolBar(
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
+          height: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
           middle: controller.ws.subPageTitle(loc.import_title),
           bottom: _hasSources ? _header : null,
         ),
-        topBarHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
         body: _body(context),
         bottomBar: _bottomBar,
         bottomBarHeight: _hasProjects ? P * 13 : null,

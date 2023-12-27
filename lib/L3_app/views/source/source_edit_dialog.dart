@@ -11,6 +11,7 @@ import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -100,7 +101,9 @@ class _SourceEditDialogState extends State<SourceEditDialog> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTToolBar(
+        topBar: MTAppBar(
+          showCloseButton: true,
+          bgColor: b2Color,
           middle: Row(mainAxisSize: MainAxisSize.min, children: [
             if (wsMainController.multiWS) BaseText.f3('${controller.ws.codeStr} ', maxLines: 1),
             if (_isNew) BaseText('${loc.source_title_new} ', maxLines: 1),

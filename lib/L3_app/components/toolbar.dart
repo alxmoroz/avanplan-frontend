@@ -10,8 +10,8 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'text.dart';
 
-class MTToolBar extends StatelessWidget {
-  const MTToolBar({
+class _ToolBar extends StatelessWidget {
+  const _ToolBar({
     this.titleText,
     this.leading,
     this.middle,
@@ -72,6 +72,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.transitionBetweenRoutes,
     this.isBottom = false,
     this.showCloseButton = false,
+    this.onClose,
   });
 
   final Widget? leading;
@@ -86,14 +87,16 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool? transitionBetweenRoutes;
   final bool isBottom;
   final bool showCloseButton;
+  final VoidCallback? onClose;
 
   double get _innerHeight => height ?? P8;
 
   @override
   Size get preferredSize => Size.fromHeight(_innerHeight);
 
-  Widget _toolbar(BuildContext context) => MTToolBar(
+  Widget _toolbar(BuildContext context) => _ToolBar(
         showCloseButton: showCloseButton,
+        onClose: onClose,
         leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),
         titleText: title,
         middle: middle,
@@ -118,7 +121,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? Container(
               padding: mqPadding.copyWith(top: topHeight, bottom: bottomHeight),
               child: _toolbar(context),
-              color: bgColor?.resolve(context),
+              color: (bgColor ?? b2Color).resolve(context),
             )
           : CupertinoNavigationBar(
               transitionBetweenRoutes: !isBottom || transitionBetweenRoutes == true,

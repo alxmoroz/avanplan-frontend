@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
@@ -41,7 +42,7 @@ class MemberDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTToolBar(middle: _task.subPageTitle(loc.member_title)),
+        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _task.subPageTitle(loc.member_title)),
         body: _member != null
             ? ListView(
                 shrinkWrap: true,

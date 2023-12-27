@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../components/colors_base.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
@@ -20,7 +21,7 @@ class AttachmentsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTToolBar(titleText: loc.attachments_label),
+      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.attachments_label),
       body: Observer(
         builder: (_) => MTShadowed(
           child: ListView.builder(

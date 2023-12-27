@@ -40,7 +40,7 @@ class MyTasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      scrollHeaderHeight: P8,
+      scrollOffsetTop: P8,
       appBar: MTAppBar(
         bgColor: isBigScreen ? b2Color : null,
         leading: isBigScreen ? const SizedBox() : null,

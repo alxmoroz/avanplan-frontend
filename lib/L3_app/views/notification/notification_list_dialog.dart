@@ -1,13 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:app_settings/app_settings.dart' as sys_settings;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
-import '../../../L2_data/services/platform.dart';
-import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
@@ -87,33 +86,33 @@ class NotificationListDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.notification_list_title));
       return MTDialog(
-        topBar: MTToolBar(titleText: loc.notification_list_title),
+        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.notification_list_title),
         body: _controller.notifications.isEmpty
             ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
-            : ListView.builder(
+            : ListView(
                 shrinkWrap: true,
-                itemBuilder: (_, index) => _itemBuilder(context, index),
-                itemCount: _controller.notifications.length + 1,
-              ),
-        bottomBar: !isWeb && !_controller.pushAuthorized
-            ? MTAppBar(
-                isBottom: true,
-                paddingBottom: isBigScreen ? P2 : null,
-                bgColor: b2Color,
-                middle: MTButton(
-                  leading: const PrivacyIcon(),
-                  middle: SmallText(
-                    loc.notification_push_ios_denied_btn_title,
-                    align: TextAlign.center,
-                    maxLines: 2,
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) => _itemBuilder(context, index),
+                    itemCount: _controller.notifications.length + 1,
                   ),
-                  trailing: const LinkOutIcon(),
-                  onTap: _showGotoSystemSettingsDialog,
-                ),
-              )
-            : null,
+                  if (!kIsWeb && !_controller.pushAuthorized)
+                    MTButton(
+                      margin: const EdgeInsets.all(P3),
+                      leading: const PrivacyIcon(),
+                      middle: SmallText(
+                        loc.notification_push_ios_denied_btn_title,
+                        align: TextAlign.center,
+                        maxLines: 2,
+                      ),
+                      trailing: const LinkOutIcon(),
+                      onTap: _showGotoSystemSettingsDialog,
+                    )
+                ],
+              ),
       );
     });
   }

@@ -31,20 +31,19 @@ class ProjectsRouter extends MTRouter {
 }
 
 class ProjectsView extends StatelessWidget {
-  static const _headerHeight = P8;
-
   Widget get _title => Align(
-      alignment: Alignment.centerLeft,
-      child: H1(
-        loc.project_list_title,
-        padding: const EdgeInsets.symmetric(horizontal: P3),
-      ));
+        alignment: Alignment.centerLeft,
+        child: H1(
+          loc.project_list_title,
+          padding: const EdgeInsets.symmetric(horizontal: P3),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTPage(
-        scrollHeaderHeight: _headerHeight,
+        scrollHeaderHeight: P8,
         appBar: MTAppBar(
           bgColor: isBigScreen ? b2Color : null,
           leading: isBigScreen ? const SizedBox() : null,

@@ -36,7 +36,7 @@ class _MTPageState extends State<MTPage> {
   @override
   void initState() {
     _scrollController = ScrollController();
-    final offset = widget.scrollHeaderHeight ?? 0 + P;
+    final offset = widget.scrollHeaderHeight ?? 0 + P8;
     _scrollController.addListener(() {
       if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
         setState(() => _hasScrolled = !_hasScrolled);

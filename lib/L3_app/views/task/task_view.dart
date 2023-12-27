@@ -156,7 +156,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                         builder: (_) => task!.canShowBoard && controller.showBoard
                             ? Container(
                                 // height: expandedHeight - _bottomPaddingIndent + P_2,
-                                height: expandedHeight + P_2,
+                                height: expandedHeight + P2,
                                 padding: const EdgeInsets.only(top: P3),
                                 child: TasksBoard(
                                   controller.statusController,

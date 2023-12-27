@@ -90,19 +90,6 @@ class TaskRouter extends MTRouter {
       print(previousName);
       await pushNamed(context, args: TaskController(parent));
     }
-
-    // MTRouter.routerForType(ProjectsRouter).navigate(context);
-
-    // final parents = [];
-    // Task? parent = target.parent;
-    // while (parent != null) {
-    //   parents.add(parent);
-    //   parent = parent.parent;
-    // }
-    // for (Task t in parents.reversed) {
-    //   navigate(context, args: TaskController(t));
-    // }
-    // navigate(context, args: TaskController(target));
   }
 }
 

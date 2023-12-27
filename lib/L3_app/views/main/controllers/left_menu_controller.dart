@@ -2,7 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../_base/vertical_toolbar_controller.dart';
+import '../../../components/vertical_toolbar_controller.dart';
 
 part 'left_menu_controller.g.dart';
 

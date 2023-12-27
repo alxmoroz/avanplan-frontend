@@ -7,11 +7,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../components/vertical_toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
@@ -34,60 +34,50 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Observer(
-        builder: (_) => Container(
-          width: _controller.width,
-          // обнуляем верхний системный отступ, т.к. внутри TaskDetails - внутри которого ListView — который учитывает этот системный отступ
-          padding: MediaQuery.paddingOf(context).copyWith(left: 0, top: 0),
-          decoration: BoxDecoration(
-            color: b3Color.resolve(context),
-            borderRadius: const BorderRadius.horizontal(left: Radius.circular(DEF_BORDER_RADIUS)),
-            boxShadow: [BoxShadow(blurRadius: P, offset: const Offset(-1, 0), color: b1Color.resolve(context))],
-          ),
-          child: Column(
-            children: [
-              /// параметры задачи
-              TaskDetails(_taskController, compact: _controller.compact),
-              const Spacer(),
+    return Observer(
+      builder: (_) => VerticalToolbar(
+        _controller,
+        padding: MediaQuery.paddingOf(context).copyWith(left: 0, top: 0),
+        child: Column(
+          children: [
+            /// параметры задачи
+            TaskDetails(_taskController, compact: _controller.compact),
+            const Spacer(),
 
-              /// быстрые действия
-              if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _controller.compact),
-              if (_task.canCreate && !_task.isTask) CreateTaskButton(_taskController, compact: _controller.compact),
-              if (_task.canLocalImport)
-                MTListTile(
-                  leading: const LocalImportIcon(circled: true, size: P6),
-                  middle: _controller.compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
-                  bottomDivider: false,
-                  onTap: () => localImportDialog(_taskController),
-                ),
+            /// быстрые действия
+            if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _controller.compact),
+            if (_task.canCreate && !_task.isTask) CreateTaskButton(_taskController, compact: _controller.compact),
+            if (_task.canLocalImport)
+              MTListTile(
+                leading: const LocalImportIcon(circled: true, size: P6),
+                middle: _controller.compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
+                bottomDivider: false,
+                onTap: () => localImportDialog(_taskController),
+              ),
 
-              /// действия с задачей
-              if (_task.actions.isNotEmpty) ...[
-                if (_task.isTask || _controller.showActions)
-                  for (final at in _task.actions)
-                    MTListTile(
-                      middle: TaskActionItem(at, compact: _controller.compact, popup: false),
-                      bottomDivider: false,
-                      onTap: () async {
-                        await _taskController.taskAction(at);
-                        _controller.toggleShowActions();
-                      },
-                    )
-                else
+            /// действия с задачей
+            if (_task.actions.isNotEmpty) ...[
+              if (_task.isTask || _controller.showActions)
+                for (final at in _task.actions)
                   MTListTile(
-                    leading: const MenuIcon(circled: true, size: P6),
-                    middle: _controller.compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor),
+                    middle: TaskActionItem(at, compact: _controller.compact, popup: false),
                     bottomDivider: false,
-                    onTap: _controller.toggleShowActions,
-                  ),
-              ]
-            ],
-          ),
+                    onTap: () async {
+                      await _taskController.taskAction(at);
+                      _controller.toggleShowActions();
+                    },
+                  )
+              else
+                MTListTile(
+                  leading: const MenuIcon(circled: true, size: P6),
+                  middle: _controller.compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor),
+                  bottomDivider: false,
+                  onTap: _controller.toggleShowActions,
+                ),
+            ]
+          ],
         ),
       ),
-      onTap: _controller.toggleWidth,
-      // onHorizontalDragUpdate: _controller.swiped,
     );
   }
 }

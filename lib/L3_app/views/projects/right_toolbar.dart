@@ -1,0 +1,32 @@
+// Copyright (c) 2023. Alexandr Moroz
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import '../../components/vertical_toolbar.dart';
+import 'create_project_button.dart';
+import 'create_project_controller.dart';
+import 'right_toolbar_controller.dart';
+
+class ProjectsRightToolbar extends StatelessWidget implements PreferredSizeWidget {
+  const ProjectsRightToolbar(this._controller);
+  final ProjectsRightToolbarController _controller;
+
+  @override
+  Size get preferredSize => Size.fromWidth(_controller.width);
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (_) => VerticalToolbar(
+        _controller,
+        child: Column(
+          children: [
+            CreateProjectButton(CreateProjectController(), compact: _controller.compact),
+          ],
+        ),
+      ),
+    );
+  }
+}

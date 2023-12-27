@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../views/_base/vertical_toolbar_controller.dart';
+import '../../../../components/vertical_toolbar_controller.dart';
 import '../../controllers/task_controller.dart';
 
 part 'right_toolbar_controller.g.dart';

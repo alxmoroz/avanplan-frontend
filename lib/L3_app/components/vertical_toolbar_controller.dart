@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../components/constants.dart';
+import 'constants.dart';
 
 part 'vertical_toolbar_controller.g.dart';
 
@@ -25,6 +25,6 @@ abstract class _VerticalToolbarControllerBase with Store {
   @action
   void toggleWidth() => compact = !compact;
 
-  @action
-  void swiped(DragUpdateDetails details) => compact = details.delta.dx < 0;
+  // @action
+  // void swiped(DragUpdateDetails details) => compact = details.delta.dx < 0;
 }

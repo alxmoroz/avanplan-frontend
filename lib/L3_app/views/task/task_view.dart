@@ -11,7 +11,6 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/error_sheet.dart';
 import '../../components/page.dart';
-import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -109,9 +108,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Task? get task => controller.task;
   bool get _hasParent => task?.parent != null;
 
-  late final ScrollController _scrollController;
-  bool _hasScrolled = false;
-
   bool get _isTaskDialog => isBigScreen && task!.isTask;
   bool get _isBigGroup => isBigScreen && !task!.isTask;
   double get _headerHeight => P8 + (_hasParent ? P5 : 0);
@@ -120,14 +116,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-    final offset = _headerHeight + (_hasParent ? P_2 : P);
-    _scrollController.addListener(() {
-      if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
-        setState(() => _hasScrolled = !_hasScrolled);
-      }
-    });
-
     if (kIsWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
@@ -141,96 +129,83 @@ class TaskViewState<T extends TaskView> extends State<T> {
       controller.subtasksController.dispose();
       controller.dispose();
     }
-    _scrollController.dispose();
     super.dispose();
   }
 
-  double get _bottomPaddingIndent => P4;
+  // double get _bottomPaddingIndent => P4;
+
+  // TODO: попробовать определять, что контент под тул-баром
+  // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
   Widget get _body => LayoutBuilder(builder: (ctx, size) {
         final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
-        return MTShadowed(
-          topShadow: _hasScrolled,
-          topPaddingIndent: _isTaskDialog ? 0 : P,
-          // TODO: попробовать определять, что контент под тул-баром
-          bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
-          bottomPaddingIndent: _bottomPaddingIndent,
-          child: ListView(
-            // shrinkWrap: false, //showSideMenu(context),
-            children: [
-              TaskHeader(controller),
-              task!.isTask
-                  ? _isTaskDialog
-                      ? TaskDialogDetails(controller)
-                      : MTAdaptive(child: TaskDetails(controller))
-                  : !task!.hasSubtasks
-                      ? SizedBox(
-                          // TODO: хардкод ((
-                          height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
-                          child: NoTasks(controller),
-                        )
-                      : Observer(
-                          builder: (_) => task!.canShowBoard && controller.showBoard
-                              ? Container(
-                                  height: expandedHeight - _bottomPaddingIndent + P_2,
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: TasksBoard(
-                                    controller.statusController,
-                                    extra: controller.subtasksController.loadClosedButton(board: true),
-                                  ),
-                                )
-                              : Container(
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: TasksListView(
-                                    task!.subtaskGroups,
-                                    scrollable: false,
-                                    extra: controller.subtasksController.loadClosedButton(),
-                                  ),
+        return ListView(
+          children: [
+            TaskHeader(controller),
+            task!.isTask
+                ? _isTaskDialog
+                    ? TaskDialogDetails(controller)
+                    : MTAdaptive(child: TaskDetails(controller))
+                : !task!.hasSubtasks
+                    ? SizedBox(
+                        // TODO: хардкод ((
+                        height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
+                        child: NoTasks(controller),
+                      )
+                    : Observer(
+                        builder: (_) => task!.canShowBoard && controller.showBoard
+                            ? Container(
+                                // height: expandedHeight - _bottomPaddingIndent + P_2,
+                                height: expandedHeight + P_2,
+                                padding: const EdgeInsets.only(top: P3),
+                                child: TasksBoard(
+                                  controller.statusController,
+                                  extra: controller.subtasksController.loadClosedButton(board: true),
                                 ),
-                        ),
-            ],
-          ),
+                              )
+                            : Container(
+                                padding: const EdgeInsets.only(top: P3),
+                                child: TasksListView(
+                                  task!.subtaskGroups,
+                                  scrollable: false,
+                                  extra: controller.subtasksController.loadClosedButton(),
+                                ),
+                              ),
+                      ),
+          ],
         );
       });
 
   Widget get _parentTitle => _isBigGroup ? TaskParentTitle(controller) : SmallText(task!.parent!.title, maxLines: 1);
-  Widget? get _title => _hasScrolled
-      ? Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
-          children: [
-            if (_hasParent) _parentTitle,
-            _isBigGroup
-                ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
-                : H3(task!.title, maxLines: 1),
-          ],
-        )
-      : null;
+  Widget? get _title => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
+        children: [
+          if (_hasParent) _parentTitle,
+          _isBigGroup
+              ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
+              : H3(task!.title, maxLines: 1),
+        ],
+      );
 
   Widget _page(BuildContext context) {
-    final mq = MediaQuery.of(context);
     return _isTaskDialog
-        ? TaskDialog(controller, _scrollController, _title, _body)
+        ? TaskDialog(controller, _title, _body)
         : MTPage(
-            scrollController: _scrollController,
-            appBar: _isBigGroup && !_hasScrolled
-                ? null
-                : MTAppBar(
-                    height: _headerHeight,
-                    paddingTop: P,
-                    bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
-                    leading: _isBigGroup ? Container() : null,
-                    middle: _title,
-                    trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
-                  ),
+            scrollHeaderHeight: _headerHeight,
+            appBar: MTAppBar(
+              height: _headerHeight,
+              paddingTop: P,
+              bgColor: _isBigGroup ? b2Color : null,
+              leading: _isBigGroup ? Container() : null,
+              middle: _title,
+              trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
+            ),
             leftBar: const LeftMenu(),
             body: SafeArea(
               top: false,
               bottom: false,
-              child: MediaQuery(
-                data: mq.copyWith(padding: mq.padding.copyWith(top: mq.padding.top + (_isBigGroup ? _headerHeight : 0))),
-                child: _body,
-              ),
+              child: _body,
             ),
             bottomBar: _showNoteToolbar
                 ? NoteToolbar(controller)

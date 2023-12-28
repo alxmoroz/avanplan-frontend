@@ -102,6 +102,9 @@ class TaskView extends StatefulWidget {
 }
 
 class TaskViewState<T extends TaskView> extends State<T> {
+  late final ScrollController _scrollController;
+  bool _hasScrolled = false;
+
   TaskController get controller => widget._controller;
   Task? get task => controller.task;
   bool get _hasParent => task?.parent != null;
@@ -111,9 +114,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
   double get _headerHeight => P8 + (_hasParent ? P5 : 0);
   bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
-
-  bool _hasScrolled = false;
-  late final ScrollController _scrollController;
 
   @override
   void initState() {

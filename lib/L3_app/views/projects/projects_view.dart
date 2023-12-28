@@ -38,38 +38,42 @@ class ProjectsView extends StatefulWidget {
 
 class _ProjectsViewState extends State<ProjectsView> {
   late final ProjectsRightToolbarController _toolbarController;
+  late final ScrollController _scrollController;
+  bool _hasScrolled = false;
+
   @override
   void initState() {
     _toolbarController = ProjectsRightToolbarController();
+    _scrollController = ScrollController();
     super.initState();
   }
 
-  Widget get _title => Align(
+  Widget get _bigTitle => Align(
         alignment: Alignment.centerLeft,
-        child: H1(
-          loc.project_list_title,
-          padding: const EdgeInsets.symmetric(horizontal: P3),
-        ),
+        child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
       );
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = ScrollController();
     return Observer(builder: (_) {
       return MTPage(
         appBar: MTAppBar(
           bgColor: isBigScreen ? b2Color : null,
           leading: isBigScreen ? const SizedBox() : null,
-          middle: isBigScreen ? _title : BaseText.medium(loc.project_list_title),
+          middle: _hasScrolled
+              ? isBigScreen
+                  ? _bigTitle
+                  : BaseText.medium(loc.project_list_title)
+              : null,
         ),
         leftBar: const LeftMenu(),
         body: SafeArea(
           top: false,
           bottom: false,
           child: ListView(
-            controller: kIsWeb ? scrollController : null,
+            controller: kIsWeb ? _scrollController : null,
             children: [
-              _title,
+              _bigTitle,
               const SizedBox(height: P3),
               TasksListView(tasksMainController.projectsGroups, scrollable: false),
             ],
@@ -83,8 +87,9 @@ class _ProjectsViewState extends State<ProjectsView> {
                 trailing: CreateProjectButton(CreateProjectController(), compact: true, type: ButtonType.secondary),
               ),
         rightBar: isBigScreen ? ProjectsRightToolbar(_toolbarController) : null,
-        scrollController: scrollController,
+        scrollController: _scrollController,
         scrollOffsetTop: P8,
+        onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
       );
     });
   }

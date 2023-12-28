@@ -27,25 +27,38 @@ class MyTasksRouter extends MTRouter {
   Widget get page => const MyTasksView();
 }
 
-class MyTasksView extends StatelessWidget {
+class MyTasksView extends StatefulWidget {
   const MyTasksView();
+  @override
+  _MyTasksViewState createState() => _MyTasksViewState();
+}
 
-  Widget get _title => Align(
+class _MyTasksViewState extends State<MyTasksView> {
+  late final ScrollController _scrollController;
+  bool _hasScrolled = false;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    super.initState();
+  }
+
+  Widget get _bigTitle => Align(
         alignment: Alignment.centerLeft,
-        child: H1(
-          loc.my_tasks_title,
-          padding: const EdgeInsets.symmetric(horizontal: P3),
-        ),
+        child: H1(loc.my_tasks_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
       );
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = ScrollController();
     return MTPage(
       appBar: MTAppBar(
         bgColor: isBigScreen ? b2Color : null,
         leading: isBigScreen ? const SizedBox() : null,
-        middle: isBigScreen ? _title : BaseText.medium(loc.my_tasks_title),
+        middle: _hasScrolled
+            ? isBigScreen
+                ? _bigTitle
+                : BaseText.medium(loc.my_tasks_title)
+            : null,
       ),
       leftBar: const LeftMenu(),
       body: SafeArea(
@@ -53,9 +66,9 @@ class MyTasksView extends StatelessWidget {
         bottom: false,
         child: Observer(
           builder: (_) => ListView(
-            controller: kIsWeb ? scrollController : null,
+            controller: kIsWeb ? _scrollController : null,
             children: [
-              _title,
+              _bigTitle,
               const SizedBox(height: P3),
               TasksListView(
                 tasksMainController.myTasksGroups,
@@ -66,8 +79,9 @@ class MyTasksView extends StatelessWidget {
           ),
         ),
       ),
-      scrollController: scrollController,
+      scrollController: _scrollController,
       scrollOffsetTop: P8,
+      onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
     );
   }
 }

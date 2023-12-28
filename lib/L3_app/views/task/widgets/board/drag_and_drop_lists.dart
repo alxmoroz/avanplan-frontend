@@ -294,7 +294,7 @@ class DragAndDropLists extends StatefulWidget {
 }
 
 class DragAndDropListsState extends State<DragAndDropLists> {
-  ScrollController? _scrollController;
+  late final ScrollController? _scrollController;
   bool _pointerDown = false;
   double? _pointerYPosition;
   double? _pointerXPosition;

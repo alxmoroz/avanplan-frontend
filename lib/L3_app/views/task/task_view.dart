@@ -202,8 +202,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
           )
         : MTPage(
             appBar: MTAppBar(
-              height: _headerHeight,
-              paddingTop: P,
+              height: isBigScreen ? _headerHeight : null,
+              paddingTop: isBigScreen ? P : 0,
               bgColor: _isBigGroup ? b2Color : null,
               leading: _isBigGroup ? Container() : null,
               middle: _title,

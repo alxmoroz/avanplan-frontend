@@ -43,14 +43,14 @@ class MainDashboard extends StatelessWidget {
           ),
         );
 
-    return Observer(
-      builder: (_) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(padding: mqPadding.add(EdgeInsets.all(spacing)) as EdgeInsets),
-        child: SafeArea(
-          top: false,
-          bottom: false,
-          child: isBig
-              ? Row(
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(padding: mqPadding.add(EdgeInsets.all(spacing)) as EdgeInsets),
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: isBig
+            ? Observer(
+                builder: (_) => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (_hasTasks) ...[
@@ -59,17 +59,17 @@ class MainDashboard extends StatelessWidget {
                     ],
                     const Flexible(child: MTAdaptive(child: Projects(compact: false))),
                   ],
-                )
-              : GridView(
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: SCR_S_WIDTH,
-                    crossAxisSpacing: spacing,
-                    mainAxisExtent: _mainAxisExtent(),
-                    mainAxisSpacing: spacing,
-                  ),
-                  children: const [MyTasks(), Projects()],
                 ),
-        ),
+              )
+            : GridView(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: SCR_S_WIDTH,
+                  crossAxisSpacing: spacing,
+                  mainAxisExtent: _mainAxisExtent(),
+                  mainAxisSpacing: spacing,
+                ),
+                children: const [MyTasks(), Projects()],
+              ),
       ),
     );
   }

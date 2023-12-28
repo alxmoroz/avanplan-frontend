@@ -47,7 +47,7 @@ class _MTPageState extends State<MTPage> {
               ? MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
-                      top: mq.padding.top + (isBigScreen ? widget.scrollOffsetTop ?? 0 : 0),
+                      top: mq.padding.top + (widget.appBar?.preferredSize ?? Size.zero).height,
                     ),
                   ),
                   child: MTScrollable(
@@ -66,21 +66,24 @@ class _MTPageState extends State<MTPage> {
     });
   }
 
+  double get _leftBarWidth => (widget.leftBar?.preferredSize ?? Size.zero).width;
+  double get _rightBarWidth => (widget.rightBar?.preferredSize ?? Size.zero).width;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Stack(
         children: [
-          widget.leftBar != null || widget.rightBar != null
+          _leftBarWidth > 0 || _rightBarWidth > 0
               ? Observer(builder: (_) {
                   final mq = MediaQuery.of(context);
                   final mqPadding = mq.padding;
                   return MediaQuery(
                     data: mq.copyWith(
                       padding: mqPadding.copyWith(
-                        left: mqPadding.left + (widget.leftBar?.preferredSize ?? Size.zero).width,
-                        right: mqPadding.right + (widget.rightBar?.preferredSize ?? Size.zero).width,
+                        left: mqPadding.left + _leftBarWidth,
+                        right: mqPadding.right + _rightBarWidth,
                       ),
                     ),
                     child: _scaffold,

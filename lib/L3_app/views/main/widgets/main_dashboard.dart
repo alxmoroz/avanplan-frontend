@@ -26,15 +26,12 @@ class MainDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.paddingOf(context);
+    final mqPadding = MediaQuery.paddingOf(context);
     final size = MediaQuery.sizeOf(context);
 
     final isBigS = size.width > _BIG_WIDTH_S;
-    final isBig = size.width > _BIG_WIDTH_XS && size.height > _BIG_HEIGHT;
+    final isBig = (size.width > _BIG_WIDTH_XS && size.height > _BIG_HEIGHT) || !_hasTasks;
     final spacing = isBigS ? _spacing_s : _spacing_xs;
-
-    final topInnerPadding = spacing;
-    final bottomPadding = max(padding.bottom, spacing);
 
     final _isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
 
@@ -42,35 +39,40 @@ class MainDashboard extends StatelessWidget {
           SCR_XXS_WIDTH,
           max(
             _MIN_HEIGHT,
-            (size.height - padding.top - bottomPadding - topInnerPadding - spacing) / (_isPortrait ? 2 : 1),
+            (size.height - mqPadding.vertical - spacing * 3) / (_isPortrait ? 2 : 1),
           ),
         );
 
     return Observer(
-      builder: (_) => isBig || !_hasTasks
-          ? Padding(
-              padding: padding.add(const EdgeInsets.symmetric(horizontal: P3, vertical: P3)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_hasTasks) ...[
-                    const Flexible(child: MTAdaptive(child: MyTasks(compact: false))),
-                    SizedBox(width: spacing),
+      builder: (_) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(padding: mqPadding.add(EdgeInsets.all(spacing)) as EdgeInsets),
+        child: SafeArea(
+          top: false,
+          right: isBig,
+          bottom: false,
+          left: isBig,
+          child: isBig
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (_hasTasks) ...[
+                      const Flexible(child: MTAdaptive(child: MyTasks(compact: false))),
+                      SizedBox(width: spacing),
+                    ],
+                    const Flexible(child: MTAdaptive(child: Projects(compact: false))),
                   ],
-                  const Flexible(child: MTAdaptive(child: Projects(compact: false))),
-                ],
-              ),
-            )
-          : GridView(
-              padding: padding.add(const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topInnerPadding, bottom: bottomPadding)),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: SCR_S_WIDTH,
-                crossAxisSpacing: spacing,
-                mainAxisExtent: _mainAxisExtent(),
-                mainAxisSpacing: spacing,
-              ),
-              children: const [MyTasks(), Projects()],
-            ),
+                )
+              : GridView(
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: SCR_S_WIDTH,
+                    crossAxisSpacing: spacing,
+                    mainAxisExtent: _mainAxisExtent(),
+                    mainAxisSpacing: spacing,
+                  ),
+                  children: const [MyTasks(), Projects()],
+                ),
+        ),
+      ),
     );
   }
 }

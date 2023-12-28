@@ -54,13 +54,13 @@ class TaskDetails extends StatelessWidget {
     return Observer(
       builder: (_) => ListView(
         shrinkWrap: true,
-        // physics: standalone ? null : const NeverScrollableScrollPhysics(),
+        physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
           if (_showStatusRow) TaskStatusField(_controller),
 
           /// Описание
-          if (_showDescription) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins && !_showStatusRow),
+          if (_showDescription) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins && _showStatusRow),
 
           /// Назначенный
           if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins),

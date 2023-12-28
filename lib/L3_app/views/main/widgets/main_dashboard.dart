@@ -48,9 +48,7 @@ class MainDashboard extends StatelessWidget {
         data: MediaQuery.of(context).copyWith(padding: mqPadding.add(EdgeInsets.all(spacing)) as EdgeInsets),
         child: SafeArea(
           top: false,
-          right: isBig,
           bottom: false,
-          left: isBig,
           child: isBig
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,

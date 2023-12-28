@@ -9,6 +9,7 @@ import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/dialog.dart';
 import '../../components/error_sheet.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
@@ -21,7 +22,6 @@ import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
-import 'task_dialog.dart';
 import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
@@ -112,11 +112,15 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
+  bool _hasScrolled = false;
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     if (kIsWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
+    _scrollController = ScrollController();
     super.initState();
   }
 
@@ -142,7 +146,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           return ListView(
             controller: kIsWeb ? scrollController : null,
             children: [
-              TaskHeader(controller),
+              Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
               task!.isTask
                   ? _isTaskDialog
                       ? TaskDialogDetails(controller)
@@ -179,46 +183,52 @@ class TaskViewState<T extends TaskView> extends State<T> {
       );
 
   Widget get _parentTitle => _isBigGroup ? TaskParentTitle(controller) : SmallText(task!.parent!.title, maxLines: 1);
-  Widget? get _title => Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
-        children: [
-          if (_hasParent) _parentTitle,
-          _isBigGroup
-              ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
-              : H3(task!.title, maxLines: 1),
-        ],
-      );
+  Widget? get _title => _hasScrolled
+      ? Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
+          children: [
+            if (_hasParent) _parentTitle,
+            _isBigGroup
+                ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
+                : H3(task!.title, maxLines: 1),
+          ],
+        )
+      : null;
 
   Widget _page(BuildContext context) {
-    final scrollController = ScrollController();
     return _isTaskDialog
-        ? TaskDialog(
-            controller,
-            _title,
-            _body(scrollController),
-            scrollController: scrollController,
-            scrollHeaderOffset: _headerHeight,
+        ? MTDialog(
+            topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _title),
+            body: _body(_scrollController),
+            rightBar: TaskRightToolbar(controller.toolbarController),
+            bottomBar: task!.canComment ? NoteToolbar(controller) : null,
+            scrollController: _scrollController,
+            scrollOffsetTop: _headerHeight,
+            onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
           )
         : MTPage(
-            appBar: MTAppBar(
-              height: isBigScreen ? _headerHeight : null,
-              paddingTop: isBigScreen ? P : 0,
-              bgColor: _isBigGroup ? b2Color : null,
-              leading: _isBigGroup ? Container() : null,
-              middle: _title,
-              trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
-            ),
+            appBar: isBigScreen && !_hasScrolled
+                ? null
+                : MTAppBar(
+                    height: isBigScreen ? _headerHeight : null,
+                    paddingTop: isBigScreen ? P : 0,
+                    bgColor: _isBigGroup ? b2Color : null,
+                    leading: _isBigGroup ? const SizedBox() : null,
+                    middle: _title,
+                    trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
+                  ),
             leftBar: const LeftMenu(),
-            body: _body(scrollController),
+            body: _body(_scrollController),
             bottomBar: _showNoteToolbar
                 ? NoteToolbar(controller)
                 : _hasQuickActions && !_isBigGroup
                     ? TaskBottomToolbar(controller)
                     : null,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
-            scrollController: scrollController,
+            scrollController: _scrollController,
             scrollOffsetTop: _headerHeight,
+            onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
           );
   }
 

@@ -3,11 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'adaptive.dart';
 import 'background.dart';
 import 'scrollable.dart';
 
-class MTPage extends StatefulWidget {
+class MTPage extends StatelessWidget {
   const MTPage({
     this.appBar,
     required this.body,
@@ -16,6 +15,7 @@ class MTPage extends StatefulWidget {
     this.rightBar,
     this.scrollController,
     this.scrollOffsetTop,
+    this.onScrolled,
   });
 
   final PreferredSizeWidget? appBar;
@@ -26,13 +26,7 @@ class MTPage extends StatefulWidget {
 
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
-
-  @override
-  _MTPageState createState() => _MTPageState();
-}
-
-class _MTPageState extends State<MTPage> {
-  bool _hasScrolled = false;
+  final Function(bool)? onScrolled;
 
   Widget get _scaffold {
     return Builder(builder: (context) {
@@ -41,33 +35,33 @@ class _MTPageState extends State<MTPage> {
       return MTBackgroundWrapper(
         Scaffold(
           backgroundColor: Colors.transparent,
-          key: widget.key,
-          appBar: isBigScreen && widget.scrollOffsetTop != null && !_hasScrolled ? null : widget.appBar,
-          body: widget.scrollOffsetTop != null && widget.scrollController != null
+          key: key,
+          appBar: appBar,
+          body: scrollOffsetTop != null && scrollController != null
               ? MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
-                      top: mq.padding.top + (widget.appBar?.preferredSize ?? Size.zero).height,
+                      top: mq.padding.top + (appBar?.preferredSize ?? Size.zero).height,
                     ),
                   ),
                   child: MTScrollable(
-                    scrollController: widget.scrollController!,
-                    scrollOffsetTop: widget.scrollOffsetTop!,
-                    child: widget.body,
-                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                    scrollController: scrollController!,
+                    scrollOffsetTop: scrollOffsetTop!,
+                    child: body,
+                    onScrolled: onScrolled,
                   ),
                 )
-              : widget.body,
+              : body,
           extendBody: true,
           extendBodyBehindAppBar: true,
-          bottomNavigationBar: widget.bottomBar,
+          bottomNavigationBar: bottomBar,
         ),
       );
     });
   }
 
-  double get _leftBarWidth => (widget.leftBar?.preferredSize ?? Size.zero).width;
-  double get _rightBarWidth => (widget.rightBar?.preferredSize ?? Size.zero).width;
+  double get _leftBarWidth => (leftBar?.preferredSize ?? Size.zero).width;
+  double get _rightBarWidth => (rightBar?.preferredSize ?? Size.zero).width;
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +84,8 @@ class _MTPageState extends State<MTPage> {
                   );
                 })
               : _scaffold,
-          if (widget.leftBar != null) widget.leftBar!,
-          if (widget.rightBar != null)
-            Align(
-              alignment: Alignment.centerRight,
-              child: widget.rightBar!,
-            )
+          if (leftBar != null) leftBar!,
+          if (rightBar != null) Align(alignment: Alignment.centerRight, child: rightBar!)
         ],
       ),
     );

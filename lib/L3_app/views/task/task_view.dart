@@ -135,44 +135,48 @@ class TaskViewState<T extends TaskView> extends State<T> {
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
-  Widget get _body => LayoutBuilder(builder: (ctx, size) {
-        final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
-        return ListView(
-          children: [
-            TaskHeader(controller),
-            task!.isTask
-                ? _isTaskDialog
-                    ? TaskDialogDetails(controller)
-                    : MTAdaptive(child: TaskDetails(controller))
-                : !task!.hasSubtasks
-                    ? SizedBox(
-                        // TODO: хардкод ((
-                        height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
-                        child: NoTasks(controller),
-                      )
-                    : Observer(
-                        builder: (_) => task!.canShowBoard && controller.showBoard
-                            ? Container(
-                                // height: expandedHeight - _bottomPaddingIndent + P_2,
-                                height: expandedHeight + P2,
-                                padding: const EdgeInsets.only(top: P3),
-                                child: TasksBoard(
-                                  controller.statusController,
-                                  extra: controller.subtasksController.loadClosedButton(board: true),
+  Widget get _body => SafeArea(
+        top: false,
+        bottom: false,
+        child: LayoutBuilder(builder: (ctx, size) {
+          final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
+          return ListView(
+            children: [
+              TaskHeader(controller),
+              task!.isTask
+                  ? _isTaskDialog
+                      ? TaskDialogDetails(controller)
+                      : MTAdaptive(child: TaskDetails(controller))
+                  : !task!.hasSubtasks
+                      ? SizedBox(
+                          // TODO: хардкод ((
+                          height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
+                          child: NoTasks(controller),
+                        )
+                      : Observer(
+                          builder: (_) => task!.canShowBoard && controller.showBoard
+                              ? Container(
+                                  // height: expandedHeight - _bottomPaddingIndent + P_2,
+                                  height: expandedHeight + P2,
+                                  padding: const EdgeInsets.only(top: P3),
+                                  child: TasksBoard(
+                                    controller.statusController,
+                                    extra: controller.subtasksController.loadClosedButton(board: true),
+                                  ),
+                                )
+                              : Container(
+                                  padding: const EdgeInsets.only(top: P3),
+                                  child: TasksListView(
+                                    task!.subtaskGroups,
+                                    scrollable: false,
+                                    extra: controller.subtasksController.loadClosedButton(),
+                                  ),
                                 ),
-                              )
-                            : Container(
-                                padding: const EdgeInsets.only(top: P3),
-                                child: TasksListView(
-                                  task!.subtaskGroups,
-                                  scrollable: false,
-                                  extra: controller.subtasksController.loadClosedButton(),
-                                ),
-                              ),
-                      ),
-          ],
-        );
-      });
+                        ),
+            ],
+          );
+        }),
+      );
 
   Widget get _parentTitle => _isBigGroup ? TaskParentTitle(controller) : SmallText(task!.parent!.title, maxLines: 1);
   Widget? get _title => Column(
@@ -200,11 +204,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
               trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
             ),
             leftBar: const LeftMenu(),
-            body: SafeArea(
-              top: false,
-              bottom: false,
-              child: _body,
-            ),
+            body: _body,
             bottomBar: _showNoteToolbar
                 ? NoteToolbar(controller)
                 : _hasQuickActions && !_isBigGroup

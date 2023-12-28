@@ -28,6 +28,7 @@ class NoteToolbar extends StatelessWidget {
       builder: (_) => MTAppBar(
         isBottom: true,
         bgColor: b2Color,
+        paddingBottom: P2,
         middle: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

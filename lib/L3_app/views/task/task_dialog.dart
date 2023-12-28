@@ -12,10 +12,11 @@ import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/right_toolbar.dart';
 
 class TaskDialog extends StatefulWidget {
-  const TaskDialog(this._controller, this._title, this._body, {this.scrollHeaderOffset});
+  const TaskDialog(this._controller, this._title, this._body, {this.scrollController, this.scrollHeaderOffset});
   final TaskController _controller;
   final Widget? _title;
   final Widget _body;
+  final ScrollController? scrollController;
   final double? scrollHeaderOffset;
 
   @override
@@ -34,6 +35,7 @@ class _TaskDialogState extends State<TaskDialog> {
       body: widget._body,
       rightBar: TaskRightToolbar(widget._controller.toolbarController),
       bottomBar: _task.canComment ? NoteToolbar(widget._controller) : null,
+      scrollController: widget.scrollController,
       scrollOffsetTop: widget.scrollHeaderOffset,
       onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
     );

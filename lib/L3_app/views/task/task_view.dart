@@ -198,7 +198,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget _page(BuildContext context) {
     return _isTaskDialog
-        ? TaskDialog(controller, _title, _body, scrollHeaderOffset: _headerHeight)
+        ? TaskDialog(
+            controller,
+            _title,
+            _body,
+            scrollController: _scrollController,
+            scrollHeaderOffset: _headerHeight,
+          )
         : MTPage(
             appBar: MTAppBar(
               height: _headerHeight,

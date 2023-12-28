@@ -34,15 +34,15 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromWidth(leftMenuController.width);
+  Size get preferredSize => Size.fromWidth(showLeftMenu ? leftMenuController.width : 0);
 
   @override
   Widget build(BuildContext context) {
-    return !showLeftMenu
-        ? const SizedBox()
-        : Observer(builder: (_) {
-            final compact = leftMenuController.compact;
-            return VerticalToolbar(
+    return Observer(builder: (_) {
+      final compact = leftMenuController.compact;
+      return !showLeftMenu
+          ? const SizedBox()
+          : VerticalToolbar(
               leftMenuController,
               rightSide: false,
               child: Column(
@@ -88,6 +88,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             );
-          });
+    });
   }
 }

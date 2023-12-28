@@ -9,13 +9,13 @@ import 'constants.dart';
 
 BuildContext get globalContext => rootKey.currentContext!;
 
-bool get isBigScreen {
-  final size = MediaQuery.sizeOf(globalContext);
-  return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
-}
-
 Size get screenSize => MediaQuery.sizeOf(globalContext);
 EdgeInsets get screenPadding => MediaQuery.paddingOf(globalContext);
+
+bool get isBigScreen {
+  final size = screenSize;
+  return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
+}
 
 enum AdaptiveSize { XXS, XS, S, M, L }
 

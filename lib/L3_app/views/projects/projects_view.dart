@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
@@ -30,7 +31,19 @@ class ProjectsRouter extends MTRouter {
   Widget get page => ProjectsView();
 }
 
-class ProjectsView extends StatelessWidget {
+class ProjectsView extends StatefulWidget {
+  @override
+  _ProjectsViewState createState() => _ProjectsViewState();
+}
+
+class _ProjectsViewState extends State<ProjectsView> {
+  late final ProjectsRightToolbarController _toolbarController;
+  @override
+  void initState() {
+    _toolbarController = ProjectsRightToolbarController();
+    super.initState();
+  }
+
   Widget get _title => Align(
         alignment: Alignment.centerLeft,
         child: H1(
@@ -41,9 +54,9 @@ class ProjectsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
     return Observer(builder: (_) {
       return MTPage(
-        scrollOffsetTop: P8,
         appBar: MTAppBar(
           bgColor: isBigScreen ? b2Color : null,
           leading: isBigScreen ? const SizedBox() : null,
@@ -54,6 +67,7 @@ class ProjectsView extends StatelessWidget {
           top: false,
           bottom: false,
           child: ListView(
+            controller: kIsWeb ? scrollController : null,
             children: [
               _title,
               const SizedBox(height: P3),
@@ -68,7 +82,9 @@ class ProjectsView extends StatelessWidget {
                 bgColor: b2Color,
                 trailing: CreateProjectButton(CreateProjectController(), compact: true, type: ButtonType.secondary),
               ),
-        rightBar: isBigScreen ? ProjectsRightToolbar(ProjectsRightToolbarController()) : null,
+        rightBar: isBigScreen ? ProjectsRightToolbar(_toolbarController) : null,
+        scrollController: scrollController,
+        scrollOffsetTop: P8,
       );
     });
   }

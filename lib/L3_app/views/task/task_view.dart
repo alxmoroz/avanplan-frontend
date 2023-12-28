@@ -112,15 +112,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
-  late final ScrollController _scrollController;
-
   @override
   void initState() {
     if (kIsWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
-    _scrollController = ScrollController();
-
     super.initState();
   }
 
@@ -130,8 +126,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
       controller.subtasksController.dispose();
       controller.dispose();
     }
-    _scrollController.dispose();
-
     super.dispose();
   }
 
@@ -140,13 +134,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
-  Widget get _body => SafeArea(
+  Widget _body(ScrollController scrollController) => SafeArea(
         top: false,
         bottom: false,
         child: LayoutBuilder(builder: (ctx, size) {
           final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
           return ListView(
-            controller: _scrollController,
+            controller: kIsWeb ? scrollController : null,
             children: [
               TaskHeader(controller),
               task!.isTask
@@ -197,12 +191,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
       );
 
   Widget _page(BuildContext context) {
+    final scrollController = ScrollController();
     return _isTaskDialog
         ? TaskDialog(
             controller,
             _title,
-            _body,
-            scrollController: _scrollController,
+            _body(scrollController),
+            scrollController: scrollController,
             scrollHeaderOffset: _headerHeight,
           )
         : MTPage(
@@ -215,14 +210,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
               trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
             ),
             leftBar: const LeftMenu(),
-            body: _body,
+            body: _body(scrollController),
             bottomBar: _showNoteToolbar
                 ? NoteToolbar(controller)
                 : _hasQuickActions && !_isBigGroup
                     ? TaskBottomToolbar(controller)
                     : null,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
-            scrollController: _scrollController,
+            scrollController: scrollController,
             scrollOffsetTop: _headerHeight,
           );
   }

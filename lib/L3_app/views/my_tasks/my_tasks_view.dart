@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
@@ -39,8 +40,8 @@ class MyTasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
     return MTPage(
-      scrollOffsetTop: P8,
       appBar: MTAppBar(
         bgColor: isBigScreen ? b2Color : null,
         leading: isBigScreen ? const SizedBox() : null,
@@ -51,17 +52,22 @@ class MyTasksView extends StatelessWidget {
         top: false,
         bottom: false,
         child: Observer(
-          builder: (_) => ListView(children: [
-            _title,
-            const SizedBox(height: P3),
-            TasksListView(
-              tasksMainController.myTasksGroups,
-              filters: const {TasksFilter.my},
-              scrollable: false,
-            ),
-          ]),
+          builder: (_) => ListView(
+            controller: kIsWeb ? scrollController : null,
+            children: [
+              _title,
+              const SizedBox(height: P3),
+              TasksListView(
+                tasksMainController.myTasksGroups,
+                filters: const {TasksFilter.my},
+                scrollable: false,
+              ),
+            ],
+          ),
         ),
       ),
+      scrollController: scrollController,
+      scrollOffsetTop: P8,
     );
   }
 }

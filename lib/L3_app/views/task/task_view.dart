@@ -31,6 +31,7 @@ import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
+import 'widgets/header/header_dashboard.dart';
 import 'widgets/header/parent_title.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/tasks/tasks_list_view.dart';
@@ -146,19 +147,31 @@ class TaskViewState<T extends TaskView> extends State<T> {
           return ListView(
             controller: kIsWeb ? scrollController : null,
             children: [
+              /// Заголовок
               Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
+
+              /// Дашборд (аналитика, команда)
+              if (task!.hasAnalytics || task!.hasTeam) TaskHeaderDashboard(controller),
+
+              /// Задача (лист)
               task!.isTask
                   ? _isTaskDialog
                       ? TaskDialogDetails(controller)
                       : MTAdaptive(child: TaskDetails(controller))
+
+                  /// Группа задач без задач
                   : !task!.hasSubtasks
                       ? SizedBox(
                           // TODO: хардкод ((
                           height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
                           child: NoTasks(controller),
                         )
+
+                      /// Группа задач с задачами
                       : Observer(
                           builder: (_) => task!.canShowBoard && controller.showBoard
+
+                              /// Доска
                               ? Container(
                                   // height: expandedHeight - _bottomPaddingIndent + P_2,
                                   height: expandedHeight + P2,
@@ -168,6 +181,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                     extra: controller.subtasksController.loadClosedButton(board: true),
                                   ),
                                 )
+
+                              /// Список
                               : Container(
                                   padding: const EdgeInsets.only(top: P3),
                                   child: TasksListView(

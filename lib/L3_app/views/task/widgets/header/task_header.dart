@@ -10,11 +10,9 @@ import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
-import '../../../../presenters/task_view.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import 'header_dashboard.dart';
 import 'parent_title.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -53,9 +51,6 @@ class TaskHeader extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: kIsWeb ? P : 0),
             color: Colors.transparent,
           ),
-
-          /// Дашборд (аналитика, команда)
-          if (_task.hasAnalytics || _task.hasTeam) TaskHeaderDashboard(_controller),
         ],
       ),
     );

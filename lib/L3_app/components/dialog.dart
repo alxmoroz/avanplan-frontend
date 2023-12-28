@@ -55,6 +55,7 @@ class MTDialog extends StatelessWidget {
     this.bottomBarColor,
     this.rightBar,
     this.bgColor,
+    this.scrollController,
     this.scrollOffsetTop,
     this.onScrolled,
   });
@@ -70,6 +71,7 @@ class MTDialog extends StatelessWidget {
   final Color? bottomBarColor;
   final Color? bgColor;
 
+  final ScrollController? scrollController;
   final double? scrollOffsetTop;
   final Function(bool)? onScrolled;
 
@@ -89,9 +91,10 @@ class MTDialog extends StatelessWidget {
                 bottom: bbHeight,
               ),
             ),
-            child: scrollOffsetTop != null
+            child: scrollOffsetTop != null && scrollController != null
                 ? MTScrollable(
-                    scrollOffsetTop: scrollOffsetTop,
+                    scrollController: scrollController!,
+                    scrollOffsetTop: scrollOffsetTop!,
                     child: body,
                     onScrolled: onScrolled,
                   )

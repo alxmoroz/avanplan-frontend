@@ -112,11 +112,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     if (kIsWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
+    _scrollController = ScrollController();
 
     super.initState();
   }
@@ -127,6 +130,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
       controller.subtasksController.dispose();
       controller.dispose();
     }
+    _scrollController.dispose();
+
     super.dispose();
   }
 
@@ -141,6 +146,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         child: LayoutBuilder(builder: (ctx, size) {
           final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
           return ListView(
+            controller: _scrollController,
             children: [
               TaskHeader(controller),
               task!.isTask
@@ -194,7 +200,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
     return _isTaskDialog
         ? TaskDialog(controller, _title, _body, scrollHeaderOffset: _headerHeight)
         : MTPage(
-            scrollOffsetTop: _headerHeight,
             appBar: MTAppBar(
               height: _headerHeight,
               paddingTop: P,
@@ -211,6 +216,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     ? TaskBottomToolbar(controller)
                     : null,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
+            scrollController: _scrollController,
+            scrollOffsetTop: _headerHeight,
           );
   }
 

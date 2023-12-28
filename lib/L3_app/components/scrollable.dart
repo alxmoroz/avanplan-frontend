@@ -6,8 +6,9 @@ import 'constants.dart';
 import 'shadowed.dart';
 
 class MTScrollable extends StatefulWidget {
-  const MTScrollable({required this.child, this.scrollOffsetTop, this.onScrolled});
-  final double? scrollOffsetTop;
+  const MTScrollable({required this.scrollController, required this.child, required this.scrollOffsetTop, this.onScrolled});
+  final ScrollController scrollController;
+  final double scrollOffsetTop;
   final Widget child;
   final Function(bool)? onScrolled;
 
@@ -16,15 +17,13 @@ class MTScrollable extends StatefulWidget {
 }
 
 class _MTScrollableState extends State<MTScrollable> {
-  late final ScrollController _scrollController;
   bool _hasScrolled = false;
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-    final offset = widget.scrollOffsetTop ?? 0 + P8;
-    _scrollController.addListener(() {
-      if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
+    final offset = widget.scrollOffsetTop;
+    widget.scrollController.addListener(() {
+      if ((!_hasScrolled && widget.scrollController.offset > offset) || (_hasScrolled && widget.scrollController.offset < offset)) {
         setState(() {
           _hasScrolled = !_hasScrolled;
           if (widget.onScrolled != null) {
@@ -37,27 +36,15 @@ class _MTScrollableState extends State<MTScrollable> {
   }
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;
     return MediaQuery(
-      data: mq.copyWith(
-        padding: mqPadding.copyWith(
-          // top: mq.padding.top + (_hasScrolled ? 0 : (widget.scrollOffsetTop ?? 0)),
-          // top: mq.padding.top + (isBigScreen ? widget.scrollOffsetTop ?? 0 : 0),
-          top: mq.padding.top,
-        ),
-      ),
+      data: mq.copyWith(padding: mqPadding.copyWith(top: mq.padding.top)),
       child: MTShadowed(
         topShadow: _hasScrolled,
         topPaddingIndent: P,
-        child: PrimaryScrollController(controller: _scrollController, child: widget.child),
+        child: widget.child,
       ),
     );
   }

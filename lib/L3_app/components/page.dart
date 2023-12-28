@@ -9,20 +9,23 @@ import 'scrollable.dart';
 
 class MTPage extends StatefulWidget {
   const MTPage({
-    this.scrollOffsetTop,
     this.appBar,
     required this.body,
-    this.leftBar,
     this.bottomBar,
+    this.leftBar,
     this.rightBar,
+    this.scrollController,
+    this.scrollOffsetTop,
   });
 
-  final double? scrollOffsetTop;
   final PreferredSizeWidget? appBar;
   final Widget body;
+  final Widget? bottomBar;
   final PreferredSizeWidget? leftBar;
   final PreferredSizeWidget? rightBar;
-  final Widget? bottomBar;
+
+  final ScrollController? scrollController;
+  final double? scrollOffsetTop;
 
   @override
   _MTPageState createState() => _MTPageState();
@@ -40,7 +43,7 @@ class _MTPageState extends State<MTPage> {
           backgroundColor: Colors.transparent,
           key: widget.key,
           appBar: isBigScreen && widget.scrollOffsetTop != null && !_hasScrolled ? null : widget.appBar,
-          body: widget.scrollOffsetTop != null
+          body: widget.scrollOffsetTop != null && widget.scrollController != null
               ? MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
@@ -48,7 +51,8 @@ class _MTPageState extends State<MTPage> {
                     ),
                   ),
                   child: MTScrollable(
-                    scrollOffsetTop: widget.scrollOffsetTop,
+                    scrollController: widget.scrollController!,
+                    scrollOffsetTop: widget.scrollOffsetTop!,
                     child: widget.body,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                   ),

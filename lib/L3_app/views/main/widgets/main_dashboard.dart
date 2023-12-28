@@ -49,7 +49,7 @@ class MainDashboard extends StatelessWidget {
     return Observer(
       builder: (_) => isBig || !_hasTasks
           ? Padding(
-              padding: padding.add(const EdgeInsets.symmetric(horizontal: P3)),
+              padding: padding.add(const EdgeInsets.symmetric(horizontal: P3, vertical: P3)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

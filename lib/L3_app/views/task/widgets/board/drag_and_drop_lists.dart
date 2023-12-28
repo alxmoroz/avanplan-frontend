@@ -410,6 +410,7 @@ class DragAndDropListsState extends State<DragAndDropLists> {
     final Widget _listView = ListView(
       scrollDirection: Axis.horizontal,
       controller: _scrollController,
+      padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
       children: [
         const SizedBox(width: P3),
         ..._buildOuterList(dragAndDropListTarget, parameters),

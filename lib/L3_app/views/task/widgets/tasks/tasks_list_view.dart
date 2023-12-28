@@ -45,6 +45,7 @@ class TasksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTAdaptive(
       child: ListView.builder(
+        padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
         shrinkWrap: !scrollable,
         physics: scrollable ? null : const NeverScrollableScrollPhysics(),
         itemBuilder: (_, index) => _groupedItemBuilder(index),

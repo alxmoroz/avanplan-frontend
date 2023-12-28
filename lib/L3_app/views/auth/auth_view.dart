@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
@@ -72,7 +72,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: const MTAppBar(middle: AppTitle()),
+      appBar: const MTAppBar(middle: AppTitle(), bgColor: Colors.transparent, paddingTop: P2),
       body: SafeArea(
         child: Center(
           child: Container(

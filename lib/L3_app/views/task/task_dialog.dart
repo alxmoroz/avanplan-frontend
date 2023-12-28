@@ -10,7 +10,6 @@ import '../../usecases/task_actions.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/right_toolbar.dart';
-import 'widgets/actions/right_toolbar_controller.dart';
 
 class TaskDialog extends StatefulWidget {
   const TaskDialog(this._controller, this._title, this._body, {this.scrollHeaderOffset});
@@ -33,7 +32,7 @@ class _TaskDialogState extends State<TaskDialog> {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _hasScrolled ? widget._title : null),
       body: widget._body,
-      rightBar: TaskRightToolbar(TaskRightToolbarController(widget._controller)),
+      rightBar: TaskRightToolbar(widget._controller.toolbarController),
       bottomBar: _task.canComment ? NoteToolbar(widget._controller) : null,
       scrollOffsetTop: widget.scrollHeaderOffset,
       onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

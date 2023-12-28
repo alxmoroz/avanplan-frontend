@@ -26,7 +26,6 @@ import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
-import 'widgets/actions/right_toolbar_controller.dart';
 import 'widgets/board/tasks_board.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
@@ -211,7 +210,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                 : _hasQuickActions && !_isBigGroup
                     ? TaskBottomToolbar(controller)
                     : null,
-            rightBar: _isBigGroup ? TaskRightToolbar(TaskRightToolbarController(controller)) : null,
+            rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
           );
   }
 

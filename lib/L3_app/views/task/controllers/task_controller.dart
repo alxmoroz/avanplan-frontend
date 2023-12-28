@@ -15,6 +15,7 @@ import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_link.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../task_view.dart';
+import '../widgets/actions/right_toolbar_controller.dart';
 import '../widgets/details/details_dialog.dart';
 import '../widgets/local_transfer/local_export_controller.dart';
 import 'assignee_controller.dart';
@@ -70,6 +71,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     attachmentsController = AttachmentsController(this);
     localExportController = LocalExportController(this);
     subtasksController = SubtasksController(this);
+    toolbarController = TaskRightToolbarController(this);
 
     setAllowDisposeFromView(allowDisposeFromView);
   }
@@ -122,6 +124,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final AttachmentsController attachmentsController;
   late final LocalExportController localExportController;
   late final SubtasksController subtasksController;
+  late final TaskRightToolbarController toolbarController;
 
   Task? get task => tasksMainController.task(_task.wsId, _task.id);
 

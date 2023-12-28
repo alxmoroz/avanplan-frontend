@@ -10,10 +10,9 @@ import 'constants.dart';
 import 'vertical_toolbar_controller.dart';
 
 class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const VerticalToolbar(this._controller, {required this.child, this.padding, this.rightSide = true});
+  const VerticalToolbar(this._controller, {required this.child, this.rightSide = true});
   final VerticalToolbarController _controller;
   final Widget child;
-  final EdgeInsets? padding;
   final bool rightSide;
 
   @override
@@ -25,7 +24,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
       child: Observer(
         builder: (_) => Container(
           width: _controller.width,
-          padding: MediaQuery.paddingOf(context).copyWith(left: padding?.left, top: padding?.top, right: padding?.right, bottom: padding?.bottom),
+          clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: b3Color.resolve(context),
             borderRadius: BorderRadius.horizontal(
@@ -34,7 +33,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
             ),
             boxShadow: [BoxShadow(blurRadius: P, offset: Offset(rightSide ? -1 : 1, 0), color: b1Color.resolve(context))],
           ),
-          child: child,
+          child: SafeArea(child: child),
         ),
       ),
       onTap: _controller.toggleWidth,

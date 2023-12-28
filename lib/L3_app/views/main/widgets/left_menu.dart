@@ -45,7 +45,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
             return VerticalToolbar(
               leftMenuController,
               rightSide: false,
-              padding: MediaQuery.paddingOf(context).copyWith(right: 0),
               child: Column(
                 children: [
                   MTListTile(

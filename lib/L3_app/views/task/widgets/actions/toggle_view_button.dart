@@ -27,26 +27,24 @@ class TaskToggleViewButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icon = _icon(context);
-
-    return Observer(builder: (_) {
-      return isBigScreen(context)
-          ? MTListTile(
-              leading: icon,
-              middle: compact
-                  ? null
-                  : BaseText(
-                      _controller.showBoard ? loc.task_view_mode_list_action_title : loc.task_view_mode_board_action_title,
-                      color: mainColor,
-                      maxLines: 1,
-                    ),
-              bottomDivider: false,
-              onTap: _controller.toggleBoardMode,
-            )
-          : MTButton.secondary(
-              middle: icon,
-              onTap: _controller.toggleBoardMode,
-              constrained: false,
-            );
-    });
+    return isBigScreen(context)
+        ? Observer(
+            builder: (_) => MTListTile(
+                  leading: icon,
+                  middle: compact
+                      ? null
+                      : BaseText(
+                          _controller.showBoard ? loc.task_view_mode_list_action_title : loc.task_view_mode_board_action_title,
+                          color: mainColor,
+                          maxLines: 1,
+                        ),
+                  bottomDivider: false,
+                  onTap: _controller.toggleBoardMode,
+                ))
+        : MTButton.secondary(
+            middle: icon,
+            onTap: _controller.toggleBoardMode,
+            constrained: false,
+          );
   }
 }

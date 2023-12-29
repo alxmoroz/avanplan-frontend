@@ -45,7 +45,7 @@ class NoProjects extends StatelessWidget {
               maxLines: 5,
             ),
             const SizedBox(height: P3),
-            CreateProjectButton(_controller),
+            CreateProjectButton(_controller, type: ButtonType.main),
           ],
         ),
       ),

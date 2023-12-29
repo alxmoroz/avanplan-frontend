@@ -36,14 +36,17 @@ class MTPage extends StatelessWidget {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
       final mqPadding = mq.padding;
+      final pTop = max(mq.padding.top, P3);
+      final pBottom = max(mq.padding.bottom, P3);
+
       return MTBackgroundWrapper(
         PrimaryScrollController(
           controller: scrollController ?? ScrollController(),
           child: MediaQuery(
             data: mq.copyWith(
               padding: mqPadding.copyWith(
-                top: max(mq.padding.top, P3),
-                bottom: max(mq.padding.bottom, P3),
+                top: pTop,
+                bottom: pBottom,
               ),
             ),
             child: Scaffold(
@@ -53,8 +56,8 @@ class MTPage extends StatelessWidget {
               body: MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
-                      top: mqPadding.top + (appBar?.preferredSize ?? Size.zero).height,
-                      bottom: mqPadding.bottom + (bottomBar?.preferredSize ?? Size.zero).height,
+                      top: pTop + (appBar?.preferredSize ?? Size.zero).height,
+                      bottom: pBottom + (bottomBar?.preferredSize ?? Size.zero).height,
                     ),
                   ),
                   child: scrollOffsetTop != null && scrollController != null

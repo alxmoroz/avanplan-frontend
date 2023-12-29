@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/task/widgets/actions/bottom_toolbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -22,7 +23,6 @@ import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
-import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
@@ -113,7 +113,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _isTaskDialog => isBigScreen && task!.isTask;
   bool get _isBigGroup => isBigScreen && !task!.isTask;
   double get _headerHeight => P8 + (_hasParent ? P5 : 0);
-  bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
+  bool get _hasQuickActions => task!.hasTasksAtAll && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
   @override
@@ -159,8 +159,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       ? TaskDialogDetails(controller)
                       : MTAdaptive(child: TaskDetails(controller))
 
-                  /// Группа задач без задач
-                  : !task!.hasSubtasks
+                  /// Группа задач без подзадач
+                  : !task!.hasLoadedSubtasks && !task!.hasTasksAtAll
                       ? SizedBox(
                           // TODO: хардкод ((
                           height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
@@ -197,7 +197,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
         }),
       );
 
-  Widget get _parentTitle => _isBigGroup ? TaskParentTitle(controller) : SmallText(task!.parent!.title, maxLines: 1);
+  Widget get _parentTitle => _isBigGroup
+      ? TaskParentTitle(controller)
+      : SmallText(
+          task!.parent!.title,
+          maxLines: 1,
+          padding: const EdgeInsets.symmetric(horizontal: P6),
+        );
   Widget? get _title => _hasScrolled
       ? Column(
           mainAxisSize: MainAxisSize.min,
@@ -206,15 +212,21 @@ class TaskViewState<T extends TaskView> extends State<T> {
             if (_hasParent) _parentTitle,
             _isBigGroup
                 ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
-                : H3(task!.title, maxLines: 1),
+                : H3(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P6)),
           ],
         )
       : null;
 
+  PreferredSizeWidget? get _bottomBar => (_showNoteToolbar
+      ? NoteToolbar(controller)
+      : _hasQuickActions && !_isBigGroup
+          ? TaskBottomToolbar(controller)
+          : null) as PreferredSizeWidget?;
+
   Widget _page(BuildContext context) {
     return _isTaskDialog
         ? MTDialog(
-            topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _title),
+            topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
             body: _body(_scrollController),
             rightBar: TaskRightToolbar(controller.toolbarController),
             bottomBar: task!.canComment ? NoteToolbar(controller) : null,
@@ -226,20 +238,15 @@ class TaskViewState<T extends TaskView> extends State<T> {
             appBar: isBigScreen && !_hasScrolled
                 ? null
                 : MTAppBar(
-                    height: isBigScreen ? _headerHeight : null,
-                    paddingTop: isBigScreen ? P : 0,
-                    bgColor: _isBigGroup ? b2Color : null,
+                    innerHeight: isBigScreen ? _headerHeight : null,
+                    color: _isBigGroup ? b2Color : null,
                     leading: _isBigGroup ? const SizedBox() : null,
                     middle: _title,
                     trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
                   ),
             leftBar: const LeftMenu(),
             body: _body(_scrollController),
-            bottomBar: _showNoteToolbar
-                ? NoteToolbar(controller)
-                : _hasQuickActions && !_isBigGroup
-                    ? TaskBottomToolbar(controller)
-                    : null,
+            bottomBar: _bottomBar,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
             scrollController: _scrollController,
             scrollOffsetTop: _headerHeight,

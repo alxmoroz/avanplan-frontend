@@ -5,7 +5,6 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
 import 'drag_and_drop_builder_parameters.dart';
 import 'drag_and_drop_item.dart';
 import 'drag_and_drop_item_target.dart';
@@ -36,6 +35,7 @@ class DragAndDropList implements DragAndDropListInterface {
   final bool canDrag;
 
   static const _borderRadius = BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS));
+  static const _headerHeight = P8;
 
   @override
   Widget generateWidget(DragAndDropBuilderParameters params) {
@@ -56,12 +56,7 @@ class DragAndDropList implements DragAndDropListInterface {
         child: Stack(
           children: [
             MediaQuery(
-              data: const MediaQueryData(
-                padding: EdgeInsets.only(
-                  top: P8,
-                  // bottom: bbHeight,
-                ),
-              ),
+              data: const MediaQueryData(padding: EdgeInsets.only(top: _headerHeight)),
               child: ListView(
                 shrinkWrap: true,
                 children: [
@@ -88,20 +83,7 @@ class DragAndDropList implements DragAndDropListInterface {
                 ],
               ),
             ),
-            if (header != null)
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: MTAppBar(bgColor: b2Color, middle: header, leading: const SizedBox()),
-              ),
-            // if (bottomBar != null)
-            //   Positioned(
-            //     left: 0,
-            //     right: 0,
-            //     bottom: 0,
-            //     child: bottomBar!,
-            //   ),
+            if (header != null) Container(child: header, color: b2Color.resolve(context), height: _headerHeight),
           ],
         ),
       ),

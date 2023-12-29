@@ -72,7 +72,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
   Widget build(BuildContext context) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
+          color: b2Color,
           title: titleText,
           trailing: onReset != null && selectedId != null
               ? MTButton.icon(

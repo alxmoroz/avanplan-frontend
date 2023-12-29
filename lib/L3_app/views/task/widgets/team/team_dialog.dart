@@ -10,7 +10,11 @@ import 'team.dart';
 
 Future showTeamDialog(TaskController controller) async => await showMTDialog<void>(
       MTDialog(
-        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: controller.task!.subPageTitle(loc.team_title)),
+        topBar: MTAppBar(
+          showCloseButton: true,
+          color: b2Color,
+          middle: controller.task!.subPageTitle(loc.team_title),
+        ),
         body: Team(controller),
       ),
     );

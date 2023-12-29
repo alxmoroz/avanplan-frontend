@@ -48,7 +48,7 @@ class UserListDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _ws.subPageTitle(loc.user_list_title)),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _ws.subPageTitle(loc.user_list_title)),
         body: ListView.builder(
           shrinkWrap: true,
           itemBuilder: _userBuilder,

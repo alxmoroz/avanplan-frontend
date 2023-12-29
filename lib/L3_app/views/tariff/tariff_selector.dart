@@ -132,8 +132,8 @@ class TariffSelector extends StatelessWidget {
       builder: (_) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
-          height: _controller.reason.isNotEmpty ? P12 : P8,
+          color: b2Color,
+          innerHeight: _controller.reason.isNotEmpty ? P12 : P8,
           middle: BaseText.medium(
             _controller.reason.isNotEmpty ? _controller.reason : loc.tariff_list_title,
             align: TextAlign.center,

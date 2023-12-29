@@ -52,7 +52,7 @@ class _MyTasksViewState extends State<MyTasksView> {
   Widget build(BuildContext context) {
     return MTPage(
       appBar: MTAppBar(
-        bgColor: isBigScreen ? b2Color : null,
+        color: isBigScreen ? b2Color : null,
         leading: isBigScreen ? const SizedBox() : null,
         middle: _hasScrolled
             ? isBigScreen

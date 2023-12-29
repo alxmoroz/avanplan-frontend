@@ -42,9 +42,9 @@ class AccountDialog extends StatelessWidget {
       builder: (_) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
+          color: b2Color,
           title: loc.my_account_title,
-          trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),
+          trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.all(P2)),
         ),
         body: _user != null
             ? ListView(

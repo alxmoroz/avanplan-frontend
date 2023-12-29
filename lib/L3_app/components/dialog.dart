@@ -51,7 +51,6 @@ class MTDialog extends StatelessWidget {
     required this.body,
     this.topBar,
     this.bottomBar,
-    this.bottomBarHeight,
     this.bottomBarColor,
     this.rightBar,
     this.bgColor,
@@ -64,9 +63,7 @@ class MTDialog extends StatelessWidget {
 
   final PreferredSizeWidget? topBar;
   final PreferredSizeWidget? rightBar;
-
-  final Widget? bottomBar;
-  final double? bottomBarHeight;
+  final PreferredSizeWidget? bottomBar;
 
   final Color? bottomBarColor;
   final Color? bgColor;
@@ -79,16 +76,13 @@ class MTDialog extends StatelessWidget {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
       final mqPadding = mq.padding;
-      final bPadding = isBigScreen ? P2 : defaultBottomPadding(context);
-      final double bbHeight = bPadding + (bottomBar != null ? (bottomBarHeight ?? P2 + MIN_BTN_HEIGHT) : 0);
-
       return Stack(
         children: [
           MediaQuery(
             data: mq.copyWith(
               padding: mqPadding.copyWith(
                 top: (topBar?.preferredSize ?? Size.zero).height,
-                bottom: bbHeight,
+                bottom: (bottomBar?.preferredSize ?? Size.zero).height + max(isBigScreen ? 0 : mqPadding.bottom, P3),
               ),
             ),
             child: scrollOffsetTop != null && scrollController != null

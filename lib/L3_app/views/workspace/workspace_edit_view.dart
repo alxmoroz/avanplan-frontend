@@ -54,7 +54,7 @@ class _WSEditViewState extends State<WSEditView> {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.workspace_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
       body: _form,
     );
   }

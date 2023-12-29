@@ -84,12 +84,15 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_count(count);
 
-  Widget subPageTitle(String pageTitle) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SmallText('$this', align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P)),
-          H3(pageTitle, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)),
-        ],
+  Widget subPageTitle(String pageTitle) => Container(
+        height: P8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SmallText('$this', align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)),
+            H3(pageTitle, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)),
+          ],
+        ),
       );
 
   String get wsCode => isProject ? ws.codeStr : '';

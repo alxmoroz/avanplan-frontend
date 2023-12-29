@@ -72,7 +72,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: const MTAppBar(middle: AppTitle(), bgColor: Colors.transparent, paddingTop: P2),
+      appBar: const MTAppBar(middle: AppTitle()),
       body: SafeArea(
         child: Center(
           child: Container(

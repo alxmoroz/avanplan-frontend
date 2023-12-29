@@ -15,18 +15,22 @@ import '../create/create_task_button.dart';
 import '../local_transfer/local_import_dialog.dart';
 import 'toggle_view_button.dart';
 
-class TaskBottomToolbar extends StatelessWidget {
+class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskBottomToolbar(this._controller);
   final TaskController _controller;
 
   Task get _task => _controller.task!;
 
   @override
+  Size get preferredSize => const Size.fromHeight(P10);
+
+  @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTAppBar(
         isBottom: true,
-        bgColor: b2Color,
+        color: b2Color,
+        padding: const EdgeInsets.only(top: P2),
         middle: Row(
           children: [
             const SizedBox(width: P2),

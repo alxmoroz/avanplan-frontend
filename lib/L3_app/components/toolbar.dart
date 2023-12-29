@@ -64,12 +64,10 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.middle,
     this.title,
     this.trailing,
-    this.bgColor,
-    this.height,
-    this.paddingBottom,
-    this.paddingTop,
     this.bottom,
-    this.transitionBetweenRoutes,
+    this.color,
+    this.innerHeight,
+    this.padding,
     this.isBottom = false,
     this.showCloseButton = false,
     this.onClose,
@@ -79,20 +77,20 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? middle;
   final String? title;
   final Widget? trailing;
-  final Color? bgColor;
-  final double? height;
-  final double? paddingBottom;
-  final double? paddingTop;
+  final Color? color;
+  final double? innerHeight;
+  final EdgeInsets? padding;
   final Widget? bottom;
-  final bool? transitionBetweenRoutes;
   final bool isBottom;
   final bool showCloseButton;
   final VoidCallback? onClose;
 
-  double get _innerHeight => height ?? P8;
+  double get _pTop => padding?.top ?? 0;
+  double get _innerHeight => innerHeight ?? P8;
+  double get _pBottom => padding?.bottom ?? 0;
 
   @override
-  Size get preferredSize => Size.fromHeight(_innerHeight);
+  Size get preferredSize => Size.fromHeight(_pTop + _innerHeight + _pBottom);
 
   Widget _toolbar(BuildContext context) => _ToolBar(
         showCloseButton: showCloseButton,
@@ -109,27 +107,24 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
 
-    final pTop = paddingTop ?? (isBottom ? P2 : 0);
-    final topHeight = pTop + (isBottom ? 0 : mqPadding.top);
-
-    final pBottom = paddingBottom ?? (isBottom ? defaultBottomPadding(context) : 0);
-    final bottomHeight = pBottom;
-
     return Container(
-      height: topHeight + _innerHeight + bottomHeight,
-      child: isBigScreen
-          ? Container(
-              padding: mqPadding.copyWith(top: topHeight, bottom: bottomHeight),
-              child: _toolbar(context),
-              color: (bgColor ?? b2Color).resolve(context),
+      height: (isBottom ? mqPadding.bottom : mqPadding.top) + preferredSize.height,
+      child: isBigScreen || isBottom
+          ? SafeArea(
+              top: false,
+              bottom: false,
+              child: Container(
+                padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
+                child: _toolbar(context),
+                color: (color ?? b2Color).resolve(context),
+              ),
             )
           : CupertinoNavigationBar(
-              transitionBetweenRoutes: !isBottom || transitionBetweenRoutes == true,
               automaticallyImplyLeading: false,
               automaticallyImplyMiddle: false,
-              padding: EdgeInsetsDirectional.only(top: pTop, bottom: pBottom, start: 0, end: 0),
+              padding: EdgeInsetsDirectional.only(top: _pTop, bottom: _pBottom, start: 0, end: 0),
               leading: _toolbar(context),
-              backgroundColor: bgColor ?? navbarDefaultBgColor,
+              backgroundColor: color ?? navbarDefaultBgColor,
               border: null,
             ),
     );

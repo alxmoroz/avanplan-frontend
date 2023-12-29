@@ -77,7 +77,7 @@ class TemplateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.template_selector_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.template_selector_title),
       body: Observer(
         builder: (_) => _controller.loading
             ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress(color: mainColor)))

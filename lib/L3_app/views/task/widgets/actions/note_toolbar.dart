@@ -15,7 +15,7 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 
-class NoteToolbar extends StatelessWidget {
+class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
   const NoteToolbar(this._controller);
   final TaskController _controller;
 
@@ -23,12 +23,15 @@ class NoteToolbar extends StatelessWidget {
   TextEditingController get _tcNote => _controller.teController(TaskFCode.note.index)!;
 
   @override
+  Size get preferredSize => const Size.fromHeight(P10);
+
+  @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTAppBar(
         isBottom: true,
-        bgColor: b2Color,
-        paddingBottom: P2,
+        color: b2Color,
+        padding: const EdgeInsets.only(top: P2),
         middle: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

@@ -58,7 +58,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     return Observer(builder: (_) {
       return MTPage(
         appBar: MTAppBar(
-          bgColor: isBigScreen ? b2Color : null,
+          color: isBigScreen ? b2Color : null,
           leading: isBigScreen ? const SizedBox() : null,
           middle: _hasScrolled
               ? isBigScreen
@@ -83,7 +83,8 @@ class _ProjectsViewState extends State<ProjectsView> {
             ? null
             : MTAppBar(
                 isBottom: true,
-                bgColor: b2Color,
+                padding: const EdgeInsets.only(top: P2),
+                color: b2Color,
                 trailing: CreateProjectButton(CreateProjectController(), compact: true, type: ButtonType.secondary),
               ),
         rightBar: isBigScreen ? ProjectsRightToolbar(_toolbarController) : null,

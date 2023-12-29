@@ -39,7 +39,7 @@ class _RegistrationDialogState extends State<RegistrationDialog> {
         builder: (_) => MTDialog(
           topBar: MTAppBar(
             showCloseButton: true,
-            bgColor: b2Color,
+            color: b2Color,
             title: controller.requestCompleted ? loc.register_completed_title : loc.register_title,
           ),
           body: controller.requestCompleted

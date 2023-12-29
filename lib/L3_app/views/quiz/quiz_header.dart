@@ -35,13 +35,14 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(P10);
+  Size get preferredSize => const Size.fromHeight(P8 + P);
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => _controller.active
           ? MTAppBar(
+              innerHeight: preferredSize.height,
               leading: MTButton(
                 titleText: loc.back_action_title,
                 padding: const EdgeInsets.only(left: P2),
@@ -63,7 +64,6 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
                       padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
                     )
                   : null,
-              height: preferredSize.height,
               trailing: _controller.stepIndex < _controller.stepsCount - 1
                   ? MTButton(
                       titleText: loc.skip_action_title,
@@ -72,7 +72,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
                     )
                   : null,
             )
-          : MTAppBar(height: preferredSize.height),
+          : MTAppBar(innerHeight: preferredSize.height),
     );
   }
 }

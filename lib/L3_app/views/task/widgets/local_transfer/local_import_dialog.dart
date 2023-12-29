@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/colors.dart';
@@ -52,29 +51,28 @@ class LocalImportDialog extends StatelessWidget {
         builder: (_) => MTDialog(
           topBar: MTAppBar(
             showCloseButton: true,
-            bgColor: b2Color,
+            color: b2Color,
             title: loc.task_transfer_title,
-            height: P * 20.5 + (_showSelectAll ? P8 : 0),
+            innerHeight: P * 22 + (_showSelectAll ? P8 : P),
             bottom: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BaseText(
-                  '$_dstGoal',
-                  maxLines: 1,
-                  align: TextAlign.center,
-                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P),
+                Container(
+                  height: P3,
+                  alignment: Alignment.center,
+                  child: BaseText(
+                    '$_dstGoal',
+                    maxLines: 1,
+                    align: TextAlign.center,
+                    padding: const EdgeInsets.symmetric(horizontal: P2),
+                  ),
                 ),
+                const SizedBox(height: P),
                 MTButton.secondary(
                   constrained: false,
                   padding: const EdgeInsets.symmetric(horizontal: P3),
                   margin: const EdgeInsets.symmetric(horizontal: P2),
-                  middle: Flexible(
-                    child: BaseText.medium(
-                      controller.sourceSelected ? '$_srcGoal' : loc.task_transfer_source_hint,
-                      maxLines: 1,
-                      color: mainColor,
-                    ),
-                  ),
+                  titleText: controller.sourceSelected ? '$_srcGoal' : loc.task_transfer_source_hint,
                   trailing: controller.sourceSelected
                       ? const Padding(
                           padding: EdgeInsets.only(top: P_2),
@@ -110,8 +108,8 @@ class LocalImportDialog extends StatelessWidget {
           bottomBar: controller.sourceSelected
               ? MTAppBar(
                   isBottom: true,
-                  paddingBottom: isBigScreen ? P2 : null,
-                  bgColor: b2Color,
+                  color: b2Color,
+                  padding: const EdgeInsets.only(top: P2),
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
                     titleText: loc.task_transfer_import_confirm_action_title,

@@ -5,21 +5,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/button.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
-import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/task_actions.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/task_controller.dart';
-import 'invitation_button.dart';
 import 'team.dart';
 
 class TIQuizArgs {
@@ -62,19 +57,16 @@ class TeamInvitationQuizView extends StatelessWidget {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: MTAdaptive(child: Team(_taskController)),
-              ),
-              bottomBar: MTAppBar(
-                isBottom: true,
-                bgColor: b2Color,
-                height: P8 + P8 + P3,
-                middle: Column(mainAxisSize: MainAxisSize.min, children: [
-                  if (_task!.canInviteMembers) ...[
-                    InvitationButton(_task!, type: ButtonType.secondary),
-                    const SizedBox(height: P3),
-                  ],
-                  QuizNextButton(_args._qController, margin: EdgeInsets.zero),
-                ]),
+                child: MTAdaptive(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Team(_taskController, standalone: false),
+                      const SizedBox(height: P3),
+                      QuizNextButton(_args._qController, margin: EdgeInsets.zero),
+                    ],
+                  ),
+                ),
               ),
             )
           : Container(),

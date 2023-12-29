@@ -87,10 +87,7 @@ class SettingsMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: const MTAppBar(
-          showCloseButton: true,
-          bgColor: b2Color,
-        ),
+        topBar: const MTAppBar(showCloseButton: true, color: b2Color),
         body: ListView(
           shrinkWrap: true,
           children: [

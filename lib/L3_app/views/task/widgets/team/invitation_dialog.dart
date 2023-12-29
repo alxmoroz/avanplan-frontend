@@ -43,7 +43,7 @@ class InvitationDialog extends StatelessWidget {
       builder: (_) => MTDialog(
           topBar: MTAppBar(
             showCloseButton: true,
-            bgColor: b2Color,
+            color: b2Color,
             middle: _controller.task.subPageTitle('${loc.invitation_share_subject_prefix}${loc.app_title}'),
           ),
           body: ListView(

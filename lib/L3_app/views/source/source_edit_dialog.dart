@@ -103,7 +103,7 @@ class _SourceEditDialogState extends State<SourceEditDialog> {
       builder: (_) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
+          color: b2Color,
           middle: Row(mainAxisSize: MainAxisSize.min, children: [
             if (wsMainController.multiWS) BaseText.f3('${controller.ws.codeStr} ', maxLines: 1),
             if (_isNew) BaseText('${loc.source_title_new} ', maxLines: 1),

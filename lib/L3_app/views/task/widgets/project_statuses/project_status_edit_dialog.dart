@@ -60,7 +60,7 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
       builder: (_) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
+          color: b2Color,
           title: loc.status_title,
           trailing: !_used
               ? MTButton.icon(

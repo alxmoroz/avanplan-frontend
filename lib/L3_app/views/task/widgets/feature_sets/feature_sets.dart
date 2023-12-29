@@ -147,7 +147,7 @@ class FeatureSetsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.feature_sets_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.feature_sets_title),
       body: _FSBody(
         _controller,
         footer: MTButton.main(

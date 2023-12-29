@@ -21,6 +21,7 @@ class TaskStatusField extends StatelessWidget {
   MTFieldData get _statusFD => _controller.fData(TaskFCode.status.index);
 
   static const _padding = EdgeInsets.symmetric(horizontal: P3);
+  static final _margin = const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class TaskStatusField extends StatelessWidget {
               titleText: '${_task.status}',
               color: _task.closed ? greenColor : null,
               constrained: false,
-              margin: _padding,
+              margin: _margin,
               padding: _padding,
               trailing: _task.canSetStatus
                   ? const Padding(
@@ -48,7 +49,7 @@ class TaskStatusField extends StatelessWidget {
                   leading: const DoneIcon(true, color: mainBtnTitleColor),
                   constrained: false,
                   color: greenColor,
-                  margin: _padding,
+                  margin: _margin,
                   padding: _padding,
                   loading: _statusFD.loading,
                   onTap: () => _controller.statusController.setStatus(_task, close: true),
@@ -58,7 +59,7 @@ class TaskStatusField extends StatelessWidget {
                   type: ButtonType.card,
                   color: greenLightColor,
                   titleColor: greenColor,
-                  margin: _padding,
+                  margin: _margin,
                   padding: _padding,
                 ),
     );

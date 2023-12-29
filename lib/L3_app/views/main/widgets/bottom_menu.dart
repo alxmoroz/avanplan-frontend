@@ -18,8 +18,11 @@ import '../../my_tasks/my_tasks_view.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
-class BottomMenu extends StatelessWidget {
+class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   const BottomMenu();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(P8);
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +31,13 @@ class BottomMenu extends StatelessWidget {
         : Observer(
             builder: (_) => MTAppBar(
               isBottom: true,
-              bgColor: b2Color,
-              paddingTop: 0,
+              color: b2Color,
               middle: Row(
                 children: [
                   if (tasksMainController.projects.isNotEmpty)
                     Flexible(
                       child: MTListTile(
                         middle: const ProjectsIcon(color: mainColor, size: P6),
-                        padding: const EdgeInsets.only(top: P2),
                         color: Colors.transparent,
                         bottomDivider: false,
                         onTap: () => MTRouter.navigate(ProjectsRouter, context),
@@ -46,7 +47,6 @@ class BottomMenu extends StatelessWidget {
                     Flexible(
                       child: MTListTile(
                         middle: const TasksIcon(color: mainColor, size: P6),
-                        padding: const EdgeInsets.only(top: P2),
                         color: Colors.transparent,
                         bottomDivider: false,
                         onTap: () => MTRouter.navigate(MyTasksRouter, context),
@@ -56,7 +56,6 @@ class BottomMenu extends StatelessWidget {
                     Flexible(
                       child: MTListTile(
                         middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
-                        padding: const EdgeInsets.only(top: P2),
                         color: Colors.transparent,
                         bottomDivider: false,
                         onTap: showSettingsMenu,
@@ -65,7 +64,6 @@ class BottomMenu extends StatelessWidget {
                   Flexible(
                     child: MTListTile(
                       middle: const RefreshIcon(),
-                      padding: const EdgeInsets.only(top: P2),
                       color: Colors.transparent,
                       bottomDivider: false,
                       onTap: mainController.manualUpdate,

@@ -21,7 +21,7 @@ class AttachmentsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.attachments_label),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.attachments_label),
       body: Observer(
         builder: (_) => MTShadowed(
           child: ListView.builder(

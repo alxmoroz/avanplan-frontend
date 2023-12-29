@@ -112,7 +112,8 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
             ),
             bottomBar: MTAppBar(
               isBottom: true,
-              bgColor: b2Color,
+              color: b2Color,
+              padding: const EdgeInsets.only(top: P2),
               middle: QuizNextButton(qController, margin: EdgeInsets.zero),
             ),
           ),

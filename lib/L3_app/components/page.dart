@@ -1,9 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'background.dart';
+import 'constants.dart';
 import 'scrollable.dart';
 
 class MTPage extends StatelessWidget {
@@ -20,7 +23,7 @@ class MTPage extends StatelessWidget {
 
   final PreferredSizeWidget? appBar;
   final Widget body;
-  final Widget? bottomBar;
+  final PreferredSizeWidget? bottomBar;
   final PreferredSizeWidget? leftBar;
   final PreferredSizeWidget? rightBar;
 
@@ -33,28 +36,39 @@ class MTPage extends StatelessWidget {
       final mq = MediaQuery.of(context);
       final mqPadding = mq.padding;
       return MTBackgroundWrapper(
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          key: key,
-          appBar: appBar,
-          body: scrollOffsetTop != null && scrollController != null
-              ? MediaQuery(
+        PrimaryScrollController(
+          controller: scrollController ?? ScrollController(),
+          child: MediaQuery(
+            data: mq.copyWith(
+              padding: mqPadding.copyWith(
+                top: max(mq.padding.top, P3),
+                bottom: max(mq.padding.bottom, P3),
+              ),
+            ),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              key: key,
+              appBar: appBar,
+              body: MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
                       top: mq.padding.top + (appBar?.preferredSize ?? Size.zero).height,
+                      bottom: mq.padding.bottom + (bottomBar?.preferredSize ?? Size.zero).height,
                     ),
                   ),
-                  child: MTScrollable(
-                    scrollController: scrollController!,
-                    scrollOffsetTop: scrollOffsetTop!,
-                    child: body,
-                    onScrolled: onScrolled,
-                  ),
-                )
-              : body,
-          extendBody: true,
-          extendBodyBehindAppBar: true,
-          bottomNavigationBar: bottomBar,
+                  child: scrollOffsetTop != null && scrollController != null
+                      ? MTScrollable(
+                          scrollController: scrollController!,
+                          scrollOffsetTop: scrollOffsetTop!,
+                          child: body,
+                          onScrolled: onScrolled,
+                        )
+                      : body),
+              extendBody: true,
+              extendBodyBehindAppBar: true,
+              bottomNavigationBar: bottomBar,
+            ),
+          ),
         ),
       );
     });

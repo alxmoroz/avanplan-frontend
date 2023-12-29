@@ -21,7 +21,7 @@ class UserDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.user_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.user_title),
       body: ListView(
         shrinkWrap: true,
         children: [

@@ -27,7 +27,7 @@ class TextEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: _title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: _title),
       body: Observer(
         builder: (ctx) => Padding(
           padding: MediaQuery.paddingOf(ctx),

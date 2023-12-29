@@ -44,14 +44,13 @@ class MemberRolesDialog extends StatelessWidget {
       builder: (_) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
-          height: P * 12,
+          color: b2Color,
+          innerHeight: P12,
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               _task.subPageTitle(loc.role_list_title),
               BaseText.f2('$_member', maxLines: 1),
-              const SizedBox(height: P),
             ],
           ),
         ),

@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/checkbox.dart';
 import '../../components/colors.dart';
@@ -132,22 +131,24 @@ class ImportDialog extends StatelessWidget {
   String get _importActionHint =>
       '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
-  Widget? get _bottomBar => _hasProjects
+  PreferredSizeWidget? get _bottomBar => _hasProjects
       ? MTAppBar(
           isBottom: true,
-          bgColor: b2Color,
-          height: P10 + P + 2,
-          paddingBottom: isBigScreen ? P2 : null,
+          color: b2Color,
+          innerHeight: P12,
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SmallText(
-                _importActionHint,
-                maxLines: 1,
-                color: _validated ? f2Color : warningColor,
-                align: TextAlign.center,
+              Container(
+                alignment: Alignment.center,
+                height: P4,
+                child: SmallText(
+                  _importActionHint,
+                  maxLines: 1,
+                  color: _validated ? f2Color : warningColor,
+                  align: TextAlign.center,
+                ),
               ),
-              const SizedBox(height: P),
               MTBadgeButton(
                 constrained: false,
                 padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -167,14 +168,13 @@ class ImportDialog extends StatelessWidget {
       builder: (_) => MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
-          bgColor: b2Color,
-          height: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
+          color: b2Color,
+          innerHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
           middle: controller.ws.subPageTitle(loc.import_title),
           bottom: _hasSources ? _header : null,
         ),
         body: _body(context),
         bottomBar: _bottomBar,
-        bottomBarHeight: _hasProjects ? P * 13 : null,
       ),
     );
   }

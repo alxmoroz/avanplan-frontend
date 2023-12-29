@@ -132,7 +132,7 @@ class WorkspaceDialog extends StatelessWidget {
       return MTDialog(
         topBar: MTAppBar(
             showCloseButton: true,
-            bgColor: b2Color,
+            color: b2Color,
             title: loc.workspace_title,
             trailing: _ws.hpInfoUpdate
                 ? MTButton.icon(

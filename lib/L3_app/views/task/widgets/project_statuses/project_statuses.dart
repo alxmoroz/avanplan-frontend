@@ -150,7 +150,7 @@ class ProjectStatusesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.status_list_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.status_list_title),
       body: _PSBody(
         _controller,
         footer: _CreateStatusButton(_controller),

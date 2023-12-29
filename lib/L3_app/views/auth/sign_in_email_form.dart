@@ -35,7 +35,7 @@ class _SignInEmailDialogState extends State<SignInEmailDialog> {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, title: loc.auth_sign_in_email_dialog_title),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.auth_sign_in_email_dialog_title),
         body: Observer(
           builder: (_) => ListView(
             shrinkWrap: true,

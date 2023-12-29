@@ -42,7 +42,7 @@ class MemberDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, bgColor: b2Color, middle: _task.subPageTitle(loc.member_title)),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _task.subPageTitle(loc.member_title)),
         body: _member != null
             ? ListView(
                 shrinkWrap: true,

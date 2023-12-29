@@ -20,8 +20,9 @@ import 'member_dialog.dart';
 import 'no_members.dart';
 
 class Team extends StatelessWidget {
-  const Team(this._controller);
+  const Team(this._controller, {this.standalone = true});
   final TaskController _controller;
+  final bool standalone;
 
   Task get _task => _controller.task!;
   List<Member> get _sortedMembers => _task.sortedMembers;
@@ -31,7 +32,6 @@ class Team extends StatelessWidget {
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
-      margin: EdgeInsets.only(top: index == 0 ? P3 : 0),
       leading: member.isActive ? member.icon(_iconSize / 2, borderColor: mainColor) : const PersonIcon(size: _iconSize, color: f3Color),
       middle: BaseText('$member', color: member.isActive ? null : f2Color, maxLines: 1),
       subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,
@@ -48,9 +48,11 @@ class Team extends StatelessWidget {
       builder: (_) => _sortedMembers.isNotEmpty
           ? ListView(
               shrinkWrap: true,
+              physics: standalone ? null : const NeverScrollableScrollPhysics(),
               children: [
                 ListView.builder(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: _memberBuilder,
                   itemCount: _sortedMembers.length,
                 ),

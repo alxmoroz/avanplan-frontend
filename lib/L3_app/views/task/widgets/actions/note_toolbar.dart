@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -31,7 +32,7 @@ class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
       builder: (_) => MTAppBar(
         isBottom: true,
         color: b2Color,
-        padding: const EdgeInsets.only(top: P2),
+        padding: EdgeInsets.only(top: P2, bottom: isBigScreen(context) ? P2 : 0),
         middle: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

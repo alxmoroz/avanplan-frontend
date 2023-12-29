@@ -127,7 +127,7 @@ abstract class MTRouter {
                     context: globalContext,
                     barrierColor: barrierColor,
                     settings: settings ?? rs,
-                    builder: (ctx) => constrainedDialog(ctx, _pageWidget(page), maxWidth: r.maxWidth),
+                    builder: (_) => constrainedDialog(globalContext, _pageWidget(page), maxWidth: r.maxWidth),
                   )
                 : ModalBottomSheetRoute(
                     useSafeArea: true,

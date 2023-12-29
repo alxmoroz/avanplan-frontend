@@ -109,6 +109,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return Container(
       height: (isBottom ? mqPadding.bottom : mqPadding.top) + preferredSize.height,
+      color: color?.resolve(context),
       child: isBigScreen(context) || isBottom
           ? SafeArea(
               top: false,

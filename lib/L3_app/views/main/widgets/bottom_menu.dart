@@ -23,6 +23,8 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(P8);
 
+  static const _btnPadding = EdgeInsets.only(top: P2);
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -36,6 +38,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                 child: MTListTile(
                   middle: const ProjectsIcon(color: mainColor, size: P6),
                   color: Colors.transparent,
+                  padding: _btnPadding,
                   bottomDivider: false,
                   onTap: () => MTRouter.navigate(ProjectsRouter, context),
                 ),
@@ -45,6 +48,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                 child: MTListTile(
                   middle: const TasksIcon(color: mainColor, size: P6),
                   color: Colors.transparent,
+                  padding: _btnPadding,
                   bottomDivider: false,
                   onTap: () => MTRouter.navigate(MyTasksRouter, context),
                 ),
@@ -54,6 +58,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                 child: MTListTile(
                   middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
                   color: Colors.transparent,
+                  padding: _btnPadding,
                   bottomDivider: false,
                   onTap: showSettingsMenu,
                 ),
@@ -62,6 +67,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
               child: MTListTile(
                 middle: const RefreshIcon(),
                 color: Colors.transparent,
+                padding: _btnPadding,
                 bottomDivider: false,
                 onTap: mainController.manualUpdate,
               ),

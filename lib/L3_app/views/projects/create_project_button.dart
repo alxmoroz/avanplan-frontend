@@ -27,14 +27,14 @@ class CreateProjectButton extends StatelessWidget {
   Widget _plusIcon(BuildContext context) => PlusIcon(
         color: type == ButtonType.main ? mainBtnTitleColor : mainColor,
         size: type != null ? P4 : P6,
-        circled: isBigScreen(context) && type == null,
+        circled: canShowVerticalBars(context) && type == null,
       );
 
   @override
   Widget build(BuildContext context) {
     final plusIcon = _plusIcon(context);
     return Observer(
-      builder: (_) => isBigScreen(context) && type == null
+      builder: (_) => canShowVerticalBars(context) && type == null
           ? MTListTile(
               leading: Stack(
                 alignment: Alignment.topCenter,

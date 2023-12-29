@@ -19,20 +19,28 @@ class MTScrollable extends StatefulWidget {
 class _MTScrollableState extends State<MTScrollable> {
   bool _hasScrolled = false;
 
+  void _listener() {
+    final offset = widget.scrollOffsetTop;
+    if ((!_hasScrolled && widget.scrollController.offset > offset) || (_hasScrolled && widget.scrollController.offset < offset)) {
+      setState(() {
+        _hasScrolled = !_hasScrolled;
+        if (widget.onScrolled != null) {
+          widget.onScrolled!(_hasScrolled);
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
-    final offset = widget.scrollOffsetTop;
-    widget.scrollController.addListener(() {
-      if ((!_hasScrolled && widget.scrollController.offset > offset) || (_hasScrolled && widget.scrollController.offset < offset)) {
-        setState(() {
-          _hasScrolled = !_hasScrolled;
-          if (widget.onScrolled != null) {
-            widget.onScrolled!(_hasScrolled);
-          }
-        });
-      }
-    });
+    widget.scrollController.addListener(_listener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.scrollController.removeListener(_listener);
+    super.dispose();
   }
 
   @override

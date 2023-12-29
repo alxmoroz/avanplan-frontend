@@ -40,7 +40,7 @@ class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
 
   @override
-  bool get isDialog => isBigScreen && rs!.uri.path.startsWith('/projects/tasks');
+  bool get isDialog => isBigScreen(globalContext) && rs!.uri.path.startsWith('/projects/tasks');
 
   @override
   double get maxWidth => SCR_L_WIDTH;
@@ -110,8 +110,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Task? get task => controller.task;
   bool get _hasParent => task?.parent != null;
 
-  bool get _isTaskDialog => isBigScreen && task!.isTask;
-  bool get _isBigGroup => isBigScreen && !task!.isTask;
+  bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
+  bool get _isBigGroup => isBigScreen(context) && !task!.isTask;
   double get _headerHeight => P8 + (_hasParent ? P5 : 0);
   bool get _hasQuickActions => task!.hasTasksAtAll && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
@@ -131,6 +131,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
       controller.subtasksController.dispose();
       controller.dispose();
     }
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -224,6 +225,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           : null) as PreferredSizeWidget?;
 
   Widget _page(BuildContext context) {
+    final big = isBigScreen(context);
     return _isTaskDialog
         ? MTDialog(
             topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
@@ -235,16 +237,16 @@ class TaskViewState<T extends TaskView> extends State<T> {
             onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
           )
         : MTPage(
-            appBar: isBigScreen && !_hasScrolled
+            appBar: big && !_hasScrolled
                 ? null
                 : MTAppBar(
-                    innerHeight: isBigScreen ? _headerHeight : null,
+                    innerHeight: big ? _headerHeight : null,
                     color: _isBigGroup ? b2Color : null,
                     leading: _isBigGroup ? const SizedBox() : null,
                     middle: _title,
-                    trailing: !_isBigGroup && task!.loading != true && task!.actions.isNotEmpty ? TaskPopupMenu(controller) : null,
+                    trailing: !_isBigGroup && task!.loading != true && task!.actions(context).isNotEmpty ? TaskPopupMenu(controller) : null,
                   ),
-            leftBar: const LeftMenu(),
+            leftBar: big ? const LeftMenu() : null,
             body: _body(_scrollController),
             bottomBar: _bottomBar,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,

@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
@@ -50,7 +51,7 @@ extension TaskActionsUC on Task {
   bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
 
-  bool get canShowDetails => !isBigScreen && isGroup;
+  bool canShowDetails(BuildContext context) => !isBigScreen(context) && isGroup;
 
   bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
@@ -79,8 +80,8 @@ extension TaskActionsUC on Task {
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasTasksAtAll;
 
-  Iterable<TaskAction> get actions => [
-        if (canShowDetails) TaskAction.details,
+  Iterable<TaskAction> actions(BuildContext context) => [
+        if (canShowDetails(context)) TaskAction.details,
         if (canClose) TaskAction.close,
         if (canReopen) TaskAction.reopen,
         if (canLocalExport) TaskAction.localExport,

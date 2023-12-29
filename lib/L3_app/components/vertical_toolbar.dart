@@ -20,10 +20,11 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mqPadding = MediaQuery.paddingOf(context);
     return GestureDetector(
       child: Observer(
         builder: (_) => Container(
-          width: _controller.width,
+          width: (rightSide ? mqPadding.right : mqPadding.left) + preferredSize.width,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: b3Color.resolve(context),
@@ -33,7 +34,11 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
             ),
             boxShadow: [BoxShadow(blurRadius: P, offset: Offset(rightSide ? -1 : 1, 0), color: b1Color.resolve(context))],
           ),
-          child: SafeArea(child: child),
+          child: SafeArea(
+            left: !rightSide,
+            right: rightSide,
+            child: child,
+          ),
         ),
       ),
       onTap: _controller.toggleWidth,

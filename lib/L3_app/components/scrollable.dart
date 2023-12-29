@@ -36,12 +36,6 @@ class _MTScrollableState extends State<MTScrollable> {
   }
 
   @override
-  void dispose() {
-    widget.scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;

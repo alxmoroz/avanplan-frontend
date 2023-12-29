@@ -14,26 +14,30 @@ import 'scrollable.dart';
 
 Color get barrierColor => b0Color.resolve(globalContext).withAlpha(220);
 
-BoxConstraints dialogConstrains(double? maxWidth) => BoxConstraints(
-      maxWidth: isBigScreen ? min(screenSize.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
-      maxHeight: isBigScreen ? screenSize.height - screenPadding.vertical - P6 : double.infinity,
-    );
+BoxConstraints dialogConstrains(BuildContext context, double? maxWidth) {
+  final size = screenSize(context);
+  final big = isBigScreen(context);
+  return BoxConstraints(
+    maxWidth: big ? min(size.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
+    maxHeight: big ? size.height - screenPadding(context).vertical - P6 : double.infinity,
+  );
+}
 
-Widget constrainedDialog(Widget child, {double? maxWidth}) => UnconstrainedBox(
+Widget constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) => UnconstrainedBox(
       child: Container(
-        constraints: dialogConstrains(maxWidth),
+        constraints: dialogConstrains(context, maxWidth),
         child: material(child),
       ),
     );
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
-  return isBigScreen
+  return isBigScreen(globalContext)
       ? await showDialog<T?>(
           context: globalContext,
           barrierColor: barrierColor,
           useRootNavigator: false,
           useSafeArea: true,
-          builder: (_) => constrainedDialog(child, maxWidth: maxWidth),
+          builder: (_) => constrainedDialog(globalContext, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: globalContext,
@@ -41,7 +45,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
           isScrollControlled: true,
           useRootNavigator: false,
           useSafeArea: true,
-          constraints: dialogConstrains(maxWidth),
+          constraints: dialogConstrains(globalContext, maxWidth),
           builder: (_) => child,
         );
 }
@@ -82,7 +86,7 @@ class MTDialog extends StatelessWidget {
             data: mq.copyWith(
               padding: mqPadding.copyWith(
                 top: (topBar?.preferredSize ?? Size.zero).height,
-                bottom: (bottomBar?.preferredSize ?? Size.zero).height + max(isBigScreen ? 0 : mqPadding.bottom, P3),
+                bottom: (bottomBar?.preferredSize ?? Size.zero).height + max(isBigScreen(context) ? 0 : mqPadding.bottom, P3),
               ),
             ),
             child: scrollOffsetTop != null && scrollController != null
@@ -106,6 +110,7 @@ class MTDialog extends StatelessWidget {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
+    final big = isBigScreen(context);
 
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
@@ -118,8 +123,8 @@ class MTDialog extends StatelessWidget {
             borderRadius: BorderRadius.only(
               topLeft: radius,
               topRight: radius,
-              bottomLeft: isBigScreen ? radius : Radius.zero,
-              bottomRight: isBigScreen ? radius : Radius.zero,
+              bottomLeft: big ? radius : Radius.zero,
+              bottomRight: big ? radius : Radius.zero,
             ),
           ),
           child: Stack(

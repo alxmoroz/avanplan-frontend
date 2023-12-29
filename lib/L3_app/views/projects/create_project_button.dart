@@ -24,21 +24,22 @@ class CreateProjectButton extends StatelessWidget {
   final bool compact;
   final ButtonType? type;
 
-  Widget get _plusIcon => PlusIcon(
+  Widget _plusIcon(BuildContext context) => PlusIcon(
         color: type == ButtonType.main ? mainBtnTitleColor : mainColor,
         size: type != null ? P4 : P6,
-        circled: isBigScreen && type == null,
+        circled: isBigScreen(context) && type == null,
       );
 
   @override
   Widget build(BuildContext context) {
+    final plusIcon = _plusIcon(context);
     return Observer(
-      builder: (_) => isBigScreen && type == null
+      builder: (_) => isBigScreen(context) && type == null
           ? MTListTile(
               leading: Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  _plusIcon,
+                  plusIcon,
                   if (_controller.mustPay)
                     Container(
                       padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
@@ -54,9 +55,9 @@ class CreateProjectButton extends StatelessWidget {
               margin: EdgeInsets.only(right: compact ? P2 : 0),
               showBadge: _controller.mustPay,
               type: type ?? ButtonType.main,
-              leading: compact ? null : _plusIcon,
+              leading: compact ? null : plusIcon,
               titleText: compact ? null : addSubtaskActionTitle(null),
-              middle: compact ? _plusIcon : null,
+              middle: compact ? plusIcon : null,
               constrained: !compact,
               onTap: _controller.startCreate,
             ),

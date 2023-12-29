@@ -42,12 +42,12 @@ class TaskDetails extends StatelessWidget {
 
   Task get _task => _controller.task!;
 
-  bool get _isTaskDialog => isBigScreen && _task.isTask;
-  bool get _isTaskView => !isBigScreen && _task.isTask;
-  bool get _showStatusRow => _isTaskView && (_task.canShowStatus || _task.canClose || _task.closed);
-  bool get _showDescription => !_isTaskDialog && (_task.hasDescription || _task.canEdit);
+  bool _isTaskDialog(BuildContext context) => isBigScreen(context) && _task.isTask;
+  bool _isTaskView(BuildContext context) => !isBigScreen(context) && _task.isTask;
+  bool _showStatusRow(BuildContext context) => _isTaskView(context) && (_task.canShowStatus || _task.canClose || _task.closed);
+  bool _showDescription(BuildContext context) => !_isTaskDialog(context) && (_task.hasDescription || _task.canEdit);
 
-  bool get _hasMargins => standalone || _isTaskView;
+  bool _hasMargins(BuildContext context) => standalone || _isTaskView(context);
 
   @override
   Widget build(BuildContext context) {
@@ -57,35 +57,36 @@ class TaskDetails extends StatelessWidget {
         physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
-          if (_showStatusRow) TaskStatusField(_controller),
+          if (_showStatusRow(context)) TaskStatusField(_controller),
 
           /// Описание
-          if (_showDescription) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins && _showStatusRow),
+          if (_showDescription(context))
+            TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins(context) && _showStatusRow(context)),
 
           /// Назначенный
-          if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins),
+          if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Кнопка для добавления чек-листа
-          if (!_isTaskDialog && _task.canAddChecklist) TaskChecklistAddField(_controller),
+          if (!_isTaskDialog(context) && _task.canAddChecklist) TaskChecklistAddField(_controller),
 
           /// Чек-лист
-          if (!_isTaskDialog && _task.isCheckList) ...[
+          if (!_isTaskDialog(context) && _task.isCheckList) ...[
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],
 
           /// Даты
-          TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins),
-          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins),
+          TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Оценки
-          if (_task.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins),
+          if (_task.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Вложения
-          if (!_isTaskDialog && _task.attachments.isNotEmpty)
+          if (!_isTaskDialog(context) && _task.attachments.isNotEmpty)
             MTField(
               _controller.fData(TaskFCode.attachment.index),
-              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
               leading: const AttachmentIcon(),
               value: Row(children: [
                 Flexible(child: BaseText(_controller.attachmentsController.attachmentsStr, maxLines: 1)),
@@ -103,7 +104,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.canShowFeatureSets)
             MTField(
               _controller.fData(TaskFCode.features.index),
-              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
               leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
               compact: compact,
@@ -114,7 +115,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.canEditProjectStatuses)
             MTField(
               _controller.fData(TaskFCode.statuses.index),
-              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
               leading: const StatusIcon(),
               value: _task.projectStatuses.isNotEmpty ? BaseText(_controller.projectStatusesController.statusesStr, maxLines: 1) : null,
               compact: compact,
@@ -124,7 +125,7 @@ class TaskDetails extends StatelessWidget {
           /// Связь с источником импорта
           if (_task.didImported)
             MTListTile(
-              margin: EdgeInsets.only(top: _hasMargins ? P3 : 0),
+              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
               leading: _task.source?.type.icon(size: P6),
               titleText: !compact ? loc.task_go2source_title : null,
               trailing: !compact ? const LinkOutIcon() : null,
@@ -132,7 +133,7 @@ class TaskDetails extends StatelessWidget {
               onTap: () => launchUrlString(_task.taskSource!.urlString),
             ),
 
-          if (!_isTaskDialog && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
+          if (!_isTaskDialog(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
         ],
       ),
     );

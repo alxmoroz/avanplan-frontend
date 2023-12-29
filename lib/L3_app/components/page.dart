@@ -21,11 +21,12 @@ class MTPage extends StatelessWidget {
     this.onScrolled,
   });
 
+  final PreferredSizeWidget? leftBar;
+  final PreferredSizeWidget? rightBar;
+
   final PreferredSizeWidget? appBar;
   final Widget body;
   final PreferredSizeWidget? bottomBar;
-  final PreferredSizeWidget? leftBar;
-  final PreferredSizeWidget? rightBar;
 
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
@@ -52,8 +53,8 @@ class MTPage extends StatelessWidget {
               body: MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
-                      top: mq.padding.top + (appBar?.preferredSize ?? Size.zero).height,
-                      bottom: mq.padding.bottom + (bottomBar?.preferredSize ?? Size.zero).height,
+                      top: mqPadding.top + (appBar?.preferredSize ?? Size.zero).height,
+                      bottom: mqPadding.bottom + (bottomBar?.preferredSize ?? Size.zero).height,
                     ),
                   ),
                   child: scrollOffsetTop != null && scrollController != null
@@ -77,17 +78,20 @@ class MTPage extends StatelessWidget {
   double get _leftBarWidth => (leftBar?.preferredSize ?? Size.zero).width;
   double get _rightBarWidth => (rightBar?.preferredSize ?? Size.zero).width;
 
+  bool get _hasLeftBar => leftBar != null;
+  bool get _hasRightBar => rightBar != null;
+
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    final mqPadding = mq.padding;
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Stack(
         children: [
-          _leftBarWidth > 0 || _rightBarWidth > 0
-              ? Observer(builder: (_) {
-                  final mq = MediaQuery.of(context);
-                  final mqPadding = mq.padding;
-                  return MediaQuery(
+          _hasLeftBar || _hasRightBar
+              ? Observer(
+                  builder: (_) => MediaQuery(
                     data: mq.copyWith(
                       padding: mqPadding.copyWith(
                         left: mqPadding.left + _leftBarWidth,
@@ -95,11 +99,11 @@ class MTPage extends StatelessWidget {
                       ),
                     ),
                     child: _scaffold,
-                  );
-                })
+                  ),
+                )
               : _scaffold,
-          if (leftBar != null) leftBar!,
-          if (rightBar != null) Align(alignment: Alignment.centerRight, child: rightBar!)
+          if (_hasLeftBar) leftBar!,
+          if (_hasRightBar) Align(alignment: Alignment.centerRight, child: rightBar!)
         ],
       ),
     );

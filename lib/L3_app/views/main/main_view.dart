@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/adaptive.dart';
 import '../../components/page.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
@@ -25,6 +26,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
         // await setWebpageTitle('');
+        leftMenuController.setCompact(!isBigScreen(context));
         await mainController.startupActions();
       });
 
@@ -60,8 +62,8 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 bottom: false,
                 child: tasksMainController.hasOpenedProjects ? const MainDashboard() : NoProjects(CreateProjectController()),
               ),
-              leftBar: const LeftMenu(),
-              bottomBar: const BottomMenu(),
+              leftBar: canShowVerticalBars(context) ? const LeftMenu() : null,
+              bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),
             ),
     );
   }

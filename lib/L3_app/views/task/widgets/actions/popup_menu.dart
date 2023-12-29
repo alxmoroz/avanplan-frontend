@@ -24,7 +24,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
     return material(
       PopupMenuButton<TaskAction>(
         icon: const Padding(padding: EdgeInsets.symmetric(horizontal: P2), child: MenuIcon()),
-        itemBuilder: (_) => [for (final at in _task.actions) PopupMenuItem<TaskAction>(value: at, child: TaskActionItem(at))],
+        itemBuilder: (_) => [for (final at in _task.actions(context)) PopupMenuItem<TaskAction>(value: at, child: TaskActionItem(at))],
         onOpened: () => unfocus(context),
         onSelected: controller.taskAction,
         padding: EdgeInsets.zero,

@@ -294,7 +294,7 @@ class DragAndDropLists extends StatefulWidget {
 }
 
 class DragAndDropListsState extends State<DragAndDropLists> {
-  late final ScrollController? _scrollController;
+  late final ScrollController _scrollController;
   bool _pointerDown = false;
   double? _pointerYPosition;
   double? _pointerXPosition;
@@ -304,11 +304,17 @@ class DragAndDropListsState extends State<DragAndDropLists> {
   @override
   void initState() {
     if (widget.scrollController != null)
-      _scrollController = widget.scrollController;
+      _scrollController = widget.scrollController!;
     else
       _scrollController = ScrollController();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -638,7 +644,7 @@ class DragAndDropListsState extends State<DragAndDropLists> {
 
       if (newOffset != null) {
         _scrolling = true;
-        await _scrollController!.animateTo(newOffset, duration: Duration(milliseconds: _duration), curve: Curves.linear);
+        await _scrollController.animateTo(newOffset, duration: Duration(milliseconds: _duration), curve: Curves.linear);
         _scrolling = false;
         if (_pointerDown) {
           _scrollList();
@@ -654,7 +660,7 @@ class DragAndDropListsState extends State<DragAndDropLists> {
 
     final pointerXPosition = _pointerXPosition;
     final scrollController = _scrollController;
-    if (scrollController != null && pointerXPosition != null) {
+    if (pointerXPosition != null) {
       if (pointerXPosition < (left + _scrollAreaSize) && scrollController.position.pixels > scrollController.position.minScrollExtent) {
         // scrolling toward minScrollExtent
         final overDrag = min((left + _scrollAreaSize) - pointerXPosition + _overDragMin, _overDragMax);
@@ -676,7 +682,7 @@ class DragAndDropListsState extends State<DragAndDropLists> {
 
     final pointerXPosition = _pointerXPosition;
     final scrollController = _scrollController;
-    if (scrollController != null && pointerXPosition != null) {
+    if (pointerXPosition != null) {
       if (pointerXPosition < (left + _scrollAreaSize) && scrollController.position.pixels < scrollController.position.maxScrollExtent) {
         // scrolling toward maxScrollExtent
         final overDrag = min((left + _scrollAreaSize) - pointerXPosition + _overDragMin, _overDragMax);

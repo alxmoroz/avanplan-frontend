@@ -32,45 +32,49 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromWidth(_controller.width);
 
-  Widget get _actions => Column(
-        children: [
-          /// параметры задачи
-          TaskDetails(_taskController, compact: _controller.compact),
-          const Spacer(),
+  Widget _actions(BuildContext context) {
+    final actions = _task.actions(context);
+    return Column(
+      children: [
+        /// параметры задачи
+        TaskDetails(_taskController, compact: _controller.compact),
+        const Spacer(),
 
-          /// быстрые действия
-          if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _controller.compact),
-          if (_task.canCreate && !_task.isTask) CreateTaskButton(_taskController, compact: _controller.compact),
-          if (_task.canLocalImport)
-            MTListTile(
-              leading: const LocalImportIcon(circled: true, size: P6),
-              middle: _controller.compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
-              bottomDivider: false,
-              onTap: () => localImportDialog(_taskController),
-            ),
+        /// быстрые действия
+        if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _controller.compact),
+        if (_task.canCreate && !_task.isTask) CreateTaskButton(_taskController, compact: _controller.compact),
+        if (_task.canLocalImport)
+          MTListTile(
+            leading: const LocalImportIcon(circled: true, size: P6),
+            middle: _controller.compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
+            bottomDivider: false,
+            onTap: () => localImportDialog(_taskController),
+          ),
 
-          /// действия с задачей
-          if (_task.actions.isNotEmpty) ...[
-            if (_task.isTask || _controller.showActions)
-              for (final at in _task.actions)
-                MTListTile(
-                  middle: TaskActionItem(at, compact: _controller.compact, popup: false),
-                  bottomDivider: false,
-                  onTap: () async {
-                    await _taskController.taskAction(at);
-                    _controller.toggleShowActions();
-                  },
-                )
-            else
+        /// действия с задачей
+
+        if (actions.isNotEmpty) ...[
+          if (_task.isTask || _controller.showActions)
+            for (final at in actions)
               MTListTile(
-                leading: const MenuIcon(circled: true, size: P6),
-                middle: _controller.compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor),
+                middle: TaskActionItem(at, compact: _controller.compact, popup: false),
                 bottomDivider: false,
-                onTap: _controller.toggleShowActions,
-              ),
-          ]
-        ],
-      );
+                onTap: () async {
+                  await _taskController.taskAction(at);
+                  _controller.toggleShowActions();
+                },
+              )
+          else
+            MTListTile(
+              leading: const MenuIcon(circled: true, size: P6),
+              middle: _controller.compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor),
+              bottomDivider: false,
+              onTap: _controller.toggleShowActions,
+            ),
+        ]
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +85,9 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
             ? MediaQuery(
                 data: MediaQuery.of(context)
                     .copyWith(padding: MediaQuery.paddingOf(context).add(const EdgeInsets.symmetric(vertical: P2)) as EdgeInsets),
-                child: SafeArea(top: false, child: _actions),
+                child: SafeArea(top: false, child: _actions(context)),
               )
-            : _actions,
+            : _actions(context),
       ),
     );
   }

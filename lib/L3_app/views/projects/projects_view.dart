@@ -48,6 +48,12 @@ class _ProjectsViewState extends State<ProjectsView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   Widget get _bigTitle => Align(
         alignment: Alignment.centerLeft,
         child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
@@ -56,17 +62,18 @@ class _ProjectsViewState extends State<ProjectsView> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
+      final big = isBigScreen(context);
       return MTPage(
         appBar: MTAppBar(
-          color: isBigScreen ? b2Color : null,
-          leading: isBigScreen ? const SizedBox() : null,
+          color: big ? b2Color : null,
+          leading: big ? const SizedBox() : null,
           middle: _hasScrolled
-              ? isBigScreen
+              ? big
                   ? _bigTitle
                   : BaseText.medium(loc.project_list_title)
               : null,
         ),
-        leftBar: const LeftMenu(),
+        leftBar: big ? const LeftMenu() : null,
         body: SafeArea(
           top: false,
           bottom: false,
@@ -79,7 +86,7 @@ class _ProjectsViewState extends State<ProjectsView> {
             ],
           ),
         ),
-        bottomBar: isBigScreen
+        bottomBar: canShowVerticalBars(context)
             ? null
             : MTAppBar(
                 isBottom: true,
@@ -87,7 +94,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                 color: b2Color,
                 trailing: CreateProjectButton(CreateProjectController(), compact: true, type: ButtonType.secondary),
               ),
-        rightBar: isBigScreen ? ProjectsRightToolbar(_toolbarController) : null,
+        rightBar: canShowVerticalBars(context) ? ProjectsRightToolbar(_toolbarController) : null,
         scrollController: _scrollController,
         scrollOffsetTop: P8,
         onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

@@ -68,7 +68,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
               children: [
                 MTPage(
                   appBar: QuizHeader(qController),
-                  leftBar: const LeftMenu(),
+                  leftBar: isBigScreen(context) ? const LeftMenu() : null,
                   body: SafeArea(
                     bottom: false,
                     child: ListView(

@@ -116,7 +116,7 @@ class ProjectStatusesQuizView extends StatelessWidget {
     return Observer(
       builder: (_) => MTPage(
         appBar: QuizHeader(_qController),
-        leftBar: const LeftMenu(),
+        leftBar: isBigScreen(context) ? const LeftMenu() : null,
         body: SafeArea(
           top: false,
           bottom: false,

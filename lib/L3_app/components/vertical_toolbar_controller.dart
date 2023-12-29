@@ -13,6 +13,9 @@ abstract class _VerticalToolbarControllerBase with Store {
   @observable
   bool compact = false;
 
+  @action
+  void setCompact(bool value) => compact = value;
+
   @computed
   double get wideWidth => 290.0;
   @computed

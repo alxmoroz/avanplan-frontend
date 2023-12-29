@@ -16,37 +16,39 @@ class TaskActionItem extends StatelessWidget {
   final bool compact;
   final bool popup;
 
-  double get _iconSize => isBigScreen ? P6 : P4;
-  double get _iconPadding => compact ? 0 : (isBigScreen ? P2 : P);
+  double _iconSize(BuildContext context) => isBigScreen(context) ? P6 : P4;
+  double _iconPadding(BuildContext context) => compact ? 0 : (isBigScreen(context) ? P2 : P);
 
-  Widget _tile({Widget? leading, String? title, Color? color}) => Row(children: [
-        Container(width: _iconSize + _iconPadding, child: leading, alignment: Alignment.centerLeft),
+  Widget _tile(BuildContext context, {Widget? leading, String? title, Color? color}) => Row(children: [
+        Container(width: _iconSize(context) + _iconPadding(context), child: leading, alignment: Alignment.centerLeft),
         if (!compact && title != null) Expanded(child: BaseText(title, color: color ?? mainColor, maxLines: 1)),
       ]);
 
   @override
   Widget build(BuildContext context) {
+    final iconSize = _iconSize(context);
     switch (_ta) {
       case TaskAction.details:
-        return _tile(leading: DocumentIcon(size: _iconSize), title: loc.details);
+        return _tile(context, leading: DocumentIcon(size: iconSize), title: loc.details);
       case TaskAction.close:
-        return _tile(leading: DoneIcon(true, size: _iconSize, color: greenColor), title: loc.close_action_title, color: greenColor);
+        return _tile(context, leading: DoneIcon(true, size: iconSize, color: greenColor), title: loc.close_action_title, color: greenColor);
       case TaskAction.reopen:
-        return _tile(leading: DoneIcon(false, size: _iconSize), title: loc.task_reopen_action_title);
+        return _tile(context, leading: DoneIcon(false, size: iconSize), title: loc.task_reopen_action_title);
       case TaskAction.localExport:
-        return _tile(leading: LocalExportIcon(size: _iconSize, circled: !popup), title: loc.task_transfer_export_action_title);
+        return _tile(context, leading: LocalExportIcon(size: iconSize, circled: !popup), title: loc.task_transfer_export_action_title);
       case TaskAction.duplicate:
-        return _tile(leading: DuplicateIcon(size: _iconSize, circled: !popup), title: loc.task_duplicate_action_title);
+        return _tile(context, leading: DuplicateIcon(size: iconSize, circled: !popup), title: loc.task_duplicate_action_title);
       // case TaskActionType.go2source:
       //   return _task.go2SourceTitle;
       case TaskAction.unlink:
         return _tile(
-          leading: LinkBreakIcon(size: _iconSize, circled: !popup),
+          context,
+          leading: LinkBreakIcon(size: iconSize, circled: !popup),
           title: loc.task_unlink_action_title,
           color: warningColor,
         );
       case TaskAction.delete:
-        return _tile(leading: DeleteIcon(size: _iconSize, circled: !popup), title: loc.delete_action_title, color: dangerColor);
+        return _tile(context, leading: DeleteIcon(size: iconSize, circled: !popup), title: loc.delete_action_title, color: dangerColor);
       default:
         return BaseText('$_ta');
     }

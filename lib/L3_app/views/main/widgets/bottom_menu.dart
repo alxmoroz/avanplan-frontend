@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../components/adaptive.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
@@ -26,52 +25,50 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return showLeftMenu
-        ? const SizedBox()
-        : Observer(
-            builder: (_) => MTAppBar(
-              isBottom: true,
-              color: b2Color,
-              middle: Row(
-                children: [
-                  if (tasksMainController.projects.isNotEmpty)
-                    Flexible(
-                      child: MTListTile(
-                        middle: const ProjectsIcon(color: mainColor, size: P6),
-                        color: Colors.transparent,
-                        bottomDivider: false,
-                        onTap: () => MTRouter.navigate(ProjectsRouter, context),
-                      ),
-                    ),
-                  if (tasksMainController.myTasks.isNotEmpty)
-                    Flexible(
-                      child: MTListTile(
-                        middle: const TasksIcon(color: mainColor, size: P6),
-                        color: Colors.transparent,
-                        bottomDivider: false,
-                        onTap: () => MTRouter.navigate(MyTasksRouter, context),
-                      ),
-                    ),
-                  if (accountController.user != null)
-                    Flexible(
-                      child: MTListTile(
-                        middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
-                        color: Colors.transparent,
-                        bottomDivider: false,
-                        onTap: showSettingsMenu,
-                      ),
-                    ),
-                  Flexible(
-                    child: MTListTile(
-                      middle: const RefreshIcon(),
-                      color: Colors.transparent,
-                      bottomDivider: false,
-                      onTap: mainController.manualUpdate,
-                    ),
-                  ),
-                ],
+    return Observer(
+      builder: (_) => MTAppBar(
+        isBottom: true,
+        color: b2Color,
+        middle: Row(
+          children: [
+            if (tasksMainController.projects.isNotEmpty)
+              Flexible(
+                child: MTListTile(
+                  middle: const ProjectsIcon(color: mainColor, size: P6),
+                  color: Colors.transparent,
+                  bottomDivider: false,
+                  onTap: () => MTRouter.navigate(ProjectsRouter, context),
+                ),
+              ),
+            if (tasksMainController.myTasks.isNotEmpty)
+              Flexible(
+                child: MTListTile(
+                  middle: const TasksIcon(color: mainColor, size: P6),
+                  color: Colors.transparent,
+                  bottomDivider: false,
+                  onTap: () => MTRouter.navigate(MyTasksRouter, context),
+                ),
+              ),
+            if (accountController.user != null)
+              Flexible(
+                child: MTListTile(
+                  middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
+                  color: Colors.transparent,
+                  bottomDivider: false,
+                  onTap: showSettingsMenu,
+                ),
+              ),
+            Flexible(
+              child: MTListTile(
+                middle: const RefreshIcon(),
+                color: Colors.transparent,
+                bottomDivider: false,
+                onTap: mainController.manualUpdate,
               ),
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }

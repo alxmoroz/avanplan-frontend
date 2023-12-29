@@ -122,22 +122,22 @@ abstract class MTRouter {
       final isDialog = r.isDialog;
       if (page != null) {
         return isDialog
-            ? isBigScreen
+            ? isBigScreen(globalContext)
                 ? DialogRoute(
                     context: globalContext,
                     barrierColor: barrierColor,
                     settings: settings ?? rs,
-                    builder: (_) => constrainedDialog(_pageWidget(page), maxWidth: r.maxWidth),
+                    builder: (ctx) => constrainedDialog(ctx, _pageWidget(page), maxWidth: r.maxWidth),
                   )
                 : ModalBottomSheetRoute(
                     useSafeArea: true,
-                    constraints: dialogConstrains(r.maxWidth),
+                    constraints: dialogConstrains(globalContext, r.maxWidth),
                     modalBarrierColor: barrierColor,
                     isScrollControlled: true,
                     settings: settings ?? rs,
                     builder: (_) => _pageWidget(page),
                   )
-            : isBigScreen
+            : isBigScreen(globalContext)
                 ? PageRouteBuilder(
                     reverseTransitionDuration: const Duration(milliseconds: 150),
                     settings: settings ?? rs,

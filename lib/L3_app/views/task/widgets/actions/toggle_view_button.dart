@@ -18,22 +18,20 @@ class TaskToggleViewButton extends StatelessWidget {
   final TaskController _controller;
   final bool compact;
 
-  Widget get _icon => _controller.showBoard
-      ? ListIcon(
-          circled: isBigScreen,
-          size: isBigScreen ? P6 : P4,
-        )
-      : BoardIcon(
-          circled: isBigScreen,
-          size: isBigScreen ? P6 : P4,
-        );
+  Widget _icon(BuildContext context) {
+    final circled = isBigScreen(context);
+    final size = isBigScreen(context) ? P6 : P4;
+    return _controller.showBoard ? ListIcon(circled: circled, size: size) : BoardIcon(circled: circled, size: size);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final icon = _icon(context);
+
     return Observer(builder: (_) {
-      return isBigScreen
+      return isBigScreen(context)
           ? MTListTile(
-              leading: _icon,
+              leading: icon,
               middle: compact
                   ? null
                   : BaseText(
@@ -45,7 +43,7 @@ class TaskToggleViewButton extends StatelessWidget {
               onTap: _controller.toggleBoardMode,
             )
           : MTButton.secondary(
-              middle: _icon,
+              middle: icon,
               onTap: _controller.toggleBoardMode,
               constrained: false,
             );

@@ -34,60 +34,59 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromWidth(showLeftMenu ? leftMenuController.width : 0);
+  Size get preferredSize => Size.fromWidth(leftMenuController.width);
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final compact = leftMenuController.compact;
-      return !showLeftMenu
-          ? const SizedBox()
-          : VerticalToolbar(
-              leftMenuController,
-              rightSide: false,
-              child: Column(
-                children: [
-                  MTListTile(
-                    middle: AppTitle(compact: compact),
-                    bottomDivider: false,
-                    onTap: popTop,
-                  ),
-                  if (tasksMainController.projects.isNotEmpty)
-                    MTListTile(
-                      leading: const ProjectsIcon(color: mainColor, size: P6),
-                      middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
-                      trailing: compact ? null : const ChevronIcon(),
-                      dividerIndent: P6 + P5,
-                      bottomDivider: tasksMainController.myTasks.isNotEmpty,
-                      onTap: () => _goToProjects(context),
-                    ),
-                  if (tasksMainController.myTasks.isNotEmpty)
-                    MTListTile(
-                      leading: const TasksIcon(color: mainColor, size: P6),
-                      middle: compact ? null : BaseText(loc.my_tasks_title, maxLines: 1),
-                      trailing: compact ? null : const ChevronIcon(),
-                      bottomDivider: false,
-                      onTap: () => _goToTasks(context),
-                    ),
-                  const Spacer(),
-                  if (!kIsWeb)
-                    MTListTile(
-                      leading: const RefreshIcon(),
-                      middle: compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
-                      bottomDivider: false,
-                      onTap: mainController.manualUpdate,
-                    ),
-                  if (accountController.user != null)
-                    MTListTile(
-                      leading: accountController.user!.icon(P6 / 2, borderColor: mainColor),
-                      middle: compact ? null : BaseText('${accountController.user!}', maxLines: 1),
-                      trailing: compact ? null : const ChevronIcon(),
-                      bottomDivider: false,
-                      onTap: showSettingsMenu,
-                    )
-                ],
+      return VerticalToolbar(
+        leftMenuController,
+        rightSide: false,
+        child: Column(
+          children: [
+            if (isBigScreen(context))
+              MTListTile(
+                middle: AppTitle(compact: compact),
+                bottomDivider: false,
+                onTap: popTop,
               ),
-            );
+            if (tasksMainController.projects.isNotEmpty)
+              MTListTile(
+                leading: const ProjectsIcon(color: mainColor, size: P6),
+                middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
+                trailing: compact ? null : const ChevronIcon(),
+                dividerIndent: P6 + P5,
+                bottomDivider: tasksMainController.myTasks.isNotEmpty,
+                onTap: () => _goToProjects(context),
+              ),
+            if (tasksMainController.myTasks.isNotEmpty)
+              MTListTile(
+                leading: const TasksIcon(color: mainColor, size: P6),
+                middle: compact ? null : BaseText(loc.my_tasks_title, maxLines: 1),
+                trailing: compact ? null : const ChevronIcon(),
+                bottomDivider: false,
+                onTap: () => _goToTasks(context),
+              ),
+            const Spacer(),
+            if (!kIsWeb)
+              MTListTile(
+                leading: const RefreshIcon(),
+                middle: compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
+                bottomDivider: false,
+                onTap: mainController.manualUpdate,
+              ),
+            if (accountController.user != null)
+              MTListTile(
+                leading: accountController.user!.icon(P6 / 2, borderColor: mainColor),
+                middle: compact ? null : BaseText('${accountController.user!}', maxLines: 1),
+                trailing: compact ? null : const ChevronIcon(),
+                bottomDivider: false,
+                onTap: showSettingsMenu,
+              )
+          ],
+        ),
+      );
     });
   }
 }

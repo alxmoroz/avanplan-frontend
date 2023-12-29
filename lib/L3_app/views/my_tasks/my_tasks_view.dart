@@ -43,6 +43,12 @@ class _MyTasksViewState extends State<MyTasksView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   Widget get _bigTitle => Align(
         alignment: Alignment.centerLeft,
         child: H1(loc.my_tasks_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
@@ -50,17 +56,18 @@ class _MyTasksViewState extends State<MyTasksView> {
 
   @override
   Widget build(BuildContext context) {
+    final big = isBigScreen(context);
     return MTPage(
       appBar: MTAppBar(
-        color: isBigScreen ? b2Color : null,
-        leading: isBigScreen ? const SizedBox() : null,
+        color: big ? b2Color : null,
+        leading: big ? const SizedBox() : null,
         middle: _hasScrolled
-            ? isBigScreen
+            ? big
                 ? _bigTitle
                 : BaseText.medium(loc.my_tasks_title)
             : null,
       ),
-      leftBar: const LeftMenu(),
+      leftBar: big ? const LeftMenu() : null,
       body: SafeArea(
         top: false,
         bottom: false,

@@ -9,13 +9,17 @@ import 'constants.dart';
 
 BuildContext get globalContext => rootKey.currentContext!;
 
-Size get screenSize => MediaQuery.sizeOf(globalContext);
-EdgeInsets get screenPadding => MediaQuery.paddingOf(globalContext);
+Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
+EdgeInsets screenPadding(BuildContext context) => MediaQuery.paddingOf(context);
+bool _smallLandscape(BuildContext context) =>
+    screenSize(context).height < SCR_XS_HEIGHT && MediaQuery.orientationOf(context) == Orientation.landscape;
 
-bool get isBigScreen {
-  final size = screenSize;
+bool isBigScreen(BuildContext context) {
+  final size = screenSize(context);
   return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
 }
+
+bool canShowVerticalBars(BuildContext context) => isBigScreen(context) || _smallLandscape(context);
 
 enum AdaptiveSize { XXS, XS, S, M, L }
 
@@ -53,7 +57,7 @@ class MTAdaptive extends StatelessWidget {
 
     final mqW = MediaQuery.sizeOf(context).width;
     return Container(
-      alignment: isBigScreen ? Alignment.topLeft : Alignment.topCenter,
+      alignment: isBigScreen(context) ? Alignment.topLeft : Alignment.topCenter,
       child: SizedBox(
         width: min(W, mqW),
         child: child,
@@ -68,6 +72,3 @@ class MTAdaptive extends StatelessWidget {
 }
 
 double defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));
-
-// отображаем боковое меню для больших экранов или в пейзажном режиме для маленькой высоты экрана
-bool get showLeftMenu => isBigScreen || screenSize.height < SCR_XS_HEIGHT;

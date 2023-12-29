@@ -53,7 +53,7 @@ class TeamInvitationQuizView extends StatelessWidget {
       builder: (_) => _task != null
           ? MTPage(
               appBar: QuizHeader(_args._qController),
-              leftBar: const LeftMenu(),
+              leftBar: isBigScreen(context) ? const LeftMenu() : null,
               body: SafeArea(
                 top: false,
                 bottom: false,

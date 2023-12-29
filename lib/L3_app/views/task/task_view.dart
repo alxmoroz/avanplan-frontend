@@ -135,8 +135,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
     super.dispose();
   }
 
-  // double get _bottomPaddingIndent => P4;
-
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
@@ -148,6 +146,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
           return ListView(
             controller: kIsWeb ? scrollController : null,
             children: [
+              if (_isBigGroup && !_hasScrolled) SizedBox(height: _headerHeight),
+
               /// Заголовок
               Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
 

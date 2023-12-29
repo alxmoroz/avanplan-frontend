@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
@@ -59,7 +59,11 @@ class _MyTasksViewState extends State<MyTasksView> {
     final big = isBigScreen(context);
     return MTPage(
       appBar: MTAppBar(
-        color: big ? b2Color : null,
+        color: big
+            ? _hasScrolled
+                ? b2Color
+                : Colors.transparent
+            : null,
         leading: big ? const SizedBox() : null,
         middle: _hasScrolled
             ? big

@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 
 class MyInvitationsApi {
 

@@ -10,6 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/body_start_import.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/task_remote.dart';
 
 class IntegrationsTasksApi {

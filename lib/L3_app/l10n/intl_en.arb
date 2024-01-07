@@ -39,7 +39,7 @@
   "chart_timing_left_label": "Time left",
 
   "chart_velocity_project_label": "Current",
-  "chart_velocity_target_label": "Expected",
+  "chart_velocity_required_label": "Required",
   "chart_velocity_title": "Velocity",
   "chart_velocity_unit_mo": "{unit} / month",
 

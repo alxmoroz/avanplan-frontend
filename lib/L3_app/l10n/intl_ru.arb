@@ -39,7 +39,7 @@
   "chart_timing_left_label": "До срока осталось",
 
   "chart_velocity_project_label": "Текущая",
-  "chart_velocity_target_label": "Ожидаемая",
+  "chart_velocity_required_label": "Целевая",
   "chart_velocity_title": "Скорость",
   "chart_velocity_unit_mo": "{unit} / месяц",
 

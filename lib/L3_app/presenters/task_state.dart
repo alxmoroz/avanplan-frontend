@@ -17,7 +17,7 @@ import '../presenters/duration.dart';
 import '../presenters/task_type.dart';
 import '../usecases/task_tree.dart';
 
-Color stateColor(TaskState state) {
+Color stateColor(TaskState state, {Color? defaultColor}) {
   switch (state) {
     case TaskState.OVERDUE:
       return dangerColor;
@@ -32,7 +32,7 @@ Color stateColor(TaskState state) {
     case TaskState.IMPORTING:
       return mainColor;
     default:
-      return f2Color;
+      return defaultColor ?? f2Color;
   }
 }
 

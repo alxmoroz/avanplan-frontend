@@ -12,6 +12,7 @@ import '../../../../components/progress.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
+import '../../../../presenters/task_state.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});
@@ -31,13 +32,7 @@ class TimingChart extends StatelessWidget {
   static const _markSize = Size(P2, P2);
   static const _barColor = mainColor;
 
-  Color get _etaMarkColor => _task.hasRisk
-      ? warningColor
-      : _task.hasOverdue
-          ? dangerColor
-          : _task.isOk
-              ? greenColor
-              : mainColor;
+  Color get _etaMarkColor => stateColor(_task.overallState, defaultColor: mainColor);
 
   Iterable<_DateBarData> get _dateBarData {
     final _now = DateTime.now();

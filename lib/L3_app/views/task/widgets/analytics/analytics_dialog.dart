@@ -33,9 +33,10 @@ class AnalyticsDialog extends StatelessWidget {
   Widget _details(String t1, String t2, {String? unit, Color? color, bool divider = true}) => MTListTile(
         middle: BaseText.f3(t1, maxLines: 1),
         subtitle: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            H3(t2, color: color, maxLines: 1),
-            if (unit != null) Expanded(child: H3(' $unit', maxLines: 1, color: f2Color)),
+            H3(t2, color: color, maxLines: 1, height: 1),
+            if (unit != null) BaseText(' $unit', maxLines: 1, color: f2Color, height: 1.1),
           ],
         ),
         bottomDivider: divider,
@@ -43,6 +44,9 @@ class AnalyticsDialog extends StatelessWidget {
 
   int get _timeDelta => _task.leftPeriod!.inDays;
   num get _hVelocity => (_task.project!.velocity * daysPerMonth).round();
+  num get _closedVolume => (_task.closedVolume ?? 0).round();
+  num get _totalVolume => _task.totalVolume.round();
+  String get _velocityUnit => loc.chart_velocity_unit_mo(_task.hfsEstimates ? _task.ws.estimateUnitCode : loc.task_plural(_hVelocity));
 
   Widget _chartCard(Widget child) => Container(
         alignment: Alignment.topLeft,
@@ -62,7 +66,12 @@ class AnalyticsDialog extends StatelessWidget {
             /// объем
             _chartCard(TaskVolumeChart(_task)),
             const SizedBox(height: P3),
-            _details(loc.state_closed, '${(_task.closedVolume ?? 0).round()} / ${_task.totalVolume.round()}', divider: false),
+            _details(
+              loc.state_closed,
+              '$_closedVolume / $_totalVolume',
+              unit: _task.hfsEstimates ? _task.ws.estimateUnitCode : loc.task_plural(_totalVolume),
+              divider: false,
+            ),
             // _details(loc.state_opened, '${(task.openedVolume ?? 0).round()}', divider: false),
 
             /// скорость
@@ -73,13 +82,14 @@ class AnalyticsDialog extends StatelessWidget {
               _details(
                 loc.chart_velocity_project_label,
                 '$_hVelocity',
-                unit: loc.chart_velocity_unit_mo(_task.hfsEstimates ? _task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
+                unit: _velocityUnit,
                 divider: _task.requiredVelocity != null,
               ),
               if (_task.requiredVelocity != null)
                 _details(
-                  loc.chart_velocity_target_label,
+                  loc.chart_velocity_required_label,
                   '${(_task.requiredVelocity! * daysPerMonth).round()}',
+                  unit: _velocityUnit,
                   divider: false,
                 ),
             ],

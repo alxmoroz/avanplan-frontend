@@ -108,6 +108,7 @@ class H3 extends BaseText {
   const H3(
     String text, {
     int? maxLines,
+    double? height,
     super.color,
     super.align,
     super.padding,
@@ -115,7 +116,7 @@ class H3 extends BaseText {
           text,
           sizeScale: 1.22,
           maxLines: maxLines ?? 5,
-          height: 1.2,
+          height: height ?? 1.2,
         );
 }
 
@@ -124,6 +125,7 @@ class H2 extends BaseText {
     String text, {
     Color? color,
     int? maxLines,
+    double? height,
     super.align,
     super.padding,
   }) : super(
@@ -131,7 +133,7 @@ class H2 extends BaseText {
           color: color,
           sizeScale: 1.44,
           maxLines: maxLines ?? 3,
-          height: 1.1,
+          height: height ?? 1.1,
         );
 }
 
@@ -140,6 +142,7 @@ class H1 extends BaseText {
     String text, {
     Color? color,
     int? maxLines,
+    double? height,
     super.align,
     super.padding,
   }) : super(
@@ -148,7 +151,7 @@ class H1 extends BaseText {
           weight: FontWeight.w300,
           sizeScale: 1.8,
           maxLines: maxLines ?? 2,
-          height: 1.1,
+          height: height ?? 1.1,
         );
 }
 

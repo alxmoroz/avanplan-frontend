@@ -21,6 +21,7 @@ Future<T?> showMTSelectDialog<T extends RPersistable>(
   Widget? Function(BuildContext, T)? leadingBuilder,
   Widget Function(BuildContext, T)? valueBuilder,
   Widget? Function(BuildContext, T)? subtitleBuilder,
+  final double? dividerIndent,
   final VoidCallback? onReset,
 }) async =>
     await showMTDialog<T?>(
@@ -31,6 +32,7 @@ Future<T?> showMTSelectDialog<T extends RPersistable>(
         leadingBuilder: leadingBuilder,
         valueBuilder: valueBuilder,
         subtitleBuilder: subtitleBuilder,
+        dividerIndent: dividerIndent,
         onReset: onReset,
       ),
     );
@@ -43,6 +45,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
     this.leadingBuilder,
     this.valueBuilder,
     this.subtitleBuilder,
+    this.dividerIndent,
     this.onReset,
   });
   final List<T> items;
@@ -51,6 +54,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
   final Widget? Function(BuildContext, T)? leadingBuilder;
   final Widget? Function(BuildContext, T)? valueBuilder;
   final Widget? Function(BuildContext, T)? subtitleBuilder;
+  final double? dividerIndent;
   final VoidCallback? onReset;
 
   int get selectedIndex => items.indexWhere((i) => i.id == selectedId);
@@ -64,6 +68,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
       subtitle: subtitleBuilder != null ? subtitleBuilder!(context, item) : null,
       trailing: selectedIndex == index ? const MTCircle(size: P2, color: mainColor) : null,
       bottomDivider: index < itemCount - 1,
+      dividerIndent: dividerIndent,
       onTap: () => Navigator.of(context).pop(item),
     );
   }

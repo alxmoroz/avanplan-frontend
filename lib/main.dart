@@ -20,14 +20,6 @@ import 'L3_app/extra/router.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
 
-class _ScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.mouse,
-        ...super.dragDevices,
-      };
-}
-
 Future main() async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,7 +76,10 @@ class App extends StatelessWidget {
           ? MaterialApp(
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               theme: themeData,
-              scrollBehavior: _ScrollBehavior(),
+              scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
+                PointerDeviceKind.mouse,
+                ...const MaterialScrollBehavior().dragDevices,
+              }),
               localizationsDelegates: localizationsDelegates,
               supportedLocales: supportedLocales,
               navigatorKey: rootKey,

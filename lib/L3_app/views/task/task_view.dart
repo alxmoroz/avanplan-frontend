@@ -112,7 +112,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
   bool get _isBigGroup => isBigScreen(context) && !task!.isTask;
-  double get _headerHeight => P8 + (_hasParent ? P5 : 0);
+  double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   bool get _hasQuickActions => task!.hasTasksAtAll && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 

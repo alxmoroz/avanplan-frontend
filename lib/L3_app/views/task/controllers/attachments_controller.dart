@@ -48,7 +48,7 @@ abstract class _AttachmentsControllerBase with Store {
   // }
 
   Future download(Attachment attachment) async {
-    final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/tasks/attachments/download/${attachment.wsId}/${attachment.name}');
+    final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');
     if (await canLaunchUrlString(urlString)) {
       await launchUrlString(urlString);
     }

@@ -30,7 +30,7 @@ class TaskParentTitle extends StatelessWidget {
       value: BaseText(_task.parent!.title, maxLines: 1, color: mainColor),
       padding: const EdgeInsets.symmetric(horizontal: P3),
       color: Colors.transparent,
-      minHeight: P4,
+      minHeight: P6,
       onTap: () => _toParent(context),
     );
   }

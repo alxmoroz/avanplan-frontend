@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -57,7 +58,10 @@ class TaskDetails extends StatelessWidget {
         physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
-          if (_showStatusRow(context)) TaskStatusField(_controller),
+          if (_showStatusRow(context)) ...[
+            const SizedBox(height: kIsWeb ? P2 : P),
+            TaskStatusField(_controller),
+          ],
 
           /// Описание
           if (_showDescription(context))

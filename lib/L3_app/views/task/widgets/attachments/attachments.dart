@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
@@ -24,6 +25,7 @@ class AttachmentsDialog extends StatelessWidget {
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.attachments_label),
       body: Observer(
         builder: (_) => MTShadowed(
+          topPaddingIndent: 0,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: _controller.sortedAttachments.length,
@@ -33,6 +35,7 @@ class AttachmentsDialog extends StatelessWidget {
                 leading: MimeTypeIcon(mimeType: a.type),
                 titleText: a.title,
                 subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
+                dividerIndent: P6 + P5,
                 bottomDivider: index < _controller.sortedAttachments.length - 1,
                 trailing: const DownloadIcon(),
                 onTap: () => _controller.download(a),

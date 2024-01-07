@@ -35,8 +35,7 @@ extension TaskTreeUC on Task {
   Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);
 
-  bool get hasTasksAtAll => totalVolume > 0;
-  bool get hasLoadedSubtasks => subtasks.isNotEmpty;
+  bool get hasSubtasks => totalVolume > 0 || (closedSubtasksCount ?? 0) > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
   List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();

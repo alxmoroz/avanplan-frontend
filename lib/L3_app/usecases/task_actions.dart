@@ -78,7 +78,7 @@ extension TaskActionsUC on Task {
   bool get canEditProjectStatuses => isProject && hfsTaskboard && _hpProjectInfoUpdate;
 
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
-  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasTasksAtAll;
+  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;
 
   Iterable<TaskAction> actions(BuildContext context) => [
         if (canShowDetails(context)) TaskAction.details,

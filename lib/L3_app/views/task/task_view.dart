@@ -113,7 +113,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
   bool get _isBigGroup => isBigScreen(context) && !task!.isTask;
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
-  bool get _hasQuickActions => task!.hasTasksAtAll && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
+  bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
   @override
@@ -161,7 +161,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       : MTAdaptive(child: TaskDetails(controller))
 
                   /// Группа задач без подзадач
-                  : !task!.hasLoadedSubtasks && !task!.hasTasksAtAll
+                  : !task!.hasSubtasks
                       ? SizedBox(
                           // TODO: хардкод ((
                           height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),

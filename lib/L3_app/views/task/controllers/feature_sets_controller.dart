@@ -59,7 +59,7 @@ abstract class _FeatureSetsControllerBase with Store {
       } else if (fs.code == FSCode.GOALS) {
         // не можем включить для трелло и не можем выключить, если есть уже цели или задачи в корне проекта
         final isTrello = project.ws.sourceForId(project.taskSource?.sourceId)?.type.isTrello == true;
-        disabled = isTrello || project.subtasks.isNotEmpty;
+        disabled = isTrello || project.hasSubtasks;
       } else if (fs.code == FSCode.ESTIMATES) {
         // TODO: можно проверить наличие оценок в задачах проекта
         bool hasEstimate(Task task) {

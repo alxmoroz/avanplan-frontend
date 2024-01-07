@@ -52,7 +52,6 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
           ),
 
         /// действия с задачей
-
         if (actions.isNotEmpty) ...[
           if (_task.isTask || _controller.showActions)
             for (final at in actions)
@@ -83,9 +82,13 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         _controller,
         child: _task.isTask
             ? MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(padding: MediaQuery.paddingOf(context).add(const EdgeInsets.symmetric(vertical: P2)) as EdgeInsets),
-                child: SafeArea(top: false, child: _actions(context)),
+                data: MediaQuery.of(context).copyWith(
+                  padding: MediaQuery.paddingOf(context).add(const EdgeInsets.symmetric(vertical: P2)) as EdgeInsets,
+                ),
+                child: SafeArea(
+                  top: false,
+                  child: _actions(context),
+                ),
               )
             : _actions(context),
       ),

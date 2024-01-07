@@ -50,8 +50,9 @@ class _Column extends DragAndDropList {
 }
 
 class TasksBoard extends StatelessWidget {
-  const TasksBoard(this.controller, {this.extra});
+  const TasksBoard(this.controller, {this.scrollController, this.extra});
   final StatusController controller;
+  final ScrollController? scrollController;
   final Widget? extra;
 
   Task get _task => controller.task;
@@ -101,6 +102,7 @@ class TasksBoard extends StatelessWidget {
         children: [
           for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(context, i),
         ],
+        scrollController: scrollController,
         onItemReorder: controller.moveTask,
         onItemDraggingChanged: (_, dragging) => dragging ? HapticFeedback.mediumImpact() : null,
         itemTargetOnWillAccept: controller.canMoveTaskTarget,

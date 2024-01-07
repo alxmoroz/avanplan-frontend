@@ -104,6 +104,7 @@ class TaskView extends StatefulWidget {
 
 class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController _scrollController;
+  late final ScrollController _boardScrollController;
   bool _hasScrolled = false;
 
   TaskController get controller => widget._controller;
@@ -122,6 +123,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
       setWebpageTitle(task?.viewTitle ?? '');
     }
     _scrollController = ScrollController();
+    _boardScrollController = ScrollController();
     super.initState();
   }
 
@@ -132,19 +134,20 @@ class TaskViewState<T extends TaskView> extends State<T> {
       controller.dispose();
     }
     _scrollController.dispose();
+    _boardScrollController.dispose();
     super.dispose();
   }
 
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
-  Widget _body(ScrollController scrollController) => SafeArea(
+  Widget get _body => SafeArea(
         top: false,
         bottom: false,
         child: LayoutBuilder(builder: (ctx, size) {
           final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
           return ListView(
-            controller: kIsWeb ? scrollController : null,
+            controller: kIsWeb ? _scrollController : null,
             children: [
               if (_isBigGroup && !_hasScrolled) SizedBox(height: _headerHeight),
 
@@ -174,12 +177,16 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                               /// Доска
                               ? Container(
-                                  // height: expandedHeight - _bottomPaddingIndent + P_2,
                                   height: expandedHeight + P2,
                                   padding: const EdgeInsets.only(top: P3),
-                                  child: TasksBoard(
-                                    controller.statusController,
-                                    extra: controller.subtasksController.loadClosedButton(board: true),
+                                  child: Scrollbar(
+                                    controller: _boardScrollController,
+                                    thumbVisibility: kIsWeb,
+                                    child: TasksBoard(
+                                      controller.statusController,
+                                      scrollController: _boardScrollController,
+                                      extra: controller.subtasksController.loadClosedButton(board: true),
+                                    ),
                                   ),
                                 )
 
@@ -229,7 +236,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     return _isTaskDialog
         ? MTDialog(
             topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-            body: _body(_scrollController),
+            body: _body,
             rightBar: TaskRightToolbar(controller.toolbarController),
             bottomBar: task!.canComment ? NoteToolbar(controller) : null,
             scrollController: _scrollController,
@@ -247,7 +254,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     trailing: !_isBigGroup && task!.loading != true && task!.actions(context).isNotEmpty ? TaskPopupMenu(controller) : null,
                   ),
             leftBar: big ? const LeftMenu() : null,
-            body: _body(_scrollController),
+            body: _body,
             bottomBar: _bottomBar,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
             scrollController: _scrollController,

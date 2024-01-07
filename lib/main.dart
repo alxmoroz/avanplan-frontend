@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,14 @@ import 'L3_app/components/constants.dart';
 import 'L3_app/extra/router.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
+
+class _ScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.mouse,
+        ...super.dragDevices,
+      };
+}
 
 Future main() async {
   setup();
@@ -75,6 +84,7 @@ class App extends StatelessWidget {
           ? MaterialApp(
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               theme: themeData,
+              scrollBehavior: _ScrollBehavior(),
               localizationsDelegates: localizationsDelegates,
               supportedLocales: supportedLocales,
               navigatorKey: rootKey,

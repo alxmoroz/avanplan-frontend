@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../../components/constants.dart';
 import 'drag_and_drop_builder_parameters.dart';
@@ -313,7 +312,9 @@ class DragAndDropListsState extends State<DragAndDropLists> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    if (widget.scrollController == null) {
+      _scrollController.dispose();
+    }
     super.dispose();
   }
 

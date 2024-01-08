@@ -14,7 +14,7 @@ import 'ws_actions.dart';
 import 'ws_tariff.dart';
 
 extension WSTasksUC on Workspace {
-  Future<Task?> createTask(Task? _parent) async {
+  Future<Task?> createTask(Task? _parent, {int? statusId}) async {
     final _newProject = _parent == null;
     final _newGoal = _parent != null && _parent.isProject && _parent.hfsGoals;
     final _newCheckItem = _parent != null && _parent.isTask;
@@ -30,7 +30,7 @@ extension WSTasksUC on Workspace {
     if (plCreate(_parent)) {
       final taskData = Task(
         title: newSubtaskTitle(_parent),
-        projectStatusId: (_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id,
+        projectStatusId: statusId ?? ((_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id),
         closed: false,
         parentId: _parent?.id,
         members: [],

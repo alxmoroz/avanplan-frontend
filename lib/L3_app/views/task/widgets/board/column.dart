@@ -1,7 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/list_tile.dart';
+import 'package:avanplan/L3_app/usecases/ws_tasks.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
@@ -12,6 +13,7 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
+import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
@@ -75,9 +77,28 @@ class TaskBoardColumn {
         canDrag: t.canSetStatus,
       );
 
-  Widget get _footer => Observer(
-        builder: (_) => _status.closed ? _taskController.subtasksController.loadClosedButton(board: true) ?? const SizedBox() : const SizedBox(),
-      );
+  Widget? get _footer => _status.closed
+      ? _taskController.subtasksController.loadClosedButton(board: true)
+      : _parent.canCreate
+          ? MTListTile(
+              middle: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const PlusIcon(size: P3),
+                  const SizedBox(width: P),
+                  BaseText.medium(addSubtaskActionTitle(_parent), color: mainColor),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+              bottomDivider: false,
+              onTap: () async {
+                final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
+                if (newTask != null) {
+                  await TaskController(newTask, isNew: true).showTask();
+                }
+              },
+            )
+          : null;
 
   _Column builder() => _Column(
         _status,

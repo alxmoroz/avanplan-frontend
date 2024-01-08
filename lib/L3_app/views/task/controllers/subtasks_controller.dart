@@ -90,6 +90,7 @@ abstract class _SubtasksControllerBase with Store {
           ? MTListTile(
               middle: BaseText.medium(loc.show_closed_action_title, color: mainColor, align: TextAlign.center),
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+              loading: _loading,
               bottomDivider: false,
               onTap: _loadClosed,
             )

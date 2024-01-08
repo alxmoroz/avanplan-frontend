@@ -1,9 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import 'drag_and_drop_interface.dart';
-
-class DragAndDropItem implements DragAndDropInterface {
-  DragAndDropItem({
+class MTDragNDropItem {
+  MTDragNDropItem({
     required this.child,
     this.feedbackWidget,
     this.canDrag = true,

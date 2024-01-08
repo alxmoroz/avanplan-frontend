@@ -77,7 +77,7 @@ class App extends StatelessWidget {
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               theme: themeData,
               scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-                PointerDeviceKind.mouse,
+                if (kIsWeb) PointerDeviceKind.mouse,
                 ...const MaterialScrollBehavior().dragDevices,
               }),
               localizationsDelegates: localizationsDelegates,

@@ -26,7 +26,7 @@ import 'controllers/task_controller.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
-import 'widgets/board/tasks_board.dart';
+import 'widgets/board/board.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
@@ -141,6 +141,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
+  Widget get _board => TasksBoard(
+        controller,
+        scrollController: _boardScrollController,
+      );
+
   Widget get _body => SafeArea(
         top: false,
         bottom: false,
@@ -179,15 +184,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               ? Container(
                                   height: expandedHeight + P2,
                                   padding: const EdgeInsets.only(top: P3),
-                                  child: Scrollbar(
-                                    controller: _boardScrollController,
-                                    thumbVisibility: kIsWeb,
-                                    child: TasksBoard(
-                                      controller.statusController,
-                                      scrollController: _boardScrollController,
-                                      extra: controller.subtasksController.loadClosedButton(board: true),
-                                    ),
-                                  ),
+                                  child: kIsWeb
+                                      ? Scrollbar(
+                                          controller: _boardScrollController,
+                                          thumbVisibility: true,
+                                          child: _board,
+                                        )
+                                      : _board,
                                 )
 
                               /// Список

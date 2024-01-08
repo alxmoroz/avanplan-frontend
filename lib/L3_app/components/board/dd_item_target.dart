@@ -1,23 +1,25 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'drag_and_drop_builder_parameters.dart';
-import 'drag_and_drop_item.dart';
-import 'drag_and_drop_list_interface.dart';
+import 'dd_column_interface.dart';
+import 'dd_item.dart';
+import 'dd_parameters.dart';
 
-class DragAndDropItemTarget extends StatefulWidget {
-  const DragAndDropItemTarget({required this.child, required this.onReorderOrAdd, required this.parameters, this.parent, Key? key}) : super(key: key);
+class MTDragNDropItemTarget extends StatefulWidget {
+  const MTDragNDropItemTarget({required this.child, required this.onReorderOrAdd, required this.parameters, this.parent, Key? key}) : super(key: key);
   final Widget child;
-  final DragAndDropListInterface? parent;
-  final DragAndDropBuilderParameters parameters;
+  final MTDragNDropColumnInterface? parent;
+  final MTDragNDropParameters parameters;
   final OnItemDropOnLastTarget onReorderOrAdd;
 
   @override
-  State<StatefulWidget> createState() => _DragAndDropItemTarget();
+  State<StatefulWidget> createState() => _MTDragNDropItemTarget();
 }
 
-class _DragAndDropItemTarget extends State<DragAndDropItemTarget> with TickerProviderStateMixin {
-  DragAndDropItem? _hoveredDraggable;
+class _MTDragNDropItemTarget extends State<MTDragNDropItemTarget> with TickerProviderStateMixin {
+  MTDragNDropItem? _hoveredDraggable;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class _DragAndDropItemTarget extends State<DragAndDropItemTarget> with TickerPro
           ],
         ),
         Positioned.fill(
-          child: DragTarget<DragAndDropItem>(
+          child: DragTarget<MTDragNDropItem>(
             builder: (context, candidateData, rejectedData) {
               if (candidateData.isNotEmpty) {}
               return Container();

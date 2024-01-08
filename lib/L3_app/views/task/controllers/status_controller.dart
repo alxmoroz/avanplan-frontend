@@ -10,6 +10,8 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
+import '../../../components/board/dd_item.dart';
+import '../../../components/board/dd_item_target.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -20,8 +22,6 @@ import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_status.dart';
 import '../../../usecases/task_tree.dart';
-import '../widgets/board/drag_and_drop_item.dart';
-import '../widgets/board/drag_and_drop_item_target.dart';
 import '../widgets/tasks/task_card.dart';
 import 'task_controller.dart';
 
@@ -118,7 +118,7 @@ class StatusController {
     }
   }
 
-  bool canMoveTaskTarget(DragAndDropItem? incoming, DragAndDropItemTarget target) {
+  bool canMoveTaskTarget(MTDragNDropItem? incoming, MTDragNDropItemTarget target) {
     // final incomingTask = (incoming?.child as TaskCard).task;
     // final targetColumn = target.parent as MTBoardColumn;
     // return incomingTask.status != targetColumn.status;
@@ -126,7 +126,7 @@ class StatusController {
     return true;
   }
 
-  bool canMoveTask(DragAndDropItem? incoming, DragAndDropItem target) {
+  bool canMoveTask(MTDragNDropItem? incoming, MTDragNDropItem target) {
     final incomingTask = (incoming?.child as TaskCard).task;
     final targetTask = (target.child as TaskCard).task;
     // return incomingTask.status != targetTask.status;

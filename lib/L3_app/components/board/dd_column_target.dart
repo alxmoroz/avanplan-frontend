@@ -1,40 +1,48 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'drag_and_drop_builder_parameters.dart';
-import 'drag_and_drop_list_interface.dart';
+import 'dd_column_interface.dart';
+import 'dd_parameters.dart';
 
-typedef OnDropOnLastTarget = void Function(
-  DragAndDropListInterface newOrReordered,
-  DragAndDropListTarget receiver,
+typedef _OnDropOnLastTarget = void Function(
+  MTDragNDropColumnInterface newOrReordered,
+  MTDragNDropColumnTarget receiver,
 );
 
-class DragAndDropListTarget extends StatefulWidget {
-  const DragAndDropListTarget({this.child, required this.parameters, required this.onDropOnLastTarget, this.lastListTargetSize = 110, Key? key})
-      : super(key: key);
+class MTDragNDropColumnTarget extends StatefulWidget {
+  const MTDragNDropColumnTarget({
+    this.child,
+    required this.parameters,
+    required this.onDropOnLastTarget,
+    this.lastColumnTargetSize = 110,
+    Key? key,
+  }) : super(key: key);
+
   final Widget? child;
-  final DragAndDropBuilderParameters parameters;
-  final OnDropOnLastTarget onDropOnLastTarget;
-  final double lastListTargetSize;
+  final MTDragNDropParameters parameters;
+  final _OnDropOnLastTarget onDropOnLastTarget;
+  final double lastColumnTargetSize;
 
   @override
-  State<StatefulWidget> createState() => _DragAndDropListTarget();
+  State<StatefulWidget> createState() => _MTDragNDropColumnTarget();
 }
 
-class _DragAndDropListTarget extends State<DragAndDropListTarget> with TickerProviderStateMixin {
-  DragAndDropListInterface? _hoveredDraggable;
+class _MTDragNDropColumnTarget extends State<MTDragNDropColumnTarget> with TickerProviderStateMixin {
+  MTDragNDropColumnInterface? _hoveredDraggable;
 
   @override
   Widget build(BuildContext context) {
     Widget visibleContents = Column(
       children: <Widget>[
         AnimatedSize(
-          duration: Duration(milliseconds: widget.parameters.listSizeAnimationDuration),
+          duration: Duration(milliseconds: widget.parameters.columnSizeAnimationDuration),
           alignment: Alignment.centerLeft,
           child: _hoveredDraggable != null
               ? Opacity(
-                  opacity: widget.parameters.listGhostOpacity,
-                  child: widget.parameters.listGhost ?? _hoveredDraggable!.generateWidget(widget.parameters),
+                  opacity: widget.parameters.columnGhostOpacity,
+                  child: widget.parameters.columnGhost ?? _hoveredDraggable!.generateWidget(widget.parameters),
                 )
               : Container(),
         ),
@@ -42,28 +50,26 @@ class _DragAndDropListTarget extends State<DragAndDropListTarget> with TickerPro
       ],
     );
 
-    if (widget.parameters.listPadding != null) {
+    if (widget.parameters.columnPadding != null) {
       visibleContents = Padding(
-        padding: widget.parameters.listPadding!,
+        padding: widget.parameters.columnPadding!,
         child: visibleContents,
       );
     }
-
-    // visibleContents = SingleChildScrollView(child: visibleContents);
 
     return Stack(
       children: <Widget>[
         visibleContents,
         Positioned.fill(
-          child: DragTarget<DragAndDropListInterface>(
+          child: DragTarget<MTDragNDropColumnInterface>(
             builder: (context, candidateData, rejectedData) {
               if (candidateData.isNotEmpty) {}
               return Container();
             },
             onWillAccept: (incoming) {
               bool accept = true;
-              if (widget.parameters.listTargetOnWillAccept != null) {
-                accept = widget.parameters.listTargetOnWillAccept!(incoming, widget);
+              if (widget.parameters.columnTargetOnWillAccept != null) {
+                accept = widget.parameters.columnTargetOnWillAccept!(incoming, widget);
               }
               if (accept && mounted) {
                 setState(() {

@@ -1,18 +1,20 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/text.dart';
-import 'drag_and_drop_builder_parameters.dart';
-import 'drag_and_drop_item.dart';
-import 'drag_and_drop_item_target.dart';
-import 'drag_and_drop_item_wrapper.dart';
-import 'drag_and_drop_list_interface.dart';
+import '../colors.dart';
+import '../colors_base.dart';
+import '../constants.dart';
+import '../text.dart';
+import 'dd_column_interface.dart';
+import 'dd_item.dart';
+import 'dd_item_target.dart';
+import 'dd_item_wrapper.dart';
+import 'dd_parameters.dart';
 
-class DragAndDropList implements DragAndDropListInterface {
-  DragAndDropList({
+class MTBoardColumn implements MTDragNDropColumnInterface {
+  MTBoardColumn({
     required this.children,
     this.header,
     this.footer,
@@ -29,22 +31,23 @@ class DragAndDropList implements DragAndDropListInterface {
   final Decoration? decoration;
 
   @override
-  final List<DragAndDropItem> children;
+  final List<MTDragNDropItem> children;
 
   @override
   final bool canDrag;
 
   static const _borderRadius = BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS));
   static const _headerHeight = P8;
+  static const _footerHeight = P8;
 
   @override
-  Widget generateWidget(DragAndDropBuilderParameters params) {
+  Widget generateWidget(MTDragNDropParameters params) {
     final lastItemTargetHeight = params.lastItemTargetHeight;
 
     return Builder(
       builder: (context) => Container(
         clipBehavior: Clip.hardEdge,
-        width: params.listWidth,
+        width: params.columnWidth,
         foregroundDecoration: BoxDecoration(
           borderRadius: _borderRadius,
           border: Border.all(width: 1, color: b1Color.resolve(context)),
@@ -56,7 +59,7 @@ class DragAndDropList implements DragAndDropListInterface {
         child: Stack(
           children: [
             MediaQuery(
-              data: const MediaQueryData(padding: EdgeInsets.only(top: _headerHeight)),
+              data: MediaQueryData(padding: EdgeInsets.only(top: _headerHeight, bottom: footer != null ? _footerHeight : 0)),
               child: ListView(
                 shrinkWrap: true,
                 children: [
@@ -66,24 +69,30 @@ class DragAndDropList implements DragAndDropListInterface {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: children.length,
-                      itemBuilder: (_, index) => DragAndDropItemWrapper(
+                      itemBuilder: (_, index) => MTDragNDropItemWrapper(
                         child: children[index],
                         parameters: params,
                       ),
                     ),
                   ] else
                     contentsWhenEmpty ?? const BaseText.f2('Empty list'),
-                  DragAndDropItemTarget(
+                  MTDragNDropItemTarget(
                     parent: this,
                     parameters: params,
                     onReorderOrAdd: params.onItemDropOnLastTarget!,
                     child: lastTarget ?? SizedBox(height: lastItemTargetHeight),
                   ),
-                  if (footer != null) footer!,
                 ],
               ),
             ),
             if (header != null) Container(child: header, color: b2Color.resolve(context), height: _headerHeight),
+            if (footer != null)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(child: footer, color: b2Color.resolve(context), height: _footerHeight),
+              ),
           ],
         ),
       ),

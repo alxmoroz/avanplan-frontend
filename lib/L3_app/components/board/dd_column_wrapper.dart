@@ -1,21 +1,22 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:flutter/material.dart';
 
-import 'drag_and_drop_builder_parameters.dart';
-import 'drag_and_drop_list_interface.dart';
-import 'drag_handle.dart';
+import 'dd_column_interface.dart';
+import 'dd_parameters.dart';
 import 'measure_size.dart';
 
-class DragAndDropListWrapper extends StatefulWidget {
-  const DragAndDropListWrapper({required this.dragAndDropList, required this.parameters, Key? key}) : super(key: key);
-  final DragAndDropListInterface dragAndDropList;
-  final DragAndDropBuilderParameters parameters;
+class MTDragNDropColumnWrapper extends StatefulWidget {
+  const MTDragNDropColumnWrapper({required this.ddColumn, required this.parameters, Key? key}) : super(key: key);
+  final MTDragNDropColumnInterface ddColumn;
+  final MTDragNDropParameters parameters;
 
   @override
-  State<StatefulWidget> createState() => _DragAndDropListWrapper();
+  State<StatefulWidget> createState() => _MTDragNDropColumnWrapper();
 }
 
-class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerProviderStateMixin {
-  DragAndDropListInterface? _hoveredDraggable;
+class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with TickerProviderStateMixin {
+  MTDragNDropColumnInterface? _hoveredDraggable;
 
   bool _dragging = false;
   Size _containerSize = Size.zero;
@@ -23,19 +24,19 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
 
   @override
   Widget build(BuildContext context) {
-    final Widget dragAndDropListContents = widget.dragAndDropList.generateWidget(widget.parameters);
+    final Widget ddColumnContents = widget.ddColumn.generateWidget(widget.parameters);
 
     Widget draggable;
-    if (widget.dragAndDropList.canDrag) {
-      if (widget.parameters.listDragHandle != null) {
+    if (widget.ddColumn.canDrag) {
+      if (widget.parameters.columnDragHandle != null) {
         final Widget dragHandle = MouseRegion(
           cursor: SystemMouseCursors.grab,
-          child: widget.parameters.listDragHandle,
+          child: widget.parameters.columnDragHandle,
         );
 
-        final Widget feedback = buildFeedbackWithHandle(dragAndDropListContents, dragHandle);
+        final Widget feedback = buildFeedbackWithHandle(ddColumnContents, dragHandle);
 
-        draggable = MeasureSize(
+        draggable = MTMeasureSize(
           onSizeChange: (size) {
             setState(() => _containerSize = size!);
           },
@@ -43,16 +44,15 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
             children: [
               Visibility(
                 visible: !_dragging,
-                child: dragAndDropListContents,
+                child: ddColumnContents,
               ),
-              // dragAndDropListContents,
               Positioned(
-                right: widget.parameters.listDragHandle!.onLeft ? null : 0,
-                left: widget.parameters.listDragHandle!.onLeft ? 0 : null,
+                right: widget.parameters.columnDragHandle!.onLeft ? null : 0,
+                left: widget.parameters.columnDragHandle!.onLeft ? 0 : null,
                 top: _dragHandleDistanceFromTop(),
-                child: Draggable<DragAndDropListInterface>(
-                  data: widget.dragAndDropList,
-                  child: MeasureSize(
+                child: Draggable<MTDragNDropColumnInterface>(
+                  data: widget.ddColumn,
+                  child: MTMeasureSize(
                     onSizeChange: (size) {
                       setState(() {
                         _dragHandleSize = size!;
@@ -75,10 +75,10 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
           ),
         );
       } else if (widget.parameters.dragOnLongPress) {
-        draggable = LongPressDraggable<DragAndDropListInterface>(
-          data: widget.dragAndDropList,
-          child: dragAndDropListContents,
-          feedback: buildFeedbackWithoutHandle(context, dragAndDropListContents),
+        draggable = LongPressDraggable<MTDragNDropColumnInterface>(
+          data: widget.ddColumn,
+          child: ddColumnContents,
+          feedback: buildFeedbackWithoutHandle(context, ddColumnContents),
           childWhenDragging: Container(),
           onDragStarted: () => _setDragging(true),
           onDragCompleted: () => _setDragging(false),
@@ -86,10 +86,10 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
           onDragEnd: (_) => _setDragging(false),
         );
       } else {
-        draggable = Draggable<DragAndDropListInterface>(
-          data: widget.dragAndDropList,
-          child: dragAndDropListContents,
-          feedback: buildFeedbackWithoutHandle(context, dragAndDropListContents),
+        draggable = Draggable<MTDragNDropColumnInterface>(
+          data: widget.ddColumn,
+          child: ddColumnContents,
+          feedback: buildFeedbackWithoutHandle(context, ddColumnContents),
           childWhenDragging: Container(),
           onDragStarted: () => _setDragging(true),
           onDragCompleted: () => _setDragging(false),
@@ -98,19 +98,19 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
         );
       }
     } else {
-      draggable = dragAndDropListContents;
+      draggable = ddColumnContents;
     }
 
     final rowOrColumnChildren = <Widget>[
       AnimatedSize(
-        duration: Duration(milliseconds: widget.parameters.listSizeAnimationDuration),
+        duration: Duration(milliseconds: widget.parameters.columnSizeAnimationDuration),
         alignment: Alignment.centerLeft,
         child: _hoveredDraggable != null
             ? Opacity(
-                opacity: widget.parameters.listGhostOpacity,
-                child: widget.parameters.listGhost ??
+                opacity: widget.parameters.columnGhostOpacity,
+                child: widget.parameters.columnGhost ??
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: widget.parameters.listPadding!.horizontal),
+                      padding: EdgeInsets.symmetric(horizontal: widget.parameters.columnPadding!.horizontal),
                       child: _hoveredDraggable!.generateWidget(widget.parameters),
                     ),
               )
@@ -131,15 +131,15 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
           children: rowOrColumnChildren,
         ),
         Positioned.fill(
-          child: DragTarget<DragAndDropListInterface>(
+          child: DragTarget<MTDragNDropColumnInterface>(
             builder: (context, candidateData, rejectedData) {
               if (candidateData.isNotEmpty) {}
               return Container();
             },
             onWillAccept: (incoming) {
               bool accept = true;
-              if (widget.parameters.listOnWillAccept != null) {
-                accept = widget.parameters.listOnWillAccept!(incoming, widget.dragAndDropList);
+              if (widget.parameters.columnOnWillAccept != null) {
+                accept = widget.parameters.columnOnWillAccept!(incoming, widget.ddColumn);
               }
               if (accept && mounted) {
                 setState(() {
@@ -160,7 +160,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
             onAccept: (incoming) {
               if (mounted) {
                 setState(() {
-                  widget.parameters.onListReordered!(incoming, widget.dragAndDropList);
+                  widget.parameters.onColumnReordered!(incoming, widget.ddColumn);
                   _hoveredDraggable = null;
                 });
               }
@@ -171,24 +171,24 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
     );
   }
 
-  Material buildFeedbackWithHandle(Widget dragAndDropListContents, Widget dragHandle) {
+  Material buildFeedbackWithHandle(Widget ddColumnContent, Widget dragHandle) {
     return Material(
       color: Colors.transparent,
       child: Container(
-        decoration: widget.parameters.listDecorationWhileDragging,
+        decoration: widget.parameters.columnDecorationWhileDragging,
         child: Container(
-          width: widget.parameters.listDraggingWidth ?? _containerSize.width,
+          width: widget.parameters.columnDraggingWidth ?? _containerSize.width,
           child: Stack(
             children: [
               Directionality(
                 textDirection: Directionality.of(context),
-                child: dragAndDropListContents,
+                child: ddColumnContent,
               ),
               Positioned(
-                right: widget.parameters.listDragHandle!.onLeft ? null : 0,
-                left: widget.parameters.listDragHandle!.onLeft ? 0 : null,
-                top: widget.parameters.listDragHandle!.verticalAlignment == DragHandleVerticalAlignment.bottom ? null : 0,
-                bottom: widget.parameters.listDragHandle!.verticalAlignment == DragHandleVerticalAlignment.top ? null : 0,
+                right: widget.parameters.columnDragHandle!.onLeft ? null : 0,
+                left: widget.parameters.columnDragHandle!.onLeft ? 0 : null,
+                top: widget.parameters.columnDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.bottom ? null : 0,
+                bottom: widget.parameters.columnDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.top ? null : 0,
                 child: dragHandle,
               ),
             ],
@@ -198,16 +198,16 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
     );
   }
 
-  Container buildFeedbackWithoutHandle(BuildContext context, Widget dragAndDropListContents) {
+  Container buildFeedbackWithoutHandle(BuildContext context, Widget ddColumnContent) {
     return Container(
-      width: widget.parameters.listDraggingWidth ?? widget.parameters.listWidth,
+      width: widget.parameters.columnDraggingWidth ?? widget.parameters.columnWidth,
       child: Material(
         color: Colors.transparent,
         child: Container(
-          decoration: widget.parameters.listDecorationWhileDragging,
+          decoration: widget.parameters.columnDecorationWhileDragging,
           child: Directionality(
             textDirection: Directionality.of(context),
-            child: dragAndDropListContents,
+            child: ddColumnContent,
           ),
         ),
       ),
@@ -215,12 +215,12 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
   }
 
   double _dragHandleDistanceFromTop() {
-    switch (widget.parameters.listDragHandle!.verticalAlignment) {
-      case DragHandleVerticalAlignment.top:
+    switch (widget.parameters.columnDragHandle!.verticalAlignment) {
+      case MTDragHandleVerticalAlignment.top:
         return 0;
-      case DragHandleVerticalAlignment.center:
+      case MTDragHandleVerticalAlignment.center:
         return (_containerSize.height / 2.0) - (_dragHandleSize.height / 2.0);
-      case DragHandleVerticalAlignment.bottom:
+      case MTDragHandleVerticalAlignment.bottom:
         return _containerSize.height - _dragHandleSize.height;
       default:
         return 0;
@@ -230,12 +230,12 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
   Offset _feedbackContainerOffset() {
     double xOffset;
     double yOffset;
-    if (widget.parameters.listDragHandle!.onLeft) {
+    if (widget.parameters.columnDragHandle!.onLeft) {
       xOffset = 0;
     } else {
       xOffset = -_containerSize.width + _dragHandleSize.width;
     }
-    if (widget.parameters.listDragHandle!.verticalAlignment == DragHandleVerticalAlignment.bottom) {
+    if (widget.parameters.columnDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.bottom) {
       yOffset = -_containerSize.height + _dragHandleSize.width;
     } else {
       yOffset = 0;
@@ -249,8 +249,8 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper> with TickerP
       setState(() {
         _dragging = dragging;
       });
-      if (widget.parameters.onListDraggingChanged != null) {
-        widget.parameters.onListDraggingChanged!(widget.dragAndDropList, dragging);
+      if (widget.parameters.onColumnDraggingChanged != null) {
+        widget.parameters.onColumnDraggingChanged!(widget.ddColumn, dragging);
       }
     }
   }

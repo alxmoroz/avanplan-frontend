@@ -1,19 +1,22 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:flutter/material.dart';
 
-import 'drag_and_drop_lists.dart';
+import 'dd_item.dart';
+import 'dd_parameters.dart';
 import 'measure_size.dart';
 
-class DragAndDropItemWrapper extends StatefulWidget {
-  const DragAndDropItemWrapper({required this.child, required this.parameters, Key? key}) : super(key: key);
-  final DragAndDropItem child;
-  final DragAndDropBuilderParameters? parameters;
+class MTDragNDropItemWrapper extends StatefulWidget {
+  const MTDragNDropItemWrapper({required this.child, required this.parameters, Key? key}) : super(key: key);
+  final MTDragNDropItem child;
+  final MTDragNDropParameters? parameters;
 
   @override
-  State<StatefulWidget> createState() => _DragAndDropItemWrapper();
+  State<StatefulWidget> createState() => _MTDragNDropItemWrapper();
 }
 
-class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerProviderStateMixin {
-  DragAndDropItem? _hoveredDraggable;
+class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerProviderStateMixin {
+  MTDragNDropItem? _hoveredDraggable;
 
   bool _dragging = false;
   Size _containerSize = Size.zero;
@@ -32,8 +35,8 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
               Positioned(
                 right: widget.parameters!.itemDragHandle!.onLeft ? null : 0,
                 left: widget.parameters!.itemDragHandle!.onLeft ? 0 : null,
-                top: widget.parameters!.itemDragHandle!.verticalAlignment == DragHandleVerticalAlignment.bottom ? null : 0,
-                bottom: widget.parameters!.itemDragHandle!.verticalAlignment == DragHandleVerticalAlignment.top ? null : 0,
+                top: widget.parameters!.itemDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.bottom ? null : 0,
+                bottom: widget.parameters!.itemDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.top ? null : 0,
                 child: widget.parameters!.itemDragHandle!,
               ),
             ],
@@ -43,13 +46,13 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
         final positionedDragHandle = Positioned(
           right: widget.parameters!.itemDragHandle!.onLeft ? null : 0,
           left: widget.parameters!.itemDragHandle!.onLeft ? 0 : null,
-          top: widget.parameters!.itemDragHandle!.verticalAlignment == DragHandleVerticalAlignment.bottom ? null : 0,
-          bottom: widget.parameters!.itemDragHandle!.verticalAlignment == DragHandleVerticalAlignment.top ? null : 0,
+          top: widget.parameters!.itemDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.bottom ? null : 0,
+          bottom: widget.parameters!.itemDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.top ? null : 0,
           child: MouseRegion(
             cursor: SystemMouseCursors.grab,
-            child: Draggable<DragAndDropItem>(
+            child: Draggable<MTDragNDropItem>(
               data: widget.child,
-              child: MeasureSize(
+              child: MTMeasureSize(
                 onSizeChange: (size) {
                   setState(() {
                     _dragHandleSize = size!;
@@ -79,7 +82,7 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
           ),
         );
 
-        draggable = MeasureSize(
+        draggable = MTMeasureSize(
           onSizeChange: _setContainerSize,
           child: Stack(
             children: [
@@ -87,15 +90,14 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
                 visible: !_dragging,
                 child: widget.child.child,
               ),
-              // dragAndDropListContents,
               positionedDragHandle,
             ],
           ),
         );
       } else if (widget.parameters!.dragOnLongPress) {
-        draggable = MeasureSize(
+        draggable = MTMeasureSize(
           onSizeChange: _setContainerSize,
-          child: LongPressDraggable<DragAndDropItem>(
+          child: LongPressDraggable<MTDragNDropItem>(
             data: widget.child,
             child: widget.child.child,
             feedback: Container(
@@ -116,9 +118,9 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
           ),
         );
       } else {
-        draggable = MeasureSize(
+        draggable = MTMeasureSize(
           onSizeChange: _setContainerSize,
-          child: Draggable<DragAndDropItem>(
+          child: Draggable<MTDragNDropItem>(
             data: widget.child,
             child: widget.child.child,
             feedback: Container(
@@ -174,7 +176,7 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
           ],
         ),
         Positioned.fill(
-          child: DragTarget<DragAndDropItem>(
+          child: DragTarget<MTDragNDropItem>(
             builder: (context, candidateData, rejectedData) {
               if (candidateData.isNotEmpty) {}
               return Container();
@@ -222,7 +224,7 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper> with TickerP
     } else {
       xOffset = -_containerSize.width + _dragHandleSize.width;
     }
-    if (widget.parameters!.itemDragHandle!.verticalAlignment == DragHandleVerticalAlignment.bottom) {
+    if (widget.parameters!.itemDragHandle!.verticalAlignment == MTDragHandleVerticalAlignment.bottom) {
       yOffset = -_containerSize.height + _dragHandleSize.width;
     } else {
       yOffset = 0;

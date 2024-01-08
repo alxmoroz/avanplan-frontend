@@ -9,7 +9,6 @@ import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
@@ -20,7 +19,7 @@ class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
   const NoteToolbar(this._controller);
   final TaskController _controller;
 
-  MTFieldData get _fdNote => _controller.fData(TaskFCode.note.index);
+  // MTFieldData get _fdNote => _controller.fData(TaskFCode.note.index);
   TextEditingController get _tcNote => _controller.teController(TaskFCode.note.index)!;
 
   @override
@@ -40,20 +39,22 @@ class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: MTTextField(
                 autofocus: false,
+                readOnly: true,
                 controller: _tcNote,
                 hint: loc.task_note_placeholder,
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (kIsWeb ? 1.35 : 1)),
                 maxLines: 1,
+                onTap: () => _controller.notesController.create(),
               ),
             ),
-            MTButton.main(
+            const MTButton.main(
               elevation: 0,
               constrained: false,
-              minSize: const Size(P6, P6),
-              middle: const SubmitIcon(color: mainBtnTitleColor),
-              margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-              onTap: _fdNote.text.trim().isNotEmpty ? () => _controller.notesController.create() : null,
+              minSize: Size(P6, P6),
+              middle: SubmitIcon(color: mainBtnTitleColor),
+              margin: EdgeInsets.only(left: P2, right: P2, bottom: P),
+              // onTap: _fdNote.text.trim().isNotEmpty ? () => _controller.notesController.create() : null,
             ),
           ],
         ),

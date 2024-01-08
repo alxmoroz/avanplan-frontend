@@ -70,21 +70,21 @@ abstract class _NotesControllerBase with Store {
     if (await showMTDialog<bool?>(TextEditDialog(taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
       // добавление или редактирование
       await _save(note);
+      _te.text = '';
+    } else if (!note.isNew) {
+      _te.text = '';
     }
-    _te.text = '';
+
+    Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
   }
 
   Future create() async {
-    await _save(
-      Note(
-        text: _te.text,
-        authorId: task.me?.id,
-        taskId: task.id!,
-        wsId: task.wsId,
-      ),
-    );
-    _te.text = '';
-    Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
+    await edit(Note(
+      text: _te.text,
+      authorId: task.me?.id,
+      taskId: task.id!,
+      wsId: task.wsId,
+    ));
   }
 
   Future delete(Note note) async {

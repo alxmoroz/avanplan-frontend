@@ -137,7 +137,8 @@ class TaskDetails extends StatelessWidget {
               onTap: () => launchUrlString(_task.taskSource!.urlString),
             ),
 
-          if (!_isTaskDialog(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
+          /// Комментарии
+          if (_isTaskView(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
         ],
       ),
     );

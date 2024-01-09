@@ -49,9 +49,6 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       _fsController ??= FeatureSetsController(_taskController);
       await MTRouter.navigate(FeatureSetsQuizRouter, context, args: FSQuizArgs(_fsController!, this));
     } else if (step.code == _StepCode.statuses.name) {
-      if (_taskController.projectStatusesController.sortedStatuses.isEmpty) {
-        _taskController.projectStatusesController.createDefaults();
-      }
       await MTRouter.navigate(ProjectStatusesQuizRouter, context, args: PSQuizArgs(_taskController.projectStatusesController, this));
     } else if (step.code == _StepCode.team.name) {
       await MTRouter.navigate(TeamInvitationQuizRouter, context, args: TIQuizArgs(_taskController, this));

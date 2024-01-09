@@ -314,10 +314,6 @@
 
   "status_code_placeholder": "Новый статус",
   "status_create_action_title": "Добавить статус",
-  "status_default_done_title": "Выполнено",
-  "status_default_in_progress_title": "В работе",
-  "status_default_in_review_title": "Проверка",
-  "status_default_ready_title": "Готово к работе",
   "status_error_validate_dup": "Такой статус уже есть",
   "status_list_title": "Статусы задач",
   "status_quiz_title": "Выберите статусы для задач",

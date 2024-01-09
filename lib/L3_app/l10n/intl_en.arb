@@ -314,10 +314,6 @@
 
   "status_code_placeholder": "New Status",
   "status_create_action_title": "Add status",
-  "status_default_done_title": "Done",
-  "status_default_in_progress_title": "In Progress",
-  "status_default_in_review_title": "In Review",
-  "status_default_ready_title": "Ready",
   "status_error_validate_dup": "This status already exists",
   "status_list_title": "Task Statuses",
   "status_title": "Status",

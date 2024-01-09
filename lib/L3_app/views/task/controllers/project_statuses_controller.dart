@@ -31,19 +31,6 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
           projectId: project.id!,
         ),
       );
-
-  Future createDefaults() async {
-    final pId = project.id!;
-    final wsId = project.wsId;
-    for (final dfSt in [
-      ProjectStatus(title: loc.status_default_ready_title, position: 0, closed: false, wsId: wsId, projectId: pId),
-      ProjectStatus(title: loc.status_default_in_progress_title, position: 1, closed: false, wsId: wsId, projectId: pId),
-      ProjectStatus(title: loc.status_default_in_review_title, position: 2, closed: false, wsId: wsId, projectId: pId),
-      ProjectStatus(title: loc.status_default_done_title, position: 3, closed: true, wsId: wsId, projectId: pId),
-    ]) {
-      await saveStatus(dfSt);
-    }
-  }
 }
 
 //TODO: переделать, как с заметками

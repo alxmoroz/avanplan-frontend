@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 
 class PaymentsApi {
 

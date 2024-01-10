@@ -7,6 +7,7 @@ import 'colors_base.dart';
 class BaseText extends StatelessWidget {
   const BaseText(
     this.text, {
+    super.key,
     this.sizeScale,
     this.color,
     this.weight,
@@ -18,6 +19,7 @@ class BaseText extends StatelessWidget {
 
   const BaseText.f2(
     this.text, {
+    super.key,
     this.sizeScale,
     this.weight,
     this.maxLines,
@@ -28,6 +30,7 @@ class BaseText extends StatelessWidget {
 
   const BaseText.f3(
     this.text, {
+    super.key,
     this.sizeScale,
     this.weight,
     this.maxLines,
@@ -38,6 +41,7 @@ class BaseText extends StatelessWidget {
 
   const BaseText.medium(
     this.text, {
+    super.key,
     this.sizeScale,
     this.maxLines,
     this.align,
@@ -89,31 +93,30 @@ class BaseText extends StatelessWidget {
 
 class SmallText extends BaseText {
   const SmallText(
-    String text, {
+    super.text, {
+    super.key,
     int? maxLines,
-    double? height,
+    super.height,
     Color? color,
     super.align,
     super.padding,
   }) : super(
-          text,
           color: color ?? f2Color,
           sizeScale: 0.85,
           maxLines: maxLines ?? 9,
-          height: height,
         );
 }
 
 class H3 extends BaseText {
   const H3(
-    String text, {
+    super.text, {
+    super.key,
     int? maxLines,
     double? height,
     super.color,
     super.align,
     super.padding,
   }) : super(
-          text,
           sizeScale: 1.22,
           maxLines: maxLines ?? 5,
           height: height ?? 1.2,
@@ -122,15 +125,14 @@ class H3 extends BaseText {
 
 class H2 extends BaseText {
   const H2(
-    String text, {
-    Color? color,
+    super.text, {
+    super.key,
+    super.color,
     int? maxLines,
     double? height,
     super.align,
     super.padding,
   }) : super(
-          text,
-          color: color,
           sizeScale: 1.44,
           maxLines: maxLines ?? 3,
           height: height ?? 1.1,
@@ -139,15 +141,14 @@ class H2 extends BaseText {
 
 class H1 extends BaseText {
   const H1(
-    String text, {
-    Color? color,
+    super.text, {
+    super.key,
+    super.color,
     int? maxLines,
     double? height,
     super.align,
     super.padding,
   }) : super(
-          text,
-          color: color,
           weight: FontWeight.w300,
           sizeScale: 1.8,
           maxLines: maxLines ?? 2,
@@ -177,33 +178,34 @@ abstract class _BaseDText extends BaseText {
 }
 
 class D5 extends _BaseDText {
-  const D5(String text, {super.color, super.padding}) : super(text, sizeScale: 0.9);
+  const D5(super.text, {super.color, super.padding}) : super(sizeScale: 0.9);
 }
 
 class D5Bold extends _BaseDText {
-  const D5Bold(String text, {super.color, super.padding}) : super.bold(text, sizeScale: 0.9);
+  const D5Bold(super.text, {super.color, super.padding}) : super.bold(sizeScale: 0.9);
 }
 
 class D4 extends _BaseDText {
-  const D4(String text, {super.color, super.padding}) : super(text, sizeScale: 1.15);
+  const D4(super.text, {super.color, super.padding}) : super(sizeScale: 1.15);
 }
 
 class D3 extends _BaseDText {
-  const D3(String text, {super.color, super.padding}) : super(text, sizeScale: 1.55);
+  const D3(super.text, {super.color, super.padding}) : super(sizeScale: 1.55);
 }
 
 class D2 extends _BaseDText {
-  const D2(String text, {super.color, super.padding}) : super(text, sizeScale: 2.6);
+  const D2(super.text, {super.color, super.padding}) : super(sizeScale: 2.6);
 }
 
 class D1 extends _BaseDText {
-  const D1(String text, {super.color, super.padding}) : super(text, sizeScale: 7);
+  const D1(super.text, {super.color, super.padding}) : super(sizeScale: 7);
 }
 
 /// Декоративный стиль (для названия приложения)
 abstract class _BaseDecorText extends BaseText {
   const _BaseDecorText(
     super.text, {
+    super.key,
     super.color,
     super.padding,
     FontWeight? weight,
@@ -215,5 +217,5 @@ abstract class _BaseDecorText extends BaseText {
 
 // название приложения
 class DecorAppTitle extends _BaseDecorText {
-  const DecorAppTitle(String text, {super.color, super.padding}) : super(text);
+  const DecorAppTitle(super.text, {super.key, super.color, super.padding});
 }

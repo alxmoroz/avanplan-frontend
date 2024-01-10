@@ -56,7 +56,7 @@ abstract class _ProjectStatusesControllerBase with Store {
 
   Iterable<String> siblingsTitles(int? sId) => _statuses.where((s) => s.id != sId).map((s) => s.title.trim().toLowerCase());
 
-  Future<ProjectStatus?> _editStatus(ProjectStatus status, Future<ProjectStatus?> function()) async {
+  Future<ProjectStatus?> _editStatus(ProjectStatus status, Future<ProjectStatus?> Function() function) async {
     status.loading = true;
     refresh();
     ProjectStatus? es;

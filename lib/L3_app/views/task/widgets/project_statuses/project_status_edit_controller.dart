@@ -43,8 +43,8 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   ProjectStatus get status => _project.statusForId(_status!.id) ?? _status!;
 
   @action
-  Future _init(ProjectStatus _statusIn) async {
-    _status = _statusIn;
+  Future _init(ProjectStatus statusIn) async {
+    _status = statusIn;
     if (_status!.isNew && _checkDup(_status!.title)) {
       await saveField(StatusFCode.title);
     }

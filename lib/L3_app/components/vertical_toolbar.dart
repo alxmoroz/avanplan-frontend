@@ -10,7 +10,7 @@ import 'constants.dart';
 import 'vertical_toolbar_controller.dart';
 
 class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const VerticalToolbar(this._controller, {required this.child, this.rightSide = true});
+  const VerticalToolbar(this._controller, {super.key, required this.child, this.rightSide = true});
   final VerticalToolbarController _controller;
   final Widget child;
   final bool rightSide;
@@ -22,6 +22,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
     return GestureDetector(
+      onTap: _controller.toggleWidth,
       child: Observer(
         builder: (_) => Container(
           width: (rightSide ? mqPadding.right : mqPadding.left) + preferredSize.width,
@@ -41,7 +42,6 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      onTap: _controller.toggleWidth,
       // onHorizontalDragUpdate: _controller.swiped,
     );
   }

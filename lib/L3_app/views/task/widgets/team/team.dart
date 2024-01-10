@@ -20,7 +20,7 @@ import 'member_dialog.dart';
 import 'no_members.dart';
 
 class Team extends StatelessWidget {
-  const Team(this._controller, {this.standalone = true});
+  const Team(this._controller, {super.key, this.standalone = true});
   final TaskController _controller;
   final bool standalone;
 

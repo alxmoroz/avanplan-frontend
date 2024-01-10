@@ -15,7 +15,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskDueDateField extends StatelessWidget {
-  const TaskDueDateField(this._controller, {this.compact = false, this.hasMargin = false});
+  const TaskDueDateField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
   final TaskController _controller;
   final bool compact;
   final bool hasMargin;

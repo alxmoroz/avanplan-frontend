@@ -21,8 +21,8 @@ part 'invitation_controller.g.dart';
 enum InvitationFCode { expiresOn, activationsCount }
 
 class InvitationController extends _InvitationControllerBase with _$InvitationController {
-  InvitationController(Task _task) {
-    task = _task;
+  InvitationController(Task taskIn) {
+    task = taskIn;
   }
 }
 
@@ -38,8 +38,8 @@ abstract class _InvitationControllerBase with Store {
   bool get roleSelected => role != null;
 
   @action
-  Future inviteRole(Role _role, BuildContext context) async {
-    role = _role;
+  Future inviteRole(Role roleIn, BuildContext context) async {
+    role = roleIn;
     invitation = null;
     invitation = await invitationUC.getInvitation(
           task.wsId,
@@ -55,7 +55,7 @@ abstract class _InvitationControllerBase with Store {
             ),
             task.wsId);
 
-    if (hasUrl) {
+    if (context.mounted && hasUrl) {
       if (isWeb) {
         copy(context);
       } else {

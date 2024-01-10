@@ -17,7 +17,7 @@ import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskEstimateField extends StatelessWidget {
-  const TaskEstimateField(this._controller, {this.compact = false, this.hasMargin = false});
+  const TaskEstimateField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
   final TaskController _controller;
   final bool compact;
   final bool hasMargin;

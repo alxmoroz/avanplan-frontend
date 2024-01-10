@@ -41,7 +41,7 @@ class TeamInvitationQuizRouter extends MTRouter {
 }
 
 class TeamInvitationQuizView extends StatelessWidget {
-  const TeamInvitationQuizView(this._args);
+  const TeamInvitationQuizView(this._args, {super.key});
   final TIQuizArgs _args;
 
   TaskController get _taskController => _args._taskController;

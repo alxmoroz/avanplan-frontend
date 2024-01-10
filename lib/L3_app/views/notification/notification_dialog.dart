@@ -17,7 +17,7 @@ import '../../presenters/date.dart';
 Future showNotificationDialog() async => await showMTDialog<void>(const NotificationDialog());
 
 class NotificationDialog extends StatelessWidget {
-  const NotificationDialog();
+  const NotificationDialog({super.key});
 
   MTNotification get nf => notificationController.selectedNotification!;
 

@@ -8,7 +8,7 @@ import 'dd_item.dart';
 import 'dd_parameters.dart';
 
 class MTDragNDropItemTarget extends StatefulWidget {
-  const MTDragNDropItemTarget({required this.child, required this.onReorderOrAdd, required this.parameters, this.parent, Key? key}) : super(key: key);
+  const MTDragNDropItemTarget({required this.child, required this.onReorderOrAdd, required this.parameters, this.parent, super.key});
   final Widget child;
   final MTDragNDropColumnInterface? parent;
   final MTDragNDropParameters parameters;

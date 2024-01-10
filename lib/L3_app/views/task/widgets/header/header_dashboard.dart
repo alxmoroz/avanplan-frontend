@@ -27,7 +27,7 @@ import '../team/invitation_button.dart';
 import '../team/team_dialog.dart';
 
 class TaskHeaderDashboard extends StatelessWidget {
-  const TaskHeaderDashboard(this._controller);
+  const TaskHeaderDashboard(this._controller, {super.key});
   final TaskController _controller;
 
   Task get _task => _controller.task!;
@@ -80,7 +80,7 @@ class TaskHeaderDashboard extends StatelessWidget {
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
+                          SizedBox(
                             height: P8,
                             child: ListView.builder(
                               shrinkWrap: true,

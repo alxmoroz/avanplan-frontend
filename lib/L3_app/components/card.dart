@@ -8,6 +8,7 @@ import 'constants.dart';
 
 class MTCard extends StatelessWidget {
   const MTCard({
+    super.key,
     required this.child,
     this.margin,
     this.elevation,
@@ -27,18 +28,18 @@ class MTCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = (color ?? b3Color).resolve(context);
     final borderRadius = radius ?? DEF_BORDER_RADIUS;
-    final _color = (color ?? b3Color).resolve(context);
-    final _shadowColor = b1Color.resolve(context);
+    final shadowColor = b1Color.resolve(context);
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: margin ?? EdgeInsets.zero,
       elevation: elevation ?? cardElevation,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius), side: borderSide ?? BorderSide.none),
-      child: Padding(child: child, padding: padding ?? EdgeInsets.zero),
-      surfaceTintColor: _color,
-      color: _color,
-      shadowColor: _shadowColor,
+      surfaceTintColor: cardColor,
+      color: cardColor,
+      shadowColor: shadowColor,
+      child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
     );
   }
 }

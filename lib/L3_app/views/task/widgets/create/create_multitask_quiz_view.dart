@@ -50,7 +50,7 @@ class CreateMultiTaskQuizRouter extends MTRouter {
 }
 
 class CreateMultiTaskQuizView extends TaskView {
-  CreateMultiTaskQuizView(this._args) : super(_args._controller);
+  CreateMultiTaskQuizView(this._args, {super.key}) : super(_args._controller);
   final CreateMultiTaskQuizArgs _args;
 
   @override

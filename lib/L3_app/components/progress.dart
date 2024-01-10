@@ -20,6 +20,7 @@ class MTProgressMark {
 class MTProgress extends StatelessWidget {
   const MTProgress(
     this.value, {
+    super.key,
     this.color,
     this.mark,
     this.borderWidth,

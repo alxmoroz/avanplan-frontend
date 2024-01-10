@@ -16,16 +16,16 @@ import 'task_controller.dart';
 part 'feature_sets_controller.g.dart';
 
 class FeatureSetsController extends _FeatureSetsControllerBase with _$FeatureSetsController {
-  FeatureSetsController(TaskController _taskController) {
-    taskController = _taskController;
+  FeatureSetsController(TaskController taskController) {
+    _taskController = taskController;
     checks = ObservableList.of([for (var fs in refsController.featureSets) project.hfs(fs.code)]);
   }
 }
 
 abstract class _FeatureSetsControllerBase with Store {
-  late final TaskController taskController;
+  late final TaskController _taskController;
 
-  Task get project => taskController.task!;
+  Task get project => _taskController.task!;
 
   @observable
   ObservableList<bool> checks = ObservableList();
@@ -92,8 +92,8 @@ abstract class _FeatureSetsControllerBase with Store {
     Navigator.of(rootKey.currentContext!).pop();
 
     final fIndex = TaskFCode.features.index;
-    taskController.updateField(fIndex, loading: true);
+    _taskController.updateField(fIndex, loading: true);
     await setup();
-    taskController.updateField(fIndex, loading: false);
+    _taskController.updateField(fIndex, loading: false);
   }
 }

@@ -17,8 +17,8 @@ part 'workspace_edit_controller.g.dart';
 enum WSFCode { code, title, description }
 
 class WorkspaceEditController extends _WorkspaceEditControllerBase with _$WorkspaceEditController {
-  WorkspaceEditController(Workspace _ws) {
-    ws = _ws;
+  WorkspaceEditController(Workspace ws) {
+    _ws = ws;
     initState(fds: [
       MTFieldData(WSFCode.code.index, label: loc.code, text: ws.code, validate: true),
       MTFieldData(WSFCode.title.index, label: loc.title, text: ws.title, validate: true),
@@ -28,7 +28,7 @@ class WorkspaceEditController extends _WorkspaceEditControllerBase with _$Worksp
 }
 
 abstract class _WorkspaceEditControllerBase extends EditController with Store {
-  late Workspace ws;
+  late final Workspace _ws;
 
   /// действия
 
@@ -37,7 +37,7 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
     loader.setSaving();
     loader.start();
     final editedWS = await workspaceUC.save(WorkspaceUpsert(
-      id: ws.id,
+      id: _ws.id,
       code: fData(WSFCode.code.index).text,
       title: fData(WSFCode.title.index).text,
       description: fData(WSFCode.description.index).text,

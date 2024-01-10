@@ -17,6 +17,7 @@ import 'create_project_controller.dart';
 class CreateProjectButton extends StatelessWidget {
   const CreateProjectButton(
     this._controller, {
+    super.key,
     this.compact = false,
     this.type,
   });

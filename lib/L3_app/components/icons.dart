@@ -11,7 +11,7 @@ import 'constants.dart';
 import 'painters.dart';
 
 abstract class MTIcon extends StatelessWidget {
-  const MTIcon({this.color, this.size, this.solid, this.circled});
+  const MTIcon({super.key, this.color, this.size, this.solid, this.circled});
 
   final Color? color;
   final double? size;
@@ -25,20 +25,20 @@ class _Inner extends MTIcon {
 
   @override
   Widget build(BuildContext context) {
-    final _color = color!.resolve(context);
+    final rColor = color!.resolve(context);
     return Stack(
       alignment: Alignment.center,
       children: [
         if (circled == true)
           MTCircle(
-            color: solid == true ? _color : Colors.transparent,
+            color: solid == true ? rColor : Colors.transparent,
             size: size,
-            border: Border.all(color: _color, width: 2),
+            border: Border.all(color: rColor, width: 2),
           ),
         if (iconData != null)
           Icon(
             iconData,
-            color: _color,
+            color: rColor,
             size: size! - (circled == true ? ((size! / 3) + 2) : 0),
           ),
       ],
@@ -47,40 +47,38 @@ class _Inner extends MTIcon {
 }
 
 class AttachmentIcon extends MTIcon {
-  const AttachmentIcon({super.color, super.size});
+  const AttachmentIcon({super.key, super.color, super.size = P6});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.paperclip,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
+        size: size,
       );
 }
 
 class BellIcon extends MTIcon {
-  const BellIcon({super.color, super.size, this.hasUnread = false});
+  const BellIcon({super.key, super.color = mainColor, super.size = P6, this.hasUnread = false});
 
   final bool hasUnread;
 
   @override
   Widget build(BuildContext context) {
-    final _size = size ?? P6;
-    final _color = color ?? mainColor;
     return Stack(
       alignment: Alignment.topRight,
       children: [
         Icon(
           CupertinoIcons.bell,
-          color: _color.resolve(context),
-          size: _size,
+          color: color!.resolve(context),
+          size: size,
         ),
-        if (hasUnread) MTCircle(size: _size * 0.42, color: _color),
+        if (hasUnread) MTCircle(size: size! * 0.42, color: color),
       ],
     );
   }
 }
 
 class BoardIcon extends MTIcon {
-  const BoardIcon({super.color, super.size, super.circled});
+  const BoardIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) => _Inner(
         CupertinoIcons.rectangle_split_3x1,
@@ -91,29 +89,28 @@ class BoardIcon extends MTIcon {
 }
 
 class CalendarIcon extends MTIcon {
-  const CalendarIcon({super.color, super.size, this.startMark = false, this.endMark = false});
+  const CalendarIcon({super.key, super.color, super.size = P6, this.startMark = false, this.endMark = false});
   final bool startMark;
   final bool endMark;
 
   @override
   Widget build(BuildContext context) {
-    final _size = size ?? P6;
-    final _markSize = _size / 2;
-    final _color = (color ?? mainColor).resolve(context);
-    final _markColor = _color.withAlpha(180);
+    final markSize = size! / 2;
+    final rColor = (color ?? mainColor).resolve(context);
+    final markColor = rColor.withAlpha(180);
     return Stack(
       alignment: Alignment.centerLeft,
       children: [
-        Icon(CupertinoIcons.calendar, color: _color, size: _size),
+        Icon(CupertinoIcons.calendar, color: rColor, size: size),
         if (startMark)
           Container(
-            padding: EdgeInsets.only(top: _size / 7, left: _size / 8),
-            child: Icon(CupertinoIcons.arrowtriangle_right_fill, size: _markSize, color: _markColor),
+            padding: EdgeInsets.only(top: size! / 7, left: size! / 8),
+            child: Icon(CupertinoIcons.arrowtriangle_right_fill, size: markSize, color: markColor),
           ),
         if (endMark)
           Container(
-            padding: EdgeInsets.only(top: _size / 7, left: _size - _markSize - _size / 8),
-            child: Icon(CupertinoIcons.arrowtriangle_left_fill, size: _markSize, color: _markColor),
+            padding: EdgeInsets.only(top: size! / 7, left: size! - markSize - size! / 8),
+            child: Icon(CupertinoIcons.arrowtriangle_left_fill, size: markSize, color: markColor),
           ),
       ],
     );
@@ -121,7 +118,7 @@ class CalendarIcon extends MTIcon {
 }
 
 class CaretIcon extends StatelessWidget {
-  const CaretIcon({this.up = false, this.color, required this.size});
+  const CaretIcon({super.key, this.up = false, this.color, required this.size});
   final bool up;
   final Size size;
   final Color? color;
@@ -131,13 +128,13 @@ class CaretIcon extends StatelessWidget {
         quarterTurns: up ? 0 : 2,
         child: CustomPaint(
           painter: TrianglePainter(color: (color ?? f2Color).resolve(context)),
-          child: Container(height: size.height, width: size.width),
+          child: SizedBox(height: size.height, width: size.width),
         ),
       );
 }
 
 class CheckboxIcon extends MTIcon {
-  const CheckboxIcon(this.checked, {super.color, super.size, super.solid});
+  const CheckboxIcon(this.checked, {super.key, super.color, super.size, super.solid});
   final bool checked;
 
   @override
@@ -149,7 +146,7 @@ class CheckboxIcon extends MTIcon {
 }
 
 class ChevronIcon extends MTIcon {
-  const ChevronIcon({super.color, super.size});
+  const ChevronIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.chevron_right,
@@ -159,7 +156,7 @@ class ChevronIcon extends MTIcon {
 }
 
 class ChevronCircleIcon extends MTIcon {
-  const ChevronCircleIcon({super.color, super.size, required this.left});
+  const ChevronCircleIcon({super.key, super.color, super.size, required this.left});
   final bool left;
   @override
   Widget build(BuildContext context) => Icon(
@@ -170,7 +167,7 @@ class ChevronCircleIcon extends MTIcon {
 }
 
 class CloseIcon extends MTIcon {
-  const CloseIcon({super.color, super.size});
+  const CloseIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.clear,
@@ -180,7 +177,7 @@ class CloseIcon extends MTIcon {
 }
 
 class CopyIcon extends MTIcon {
-  const CopyIcon({super.color, super.size});
+  const CopyIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_on_clipboard,
@@ -190,7 +187,7 @@ class CopyIcon extends MTIcon {
 }
 
 class DeleteIcon extends MTIcon {
-  const DeleteIcon({super.color, super.size, super.circled});
+  const DeleteIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) {
     return _Inner(
@@ -203,7 +200,7 @@ class DeleteIcon extends MTIcon {
 }
 
 class DescriptionIcon extends MTIcon {
-  const DescriptionIcon({super.color, super.size});
+  const DescriptionIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.text_justifyleft,
@@ -213,7 +210,7 @@ class DescriptionIcon extends MTIcon {
 }
 
 class DocumentIcon extends MTIcon {
-  const DocumentIcon({super.color, super.size});
+  const DocumentIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
@@ -223,7 +220,7 @@ class DocumentIcon extends MTIcon {
 }
 
 class DoneIcon extends MTIcon {
-  const DoneIcon(this.done, {super.color, super.size, super.solid});
+  const DoneIcon(this.done, {super.key, super.color, super.size, super.solid});
   final bool done;
 
   @override
@@ -239,7 +236,7 @@ class DoneIcon extends MTIcon {
 }
 
 class DownloadIcon extends MTIcon {
-  const DownloadIcon({super.color, super.size});
+  const DownloadIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.arrow_down_to_line,
@@ -249,7 +246,7 @@ class DownloadIcon extends MTIcon {
 }
 
 class DropdownIcon extends MTIcon {
-  const DropdownIcon({super.color, super.size});
+  const DropdownIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.chevron_up_chevron_down,
@@ -259,7 +256,7 @@ class DropdownIcon extends MTIcon {
 }
 
 class DuplicateIcon extends MTIcon {
-  const DuplicateIcon({super.color, super.size, super.circled});
+  const DuplicateIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) {
     return _Inner(
@@ -272,7 +269,7 @@ class DuplicateIcon extends MTIcon {
 }
 
 class EditIcon extends MTIcon {
-  const EditIcon({super.color, super.size});
+  const EditIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         Icons.edit,
@@ -282,7 +279,7 @@ class EditIcon extends MTIcon {
 }
 
 class ErrorIcon extends MTIcon {
-  const ErrorIcon({super.color, super.size});
+  const ErrorIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.exclamationmark_circle,
@@ -292,7 +289,7 @@ class ErrorIcon extends MTIcon {
 }
 
 class EstimateIcon extends MTIcon {
-  const EstimateIcon({super.color, super.size});
+  const EstimateIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => RotatedBox(
         quarterTurns: -1,
@@ -305,7 +302,7 @@ class EstimateIcon extends MTIcon {
 }
 
 class EyeIcon extends MTIcon {
-  const EyeIcon({this.open = true, super.color, super.size});
+  const EyeIcon({super.key, this.open = true, super.color, super.size});
   final bool open;
   @override
   Widget build(BuildContext context) => Icon(
@@ -316,7 +313,7 @@ class EyeIcon extends MTIcon {
 }
 
 class ExitIcon extends MTIcon {
-  const ExitIcon({super.color, super.size});
+  const ExitIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => RotatedBox(
         quarterTurns: 2,
@@ -329,7 +326,7 @@ class ExitIcon extends MTIcon {
 }
 
 class ImportIcon extends MTIcon {
-  const ImportIcon({super.color, super.size});
+  const ImportIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.cloud_download,
@@ -339,7 +336,7 @@ class ImportIcon extends MTIcon {
 }
 
 class LinkIcon extends MTIcon {
-  const LinkIcon({super.color, super.size});
+  const LinkIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         Icons.link,
@@ -349,7 +346,7 @@ class LinkIcon extends MTIcon {
 }
 
 class LinkBreakIcon extends MTIcon {
-  const LinkBreakIcon({super.color, super.size, super.circled});
+  const LinkBreakIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) => _Inner(
         Icons.link_off,
@@ -360,7 +357,7 @@ class LinkBreakIcon extends MTIcon {
 }
 
 class LinkOutIcon extends MTIcon {
-  const LinkOutIcon({super.color, super.size});
+  const LinkOutIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.arrow_up_right,
@@ -370,7 +367,7 @@ class LinkOutIcon extends MTIcon {
 }
 
 class ListIcon extends MTIcon {
-  const ListIcon({super.color, super.size, super.circled});
+  const ListIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) => _Inner(
         CupertinoIcons.list_dash,
@@ -381,7 +378,7 @@ class ListIcon extends MTIcon {
 }
 
 class LocalExportIcon extends MTIcon {
-  const LocalExportIcon({super.color, super.size, super.circled});
+  const LocalExportIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) {
     return _Inner(
@@ -394,7 +391,7 @@ class LocalExportIcon extends MTIcon {
 }
 
 class LocalImportIcon extends MTIcon {
-  const LocalImportIcon({super.color, super.size, super.circled});
+  const LocalImportIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) {
     return _Inner(
@@ -407,7 +404,7 @@ class LocalImportIcon extends MTIcon {
 }
 
 class MailIcon extends MTIcon {
-  const MailIcon({super.color, super.size});
+  const MailIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
@@ -417,7 +414,7 @@ class MailIcon extends MTIcon {
 }
 
 class MemberAddIcon extends MTIcon {
-  const MemberAddIcon({super.color, super.size});
+  const MemberAddIcon({super.key, super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(
@@ -428,7 +425,7 @@ class MemberAddIcon extends MTIcon {
 }
 
 class MenuIcon extends MTIcon {
-  const MenuIcon({super.color, super.size, super.circled});
+  const MenuIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) => _Inner(
         CupertinoIcons.ellipsis_vertical,
@@ -439,7 +436,7 @@ class MenuIcon extends MTIcon {
 }
 
 class MimeTypeIcon extends MTIcon {
-  const MimeTypeIcon({super.color, super.size, this.mimeType = ''});
+  const MimeTypeIcon({super.key, super.color, super.size, this.mimeType = ''});
   final String mimeType;
 
   @override
@@ -451,7 +448,7 @@ class MimeTypeIcon extends MTIcon {
 }
 
 class NoteMarkIcon extends MTIcon {
-  const NoteMarkIcon({this.mine = true, this.theirs = true, super.color, super.size});
+  const NoteMarkIcon({super.key, this.mine = true, this.theirs = true, super.color, super.size});
   final bool mine;
   final bool theirs;
   @override
@@ -467,7 +464,7 @@ class NoteMarkIcon extends MTIcon {
 }
 
 class PersonIcon extends MTIcon {
-  const PersonIcon({super.color, super.size});
+  const PersonIcon({super.key, super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(
@@ -478,7 +475,7 @@ class PersonIcon extends MTIcon {
 }
 
 class PlusIcon extends MTIcon {
-  const PlusIcon({super.color, super.size, super.circled});
+  const PlusIcon({super.key, super.color, super.size, super.circled});
   @override
   Widget build(BuildContext context) => _Inner(
         CupertinoIcons.plus,
@@ -489,7 +486,7 @@ class PlusIcon extends MTIcon {
 }
 
 class PrivacyIcon extends MTIcon {
-  const PrivacyIcon({super.color, super.size});
+  const PrivacyIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
@@ -499,7 +496,7 @@ class PrivacyIcon extends MTIcon {
 }
 
 class RefreshIcon extends MTIcon {
-  const RefreshIcon({super.color, super.size});
+  const RefreshIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.refresh,
@@ -509,7 +506,7 @@ class RefreshIcon extends MTIcon {
 }
 
 class SettingsIcon extends MTIcon {
-  const SettingsIcon({super.color, super.size});
+  const SettingsIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.slider_horizontal_3,
@@ -519,7 +516,7 @@ class SettingsIcon extends MTIcon {
 }
 
 class ShareIcon extends MTIcon {
-  const ShareIcon({super.color, super.size});
+  const ShareIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.square_arrow_up,
@@ -529,7 +526,7 @@ class ShareIcon extends MTIcon {
 }
 
 class StarIcon extends MTIcon {
-  const StarIcon({super.color, super.size});
+  const StarIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.star,
@@ -539,7 +536,7 @@ class StarIcon extends MTIcon {
 }
 
 class StatusIcon extends MTIcon {
-  const StatusIcon({super.color, super.size});
+  const StatusIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.rectangle_split_3x1,
@@ -549,7 +546,7 @@ class StatusIcon extends MTIcon {
 }
 
 class SubmitIcon extends MTIcon {
-  const SubmitIcon({super.color, super.size});
+  const SubmitIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.arrow_up,
@@ -559,14 +556,14 @@ class SubmitIcon extends MTIcon {
 }
 
 class TasksIcon extends MTIcon {
-  const TasksIcon({super.color, super.size});
+  const TasksIcon({super.key, super.color, super.size});
 
   @override
   Widget build(BuildContext context) => DoneIcon(true, color: color, size: size ?? P6);
 }
 
 class TemplateIcon extends MTIcon {
-  const TemplateIcon({super.color, super.size});
+  const TemplateIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.collections,

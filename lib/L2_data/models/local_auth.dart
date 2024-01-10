@@ -8,7 +8,7 @@ import 'base.dart';
 
 part 'local_auth.g.dart';
 
-@HiveType(typeId: HType.LocalAuth)
+@HiveType(typeId: HType.LOCAL_AUTH)
 class LocalAuthHO extends BaseModel<LocalAuth> {
   @HiveField(3, defaultValue: '')
   String authToken = '';

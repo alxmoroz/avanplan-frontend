@@ -34,7 +34,7 @@ class UsersRouter extends MTRouter {
 }
 
 class UserListDialog extends StatelessWidget {
-  const UserListDialog(this._wsId);
+  const UserListDialog(this._wsId, {super.key});
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);

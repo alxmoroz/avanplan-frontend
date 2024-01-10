@@ -6,7 +6,7 @@ import 'colors.dart';
 import 'colors_base.dart';
 
 class MTBackgroundWrapper extends StatelessWidget {
-  const MTBackgroundWrapper(this.child);
+  const MTBackgroundWrapper(this.child, {super.key});
 
   final Widget child;
 

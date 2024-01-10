@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/my_user.dart';
 
 class MyActivitiesApi {

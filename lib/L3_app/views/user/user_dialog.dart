@@ -15,7 +15,7 @@ import '../../presenters/person.dart';
 Future showUserDialog(User user) async => await showMTDialog<void>(UserDialog(user));
 
 class UserDialog extends StatelessWidget {
-  const UserDialog(this._user);
+  const UserDialog(this._user, {super.key});
   final User _user;
 
   @override

@@ -16,7 +16,7 @@ import '../local_transfer/local_import_dialog.dart';
 import 'toggle_view_button.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskBottomToolbar(this._controller);
+  const TaskBottomToolbar(this._controller, {super.key});
   final TaskController _controller;
 
   Task get _task => _controller.task!;

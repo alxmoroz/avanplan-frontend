@@ -7,7 +7,7 @@ import 'dd_parameters.dart';
 import 'measure_size.dart';
 
 class MTDragNDropColumnWrapper extends StatefulWidget {
-  const MTDragNDropColumnWrapper({required this.ddColumn, required this.parameters, Key? key}) : super(key: key);
+  const MTDragNDropColumnWrapper({required this.ddColumn, required this.parameters, super.key});
   final MTDragNDropColumnInterface ddColumn;
   final MTDragNDropParameters parameters;
 
@@ -24,7 +24,7 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
 
   @override
   Widget build(BuildContext context) {
-    final Widget ddColumnContents = widget.ddColumn.generateWidget(widget.parameters);
+    final ddColumnContent = widget.ddColumn.generateWidget(widget.parameters);
 
     Widget draggable;
     if (widget.ddColumn.canDrag) {
@@ -34,8 +34,6 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
           child: widget.parameters.columnDragHandle,
         );
 
-        final Widget feedback = buildFeedbackWithHandle(ddColumnContents, dragHandle);
-
         draggable = MTMeasureSize(
           onSizeChange: (size) {
             setState(() => _containerSize = size!);
@@ -44,7 +42,7 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
             children: [
               Visibility(
                 visible: !_dragging,
-                child: ddColumnContents,
+                child: ddColumnContent,
               ),
               Positioned(
                 right: widget.parameters.columnDragHandle!.onLeft ? null : 0,
@@ -52,6 +50,15 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
                 top: _dragHandleDistanceFromTop(),
                 child: Draggable<MTDragNDropColumnInterface>(
                   data: widget.ddColumn,
+                  feedback: Transform.translate(
+                    offset: _feedbackContainerOffset(),
+                    child: _feedbackWithHandle(ddColumnContent, dragHandle),
+                  ),
+                  childWhenDragging: Container(),
+                  onDragStarted: () => _setDragging(true),
+                  onDragCompleted: () => _setDragging(false),
+                  onDraggableCanceled: (_, __) => _setDragging(false),
+                  onDragEnd: (_) => _setDragging(false),
                   child: MTMeasureSize(
                     onSizeChange: (size) {
                       setState(() {
@@ -60,15 +67,6 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
                     },
                     child: dragHandle,
                   ),
-                  feedback: Transform.translate(
-                    offset: _feedbackContainerOffset(),
-                    child: feedback,
-                  ),
-                  childWhenDragging: Container(),
-                  onDragStarted: () => _setDragging(true),
-                  onDragCompleted: () => _setDragging(false),
-                  onDraggableCanceled: (_, __) => _setDragging(false),
-                  onDragEnd: (_) => _setDragging(false),
                 ),
               ),
             ],
@@ -77,28 +75,28 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
       } else if (widget.parameters.dragOnLongPress) {
         draggable = LongPressDraggable<MTDragNDropColumnInterface>(
           data: widget.ddColumn,
-          child: ddColumnContents,
-          feedback: buildFeedbackWithoutHandle(context, ddColumnContents),
+          feedback: _feedbackWithoutHandle(context, ddColumnContent),
           childWhenDragging: Container(),
           onDragStarted: () => _setDragging(true),
           onDragCompleted: () => _setDragging(false),
           onDraggableCanceled: (_, __) => _setDragging(false),
           onDragEnd: (_) => _setDragging(false),
+          child: ddColumnContent,
         );
       } else {
         draggable = Draggable<MTDragNDropColumnInterface>(
           data: widget.ddColumn,
-          child: ddColumnContents,
-          feedback: buildFeedbackWithoutHandle(context, ddColumnContents),
+          feedback: _feedbackWithoutHandle(context, ddColumnContent),
           childWhenDragging: Container(),
           onDragStarted: () => _setDragging(true),
           onDragCompleted: () => _setDragging(false),
           onDraggableCanceled: (_, __) => _setDragging(false),
           onDragEnd: (_) => _setDragging(false),
+          child: ddColumnContent,
         );
       }
     } else {
-      draggable = ddColumnContents;
+      draggable = ddColumnContent;
     }
 
     final rowOrColumnChildren = <Widget>[
@@ -117,10 +115,10 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
             : Container(),
       ),
       Listener(
-        child: draggable,
         onPointerMove: _onPointerMove,
         onPointerDown: widget.parameters.onPointerDown,
         onPointerUp: widget.parameters.onPointerUp,
+        child: draggable,
       ),
     ];
 
@@ -171,12 +169,12 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
     );
   }
 
-  Material buildFeedbackWithHandle(Widget ddColumnContent, Widget dragHandle) {
+  Material _feedbackWithHandle(Widget ddColumnContent, Widget dragHandle) {
     return Material(
       color: Colors.transparent,
       child: Container(
         decoration: widget.parameters.columnDecorationWhileDragging,
-        child: Container(
+        child: SizedBox(
           width: widget.parameters.columnDraggingWidth ?? _containerSize.width,
           child: Stack(
             children: [
@@ -198,8 +196,8 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
     );
   }
 
-  Container buildFeedbackWithoutHandle(BuildContext context, Widget ddColumnContent) {
-    return Container(
+  Widget _feedbackWithoutHandle(BuildContext context, Widget ddColumnContent) {
+    return SizedBox(
       width: widget.parameters.columnDraggingWidth ?? widget.parameters.columnWidth,
       child: Material(
         color: Colors.transparent,

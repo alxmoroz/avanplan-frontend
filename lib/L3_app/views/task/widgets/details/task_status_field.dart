@@ -14,7 +14,7 @@ import '../../../../usecases/task_status.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskStatusField extends StatelessWidget {
-  const TaskStatusField(this._controller);
+  const TaskStatusField(this._controller, {super.key});
   final TaskController _controller;
 
   Task get _task => _controller.task!;

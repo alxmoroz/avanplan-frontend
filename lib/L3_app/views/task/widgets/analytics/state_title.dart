@@ -33,7 +33,7 @@ class _StateTitle extends StatelessWidget {
 }
 
 class GroupStateTitle extends StatelessWidget {
-  const GroupStateTitle(this.groupState, {this.place});
+  const GroupStateTitle(this.groupState, {super.key, this.place});
   final TaskState groupState;
   final StateTitlePlace? place;
 
@@ -45,7 +45,7 @@ class GroupStateTitle extends StatelessWidget {
 }
 
 class TaskStateTitle extends StatelessWidget {
-  const TaskStateTitle(this.task, {this.place});
+  const TaskStateTitle(this.task, {super.key, this.place});
   final Task task;
   final StateTitlePlace? place;
 

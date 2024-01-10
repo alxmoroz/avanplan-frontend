@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:flutter_web_plugins/url_strategy.dart'; // ignore: depend_on_referenced_packages
 
 import 'L2_data/services/firebase_options.dart';
 import 'L3_app/components/background.dart';
@@ -26,7 +26,9 @@ Future main() async {
   try {
     await Firebase.initializeApp(options: firebasePlatformOptions);
   } catch (e) {
-    print('Firebase.initializeApp ERROR: $e');
+    if (kDebugMode) {
+      print('Firebase.initializeApp ERROR: $e');
+    }
   }
 
   // certs
@@ -43,7 +45,7 @@ Future main() async {
 final rootKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {
-  const App();
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +70,11 @@ class App extends StatelessWidget {
       useMaterial3: true,
     );
 
-    const _DEBUG_BANNER = true;
-
     return FutureBuilder(
       future: getIt.allReady(),
       builder: (_, snapshot) => snapshot.hasData
           ? MaterialApp(
-              debugShowCheckedModeBanner: _DEBUG_BANNER,
+              debugShowCheckedModeBanner: true,
               theme: themeData,
               scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
                 if (kIsWeb) PointerDeviceKind.mouse,

@@ -16,7 +16,7 @@ import '../../controllers/task_controller.dart';
 import 'parent_title.dart';
 
 class TaskHeader extends StatelessWidget {
-  const TaskHeader(this._controller);
+  const TaskHeader(this._controller, {super.key});
   final TaskController _controller;
 
   Task get _task => _controller.task!;

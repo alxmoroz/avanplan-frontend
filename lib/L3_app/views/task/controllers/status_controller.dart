@@ -40,17 +40,17 @@ class StatusController {
         ],
       );
 
-  Future setStatus(Task _task, {int? stId, bool? close}) async {
+  Future setStatus(Task t, {int? stId, bool? close}) async {
     if (stId != null || close != null) {
-      stId ??= _task.canSetStatus ? (close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId) : null;
-      close ??= _task.statusForId(stId)?.closed;
+      stId ??= t.canSetStatus ? (close == true ? t.firstClosedStatusId : t.firstOpenedStatusId) : null;
+      close ??= t.statusForId(stId)?.closed;
 
-      if (close == true && _task.hasOpenedSubtasks) {
+      if (close == true && t.hasOpenedSubtasks) {
         if (await _closeDialog() == true) {
           // TODO: перенести на бэк (есть задача такая)
-          for (var t in _task.subtasks.where((t) => t.closed != close)) {
-            t.projectStatusId = _task.projectStatusId;
-            t.setClosed(close);
+          for (Task st in t.subtasks.where((t) => t.closed != close)) {
+            st.projectStatusId = t.projectStatusId;
+            st.setClosed(close);
             await taskUC.save(t);
           }
         } else {
@@ -58,24 +58,24 @@ class StatusController {
         }
       }
 
-      final oldStId = _task.projectStatusId;
-      final oldClosed = _task.closed;
-      final oldClosedDate = _task.closedDate;
+      final oldStId = t.projectStatusId;
+      final oldClosed = t.closed;
+      final oldClosedDate = t.closedDate;
 
-      _task.projectStatusId = stId;
-      _task.setClosed(close);
+      t.projectStatusId = stId;
+      t.setClosed(close);
 
-      final sameTask = _task == task;
-      final saved = sameTask ? await _taskController.saveField(TaskFCode.status) : (await _task.save() != null);
+      final sameTask = t == task;
+      final saved = sameTask ? await _taskController.saveField(TaskFCode.status) : (await t.save() != null);
 
       if (!saved) {
-        _task.projectStatusId = oldStId;
-        _task.closed = oldClosed;
-        _task.closedDate = oldClosedDate;
+        t.projectStatusId = oldStId;
+        t.closed = oldClosed;
+        t.closedDate = oldClosedDate;
         tasksMainController.refreshTasks();
       } else {
         //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (sameTask && _task.closed && !_task.isCheckItem) {
+        if (sameTask && t.closed && !t.isCheckItem) {
           Navigator.of(rootKey.currentContext!).pop();
         }
       }

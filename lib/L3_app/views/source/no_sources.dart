@@ -13,7 +13,7 @@ import '../../extra/services.dart';
 import '../../views/source/source_edit_dialog.dart';
 
 class NoSources extends StatelessWidget {
-  const NoSources(this._ws);
+  const NoSources(this._ws, {super.key});
   final Workspace _ws;
 
   @override

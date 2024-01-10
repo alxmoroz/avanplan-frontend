@@ -17,7 +17,7 @@ import '../../../../usecases/ws_tariff.dart';
 import 'invitation_dialog.dart';
 
 class InvitationButton extends StatelessWidget {
-  const InvitationButton(this.task, {this.inList = false, this.type = ButtonType.main});
+  const InvitationButton(this.task, {super.key, this.inList = false, this.type = ButtonType.main});
   final Task task;
   final bool inList;
   final ButtonType type;

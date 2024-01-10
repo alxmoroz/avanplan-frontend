@@ -32,7 +32,7 @@ class AccountRouter extends MTRouter {
 }
 
 class AccountDialog extends StatelessWidget {
-  const AccountDialog();
+  const AccountDialog({super.key});
 
   User? get _user => accountController.user;
 

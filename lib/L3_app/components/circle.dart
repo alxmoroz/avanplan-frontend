@@ -7,7 +7,7 @@ import 'colors_base.dart';
 import 'constants.dart';
 
 class MTCircle extends StatelessWidget {
-  const MTCircle({this.color, this.size, this.border});
+  const MTCircle({super.key, this.color, this.size, this.border});
 
   final Color? color;
   final double? size;

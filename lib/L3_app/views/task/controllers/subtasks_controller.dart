@@ -18,16 +18,16 @@ import 'task_controller.dart';
 part 'subtasks_controller.g.dart';
 
 class SubtasksController extends _SubtasksControllerBase with _$SubtasksController {
-  SubtasksController(TaskController _parentTaskController) {
-    parentTaskController = _parentTaskController;
-    _setControllers(_parentTaskController.task!.subtasks);
+  SubtasksController(TaskController parentTaskController) {
+    _parentTaskController = parentTaskController;
+    _setControllers(parentTaskController.task!.subtasks);
   }
 }
 
 abstract class _SubtasksControllerBase with Store {
-  late final TaskController parentTaskController;
+  late final TaskController _parentTaskController;
 
-  Task get parent => parentTaskController.task!;
+  Task get parent => _parentTaskController.task!;
 
   @observable
   ObservableList<TaskController> taskControllers = ObservableList();

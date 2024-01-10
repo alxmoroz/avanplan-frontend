@@ -49,7 +49,7 @@ class CreateGoalQuizRouter extends _CreateQuizRouter {
 }
 
 class CreateTaskQuizView extends TaskView {
-  CreateTaskQuizView(this._args) : super(_args._controller);
+  CreateTaskQuizView(this._args, {super.key}) : super(_args._controller);
   final CreateTaskQuizArgs _args;
 
   @override

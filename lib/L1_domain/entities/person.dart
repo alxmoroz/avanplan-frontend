@@ -18,7 +18,7 @@ abstract class Person extends RPersistable {
   final Iterable<String> permissions;
 
   @override
-  String toString() => '${fullName ?? email}';
+  String toString() => fullName ?? email;
 
   bool hp(String code) => permissions.contains(code);
 }

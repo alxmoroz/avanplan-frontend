@@ -12,7 +12,7 @@ import 'text.dart';
 import 'toolbar.dart';
 
 class MTErrorSheet extends StatelessWidget {
-  const MTErrorSheet(this.error, {this.onClose});
+  const MTErrorSheet(this.error, {super.key, this.onClose});
 
   final MTError error;
   final VoidCallback? onClose;

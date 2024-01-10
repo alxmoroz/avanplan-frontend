@@ -14,11 +14,11 @@ import 'workspace_edit_controller.dart';
 Future<Workspace?> editWSDialog(Workspace ws) async => await showMTDialog<Workspace?>(WSEditView(ws));
 
 class WSEditView extends StatefulWidget {
-  const WSEditView(this.ws);
+  const WSEditView(this.ws, {super.key});
   final Workspace ws;
 
   @override
-  _WSEditViewState createState() => _WSEditViewState();
+  State<StatefulWidget> createState() => _WSEditViewState();
 }
 
 class _WSEditViewState extends State<WSEditView> {

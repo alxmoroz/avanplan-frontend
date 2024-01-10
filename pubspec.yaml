@@ -10,9 +10,14 @@ publish_to: none
 
 dependencies:
   app_settings: any
+  built_collection: any
+  collection: any
+  crypto: any
   cupertino_icons: any
   device_info_plus: any
-  firebase_messaging: ^14.7.4
+  dio: any
+  firebase_core: any
+  firebase_messaging: any
   flutter:
     sdk: flutter
   flutter_dotenv: any
@@ -25,6 +30,7 @@ dependencies:
   google_sign_in: ^5.4.4
   hive: any
   in_app_purchase: any
+  intl: any
   mobx: any
   openapi:
     path: ./openapi
@@ -37,12 +43,12 @@ dependencies:
 dev_dependencies:
   build_runner: any
   flutter_launcher_icons: any
+  flutter_lints: any
   flutter_native_splash: any
   flutter_test:
     sdk: flutter
   hive_generator: any
   intl_utils: any
-  lints: any
   mobx_codegen: any
   test: any
 

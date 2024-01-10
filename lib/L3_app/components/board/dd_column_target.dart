@@ -6,23 +6,21 @@ import 'package:flutter/widgets.dart';
 import 'dd_column_interface.dart';
 import 'dd_parameters.dart';
 
-typedef _OnDropOnLastTarget = void Function(
-  MTDragNDropColumnInterface newOrReordered,
-  MTDragNDropColumnTarget receiver,
-);
-
 class MTDragNDropColumnTarget extends StatefulWidget {
   const MTDragNDropColumnTarget({
     this.child,
     required this.parameters,
     required this.onDropOnLastTarget,
     this.lastColumnTargetSize = 110,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget? child;
   final MTDragNDropParameters parameters;
-  final _OnDropOnLastTarget onDropOnLastTarget;
+  final void Function(
+    MTDragNDropColumnInterface newOrReordered,
+    MTDragNDropColumnTarget receiver,
+  ) onDropOnLastTarget;
   final double lastColumnTargetSize;
 
   @override

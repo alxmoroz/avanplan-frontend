@@ -7,7 +7,7 @@ import 'constants.dart';
 import 'icons.dart';
 
 class MTCloseDialogButton extends StatelessWidget {
-  const MTCloseDialogButton({this.onTap});
+  const MTCloseDialogButton({super.key, this.onTap});
   final VoidCallback? onTap;
 
   @override

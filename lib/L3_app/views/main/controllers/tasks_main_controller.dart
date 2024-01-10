@@ -119,11 +119,11 @@ abstract class _TasksMainControllerBase with Store {
 
   @action
   Future _getAllTasks() async {
-    final _allTasks = <Task>[];
+    final tasks = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      _allTasks.addAll(await myUC.getTasks(ws.id!));
+      tasks.addAll(await myUC.getTasks(ws.id!));
     }
-    allTasks = ObservableList.of(_allTasks.sorted(sortByDateAsc));
+    allTasks = ObservableList.of(tasks.sorted(sortByDateAsc));
   }
 
   Future updateImportingProjects() async {

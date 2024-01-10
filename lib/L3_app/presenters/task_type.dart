@@ -84,7 +84,7 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_count(count);
 
-  Widget subPageTitle(String pageTitle) => Container(
+  Widget subPageTitle(String pageTitle) => SizedBox(
         height: P8,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

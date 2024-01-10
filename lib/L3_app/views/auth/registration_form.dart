@@ -12,11 +12,13 @@ import '../../extra/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_request_controller.dart';
 
-Future registrationDialog() async => await showMTDialog<void>(RegistrationDialog());
+Future registrationDialog() async => await showMTDialog<void>(const RegistrationDialog());
 
 class RegistrationDialog extends StatefulWidget {
+  const RegistrationDialog({super.key});
+
   @override
-  _RegistrationDialogState createState() => _RegistrationDialogState();
+  State<StatefulWidget> createState() => _RegistrationDialogState();
 }
 
 class _RegistrationDialogState extends State<RegistrationDialog> {

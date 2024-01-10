@@ -105,7 +105,7 @@ class ProjectStatusesQuizRouter extends MTRouter {
 }
 
 class ProjectStatusesQuizView extends StatelessWidget {
-  const ProjectStatusesQuizView(this._args);
+  const ProjectStatusesQuizView(this._args, {super.key});
   final PSQuizArgs _args;
 
   ProjectStatusesController get _controller => _args._controller;
@@ -144,7 +144,7 @@ class ProjectStatusesQuizView extends StatelessWidget {
 }
 
 class ProjectStatusesDialog extends StatelessWidget {
-  const ProjectStatusesDialog(this._controller);
+  const ProjectStatusesDialog(this._controller, {super.key});
   final ProjectStatusesController _controller;
 
   @override

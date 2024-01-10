@@ -24,7 +24,7 @@ import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
 
 class TariffSelector extends StatelessWidget {
-  const TariffSelector(this._controller);
+  const TariffSelector(this._controller, {super.key});
   final TariffSelectorController _controller;
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
@@ -39,6 +39,7 @@ class TariffSelector extends StatelessWidget {
     if (index < _controller.tariffs.length) {
       final tariff = _controller.tariffs.elementAt(index);
       card = MTCard(
+        margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -57,7 +58,6 @@ class TariffSelector extends StatelessWidget {
             const SizedBox(height: P3),
           ],
         ),
-        margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
       );
     } else {
       card = const RequestTariffCard();

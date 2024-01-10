@@ -16,7 +16,7 @@ import '../../my_tasks/my_tasks_view.dart';
 import '../../task/widgets/tasks/tasks_group.dart';
 
 class MyTasks extends StatelessWidget {
-  const MyTasks({this.compact = true});
+  const MyTasks({super.key, this.compact = true});
   final bool compact;
 
   Future _goToTasks() async => await MTRouter.navigate(MyTasksRouter, rootKey.currentContext!);
@@ -32,6 +32,7 @@ class MyTasks extends StatelessWidget {
       );
 
   Widget _contents(BuildContext context) => MTCardButton(
+        onTap: _goToTasks,
         child: Column(
           children: [
             BaseText.f2(loc.my_tasks_title, align: TextAlign.center),
@@ -40,7 +41,6 @@ class MyTasks extends StatelessWidget {
             const SizedBox(height: P),
           ],
         ),
-        onTap: _goToTasks,
       );
 
   @override

@@ -17,24 +17,24 @@ class DatesController {
   DatesController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task!;
+  Task get _task => _taskController.task!;
 
-  Future _setStartDate(DateTime? _date) async {
-    final oldValue = task.startDate;
-    if (task.startDate != _date) {
-      task.startDate = _date;
+  Future _setStartDate(DateTime? date) async {
+    final oldValue = _task.startDate;
+    if (_task.startDate != date) {
+      _task.startDate = date;
       if (!(await _taskController.saveField(TaskFCode.startDate))) {
-        task.startDate = oldValue;
+        _task.startDate = oldValue;
       }
     }
   }
 
-  Future _setDueDate(DateTime? _date) async {
-    final oldValue = task.dueDate;
-    if (task.dueDate != _date) {
-      task.dueDate = _date;
+  Future _setDueDate(DateTime? date) async {
+    final oldValue = _task.dueDate;
+    if (_task.dueDate != date) {
+      _task.dueDate = date;
       if (!(await _taskController.saveField(TaskFCode.dueDate))) {
-        task.dueDate = oldValue;
+        _task.dueDate = oldValue;
       }
     }
   }
@@ -50,15 +50,15 @@ class DatesController {
   Future selectDate(BuildContext context, TaskFCode code) async {
     final isStart = code == TaskFCode.startDate;
 
-    final hasFutureStart = task.startDate != null && task.startDate!.isAfter(today);
-    final selectedDate = isStart ? task.startDate : task.dueDate;
+    final hasFutureStart = _task.startDate != null && _task.startDate!.isAfter(today);
+    final selectedDate = isStart ? _task.startDate : _task.dueDate;
 
     final pastDate = today.subtract(year * 100);
     final futureDate = today.add(year * 100);
 
-    final initialDate = selectedDate ?? (hasFutureStart ? task.startDate! : today);
-    final firstDate = isStart ? pastDate : task.startDate ?? today;
-    final lastDate = (isStart ? task.dueDate : null) ?? futureDate;
+    final initialDate = selectedDate ?? (hasFutureStart ? _task.startDate! : today);
+    final firstDate = isStart ? pastDate : _task.startDate ?? today;
+    final lastDate = (isStart ? _task.dueDate : null) ?? futureDate;
 
     // !! Нельзя давать менять способ ввода - поплывёт кнопка "Сбросить".
     // Если нужен ввод с клавиатуры, то нужно доработать позиционирование кнопки "Сбросить"

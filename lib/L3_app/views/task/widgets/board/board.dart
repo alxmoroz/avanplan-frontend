@@ -14,7 +14,7 @@ import '../../controllers/task_controller.dart';
 import 'column.dart';
 
 class TasksBoard extends StatelessWidget {
-  const TasksBoard(this.taskController, {this.scrollController});
+  const TasksBoard(this.taskController, {super.key, this.scrollController});
   final TaskController taskController;
   StatusController get controller => taskController.statusController;
   final ScrollController? scrollController;

@@ -11,7 +11,7 @@ import '../../extra/services.dart';
 import '../notification/notification_list_dialog.dart';
 
 class NotificationsButton extends StatelessWidget {
-  const NotificationsButton();
+  const NotificationsButton({super.key});
 
   void _toNotifications(BuildContext context) {
     Navigator.of(context).pop();

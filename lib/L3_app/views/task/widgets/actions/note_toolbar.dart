@@ -16,7 +16,7 @@ import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 
 class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const NoteToolbar(this._controller);
+  const NoteToolbar(this._controller, {super.key});
   final TaskController _controller;
 
   // MTFieldData get _fdNote => _controller.fData(TaskFCode.note.index);

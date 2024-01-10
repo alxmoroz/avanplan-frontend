@@ -18,7 +18,7 @@ import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
 class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
-  const BottomMenu();
+  const BottomMenu({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(P8);

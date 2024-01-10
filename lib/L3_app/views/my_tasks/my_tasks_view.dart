@@ -28,9 +28,9 @@ class MyTasksRouter extends MTRouter {
 }
 
 class MyTasksView extends StatefulWidget {
-  const MyTasksView();
+  const MyTasksView({super.key});
   @override
-  _MyTasksViewState createState() => _MyTasksViewState();
+  State<StatefulWidget> createState() => _MyTasksViewState();
 }
 
 class _MyTasksViewState extends State<MyTasksView> {

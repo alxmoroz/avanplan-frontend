@@ -15,12 +15,14 @@ import 'widgets/no_projects.dart';
 
 class MainRouter extends MTRouter {
   @override
-  Widget get page => MainView();
+  Widget get page => const MainView();
 }
 
 class MainView extends StatefulWidget {
+  const MainView({super.key});
+
   @override
-  _MainViewState createState() => _MainViewState();
+  State<StatefulWidget> createState() => _MainViewState();
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {

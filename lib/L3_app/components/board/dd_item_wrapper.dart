@@ -7,7 +7,7 @@ import 'dd_parameters.dart';
 import 'measure_size.dart';
 
 class MTDragNDropItemWrapper extends StatefulWidget {
-  const MTDragNDropItemWrapper({required this.child, required this.parameters, Key? key}) : super(key: key);
+  const MTDragNDropItemWrapper({required this.child, required this.parameters, super.key});
   final MTDragNDropItem child;
   final MTDragNDropParameters? parameters;
 
@@ -27,7 +27,7 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
     Widget draggable;
     if (widget.child.canDrag) {
       if (widget.parameters!.itemDragHandle != null) {
-        final Widget feedback = Container(
+        final Widget feedback = SizedBox(
           width: widget.parameters!.itemDraggingWidth ?? _containerSize.width,
           child: Stack(
             children: [
@@ -52,14 +52,6 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
             cursor: SystemMouseCursors.grab,
             child: Draggable<MTDragNDropItem>(
               data: widget.child,
-              child: MTMeasureSize(
-                onSizeChange: (size) {
-                  setState(() {
-                    _dragHandleSize = size!;
-                  });
-                },
-                child: widget.parameters!.itemDragHandle,
-              ),
               feedback: Transform.translate(
                 offset: _feedbackContainerOffset(),
                 child: Material(
@@ -78,6 +70,14 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
               onDragCompleted: () => _setDragging(false),
               onDraggableCanceled: (_, __) => _setDragging(false),
               onDragEnd: (_) => _setDragging(false),
+              child: MTMeasureSize(
+                onSizeChange: (size) {
+                  setState(() {
+                    _dragHandleSize = size!;
+                  });
+                },
+                child: widget.parameters!.itemDragHandle,
+              ),
             ),
           ),
         );
@@ -99,15 +99,14 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
           onSizeChange: _setContainerSize,
           child: LongPressDraggable<MTDragNDropItem>(
             data: widget.child,
-            child: widget.child.child,
-            feedback: Container(
+            feedback: SizedBox(
               width: widget.parameters!.itemDraggingWidth ?? _containerSize.width,
               child: Material(
-                child: Container(
-                  child: Directionality(textDirection: Directionality.of(context), child: widget.child.feedbackWidget ?? widget.child.child),
-                  decoration: widget.parameters!.itemDecorationWhileDragging,
-                ),
                 color: Colors.transparent,
+                child: Container(
+                  decoration: widget.parameters!.itemDecorationWhileDragging,
+                  child: Directionality(textDirection: Directionality.of(context), child: widget.child.feedbackWidget ?? widget.child.child),
+                ),
               ),
             ),
             childWhenDragging: Container(),
@@ -115,6 +114,7 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
             onDragCompleted: () => _setDragging(false),
             onDraggableCanceled: (_, __) => _setDragging(false),
             onDragEnd: (_) => _setDragging(false),
+            child: widget.child.child,
           ),
         );
       } else {
@@ -122,18 +122,17 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
           onSizeChange: _setContainerSize,
           child: Draggable<MTDragNDropItem>(
             data: widget.child,
-            child: widget.child.child,
-            feedback: Container(
+            feedback: SizedBox(
               width: widget.parameters!.itemDraggingWidth ?? _containerSize.width,
               child: Material(
+                color: Colors.transparent,
                 child: Container(
+                  decoration: widget.parameters!.itemDecorationWhileDragging,
                   child: Directionality(
                     textDirection: Directionality.of(context),
                     child: widget.child.feedbackWidget ?? widget.child.child,
                   ),
-                  decoration: widget.parameters!.itemDecorationWhileDragging,
                 ),
-                color: Colors.transparent,
               ),
             ),
             childWhenDragging: Container(),
@@ -141,6 +140,7 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
             onDragCompleted: () => _setDragging(false),
             onDraggableCanceled: (_, __) => _setDragging(false),
             onDragEnd: (_) => _setDragging(false),
+            child: widget.child.child,
           ),
         );
       }
@@ -168,10 +168,10 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
                   : Container(),
             ),
             Listener(
-              child: draggable,
               onPointerMove: _onPointerMove,
               onPointerDown: widget.parameters!.onPointerDown,
               onPointerUp: widget.parameters!.onPointerUp,
+              child: draggable,
             ),
           ],
         ),

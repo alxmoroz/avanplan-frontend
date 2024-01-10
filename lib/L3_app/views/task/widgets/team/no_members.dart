@@ -11,7 +11,7 @@ import '../../../../usecases/task_actions.dart';
 import 'invitation_button.dart';
 
 class NoMembers extends StatelessWidget {
-  const NoMembers(this._task);
+  const NoMembers(this._task, {super.key});
   final Task _task;
 
   @override

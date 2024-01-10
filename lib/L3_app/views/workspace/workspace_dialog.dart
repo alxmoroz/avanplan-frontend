@@ -51,7 +51,7 @@ class WorkspaceRouter extends MTRouter {
 }
 
 class WorkspaceDialog extends StatelessWidget {
-  const WorkspaceDialog(this._wsId);
+  const WorkspaceDialog(this._wsId, {super.key});
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);
@@ -82,6 +82,7 @@ class WorkspaceDialog extends StatelessWidget {
   Widget get _balance => MTAdaptive.xxs(
         child: MTCardButton(
           margin: const EdgeInsets.symmetric(vertical: P3),
+          onTap: _ws.hpTariffUpdate ? () => replenishBalanceDialog(_wsId) : null,
           child: Column(
             children: [
               BaseText.f2(loc.balance_amount_title),
@@ -91,7 +92,6 @@ class WorkspaceDialog extends StatelessWidget {
               if (_ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
           ),
-          onTap: _ws.hpTariffUpdate ? () => replenishBalanceDialog(_wsId) : null,
         ),
       );
 

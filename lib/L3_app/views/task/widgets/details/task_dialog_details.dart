@@ -21,7 +21,7 @@ import 'description_field.dart';
 import 'task_status_field.dart';
 
 class TaskDialogDetails extends StatelessWidget {
-  const TaskDialogDetails(this._controller);
+  const TaskDialogDetails(this._controller, {super.key});
   final TaskController _controller;
 
   Task get _task => _controller.task!;

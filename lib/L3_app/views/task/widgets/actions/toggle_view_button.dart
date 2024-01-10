@@ -14,7 +14,7 @@ import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskToggleViewButton extends StatelessWidget {
-  const TaskToggleViewButton(this._controller, {this.compact = false});
+  const TaskToggleViewButton(this._controller, {super.key, this.compact = false});
   final TaskController _controller;
   final bool compact;
 

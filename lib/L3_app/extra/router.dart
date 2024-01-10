@@ -87,10 +87,10 @@ abstract class MTRouter {
 
   String get path => '/';
   RegExp get pathRe => RegExp('^$path\$');
-  bool hasMatch(RouteSettings _rs) {
-    final match = pathRe.hasMatch(_rs.uri.path);
+  bool hasMatch(RouteSettings rsIn) {
+    final match = pathRe.hasMatch(rsIn.uri.path);
     if (match) {
-      rs = _rs;
+      rs = rsIn;
     }
     return match;
   }
@@ -107,7 +107,7 @@ abstract class MTRouter {
       builder: (_) => Stack(
         alignment: Alignment.center,
         children: [
-          authController.authorized ? child : AuthView(),
+          authController.authorized ? child : const AuthView(),
           if (loader.loading) const LoaderScreen(),
         ],
       ),

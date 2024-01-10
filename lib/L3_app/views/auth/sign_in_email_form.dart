@@ -11,11 +11,13 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future signInEmailDialog() async => await showMTDialog<void>(SignInEmailDialog());
+Future signInEmailDialog() async => await showMTDialog<void>(const SignInEmailDialog());
 
 class SignInEmailDialog extends StatefulWidget {
+  const SignInEmailDialog({super.key});
+
   @override
-  _SignInEmailDialogState createState() => _SignInEmailDialogState();
+  State<StatefulWidget> createState() => _SignInEmailDialogState();
 }
 
 class _SignInEmailDialogState extends State<SignInEmailDialog> {

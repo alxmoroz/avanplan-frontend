@@ -3,13 +3,14 @@
 import 'dart:io' show Platform;
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 BaseDeviceInfo get deviceInfo => GetIt.I<BaseDeviceInfo>();
 PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
-bool get isWeb => deviceInfo is WebBrowserInfo;
+bool get isWeb => kIsWeb;
 bool get isIOS => deviceInfo is IosDeviceInfo;
 bool get isAndroid => deviceInfo is AndroidDeviceInfo;
 
@@ -46,14 +47,6 @@ String get deviceSystemInfo {
     res = '${osVersion.baseOS ?? 'Android'} ${osVersion.codename}';
   }
   return res;
-}
-
-bool get isTablet {
-  bool _tablet = false;
-  if (isIOS) {
-    _tablet = _iosDevInfo.model == 'iPad';
-  }
-  return _tablet;
 }
 
 String get languageCode {

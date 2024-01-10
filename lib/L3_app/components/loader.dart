@@ -7,7 +7,7 @@ import 'colors.dart';
 import 'colors_base.dart';
 
 class MTLoader extends StatelessWidget {
-  const MTLoader({this.radius});
+  const MTLoader({super.key, this.radius});
   final double? radius;
 
   @override

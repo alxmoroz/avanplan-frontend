@@ -9,8 +9,8 @@ import '../../controllers/task_controller.dart';
 part 'right_toolbar_controller.g.dart';
 
 class TaskRightToolbarController extends _TaskRightToolbarControllerBase with _$TaskRightToolbarController {
-  TaskRightToolbarController(TaskController _taskController) {
-    taskController = _taskController;
+  TaskRightToolbarController(TaskController taskControllerIn) {
+    taskController = taskControllerIn;
     compact = taskController.task?.isTask == false;
   }
 }

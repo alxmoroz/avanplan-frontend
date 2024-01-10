@@ -13,19 +13,6 @@ import 'dd_item.dart';
 import 'dd_item_target.dart';
 import 'dd_parameters.dart';
 
-typedef _OnItemReorder = void Function(
-  int oldItemIndex,
-  int oldColumnIndex,
-  int newItemIndex,
-  int newColumnIndex,
-);
-typedef _OnItemAdd = void Function(
-  MTDragNDropItem newItem,
-  int columnIndex,
-  int newItemIndex,
-);
-typedef _OnColumnAdd = void Function(MTDragNDropColumnInterface newColumn, int newColumnIndex);
-typedef _OnColumnReorder = void Function(int oldColumnIndex, int newColumnIndex);
 typedef OnColumnDraggingChanged = void Function(
   MTDragNDropColumnInterface? column,
   bool dragging,
@@ -34,12 +21,7 @@ typedef ColumnOnWillAccept = bool Function(
   MTDragNDropColumnInterface? incoming,
   MTDragNDropColumnInterface? target,
 );
-typedef _ColumnOnAccept = void Function(
-  MTDragNDropColumnInterface incoming,
-  MTDragNDropColumnInterface target,
-);
 typedef ColumnTargetOnWillAccept = bool Function(MTDragNDropColumnInterface? incoming, MTDragNDropColumnTarget target);
-typedef _ColumnTargetOnAccept = void Function(MTDragNDropColumnInterface incoming, MTDragNDropColumnTarget target);
 typedef OnItemDraggingChanged = void Function(
   MTDragNDropItem item,
   bool dragging,
@@ -48,16 +30,7 @@ typedef ItemOnWillAccept = bool Function(
   MTDragNDropItem? incoming,
   MTDragNDropItem target,
 );
-typedef _ItemOnAccept = void Function(
-  MTDragNDropItem incoming,
-  MTDragNDropItem target,
-);
 typedef ItemTargetOnWillAccept = bool Function(MTDragNDropItem? incoming, MTDragNDropItemTarget target);
-typedef _ItemTargetOnAccept = void Function(
-  MTDragNDropItem incoming,
-  MTDragNDropColumnInterface parentColumn,
-  MTDragNDropItemTarget target,
-);
 
 class MTBoard extends StatefulWidget {
   MTBoard({
@@ -105,10 +78,11 @@ class MTBoard extends StatefulWidget {
     this.itemDragHandle,
     this.constrainDraggingAxis = true,
     this.removeTopPadding = false,
-    Key? key,
-  }) : super(key: key) {
-    if (columnGhost == null && children.whereType<MTDragNDropColumnExpansionInterface>().isNotEmpty)
+    super.key,
+  }) {
+    if (columnGhost == null && children.whereType<MTDragNDropColumnExpansionInterface>().isNotEmpty) {
       throw Exception('If using MTDragNDropColumnExpansion, you must provide a non-null columnGhost');
+    }
     if (sliverColumn && scrollController == null) {
       throw Exception('A scroll controller must be provided when using sliver columns');
     }
@@ -118,10 +92,19 @@ class MTBoard extends StatefulWidget {
   }
 
   final List<MTDragNDropColumnInterface> children;
-  final _OnItemReorder onItemReorder;
-  final _OnColumnReorder onColumnReorder;
-  final _OnItemAdd? onItemAdd;
-  final _OnColumnAdd? onColumnAdd;
+  final void Function(
+    int oldItemIndex,
+    int oldColumnIndex,
+    int newItemIndex,
+    int newColumnIndex,
+  ) onItemReorder;
+  final void Function(int oldColumnIndex, int newColumnIndex) onColumnReorder;
+  final void Function(
+    MTDragNDropItem newItem,
+    int columnIndex,
+    int newItemIndex,
+  )? onItemAdd;
+  final void Function(MTDragNDropColumnInterface newColumn, int newColumnIndex)? onColumnAdd;
 
   /// Set in order to provide custom acceptance criteria for when a column can be
   /// dropped onto a specific other column
@@ -131,7 +114,10 @@ class MTBoard extends StatefulWidget {
   /// a column has been accepted. For general use cases where only reordering is
   /// necessary, only [onColumnReorder] or [onColumnAdd] is needed, and this should
   /// be left null. [onColumnReorder] or [onColumnAdd] will be called after this.
-  final _ColumnOnAccept? columnOnAccept;
+  final void Function(
+    MTDragNDropColumnInterface incoming,
+    MTDragNDropColumnInterface target,
+  )? columnOnAccept;
 
   /// Set in order to provide custom acceptance criteria for when a column can be
   /// dropped onto a specific target. This target always exists as the last
@@ -143,7 +129,7 @@ class MTBoard extends StatefulWidget {
   /// reordering is necessary, only [onColumnReorder] or [onColumnAdd] is needed,
   /// and this should be left null. [onColumnReorder] or [onColumnAdd] will be
   /// called after this.
-  final _ColumnTargetOnAccept? columnTargetOnAccept;
+  final void Function(MTDragNDropColumnInterface incoming, MTDragNDropColumnTarget target)? columnTargetOnAccept;
 
   /// Called when a column dragging is starting or ending
   final OnColumnDraggingChanged? onColumnDraggingChanged;
@@ -156,7 +142,10 @@ class MTBoard extends StatefulWidget {
   /// an item has been accepted. For general use cases where only reordering is
   /// necessary, only [onItemReorder] or [onItemAdd] is needed, and this should
   /// be left null. [onItemReorder] or [onItemAdd] will be called after this.
-  final _ItemOnAccept? itemOnAccept;
+  final void Function(
+    MTDragNDropItem incoming,
+    MTDragNDropItem target,
+  )? itemOnAccept;
 
   /// Set in order to provide custom acceptance criteria for when a item can be
   /// dropped onto a specific target. This target always exists as the last
@@ -168,7 +157,11 @@ class MTBoard extends StatefulWidget {
   /// reordering is necessary, only [onItemReorder] or [onItemAdd] is needed,
   /// and this should be left null. [onItemReorder] or [onItemAdd] will be
   /// called after this.
-  final _ItemTargetOnAccept? itemTargetOnAccept;
+  final void Function(
+    MTDragNDropItem incoming,
+    MTDragNDropColumnInterface parentColumn,
+    MTDragNDropItemTarget target,
+  )? itemTargetOnAccept;
 
   /// Called when an item dragging is starting or ending
   final OnItemDraggingChanged? onItemDraggingChanged;
@@ -285,10 +278,11 @@ class _MTBoardState extends State<MTBoard> {
 
   @override
   void initState() {
-    if (widget.scrollController != null)
+    if (widget.scrollController != null) {
       _scrollController = widget.scrollController!;
-    else
+    } else {
       _scrollController = ScrollController();
+    }
 
     super.initState();
   }
@@ -338,10 +332,10 @@ class _MTBoardState extends State<MTBoard> {
     );
 
     final MTDragNDropColumnTarget dragAndDropColumnTarget = MTDragNDropColumnTarget(
-      child: widget.columnTarget,
       parameters: parameters,
       onDropOnLastTarget: _internalOnColumnDropOnLastTarget,
       lastColumnTargetSize: widget.lastColumnTargetSize,
+      child: widget.columnTarget,
     );
 
     if (widget.children.isNotEmpty) {
@@ -355,8 +349,8 @@ class _MTBoardState extends State<MTBoard> {
 
       if (widget.children.whereType<MTDragNDropColumnExpansionInterface>().isNotEmpty) {
         outerColumn = PageStorage(
-          child: outerColumn,
           bucket: _pageStorageBucket,
+          child: outerColumn,
         );
       }
       return outerColumn;
@@ -388,7 +382,7 @@ class _MTBoardState extends State<MTBoard> {
   }
 
   Widget _buildColumnView(MTDragNDropParameters parameters, MTDragNDropColumnTarget dragAndDropColumnTarget) {
-    final Widget _columnView = ListView(
+    final Widget columnView = ListView(
       scrollDirection: Axis.horizontal,
       controller: _scrollController,
       padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
@@ -403,9 +397,9 @@ class _MTBoardState extends State<MTBoard> {
         ? MediaQuery.removePadding(
             removeTop: true,
             context: context,
-            child: _columnView,
+            child: columnView,
           )
-        : _columnView;
+        : columnView;
   }
 
   List<Widget> _buildOuterColumn(MTDragNDropColumnTarget dragAndDropColumnTarget, MTDragNDropParameters parameters) {
@@ -418,10 +412,11 @@ class _MTBoardState extends State<MTBoard> {
   }
 
   int _calculateChildrenCount(bool includeSeparators) {
-    if (includeSeparators)
+    if (includeSeparators) {
       return (widget.children.length * 2) - (widget.columnDividerOnLastChild ? 0 : 1) + 1;
-    else
+    } else {
       return widget.children.length + 1;
+    }
   }
 
   Widget _buildInnerColumn(

@@ -10,7 +10,7 @@ import 'constants.dart';
 import 'scrollable.dart';
 
 class MTPage extends StatelessWidget {
-  const MTPage({
+  const MTPage({super.key, 
     this.appBar,
     required this.body,
     this.bottomBar,
@@ -64,8 +64,8 @@ class MTPage extends StatelessWidget {
                       ? MTScrollable(
                           scrollController: scrollController!,
                           scrollOffsetTop: scrollOffsetTop!,
-                          child: body,
                           onScrolled: onScrolled,
+                          child: body,
                         )
                       : body),
               extendBody: true,

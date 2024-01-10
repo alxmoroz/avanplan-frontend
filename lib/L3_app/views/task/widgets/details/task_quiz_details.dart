@@ -11,7 +11,7 @@ import '../../controllers/task_controller.dart';
 import 'description_field.dart';
 
 class TaskQuizDetails extends StatelessWidget {
-  const TaskQuizDetails(this._controller, this.qController);
+  const TaskQuizDetails(this._controller, this.qController, {super.key});
   final TaskController _controller;
   final AbstractQuizController qController;
 

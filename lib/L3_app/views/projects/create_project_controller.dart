@@ -27,7 +27,7 @@ abstract class _CreateProjectControllerBase with Store {
   @observable
   int? _selectedWSId = _wss.length == 1 ? _wss.first.id : null;
   @action
-  void _setWS(int? _wsId) => _selectedWSId = _wsId;
+  void _setWS(int? wsId) => _selectedWSId = wsId;
 
   bool get _noMyWss => wsMainController.myWSs.isEmpty;
 
@@ -45,16 +45,16 @@ abstract class _CreateProjectControllerBase with Store {
 
   Future _selectWS() async {
     if (_mustSelectWS) {
-      int? _wsId = await selectWS(canCreate: _noMyWss);
-      if (_wsId != null) {
-        if (_wsId == -1) {
+      int? wsId = await selectWS(canCreate: _noMyWss);
+      if (wsId != null) {
+        if (wsId == -1) {
           loader.setSaving();
           loader.start();
-          _wsId = (await wsMainController.createMyWS())?.id;
+          wsId = (await wsMainController.createMyWS())?.id;
           await loader.stop();
         }
-        if (_wsId != null && _wsId > -1) {
-          _setWS(_wsId);
+        if (wsId != null && wsId > -1) {
+          _setWS(wsId);
         }
       }
     }

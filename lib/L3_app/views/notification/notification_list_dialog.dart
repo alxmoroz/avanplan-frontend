@@ -36,7 +36,7 @@ class NotificationsRouter extends MTRouter {
 }
 
 class NotificationListDialog extends StatelessWidget {
-  const NotificationListDialog();
+  const NotificationListDialog({super.key});
 
   NotificationController get _controller => notificationController;
 

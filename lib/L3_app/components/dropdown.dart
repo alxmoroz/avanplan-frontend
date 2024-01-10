@@ -12,6 +12,7 @@ import 'text_field.dart';
 
 class MTDropdown<T extends RPersistable> extends StatelessWidget {
   const MTDropdown({
+    super.key,
     required this.label,
     this.helper,
     this.onChanged,

@@ -11,7 +11,7 @@ import '../usecases/communications.dart';
 String get appTitle => '${loc.app_title} ${localSettingsController.settings.version}';
 
 class ReportErrorButton extends StatelessWidget {
-  const ReportErrorButton(this.errorText, {this.color, this.titleColor});
+  const ReportErrorButton(this.errorText, {super.key, this.color, this.titleColor});
   final String errorText;
   final Color? color;
   final Color? titleColor;

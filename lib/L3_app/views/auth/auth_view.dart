@@ -20,10 +20,12 @@ import 'registration_form.dart';
 import 'sign_in_email_form.dart';
 
 class AuthView extends StatefulWidget {
+  const AuthView({super.key});
+
   static String get routeName => '/auth';
 
   @override
-  _AuthViewState createState() => _AuthViewState();
+  State<StatefulWidget> createState() => _AuthViewState();
 }
 
 class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {

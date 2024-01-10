@@ -37,12 +37,12 @@ enum ImageName {
 }
 
 String _assetPath(String name, BuildContext context) {
-  final _dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
-  return 'assets/images/$name${_dark ? '_dark' : ''}.png';
+  final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  return 'assets/images/$name${dark ? '_dark' : ''}.png';
 }
 
 class MTImage extends StatelessWidget {
-  const MTImage(this.name, {this.height, this.width});
+  const MTImage(this.name, {super.key, this.height, this.width});
   final String name;
   final double? height;
   final double? width;
@@ -52,7 +52,7 @@ class MTImage extends StatelessWidget {
     final h = height ?? defaultImageHeight(context);
     final w = width ?? h;
 
-    return Container(
+    return SizedBox(
       width: w,
       height: h,
       child: Image.asset(

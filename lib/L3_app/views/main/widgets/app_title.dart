@@ -9,12 +9,12 @@ import '../../../components/text.dart';
 import '../../../extra/services.dart';
 
 class AppTitle extends StatelessWidget {
-  const AppTitle({this.compact = false});
+  const AppTitle({super.key, this.compact = false});
   final bool compact;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: P6,
       child: Row(
         mainAxisSize: MainAxisSize.min,

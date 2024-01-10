@@ -9,7 +9,7 @@ import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
 
 extension NoteEditUC on Note {
-  Future<Note?> _edit(Task task, Future<Note?> function()) async {
+  Future<Note?> _edit(Task task, Future<Note?> Function() function) async {
     loading = true;
     tasksMainController.refreshTasks();
     Note? en;

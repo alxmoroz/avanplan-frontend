@@ -149,7 +149,7 @@ extension TaskStatePresenter on Task {
     return res;
   }
 
-  String get _etaDetails => '${loc.state_eta_duration(etaPeriod!.localizedString)}';
+  String get _etaDetails => loc.state_eta_duration(etaPeriod!.localizedString);
   String get _lowStartDetails => loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
   String get _noProgressDetails => loc.state_no_progress_details;
 
@@ -176,7 +176,7 @@ extension TaskStatePresenter on Task {
       case TaskState.OVERDUE:
         return '${loc.state_overdue_title}${etaPeriod != null ? '. $_etaDetails' : ''}';
       case TaskState.RISK:
-        return '${loc.state_risk_duration(riskPeriod!.localizedString)}';
+        return loc.state_risk_duration(riskPeriod!.localizedString);
       case TaskState.OK:
         return loc.state_on_time_title;
       case TaskState.AHEAD:

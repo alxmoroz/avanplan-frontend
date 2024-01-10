@@ -11,7 +11,7 @@ import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskChecklistAddField extends StatelessWidget {
-  const TaskChecklistAddField(this._controller);
+  const TaskChecklistAddField(this._controller, {super.key});
   final TaskController _controller;
 
   @override

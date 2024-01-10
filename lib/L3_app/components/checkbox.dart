@@ -10,6 +10,7 @@ import 'text.dart';
 
 class MTCheckBoxTile extends StatelessWidget {
   const MTCheckBoxTile({
+    super.key,
     required this.title,
     required this.value,
     this.onChanged,

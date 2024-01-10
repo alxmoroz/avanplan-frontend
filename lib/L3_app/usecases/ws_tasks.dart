@@ -14,25 +14,25 @@ import 'ws_actions.dart';
 import 'ws_tariff.dart';
 
 extension WSTasksUC on Workspace {
-  Future<Task?> createTask(Task? _parent, {int? statusId}) async {
-    final _newProject = _parent == null;
-    final _newGoal = _parent != null && _parent.isProject && _parent.hfsGoals;
-    final _newCheckItem = _parent != null && _parent.isTask;
+  Future<Task?> createTask(Task? parent, {int? statusId}) async {
+    final newProject = parent == null;
+    final newGoal = parent != null && parent.isProject && parent.hfsGoals;
+    final newCheckItem = parent != null && parent.isTask;
 
-    if (!plCreate(_parent)) {
+    if (!plCreate(parent)) {
       await changeTariff(
-        reason: _newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
+        reason: newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }
 
     Task? newTask;
 
-    if (plCreate(_parent)) {
+    if (plCreate(parent)) {
       final taskData = Task(
-        title: newSubtaskTitle(_parent),
-        projectStatusId: statusId ?? ((_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id),
+        title: newSubtaskTitle(parent),
+        projectStatusId: statusId ?? ((newProject || newGoal) ? null : parent.statuses.firstOrNull?.id),
         closed: false,
-        parentId: _parent?.id,
+        parentId: parent?.id,
         members: [],
         notes: [],
         attachments: [],
@@ -41,11 +41,11 @@ extension WSTasksUC on Workspace {
         wsId: id!,
         startDate: DateTime.now(),
         createdOn: DateTime.now(),
-        type: _newProject
+        type: newProject
             ? TType.PROJECT
-            : _newGoal
+            : newGoal
                 ? TType.GOAL
-                : _newCheckItem
+                : newCheckItem
                     ? TType.CHECKLIST_ITEM
                     : TType.TASK,
       );

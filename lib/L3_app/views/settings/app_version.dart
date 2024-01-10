@@ -9,7 +9,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class AppVersion extends StatelessWidget {
-  const AppVersion();
+  const AppVersion({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -23,7 +23,7 @@ import 'right_toolbar_controller.dart';
 import 'toggle_view_button.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskRightToolbar(this._controller);
+  const TaskRightToolbar(this._controller, {super.key});
   final TaskRightToolbarController _controller;
 
   TaskController get _taskController => _controller.taskController;

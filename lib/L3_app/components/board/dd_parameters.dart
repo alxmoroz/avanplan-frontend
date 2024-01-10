@@ -7,21 +7,10 @@ import 'dd_column_interface.dart';
 import 'dd_item.dart';
 import 'dd_item_target.dart';
 
-typedef _OnPointerMove = void Function(PointerMoveEvent event);
-typedef _OnPointerUp = void Function(PointerUpEvent event);
-typedef _OnPointerDown = void Function(PointerDownEvent event);
-typedef _OnItemReordered = void Function(
-  MTDragNDropItem reorderedItem,
-  MTDragNDropItem receiverItem,
-);
 typedef OnItemDropOnLastTarget = void Function(
   MTDragNDropItem newOrReorderedItem,
   MTDragNDropColumnInterface parentColumn,
   MTDragNDropItemTarget receiver,
-);
-typedef _OnColumnReordered = void Function(
-  MTDragNDropColumnInterface reorderedColumn,
-  MTDragNDropColumnInterface receiverColumn,
 );
 
 enum MTDragHandleVerticalAlignment {
@@ -32,11 +21,11 @@ enum MTDragHandleVerticalAlignment {
 
 class MTDragHandle extends StatelessWidget {
   const MTDragHandle({
-    Key? key,
+    super.key,
     required this.child,
     this.onLeft = false,
     this.verticalAlignment = MTDragHandleVerticalAlignment.center,
-  }) : super(key: key);
+  });
 
   final bool onLeft;
   final MTDragHandleVerticalAlignment verticalAlignment;
@@ -83,12 +72,18 @@ class MTDragNDropParameters {
     this.constrainDraggingAxis = true,
     this.disableScrolling = false,
   });
-  final _OnPointerMove? onPointerMove;
-  final _OnPointerUp? onPointerUp;
-  final _OnPointerDown? onPointerDown;
-  final _OnItemReordered? onItemReordered;
+  final void Function(PointerMoveEvent event)? onPointerMove;
+  final void Function(PointerUpEvent event)? onPointerUp;
+  final void Function(PointerDownEvent event)? onPointerDown;
+  final void Function(
+    MTDragNDropItem reorderedItem,
+    MTDragNDropItem receiverItem,
+  )? onItemReordered;
   final OnItemDropOnLastTarget? onItemDropOnLastTarget;
-  final _OnColumnReordered? onColumnReordered;
+  final void Function(
+    MTDragNDropColumnInterface reorderedColumn,
+    MTDragNDropColumnInterface receiverColumn,
+  )? onColumnReordered;
   final ColumnOnWillAccept? columnOnWillAccept;
   final ColumnTargetOnWillAccept? columnTargetOnWillAccept;
   final OnColumnDraggingChanged? onColumnDraggingChanged;

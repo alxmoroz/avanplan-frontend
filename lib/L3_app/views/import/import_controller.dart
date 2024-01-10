@@ -21,8 +21,8 @@ import '../source/source_type_selector.dart';
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {
-  Future<ImportController> init(Workspace _ws) async {
-    wsId = _ws.id!;
+  Future<ImportController> init(Workspace ws) async {
+    wsId = ws.id!;
     selectedSourceId = ws.sources.isNotEmpty ? ws.sources.first.id : null;
 
     // переходим к созданию источника, если нет источников
@@ -82,7 +82,9 @@ abstract class _ImportControllerBase with Store {
 
   @action
   void toggleSelectedAll(bool? value) {
-    selectableProjects.forEach((p) => p.selected = value == true);
+    for (ProjectRemote p in selectableProjects) {
+      p.selected = value == true;
+    }
     projects = [...projects];
   }
 

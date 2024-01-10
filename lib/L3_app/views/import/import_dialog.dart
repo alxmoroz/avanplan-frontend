@@ -35,7 +35,7 @@ Future importTasks(Workspace ws) async {
 }
 
 class ImportDialog extends StatelessWidget {
-  const ImportDialog(this.controller);
+  const ImportDialog(this.controller, {super.key});
   final ImportController controller;
 
   bool get _hasProjects => controller.projects.isNotEmpty;
@@ -118,12 +118,12 @@ class ImportDialog extends StatelessWidget {
           ? MTShadowed(
               shadowColor: b1Color,
               topPaddingIndent: 0,
+              bottomShadow: true,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _projectItemBuilder,
                 itemCount: controller.projects.length,
               ),
-              bottomShadow: true,
             )
           : NoSources(controller.ws);
 

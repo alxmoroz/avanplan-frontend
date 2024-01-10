@@ -16,7 +16,7 @@ import '../../../../presenters/bytes.dart';
 import '../../controllers/attachments_controller.dart';
 
 class AttachmentsDialog extends StatelessWidget {
-  const AttachmentsDialog(this._controller);
+  const AttachmentsDialog(this._controller, {super.key});
   final AttachmentsController _controller;
 
   @override

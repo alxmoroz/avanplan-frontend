@@ -17,7 +17,7 @@ import 'workspace_list_tile.dart';
 Future<int?> selectWS({bool canCreate = false}) async => await showMTDialog<int?>(WorkspaceSelector(canCreate));
 
 class WorkspaceSelector extends StatelessWidget {
-  const WorkspaceSelector(this._canCreate);
+  const WorkspaceSelector(this._canCreate, {super.key});
   final bool _canCreate;
   List<Workspace> get _wss => wsMainController.workspaces;
 

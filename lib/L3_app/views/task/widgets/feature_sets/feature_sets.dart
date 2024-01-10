@@ -109,7 +109,7 @@ class FeatureSetsQuizRouter extends MTRouter {
 }
 
 class FeatureSetsQuizView extends StatelessWidget {
-  const FeatureSetsQuizView(this._args);
+  const FeatureSetsQuizView(this._args, {super.key});
   final FSQuizArgs _args;
 
   FeatureSetsController get _controller => _args._controller;
@@ -141,7 +141,7 @@ class FeatureSetsQuizView extends StatelessWidget {
 }
 
 class FeatureSetsDialog extends StatelessWidget {
-  const FeatureSetsDialog(this._controller);
+  const FeatureSetsDialog(this._controller, {super.key});
   final FeatureSetsController _controller;
 
   @override

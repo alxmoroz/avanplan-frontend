@@ -15,7 +15,7 @@ import '../../projects/create_project_controller.dart';
 import '../../projects/projects_view.dart';
 
 class NoProjects extends StatelessWidget {
-  const NoProjects(this._controller);
+  const NoProjects(this._controller, {super.key});
   final CreateProjectController _controller;
 
   bool get allClosed => tasksMainController.projects.isNotEmpty;

@@ -20,18 +20,18 @@ import 'task_controller.dart';
 part 'notes_controller.g.dart';
 
 class NotesController extends _NotesControllerBase with _$NotesController {
-  NotesController(TaskController _taskController) {
-    taskController = _taskController;
-    _setNotes(_taskController.task!.notes);
+  NotesController(TaskController taskController) {
+    _taskController = taskController;
+    _setNotes(taskController.task!.notes);
   }
 }
 
 abstract class _NotesControllerBase with Store {
-  late final TaskController taskController;
+  late final TaskController _taskController;
 
-  Task get task => taskController.task!;
+  Task get task => _taskController.task!;
   final _fIndex = TaskFCode.note.index;
-  TextEditingController get _te => taskController.teController(_fIndex)!;
+  TextEditingController get _te => _taskController.teController(_fIndex)!;
 
   final notesWidgetGlobalKey = GlobalKey();
 
@@ -53,7 +53,7 @@ abstract class _NotesControllerBase with Store {
     final newValue = _te.text;
     final oldValue = note.text;
     if (newValue.trim().isNotEmpty && (note.text != newValue || note.isNew)) {
-      taskController.updateField(_fIndex, loading: true, text: '');
+      _taskController.updateField(_fIndex, loading: true, text: '');
       note.text = newValue;
 
       if (await note.save(task) == null) {
@@ -61,13 +61,13 @@ abstract class _NotesControllerBase with Store {
       }
 
       _refresh();
-      taskController.updateField(_fIndex, loading: false);
+      _taskController.updateField(_fIndex, loading: false);
     }
   }
 
   Future edit(Note note) async {
     _te.text = note.text;
-    if (await showMTDialog<bool?>(TextEditDialog(taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
+    if (await showMTDialog<bool?>(TextEditDialog(_taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
       // добавление или редактирование
       await _save(note);
       _te.text = '';

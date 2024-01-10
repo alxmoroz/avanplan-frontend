@@ -12,7 +12,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class LegalLinks extends StatelessWidget {
-  const LegalLinks();
+  const LegalLinks({super.key});
 
   @override
   Widget build(BuildContext context) => Column(

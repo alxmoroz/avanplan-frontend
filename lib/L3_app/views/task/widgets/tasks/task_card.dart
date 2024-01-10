@@ -33,6 +33,7 @@ import '../analytics/state_title.dart';
 class TaskCard extends StatelessWidget {
   const TaskCard(
     this.task, {
+    super.key,
     this.showStateMark = false,
     this.board = false,
     this.showParent = false,
@@ -187,8 +188,8 @@ class TaskCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
-          child: _taskContent(false),
           onTap: dragging ? null : _tap,
+          child: _taskContent(false),
         )
       : Stack(
           children: [

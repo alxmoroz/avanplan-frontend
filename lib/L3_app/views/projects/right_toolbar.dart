@@ -10,7 +10,7 @@ import 'create_project_controller.dart';
 import 'right_toolbar_controller.dart';
 
 class ProjectsRightToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const ProjectsRightToolbar(this._controller);
+  const ProjectsRightToolbar(this._controller, {super.key});
   final ProjectsRightToolbarController _controller;
 
   @override

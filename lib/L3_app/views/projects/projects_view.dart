@@ -28,12 +28,14 @@ class ProjectsRouter extends MTRouter {
   String get title => loc.project_list_title;
 
   @override
-  Widget get page => ProjectsView();
+  Widget get page => const ProjectsView();
 }
 
 class ProjectsView extends StatefulWidget {
+  const ProjectsView({super.key});
+
   @override
-  _ProjectsViewState createState() => _ProjectsViewState();
+  State<StatefulWidget> createState() => _ProjectsViewState();
 }
 
 class _ProjectsViewState extends State<ProjectsView> {

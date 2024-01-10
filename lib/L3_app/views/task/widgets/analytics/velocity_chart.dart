@@ -16,7 +16,7 @@ import '../../../../presenters/task_state.dart';
 import '../../../../usecases/task_stats.dart';
 
 class VelocityChart extends StatelessWidget {
-  const VelocityChart(this._task);
+  const VelocityChart(this._task, {super.key});
   final Task _task;
   static const _R = P12;
 

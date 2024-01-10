@@ -23,7 +23,7 @@ import 'invitation_controller.dart';
 Future invitationDialog(Task task) async => await showMTDialog<void>(InvitationDialog(task));
 
 class InvitationDialog extends StatelessWidget {
-  InvitationDialog(Task _task) : _controller = InvitationController(_task);
+  InvitationDialog(Task task, {super.key}) : _controller = InvitationController(task);
   final InvitationController _controller;
 
   Widget _copyButton(BuildContext context) => MTButton(

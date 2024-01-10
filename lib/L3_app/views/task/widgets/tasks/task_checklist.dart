@@ -14,7 +14,7 @@ import '../../controllers/task_controller.dart';
 import 'task_checklist_item.dart';
 
 class TaskChecklist extends StatelessWidget {
-  const TaskChecklist(this._taskController);
+  const TaskChecklist(this._taskController, {super.key});
   final TaskController _taskController;
 
   SubtasksController get _controller => _taskController.subtasksController;

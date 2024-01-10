@@ -68,13 +68,13 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
 Future<Source?> editSourceDialog(Workspace ws, Source? src, SourceType? sType) async => await showMTDialog<Source?>(SourceEditDialog(ws, src, sType));
 
 class SourceEditDialog extends StatefulWidget {
-  const SourceEditDialog(this.ws, this.src, this.sType);
+  const SourceEditDialog(this.ws, this.src, this.sType, {super.key});
   final Workspace ws;
   final Source? src;
   final SourceType? sType;
 
   @override
-  _SourceEditDialogState createState() => _SourceEditDialogState();
+  State<StatefulWidget> createState() => _SourceEditDialogState();
 }
 
 class _SourceEditDialogState extends State<SourceEditDialog> {

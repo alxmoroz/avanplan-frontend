@@ -12,7 +12,7 @@ import '../../usecases/communications.dart';
 import 'registration_request_controller.dart';
 
 class RegistrationCompletedMessage extends StatelessWidget {
-  const RegistrationCompletedMessage(this._controller);
+  const RegistrationCompletedMessage(this._controller, {super.key});
 
   final RegistrationRequestController _controller;
 

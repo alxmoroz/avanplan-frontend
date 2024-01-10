@@ -15,6 +15,7 @@ import '../../usecases/ws_actions.dart';
 class WorkspaceListTile extends StatelessWidget {
   const WorkspaceListTile(
     this.ws, {
+    super.key,
     required this.bottomDivider,
     this.onTap,
   });

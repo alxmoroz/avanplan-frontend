@@ -27,7 +27,7 @@ Future localImportDialog(TaskController taskController) async {
 }
 
 class LocalImportDialog extends StatelessWidget {
-  const LocalImportDialog(this.controller);
+  const LocalImportDialog(this.controller, {super.key});
   final LocalImportController controller;
 
   Task? get _srcGoal => controller.sourceGoal;
@@ -36,10 +36,10 @@ class LocalImportDialog extends StatelessWidget {
   bool get _showSelectAll => controller.srcTasks.length > 2;
 
   Widget _taskItem(BuildContext context, int index) {
-    final _t = controller.srcTasks[index];
+    final t = controller.srcTasks[index];
     return MTCheckBoxTile(
-      title: _t.title,
-      description: _t.description,
+      title: t.title,
+      description: t.description,
       value: controller.checks[index] == true,
       bottomDivider: index < controller.checks.length - 1,
       onChanged: (bool? value) => controller.checkTask(index, value),

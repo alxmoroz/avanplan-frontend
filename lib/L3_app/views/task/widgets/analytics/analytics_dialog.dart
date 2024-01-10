@@ -27,7 +27,7 @@ import 'volume_chart.dart';
 Future showAnalyticsDialog(Task task) async => await showMTDialog<void>(AnalyticsDialog(task));
 
 class AnalyticsDialog extends StatelessWidget {
-  const AnalyticsDialog(this._task);
+  const AnalyticsDialog(this._task, {super.key});
   final Task _task;
 
   Widget _details(String t1, String t2, {String? unit, Color? color, bool divider = true}) => MTListTile(
@@ -103,20 +103,20 @@ class AnalyticsDialog extends StatelessWidget {
             if (!_task.isFuture)
               _details(
                 loc.chart_timing_elapsed_label,
-                '${loc.days_count(_task.elapsedPeriod?.inDays ?? 0)}',
+                loc.days_count(_task.elapsedPeriod?.inDays ?? 0),
                 divider: _task.leftPeriod != null || _task.etaPeriod != null,
               ),
             if (_task.leftPeriod != null)
               _details(
                 _timeDelta >= 0 ? loc.chart_timing_left_label : loc.state_overdue_title,
-                '${loc.days_count(_timeDelta.abs())}',
+                loc.days_count(_timeDelta.abs()),
                 color: _timeDelta > 0 ? null : warningColor,
                 divider: _task.etaPeriod != null,
               ),
             if (_task.etaPeriod != null)
               _details(
                 loc.chart_timing_eta_title,
-                '${loc.days_count(_task.etaPeriod!.inDays)}',
+                loc.days_count(_task.etaPeriod!.inDays),
                 divider: false,
               ),
           ],

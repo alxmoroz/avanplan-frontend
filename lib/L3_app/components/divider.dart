@@ -6,7 +6,7 @@ import 'colors.dart';
 import 'colors_base.dart';
 
 class MTDivider extends StatelessWidget {
-  const MTDivider({this.color, this.height, this.indent, this.endIndent, this.verticalIndent});
+  const MTDivider({super.key, this.color, this.height, this.indent, this.endIndent, this.verticalIndent});
 
   final Color? color;
   final double? height;

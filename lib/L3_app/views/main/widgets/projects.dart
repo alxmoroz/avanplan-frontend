@@ -15,7 +15,7 @@ import '../../projects/projects_view.dart';
 import '../../task/widgets/tasks/tasks_group.dart';
 
 class Projects extends StatelessWidget {
-  const Projects({this.compact = true});
+  const Projects({super.key, this.compact = true});
   final bool compact;
 
   Future _goToProjects() async => await MTRouter.navigate(ProjectsRouter, rootKey.currentContext!);
@@ -24,6 +24,7 @@ class Projects extends StatelessWidget {
     final overallState = tasksMainController.overallProjectsState;
     final image = imageForState(overallState, size: compact ? MediaQuery.sizeOf(context).width : null);
     return MTCardButton(
+      onTap: _goToProjects,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -33,7 +34,6 @@ class Projects extends StatelessWidget {
           const SizedBox(height: P),
         ],
       ),
-      onTap: _goToProjects,
     );
   }
 

@@ -52,6 +52,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
 
 class MTDialog extends StatelessWidget {
   const MTDialog({
+    super.key,
     required this.body,
     this.topBar,
     this.bottomBar,
@@ -93,8 +94,8 @@ class MTDialog extends StatelessWidget {
                 ? MTScrollable(
                     scrollController: scrollController!,
                     scrollOffsetTop: scrollOffsetTop!,
-                    child: body,
                     onScrolled: onScrolled,
+                    child: body,
                   )
                 : body,
           ),

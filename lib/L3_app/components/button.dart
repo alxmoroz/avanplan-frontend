@@ -27,6 +27,10 @@ mixin FocusManaging {
   }
 
   Future tapAction(BuildContext context, bool uf, Function action, {FeedbackType? fbType}) async {
+    if (uf) {
+      unfocus(context);
+    }
+
     if (fbType != null) {
       switch (fbType) {
         case FeedbackType.light:
@@ -48,15 +52,13 @@ mixin FocusManaging {
       }
     }
 
-    if (uf) {
-      unfocus(context);
-    }
     await action();
   }
 }
 
 class MTButton extends StatelessWidget with FocusManaging {
   const MTButton({
+    super.key,
     this.titleText,
     this.onTap,
     this.onLongPress,
@@ -77,6 +79,7 @@ class MTButton extends StatelessWidget with FocusManaging {
   });
 
   const MTButton.main({
+    super.key,
     this.titleText,
     this.onTap,
     this.onLongPress,
@@ -96,6 +99,7 @@ class MTButton extends StatelessWidget with FocusManaging {
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
+    super.key,
     this.titleText,
     this.onTap,
     this.onLongPress,
@@ -116,6 +120,7 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   const MTButton.icon(
     Widget icon, {
+    super.key,
     this.margin,
     this.padding,
     this.color,
@@ -158,14 +163,14 @@ class MTButton extends StatelessWidget with FocusManaging {
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
-    final _btnColor = (_enabled || _custom ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
+    final btnColor = (_enabled || _custom ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,
       foregroundColor: _titleColor.resolve(context),
-      backgroundColor: _btnColor,
-      disabledForegroundColor: _btnColor,
-      disabledBackgroundColor: _btnColor,
+      backgroundColor: btnColor,
+      disabledForegroundColor: btnColor,
+      disabledBackgroundColor: btnColor,
       minimumSize: minSize ?? const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_radius)),
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
@@ -177,11 +182,12 @@ class MTButton extends StatelessWidget with FocusManaging {
     );
   }
 
-  Widget _button(BuildContext context) {
-    final _onPressed = _enabled && onTap != null ? () => tapAction(context, uf, onTap!, fbType: FeedbackType.light) : null;
-    final _onLongPress = _enabled && onLongPress != null ? () => tapAction(context, uf, onLongPress!, fbType: FeedbackType.medium) : null;
+  Function()? _onPressed(BuildContext context) => _enabled && onTap != null ? () => tapAction(context, uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? _onLongPress(BuildContext context) =>
+      _enabled && onLongPress != null ? () => tapAction(context, uf, onLongPress!, fbType: FeedbackType.medium) : null;
 
-    final _child = Row(
+  Widget _button(BuildContext context) {
+    final child = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -196,12 +202,12 @@ class MTButton extends StatelessWidget with FocusManaging {
       case ButtonType.secondary:
       case ButtonType.card:
         return OutlinedButton(
-          onPressed: _onPressed,
-          onLongPress: _onLongPress,
+          onPressed: _onPressed(context),
+          onLongPress: _onLongPress(context),
           onHover: onHover,
-          child: _child,
           style: _style(context),
           clipBehavior: Clip.hardEdge,
+          child: child,
         );
       default:
         return material(
@@ -213,14 +219,14 @@ class MTButton extends StatelessWidget with FocusManaging {
             splashColor: Colors.transparent,
             canRequestFocus: false,
             focusColor: Colors.transparent,
-            onLongPress: _onLongPress,
+            onLongPress: _onLongPress(context),
             child: CupertinoButton(
-              onPressed: _onPressed,
-              child: _child,
+              onPressed: _onPressed(context),
               minSize: 0,
               padding: padding ?? EdgeInsets.zero,
               color: color,
               borderRadius: const BorderRadius.all(Radius.zero),
+              child: child,
             ),
           ),
         );
@@ -245,7 +251,7 @@ class MTButton extends StatelessWidget with FocusManaging {
 }
 
 class MTPlusButton extends StatelessWidget {
-  const MTPlusButton(this.onTap, {this.type = ButtonType.main});
+  const MTPlusButton(this.onTap, {super.key, this.type = ButtonType.main});
   final VoidCallback? onTap;
   final ButtonType type;
 
@@ -262,6 +268,7 @@ class MTPlusButton extends StatelessWidget {
 
 class MTCardButton extends StatelessWidget {
   const MTCardButton({
+    super.key,
     required this.child,
     this.margin,
     this.padding,
@@ -300,6 +307,7 @@ class MTCardButton extends StatelessWidget {
 
 class MTBadgeButton extends StatelessWidget {
   const MTBadgeButton({
+    super.key,
     required this.showBadge,
     required this.type,
     this.leading,

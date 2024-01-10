@@ -85,13 +85,13 @@ class MTBoardColumn implements MTDragNDropColumnInterface {
                 ],
               ),
             ),
-            if (header != null) Container(child: header, color: b2Color.resolve(context), height: _headerHeight),
+            if (header != null) Container(color: b2Color.resolve(context), height: _headerHeight, child: header),
             if (footer != null)
               Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: Container(child: footer, color: b2Color.resolve(context), height: _footerHeight),
+                child: Container(color: b2Color.resolve(context), height: _footerHeight, child: footer),
               ),
           ],
         ),

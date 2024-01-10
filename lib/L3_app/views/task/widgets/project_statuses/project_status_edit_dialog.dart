@@ -27,12 +27,12 @@ Future showProjectStatusEditDialog(
     await showMTDialog<void>(ProjectStatusEditDialog(status, statusesController));
 
 class ProjectStatusEditDialog extends StatefulWidget {
-  const ProjectStatusEditDialog(this._status, this._statusesController);
+  const ProjectStatusEditDialog(this._status, this._statusesController, {super.key});
   final ProjectStatus _status;
   final ProjectStatusesController _statusesController;
 
   @override
-  _ProjectStatusEditDialogState createState() => _ProjectStatusEditDialogState();
+  State<StatefulWidget> createState() => _ProjectStatusEditDialogState();
 }
 
 class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {

@@ -40,7 +40,7 @@ class SourcesRouter extends MTRouter {
 }
 
 class SourceListDialog extends StatelessWidget {
-  const SourceListDialog(this._wsId);
+  const SourceListDialog(this._wsId, {super.key});
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);

@@ -8,7 +8,7 @@ import 'base.dart';
 
 part 'local_settings.g.dart';
 
-@HiveType(typeId: HType.LocalSettings)
+@HiveType(typeId: HType.LOCAL_SETTINGS)
 class LocalSettingsHO extends BaseModel<LocalSettings> {
   @HiveField(3, defaultValue: '')
   String version = '';

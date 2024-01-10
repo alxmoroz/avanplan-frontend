@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:openapi/openapi.dart' as o_api;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -45,7 +46,9 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
         throw MTOAuthError('apple CredentialsException', description: e.message);
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       throw MTOAuthError('apple', description: e.toString());
     }
 

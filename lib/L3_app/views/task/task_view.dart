@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/task/widgets/actions/bottom_toolbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,6 +22,7 @@ import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
+import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
@@ -60,7 +60,7 @@ class TaskRouter extends MTRouter {
               ? Container()
               : _task != null
                   ? TaskView(TaskController(_task!))
-                  : NotFoundPage(),
+                  : const NotFoundPage(),
         );
 
   @override
@@ -73,7 +73,7 @@ class TaskRouter extends MTRouter {
               ? '/projects/backlogs'
               : '/projects/tasks';
 
-  String _navPath(Task _task) => '${_navPrefix(_task)}/${_task.wsId}/${_task.id}';
+  String _navPath(Task task) => '${_navPrefix(task)}/${task.wsId}/${task.id}';
   @override
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
         _navPath((args as TaskController).task!),
@@ -95,7 +95,7 @@ class TaskView extends StatefulWidget {
   // TODO: отвязаться от создания контроллера заранее. Создавать контроллер (инициализировать FData) нужно после загрузки данных,
   //  либо делать реиницилаизацию после загрузки данных.
   //  Кроме того, нужно отправлять сюда только айдишники
-  const TaskView(this._controller);
+  const TaskView(this._controller, {super.key});
   final TaskController _controller;
 
   @override

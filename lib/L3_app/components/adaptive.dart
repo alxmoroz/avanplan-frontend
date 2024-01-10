@@ -21,15 +21,15 @@ bool isBigScreen(BuildContext context) {
 
 bool canShowVerticalBars(BuildContext context) => isBigScreen(context) || _smallLandscape(context);
 
-enum AdaptiveSize { XXS, XS, S, M, L }
+enum AdaptiveSize { xxs, xs, s, m, l }
 
 class MTAdaptive extends StatelessWidget {
-  const MTAdaptive({required this.child, this.force = false, this.size = AdaptiveSize.M});
+  const MTAdaptive({super.key, required this.child, this.force = false, this.size = AdaptiveSize.m});
 
-  const MTAdaptive.xxs({required this.child, this.force = true}) : size = AdaptiveSize.XXS;
-  const MTAdaptive.xs({required this.child, this.force = true}) : size = AdaptiveSize.XS;
-  const MTAdaptive.s({required this.child, this.force = false}) : size = AdaptiveSize.S;
-  const MTAdaptive.l({required this.child, this.force = false}) : size = AdaptiveSize.L;
+  const MTAdaptive.xxs({super.key, required this.child, this.force = true}) : size = AdaptiveSize.xxs;
+  const MTAdaptive.xs({super.key, required this.child, this.force = true}) : size = AdaptiveSize.xs;
+  const MTAdaptive.s({super.key, required this.child, this.force = false}) : size = AdaptiveSize.s;
+  const MTAdaptive.l({super.key, required this.child, this.force = false}) : size = AdaptiveSize.l;
 
   final Widget? child;
   final bool force;
@@ -39,18 +39,18 @@ class MTAdaptive extends StatelessWidget {
     double W = SCR_XXS_WIDTH;
 
     switch (size) {
-      case AdaptiveSize.XXS:
+      case AdaptiveSize.xxs:
         break;
-      case AdaptiveSize.XS:
+      case AdaptiveSize.xs:
         W = SCR_XS_WIDTH;
         break;
-      case AdaptiveSize.S:
+      case AdaptiveSize.s:
         W = SCR_S_WIDTH;
         break;
-      case AdaptiveSize.M:
+      case AdaptiveSize.m:
         W = SCR_M_WIDTH;
         break;
-      case AdaptiveSize.L:
+      case AdaptiveSize.l:
         W = SCR_L_WIDTH;
         break;
     }

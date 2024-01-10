@@ -96,6 +96,7 @@ class Notes extends StatelessWidget {
                             margin: EdgeInsets.only(left: mine ? P6 + P6 : 0, right: mine ? 0 : P4, bottom: P2),
                             padding: const EdgeInsets.symmetric(vertical: P, horizontal: P2),
                             loading: n.loading,
+                            onLongPress: _canEditTask && mine ? () => _noteMenu(context, n) : null,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -109,7 +110,6 @@ class Notes extends StatelessWidget {
                                 SmallText(n.createdOn!.strTime, align: TextAlign.right),
                               ],
                             ),
-                            onLongPress: _canEditTask && mine ? () => _noteMenu(context, n) : null,
                           ),
                         ),
                       ],

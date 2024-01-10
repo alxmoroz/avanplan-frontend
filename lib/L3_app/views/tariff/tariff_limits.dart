@@ -60,7 +60,7 @@ class _TariffLimitTile extends StatelessWidget {
 }
 
 class TariffLimits extends StatelessWidget {
-  const TariffLimits(this.tariff);
+  const TariffLimits(this.tariff, {super.key});
   final Tariff tariff;
 
   @override

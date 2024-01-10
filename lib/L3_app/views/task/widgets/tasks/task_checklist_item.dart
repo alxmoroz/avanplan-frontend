@@ -20,12 +20,12 @@ import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskChecklistItem extends StatefulWidget {
-  const TaskChecklistItem(this._controller, this._index);
+  const TaskChecklistItem(this._controller, this._index, {super.key});
   final SubtasksController _controller;
   final int _index;
 
   @override
-  _TaskChecklistItemState createState() => _TaskChecklistItemState();
+  State<StatefulWidget> createState() => _TaskChecklistItemState();
 }
 
 class _TaskChecklistItemState extends State<TaskChecklistItem> {

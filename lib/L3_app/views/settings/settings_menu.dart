@@ -25,7 +25,7 @@ import 'notifications_button.dart';
 Future showSettingsMenu() async => await showMTDialog<void>(const SettingsMenu());
 
 class SettingsMenu extends StatelessWidget {
-  const SettingsMenu();
+  const SettingsMenu({super.key});
 
   List<Workspace> get _wss => wsMainController.workspaces;
 

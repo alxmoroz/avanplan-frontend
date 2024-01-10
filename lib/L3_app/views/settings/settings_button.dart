@@ -10,7 +10,7 @@ import '../../presenters/person.dart';
 import 'settings_menu.dart';
 
 class SettingsButton extends StatelessWidget {
-  const SettingsButton();
+  const SettingsButton({super.key});
 
   @override
   Widget build(BuildContext context) {

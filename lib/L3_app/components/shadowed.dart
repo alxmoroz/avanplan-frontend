@@ -8,6 +8,7 @@ import 'constants.dart';
 
 class MTShadowed extends StatelessWidget {
   const MTShadowed({
+    super.key,
     required this.child,
     this.shadowColor,
     this.topShadow = true,

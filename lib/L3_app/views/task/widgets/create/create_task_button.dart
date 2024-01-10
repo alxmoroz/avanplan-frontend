@@ -25,6 +25,7 @@ import 'create_task_quiz_view.dart';
 class CreateTaskButton extends StatelessWidget {
   const CreateTaskButton(
     TaskController parentTaskController, {
+    super.key,
     bool compact = false,
     EdgeInsets? margin,
     ButtonType? type,

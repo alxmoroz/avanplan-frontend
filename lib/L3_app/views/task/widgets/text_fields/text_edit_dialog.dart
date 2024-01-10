@@ -16,7 +16,7 @@ import '../../../../components/toolbar.dart';
 import '../../controllers/task_controller.dart';
 
 class TextEditDialog extends StatelessWidget {
-  const TextEditDialog(this._controller, this._fCode, this._title);
+  const TextEditDialog(this._controller, this._fCode, this._title, {super.key});
   final TaskController _controller;
   final TaskFCode _fCode;
   final String _title;

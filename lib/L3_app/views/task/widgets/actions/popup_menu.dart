@@ -14,7 +14,7 @@ import '../../controllers/task_controller.dart';
 import 'action_item.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
-  const TaskPopupMenu(this.controller);
+  const TaskPopupMenu(this.controller, {super.key});
   final TaskController controller;
 
   Task get _task => controller.task!;

@@ -10,6 +10,7 @@ import 'task_card.dart';
 class TasksGroup extends StatelessWidget {
   const TasksGroup(
     this.tasks, {
+    super.key,
     this.isMine = false,
     this.standalone = true,
   });

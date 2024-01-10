@@ -13,6 +13,7 @@ import 'text.dart';
 
 class MTListTile extends StatelessWidget with FocusManaging {
   const MTListTile({
+    super.key,
     this.leading,
     this.middle,
     this.subtitle,
@@ -65,13 +66,10 @@ class MTListTile extends StatelessWidget with FocusManaging {
 
   @override
   Widget build(BuildContext context) {
-    final _hoverColor = mainColor.withAlpha(10).resolve(context);
-    final _splashColor = mainColor.withAlpha(10).resolve(context);
+    final splashColor = mainColor.withAlpha(10).resolve(context);
 
-    final _onPressed = onTap != null ? () => tapAction(context, uf, onTap!) : null;
-    final _hasLeading = leading != null;
-    final _hasMiddle = middle != null || titleText != null;
-    final _hasSubtitle = subtitle != null;
+    final hasMiddle = middle != null || titleText != null;
+    final hasSubtitle = subtitle != null;
     final bgColor = (color ?? b3Color).resolve(context);
     return Stack(
       alignment: Alignment.center,
@@ -88,11 +86,11 @@ class MTListTile extends StatelessWidget with FocusManaging {
               ),
           child: material(
             InkWell(
-              onTap: _onPressed,
+              onTap: onTap != null ? () => tapAction(context, uf, onTap!) : null,
               onHover: onHover,
-              hoverColor: _hoverColor,
-              highlightColor: _splashColor,
-              splashColor: _splashColor,
+              hoverColor: mainColor.withAlpha(10).resolve(context),
+              highlightColor: splashColor,
+              splashColor: splashColor,
               canRequestFocus: false,
               focusColor: Colors.transparent,
               child: Column(
@@ -105,17 +103,17 @@ class MTListTile extends StatelessWidget with FocusManaging {
                       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: minHeight ?? P6),
-                        if (_hasLeading) ...[
+                        if (leading != null) ...[
                           leading!,
-                          if (_hasMiddle || _hasSubtitle) const SizedBox(width: P2),
+                          if (hasMiddle || hasSubtitle) const SizedBox(width: P2),
                         ],
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              if (_hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
-                              if (_hasSubtitle) ...[
-                                if (_hasMiddle) const SizedBox(height: P),
+                              if (hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
+                              if (hasSubtitle) ...[
+                                if (hasMiddle) const SizedBox(height: P),
                                 subtitle!,
                               ],
                             ],
@@ -139,6 +137,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
 
 class MTListSection extends StatelessWidget {
   const MTListSection({
+    super.key,
     this.leading,
     this.middle,
     this.titleText,

@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
@@ -106,7 +107,9 @@ abstract class _LoaderControllerBase with Store {
             try {
               _setNetworkError('${e.error}');
             } catch (_) {
-              print('SocketException $e');
+              if (kDebugMode) {
+                print('SocketException $e');
+              }
               set(
                 titleText: 'SocketException',
                 descriptionText: '$e',

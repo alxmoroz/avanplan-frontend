@@ -13,7 +13,7 @@ import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
 
 class TaskParentTitle extends StatelessWidget {
-  const TaskParentTitle(this._controller);
+  const TaskParentTitle(this._controller, {super.key});
   final TaskController _controller;
 
   Task get _task => _controller.task!;

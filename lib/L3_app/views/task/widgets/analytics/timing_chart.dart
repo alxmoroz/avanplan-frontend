@@ -22,7 +22,7 @@ class _DateBarData {
 }
 
 class TimingChart extends StatelessWidget {
-  const TimingChart(this._task, {this.showDueLabel = true});
+  const TimingChart(this._task, {super.key, this.showDueLabel = true});
   final Task _task;
   final bool showDueLabel;
 
@@ -35,19 +35,19 @@ class TimingChart extends StatelessWidget {
   Color get _etaMarkColor => stateColor(_task.overallState, defaultColor: mainColor);
 
   Iterable<_DateBarData> get _dateBarData {
-    final _now = DateTime.now();
+    final now = DateTime.now();
     final res = <_DateBarData>[
       /// старт
       _DateBarData(date: _task.calculatedStartDate),
 
       /// сегодня
-      if (!_task.isFuture) _DateBarData(date: _now, color: _task.hasOverdue ? _etaMarkColor : _barColor),
+      if (!_task.isFuture) _DateBarData(date: now, color: _task.hasOverdue ? _etaMarkColor : _barColor),
 
       /// срок
       if (_task.hasDueDate)
         _DateBarData(
           date: _task.dueDate!,
-          color: _task.dueDate!.isBefore(_now) ? _barColor : null,
+          color: _task.dueDate!.isBefore(now) ? _barColor : null,
           mark: showDueLabel
               ? MTProgressMark(
                   const CaretIcon(size: _markSize),
@@ -72,13 +72,13 @@ class TimingChart extends StatelessWidget {
   }
 
   double _dateRatio(DateTime dt) {
-    final _sortedDates = _dateBarData.map((dbd) => dbd.date);
-    final _maxDate = _sortedDates.first;
-    final _minDate = _sortedDates.last;
-    final _maxDateDays = _maxDate.difference(_minDate).inDays;
-    final _passDays = dt.difference(_minDate).inDays;
+    final sortedDates = _dateBarData.map((dbd) => dbd.date);
+    final maxDate = sortedDates.first;
+    final minDate = sortedDates.last;
+    final maxDateDays = maxDate.difference(minDate).inDays;
+    final passDays = dt.difference(minDate).inDays;
 
-    return _maxDateDays > 0 ? ((_passDays > 0 ? _passDays : 1) / _maxDateDays) : 1;
+    return maxDateDays > 0 ? ((passDays > 0 ? passDays : 1) / maxDateDays) : 1;
   }
 
   Widget _bg(BuildContext context) {
@@ -143,7 +143,7 @@ class TimingChart extends StatelessWidget {
       children: [
         D5(label.toLowerCase(), color: color),
         const Spacer(),
-        D4('${date.strMedium}', color: color),
+        D4(date.strMedium, color: color),
       ],
     );
   }

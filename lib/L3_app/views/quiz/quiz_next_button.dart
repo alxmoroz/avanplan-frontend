@@ -8,7 +8,7 @@ import '../../components/constants.dart';
 import 'abstract_quiz_controller.dart';
 
 class QuizNextButton extends StatelessWidget {
-  const QuizNextButton(this._controller, {this.margin, this.loading, this.disabled});
+  const QuizNextButton(this._controller, {super.key, this.margin, this.loading, this.disabled});
   final AbstractQuizController _controller;
   final EdgeInsets? margin;
   final bool? loading;

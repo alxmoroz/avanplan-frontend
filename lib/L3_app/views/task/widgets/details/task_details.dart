@@ -36,7 +36,7 @@ import 'start_date_field.dart';
 import 'task_status_field.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(this._controller, {this.standalone = false, this.compact = false});
+  const TaskDetails(this._controller, {super.key, this.standalone = false, this.compact = false});
   final TaskController _controller;
   final bool standalone;
   final bool compact;

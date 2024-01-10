@@ -12,7 +12,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/number.dart';
 
 class TaskVolumeChart extends StatelessWidget {
-  const TaskVolumeChart(this._task);
+  const TaskVolumeChart(this._task, {super.key});
   final Task _task;
 
   static const _R = P12;
@@ -25,7 +25,7 @@ class TaskVolumeChart extends StatelessWidget {
   MTPieChartData get _bgBar => const MTPieChartData(_maxValue, strokeWidth: _bgWidth);
   MTPieChartData get _mainBar => MTPieChartData(_task.progress, start: 0, color: mainColor, strokeWidth: _barWidth);
 
-  String get _chartText => '${_task.progress.percents}';
+  String get _chartText => _task.progress.percents;
 
   @override
   Widget build(BuildContext context) {

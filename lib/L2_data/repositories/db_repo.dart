@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 import '../../../L1_domain/entities/base_entity.dart';
@@ -57,7 +58,9 @@ abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends A
       final model = await _getOrCreateModel(entity.id);
       await model.update(entity);
     } catch (e) {
-      print('update error ${entity.id} $e');
+      if (kDebugMode) {
+        print('update error ${entity.id} $e');
+      }
     }
   }
 
@@ -67,7 +70,9 @@ abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends A
       final model = await _getOrCreateModel(entity.id);
       await model.delete();
     } catch (e) {
-      print('delete error ${entity.id} $e');
+      if (kDebugMode) {
+        print('delete error ${entity.id} $e');
+      }
     }
   }
 }

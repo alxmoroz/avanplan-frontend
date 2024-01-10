@@ -42,5 +42,5 @@ extension WSActionsUC on Workspace {
   // TODO: при добавлении и удалении задач нужно уточнять tasksCount, а лучше делать запросы на бэк дополнительные всё же и обновлять инфу о WS
   bool get _plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
 
-  bool plCreate(Task? _parent) => _parent == null ? plProjects : _plTasks;
+  bool plCreate(Task? parentTask) => parentTask == null ? plProjects : _plTasks;
 }

@@ -11,6 +11,7 @@ import 'text.dart';
 class MTField extends StatelessWidget {
   const MTField(
     this.fd, {
+    super.key,
     this.leading,
     this.value,
     this.trailing,
@@ -51,7 +52,7 @@ class MTField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: leading != null ? Container(width: P6, child: leading, alignment: Alignment.center) : null,
+      leading: leading != null ? Container(width: P6, alignment: Alignment.center, child: leading) : null,
       middle: compact
           ? null
           : _hasValue && fd.label.isNotEmpty

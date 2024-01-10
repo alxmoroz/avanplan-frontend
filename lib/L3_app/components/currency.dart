@@ -6,7 +6,7 @@ import '../presenters/number.dart';
 import 'text.dart';
 
 class MTCurrency extends StatelessWidget {
-  const MTCurrency(this.value, {this.color});
+  const MTCurrency(this.value, {super.key, this.color});
 
   final num value;
   final Color? color;

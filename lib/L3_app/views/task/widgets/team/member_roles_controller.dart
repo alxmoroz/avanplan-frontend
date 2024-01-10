@@ -13,12 +13,14 @@ import '../../../../usecases/task_tree.dart';
 part 'member_roles_controller.g.dart';
 
 class MemberRolesController extends _MemberRolesControllerBase with _$MemberRolesController {
-  MemberRolesController(Task _task, int _memberId) {
-    task = _task;
-    memberId = _memberId;
-    final _member = task.memberForId(_memberId);
+  MemberRolesController(Task taskIn, int memberId) {
+    task = taskIn;
+    memberId = memberId;
+    final member = task.memberForId(memberId);
     roles = task.ws.roles.toList();
-    roles.forEach((r) => r.selected = _member!.roles.contains(r.code));
+    for (var r in roles) {
+      r.selected = member!.roles.contains(r.code);
+    }
   }
 }
 

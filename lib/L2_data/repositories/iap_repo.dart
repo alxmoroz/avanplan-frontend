@@ -126,10 +126,9 @@ class IAPRepo extends AbstractIAPRepo {
     );
   }
 
-  Future<bool> _ymPay(int amount, int wsId, int userId) async {
-    const _ym_host_path = 'https://yoomoney.ru/quickpay/confirm.xml';
-    const _ymRecipient = '41001777210985';
-    final url = Uri.encodeFull('$_ym_host_path?receiver=$_ymRecipient&quickpay-form=button&sum=$amount&label=$wsId:$userId');
-    return await launchUrlString(url);
-  }
+  static const _ymHostPath = 'https://yoomoney.ru/quickpay/confirm.xml';
+  static const _ymRecipient = '41001777210985';
+
+  Future<bool> _ymPay(int amount, int wsId, int userId) async =>
+      await launchUrlString(Uri.encodeFull('$_ymHostPath?receiver=$_ymRecipient&quickpay-form=button&sum=$amount&label=$wsId:$userId'));
 }

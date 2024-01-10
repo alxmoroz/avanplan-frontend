@@ -12,7 +12,7 @@ import '../../presenters/person.dart';
 import 'user_dialog.dart';
 
 class UserTile extends StatelessWidget {
-  const UserTile(this._user, {required this.bottomBorder});
+  const UserTile(this._user, {super.key, required this.bottomBorder});
   final User _user;
   final bool bottomBorder;
 

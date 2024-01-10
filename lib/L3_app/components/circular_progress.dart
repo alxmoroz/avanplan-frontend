@@ -6,25 +6,24 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTCircularProgress extends StatelessWidget {
-  const MTCircularProgress({this.size, this.color, this.strokeWidth, this.unbound = false});
-  final double? size;
+  const MTCircularProgress({super.key, this.size = P6, this.color, this.strokeWidth = 4, this.unbound = false});
+  final double size;
   final Color? color;
-  final double? strokeWidth;
+  final double strokeWidth;
   final bool unbound;
 
   @override
   Widget build(BuildContext context) {
-    final _size = size ?? P6;
     final ci = CircularProgressIndicator(
       color: color?.resolve(context),
-      strokeWidth: strokeWidth ?? 4,
+      strokeWidth: strokeWidth,
       strokeCap: StrokeCap.round,
     );
     return unbound
         ? ci
         : SizedBox(
-            height: _size,
-            width: _size,
+            height: size,
+            width: size,
             child: ci,
           );
   }

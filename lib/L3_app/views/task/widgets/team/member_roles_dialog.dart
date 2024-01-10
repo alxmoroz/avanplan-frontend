@@ -20,7 +20,7 @@ import 'member_roles_controller.dart';
 Future showMemberRolesDialog(MemberRolesController controller) async => await showMTDialog<void>(MemberRolesDialog(controller));
 
 class MemberRolesDialog extends StatelessWidget {
-  const MemberRolesDialog(this._controller);
+  const MemberRolesDialog(this._controller, {super.key});
   final MemberRolesController _controller;
 
   Task get _task => _controller.task;

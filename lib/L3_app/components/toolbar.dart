@@ -60,6 +60,7 @@ Widget _backButton(BuildContext context) => CupertinoNavigationBarBackButton(onP
 
 class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MTAppBar({
+    super.key,
     this.leading,
     this.middle,
     this.title,
@@ -99,7 +100,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
         titleText: title,
         middle: middle,
         bottom: bottom,
-        trailing: trailing != null ? trailing : null,
+        trailing: trailing,
         color: Colors.transparent,
       );
 
@@ -117,8 +118,8 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Container(
                 alignment: big ? Alignment.centerLeft : Alignment.center,
                 padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
-                child: _toolbar(context),
                 color: (color ?? b2Color).resolve(context),
+                child: _toolbar(context),
               ),
             )
           : CupertinoNavigationBar(

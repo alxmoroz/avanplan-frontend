@@ -18,11 +18,11 @@ InputDecoration tfDecoration(
   EdgeInsets? padding,
   bool readOnly = false,
 }) {
-  final _bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
-  final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: warningColor.resolve(context)), borderRadius: _bRadius);
-  final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: f3Color.resolve(context)), borderRadius: _bRadius);
-  final OutlineInputBorder _focusedBorder =
-      OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)), borderRadius: _bRadius);
+  final bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
+  final OutlineInputBorder warningBorder = OutlineInputBorder(borderSide: BorderSide(color: warningColor.resolve(context)), borderRadius: bRadius);
+  final OutlineInputBorder border = OutlineInputBorder(borderSide: BorderSide(color: f3Color.resolve(context)), borderRadius: bRadius);
+  final OutlineInputBorder focusedBorder =
+      OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)), borderRadius: bRadius);
 
   return InputDecoration(
     labelText: label,
@@ -38,12 +38,12 @@ InputDecoration tfDecoration(
     contentPadding: padding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
-    border: _border,
-    focusedBorder: readOnly ? _border : _focusedBorder,
-    enabledBorder: _border,
-    disabledBorder: _border,
-    errorBorder: _warningBorder,
-    focusedErrorBorder: _warningBorder,
+    border: border,
+    focusedBorder: readOnly ? border : focusedBorder,
+    enabledBorder: border,
+    disabledBorder: border,
+    errorBorder: warningBorder,
+    focusedErrorBorder: warningBorder,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,
@@ -55,6 +55,7 @@ EdgeInsets get tfPadding => const EdgeInsets.fromLTRB(P2, P3, P2, 0);
 
 class MTTextField extends StatelessWidget {
   const MTTextField({
+    super.key,
     this.controller,
     this.label,
     this.hint,
@@ -81,6 +82,7 @@ class MTTextField extends StatelessWidget {
   });
 
   const MTTextField.noText({
+    super.key,
     this.controller,
     this.label,
     this.hint,

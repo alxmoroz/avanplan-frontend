@@ -8,7 +8,7 @@ import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
 
 extension TaskEditUC on Task {
-  Future<Task?> edit(Future<Task?> function()) async {
+  Future<Task?> edit(Future<Task?> Function() function) async {
     loading = true;
     tasksMainController.refreshTasks();
     Task? et;

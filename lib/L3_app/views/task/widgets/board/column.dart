@@ -100,7 +100,7 @@ class TaskBoardColumn {
             )
           : null;
 
-  _Column builder() => _Column(
+  MTBoardColumn builder() => _Column(
         _status,
         header: Row(
           mainAxisAlignment: MainAxisAlignment.center,

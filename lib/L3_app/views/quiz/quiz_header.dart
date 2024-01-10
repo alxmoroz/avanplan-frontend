@@ -13,7 +13,7 @@ import '../../extra/services.dart';
 import 'abstract_quiz_controller.dart';
 
 class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
-  const QuizHeader(this._controller);
+  const QuizHeader(this._controller, {super.key});
   final AbstractQuizController _controller;
 
   Widget _stepMark(BuildContext context, int index) {
@@ -27,8 +27,8 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: (isCurrent ? mainColor : f3Color).resolve(context),
         child: CircleAvatar(
           radius: r2,
-          child: isCurrent ? D5Bold('${_controller.stepIndex + 1}', color: mainColor) : null,
           backgroundColor: b2Color.resolve(context),
+          child: isCurrent ? D5Bold('${_controller.stepIndex + 1}', color: mainColor) : null,
         ),
       ),
     );

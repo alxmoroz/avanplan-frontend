@@ -12,7 +12,7 @@ import 'my_tasks.dart';
 import 'projects.dart';
 
 class MainDashboard extends StatelessWidget {
-  const MainDashboard();
+  const MainDashboard({super.key});
 
   static const _spacing_s = P4;
   static const _spacing_xs = P2;
@@ -33,15 +33,15 @@ class MainDashboard extends StatelessWidget {
     final isBig = (size.width > _BIG_WIDTH_XS && size.height > _BIG_HEIGHT) || !_hasTasks;
     final spacing = isBigS ? _spacing_s : _spacing_xs;
 
-    final _isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
+    final isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
 
-    double _mainAxisExtent() => min(
-          SCR_XXS_WIDTH,
-          max(
-            _MIN_HEIGHT,
-            (size.height - mqPadding.vertical - spacing * 3) / (_isPortrait ? 2 : 1),
-          ),
-        );
+    final mainAxisExtent = min(
+      SCR_XXS_WIDTH,
+      max(
+        _MIN_HEIGHT,
+        (size.height - mqPadding.vertical - spacing * 3) / (isPortrait ? 2 : 1),
+      ),
+    );
 
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(padding: mqPadding.add(EdgeInsets.all(spacing)) as EdgeInsets),
@@ -65,7 +65,7 @@ class MainDashboard extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: SCR_S_WIDTH,
                   crossAxisSpacing: spacing,
-                  mainAxisExtent: _mainAxisExtent(),
+                  mainAxisExtent: mainAxisExtent,
                   mainAxisSpacing: spacing,
                 ),
                 children: const [MyTasks(), Projects()],

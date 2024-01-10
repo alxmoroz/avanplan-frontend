@@ -10,7 +10,7 @@ import '../analytics/state_title.dart';
 import 'tasks_group.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView(this.groups, {this.filters, this.extra, this.scrollable = true});
+  const TasksListView(this.groups, {super.key, this.filters, this.extra, this.scrollable = true});
   final List<MapEntry<TaskState, List<Task>>> groups;
   final Set<TasksFilter>? filters;
   final Widget? extra;

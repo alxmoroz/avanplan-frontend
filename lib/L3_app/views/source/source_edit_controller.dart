@@ -24,9 +24,9 @@ part 'source_edit_controller.g.dart';
 enum SourceFCode { url, username, apiKey, password, description }
 
 class SourceEditController extends _SourceEditControllerBase with _$SourceEditController {
-  SourceEditController(Workspace _ws, int? _srcId, SourceType? sType) {
-    ws = _ws;
-    srcId = _srcId;
+  SourceEditController(Workspace wsIn, int? srcIdIn, SourceType? sType) {
+    ws = wsIn;
+    srcId = srcIdIn;
     selectType(source?.type ?? sType);
 
     final isTrello = selectedType?.isTrello == true;
@@ -58,7 +58,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   SourceType? selectedType;
 
   @action
-  void selectType(SourceType? _type) => selectedType = _type;
+  void selectType(SourceType? type) => selectedType = type;
 
   @computed
   bool get showUsername => selectedType?.isJira == true;

@@ -21,7 +21,7 @@ import '../../settings/settings_menu.dart';
 import 'app_title.dart';
 
 class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
-  const LeftMenu();
+  const LeftMenu({super.key});
 
   Future _goToProjects(BuildContext context) async {
     popTop();

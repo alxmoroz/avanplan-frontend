@@ -11,7 +11,7 @@ import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 
 class TaskActionItem extends StatelessWidget {
-  const TaskActionItem(this._ta, {this.compact = false, this.popup = true});
+  const TaskActionItem(this._ta, {super.key, this.compact = false, this.popup = true});
   final TaskAction _ta;
   final bool compact;
   final bool popup;
@@ -20,7 +20,7 @@ class TaskActionItem extends StatelessWidget {
   double _iconPadding(BuildContext context) => compact ? 0 : (isBigScreen(context) ? P2 : P);
 
   Widget _tile(BuildContext context, {Widget? leading, String? title, Color? color}) => Row(children: [
-        Container(width: _iconSize(context) + _iconPadding(context), child: leading, alignment: Alignment.centerLeft),
+        Container(width: _iconSize(context) + _iconPadding(context), alignment: Alignment.centerLeft, child: leading),
         if (!compact && title != null) Expanded(child: BaseText(title, color: color ?? mainColor, maxLines: 1)),
       ]);
 

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-typedef _OnWidgetSizeChange = void Function(Size? size);
-
 class MTMeasureSize extends StatefulWidget {
   const MTMeasureSize({
-    Key? key,
+    super.key,
     required this.onSizeChange,
     required this.child,
-  }) : super(key: key);
+  });
   final Widget? child;
-  final _OnWidgetSizeChange onSizeChange;
+  final void Function(Size? size) onSizeChange;
 
   @override
-  _MTMeasureSizeState createState() => _MTMeasureSizeState();
+  State<StatefulWidget> createState() => _MTMeasureSizeState();
 }
 
 class _MTMeasureSizeState extends State<MTMeasureSize> {

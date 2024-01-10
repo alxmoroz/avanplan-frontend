@@ -36,7 +36,7 @@ class _TariffOptionTile extends StatelessWidget {
 }
 
 class TariffOptions extends StatelessWidget {
-  const TariffOptions(this.tariff);
+  const TariffOptions(this.tariff, {super.key});
   final Tariff tariff;
 
   @override

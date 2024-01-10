@@ -8,7 +8,7 @@ import 'constants.dart';
 import 'icons.dart';
 
 class PeopleIcon extends MTIcon {
-  const PeopleIcon({super.color, super.size});
+  const PeopleIcon({super.key, super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(
@@ -19,7 +19,7 @@ class PeopleIcon extends MTIcon {
 }
 
 class ProjectsIcon extends MTIcon {
-  const ProjectsIcon({super.color, super.size});
+  const ProjectsIcon({super.key, super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(
@@ -30,7 +30,7 @@ class ProjectsIcon extends MTIcon {
 }
 
 class RoubleIcon extends MTIcon {
-  const RoubleIcon({super.color, super.size});
+  const RoubleIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.money_rubl,
@@ -40,7 +40,7 @@ class RoubleIcon extends MTIcon {
 }
 
 class RoubleCircleIcon extends MTIcon {
-  const RoubleCircleIcon({super.color, super.size});
+  const RoubleCircleIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.money_rubl_circle_fill,
@@ -50,7 +50,7 @@ class RoubleCircleIcon extends MTIcon {
 }
 
 class TariffIcon extends MTIcon {
-  const TariffIcon({super.color, super.size});
+  const TariffIcon({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.creditcard,
@@ -60,7 +60,7 @@ class TariffIcon extends MTIcon {
 }
 
 class WSIconHome extends MTIcon {
-  const WSIconHome({super.color, super.size});
+  const WSIconHome({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.house_alt,
@@ -70,7 +70,7 @@ class WSIconHome extends MTIcon {
 }
 
 class WSIconPublic extends MTIcon {
-  const WSIconPublic({super.color, super.size});
+  const WSIconPublic({super.key, super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.building_2_fill,

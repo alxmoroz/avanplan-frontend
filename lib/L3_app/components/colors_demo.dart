@@ -7,7 +7,7 @@ import 'colors_base.dart';
 import 'text.dart';
 
 class ColorsDemo extends StatelessWidget {
-  const ColorsDemo();
+  const ColorsDemo({super.key});
 
   String _printColor(CupertinoDynamicColor cdColor) {
     final color = cdColor.color;
@@ -31,7 +31,7 @@ class ColorsDemo extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        Container(child: Row(children: [_fp1, _fp2, _fp3])),
+        Row(children: [_fp1, _fp2, _fp3]),
         Container(color: b1Color.resolve(context), child: Row(children: [_f1, _f2, _f3, _b1])),
         Container(color: b2Color.resolve(context), child: Row(children: [_f1, _f2, _f3, _b2])),
         Container(color: b3Color.resolve(context), child: Row(children: [_f1, _f2, _f3, _b3])),

@@ -17,7 +17,7 @@ import '../../presenters/communications.dart';
 
 part 'loader_controller.g.dart';
 
-class LoaderController = _LoaderControllerBase with _$LoaderController;
+class LoaderController extends _LoaderControllerBase with _$LoaderController {}
 
 abstract class _LoaderControllerBase with Store {
   @observable

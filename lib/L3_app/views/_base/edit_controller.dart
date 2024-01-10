@@ -9,7 +9,7 @@ import '../../components/field_data.dart';
 
 part 'edit_controller.g.dart';
 
-abstract class EditController = _EditControllerBase with _$EditController;
+abstract class EditController extends _EditControllerBase with _$EditController {}
 
 abstract class _EditControllerBase with Store {
   @observable

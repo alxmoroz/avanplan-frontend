@@ -19,7 +19,7 @@ class RegistrationTokenRouter extends MTRouter {
   }
 }
 
-class RegistrationTokenController = _RegistrationTokenControllerBase with _$RegistrationTokenController;
+class RegistrationTokenController extends _RegistrationTokenControllerBase with _$RegistrationTokenController {}
 
 abstract class _RegistrationTokenControllerBase with Store {
   @observable

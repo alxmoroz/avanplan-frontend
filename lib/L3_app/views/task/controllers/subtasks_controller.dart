@@ -69,7 +69,11 @@ abstract class _SubtasksControllerBase with Store {
     await tc.titleController.editTitle(str);
   }
 
-  void dispose() => taskControllers.forEach((tc) => tc.dispose());
+  void dispose() {
+    for (TaskController tc in taskControllers) {
+      tc.dispose();
+    }
+  }
 
   @observable
   bool _loading = false;

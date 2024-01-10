@@ -107,7 +107,9 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       if (confirm == true) {
         loader.setDeleting();
         loader.start();
-        Navigator.of(context).pop(await sourceUC.delete(source!));
+        if (context.mounted) {
+          Navigator.of(context).pop(await sourceUC.delete(source!));
+        }
 
         // отвязываем задачи
         tasksMainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());

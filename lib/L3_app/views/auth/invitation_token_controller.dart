@@ -19,7 +19,7 @@ class InvitationTokenRouter extends MTRouter {
   }
 }
 
-class InvitationTokenController = _InvitationTokenControllerBase with _$InvitationTokenController;
+class InvitationTokenController extends _InvitationTokenControllerBase with _$InvitationTokenController {}
 
 abstract class _InvitationTokenControllerBase with Store {
   @observable

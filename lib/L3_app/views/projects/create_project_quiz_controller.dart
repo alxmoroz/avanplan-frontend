@@ -59,7 +59,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
           _goalController = TaskController(newGoal, isNew: true, allowDisposeFromView: false);
         }
       }
-      if (_goalController != null) {
+      if (_goalController != null && context.mounted) {
         await MTRouter.navigate(CreateGoalQuizRouter, context, args: CreateTaskQuizArgs(_goalController!, this));
       }
     } else if (step.code == _StepCode.tasks.name) {

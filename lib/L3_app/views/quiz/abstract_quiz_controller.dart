@@ -24,17 +24,23 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
   Future back(BuildContext context) async {
     _back();
     await afterBack(context);
-    Navigator.of(context).pop();
+    if (context.mounted) {
+      Navigator.of(context).pop();
+    }
   }
 
   @action
   Future next(BuildContext context) async {
     await beforeNext(context);
     if (_lastStep) {
-      finish(context);
+      if (context.mounted) {
+        finish(context);
+      }
     } else {
       _next();
-      await afterNext(context);
+      if (context.mounted) {
+        await afterNext(context);
+      }
       _nextDone();
     }
   }

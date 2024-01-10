@@ -9,7 +9,7 @@ import '../../extra/services.dart';
 
 part 'iap_controller.g.dart';
 
-class IAPController = _IAPControllerBase with _$IAPController;
+class IAPController extends _IAPControllerBase with _$IAPController {}
 
 abstract class _IAPControllerBase with Store {
   @observable

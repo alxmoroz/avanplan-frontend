@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/my_user.dart';
 
 class MyAccountApi {

@@ -13,7 +13,6 @@ import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 
 class AuthApi {
 

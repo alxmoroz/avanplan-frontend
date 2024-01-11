@@ -24,8 +24,10 @@ class RegistrationTokenController extends _RegistrationTokenControllerBase with 
 abstract class _RegistrationTokenControllerBase with Store {
   @observable
   String? token;
+
   @action
   void clear() => token = null;
+
   @computed
   bool get hasToken => token?.isNotEmpty == true;
 

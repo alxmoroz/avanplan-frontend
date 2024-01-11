@@ -38,11 +38,16 @@ abstract class _AuthControllerBase with Store {
   @action
   Future _signInWithRegistration() async {
     if (registrationTokenController.hasToken) {
-      await signOut();
       _startLdrAuth();
-      authorized = await authUC.signInWithRegistration(registrationTokenController.token!);
+      final token = registrationTokenController.token!;
       registrationTokenController.clear();
-      await loader.stop(300);
+
+      if (authorized) {
+        await signOut();
+      }
+      authorized = await authUC.signInWithRegistration(token);
+
+      loader.stop();
     }
   }
 

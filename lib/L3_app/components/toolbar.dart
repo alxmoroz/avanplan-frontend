@@ -10,8 +10,9 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'text.dart';
 
-class _ToolBar extends StatelessWidget {
-  const _ToolBar({
+class ToolBar extends StatelessWidget {
+  const ToolBar({
+    super.key,
     this.titleText,
     this.leading,
     this.middle,
@@ -93,7 +94,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(_pTop + _innerHeight + _pBottom);
 
-  Widget _toolbar(BuildContext context) => _ToolBar(
+  Widget _toolbar(BuildContext context) => ToolBar(
         showCloseButton: showCloseButton,
         onClose: onClose,
         leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),

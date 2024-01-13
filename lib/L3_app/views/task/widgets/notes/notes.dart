@@ -42,6 +42,7 @@ class Notes extends StatelessWidget {
               MTListTile(
                 leading: const EditIcon(),
                 middle: BaseText(loc.edit_action_title, color: mainColor, maxLines: 1),
+                dividerIndent: P4 + P5,
                 onTap: () async {
                   Navigator.of(context).pop();
                   await _controller.edit(note);
@@ -50,6 +51,7 @@ class Notes extends StatelessWidget {
               MTListTile(
                 leading: const DeleteIcon(),
                 middle: BaseText(loc.delete_action_title, color: dangerColor, maxLines: 1),
+                bottomDivider: false,
                 onTap: () async {
                   Navigator.of(context).pop();
                   await _controller.delete(note);

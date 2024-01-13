@@ -1,5 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/errors.dart';
@@ -7,7 +9,6 @@ import '../presenters/communications.dart';
 import 'adaptive.dart';
 import 'colors.dart';
 import 'constants.dart';
-import 'dialog.dart';
 import 'text.dart';
 import 'toolbar.dart';
 
@@ -17,26 +18,33 @@ class MTErrorSheet extends StatelessWidget {
   final MTError error;
   final VoidCallback? onClose;
 
+  static const _radius = Radius.circular(DEF_BORDER_RADIUS);
+
   @override
   Widget build(BuildContext context) {
     return MTAdaptive(
       force: true,
-      child: MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: warningDarkColor,
-          middle: BaseText.medium(
-            error.title,
-            maxLines: 2,
-            padding: const EdgeInsets.symmetric(horizontal: P8),
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: warningLightColor.resolve(context),
+          borderRadius: const BorderRadius.only(
+            topLeft: _radius,
+            topRight: _radius,
           ),
-          onClose: onClose,
         ),
-        bgColor: warningLightColor,
-        body: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+        child: Column(
           children: [
+            ToolBar(
+              showCloseButton: true,
+              color: warningDarkColor,
+              middle: BaseText.medium(
+                error.title,
+                maxLines: 2,
+                padding: const EdgeInsets.symmetric(horizontal: P8),
+              ),
+              onClose: onClose,
+            ),
             if (error.description?.isNotEmpty == true) ...[
               const SizedBox(height: P),
               BaseText(
@@ -50,6 +58,7 @@ class MTErrorSheet extends StatelessWidget {
               color: warningLightColor,
               titleColor: warningColor,
             ),
+            SizedBox(height: max(MediaQuery.paddingOf(context).bottom, P3))
           ],
         ),
       ),

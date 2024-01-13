@@ -106,11 +106,13 @@ class MTDialog extends StatelessWidget {
     });
   }
 
+  static const _radius = Radius.circular(DEF_BORDER_RADIUS);
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;
-    const radius = Radius.circular(DEF_BORDER_RADIUS);
+
     final big = isBigScreen(context);
 
     return GestureDetector(
@@ -122,10 +124,10 @@ class MTDialog extends StatelessWidget {
           decoration: BoxDecoration(
             color: (bgColor ?? b2Color).resolve(context),
             borderRadius: BorderRadius.only(
-              topLeft: radius,
-              topRight: radius,
-              bottomLeft: big ? radius : Radius.zero,
-              bottomRight: big ? radius : Radius.zero,
+              topLeft: _radius,
+              topRight: _radius,
+              bottomLeft: big ? _radius : Radius.zero,
+              bottomRight: big ? _radius : Radius.zero,
             ),
           ),
           child: Stack(

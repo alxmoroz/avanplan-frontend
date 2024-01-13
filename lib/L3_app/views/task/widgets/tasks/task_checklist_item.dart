@@ -112,6 +112,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   alignment: Alignment.centerLeft,
                   child: Linkify(
                     text: roText,
+                    maxLines: tfMaxLines,
                     style: BaseText('', maxLines: tfMaxLines, color: task.closed ? f3Color : null).style(context),
                     linkStyle: const BaseText('', color: mainColor).style(context),
                     onOpen: (link) async => await launchUrlString(link.url),
@@ -166,7 +167,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       dividerEndIndent: P3,
       bottomDivider: tc.task!.isCheckItem || _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,
-      onTap: kIsWeb ? (_fieldHover ? null : () {}) : () => _controller.setFocus(true, tc),
+      onTap: () => _controller.setFocus(true, tc),
     );
   }
 }

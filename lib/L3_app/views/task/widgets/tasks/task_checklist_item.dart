@@ -3,7 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
@@ -83,7 +85,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             alignment: Alignment.centerLeft,
             children: [
               Opacity(
-                opacity: kIsWeb || hasFocus ? 1 : 0,
+                opacity: hasFocus ? 1 : 0,
                 child: MTTextField(
                   keyboardType: TextInputType.multiline,
                   controller: teController,
@@ -102,13 +104,18 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   focusNode: fNode,
                 ),
               ),
-              if (!kIsWeb && !hasFocus)
+              if (!hasFocus)
                 Container(
                   color: Colors.transparent,
                   padding: tfPadding,
                   constraints: BoxConstraints(minHeight: _minHeight),
                   alignment: Alignment.centerLeft,
-                  child: BaseText(roText, maxLines: tfMaxLines, color: task.closed ? f3Color : null),
+                  child: Linkify(
+                    text: roText,
+                    style: BaseText('', maxLines: tfMaxLines, color: task.closed ? f3Color : null).style(context),
+                    linkStyle: const BaseText('', color: mainColor).style(context),
+                    onOpen: (link) async => await launchUrlString(link.url),
+                  ),
                 ),
             ],
           ),

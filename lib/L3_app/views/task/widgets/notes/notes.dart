@@ -103,7 +103,7 @@ class Notes extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 if (!mine) BaseText.medium(authorName),
-                                Linkify(
+                                SelectableLinkify(
                                   text: n.text,
                                   style: const BaseText('', maxLines: 42).style(context),
                                   linkStyle: const BaseText('', color: mainColor).style(context),

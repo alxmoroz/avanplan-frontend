@@ -19,10 +19,10 @@ import '../../../../components/text.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
 import '../../../../presenters/person.dart';
+import '../../../../presenters/task_estimate.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
-import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_status.dart';
@@ -110,8 +110,8 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  bool get _showEstimate => task.hfsEstimates && task.hasEstimate && !task.closed;
-  Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor, maxLines: 1);
+  bool get _showEstimate => task.hfsEstimates && task.hasEstimate;
+  Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P),

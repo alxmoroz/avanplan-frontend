@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../presenters/workspace.dart';
+import '../../../../presenters/task_estimate.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskEstimateField extends StatelessWidget {
@@ -29,9 +27,7 @@ class TaskEstimateField extends StatelessWidget {
     return MTField(
       _controller.fData(TaskFCode.estimate.index),
       leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
-      value: _task.hasEstimate
-          ? BaseText('${(_task.isTask ? _task.estimate : _task.openedVolume)?.round()} ${_task.ws.estimateUnitCode}', maxLines: 1)
-          : null,
+      value: _task.hasEstimate ? BaseText(_task.estimateStr, maxLines: 1) : null,
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       onTap: _task.canEstimate ? _controller.estimateController.select : null,

@@ -22,12 +22,12 @@ Future localImportDialog(TaskController taskController) async {
   final lic = LocalImportController(taskController);
   await lic.selectSourceGoal();
   if (lic.sourceSelected) {
-    await showMTDialog<void>(LocalImportDialog(lic));
+    await showMTDialog<void>(_LocalImportDialog(lic));
   }
 }
 
-class LocalImportDialog extends StatelessWidget {
-  const LocalImportDialog(this.controller, {super.key});
+class _LocalImportDialog extends StatelessWidget {
+  const _LocalImportDialog(this.controller);
   final LocalImportController controller;
 
   Task? get _srcGoal => controller.sourceGoal;
@@ -109,7 +109,7 @@ class LocalImportDialog extends StatelessWidget {
               ? MTAppBar(
                   isBottom: true,
                   color: b2Color,
-                  padding: const EdgeInsets.only(top: P2),
+                  padding: const EdgeInsets.only(top: P2, bottom: P2),
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
                     titleText: loc.task_transfer_import_confirm_action_title,

@@ -25,14 +25,14 @@ class AccountRouter extends MTRouter {
   bool get isDialog => true;
 
   @override
-  Widget get page => const AccountDialog();
+  Widget get page => const _AccountDialog();
 
   @override
   String get title => loc.my_account_title;
 }
 
-class AccountDialog extends StatelessWidget {
-  const AccountDialog({super.key});
+class _AccountDialog extends StatelessWidget {
+  const _AccountDialog();
 
   User? get _user => accountController.user;
 

@@ -9,7 +9,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 import '../../usecases/ws_actions.dart';
-import '../iap/iap_view.dart';
+import '../iap/iap_dialog.dart';
 
 part 'tariff_selector_controller.g.dart';
 

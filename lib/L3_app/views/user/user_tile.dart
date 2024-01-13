@@ -27,7 +27,7 @@ class UserTile extends StatelessWidget {
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       dividerIndent: _iconSize + P5,
-      onTap: () async => await showUserDialog(_user),
+      onTap: () async => await userDialog(_user),
     );
   }
 }

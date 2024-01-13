@@ -30,7 +30,7 @@ class TextEditDialog extends StatelessWidget {
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: _title),
       body: Observer(
         builder: (ctx) => Padding(
-          padding: MediaQuery.paddingOf(ctx),
+          padding: MediaQuery.paddingOf(ctx).add(const EdgeInsets.only(bottom: P3)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

@@ -20,7 +20,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
     _setStatuses(_taskController.task!.projectStatuses);
   }
 
-  Future edit(ProjectStatus status) async => await showProjectStatusEditDialog(status, this);
+  Future edit(ProjectStatus status) async => await projectStatusEditDialog(status, this);
 
   Future create() async => await edit(
         ProjectStatus(

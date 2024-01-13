@@ -54,7 +54,7 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
 }
 
 Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async {
-  final s = await editSourceDialog(ws, src, sType);
+  final s = await sourceEditDialog(ws, src, sType);
   if (s != null) {
     ws.updateSourceInList(s);
     if (!s.removed) {
@@ -65,10 +65,11 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
   return s;
 }
 
-Future<Source?> editSourceDialog(Workspace ws, Source? src, SourceType? sType) async => await showMTDialog<Source?>(SourceEditDialog(ws, src, sType));
+Future<Source?> sourceEditDialog(Workspace ws, Source? src, SourceType? sType) async =>
+    await showMTDialog<Source?>(_SourceEditDialog(ws, src, sType));
 
-class SourceEditDialog extends StatefulWidget {
-  const SourceEditDialog(this.ws, this.src, this.sType, {super.key});
+class _SourceEditDialog extends StatefulWidget {
+  const _SourceEditDialog(this.ws, this.src, this.sType);
   final Workspace ws;
   final Source? src;
   final SourceType? sType;
@@ -77,7 +78,7 @@ class SourceEditDialog extends StatefulWidget {
   State<StatefulWidget> createState() => _SourceEditDialogState();
 }
 
-class _SourceEditDialogState extends State<SourceEditDialog> {
+class _SourceEditDialogState extends State<_SourceEditDialog> {
   late final SourceEditController controller;
 
   bool get _isNew => controller.source == null;
@@ -137,9 +138,9 @@ class _SourceEditDialogState extends State<SourceEditDialog> {
                     ),
             if (controller.selectedType?.isTrelloJson == false) controller.tf(SourceFCode.apiKey),
             controller.tf(SourceFCode.description),
-            const SizedBox(height: P3),
             MTButton.main(
               titleText: loc.save_action_title,
+              margin: const EdgeInsets.symmetric(vertical: P3),
               onTap: _canSave ? controller.save : null,
             ),
           ],

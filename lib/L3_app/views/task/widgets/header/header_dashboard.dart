@@ -68,7 +68,7 @@ class TaskHeaderDashboard extends StatelessWidget {
               _card(
                 _task.overallStateTitle,
                 body: _task.canShowTimeChart ? TimingChart(_task, showDueLabel: false) : null,
-                onTap: () => showAnalyticsDialog(_task),
+                onTap: () => analyticsDialog(_task),
               ),
 
             /// Команда

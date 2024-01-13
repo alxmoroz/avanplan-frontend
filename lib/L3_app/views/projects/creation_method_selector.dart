@@ -11,12 +11,12 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 
-Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<CreationMethod?>(const CreationMethodSelector());
+Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<CreationMethod?>(const _CreationMethodSelector());
 
 enum CreationMethod { create, template, import }
 
-class CreationMethodSelector extends StatelessWidget {
-  const CreationMethodSelector({super.key});
+class _CreationMethodSelector extends StatelessWidget {
+  const _CreationMethodSelector();
 
   static const _dividerIndent = P11;
   @override

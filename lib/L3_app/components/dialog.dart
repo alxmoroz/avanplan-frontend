@@ -87,7 +87,7 @@ class MTDialog extends StatelessWidget {
             data: mq.copyWith(
               padding: mqPadding.copyWith(
                 top: (topBar?.preferredSize ?? Size.zero).height,
-                bottom: (bottomBar?.preferredSize ?? Size.zero).height + max(isBigScreen(context) ? 0 : mqPadding.bottom, P3),
+                bottom: (bottomBar?.preferredSize ?? Size.zero).height,
               ),
             ),
             child: scrollOffsetTop != null && scrollController != null
@@ -100,7 +100,7 @@ class MTDialog extends StatelessWidget {
                 : body,
           ),
           if (topBar != null) topBar!,
-          if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+          if (bottomBar != null) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
         ],
       );
     });

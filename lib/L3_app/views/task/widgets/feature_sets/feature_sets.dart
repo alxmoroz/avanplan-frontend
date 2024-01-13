@@ -23,7 +23,7 @@ import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
 
-Future showFeatureSetsDialog(TaskController controller) async => await showMTDialog<void>(FeatureSetsDialog(FeatureSetsController(controller)));
+Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(FeatureSetsController(controller)));
 
 class _FSBody extends StatelessWidget {
   const _FSBody(this._controller, {this.footer});
@@ -77,7 +77,6 @@ class _FSBody extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: P3),
           if (footer != null) footer!,
         ],
       ),
@@ -98,7 +97,7 @@ class FeatureSetsQuizRouter extends MTRouter {
   FSQuizArgs? get _args => rs!.arguments as FSQuizArgs?;
 
   @override
-  Widget? get page => _args != null ? FeatureSetsQuizView(_args!) : null;
+  Widget? get page => _args != null ? _FeatureSetsQuizView(_args!) : null;
 
   // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
   @override
@@ -108,8 +107,8 @@ class FeatureSetsQuizRouter extends MTRouter {
   String get title => '${(rs!.arguments as FSQuizArgs?)?._controller.project.viewTitle ?? ''} | ${loc.feature_sets_title}';
 }
 
-class FeatureSetsQuizView extends StatelessWidget {
-  const FeatureSetsQuizView(this._args, {super.key});
+class _FeatureSetsQuizView extends StatelessWidget {
+  const _FeatureSetsQuizView(this._args);
   final FSQuizArgs _args;
 
   FeatureSetsController get _controller => _args._controller;
@@ -130,7 +129,7 @@ class FeatureSetsQuizView extends StatelessWidget {
               footer: QuizNextButton(
                 _qController,
                 loading: _controller.project.loading,
-                margin: EdgeInsets.zero,
+                margin: const EdgeInsets.symmetric(vertical: P3),
               ),
             ),
           ),
@@ -140,8 +139,8 @@ class FeatureSetsQuizView extends StatelessWidget {
   }
 }
 
-class FeatureSetsDialog extends StatelessWidget {
-  const FeatureSetsDialog(this._controller, {super.key});
+class _FeatureSetsDialog extends StatelessWidget {
+  const _FeatureSetsDialog(this._controller);
   final FeatureSetsController _controller;
 
   @override
@@ -152,6 +151,7 @@ class FeatureSetsDialog extends StatelessWidget {
         _controller,
         footer: MTButton.main(
           titleText: loc.save_action_title,
+          margin: const EdgeInsets.symmetric(vertical: P3),
           onTap: _controller.save,
         ),
       ),

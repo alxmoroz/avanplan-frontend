@@ -44,7 +44,7 @@ abstract class _NotificationControllerBase with Store {
 
   Future showNotification(BuildContext context, {required MTNotification n}) async {
     _selectNotification(n);
-    await showNotificationDialog();
+    await notificationDialog();
 
     if (!n.isRead) {
       n.isRead = true;

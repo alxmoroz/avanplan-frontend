@@ -12,8 +12,8 @@ import '../../usecases/ws_tasks.dart';
 import '../import/import_dialog.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/create/create_task_quiz_view.dart';
-import '../template/template_selector.dart';
-import '../workspace/workspace_selector.dart';
+import '../template/template_selector_dialog.dart';
+import '../workspace/workspace_selector_dialog.dart';
 import 'create_project_quiz_controller.dart';
 import 'creation_method_selector.dart';
 

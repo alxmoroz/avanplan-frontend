@@ -38,7 +38,7 @@ class Team extends StatelessWidget {
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
       bottomDivider: index < _sortedMembers.length - 1 || _task.canInviteMembers,
-      onTap: () async => await showMemberDialog(_controller, member.id!),
+      onTap: () async => await memberDialog(_controller, member.id!),
     );
   }
 

@@ -22,10 +22,10 @@ import 'account_button.dart';
 import 'app_version.dart';
 import 'notifications_button.dart';
 
-Future showSettingsMenu() async => await showMTDialog<void>(const SettingsMenu());
+Future settingsMenu() async => await showMTDialog<void>(const _SettingsDialog());
 
-class SettingsMenu extends StatelessWidget {
-  const SettingsMenu({super.key});
+class _SettingsDialog extends StatelessWidget {
+  const _SettingsDialog();
 
   List<Workspace> get _wss => wsMainController.workspaces;
 
@@ -100,6 +100,7 @@ class SettingsMenu extends StatelessWidget {
             /// версия
             const SizedBox(height: P3),
             const AppVersion(),
+            const SizedBox(height: P3),
           ],
         ),
       );

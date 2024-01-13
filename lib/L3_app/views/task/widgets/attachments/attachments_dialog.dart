@@ -15,8 +15,10 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/bytes.dart';
 import '../../controllers/attachments_controller.dart';
 
-class AttachmentsDialog extends StatelessWidget {
-  const AttachmentsDialog(this._controller, {super.key});
+Future attachmentsDialog(AttachmentsController controller) async => await showMTDialog<void>(_AttachmentsDialog(controller));
+
+class _AttachmentsDialog extends StatelessWidget {
+  const _AttachmentsDialog(this._controller);
   final AttachmentsController _controller;
 
   @override
@@ -46,8 +48,4 @@ class AttachmentsDialog extends StatelessWidget {
       ),
     );
   }
-}
-
-Future showAttachmentsDialog(AttachmentsController controller) async {
-  await showMTDialog<void>(AttachmentsDialog(controller));
 }

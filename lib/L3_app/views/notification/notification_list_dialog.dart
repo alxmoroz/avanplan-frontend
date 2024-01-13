@@ -32,11 +32,11 @@ class NotificationsRouter extends MTRouter {
   String get title => loc.notification_list_title;
 
   @override
-  Widget get page => const NotificationListDialog();
+  Widget get page => const _NotificationListDialog();
 }
 
-class NotificationListDialog extends StatelessWidget {
-  const NotificationListDialog({super.key});
+class _NotificationListDialog extends StatelessWidget {
+  const _NotificationListDialog();
 
   NotificationController get _controller => notificationController;
 

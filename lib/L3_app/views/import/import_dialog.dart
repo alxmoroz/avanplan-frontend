@@ -25,7 +25,7 @@ import '../source/no_sources.dart';
 import '../source/source_edit_dialog.dart';
 import 'import_controller.dart';
 
-Future _importDialog(ImportController controller) async => await showMTDialog<void>(ImportDialog(controller));
+Future _importDialog(ImportController controller) async => await showMTDialog<void>(_ImportDialog(controller));
 
 // старт сценария по импорту задач
 Future importTasks(Workspace ws) async {
@@ -34,8 +34,8 @@ Future importTasks(Workspace ws) async {
   await _importDialog(controller);
 }
 
-class ImportDialog extends StatelessWidget {
-  const ImportDialog(this.controller, {super.key});
+class _ImportDialog extends StatelessWidget {
+  const _ImportDialog(this.controller);
   final ImportController controller;
 
   bool get _hasProjects => controller.projects.isNotEmpty;
@@ -136,6 +136,7 @@ class ImportDialog extends StatelessWidget {
           isBottom: true,
           color: b2Color,
           innerHeight: P12,
+          padding: const EdgeInsets.only(top: P2, bottom: P2),
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

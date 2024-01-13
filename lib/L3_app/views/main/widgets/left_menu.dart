@@ -82,7 +82,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                 middle: compact ? null : BaseText('${accountController.user!}', maxLines: 1),
                 trailing: compact ? null : const ChevronIcon(),
                 bottomDivider: false,
-                onTap: showSettingsMenu,
+                onTap: settingsMenu,
               )
           ],
         ),

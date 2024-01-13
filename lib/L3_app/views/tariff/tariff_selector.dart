@@ -23,8 +23,13 @@ import 'tariff_limits.dart';
 import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
 
-class TariffSelector extends StatelessWidget {
-  const TariffSelector(this._controller, {super.key});
+Future<Tariff?> selectTariff(TariffSelectorController controller) async => await showMTDialog<Tariff?>(
+      _TariffSelectorDialog(controller),
+      maxWidth: SCR_XL_WIDTH,
+    );
+
+class _TariffSelectorDialog extends StatelessWidget {
+  const _TariffSelectorDialog(this._controller);
   final TariffSelectorController _controller;
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(

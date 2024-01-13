@@ -22,8 +22,8 @@ import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/project_statuses_controller.dart';
 
-Future showProjectStatusesDialog(ProjectStatusesController controller) async {
-  await showMTDialog<void>(ProjectStatusesDialog(controller));
+Future projectStatusesDialog(ProjectStatusesController controller) async {
+  await showMTDialog<void>(_ProjectStatusesDialog(controller));
   tasksMainController.refreshTasks();
 }
 
@@ -74,9 +74,9 @@ class _CreateStatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTButton.secondary(
-        margin: const EdgeInsets.only(top: P3),
         leading: const PlusIcon(),
         titleText: loc.status_create_action_title,
+        margin: const EdgeInsets.symmetric(vertical: P3),
         onTap: _controller.create,
       );
 }
@@ -94,7 +94,7 @@ class ProjectStatusesQuizRouter extends MTRouter {
   PSQuizArgs? get _args => rs!.arguments as PSQuizArgs?;
 
   @override
-  Widget? get page => _args != null ? ProjectStatusesQuizView(_args!) : null;
+  Widget? get page => _args != null ? _ProjectStatusesQuizView(_args!) : null;
 
   // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
   @override
@@ -104,8 +104,8 @@ class ProjectStatusesQuizRouter extends MTRouter {
   String get title => '${(rs!.arguments as PSQuizArgs?)?._controller.project.viewTitle ?? ''} | ${loc.status_list_title}';
 }
 
-class ProjectStatusesQuizView extends StatelessWidget {
-  const ProjectStatusesQuizView(this._args, {super.key});
+class _ProjectStatusesQuizView extends StatelessWidget {
+  const _ProjectStatusesQuizView(this._args);
   final PSQuizArgs _args;
 
   ProjectStatusesController get _controller => _args._controller;
@@ -143,8 +143,8 @@ class ProjectStatusesQuizView extends StatelessWidget {
   }
 }
 
-class ProjectStatusesDialog extends StatelessWidget {
-  const ProjectStatusesDialog(this._controller, {super.key});
+class _ProjectStatusesDialog extends StatelessWidget {
+  const _ProjectStatusesDialog(this._controller);
   final ProjectStatusesController _controller;
 
   @override

@@ -11,17 +11,17 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 
-Future<Workspace?> editWSDialog(Workspace ws) async => await showMTDialog<Workspace?>(WSEditView(ws));
+Future<Workspace?> editWS(Workspace ws) async => await showMTDialog<Workspace?>(_WSEditDialog(ws));
 
-class WSEditView extends StatefulWidget {
-  const WSEditView(this.ws, {super.key});
+class _WSEditDialog extends StatefulWidget {
+  const _WSEditDialog(this.ws);
   final Workspace ws;
 
   @override
-  State<StatefulWidget> createState() => _WSEditViewState();
+  State<StatefulWidget> createState() => _WSEditDialogState();
 }
 
-class _WSEditViewState extends State<WSEditView> {
+class _WSEditDialogState extends State<_WSEditDialog> {
   late final WorkspaceEditController controller;
 
   bool get canSave => controller.validated;
@@ -42,12 +42,11 @@ class _WSEditViewState extends State<WSEditView> {
         shrinkWrap: true,
         children: [
           for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
-          const SizedBox(height: P3),
           MTButton.main(
             titleText: loc.save_action_title,
+            margin: const EdgeInsets.symmetric(vertical: P3),
             onTap: canSave ? controller.save : null,
           ),
-          const SizedBox(height: P),
         ],
       );
 

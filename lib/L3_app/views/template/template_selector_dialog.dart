@@ -21,7 +21,7 @@ import '../task/controllers/task_controller.dart';
 import '../task/task_view.dart';
 import 'template_controller.dart';
 
-Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(TemplateSelector(controller));
+Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
 Future importTemplate(int wsId) async {
   final itc = TemplateController(wsId);
@@ -41,8 +41,8 @@ Future importTemplate(int wsId) async {
   }
 }
 
-class TemplateSelector extends StatelessWidget {
-  const TemplateSelector(this._controller, {super.key});
+class _TemplateSelectorDialog extends StatelessWidget {
+  const _TemplateSelectorDialog(this._controller);
   final TemplateController _controller;
 
   static const _iconSize = P8;

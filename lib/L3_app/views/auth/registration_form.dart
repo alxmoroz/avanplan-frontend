@@ -12,16 +12,16 @@ import '../../extra/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_request_controller.dart';
 
-Future registrationDialog() async => await showMTDialog<void>(const RegistrationDialog());
+Future registrationDialog() async => await showMTDialog<void>(const _RegistrationDialog());
 
-class RegistrationDialog extends StatefulWidget {
-  const RegistrationDialog({super.key});
+class _RegistrationDialog extends StatefulWidget {
+  const _RegistrationDialog();
 
   @override
   State<StatefulWidget> createState() => _RegistrationDialogState();
 }
 
-class _RegistrationDialogState extends State<RegistrationDialog> {
+class _RegistrationDialogState extends State<_RegistrationDialog> {
   late final RegistrationRequestController controller;
 
   @override
@@ -52,9 +52,9 @@ class _RegistrationDialogState extends State<RegistrationDialog> {
                     controller.tf(RegistrationFCode.name, first: true),
                     controller.tf(RegistrationFCode.email),
                     controller.tf(RegistrationFCode.password),
-                    const SizedBox(height: P4),
                     MTButton.main(
                       titleText: loc.register_action_title,
+                      margin: const EdgeInsets.symmetric(vertical: P3),
                       onTap: controller.validated ? () => controller.createRequest(context) : null,
                     ),
                   ],

@@ -24,10 +24,10 @@ import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../../usecases/ws_tariff.dart';
-import '../iap/iap_view.dart';
+import '../iap/iap_dialog.dart';
 import '../source/source_list_dialog.dart';
 import '../user/user_list_dialog.dart';
-import 'workspace_edit_view.dart';
+import 'workspace_edit_dialog.dart';
 
 class WorkspaceRouter extends MTRouter {
   int get _wsId => int.parse(rs!.uri.pathSegments.lastOrNull ?? '-1');
@@ -41,7 +41,7 @@ class WorkspaceRouter extends MTRouter {
   RegExp get pathRe => RegExp('^$_prefix/\\d+\$');
 
   @override
-  Widget get page => WorkspaceDialog(_wsId);
+  Widget get page => _WorkspaceDialog(_wsId);
 
   @override
   String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
@@ -50,8 +50,8 @@ class WorkspaceRouter extends MTRouter {
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_prefix/${args as int}');
 }
 
-class WorkspaceDialog extends StatelessWidget {
-  const WorkspaceDialog(this._wsId, {super.key});
+class _WorkspaceDialog extends StatelessWidget {
+  const _WorkspaceDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);
@@ -137,7 +137,7 @@ class WorkspaceDialog extends StatelessWidget {
             trailing: _ws.hpInfoUpdate
                 ? MTButton.icon(
                     const EditIcon(),
-                    onTap: () => editWSDialog(_ws),
+                    onTap: () => editWS(_ws),
                     margin: const EdgeInsets.only(right: P2),
                   )
                 : null),

@@ -11,16 +11,16 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future signInEmailDialog() async => await showMTDialog<void>(const SignInEmailDialog());
+Future signInEmailDialog() async => await showMTDialog<void>(const _SignInEmailDialog());
 
-class SignInEmailDialog extends StatefulWidget {
-  const SignInEmailDialog({super.key});
+class _SignInEmailDialog extends StatefulWidget {
+  const _SignInEmailDialog();
 
   @override
   State<StatefulWidget> createState() => _SignInEmailDialogState();
 }
 
-class _SignInEmailDialogState extends State<SignInEmailDialog> {
+class _SignInEmailDialogState extends State<_SignInEmailDialog> {
   late final SignInEmailController controller;
 
   @override
@@ -44,9 +44,9 @@ class _SignInEmailDialogState extends State<SignInEmailDialog> {
             children: [
               controller.tf(SigninFCode.email, first: true),
               controller.tf(SigninFCode.password),
-              const SizedBox(height: P4),
               MTButton.main(
                 titleText: loc.auth_sign_in_email_action_title,
+                margin: const EdgeInsets.symmetric(vertical: P3),
                 onTap: controller.validated ? controller.signIn : null,
               ),
             ],

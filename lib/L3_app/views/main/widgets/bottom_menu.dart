@@ -60,7 +60,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                   color: Colors.transparent,
                   padding: _btnPadding,
                   bottomDivider: false,
-                  onTap: showSettingsMenu,
+                  onTap: settingsMenu,
                 ),
               ),
             Flexible(

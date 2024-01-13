@@ -14,10 +14,10 @@ import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import 'workspace_list_tile.dart';
 
-Future<int?> selectWS({bool canCreate = false}) async => await showMTDialog<int?>(WorkspaceSelector(canCreate));
+Future<int?> selectWS({bool canCreate = false}) async => await showMTDialog<int?>(_WSSelectDialog(canCreate));
 
-class WorkspaceSelector extends StatelessWidget {
-  const WorkspaceSelector(this._canCreate, {super.key});
+class _WSSelectDialog extends StatelessWidget {
+  const _WSSelectDialog(this._canCreate);
   final bool _canCreate;
   List<Workspace> get _wss => wsMainController.workspaces;
 

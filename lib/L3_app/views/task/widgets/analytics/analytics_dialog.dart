@@ -24,10 +24,10 @@ import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future showAnalyticsDialog(Task task) async => await showMTDialog<void>(AnalyticsDialog(task));
+Future analyticsDialog(Task task) async => await showMTDialog<void>(_AnalyticsDialog(task));
 
-class AnalyticsDialog extends StatelessWidget {
-  const AnalyticsDialog(this._task, {super.key});
+class _AnalyticsDialog extends StatelessWidget {
+  const _AnalyticsDialog(this._task);
   final Task _task;
 
   Widget _details(String t1, String t2, {String? unit, Color? color, bool divider = true}) => MTListTile(

@@ -30,7 +30,7 @@ class SourcesRouter extends MTRouter {
   int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
-  Widget get page => SourceListDialog(_id);
+  Widget get page => _SourceListDialog(_id);
 
   @override
   String get title => '${wsMainController.ws(_id).code} | ${loc.source_list_title}';
@@ -39,8 +39,8 @@ class SourcesRouter extends MTRouter {
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
-class SourceListDialog extends StatelessWidget {
-  const SourceListDialog(this._wsId, {super.key});
+class _SourceListDialog extends StatelessWidget {
+  const _SourceListDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);

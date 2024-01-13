@@ -21,10 +21,10 @@ import '../../controllers/task_controller.dart';
 import 'member_roles_controller.dart';
 import 'member_roles_dialog.dart';
 
-Future showMemberDialog(TaskController controller, int memberId) async => await showMTDialog<void>(MemberDialog(controller, memberId));
+Future memberDialog(TaskController controller, int memberId) async => await showMTDialog<void>(_MemberDialog(controller, memberId));
 
-class MemberDialog extends StatelessWidget {
-  const MemberDialog(this._controller, this._memberId, {super.key});
+class _MemberDialog extends StatelessWidget {
+  const _MemberDialog(this._controller, this._memberId);
   final TaskController _controller;
   final int _memberId;
 
@@ -32,7 +32,7 @@ class MemberDialog extends StatelessWidget {
   Member? get _member => _task.memberForId(_memberId);
 
   Future editRoles(BuildContext context) async {
-    await showMemberRolesDialog(MemberRolesController(_task, _memberId));
+    await memberRolesDialog(MemberRolesController(_task, _memberId));
     if (_member == null && context.mounted) {
       Navigator.of(context).pop();
     }

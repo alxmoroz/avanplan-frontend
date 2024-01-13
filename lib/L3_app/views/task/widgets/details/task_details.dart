@@ -22,7 +22,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/attachments.dart';
+import '../attachments/attachments_dialog.dart';
 import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
 import '../project_statuses/project_statuses.dart';
@@ -101,7 +101,7 @@ class TaskDetails extends StatelessWidget {
                     padding: const EdgeInsets.only(left: P),
                   )
               ]),
-              onTap: () => showAttachmentsDialog(_controller.attachmentsController),
+              onTap: () => attachmentsDialog(_controller.attachmentsController),
             ),
 
           /// FeatureSets
@@ -112,7 +112,7 @@ class TaskDetails extends StatelessWidget {
               leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
               compact: compact,
-              onTap: _task.canEditFeatureSets ? () => showFeatureSetsDialog(_controller) : null,
+              onTap: _task.canEditFeatureSets ? () => featureSetsDialog(_controller) : null,
             ),
 
           /// Набор статусов
@@ -123,7 +123,7 @@ class TaskDetails extends StatelessWidget {
               leading: const StatusIcon(),
               value: _task.projectStatuses.isNotEmpty ? BaseText(_controller.projectStatusesController.statusesStr, maxLines: 1) : null,
               compact: compact,
-              onTap: () => showProjectStatusesDialog(_controller.projectStatusesController),
+              onTap: () => projectStatusesDialog(_controller.projectStatusesController),
             ),
 
           /// Связь с источником импорта

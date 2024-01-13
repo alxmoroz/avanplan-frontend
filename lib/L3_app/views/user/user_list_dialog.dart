@@ -24,7 +24,7 @@ class UsersRouter extends MTRouter {
   int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
-  Widget get page => UserListDialog(_id);
+  Widget get page => _UserListDialog(_id);
 
   @override
   String get title => '${wsMainController.ws(_id).code} | ${loc.user_list_title}';
@@ -33,8 +33,8 @@ class UsersRouter extends MTRouter {
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
-class UserListDialog extends StatelessWidget {
-  const UserListDialog(this._wsId, {super.key});
+class _UserListDialog extends StatelessWidget {
+  const _UserListDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);

@@ -13,9 +13,9 @@ import '../../../../usecases/task_tree.dart';
 part 'member_roles_controller.g.dart';
 
 class MemberRolesController extends _MemberRolesControllerBase with _$MemberRolesController {
-  MemberRolesController(Task taskIn, int memberId) {
+  MemberRolesController(Task taskIn, int memberIdIn) {
     task = taskIn;
-    memberId = memberId;
+    memberId = memberIdIn;
     final member = task.memberForId(memberId);
     roles = task.ws.roles.toList();
     for (var r in roles) {

@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/body_request_source_type.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 

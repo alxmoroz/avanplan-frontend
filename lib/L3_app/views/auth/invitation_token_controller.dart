@@ -24,8 +24,10 @@ class InvitationTokenController extends _InvitationTokenControllerBase with _$In
 abstract class _InvitationTokenControllerBase with Store {
   @observable
   String? token;
+
   @action
   void clear() => token = null;
+
   @computed
   bool get hasToken => token?.isNotEmpty == true;
 
@@ -33,6 +35,7 @@ abstract class _InvitationTokenControllerBase with Store {
   void parseLink(Uri uri) {
     final params = uri.queryParameters;
     const key = 't';
+
     if (params.containsKey(key)) {
       token = params[key] ?? '';
     }

@@ -80,9 +80,11 @@ abstract class _MainControllerBase with Store {
     if (invitationTokenController.hasToken) {
       loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
       loader.start();
-      invited = await myUC.redeemInvitation(invitationTokenController.token);
+      final token = invitationTokenController.token!;
       invitationTokenController.clear();
-      await loader.stop();
+
+      invited = await myUC.redeemInvitation(token);
+      loader.stop();
     }
     return invited;
   }
@@ -97,7 +99,7 @@ abstract class _MainControllerBase with Store {
       loader.start();
       await wsMainController.getData();
       iapController.resetWaiting();
-      await loader.stop();
+      loader.stop();
     }
   }
 

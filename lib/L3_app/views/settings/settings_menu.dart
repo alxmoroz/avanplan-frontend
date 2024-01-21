@@ -100,7 +100,7 @@ class _SettingsDialog extends StatelessWidget {
             /// версия
             const SizedBox(height: P3),
             const AppVersion(),
-            const SizedBox(height: P3),
+            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
       );

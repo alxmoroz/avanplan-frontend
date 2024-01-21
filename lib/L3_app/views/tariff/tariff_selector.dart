@@ -44,7 +44,7 @@ class _TariffSelectorDialog extends StatelessWidget {
     if (index < _controller.tariffs.length) {
       final tariff = _controller.tariffs.elementAt(index);
       card = MTCard(
-        margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
+        margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : P),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

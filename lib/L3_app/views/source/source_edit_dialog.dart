@@ -138,11 +138,12 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                     ),
             if (controller.selectedType?.isTrelloJson == false) controller.tf(SourceFCode.apiKey),
             controller.tf(SourceFCode.description),
+            const SizedBox(height: P3),
             MTButton.main(
               titleText: loc.save_action_title,
-              margin: const EdgeInsets.symmetric(vertical: P3),
               onTap: _canSave ? controller.save : null,
             ),
+            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
       ),

@@ -44,11 +44,12 @@ class _SignInEmailDialogState extends State<_SignInEmailDialog> {
             children: [
               controller.tf(SigninFCode.email, first: true),
               controller.tf(SigninFCode.password),
+              const SizedBox(height: P3),
               MTButton.main(
                 titleText: loc.auth_sign_in_email_action_title,
-                margin: const EdgeInsets.symmetric(vertical: P3),
                 onTap: controller.validated ? controller.signIn : null,
               ),
+              if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],
           ),
         ),

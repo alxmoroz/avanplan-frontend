@@ -87,7 +87,7 @@ class MTDialog extends StatelessWidget {
             data: mq.copyWith(
               padding: mqPadding.copyWith(
                 top: (topBar?.preferredSize ?? Size.zero).height,
-                bottom: (bottomBar?.preferredSize ?? Size.zero).height,
+                bottom: bottomBar?.preferredSize.height ?? mq.padding.bottom,
               ),
             ),
             child: scrollOffsetTop != null && scrollController != null

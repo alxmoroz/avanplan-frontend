@@ -47,7 +47,7 @@ class _NotificationDialog extends StatelessWidget {
                   trailing: const ChevronIcon(),
                   onTap: () => _tryGo(context),
                 ),
-              const SizedBox(height: P3),
+              if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],
           )),
     );

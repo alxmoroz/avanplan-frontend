@@ -62,7 +62,7 @@ class _StoreDialog extends StatelessWidget {
             itemBuilder: _payButton,
             itemCount: iapController.products.length,
           ),
-          const SizedBox(height: P3),
+          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
       ),
     );

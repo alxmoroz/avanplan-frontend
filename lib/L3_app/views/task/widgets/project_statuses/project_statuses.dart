@@ -62,6 +62,7 @@ class _PSBody extends StatelessWidget {
             itemCount: _controller.sortedStatuses.length,
           ),
           if (footer != null) footer!,
+          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
       ),
     );
@@ -76,7 +77,6 @@ class _CreateStatusButton extends StatelessWidget {
   Widget build(BuildContext context) => MTButton.secondary(
         leading: const PlusIcon(),
         titleText: loc.status_create_action_title,
-        margin: const EdgeInsets.symmetric(vertical: P3),
         onTap: _controller.create,
       );
 }
@@ -126,8 +126,8 @@ class _ProjectStatusesQuizView extends StatelessWidget {
               footer: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _CreateStatusButton(_controller),
                   const SizedBox(height: P3),
+                  _CreateStatusButton(_controller),
                   QuizNextButton(
                     _qController,
                     loading: _controller.project.loading,
@@ -153,7 +153,10 @@ class _ProjectStatusesDialog extends StatelessWidget {
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.status_list_title),
       body: _PSBody(
         _controller,
-        footer: _CreateStatusButton(_controller),
+        footer: Padding(
+          padding: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          child: _CreateStatusButton(_controller),
+        ),
       ),
     );
   }

@@ -61,11 +61,12 @@ class _MemberRolesDialog extends StatelessWidget {
             itemBuilder: _roleItem,
             itemCount: _controller.roles.length,
           ),
+          const SizedBox(height: P3),
           MTButton.main(
             titleText: loc.save_action_title,
-            margin: const EdgeInsets.symmetric(vertical: P3),
             onTap: _controller.assignRoles,
-          )
+          ),
+          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
       ),
     );

@@ -151,7 +151,7 @@ class _FeatureSetsDialog extends StatelessWidget {
         _controller,
         footer: MTButton.main(
           titleText: loc.save_action_title,
-          margin: const EdgeInsets.symmetric(vertical: P3),
+          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: _controller.save,
         ),
       ),

@@ -42,11 +42,12 @@ class _WSEditDialogState extends State<_WSEditDialog> {
         shrinkWrap: true,
         children: [
           for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
+          const SizedBox(height: P3),
           MTButton.main(
             titleText: loc.save_action_title,
-            margin: const EdgeInsets.symmetric(vertical: P3),
             onTap: canSave ? controller.save : null,
           ),
+          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
       );
 

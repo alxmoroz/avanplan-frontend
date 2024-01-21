@@ -29,31 +29,34 @@ class TextEditDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: _title),
       body: Observer(
-        builder: (ctx) => Padding(
-          padding: MediaQuery.paddingOf(ctx).add(const EdgeInsets.only(bottom: P3)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              const SizedBox(width: P2),
-              Expanded(
-                child: MTTextField(
-                  controller: _tc,
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
-                  maxLines: 20,
+        builder: (ctx) {
+          final mqPadding = MediaQuery.paddingOf(ctx);
+          return Padding(
+            padding: mqPadding.add(EdgeInsets.only(bottom: mqPadding.bottom == 0 ? P3 : 0)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(width: P2),
+                Expanded(
+                  child: MTTextField(
+                    controller: _tc,
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
+                    maxLines: 20,
+                  ),
                 ),
-              ),
-              MTButton.main(
-                elevation: 0,
-                constrained: false,
-                minSize: const Size(P6, P6),
-                middle: const SubmitIcon(color: mainBtnTitleColor),
-                margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                onTap: _fd.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
-              ),
-            ],
-          ),
-        ),
+                MTButton.main(
+                  elevation: 0,
+                  constrained: false,
+                  minSize: const Size(P6, P6),
+                  middle: const SubmitIcon(color: mainBtnTitleColor),
+                  margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
+                  onTap: _fd.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

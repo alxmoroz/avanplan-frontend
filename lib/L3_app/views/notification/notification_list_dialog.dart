@@ -99,9 +99,9 @@ class _NotificationListDialog extends StatelessWidget {
                     itemBuilder: (_, index) => _itemBuilder(context, index),
                     itemCount: _controller.notifications.length + 1,
                   ),
-                  if (!kIsWeb && !_controller.pushAuthorized)
+                  if (!kIsWeb && !_controller.pushAuthorized) ...[
                     MTButton(
-                      margin: const EdgeInsets.all(P3),
+                      margin: const EdgeInsets.all(P3).copyWith(bottom: 0),
                       leading: const PrivacyIcon(),
                       middle: SmallText(
                         loc.notification_push_ios_denied_btn_title,
@@ -110,7 +110,9 @@ class _NotificationListDialog extends StatelessWidget {
                       ),
                       trailing: const LinkOutIcon(),
                       onTap: _showGotoSystemSettingsDialog,
-                    )
+                    ),
+                    if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+                  ],
                 ],
               ),
       );

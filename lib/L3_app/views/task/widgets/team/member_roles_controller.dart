@@ -9,6 +9,7 @@ import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
+import '../../../../usecases/ws_tariff.dart';
 
 part 'member_roles_controller.g.dart';
 
@@ -43,23 +44,25 @@ abstract class _MemberRolesControllerBase with Store {
   Future assignRoles() async {
     Navigator.of(rootKey.currentContext!).pop();
 
-    // TODO: вынести в юзкейс. См. как сделано с комментами
-    task.loading = true;
-    tasksMainController.refreshTasks();
+    if (await task.ws.checkBalance(loc.member_edit_action_title)) {
+      // TODO: вынести в юзкейс. См. как сделано с комментами
+      task.loading = true;
+      tasksMainController.refreshTasks();
 
-    final rolesIds = selectedRoles.map((r) => r.id!);
-    task.members = await taskMemberRoleUC.assignRoles(task, memberId, rolesIds);
-    final deleted = task.memberForId(memberId) == null;
-    if (deleted) {
-      if (task.assigneeId == memberId) {
-        task.assigneeId = null;
+      final rolesIds = selectedRoles.map((r) => r.id!);
+      task.members = await taskMemberRoleUC.assignRoles(task, memberId, rolesIds);
+      final deleted = task.memberForId(memberId) == null;
+      if (deleted) {
+        if (task.assigneeId == memberId) {
+          task.assigneeId = null;
+        }
+        if (task.authorId == memberId) {
+          task.authorId = null;
+        }
       }
-      if (task.authorId == memberId) {
-        task.authorId = null;
-      }
+
+      task.loading = false;
+      tasksMainController.refreshTasks();
     }
-
-    task.loading = false;
-    tasksMainController.refreshTasks();
   }
 }

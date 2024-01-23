@@ -91,6 +91,7 @@
   "error_get_products_title": "Ошибка получения информации о покупках",
   "error_import_connection": "Ошибка подключения\nИсточник импорта недоступен",
   "error_import_title": "Ошибка импорта",
+  "error_insufficient_funds_for_operation": "Нужно пополнить баланс на {value}, чтобы оплатить счёт по текущему тарифу и {operation}",
   "error_network_description": "Проверьте соединение с интернетом и повторите попытку",
   "error_network_title": "Ошибка сети\nНет соединения с сервером",
   "error_permission_description": "Обратитесь к администратору проекта или рабочего пространства",
@@ -98,7 +99,6 @@
   "error_purchase_title": "Ошибка обработки покупки",
   "error_redeem_invitation_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
   "error_redeem_invitation_title": "Ошибка при обработке приглашения",
-  "error_tariff_insufficient_funds_for_change": "Нужно пополнить баланс на {value}, чтобы оплатить счёт по текущему тарифу и перейти на новый",
   "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",
@@ -177,6 +177,7 @@
   "loader_source_listing": "Получаем список проектов...",
   "loader_unlinking_title": "Рвём связи...",
 
+  "member_edit_action_title": "Редактировать участника",
   "member_plural": "{count, plural, one{участник} few{участника} other{участников}}",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",

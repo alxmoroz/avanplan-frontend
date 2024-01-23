@@ -41,7 +41,7 @@ class CreateProjectButton extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: [
                   plusIcon,
-                  if (_controller.mustPay)
+                  if (_controller.hasExceedLimits)
                     Container(
                       padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
                       child: const RoubleCircleIcon(size: P2),
@@ -54,7 +54,7 @@ class CreateProjectButton extends StatelessWidget {
             )
           : MTBadgeButton(
               margin: EdgeInsets.only(right: compact ? P2 : 0),
-              showBadge: _controller.mustPay,
+              showBadge: _controller.hasExceedLimits,
               type: type ?? ButtonType.main,
               leading: compact ? null : plusIcon,
               titleText: compact ? null : addSubtaskActionTitle(null),

@@ -17,6 +17,7 @@ import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../usecases/task_link.dart';
+import '../../usecases/ws_tariff.dart';
 import '../_base/edit_controller.dart';
 
 part 'source_edit_controller.g.dart';
@@ -72,25 +73,27 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   /// действия
 
   Future save() async {
-    loader.setSaving();
-    loader.start();
-    final editedSource = await sourceUC.save(
-      Source(
-        id: source?.id,
-        url: fData(SourceFCode.url.index).text,
-        apiKey: fData(SourceFCode.apiKey.index).text,
-        username: fData(SourceFCode.username.index).text,
-        // password: tfAnnoForCode(SourceFCode.password.index).text,
-        description: fData(SourceFCode.description.index).text,
-        typeCode: selectedType!.code,
-        wsId: ws.id!,
-      ),
-    );
+    if (await ws.checkBalance(loc.source_create_action_title)) {
+      loader.setSaving();
+      loader.start();
+      final editedSource = await sourceUC.save(
+        Source(
+          id: source?.id,
+          url: fData(SourceFCode.url.index).text,
+          apiKey: fData(SourceFCode.apiKey.index).text,
+          username: fData(SourceFCode.username.index).text,
+          // password: tfAnnoForCode(SourceFCode.password.index).text,
+          description: fData(SourceFCode.description.index).text,
+          typeCode: selectedType!.code,
+          wsId: ws.id!,
+        ),
+      );
 
-    if (editedSource != null) {
-      Navigator.of(rootKey.currentContext!).pop(editedSource);
+      if (editedSource != null) {
+        Navigator.of(rootKey.currentContext!).pop(editedSource);
+      }
+      await loader.stop(300);
     }
-    await loader.stop(300);
   }
 
   Future delete(BuildContext context) async {

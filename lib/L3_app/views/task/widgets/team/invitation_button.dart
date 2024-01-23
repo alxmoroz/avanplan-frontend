@@ -25,10 +25,12 @@ class InvitationButton extends StatelessWidget {
   bool get _hasLimit => !task.ws.plUsers;
 
   static Future onTap(Task task) async {
-    if (task.ws.plUsers) {
-      await invitationDialog(task);
-    } else {
-      await task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title);
+    if (await task.ws.checkBalance(loc.invitation_create_title)) {
+      if (task.ws.plUsers) {
+        await invitationDialog(task);
+      } else {
+        await task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title);
+      }
     }
   }
 

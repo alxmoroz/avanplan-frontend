@@ -125,17 +125,18 @@ abstract class _ImportControllerBase with Store {
     }
   }
 
+  @action
   Future startImport() async {
-    if (selectableCount >= 0) {
-      _sendingRequest = true;
-      if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
-        await tasksMainController.updateImportingProjects();
+    if (await ws.checkBalance(loc.import_action_title)) {
+      if (selectableCount >= 0) {
+        _sendingRequest = true;
+        if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
+          await tasksMainController.updateImportingProjects();
+        }
+        Navigator.of(rootKey.currentContext!).pop();
+      } else {
+        await ws.changeTariff(reason: loc.tariff_change_limit_projects_reason_title);
       }
-      Navigator.of(rootKey.currentContext!).pop();
-    } else {
-      await ws.changeTariff(
-        reason: loc.tariff_change_limit_projects_reason_title,
-      );
     }
   }
 }

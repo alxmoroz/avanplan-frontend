@@ -38,7 +38,7 @@ abstract class _CreateProjectControllerBase with Store {
   bool get _mustSelectWS => _selectedWSId == null && wsMainController.canSelectWS;
 
   @computed
-  bool get mustPay => !wsMainController.canSelectWS && _ws != null && !_ws!.plCreate(null);
+  bool get hasExceedLimits => !wsMainController.canSelectWS && _ws != null && !_ws!.plCreate(null);
 
   @computed
   bool get _plCreate => _ws!.plCreate(null);
@@ -81,10 +81,10 @@ abstract class _CreateProjectControllerBase with Store {
   }
 
   Future startCreate() async {
-    if (mustPay) {
+    if (hasExceedLimits) {
       await _changeTariff();
     }
-    if (mustPay) {
+    if (hasExceedLimits) {
       return;
     }
 
@@ -102,7 +102,7 @@ abstract class _CreateProjectControllerBase with Store {
               await _create();
               break;
             case CreationMethod.template:
-              await importTemplate(_ws!.id!);
+              await importTemplate(_ws!);
               break;
             case CreationMethod.import:
               await importTasks(_ws!);

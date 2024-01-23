@@ -60,4 +60,6 @@ class Workspace extends WorkspaceUpsert {
         sources: [],
         tasksCount: 0,
       );
+
+  num get balanceLack => invoice.tariff.estimateChargePerBillingPeriod - balance;
 }

@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
@@ -39,35 +40,37 @@ class _MemberRolesDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        color: b2Color,
-        innerHeight: P12,
-        middle: Column(
-          mainAxisSize: MainAxisSize.min,
+    return Observer(
+      builder: (_) => MTDialog(
+        topBar: MTAppBar(
+          showCloseButton: true,
+          color: b2Color,
+          innerHeight: P12,
+          middle: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _task.subPageTitle(loc.role_list_title),
+              BaseText.f2('$_member', maxLines: 1),
+            ],
+          ),
+        ),
+        body: ListView(
+          shrinkWrap: true,
           children: [
-            _task.subPageTitle(loc.role_list_title),
-            BaseText.f2('$_member', maxLines: 1),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: _roleItem,
+              itemCount: _controller.roles.length,
+            ),
+            const SizedBox(height: P3),
+            MTButton.main(
+              titleText: loc.save_action_title,
+              onTap: _controller.assignRoles,
+            ),
+            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
-      ),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: _roleItem,
-            itemCount: _controller.roles.length,
-          ),
-          const SizedBox(height: P3),
-          MTButton.main(
-            titleText: loc.save_action_title,
-            onTap: _controller.assignRoles,
-          ),
-          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-        ],
       ),
     );
   }

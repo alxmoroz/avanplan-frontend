@@ -7,9 +7,8 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
-import '../../presenters/number.dart';
 import '../../usecases/ws_actions.dart';
-import '../iap/iap_dialog.dart';
+import '../../usecases/ws_tariff.dart';
 
 part 'tariff_selector_controller.g.dart';
 
@@ -59,11 +58,8 @@ abstract class _TariffSelectorControllerBase with Store {
   bool showPageButton(bool left) => pageIndex != null && left ? pageIndex! > 0 : pageIndex! < pagesCount - 1;
 
   Future selectTariff(BuildContext context, Tariff tariff) async {
-    final balanceLack = tariff.estimateChargePerBillingPeriod - ws.balance;
-    if (balanceLack <= 0) {
+    if (await ws.checkBalance(loc.tariff_change_action_title) && context.mounted) {
       Navigator.of(context).pop(tariff);
-    } else {
-      await replenishBalanceDialog(_wsId, reason: loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency}₽'));
     }
   }
 }

@@ -9,6 +9,7 @@ import '../components/alert_dialog.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
 import '../presenters/task_source.dart';
+import '../usecases/ws_tariff.dart';
 import 'task_edit.dart';
 import 'task_tree.dart';
 
@@ -44,13 +45,14 @@ extension TaskLinkUC on Task {
   Future unlink() async {
     if (await _unlinkDialog() == true) {
       Navigator.of(rootKey.currentContext!).pop();
-
-      await edit(() async {
-        if (await importUC.unlinkProject(this)) {
-          unlinkTaskTree();
-        }
-        return this;
-      });
+      if (await ws.checkBalance(loc.task_unlink_action_title)) {
+        await edit(() async {
+          if (await importUC.unlinkProject(this)) {
+            unlinkTaskTree();
+          }
+          return this;
+        });
+      }
     }
   }
 }

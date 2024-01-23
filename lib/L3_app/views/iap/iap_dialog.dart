@@ -15,9 +15,9 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 
-Future replenishBalanceDialog(int wsId, {String reason = ''}) async {
+Future<bool?> replenishBalanceDialog(int wsId, {String reason = ''}) async {
   await iapController.getProducts();
-  return await showMTDialog<void>(_StoreDialog(wsId, reason));
+  return await showMTDialog<bool?>(_StoreDialog(wsId, reason));
 }
 
 class _StoreDialog extends StatelessWidget {
@@ -29,7 +29,7 @@ class _StoreDialog extends StatelessWidget {
   Workspace get ws => wsMainController.ws(_wsId);
 
   Future _pay(IAPProduct p) async {
-    Navigator.of(rootKey.currentContext!).pop();
+    Navigator.of(rootKey.currentContext!).pop(true);
     await iapController.pay(_wsId, p);
   }
 

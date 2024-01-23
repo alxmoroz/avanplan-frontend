@@ -79,6 +79,13 @@ abstract class _LoaderControllerBase with Store {
             if (path.startsWith('/v1/auth/password_token')) {
               // Показываем диалог, если это именно авторизация
               setAuthError();
+            } else if (e.errCode.startsWith('ERR_PERMISSION_BALANCE')) {
+              // Сюда логика не должна попадать. Но на всякий случай обрабатываем такую ошибку.
+              // Это могут быть программные ошибки, хакеры, а также если пользователь долго не обновлял данные на клиенте
+              // TODO: замечание актуально, пока нет активного фонового обновления
+              // TODO: нужно показывать текст про баланс, либо вообще сразу диалог для пополнения
+              // Показываем диалог ограничений тарифа
+              _setTariffLimitError();
             } else if (e.errCode.startsWith('ERR_PERMISSION_LIMIT')) {
               // Показываем диалог ограничений тарифа
               _setTariffLimitError();
@@ -175,7 +182,7 @@ abstract class _LoaderControllerBase with Store {
       );
 
   void _setTariffLimitError([String? description]) => set(
-        imageName: ImageName.privacy.name,
+        imageName: ImageName.purchase.name,
         titleText: loc.error_tariff_limit_title,
         descriptionText: description != null ? Intl.message('error_tariff_limit_$description') : loc.error_tariff_limit_description,
         actionText: loc.ok,

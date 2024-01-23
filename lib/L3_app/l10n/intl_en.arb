@@ -91,6 +91,7 @@
   "error_get_products_title": "Error getting information about purchases",
   "error_import_connection": "Connection Error\nThe import source is not available",
   "error_import_title": "Import Error",
+  "error_insufficient_funds_for_operation": "You need to top up your balance with {value} to pay your current tariff bill and {operation}",
   "error_network_description": "Please check your internet connection and try again",
   "error_network_title": "Network Error\nNo connection to server",
   "error_permission_description": "Please contact the project or workspace administrator",
@@ -98,7 +99,6 @@
   "error_purchase_title": "Purchase processing error",
   "error_redeem_invitation_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
   "error_redeem_invitation_title": "Error while processing invitation",
-  "error_tariff_insufficient_funds_for_change": "You need to top up your balance with {value} to pay your current tariff bill and switch to a new one",
   "error_tariff_limit_description": "Please contact the workspace administrator",
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
@@ -177,6 +177,7 @@
   "loader_source_listing": "Getting a list of projects...",
   "loader_unlinking_title": "Breaking the chains...",
 
+  "member_edit_action_title": "Edit a member",
   "member_plural": "{count, plural, one{member} other{members}}",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",

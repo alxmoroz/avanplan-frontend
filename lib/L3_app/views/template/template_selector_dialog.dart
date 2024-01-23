@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
@@ -17,20 +18,21 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../usecases/ws_tariff.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/task_view.dart';
 import 'template_controller.dart';
 
 Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
-Future importTemplate(int wsId) async {
-  final itc = TemplateController(wsId);
+Future importTemplate(Workspace ws) async {
+  final itc = TemplateController(ws.id!);
   itc.getData();
   final template = await _selectTemplate(itc);
-  if (template != null) {
+  if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
     loader.setSaving();
     loader.start();
-    final changes = await projectTransferUC.transfer(template.wsId, template.id!, wsId);
+    final changes = await projectTransferUC.transfer(template.wsId, template.id!, ws.id!);
     final p = changes?.updated;
     if (p != null) {
       changes?.affected.forEach((t) => tasksMainController.setTask(t));

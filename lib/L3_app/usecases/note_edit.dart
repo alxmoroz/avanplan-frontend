@@ -7,6 +7,8 @@ import '../../L1_domain/entities/note.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
+import '../usecases/task_tree.dart';
+import '../usecases/ws_tariff.dart';
 
 extension NoteEditUC on Note {
   Future<Note?> _edit(Task task, Future<Note?> Function() function) async {
@@ -25,31 +27,34 @@ extension NoteEditUC on Note {
   }
 
   Future<Note?> save(Task task) async => await _edit(task, () async {
-        final en = await noteUC.save(this);
-        if (en != null) {
-          // TODO: вложенности
-          // if (en.notes.isEmpty) {
-          //   en.notes = notes;
-          // }
+        Note? en;
+        if (await task.ws.checkBalance(loc.task_note_placeholder)) {
+          en = await noteUC.save(this);
+          if (en != null) {
+            // TODO: вложенности
+            // if (en.notes.isEmpty) {
+            //   en.notes = notes;
+            // }
 
-          // TODO:  структура
-          // if (parent != null) {
-          //   if (isNew) {
-          //     parent!.notes.add(en);
-          //   } else {
-          //     final index = parent!.notes.indexWhere((n) => en?.taskId == task.id && en?.id == n.id);
-          //     if (index > -1) {
-          //       parent!.notes[index] = en;
-          //     }
-          //   }
-          // }
+            // TODO:  структура
+            // if (parent != null) {
+            //   if (isNew) {
+            //     parent!.notes.add(en);
+            //   } else {
+            //     final index = parent!.notes.indexWhere((n) => en?.taskId == task.id && en?.id == n.id);
+            //     if (index > -1) {
+            //       parent!.notes[index] = en;
+            //     }
+            //   }
+            // }
 
-          if (isNew) {
-            task.notes.add(en);
-          } else {
-            final index = task.notes.indexWhere((n) => en.taskId == task.id && en.id == n.id);
-            if (index > -1) {
-              task.notes[index] = en;
+            if (isNew) {
+              task.notes.add(en);
+            } else {
+              final index = task.notes.indexWhere((n) => en!.taskId == task.id && en.id == n.id);
+              if (index > -1) {
+                task.notes[index] = en;
+              }
             }
           }
         }

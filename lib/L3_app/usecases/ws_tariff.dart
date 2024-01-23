@@ -2,10 +2,13 @@
 
 import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
+import '../presenters/number.dart';
+import '../views/iap/iap_dialog.dart';
 import '../views/tariff/tariff_selector.dart';
 import '../views/tariff/tariff_selector_controller.dart';
 
 extension WSTariffUC on Workspace {
+  // TODO: сменить на checkLimits по аналогии с checkBalance
   Future changeTariff({String reason = ''}) async {
     final tsController = TariffSelectorController(id!, reason);
     tsController.getData();
@@ -20,5 +23,21 @@ extension WSTariffUC on Workspace {
       }
       await loader.stop();
     }
+  }
+
+  Future<bool> checkBalance(String operation) async {
+    if (balanceLack > 0) {
+      final hasSelectPay = await replenishBalanceDialog(
+        id!,
+        reason: loc.error_insufficient_funds_for_operation(
+          '${balanceLack.currency}₽',
+          operation.toLowerCase(),
+        ),
+      );
+      if (hasSelectPay == true) {
+        await mainController.manualUpdate();
+      }
+    }
+    return balanceLack <= 0;
   }
 }

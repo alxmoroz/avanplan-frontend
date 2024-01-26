@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import '../../L1_domain/entities/workspace.dart';
-import '../components/alert_dialog.dart';
 import '../extra/services.dart';
 import '../presenters/number.dart';
 import '../views/iap/iap_dialog.dart';
@@ -39,21 +38,21 @@ extension WSTariffUC on Workspace {
     return lack <= 0;
   }
 
-  Future showTariffExcessInfo() async {
-    if (!accountController.tariffExcessInfoViewed(id!)) {
-      final needChangeTariff = await showMTAlertDialog(
-        loc.limits_exceed_info_dialog_title,
-        description: loc.limits_exceed_info_dialog_description,
-        actions: [
-          MTADialogAction(title: loc.tariff_list_title, type: MTActionType.isDefault, result: true),
-          MTADialogAction(title: loc.ok, result: false),
-        ],
-        simple: true,
-      );
-      accountController.setlLimitsExceedInfoViewed(id!);
-      if (needChangeTariff == true) {
-        await changeTariff();
-      }
-    }
-  }
+  // Future showTariffExcessInfo() async {
+  //   if (!accountController.tariffExcessInfoViewed(id!)) {
+  //     final needChangeTariff = await showMTAlertDialog(
+  //       loc.limits_exceed_info_dialog_title,
+  //       description: loc.limits_exceed_info_dialog_description,
+  //       actions: [
+  //         MTADialogAction(title: loc.tariff_list_title, type: MTActionType.isDefault, result: true),
+  //         MTADialogAction(title: loc.ok, result: false),
+  //       ],
+  //       simple: true,
+  //     );
+  //     accountController.setlLimitsExceedInfoViewed(id!);
+  //     if (needChangeTariff == true) {
+  //       await changeTariff();
+  //     }
+  //   }
+  // }
 }

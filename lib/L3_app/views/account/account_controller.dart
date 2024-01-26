@@ -23,15 +23,15 @@ abstract class _AccountControllerBase extends EditController with Store {
   @action
   Future getData() async => user = await myUC.getAccount();
 
-  @action
-  Future _registerActivity(String code, {int? wsId}) async {
-    user = await myUC.registerActivity(code, wsId: wsId);
-  }
-
-  bool _hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
-
-  Future setlLimitsExceedInfoViewed(int wsId) async => await _registerActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
-  bool tariffExcessInfoViewed(int wsId) => _hasActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
+  // @action
+  // Future _registerActivity(String code, {int? wsId}) async {
+  //   user = await myUC.registerActivity(code, wsId: wsId);
+  // }
+  //
+  // bool _hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
+  //
+  // Future setlLimitsExceedInfoViewed(int wsId) async => await _registerActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
+  // bool tariffExcessInfoViewed(int wsId) => _hasActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
 
   @action
   void clearData() => user = null;

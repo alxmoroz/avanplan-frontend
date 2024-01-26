@@ -15,6 +15,9 @@ extension WSPresenter on Workspace {
   List<User> get sortedUsers => users.sorted((u1, u2) => compareNatural('$u1', '$u2'));
   List<EstimateValue> get sortedEstimateValues => estimateValues.sortedBy<num>((e) => e.value);
 
+  String get usersStr => sortedUsers.map((u) => u.fullName).take(1).join(', ');
+  String get usersCountMoreStr => sortedUsers.length > 1 ? loc.more_count(users.length - 1) : '';
+
   Widget subPageTitle(String pageTitle) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [if (codeStr.isNotEmpty) BaseText.f3('$codeStr ', maxLines: 1), BaseText.medium(pageTitle, maxLines: 1)],

@@ -38,7 +38,7 @@ abstract class _AttachmentsControllerBase with Store {
   @computed
   String get attachmentsStr => sortedAttachments.map((a) => a.title).take(1).join(', ');
   @computed
-  String get attachmentsCountMoreStr => sortedAttachments.length > 1 ? loc.more_count(sortedAttachments.length - 1) : '';
+  String get attachmentsCountMoreStr => sortedAttachments.length > 1 ? loc.more_count(_attachments.length - 1) : '';
 
   // Future create() async => await edit(Attachment(text: '', authorId: task.me?.id, taskId: task.id, wsId: task.ws.id!));
 

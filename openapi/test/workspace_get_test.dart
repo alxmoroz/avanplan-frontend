@@ -52,6 +52,11 @@ void main() {
       // TODO
     });
 
+    // num fsVolume
+    test('to test the property `fsVolume`', () async {
+      // TODO
+    });
+
     // AccountGet mainAccount
     test('to test the property `mainAccount`', () async {
       // TODO

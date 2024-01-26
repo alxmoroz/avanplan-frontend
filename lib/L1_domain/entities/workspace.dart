@@ -28,6 +28,7 @@ class Workspace extends WorkspaceUpsert {
     required this.roles,
     required this.invoice,
     required this.balance,
+    required this.fsVolume,
     required this.settings,
     required this.estimateValues,
     required this.sources,
@@ -38,6 +39,7 @@ class Workspace extends WorkspaceUpsert {
   final Iterable<Role> roles;
   Invoice invoice;
   num balance;
+  num fsVolume;
   int tasksCount;
 
   final WSettings? settings;
@@ -55,6 +57,7 @@ class Workspace extends WorkspaceUpsert {
         roles: [],
         invoice: Invoice.dummy,
         balance: 0,
+        fsVolume: 0,
         settings: null,
         estimateValues: [],
         sources: [],

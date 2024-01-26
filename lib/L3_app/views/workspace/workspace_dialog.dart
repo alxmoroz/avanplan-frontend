@@ -109,8 +109,11 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget _users(BuildContext context) => MTListTile(
         leading: const PeopleIcon(size: P6),
-        titleText: loc.user_list_title,
-        subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
+        titleText: '${loc.user_list_title} (${_ws.users.length})',
+        subtitle: Row(children: [
+          Flexible(child: SmallText(_ws.usersStr, maxLines: 1)),
+          if (_ws.usersCountMoreStr.isNotEmpty) SmallText(_ws.usersCountMoreStr, maxLines: 1, padding: const EdgeInsets.only(left: P))
+        ]),
         trailing: const ChevronIcon(),
         dividerIndent: P11,
         onTap: () async => await MTRouter.navigate(UsersRouter, context, args: _ws.id!),

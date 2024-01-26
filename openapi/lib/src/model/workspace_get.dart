@@ -28,6 +28,7 @@ part 'workspace_get.g.dart';
 /// * [roles] 
 /// * [invoice] 
 /// * [balance] 
+/// * [fsVolume] 
 /// * [mainAccount] 
 /// * [settings] 
 /// * [estimateValues] 
@@ -61,6 +62,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'balance')
   num? get balance;
+
+  @BuiltValueField(wireName: r'fs_volume')
+  num? get fsVolume;
 
   @BuiltValueField(wireName: r'main_account')
   AccountGet? get mainAccount;
@@ -156,6 +160,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield r'balance';
       yield serializers.serialize(
         object.balance,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.fsVolume != null) {
+      yield r'fs_volume';
+      yield serializers.serialize(
+        object.fsVolume,
         specifiedType: const FullType(num),
       );
     }
@@ -279,6 +290,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(num),
           ) as num;
           result.balance = valueDes;
+          break;
+        case r'fs_volume':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.fsVolume = valueDes;
           break;
         case r'main_account':
           final valueDes = serializers.deserialize(

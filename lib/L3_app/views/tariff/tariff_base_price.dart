@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
+import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
@@ -12,8 +13,8 @@ import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 
-class TariffOptions extends StatelessWidget {
-  const TariffOptions(this.tariff, {super.key});
+class TariffBasePrice extends StatelessWidget {
+  const TariffBasePrice(this.tariff, {super.key});
   final Tariff tariff;
 
   @override
@@ -35,7 +36,7 @@ class TariffOptions extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
       bottomDivider: false,
-      onTap: () => launchUrlString(''),
+      onTap: () => launchUrlString('$legalTariffsPath/${tariff.code.toLowerCase()}'),
     );
   }
 }

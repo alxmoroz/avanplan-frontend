@@ -19,8 +19,8 @@ import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
 import 'request_tariff_card.dart';
+import 'tariff_base_price.dart';
 import 'tariff_limits.dart';
-import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
 
 Future<Tariff?> selectTariff(int wsId, {String reason = ''}) async {
@@ -54,7 +54,7 @@ class _TariffSelectorDialog extends StatelessWidget {
           children: [
             H2(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
             if (smallHeight) const Spacer() else Expanded(child: TariffLimits(tariff)),
-            TariffOptions(tariff),
+            TariffBasePrice(tariff),
             const SizedBox(height: P3),
             _controller.activeTariffIndex != index
                 ? _controller.ws.hpTariffUpdate

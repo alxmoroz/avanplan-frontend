@@ -10,6 +10,7 @@ const _contactUsMailAddress = 'hello@avanplan.ru';
 
 const legalConfidentialPath = '$_host/legal/confidential';
 const legalRulesPath = '$_host/avanplan/legal/rules';
+const legalTariffsPath = '$_host/avanplan/legal/tariffs';
 const docsPath = '$_host/avanplan/docs/';
 
 Future<bool> sendMail(String subject, String appIdentifier, int? userId, {String? text = ''}) async {

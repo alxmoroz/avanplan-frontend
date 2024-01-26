@@ -103,9 +103,6 @@
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",
 
-  "explain_update_details_dialog_description": "Обновили проекты, хранящиеся в Аванплане.\n\nИмпортированные проекты обновляются автоматически ночью раз в сутки.",
-  "explain_update_details_dialog_title": "Особенности обновления",
-
   "feature_set_analytics_title": "Аналитика",
   "feature_set_analytics_description": "Прогнозы и статистика",
   "feature_set_estimates_title": "Оценки",
@@ -164,6 +161,9 @@
 
   "lets_go_action_title": "Поехали",
 
+  "limits_exceed_info_dialog_description": "Превышение сверх включенного в тариф пакета услуг будет тарифицироваться в соответствии с условиями тарифа.\nВ целях экономии средств советуем выбрать более подходящий тариф",
+  "limits_exceed_info_dialog_title": "Превышение размера пакета услуг вашего тарифа",
+
   "loader_auth_title": "Проверяем доступ...",
   "loader_check_connection_title": "Проверка соединения...",
   "loader_deleting_title": "Удаляем...",
@@ -208,9 +208,6 @@
   "notification_push_ios_denied_dialog_description": "В настройках приложения:\nУведомления ->\nДопуск уведомлений",
   "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
-
-  "onboarding_welcome_gift_dialog_title": "Вам подарок!",
-  "onboarding_welcome_gift_dialog_description": "Начислены приветственные {count} рублей!\n\nИх можно (и нужно) потратить на функции платных тарифов. Сменить тариф можно в настройках рабочего пространства\n\nСпасибо, что выбрали Аванплан!",
 
   "ok": "Понятно",
 

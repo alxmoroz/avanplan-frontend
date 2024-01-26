@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
@@ -33,23 +32,21 @@ class CreateProjectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final plusIcon = _plusIcon(context);
-    return Observer(
-      builder: (_) => canShowVerticalBars(context) && type == null
-          ? MTListTile(
-              leading: plusIcon,
-              middle: !compact ? BaseText(addSubtaskActionTitle(null), maxLines: 1, color: mainColor) : null,
-              bottomDivider: false,
-              onTap: _controller.startCreate,
-            )
-          : MTButton(
-              margin: EdgeInsets.only(right: compact ? P2 : 0),
-              type: type ?? ButtonType.main,
-              leading: compact ? null : plusIcon,
-              titleText: compact ? null : addSubtaskActionTitle(null),
-              middle: compact ? plusIcon : null,
-              constrained: !compact,
-              onTap: _controller.startCreate,
-            ),
-    );
+    return canShowVerticalBars(context) && type == null
+        ? MTListTile(
+            leading: plusIcon,
+            middle: !compact ? BaseText(addSubtaskActionTitle(null), maxLines: 1, color: mainColor) : null,
+            bottomDivider: false,
+            onTap: _controller.startCreate,
+          )
+        : MTButton(
+            margin: EdgeInsets.only(right: compact ? P2 : 0),
+            type: type ?? ButtonType.main,
+            leading: compact ? null : plusIcon,
+            titleText: compact ? null : addSubtaskActionTitle(null),
+            middle: compact ? plusIcon : null,
+            constrained: !compact,
+            onTap: _controller.startCreate,
+          );
   }
 }

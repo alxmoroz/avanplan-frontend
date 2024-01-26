@@ -1,18 +1,15 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import '../../L1_domain/entities/workspace.dart';
+import '../components/alert_dialog.dart';
 import '../extra/services.dart';
 import '../presenters/number.dart';
 import '../views/iap/iap_dialog.dart';
 import '../views/tariff/tariff_selector.dart';
-import '../views/tariff/tariff_selector_controller.dart';
 
 extension WSTariffUC on Workspace {
-  // TODO: сменить на checkLimits по аналогии с checkBalance
   Future changeTariff({String reason = ''}) async {
-    final tsController = TariffSelectorController(id!, reason);
-    tsController.getData();
-    final tariff = await selectTariff(tsController);
+    final tariff = await selectTariff(id!, reason: reason);
     if (tariff != null) {
       loader.setSaving();
       loader.start();
@@ -40,5 +37,23 @@ extension WSTariffUC on Workspace {
       }
     }
     return lack <= 0;
+  }
+
+  Future showTariffExcessInfo() async {
+    if (!accountController.tariffExcessInfoViewed(id!)) {
+      final needChangeTariff = await showMTAlertDialog(
+        loc.limits_exceed_info_dialog_title,
+        description: loc.limits_exceed_info_dialog_description,
+        actions: [
+          MTADialogAction(title: loc.tariff_list_title, type: MTActionType.isDefault, result: true),
+          MTADialogAction(title: loc.ok, result: false),
+        ],
+        simple: true,
+      );
+      accountController.setlLimitsExceedInfoViewed(id!);
+      if (needChangeTariff == true) {
+        await changeTariff();
+      }
+    }
   }
 }

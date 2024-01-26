@@ -23,10 +23,14 @@ import 'tariff_limits.dart';
 import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
 
-Future<Tariff?> selectTariff(TariffSelectorController controller) async => await showMTDialog<Tariff?>(
-      _TariffSelectorDialog(controller),
-      maxWidth: SCR_XL_WIDTH,
-    );
+Future<Tariff?> selectTariff(int wsId, {String reason = ''}) async {
+  final tsController = TariffSelectorController(wsId, reason);
+  tsController.getData();
+  return await showMTDialog<Tariff?>(
+    _TariffSelectorDialog(tsController),
+    maxWidth: SCR_XL_WIDTH,
+  );
+}
 
 class _TariffSelectorDialog extends StatelessWidget {
   const _TariffSelectorDialog(this._controller);

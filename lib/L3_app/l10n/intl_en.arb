@@ -103,9 +103,6 @@
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
 
-  "explain_update_details_dialog_description": "Updated projects stored in Avanplan.\n\nImported projects are updated automatically at night once a day.",
-  "explain_update_details_dialog_title": "Update nuances",
-
   "feature_set_analytics_title": "Analytics",
   "feature_set_analytics_description": "Dates prediction and Statistics",
   "feature_set_estimates_title": "Estimates",
@@ -164,6 +161,9 @@
 
   "lets_go_action_title": "Let's get started!",
 
+  "limits_exceed_info_dialog_description": "Excess over the package of services included in the tariff will be charged in accordance with the terms of the tariff.\nIn order to save money, we advise you to choose a more suitable tariff",
+  "limits_exceed_info_dialog_title": "Exceeding the size of the service package of your tariff",
+
   "loader_auth_title": "Checking access...",
   "loader_check_connection_title": "Checking connection...",
   "loader_deleting_title": "Deleting...",
@@ -208,9 +208,6 @@
   "notification_push_ios_denied_dialog_description": "In app settings:\nNotifications ->\nAllow Notifications",
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
-
-  "onboarding_welcome_gift_dialog_title": "Incoming Gift!",
-  "onboarding_welcome_gift_dialog_description": "Welcoming {count} rubles have been accrued!\n\nThey can (and should) be spent on features of paid plans. You can change the tariff in the workspace settings\n\nThank you for choosing Avanplan!",
 
   "ok": "Ok",
 

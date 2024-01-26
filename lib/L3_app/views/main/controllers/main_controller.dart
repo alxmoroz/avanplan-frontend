@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/utils/dates.dart';
-import '../../../components/alert_dialog.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
 
@@ -33,18 +32,6 @@ abstract class _MainControllerBase with Store {
 
     _setUpdateDate(now);
     await loader.stop();
-  }
-
-  Future _explainUpdateDetails() async {
-    if (tasksMainController.hasLinkedProjects && !accountController.updateDetailsExplanationViewed) {
-      await showMTAlertDialog(
-        loc.explain_update_details_dialog_title,
-        description: loc.explain_update_details_dialog_description,
-        actions: [MTADialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
-        simple: true,
-      );
-      await accountController.setUpdateDetailsExplanationViewed();
-    }
   }
 
   // Future _showWelcomeGiftInfo() async {
@@ -109,23 +96,12 @@ abstract class _MainControllerBase with Store {
       final oldVersion = localSettingsController.oldVersion;
       final settings = localSettingsController.settings;
       if (oldVersion != settings.version) {
-        // обновление с 1.0 на более новую
-        if (oldVersion.startsWith('1.0')) {
-          if (settings.getFlag('EXPLAIN_UPDATE_DETAILS_SHOWN')) {
-            await accountController.setUpdateDetailsExplanationViewed();
-          }
-          if (settings.getFlag('WELCOME_GIFT_INFO_SHOWN')) {
-            for (final ws in wsMainController.myWSs) {
-              await accountController.setWelcomeGiftInfoViewed(ws.id!);
-            }
-          }
-        }
+        // действия после обновления версии
       }
     }
   }
 
   // static const _updatePeriod = Duration(hours: 1);
-  // static const _updatePeriod = Duration(minutes: 30);
 
   Future _authorizedStartupActions() async {
     await _tryUpdate();
@@ -147,7 +123,6 @@ abstract class _MainControllerBase with Store {
 
   Future manualUpdate() async {
     await _update();
-    await _explainUpdateDetails();
   }
 
   void clearData() {

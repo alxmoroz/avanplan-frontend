@@ -18,6 +18,7 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../presenters/bytes.dart';
 import '../../presenters/date.dart';
 import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
@@ -119,6 +120,19 @@ class _WorkspaceDialog extends StatelessWidget {
         onTap: () async => await MTRouter.navigate(UsersRouter, context, args: _ws.id!),
       );
 
+  Widget _tasks(BuildContext context) => MTListTile(
+        leading: const TasksIcon(),
+        titleText: '${loc.task_list_title} (${_ws.tasksCount})',
+        dividerIndent: P11,
+      );
+
+  Widget _storage(BuildContext context) => MTListTile(
+        leading: const FileStorageIcon(),
+        titleText: '${loc.file_storage_title} (${_ws.fsVolume.humanBytesStr})',
+        dividerIndent: P11,
+        bottomDivider: _ws.hpSourceCreate,
+      );
+
   Widget _sources(BuildContext context) => MTListTile(
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
@@ -152,6 +166,8 @@ class _WorkspaceDialog extends StatelessWidget {
             _tariff,
             const SizedBox(height: P3),
             if (_ws.hpMemberRead) _users(context),
+            _tasks(context),
+            _storage(context),
             if (_ws.hpSourceCreate) _sources(context),
           ],
         ),

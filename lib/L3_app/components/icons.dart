@@ -325,6 +325,16 @@ class ExitIcon extends MTIcon {
       );
 }
 
+class FileStorageIcon extends MTIcon {
+  const FileStorageIcon({super.key, super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.cube,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 class ImportIcon extends MTIcon {
   const ImportIcon({super.key, super.color, super.size});
   @override

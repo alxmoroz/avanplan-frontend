@@ -6,8 +6,6 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../usecases/ws_actions.dart';
-import '../../usecases/ws_tariff.dart';
 import '../../usecases/ws_tasks.dart';
 import '../import/import_dialog.dart';
 import '../task/controllers/task_controller.dart';
@@ -37,12 +35,6 @@ abstract class _CreateProjectControllerBase with Store {
   @computed
   bool get _mustSelectWS => _selectedWSId == null && wsMainController.canSelectWS;
 
-  @computed
-  bool get hasExceedLimits => !wsMainController.canSelectWS && _ws != null && !_ws!.plCreate(null);
-
-  @computed
-  bool get _plCreate => _ws!.plCreate(null);
-
   Future _selectWS() async {
     if (_mustSelectWS) {
       int? wsId = await selectWS(canCreate: _noMyWss);
@@ -66,10 +58,6 @@ abstract class _CreateProjectControllerBase with Store {
     }
   }
 
-  Future _changeTariff() async {
-    await _ws!.changeTariff(reason: loc.tariff_change_limit_projects_reason_title);
-  }
-
   Future _create() async {
     final newP = await _ws!.createTask(null);
     if (newP != null) {
@@ -81,33 +69,21 @@ abstract class _CreateProjectControllerBase with Store {
   }
 
   Future startCreate() async {
-    if (hasExceedLimits) {
-      await _changeTariff();
-    }
-    if (hasExceedLimits) {
-      return;
-    }
-
     final methodCode = await selectCreationMethod();
     if (methodCode != null) {
       await _selectWS();
 
       if (_ws != null) {
-        if (!_plCreate) {
-          await _changeTariff();
-        }
-        if (_plCreate) {
-          switch (methodCode) {
-            case CreationMethod.create:
-              await _create();
-              break;
-            case CreationMethod.template:
-              await importTemplate(_ws!);
-              break;
-            case CreationMethod.import:
-              await importTasks(_ws!);
-              break;
-          }
+        switch (methodCode) {
+          case CreationMethod.create:
+            await _create();
+            break;
+          case CreationMethod.template:
+            await importTemplate(_ws!);
+            break;
+          case CreationMethod.import:
+            await importTasks(_ws!);
+            break;
         }
         await _dispose();
       }

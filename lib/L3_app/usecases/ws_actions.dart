@@ -3,7 +3,6 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/tariff.dart';
-import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
@@ -27,20 +26,12 @@ extension WSActionsUC on Workspace {
   bool get hpOwnerUpdate => me.hp('OWNER_UPDATE');
   bool get isMine => hpOwnerUpdate;
 
-  bool _pl(String code, int value) => invoice.tariff.passLimit(code, value);
-
-  bool get plUsers => _pl(TLCode.USERS_COUNT, users.length + 1);
-
-  int get _projectsCount => tasksMainController.projects.where((t) => t.wsId == id).length;
-  int get maxProjects => invoice.tariff.limitValue(TLCode.PROJECTS_COUNT).toInt();
-  int get availableProjectsCount => maxProjects - _projectsCount;
-  bool get plProjects => availableProjectsCount > 0;
+  // bool _pl(String code, int value) => invoice.tariff.passLimit(code, value);
+  // bool get plUsers => _pl(TLCode.USERS_COUNT, users.length + 1);
 
   int get maxUsers => invoice.tariff.limitValue(TLCode.USERS_COUNT).toInt();
   // int get availableUsersCount => maxUsers - users.length;
 
   // TODO: при добавлении и удалении задач нужно уточнять tasksCount, а лучше делать запросы на бэк дополнительные всё же и обновлять инфу о WS
-  bool get _plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
-
-  bool plCreate(Task? parentTask) => parentTask == null ? plProjects : _plTasks;
+  // bool get plCreate => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
 }

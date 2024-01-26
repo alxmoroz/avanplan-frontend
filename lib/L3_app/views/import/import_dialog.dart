@@ -19,7 +19,6 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
-import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../source/no_sources.dart';
 import '../source/source_edit_dialog.dart';
@@ -128,37 +127,17 @@ class _ImportDialog extends StatelessWidget {
           : NoSources(controller.ws);
 
   String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
-  String get _importActionHint =>
-      '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
   PreferredSizeWidget? get _bottomBar => _hasProjects
       ? MTAppBar(
           isBottom: true,
           color: b2Color,
-          innerHeight: P12,
           padding: const EdgeInsets.only(top: P2, bottom: P2),
-          middle: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: P4,
-                child: SmallText(
-                  _importActionHint,
-                  maxLines: 1,
-                  color: _validated ? f2Color : warningColor,
-                  align: TextAlign.center,
-                ),
-              ),
-              MTBadgeButton(
-                constrained: false,
-                padding: const EdgeInsets.symmetric(horizontal: P3),
-                type: ButtonType.main,
-                titleText: '${loc.import_action_title}$_importBtnCountHint',
-                onTap: _validated ? controller.startImport : null,
-                showBadge: controller.selectableCount < 0,
-              ),
-            ],
+          middle: MTButton.main(
+            constrained: false,
+            padding: const EdgeInsets.symmetric(horizontal: P3),
+            titleText: '${loc.import_action_title}$_importBtnCountHint',
+            onTap: _validated ? controller.startImport : null,
           ),
         )
       : null;

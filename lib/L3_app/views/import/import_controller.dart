@@ -13,7 +13,6 @@ import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import '../../usecases/source.dart';
-import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
 import '../source/source_edit_dialog.dart';
 import '../source/source_type_selector.dart';
@@ -42,7 +41,6 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 abstract class _ImportControllerBase with Store {
   late final int wsId;
   Workspace get ws => wsMainController.ws(wsId);
-  int get availableCount => ws.availableProjectsCount;
 
   bool isImporting(ProjectRemote rp) {
     final rts = rp.taskSource!;
@@ -57,9 +55,6 @@ abstract class _ImportControllerBase with Store {
 
   @computed
   Iterable<ProjectRemote> get selectedProjects => projects.where((p) => p.selected);
-
-  @computed
-  int get selectableCount => ws.availableProjectsCount - selectedProjects.length;
 
   @computed
   bool get validated => selectedProjects.isNotEmpty && !_sendingRequest;
@@ -128,15 +123,11 @@ abstract class _ImportControllerBase with Store {
   @action
   Future startImport() async {
     if (await ws.checkBalance(loc.import_action_title)) {
-      if (selectableCount >= 0) {
-        _sendingRequest = true;
-        if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
-          await tasksMainController.updateImportingProjects();
-        }
-        Navigator.of(rootKey.currentContext!).pop();
-      } else {
-        await ws.changeTariff(reason: loc.tariff_change_limit_projects_reason_title);
+      _sendingRequest = true;
+      if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
+        await tasksMainController.updateImportingProjects();
       }
+      Navigator.of(rootKey.currentContext!).pop();
     }
   }
 }

@@ -25,12 +25,13 @@ extension WSTariffUC on Workspace {
     }
   }
 
-  Future<bool> checkBalance(String operation) async {
-    if (balanceLack > 0) {
+  Future<bool> checkBalance(String operation, {num extraMoney = 0}) async {
+    final lack = balanceLack + extraMoney;
+    if (lack > 0) {
       final hasSelectPay = await replenishBalanceDialog(
         id!,
         reason: loc.error_insufficient_funds_for_operation(
-          '${balanceLack.currency}₽',
+          '${lack.ceil().currency} ₽',
           operation.toLowerCase(),
         ),
       );
@@ -38,6 +39,6 @@ extension WSTariffUC on Workspace {
         await mainController.manualUpdate();
       }
     }
-    return balanceLack <= 0;
+    return lack <= 0;
   }
 }

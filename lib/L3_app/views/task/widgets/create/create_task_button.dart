@@ -10,13 +10,11 @@ import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/icons_workspace.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_actions.dart';
 import '../../../../usecases/ws_tasks.dart';
 import '../../controllers/create_goal_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
@@ -44,8 +42,6 @@ class CreateTaskButton extends StatelessWidget {
 
   Workspace get _ws => _parent.ws;
   Task get _parent => _parentTaskController.task!;
-
-  bool get _showBadge => !_ws.plCreate(_parent);
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
         color: _type == ButtonType.main ? mainBtnTitleColor : mainColor,
@@ -76,25 +72,14 @@ class CreateTaskButton extends StatelessWidget {
     final plusIcon = _plusIcon(context);
     return isBigScreen(context) && _type == null
         ? MTListTile(
-            leading: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                plusIcon,
-                if (_showBadge)
-                  Container(
-                    padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
-                    child: const RoubleCircleIcon(size: P2),
-                  ),
-              ],
-            ),
+            leading: plusIcon,
             middle: !_compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
             onTap: () => _tap(context),
           )
-        : MTBadgeButton(
+        : MTButton(
             leading: _compact ? null : plusIcon,
             margin: _margin,
-            showBadge: _showBadge,
             type: _type ?? ButtonType.main,
             titleText: _compact ? null : addSubtaskActionTitle(_parent),
             middle: _compact ? plusIcon : null,

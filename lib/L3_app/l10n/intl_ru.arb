@@ -146,7 +146,6 @@
   "import_action_title": "Импортировать",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_menu_action_title": "Импорт из",
-  "import_projects_select_available_count_hint": "Выберите до {count}",
   "import_custom_request_mail_body_text": "Добрый день!\r\nНужна помощь с импортом проектов в Аванплан",
   "import_custom_request_mail_subject": "Запрос на импорт проектов в Аванплан",
   "import_source_select_hint": "Выберите источник импорта",
@@ -225,7 +224,6 @@
   "project_new_title": "Новый проект",
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_plural_accusative": "{count, plural, one{проект} few{проекта} other{проектов}}",
-  "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
   "project_title": "Проект",
 
   "recommendation_add_goals_hint": "Поставьте первую цель",
@@ -332,9 +330,6 @@
   "subtask_title": "Подзадача",
 
   "tariff_change_action_title": "Сменить тариф",
-  "tariff_change_limit_projects_reason_title": "Повысьте тариф, чтобы добавить больше проектов",
-  "tariff_change_limit_tasks_reason_title": "Повысьте тариф, чтобы добавить больше задач",
-  "tariff_change_limit_users_reason_title": "Повысьте тариф, чтобы пригласить больше пользователей",
 
   "tariff_current_title": "Текущий тариф",
   "tariff_limit_special_conditions_title1": "Уникальное решение",
@@ -351,10 +346,11 @@
 
   "tariff_title": "Тариф",
 
+  "tariff_type_base_title": "Базовый",
   "tariff_type_business_title": "Бизнес",
-  "tariff_type_economy_title": "Эконом",
   "tariff_type_free_title": "Бесплатный",
   "tariff_type_premium_title": "Премиум",
+  "tariff_type_pro_title": "Продвинутый",
   "tariff_type_request_title": "Особые условия",
 
   "task_actions_menu_title": "Другие действия",

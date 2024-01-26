@@ -12,14 +12,11 @@ import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/icons_workspace.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
-import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
@@ -56,10 +53,7 @@ class TaskHeaderDashboard extends StatelessWidget {
         height: _dashboardHeight,
         margin: const EdgeInsets.only(top: P2),
         child: ListView(
-          // TODO: можно раскомментить, если слева и справа - stacked
-          // clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
-          // shrinkWrap: true,
           children: [
             const SizedBox(width: P3),
 
@@ -112,17 +106,7 @@ class TaskHeaderDashboard extends StatelessWidget {
                           const SizedBox(width: P),
                         ],
                       )
-                    : Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          const MemberAddIcon(size: P8),
-                          if (!_task.ws.plUsers)
-                            Container(
-                              padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
-                              child: const RoubleCircleIcon(size: P4),
-                            ),
-                        ],
-                      ),
+                    : const MemberAddIcon(size: P8),
                 onTap: _task.members.isEmpty ? () => InvitationButton.onTap(_task) : () => showTeamDialog(_controller),
               ),
             ],

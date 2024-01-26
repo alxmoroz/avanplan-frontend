@@ -8,7 +8,6 @@ import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../presenters/task_type.dart';
@@ -37,24 +36,13 @@ class CreateProjectButton extends StatelessWidget {
     return Observer(
       builder: (_) => canShowVerticalBars(context) && type == null
           ? MTListTile(
-              leading: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  plusIcon,
-                  if (_controller.hasExceedLimits)
-                    Container(
-                      padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
-                      child: const RoubleCircleIcon(size: P2),
-                    ),
-                ],
-              ),
+              leading: plusIcon,
               middle: !compact ? BaseText(addSubtaskActionTitle(null), maxLines: 1, color: mainColor) : null,
               bottomDivider: false,
               onTap: _controller.startCreate,
             )
-          : MTBadgeButton(
+          : MTButton(
               margin: EdgeInsets.only(right: compact ? P2 : 0),
-              showBadge: _controller.hasExceedLimits,
               type: type ?? ButtonType.main,
               leading: compact ? null : plusIcon,
               titleText: compact ? null : addSubtaskActionTitle(null),

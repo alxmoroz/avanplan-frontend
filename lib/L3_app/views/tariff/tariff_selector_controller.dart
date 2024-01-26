@@ -58,7 +58,7 @@ abstract class _TariffSelectorControllerBase with Store {
   bool showPageButton(bool left) => pageIndex != null && left ? pageIndex! > 0 : pageIndex! < pagesCount - 1;
 
   Future selectTariff(BuildContext context, Tariff tariff) async {
-    if (await ws.checkBalance(loc.tariff_change_action_title) && context.mounted) {
+    if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: tariff.estimateChargePerBillingPeriod) && context.mounted) {
       Navigator.of(context).pop(tariff);
     }
   }

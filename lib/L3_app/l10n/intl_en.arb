@@ -146,7 +146,6 @@
   "import_action_title": "Import",
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_menu_action_title": "Import from",
-  "import_projects_select_available_count_hint": "Select up to {count}",
   "import_custom_request_mail_body_text": "Hello!\r\nI need help with import my projects into Avanplan.",
   "import_custom_request_mail_subject": "Request for Custom Import Projects into Avanplan",
   "import_source_select_hint": "Select source",
@@ -225,7 +224,6 @@
   "project_new_title": "New Project",
   "project_plural": "{count, plural, one{project} other{projects}}",
   "project_plural_accusative": "{count, plural, one{project} other{projects}}",
-  "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
 
   "recommendation_add_goals_hint": "Set the first goal of the project",
@@ -332,9 +330,6 @@
   "subtask_title": "Subtask",
 
   "tariff_change_action_title": "Change tariff",
-  "tariff_change_limit_projects_reason_title": "Raise tariff to add projects",
-  "tariff_change_limit_tasks_reason_title": "Raise tariff to add tasks",
-  "tariff_change_limit_users_reason_title": "Raise tariff to add more users",
 
   "tariff_current_title": "Current Tariff",
   "tariff_list_title": "Tariffs",
@@ -351,10 +346,11 @@
 
   "tariff_title": "Tariff",
 
+  "tariff_type_base_title": "Base",
   "tariff_type_business_title": "Business",
-  "tariff_type_economy_title": "Economy",
   "tariff_type_free_title": "Free",
   "tariff_type_premium_title": "Premium",
+  "tariff_type_pro_title": "Pro",
   "tariff_type_request_title": "Special",
 
   "task_actions_menu_title": "More Actions",

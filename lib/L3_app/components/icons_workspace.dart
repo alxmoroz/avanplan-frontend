@@ -29,26 +29,6 @@ class ProjectsIcon extends MTIcon {
       );
 }
 
-class RoubleIcon extends MTIcon {
-  const RoubleIcon({super.key, super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.money_rubl,
-        color: (color ?? f2Color).resolve(context),
-        size: size,
-      );
-}
-
-class RoubleCircleIcon extends MTIcon {
-  const RoubleCircleIcon({super.key, super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.money_rubl_circle_fill,
-        color: (color ?? warningColor).resolve(context),
-        size: size ?? P4,
-      );
-}
-
 class TariffIcon extends MTIcon {
   const TariffIcon({super.key, super.color, super.size});
   @override

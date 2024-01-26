@@ -11,7 +11,6 @@ import 'constants.dart';
 import 'icons.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
-import 'pay_badge.dart';
 import 'text.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
@@ -301,68 +300,6 @@ class MTCardButton extends StatelessWidget {
       loading: loading,
       onTap: onTap,
       onLongPress: onLongPress,
-    );
-  }
-}
-
-class MTBadgeButton extends StatelessWidget {
-  const MTBadgeButton({
-    super.key,
-    required this.showBadge,
-    required this.type,
-    this.leading,
-    this.middle,
-    this.trailing,
-    this.titleText,
-    this.margin,
-    this.onTap,
-    this.onLongPress,
-    this.radius,
-    this.padding,
-    this.loading,
-    this.constrained = true,
-    this.uf = true,
-  });
-
-  final bool showBadge;
-  final bool uf;
-  final ButtonType type;
-  final String? titleText;
-  final Widget? leading;
-  final Widget? middle;
-  final Widget? trailing;
-
-  final EdgeInsets? margin;
-  final EdgeInsets? padding;
-  final VoidCallback? onTap;
-  final VoidCallback? onLongPress;
-  final double? radius;
-  final bool? loading;
-  final bool constrained;
-
-  static const _iconSize = P4;
-
-  @override
-  Widget build(BuildContext context) {
-    final p = (padding ?? EdgeInsets.zero).copyWith(right: showBadge ? _iconSize / 2 : padding?.right, left: showBadge ? 0 : padding?.left);
-    return MTButton(
-      type: type,
-      margin: margin,
-      padding: p,
-      leading: leading != null || showBadge
-          ? Row(children: [
-              if (showBadge) const MTPayBadge(iconSize: _iconSize),
-              if (leading != null) leading!,
-            ])
-          : null,
-      titleText: titleText,
-      middle: middle,
-      trailing: trailing,
-      constrained: constrained,
-      loading: loading,
-      onTap: onTap,
-      onLongPress: onLongPress,
-      uf: uf,
     );
   }
 }

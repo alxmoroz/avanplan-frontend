@@ -26,7 +26,7 @@ extension WSActionsUC on Workspace {
   bool get isMine => hpOwnerUpdate;
 
   // bool _pl(String code, num value) => invoice.tariff.passLimit(code, value);
-  // bool get plUsers => _pl(TLCode.USERS_COUNT, users.length + 1);
-  // bool get plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
-  // bool get plStorage => _pl(TLCode.FS_VOLUME, fsVolume + 1);
+  // bool get plUsers => _pl(TOCode.USERS_COUNT, users.length + 1);
+  // bool get plTasks => _pl(TOCode.TASKS_COUNT, tasksCount + 1);
+  // bool get plStorage => _pl(TOCode.FS_VOLUME, fsVolume + 1);
 }

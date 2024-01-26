@@ -55,7 +55,7 @@ class _TariffSelectorDialog extends StatelessWidget {
             H2(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
             if (smallHeight) const Spacer() else Expanded(child: TariffLimits(tariff)),
             TariffOptions(tariff),
-            const SizedBox(height: P),
+            const SizedBox(height: P3),
             _controller.activeTariffIndex != index
                 ? _controller.ws.hpTariffUpdate
                     ? _selectButton(context, tariff)

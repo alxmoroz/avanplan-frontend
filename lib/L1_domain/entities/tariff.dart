@@ -2,7 +2,8 @@
 
 import 'base_entity.dart';
 
-class TLCode {
+class TOCode {
+  static const BASE_PRICE = 'BASE_PRICE';
   static const USERS_COUNT = 'USERS_COUNT';
   static const TASKS_COUNT = 'TASKS_COUNT';
   static const FS_VOLUME = 'FS_VOLUME';

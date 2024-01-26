@@ -34,15 +34,15 @@ class _TariffLimitTile extends StatelessWidget {
     const iconColor = mainColor;
 
     Widget icon = const SizedBox(width: iconSize);
-    if (code == 'USERS_COUNT') {
+    if (code == TOCode.USERS_COUNT) {
       icon = const PeopleIcon(size: iconSize, color: iconColor);
       suffix = loc.member_plural(plural);
-    } else if (code == 'PROJECTS_COUNT') {
-      icon = const ProjectsIcon(size: iconSize, color: iconColor);
-      suffix = loc.project_plural(plural);
-    } else if (code == 'TASKS_COUNT') {
+    } else if (code == TOCode.TASKS_COUNT) {
       icon = const TasksIcon(size: iconSize, color: iconColor);
       suffix = loc.task_plural(plural);
+    } else if (code == TOCode.FS_VOLUME) {
+      icon = const FileStorageIcon(size: iconSize, color: iconColor);
+      suffix = loc.tariff_option_fs_volume_title;
     }
 
     return MTListTile(

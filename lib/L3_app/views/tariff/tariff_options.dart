@@ -1,39 +1,16 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
+import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-
-class _TariffOptionTile extends StatelessWidget {
-  const _TariffOptionTile({this.value, this.description});
-  final num? value;
-  final String? description;
-
-  @override
-  Widget build(BuildContext context) {
-    return MTListTile(
-      minHeight: 0,
-      middle: value != null ? MTCurrency(value!, color: mainColor) : null,
-      subtitle: description != null
-          ? SmallText(
-              description!,
-              align: TextAlign.center,
-              maxLines: 2,
-            )
-          : null,
-      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
-      color: Colors.transparent,
-      bottomDivider: false,
-    );
-  }
-}
 
 class TariffOptions extends StatelessWidget {
   const TariffOptions(this.tariff, {super.key});
@@ -41,18 +18,24 @@ class TariffOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (tariff.optionsMap.keys.isNotEmpty)
-          for (var code in tariff.optionsMap.keys)
-            _TariffOptionTile(
-              value: tariff.optionValue(code),
-              description: Intl.message('tariff_option_${code.toLowerCase()}_title'),
-            )
-        else
-          _TariffOptionTile(description: loc.tariff_price_free_title)
-      ],
+    return MTListTile(
+      middle: MTCurrency(tariff.optionValue(TOCode.BASE_PRICE), color: mainColor),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SmallText(
+            loc.tariff_option_base_price_title,
+            align: TextAlign.center,
+            maxLines: 1,
+          ),
+          const SizedBox(width: P2),
+          SmallText(loc.details.toLowerCase(), color: mainColor, maxLines: 1),
+          const LinkOutIcon(size: P3),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
+      bottomDivider: false,
+      onTap: () => launchUrlString(''),
     );
   }
 }

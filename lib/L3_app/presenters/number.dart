@@ -10,9 +10,11 @@ extension NumberFormatterPresenter on num {
 
   num get _thousands => this / 1000;
   num get _millions => this / 1000000;
-  String get humanValueStr => _millions > 1
-      ? loc.count_millions_short(_millions.round())
-      : _thousands > 1
-          ? loc.count_thousands_short(_thousands.round())
-          : '$this';
+  String get humanValueStr => this != 0
+      ? _millions >= 1
+          ? loc.count_millions_short(_millions.round())
+          : _thousands >= 1
+              ? loc.count_thousands_short(_thousands.round())
+              : '$this'
+      : '0';
 }

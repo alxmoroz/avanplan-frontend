@@ -34,15 +34,15 @@ class RequestTariffCard extends StatelessWidget {
                 bottomDivider: false,
               ),
           const Spacer(),
-          SmallText(
+          BaseText.f2(
             loc.tariff_price_request_action_hint,
             align: TextAlign.center,
             maxLines: 2,
-            padding: const EdgeInsets.all(P2),
+            padding: const EdgeInsets.all(P2).copyWith(bottom: 0),
           ),
           MTButton.main(
             titleText: loc.tariff_price_request_action_title,
-            margin: const EdgeInsets.symmetric(horizontal: P3),
+            margin: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
             onTap: () => mailUs(subject: loc.tariff_price_request_mail_subject),
           ),
           const SizedBox(height: P3),

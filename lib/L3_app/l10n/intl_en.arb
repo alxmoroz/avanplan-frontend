@@ -69,7 +69,7 @@
   "count_megabytes_short": "{count} Mb",
   "count_millions_short": "{count, plural, one{{count} million} other{{count} millions}}",
   "count_terabytes_short": "{count} Tb",
-  "count_thousands_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
+  "count_thousands_short": "{count, plural, one{{count} k} other{{count} k}}",
 
   "create_from_scratch_action_description": "Add an empty project",
   "create_from_scratch_action_title": "Create from scratch",
@@ -162,9 +162,6 @@
   "legal_rules_title": "License Agreement",
 
   "lets_go_action_title": "Let's get started!",
-
-  "limits_exceed_info_dialog_description": "Excess over the package of services included in the tariff will be charged in accordance with the terms of the tariff.\nIn order to save money, we advise you to choose a more suitable tariff",
-  "limits_exceed_info_dialog_title": "Exceeding the size of the service package of your tariff",
 
   "loader_auth_title": "Checking access...",
   "loader_check_connection_title": "Checking connection...",

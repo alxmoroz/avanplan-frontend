@@ -163,9 +163,6 @@
 
   "lets_go_action_title": "Поехали",
 
-  "limits_exceed_info_dialog_description": "Превышение сверх включенного в тариф пакета услуг будет тарифицироваться в соответствии с условиями тарифа.\nВ целях экономии средств советуем выбрать более подходящий тариф",
-  "limits_exceed_info_dialog_title": "Превышение размера пакета услуг вашего тарифа",
-
   "loader_auth_title": "Проверяем доступ...",
   "loader_check_connection_title": "Проверка соединения...",
   "loader_deleting_title": "Удаляем...",

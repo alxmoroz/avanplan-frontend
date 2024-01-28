@@ -20,11 +20,9 @@ extension WorkspaceMapper on api.WorkspaceGet {
       users: users?.map((u) => u.user(id)) ?? [],
       roles: roles?.map((r) => r.role) ?? [],
       balance: balance ?? 0,
-      fsVolume: fsVolume ?? 0,
       invoice: invoice!.invoice,
       settings: settings?.settings,
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)).toList() ?? [],
-      tasksCount: tasksCount ?? 0,
       sources: [],
     );
     ws.sources = sources?.map((s) => s.source(id)).toList() ?? [];

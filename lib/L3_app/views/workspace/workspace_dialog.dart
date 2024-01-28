@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
@@ -18,7 +19,6 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../presenters/bytes.dart';
 import '../../presenters/date.dart';
 import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
@@ -122,13 +122,13 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget _tasks(BuildContext context) => MTListTile(
         leading: const TasksIcon(),
-        titleText: '${loc.task_list_title} (${_ws.tasksCount})',
+        titleText: '${loc.task_list_title} (${loc.count_thousands_short(_ws.invoice.consumed(TOCode.TASKS_COUNT))})',
         dividerIndent: P11,
       );
 
   Widget _storage(BuildContext context) => MTListTile(
         leading: const FileStorageIcon(),
-        titleText: '${loc.file_storage_title} (${_ws.fsVolume.humanBytesStr})',
+        titleText: '${loc.file_storage_title} (${loc.count_gigabytes_short(_ws.invoice.consumed(TOCode.FS_VOLUME))})',
         dividerIndent: P11,
         bottomDivider: _ws.hpSourceCreate,
       );

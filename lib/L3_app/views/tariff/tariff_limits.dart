@@ -10,6 +10,7 @@ import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
+import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 
 class _TariffLimitTile extends StatelessWidget {
@@ -22,27 +23,30 @@ class _TariffLimitTile extends StatelessWidget {
   final String code;
 
   static const iconSize = P6;
+  static const iconColor = mainColor;
 
   @override
   Widget build(BuildContext context) {
     final value = tariff.limitValue(code);
 
-    final String hvStr = value.humanValueStr;
-    final plural = num.tryParse(hvStr) == null ? 10 : value;
-
+    String hvStr = '';
     String suffix = '';
-    const iconColor = mainColor;
 
     Widget icon = const SizedBox(width: iconSize);
-    if (code == TOCode.USERS_COUNT) {
-      icon = const PeopleIcon(size: iconSize, color: iconColor);
-      suffix = loc.member_plural(plural);
-    } else if (code == TOCode.TASKS_COUNT) {
-      icon = const TasksIcon(size: iconSize, color: iconColor);
-      suffix = loc.task_plural(plural);
-    } else if (code == TOCode.FS_VOLUME) {
+    if (code == TOCode.FS_VOLUME) {
+      hvStr = value.humanBytesStr;
       icon = const FileStorageIcon(size: iconSize, color: iconColor);
-      suffix = loc.tariff_option_fs_volume_title;
+      suffix = loc.tariff_option_fs_volume_suffix;
+    } else {
+      hvStr = value.humanValueStr;
+      final plural = num.tryParse(hvStr) == null ? 10 : value;
+      if (code == TOCode.USERS_COUNT) {
+        icon = const PeopleIcon(size: iconSize, color: iconColor);
+        suffix = loc.member_plural(plural);
+      } else if (code == TOCode.TASKS_COUNT) {
+        icon = const TasksIcon(size: iconSize, color: iconColor);
+        suffix = loc.task_plural(plural);
+      }
     }
 
     return MTListTile(

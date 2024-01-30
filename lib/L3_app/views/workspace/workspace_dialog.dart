@@ -122,13 +122,13 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget _tasks(BuildContext context) => MTListTile(
         leading: const TasksIcon(),
-        titleText: '${loc.task_list_title} (${loc.count_thousands_short(_ws.invoice.consumed(TOCode.TASKS_COUNT))})',
+        titleText: '${loc.task_list_title} (${loc.count_thousands_short(_ws.invoice.consumed(TOCode.TASKS_COUNT).ceil())})',
         dividerIndent: P11,
       );
 
   Widget _storage(BuildContext context) => MTListTile(
         leading: const FileStorageIcon(),
-        titleText: '${loc.file_storage_title} (${loc.count_gigabytes_short(_ws.invoice.consumed(TOCode.FS_VOLUME))})',
+        titleText: '${loc.file_storage_title} (${loc.count_gigabytes_short(_ws.invoice.consumed(TOCode.FS_VOLUME).ceil())})',
         dividerIndent: P11,
         bottomDivider: _ws.hpSourceCreate,
       );

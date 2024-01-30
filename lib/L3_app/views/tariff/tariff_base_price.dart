@@ -25,7 +25,7 @@ class TariffBasePrice extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SmallText(
-            loc.tariff_option_base_price_title,
+            loc.tariff_option_fs_volume_suffix,
             align: TextAlign.center,
             maxLines: 1,
           ),

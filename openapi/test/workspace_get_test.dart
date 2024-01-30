@@ -47,13 +47,8 @@ void main() {
       // TODO
     });
 
-    // num balance
+    // num balance (default value: 0)
     test('to test the property `balance`', () async {
-      // TODO
-    });
-
-    // num fsVolume
-    test('to test the property `fsVolume`', () async {
       // TODO
     });
 
@@ -74,11 +69,6 @@ void main() {
 
     // BuiltList<SourceGet> sources
     test('to test the property `sources`', () async {
-      // TODO
-    });
-
-    // int tasksCount (default value: 0)
-    test('to test the property `tasksCount`', () async {
       // TODO
     });
   });

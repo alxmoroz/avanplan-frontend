@@ -28,12 +28,10 @@ part 'workspace_get.g.dart';
 /// * [roles] 
 /// * [invoice] 
 /// * [balance] 
-/// * [fsVolume] 
 /// * [mainAccount] 
 /// * [settings] 
 /// * [estimateValues] 
 /// * [sources] 
-/// * [tasksCount] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -63,9 +61,6 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'balance')
   num? get balance;
 
-  @BuiltValueField(wireName: r'fs_volume')
-  num? get fsVolume;
-
   @BuiltValueField(wireName: r'main_account')
   AccountGet? get mainAccount;
 
@@ -78,9 +73,6 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'sources')
   BuiltList<SourceGet>? get sources;
 
-  @BuiltValueField(wireName: r'tasks_count')
-  int? get tasksCount;
-
   WorkspaceGet._();
 
   factory WorkspaceGet([void updates(WorkspaceGetBuilder b)]) = _$WorkspaceGet;
@@ -88,7 +80,7 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
       ..type = 'PRIVATE'
-      ..tasksCount = 0;
+      ..balance = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -163,13 +155,6 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(num),
       );
     }
-    if (object.fsVolume != null) {
-      yield r'fs_volume';
-      yield serializers.serialize(
-        object.fsVolume,
-        specifiedType: const FullType(num),
-      );
-    }
     if (object.mainAccount != null) {
       yield r'main_account';
       yield serializers.serialize(
@@ -196,13 +181,6 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.sources,
         specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
-      );
-    }
-    if (object.tasksCount != null) {
-      yield r'tasks_count';
-      yield serializers.serialize(
-        object.tasksCount,
-        specifiedType: const FullType(int),
       );
     }
   }
@@ -291,13 +269,6 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
           ) as num;
           result.balance = valueDes;
           break;
-        case r'fs_volume':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.fsVolume = valueDes;
-          break;
         case r'main_account':
           final valueDes = serializers.deserialize(
             value,
@@ -325,13 +296,6 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
           ) as BuiltList<SourceGet>;
           result.sources.replace(valueDes);
-          break;
-        case r'tasks_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.tasksCount = valueDes;
           break;
         default:
           unhandled.add(key);

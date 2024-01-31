@@ -67,9 +67,9 @@
   "count_gigabytes_short": "{count} Gb",
   "count_kilobytes_short": "{count} Kb",
   "count_megabytes_short": "{count} Mb",
-  "count_millions_short": "{count, plural, one{{count} million} other{{count} millions}}",
+  "count_millions_short": "{count} M",
   "count_terabytes_short": "{count} Tb",
-  "count_thousands_short": "{count, plural, one{{count} k} other{{count} k}}",
+  "count_thousands_short": "{count} k",
 
   "create_from_scratch_action_description": "Add an empty project",
   "create_from_scratch_action_title": "Create from scratch",

@@ -17,6 +17,8 @@ class TariffBasePrice extends StatelessWidget {
   const TariffBasePrice(this.tariff, {super.key});
   final Tariff tariff;
 
+  String get _uriPath => tariffsPath + (tariff.hidden ? '/archive/${tariff.code.toLowerCase()}' : '');
+
   @override
   Widget build(BuildContext context) {
     return MTListTile(
@@ -24,11 +26,7 @@ class TariffBasePrice extends StatelessWidget {
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SmallText(
-            loc.tariff_option_fs_volume_suffix,
-            align: TextAlign.center,
-            maxLines: 1,
-          ),
+          SmallText(loc.tariff_option_base_price_suffix, align: TextAlign.center, maxLines: 1),
           const SizedBox(width: P2),
           SmallText(loc.details.toLowerCase(), color: mainColor, maxLines: 1),
           const LinkOutIcon(size: P3),
@@ -36,7 +34,7 @@ class TariffBasePrice extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
       bottomDivider: false,
-      onTap: () => launchUrlString('$legalTariffsPath/${tariff.code.toLowerCase()}'),
+      onTap: () => launchUrlString(_uriPath),
     );
   }
 }

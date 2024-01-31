@@ -10,11 +10,12 @@ extension NumberFormatterPresenter on num {
 
   num get _thousands => this / 1000;
   num get _millions => this / 1000000;
+  String _hNumberFormat(num n) => NumberFormat('#.#').format(n);
   String get humanValueStr => this != 0
       ? _millions >= 1
-          ? loc.count_millions_short(_millions.round())
+          ? loc.count_millions_short(_hNumberFormat(_millions))
           : _thousands >= 1
-              ? loc.count_thousands_short(_thousands.round())
-              : '$this'
+              ? loc.count_thousands_short(_hNumberFormat(_thousands))
+              : _hNumberFormat(this)
       : '0';
 }

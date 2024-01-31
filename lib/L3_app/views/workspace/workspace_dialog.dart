@@ -124,7 +124,7 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget _tasks(BuildContext context) => MTListTile(
         leading: const TasksIcon(),
-        titleText: '${loc.task_list_title} (${(_ws.invoice.consumed(TOCode.TASKS_COUNT).toInt().humanValueStr)})',
+        titleText: '${loc.task_list_title} (${(_ws.invoice.consumed(TOCode.TASKS_COUNT).humanValueStr)})',
         dividerIndent: P11,
       );
 

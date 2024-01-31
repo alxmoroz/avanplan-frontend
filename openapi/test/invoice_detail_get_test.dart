@@ -12,6 +12,11 @@ void main() {
       // TODO
     });
 
+    // String code
+    test('to test the property `code`', () async {
+      // TODO
+    });
+
     // DateTime startDate
     test('to test the property `startDate`', () async {
       // TODO
@@ -19,11 +24,6 @@ void main() {
 
     // DateTime endDate
     test('to test the property `endDate`', () async {
-      // TODO
-    });
-
-    // String optionCode
-    test('to test the property `optionCode`', () async {
       // TODO
     });
 

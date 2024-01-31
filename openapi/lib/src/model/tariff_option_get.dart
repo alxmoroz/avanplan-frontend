@@ -14,6 +14,8 @@ part 'tariff_option_get.g.dart';
 /// * [id] 
 /// * [code] 
 /// * [price] 
+/// * [tariffQuantity] 
+/// * [freeLimit] 
 @BuiltValue()
 abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -23,14 +25,23 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
   String get code;
 
   @BuiltValueField(wireName: r'price')
-  num get price;
+  num? get price;
+
+  @BuiltValueField(wireName: r'tariff_quantity')
+  num? get tariffQuantity;
+
+  @BuiltValueField(wireName: r'free_limit')
+  num? get freeLimit;
 
   TariffOptionGet._();
 
   factory TariffOptionGet([void updates(TariffOptionGetBuilder b)]) = _$TariffOptionGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TariffOptionGetBuilder b) => b;
+  static void _defaults(TariffOptionGetBuilder b) => b
+      ..price = 0
+      ..tariffQuantity = 1
+      ..freeLimit = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TariffOptionGet> get serializer => _$TariffOptionGetSerializer();
@@ -58,11 +69,27 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
       object.code,
       specifiedType: const FullType(String),
     );
-    yield r'price';
-    yield serializers.serialize(
-      object.price,
-      specifiedType: const FullType(num),
-    );
+    if (object.price != null) {
+      yield r'price';
+      yield serializers.serialize(
+        object.price,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.tariffQuantity != null) {
+      yield r'tariff_quantity';
+      yield serializers.serialize(
+        object.tariffQuantity,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.freeLimit != null) {
+      yield r'free_limit';
+      yield serializers.serialize(
+        object.freeLimit,
+        specifiedType: const FullType(num),
+      );
+    }
   }
 
   @override
@@ -106,6 +133,20 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
             specifiedType: const FullType(num),
           ) as num;
           result.price = valueDes;
+          break;
+        case r'tariff_quantity':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.tariffQuantity = valueDes;
+          break;
+        case r'free_limit':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.freeLimit = valueDes;
           break;
         default:
           unhandled.add(key);

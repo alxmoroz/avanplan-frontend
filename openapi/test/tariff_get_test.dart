@@ -27,6 +27,11 @@ void main() {
       // TODO
     });
 
+    // int billingPeriodDays (default value: 1)
+    test('to test the property `billingPeriodDays`', () async {
+      // TODO
+    });
+
     // BuiltList<TariffLimitGet> limits
     test('to test the property `limits`', () async {
       // TODO

@@ -2,17 +2,16 @@
 
 import 'base_entity.dart';
 
-class InvoiceDetail extends RPersistable {
+class InvoiceDetail extends Codable {
   InvoiceDetail({
     required super.id,
+    required super.code,
     required this.startDate,
     this.endDate,
-    required this.optionCode,
     required this.serviceAmount,
   });
 
   final DateTime startDate;
   final DateTime? endDate;
-  final String optionCode;
   final num serviceAmount;
 }

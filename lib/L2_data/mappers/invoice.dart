@@ -10,9 +10,9 @@ import 'tariff.dart';
 extension InvoiceDetailMapper on api.InvoiceDetailGet {
   InvoiceDetail get invoiceDetail => InvoiceDetail(
         id: id,
+        code: code,
         startDate: startDate.toLocal(),
         endDate: endDate?.toLocal(),
-        optionCode: optionCode,
         serviceAmount: serviceAmount,
       );
 }

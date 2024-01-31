@@ -9,9 +9,9 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
+**code** | **String** |  | 
 **startDate** | [**DateTime**](DateTime.md) |  | 
 **endDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**optionCode** | **String** |  | 
 **serviceAmount** | **num** |  | 
 **invoiceId** | **int** |  | 
 

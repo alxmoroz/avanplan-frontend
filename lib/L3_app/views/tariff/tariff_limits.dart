@@ -14,10 +14,7 @@ import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 
 class _TariffLimitTile extends StatelessWidget {
-  const _TariffLimitTile({
-    required this.tariff,
-    required this.code,
-  });
+  const _TariffLimitTile(this.tariff, this.code);
 
   final Tariff tariff;
   final String code;
@@ -27,18 +24,18 @@ class _TariffLimitTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final value = tariff.limitValue(code);
+    final value = tariff.freeLimit(code);
 
     String hvStr = '';
     String suffix = '';
 
-    Widget icon = const SizedBox(width: iconSize);
+    Widget? icon;
     if (code == TOCode.FS_VOLUME) {
       hvStr = value.humanBytesStr;
       icon = const FileStorageIcon(size: iconSize, color: iconColor);
       suffix = loc.tariff_option_fs_volume_suffix;
     } else {
-      hvStr = value.humanValueStr;
+      hvStr = value.round().humanValueStr;
       final plural = num.tryParse(hvStr) == null ? 10 : value;
       if (code == TOCode.USERS_COUNT) {
         icon = const PeopleIcon(size: iconSize, color: iconColor);
@@ -69,10 +66,13 @@ class TariffLimits extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView(
       shrinkWrap: true,
-      itemBuilder: (_, index) => _TariffLimitTile(tariff: tariff, code: tariff.limitsMap.keys.elementAt(index)),
-      itemCount: tariff.limitsMap.keys.length,
+      children: [
+        _TariffLimitTile(tariff, TOCode.USERS_COUNT),
+        _TariffLimitTile(tariff, TOCode.TASKS_COUNT),
+        _TariffLimitTile(tariff, TOCode.FS_VOLUME),
+      ],
     );
   }
 }

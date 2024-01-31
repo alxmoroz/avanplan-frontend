@@ -12,9 +12,9 @@ part 'invoice_detail_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
+/// * [code] 
 /// * [startDate] 
 /// * [endDate] 
-/// * [optionCode] 
 /// * [serviceAmount] 
 /// * [invoiceId] 
 @BuiltValue()
@@ -22,14 +22,14 @@ abstract class InvoiceDetailGet implements Built<InvoiceDetailGet, InvoiceDetail
   @BuiltValueField(wireName: r'id')
   int get id;
 
+  @BuiltValueField(wireName: r'code')
+  String get code;
+
   @BuiltValueField(wireName: r'start_date')
   DateTime get startDate;
 
   @BuiltValueField(wireName: r'end_date')
   DateTime? get endDate;
-
-  @BuiltValueField(wireName: r'option_code')
-  String get optionCode;
 
   @BuiltValueField(wireName: r'service_amount')
   num get serviceAmount;
@@ -65,6 +65,11 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
       object.id,
       specifiedType: const FullType(int),
     );
+    yield r'code';
+    yield serializers.serialize(
+      object.code,
+      specifiedType: const FullType(String),
+    );
     yield r'start_date';
     yield serializers.serialize(
       object.startDate,
@@ -77,11 +82,6 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
         specifiedType: const FullType(DateTime),
       );
     }
-    yield r'option_code';
-    yield serializers.serialize(
-      object.optionCode,
-      specifiedType: const FullType(String),
-    );
     yield r'service_amount';
     yield serializers.serialize(
       object.serviceAmount,
@@ -122,6 +122,13 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
           ) as int;
           result.id = valueDes;
           break;
+        case r'code':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.code = valueDes;
+          break;
         case r'start_date':
           final valueDes = serializers.deserialize(
             value,
@@ -135,13 +142,6 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.endDate = valueDes;
-          break;
-        case r'option_code':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.optionCode = valueDes;
           break;
         case r'service_amount':
           final valueDes = serializers.deserialize(

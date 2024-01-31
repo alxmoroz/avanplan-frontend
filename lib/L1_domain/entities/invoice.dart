@@ -19,6 +19,5 @@ class Invoice extends RPersistable {
 
   static Invoice get dummy => Invoice(id: -1, tariff: Tariff.dummy, contract: Contract.dummy, details: []);
 
-  num included(String optionCode) => tariff.limitValue(optionCode);
-  num consumed(String optionCode) => details.where((d) => d.optionCode == optionCode && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
+  num consumed(String code) => details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
 }

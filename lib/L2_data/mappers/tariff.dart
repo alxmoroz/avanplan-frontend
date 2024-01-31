@@ -5,14 +5,22 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/tariff.dart';
 
+extension TariffOptionMapper on api.TariffOptionGet {
+  TariffOption get tariffOption => TariffOption(
+        id: id,
+        code: code,
+        price: price ?? 0,
+        tariffQuantity: tariffQuantity ?? 1,
+        freeLimit: freeLimit ?? 0,
+      );
+}
+
 extension TariffMapper on api.TariffGet {
   Tariff get tariff => Tariff(
         id: id,
         code: code,
         tier: tier,
         estimateChargePerBillingPeriod: estimateChargePerBillingPeriod ?? 0,
-        // TODO: deprecated - пока не уберем на бэке PROJECTS_COUNT
-        limitsMap: {for (var tl in limits.where((tl) => tl.code != 'PROJECTS_COUNT').sortedBy<num>((lm) => lm.id)) tl.code: tl.value},
-        optionsMap: {for (var to in options.sortedBy<num>((opt) => opt.id)) to.code: to.price},
+        optionsMap: {for (var to in options.sortedBy<num>((opt) => opt.id)) to.code: to.tariffOption},
       );
 }

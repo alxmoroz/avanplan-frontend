@@ -19,7 +19,9 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../presenters/bytes.dart';
 import '../../presenters/date.dart';
+import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
@@ -122,13 +124,13 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget _tasks(BuildContext context) => MTListTile(
         leading: const TasksIcon(),
-        titleText: '${loc.task_list_title} (${loc.count_thousands_short(_ws.invoice.consumed(TOCode.TASKS_COUNT).ceil())})',
+        titleText: '${loc.task_list_title} (${(_ws.invoice.consumed(TOCode.TASKS_COUNT).toInt().humanValueStr)})',
         dividerIndent: P11,
       );
 
   Widget _storage(BuildContext context) => MTListTile(
         leading: const FileStorageIcon(),
-        titleText: '${loc.file_storage_title} (${loc.count_gigabytes_short(_ws.invoice.consumed(TOCode.FS_VOLUME).ceil())})',
+        titleText: '${loc.file_storage_title} (${_ws.invoice.consumed(TOCode.FS_VOLUME).humanBytesStr})',
         dividerIndent: P11,
         bottomDivider: _ws.hpSourceCreate,
       );

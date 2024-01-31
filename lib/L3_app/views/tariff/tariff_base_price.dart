@@ -20,7 +20,7 @@ class TariffBasePrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      middle: MTCurrency(tariff.optionValue(TOCode.BASE_PRICE), color: mainColor),
+      middle: MTCurrency(tariff.price(TOCode.BASE_PRICE), color: mainColor),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

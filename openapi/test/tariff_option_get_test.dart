@@ -17,8 +17,18 @@ void main() {
       // TODO
     });
 
-    // num price
+    // num price (default value: 0)
     test('to test the property `price`', () async {
+      // TODO
+    });
+
+    // num tariffQuantity (default value: 1)
+    test('to test the property `tariffQuantity`', () async {
+      // TODO
+    });
+
+    // num freeLimit (default value: 0)
+    test('to test the property `freeLimit`', () async {
       // TODO
     });
   });

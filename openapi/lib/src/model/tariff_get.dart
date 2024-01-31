@@ -18,6 +18,7 @@ part 'tariff_get.g.dart';
 /// * [code] 
 /// * [hidden] 
 /// * [tier] 
+/// * [billingPeriodDays] 
 /// * [limits] 
 /// * [options] 
 /// * [estimateChargePerBillingPeriod] 
@@ -35,6 +36,9 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   @BuiltValueField(wireName: r'tier')
   int get tier;
 
+  @BuiltValueField(wireName: r'billing_period_days')
+  int? get billingPeriodDays;
+
   @BuiltValueField(wireName: r'limits')
   BuiltList<TariffLimitGet> get limits;
 
@@ -50,6 +54,7 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TariffGetBuilder b) => b
+      ..billingPeriodDays = 1
       ..estimateChargePerBillingPeriod = 0;
 
   @BuiltValueSerializer(custom: true)
@@ -88,6 +93,13 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
       object.tier,
       specifiedType: const FullType(int),
     );
+    if (object.billingPeriodDays != null) {
+      yield r'billing_period_days';
+      yield serializers.serialize(
+        object.billingPeriodDays,
+        specifiedType: const FullType(int),
+      );
+    }
     yield r'limits';
     yield serializers.serialize(
       object.limits,
@@ -155,6 +167,13 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.tier = valueDes;
+          break;
+        case r'billing_period_days':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.billingPeriodDays = valueDes;
           break;
         case r'limits':
           final valueDes = serializers.deserialize(

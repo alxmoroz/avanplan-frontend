@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **hidden** | **bool** |  | 
 **tier** | **int** |  | 
+**billingPeriodDays** | **int** |  | [optional] [default to 1]
 **limits** | [**BuiltList&lt;TariffLimitGet&gt;**](TariffLimitGet.md) |  | 
 **options** | [**BuiltList&lt;TariffOptionGet&gt;**](TariffOptionGet.md) |  | 
 **estimateChargePerBillingPeriod** | **num** |  | [optional] [default to 0]

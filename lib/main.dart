@@ -23,6 +23,8 @@ import 'L3_app/l10n/generated/l10n.dart';
 Future main() async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Firebase
   try {
     await Firebase.initializeApp(options: firebasePlatformOptions);
   } catch (e) {
@@ -38,7 +40,6 @@ Future main() async {
   }
 
   usePathUrlStrategy();
-
   runApp(const App());
 }
 

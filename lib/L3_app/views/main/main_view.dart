@@ -27,7 +27,6 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
-        // await setWebpageTitle('');
         leftMenuController.setCompact(!isBigScreen(context));
         await mainController.startupActions();
       });

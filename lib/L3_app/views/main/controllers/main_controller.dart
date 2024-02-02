@@ -78,7 +78,7 @@ abstract class _MainControllerBase with Store {
 
   Future _tryUpdate() async {
     final invited = await _tryRedeemInvitation();
-    final timeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
+    final timeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
     if (invited || timeToUpdate) {
       await _update();
     } else if (iapController.waitingPayment) {

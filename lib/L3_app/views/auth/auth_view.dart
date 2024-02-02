@@ -92,24 +92,20 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       align: TextAlign.center,
                       padding: const EdgeInsets.only(top: P3),
                     ),
-                    Column(
-                      children: [
-                        _authBtn(
-                          googleIcon,
-                          loc.auth_sign_in_google_title,
-                          MIN_BTN_HEIGHT - 2,
-                          authController.signInGoogle,
-                        ),
-                        // для Андроида не показываем SignInWithApple
-                        if (authController.signInWithAppleIsAvailable && !isAndroid)
-                          _authBtn(
-                            appleIcon,
-                            loc.auth_sign_in_apple_title,
-                            MIN_BTN_HEIGHT - 2,
-                            authController.signInApple,
-                          ),
-                      ],
+                    _authBtn(
+                      googleIcon,
+                      loc.auth_sign_in_google_title,
+                      MIN_BTN_HEIGHT - 2,
+                      authController.signInGoogle,
                     ),
+                    // для Андроида не показываем SignInWithApple
+                    if (authController.signInWithAppleIsAvailable && !isAndroid)
+                      _authBtn(
+                        appleIcon,
+                        loc.auth_sign_in_apple_title,
+                        MIN_BTN_HEIGHT - 2,
+                        authController.signInApple,
+                      ),
                     _authBtn(
                       MailIcon(color: _titleColor, size: P4),
                       loc.auth_sign_in_email_title,

@@ -127,7 +127,8 @@ abstract class _TasksMainControllerBase with Store {
   }
 
   Future updateImportingProjects() async {
-    await wsMainController.getData();
+    // !!! дубль запроса про РП при старте создаёт лишние РП
+    // await wsMainController.getData();
 
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {

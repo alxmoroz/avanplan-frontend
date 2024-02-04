@@ -19,7 +19,7 @@ abstract class _MainControllerBase with Store {
   @action
   void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
-  Future _update() async {
+  Future update() async {
     loader.setLoading();
     loader.start();
 
@@ -80,7 +80,7 @@ abstract class _MainControllerBase with Store {
     final invited = await _tryRedeemInvitation();
     final timeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
     if (invited || timeToUpdate) {
-      await _update();
+      await update();
     } else if (iapController.waitingPayment) {
       loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
       loader.start();
@@ -110,19 +110,24 @@ abstract class _MainControllerBase with Store {
     await notificationController.initPush();
   }
 
-  // TODO: пригодится блокировка от возможного повторного запуска в том же потоке
+  @observable
+  bool _inStartup = false;
+
+  @action
   Future startupActions() async {
-    await serviceSettingsController.getSettings();
-    await authController.checkLocalAuth();
-    if (authController.authorized) {
-      await _authorizedStartupActions();
+    if (!_inStartup) {
+      _inStartup = true;
+
+      await serviceSettingsController.getSettings();
+      await authController.checkLocalAuth();
+      if (authController.authorized) {
+        await _authorizedStartupActions();
+      }
+
+      loader.stopInit();
+
+      _inStartup = false;
     }
-
-    loader.stopInit();
-  }
-
-  Future manualUpdate() async {
-    await _update();
   }
 
   void clearData() {

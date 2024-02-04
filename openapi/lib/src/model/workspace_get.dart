@@ -39,7 +39,7 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   int get id;
 
   @BuiltValueField(wireName: r'created_on')
-  DateTime? get createdOn;
+  DateTime get createdOn;
 
   @BuiltValueField(wireName: r'title')
   String get title;
@@ -107,13 +107,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.createdOn != null) {
-      yield r'created_on';
-      yield serializers.serialize(
-        object.createdOn,
-        specifiedType: const FullType(DateTime),
-      );
-    }
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
+    );
     yield r'title';
     yield serializers.serialize(
       object.title,

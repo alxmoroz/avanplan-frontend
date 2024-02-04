@@ -31,10 +31,5 @@ void main() {
     test('to test the property `type`', () async {
       // TODO
     });
-
-    // DateTime createdOn
-    test('to test the property `createdOn`', () async {
-      // TODO
-    });
   });
 }

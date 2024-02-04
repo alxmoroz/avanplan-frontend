@@ -16,7 +16,6 @@ part 'workspace_upsert.g.dart';
 /// * [description] 
 /// * [code] 
 /// * [type] 
-/// * [createdOn] 
 @BuiltValue()
 abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -33,9 +32,6 @@ abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsert
 
   @BuiltValueField(wireName: r'type')
   String? get type;
-
-  @BuiltValueField(wireName: r'created_on')
-  DateTime? get createdOn;
 
   WorkspaceUpsert._();
 
@@ -90,13 +86,6 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
       yield serializers.serialize(
         object.type,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.createdOn != null) {
-      yield r'created_on';
-      yield serializers.serialize(
-        object.createdOn,
-        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -156,13 +145,6 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
             specifiedType: const FullType(String),
           ) as String;
           result.type = valueDes;
-          break;
-        case r'created_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdOn = valueDes;
           break;
         default:
           unhandled.add(key);

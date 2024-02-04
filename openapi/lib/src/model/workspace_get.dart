@@ -20,6 +20,7 @@ part 'workspace_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
+/// * [createdOn] 
 /// * [title] 
 /// * [description] 
 /// * [code] 
@@ -36,6 +37,9 @@ part 'workspace_get.g.dart';
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime? get createdOn;
 
   @BuiltValueField(wireName: r'title')
   String get title;
@@ -103,6 +107,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
+    if (object.createdOn != null) {
+      yield r'created_on';
+      yield serializers.serialize(
+        object.createdOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     yield r'title';
     yield serializers.serialize(
       object.title,
@@ -212,6 +223,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(

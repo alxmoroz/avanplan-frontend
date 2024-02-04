@@ -17,6 +17,7 @@ part 'my_user.g.dart';
 /// * [fullName] 
 /// * [nickName] 
 /// * [locale] 
+/// * [createdOn] 
 /// * [id] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
@@ -35,6 +36,9 @@ abstract class MyUser implements Built<MyUser, MyUserBuilder> {
 
   @BuiltValueField(wireName: r'locale')
   String? get locale;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
 
   @BuiltValueField(wireName: r'id')
   int get id;
@@ -101,6 +105,11 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
+    );
     yield r'id';
     yield serializers.serialize(
       object.id,
@@ -182,6 +191,13 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
           break;
         case r'id':
           final valueDes = serializers.deserialize(

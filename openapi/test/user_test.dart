@@ -27,6 +27,11 @@ void main() {
       // TODO
     });
 
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
+      // TODO
+    });
+
     // int id
     test('to test the property `id`', () async {
       // TODO

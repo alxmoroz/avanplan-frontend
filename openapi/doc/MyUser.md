@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **fullName** | **String** |  | [optional] 
 **nickName** | **String** |  | [optional] 
 **locale** | **String** |  | [optional] [default to 'ru']
+**createdOn** | [**DateTime**](DateTime.md) |  | 
 **id** | **int** |  | 
 **roleCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
 **permissionCodes** | **BuiltList&lt;String&gt;** |  | [optional] 

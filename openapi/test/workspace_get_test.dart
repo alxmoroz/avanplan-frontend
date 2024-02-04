@@ -12,6 +12,11 @@ void main() {
       // TODO
     });
 
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
+      // TODO
+    });
+
     // String title
     test('to test the property `title`', () async {
       // TODO

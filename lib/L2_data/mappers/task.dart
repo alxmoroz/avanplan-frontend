@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
 
@@ -38,7 +39,7 @@ extension TaskMapper on api.TaskGet {
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)) ?? [],
-      projectStatuses: projectStatuses?.map((ps) => ps.projectStatus(wsId)).toList() ?? [],
+      projectStatuses: projectStatuses?.map((ps) => ps.projectStatus(wsId)).sorted((s1, s2) => s1.position.compareTo(s2.position)) ?? [],
       projectFeatureSets: projectFeatureSets?.map((pfs) => pfs.projectFeatureSet) ?? [],
       taskSource: ts,
       parentId: parentId,

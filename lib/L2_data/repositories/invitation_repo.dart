@@ -8,7 +8,7 @@ import '../mappers/task_invitation.dart';
 import '../services/api.dart';
 
 class InvitationRepo extends AbstractInvitationRepo {
-  o_api.TasksInvitationsApi get api => openAPI.getTasksInvitationsApi();
+  o_api.TaskInvitationsApi get api => openAPI.getTaskInvitationsApi();
 
   @override
   Future<Invitation?> create(Invitation invitation, int wsId) async {

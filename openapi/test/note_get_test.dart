@@ -56,5 +56,10 @@ void main() {
     test('to test the property `notes`', () async {
       // TODO
     });
+
+    // BuiltList<AttachmentGet> attachments
+    test('to test the property `attachments`', () async {
+      // TODO
+    });
   });
 }

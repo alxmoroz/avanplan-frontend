@@ -8,7 +8,7 @@ import '../mappers/note.dart';
 import '../services/api.dart';
 
 class NoteRepo extends AbstractApiRepo<Note, Note> {
-  o_api.TasksNotesApi get api => openAPI.getTasksNotesApi();
+  o_api.TaskNotesApi get api => openAPI.getTaskNotesApi();
 
   @override
   Future<Note?> save(Note data) async {

@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**duplicateTask**](TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate Task
 [**getInvitations**](TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**setupFeatureSets**](TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[**uploadAttachment**](TasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [**upsertNote**](TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [**upsertStatus**](TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [**upsertTask**](TasksApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert Task
@@ -424,6 +425,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **uploadAttachment**
+> AttachmentGet uploadAttachment(wsId, taskId, noteId, file)
+
+Upload Attachment
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getTasksApi();
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+final int noteId = 56; // int | 
+final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
+
+try {
+    final response = api.uploadAttachment(wsId, taskId, noteId, file);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling TasksApi->uploadAttachment: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+ **noteId** | **int**|  | 
+ **file** | **MultipartFile**|  | 
+
+### Return type
+
+[**AttachmentGet**](AttachmentGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

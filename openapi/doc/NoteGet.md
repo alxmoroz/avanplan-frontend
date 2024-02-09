@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **parentId** | **int** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
+**attachments** | [**BuiltList&lt;AttachmentGet&gt;**](AttachmentGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

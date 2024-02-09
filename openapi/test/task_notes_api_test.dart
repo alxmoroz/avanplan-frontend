@@ -1,15 +1,22 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-/// tests for TasksNotesApi
+/// tests for TaskNotesApi
 void main() {
-  final instance = Openapi().getTasksNotesApi();
+  final instance = Openapi().getTaskNotesApi();
 
-  group(TasksNotesApi, () {
+  group(TaskNotesApi, () {
     // Delete
     //
     //Future<bool> deleteNote(int noteId, int wsId, int taskId) async
     test('test deleteNote', () async {
+      // TODO
+    });
+
+    // Upload Attachment
+    //
+    //Future<AttachmentGet> uploadAttachment(int wsId, int taskId, int noteId, MultipartFile file) async
+    test('test uploadAttachment', () async {
       // TODO
     });
 

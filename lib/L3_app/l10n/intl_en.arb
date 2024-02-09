@@ -7,6 +7,9 @@
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
   "are_closed_suffix": "are closed",
+  "attachment_source_files_title": "Files",
+  "attachment_source_gallery_title": "Gallery",
+  "attachment_source_selector_title": "Select source",
   "attachments_label": "Attachments",
 
   "auth_email_placeholder": "Email",

@@ -4,6 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/attachment_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -22,6 +23,7 @@ part 'note_get.g.dart';
 /// * [parentId] 
 /// * [updatedOn] 
 /// * [notes] 
+/// * [attachments] 
 @BuiltValue()
 abstract class NoteGet implements Built<NoteGet, NoteGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -53,6 +55,9 @@ abstract class NoteGet implements Built<NoteGet, NoteGetBuilder> {
 
   @BuiltValueField(wireName: r'notes')
   BuiltList<NoteGet>? get notes;
+
+  @BuiltValueField(wireName: r'attachments')
+  BuiltList<AttachmentGet>? get attachments;
 
   NoteGet._();
 
@@ -135,6 +140,13 @@ class _$NoteGetSerializer implements PrimitiveSerializer<NoteGet> {
       yield serializers.serialize(
         object.notes,
         specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
+      );
+    }
+    if (object.attachments != null) {
+      yield r'attachments';
+      yield serializers.serialize(
+        object.attachments,
+        specifiedType: const FullType(BuiltList, [FullType(AttachmentGet)]),
       );
     }
   }
@@ -229,6 +241,13 @@ class _$NoteGetSerializer implements PrimitiveSerializer<NoteGet> {
             specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
           ) as BuiltList<NoteGet>;
           result.notes.replace(valueDes);
+          break;
+        case r'attachments':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(AttachmentGet)]),
+          ) as BuiltList<AttachmentGet>;
+          result.attachments.replace(valueDes);
           break;
         default:
           unhandled.add(key);

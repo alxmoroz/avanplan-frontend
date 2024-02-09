@@ -7,6 +7,9 @@
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
   "are_closed_suffix": "закрыты",
+  "attachment_source_files_title": "Файлы",
+  "attachment_source_gallery_title": "Галерея",
+  "attachment_source_selector_title": "Источник файлов",
   "attachments_label": "Вложения",
 
   "auth_email_placeholder": "Почта",

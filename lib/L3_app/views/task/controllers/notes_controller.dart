@@ -30,8 +30,8 @@ abstract class _NotesControllerBase with Store {
   late final TaskController _taskController;
 
   Task get task => _taskController.task!;
-  final _fIndex = TaskFCode.note.index;
-  TextEditingController get _te => _taskController.teController(_fIndex)!;
+  final _fNoteIndex = TaskFCode.note.index;
+  TextEditingController get _te => _taskController.teController(_fNoteIndex)!;
 
   final notesWidgetGlobalKey = GlobalKey();
 
@@ -53,15 +53,22 @@ abstract class _NotesControllerBase with Store {
     final newValue = _te.text;
     final oldValue = note.text;
     if (newValue.trim().isNotEmpty && (note.text != newValue || note.isNew)) {
-      _taskController.updateField(_fIndex, loading: true, text: '');
+      _taskController.updateField(_fNoteIndex, loading: true, text: '');
       note.text = newValue;
-
-      if (await note.save(task) == null) {
+      final en = await note.save(task);
+      if (en == null) {
         note.text = oldValue;
+      } else {
+        // TODO: это можно сделать на бэке — прописать айдишник коммента вложению после сохранения вложения и коммента
+        if (_taskController.attachmentsController.selectedFiles.isNotEmpty) {
+          for (final f in _taskController.attachmentsController.selectedFiles) {
+            await attachmentUC.upload(task.wsId, task.id!, en.id!, f.openRead, await f.length(), f.name, await f.lastModified());
+          }
+        }
       }
 
       _refresh();
-      _taskController.updateField(_fIndex, loading: false);
+      _taskController.updateField(_fNoteIndex, loading: false);
     }
   }
 
@@ -74,8 +81,9 @@ abstract class _NotesControllerBase with Store {
     } else if (!note.isNew) {
       _te.text = '';
     }
-
-    Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
+    if (notesWidgetGlobalKey.currentContext?.mounted == true) {
+      Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
+    }
   }
 
   Future create() async {

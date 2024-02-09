@@ -26,10 +26,10 @@ import 'package:openapi/src/api/project_feature_sets_api.dart';
 import 'package:openapi/src/api/project_statuses_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
+import 'package:openapi/src/api/task_invitations_api.dart';
+import 'package:openapi/src/api/task_notes_api.dart';
+import 'package:openapi/src/api/task_roles_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
-import 'package:openapi/src/api/tasks_invitations_api.dart';
-import 'package:openapi/src/api/tasks_notes_api.dart';
-import 'package:openapi/src/api/tasks_roles_api.dart';
 import 'package:openapi/src/api/transfer_api.dart';
 import 'package:openapi/src/api/workspaces_api.dart';
 
@@ -189,28 +189,28 @@ class Openapi {
     return TariffsApi(dio, serializers);
   }
 
+  /// Get TaskInvitationsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TaskInvitationsApi getTaskInvitationsApi() {
+    return TaskInvitationsApi(dio, serializers);
+  }
+
+  /// Get TaskNotesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TaskNotesApi getTaskNotesApi() {
+    return TaskNotesApi(dio, serializers);
+  }
+
+  /// Get TaskRolesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TaskRolesApi getTaskRolesApi() {
+    return TaskRolesApi(dio, serializers);
+  }
+
   /// Get TasksApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   TasksApi getTasksApi() {
     return TasksApi(dio, serializers);
-  }
-
-  /// Get TasksInvitationsApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TasksInvitationsApi getTasksInvitationsApi() {
-    return TasksInvitationsApi(dio, serializers);
-  }
-
-  /// Get TasksNotesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TasksNotesApi getTasksNotesApi() {
-    return TasksNotesApi(dio, serializers);
-  }
-
-  /// Get TasksRolesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TasksRolesApi getTasksRolesApi() {
-    return TasksRolesApi(dio, serializers);
   }
 
   /// Get TransferApi instance, base route and serializer can be overridden by a given but be careful,

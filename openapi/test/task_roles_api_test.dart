@@ -1,11 +1,11 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-/// tests for TasksRolesApi
+/// tests for TaskRolesApi
 void main() {
-  final instance = Openapi().getTasksRolesApi();
+  final instance = Openapi().getTaskRolesApi();
 
-  group(TasksRolesApi, () {
+  group(TaskRolesApi, () {
     // Assign
     //
     //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async

@@ -22,7 +22,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/attachments_dialog.dart';
+import '../attachments/attachment_list_dialog.dart';
 import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
 import '../project_statuses/project_statuses.dart';

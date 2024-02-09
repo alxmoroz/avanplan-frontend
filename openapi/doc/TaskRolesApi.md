@@ -1,4 +1,4 @@
-# openapi.api.TasksRolesApi
+# openapi.api.TaskRolesApi
 
 ## Load the API package
 ```dart
@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignRole**](TasksRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[**assignRole**](TaskRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 
 
 # **assignRole**
@@ -27,7 +27,7 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksRolesApi();
+final api = Openapi().getTaskRolesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final int memberId = 56; // int | 
@@ -37,7 +37,7 @@ try {
     final response = api.assignRole(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksRolesApi->assignRole: $e\n');
+    print('Exception when calling TaskRolesApi->assignRole: $e\n');
 }
 ```
 

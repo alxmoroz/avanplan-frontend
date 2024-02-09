@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -35,17 +36,23 @@ abstract class _AttachmentsControllerBase with Store {
   @computed
   List<Attachment> get sortedAttachments => _attachments.sorted((a1, a2) => compareNatural(a1.title, a2.title));
 
-  @computed
-  String get attachmentsStr => sortedAttachments.map((a) => a.title).take(1).join(', ');
-  @computed
-  String get attachmentsCountMoreStr => sortedAttachments.length > 1 ? loc.more_count(_attachments.length - 1) : '';
+  static const _visibleFileNames = 1;
 
-  // Future create() async => await edit(Attachment(text: '', authorId: task.me?.id, taskId: task.id, wsId: task.ws.id!));
+  @computed
+  String get attachmentsStr => sortedAttachments.map((a) => a.title).take(_visibleFileNames).join(', ');
+  @computed
+  String get attachmentsCountMoreStr => sortedAttachments.length > _visibleFileNames ? loc.more_count(_attachments.length - _visibleFileNames) : '';
 
-  // Future delete(Attachment attachment) async {
-  //   await attachment.delete(task);
-  //   _setAttachments(task.attachments);
-  // }
+  /// выбранные файлы для прикрепления к комменту или задаче
+  @observable
+  List<XFile> selectedFiles = [];
+  @action
+  void setSelectedFiles(List<XFile> files) => selectedFiles = files;
+
+  @computed
+  String get selectedFilesStr => selectedFiles.map((f) => f.name).take(_visibleFileNames).join(', ');
+  @computed
+  String get selectedFilesCountMoreStr => selectedFiles.length > _visibleFileNames ? loc.more_count(selectedFiles.length - _visibleFileNames) : '';
 
   Future download(Attachment attachment) async {
     final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');

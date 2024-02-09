@@ -26,10 +26,10 @@ export 'package:openapi/src/api/project_feature_sets_api.dart';
 export 'package:openapi/src/api/project_statuses_api.dart';
 export 'package:openapi/src/api/settings_api.dart';
 export 'package:openapi/src/api/tariffs_api.dart';
+export 'package:openapi/src/api/task_invitations_api.dart';
+export 'package:openapi/src/api/task_notes_api.dart';
+export 'package:openapi/src/api/task_roles_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';
-export 'package:openapi/src/api/tasks_invitations_api.dart';
-export 'package:openapi/src/api/tasks_notes_api.dart';
-export 'package:openapi/src/api/tasks_roles_api.dart';
 export 'package:openapi/src/api/transfer_api.dart';
 export 'package:openapi/src/api/workspaces_api.dart';
 

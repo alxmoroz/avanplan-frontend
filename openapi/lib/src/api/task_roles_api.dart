@@ -12,13 +12,13 @@ import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/member_get.dart';
 
-class TasksRolesApi {
+class TaskRolesApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const TasksRolesApi(this._dio, this._serializers);
+  const TaskRolesApi(this._dio, this._serializers);
 
   /// Assign
   /// 

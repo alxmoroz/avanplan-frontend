@@ -1,11 +1,11 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-/// tests for TasksInvitationsApi
+/// tests for TaskInvitationsApi
 void main() {
-  final instance = Openapi().getTasksInvitationsApi();
+  final instance = Openapi().getTaskInvitationsApi();
 
-  group(TasksInvitationsApi, () {
+  group(TaskInvitationsApi, () {
     // Create
     //
     //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async

@@ -71,9 +71,9 @@ class MyTasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (parentId != null) r'parent_id': encodeQueryParameter(_serializers, parentId, const FullType(int)),
       if (closed != null) r'closed': encodeQueryParameter(_serializers, closed, const FullType(bool)),
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

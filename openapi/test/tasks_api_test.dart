@@ -62,6 +62,13 @@ void main() {
       // TODO
     });
 
+    // Upload Attachment
+    //
+    //Future<AttachmentGet> uploadAttachment(int wsId, int taskId, int noteId, MultipartFile file) async
+    test('test uploadAttachment', () async {
+      // TODO
+    });
+
     // Upsert
     //
     //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert) async

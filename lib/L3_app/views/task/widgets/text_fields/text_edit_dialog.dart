@@ -14,6 +14,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../controllers/task_controller.dart';
+import '../attachments/upload_dialog.dart';
 
 class TextEditDialog extends StatelessWidget {
   const TextEditDialog(this._controller, this._fCode, this._title, {super.key});
@@ -33,26 +34,33 @@ class TextEditDialog extends StatelessWidget {
           final mqPadding = MediaQuery.paddingOf(ctx);
           return Padding(
             padding: mqPadding.add(EdgeInsets.only(bottom: mqPadding.bottom == 0 ? P3 : 0)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(width: P2),
-                Expanded(
-                  child: MTTextField(
-                    controller: _tc,
-                    margin: EdgeInsets.zero,
-                    padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
-                    maxLines: 20,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    if (_fCode == TaskFCode.note) UploadButton(_controller.attachmentsController) else const SizedBox(width: P2),
+                    Expanded(
+                      child: MTTextField(
+                        controller: _tc,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
+                        maxLines: 20,
+                      ),
+                    ),
+                    MTButton.main(
+                      elevation: 0,
+                      constrained: false,
+                      minSize: const Size(P6, P6),
+                      middle: const SubmitIcon(color: mainBtnTitleColor),
+                      margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
+                      onTap: _fd.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
+                    ),
+                  ],
                 ),
-                MTButton.main(
-                  elevation: 0,
-                  constrained: false,
-                  minSize: const Size(P6, P6),
-                  middle: const SubmitIcon(color: mainBtnTitleColor),
-                  margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                  onTap: _fd.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
-                ),
+                if (_fCode == TaskFCode.note && _controller.attachmentsController.selectedFiles.isNotEmpty)
+                  UploadDetails(_controller.attachmentsController),
               ],
             ),
           );

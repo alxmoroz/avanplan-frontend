@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -14,16 +15,19 @@ import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
+import '../attachments/upload_dialog.dart';
 
 class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
   const NoteToolbar(this._controller, {super.key});
   final TaskController _controller;
 
-  // MTFieldData get _fdNote => _controller.fData(TaskFCode.note.index);
   TextEditingController get _tcNote => _controller.teController(TaskFCode.note.index)!;
 
+  double get _detailsHeight => _selectedFiles.isNotEmpty ? P3 : 0;
+  List<XFile> get _selectedFiles => _controller.attachmentsController.selectedFiles;
+
   @override
-  Size get preferredSize => const Size.fromHeight(P10);
+  Size get preferredSize => Size.fromHeight(P8 + P4 + _detailsHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +35,12 @@ class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
       builder: (_) => MTAppBar(
         isBottom: true,
         color: b2Color,
+        innerHeight: P8 + _detailsHeight,
         padding: EdgeInsets.only(top: P2, bottom: isBigScreen(context) ? P2 : 0),
         middle: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const SizedBox(width: P2),
+            UploadButton(_controller.attachmentsController),
             Expanded(
               child: MTTextField(
                 autofocus: false,
@@ -54,10 +59,10 @@ class NoteToolbar extends StatelessWidget implements PreferredSizeWidget {
               minSize: Size(P6, P6),
               middle: SubmitIcon(color: mainBtnTitleColor),
               margin: EdgeInsets.only(left: P2, right: P2, bottom: P),
-              // onTap: _fdNote.text.trim().isNotEmpty ? () => _controller.notesController.create() : null,
             ),
           ],
         ),
+        bottom: _selectedFiles.isNotEmpty ? UploadDetails(_controller.attachmentsController) : null,
       ),
     );
   }

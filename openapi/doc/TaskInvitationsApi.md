@@ -1,4 +1,4 @@
-# openapi.api.TasksInvitationsApi
+# openapi.api.TaskInvitationsApi
 
 ## Load the API package
 ```dart
@@ -9,8 +9,8 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createInvitation**](TasksInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
-[**getInvitations**](TasksInvitationsApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
+[**createInvitation**](TaskInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
+[**getInvitations**](TaskInvitationsApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 
 
 # **createInvitation**
@@ -28,7 +28,7 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksInvitationsApi();
+final api = Openapi().getTaskInvitationsApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final Invitation invitation = ; // Invitation | 
@@ -37,7 +37,7 @@ try {
     final response = api.createInvitation(wsId, taskId, invitation);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksInvitationsApi->createInvitation: $e\n');
+    print('Exception when calling TaskInvitationsApi->createInvitation: $e\n');
 }
 ```
 
@@ -79,7 +79,7 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksInvitationsApi();
+final api = Openapi().getTaskInvitationsApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final int roleId = 56; // int | 
@@ -88,7 +88,7 @@ try {
     final response = api.getInvitations(taskId, wsId, roleId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksInvitationsApi->getInvitations: $e\n');
+    print('Exception when calling TaskInvitationsApi->getInvitations: $e\n');
 }
 ```
 

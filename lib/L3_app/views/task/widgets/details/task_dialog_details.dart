@@ -13,7 +13,7 @@ import '../../../../components/text.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/attachments_dialog.dart';
+import '../attachments/attachment_list_dialog.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
 import 'checklist_add_field.dart';

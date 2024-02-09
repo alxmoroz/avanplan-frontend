@@ -13,13 +13,13 @@ import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
 import 'package:openapi/src/model/invitation_get.dart';
 
-class TasksInvitationsApi {
+class TaskInvitationsApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const TasksInvitationsApi(this._dio, this._serializers);
+  const TaskInvitationsApi(this._dio, this._serializers);
 
   /// Create
   /// 

@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../entities/attachment.dart';
 import '../repositories/abs_attachment_repo.dart';
 
 class AttachmentUC {
@@ -7,5 +8,14 @@ class AttachmentUC {
 
   final AbstractAttachmentRepo repo;
 
-  // Future<List<int>> download(int wsId, int taskId, int attachmentId) async => await repo.download(wsId, taskId, attachmentId);
+  Future<Attachment?> upload(
+    int wsId,
+    int taskId,
+    int noteId,
+    Stream<List<int>> Function() data,
+    int length,
+    String filename,
+    DateTime lastModified,
+  ) async =>
+      await repo.upload(wsId, taskId, noteId, data, length, filename, lastModified);
 }

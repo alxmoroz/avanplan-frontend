@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/attachment.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -20,6 +21,13 @@ Future attachmentsDialog(AttachmentsController controller) async => await showMT
 class _AttachmentsDialog extends StatelessWidget {
   const _AttachmentsDialog(this._controller);
   final AttachmentsController _controller;
+
+  Future _download(BuildContext context, Attachment attachment) async {
+    if (_controller.sortedAttachments.length < 2) {
+      Navigator.of(context).pop();
+    }
+    await _controller.download(attachment);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,7 @@ class _AttachmentsDialog extends StatelessWidget {
                 dividerIndent: P6 + P5,
                 bottomDivider: index < _controller.sortedAttachments.length - 1,
                 trailing: const DownloadIcon(),
-                onTap: () => _controller.download(a),
+                onTap: () => _download(context, a),
               );
             },
           ),

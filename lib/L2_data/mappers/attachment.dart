@@ -10,9 +10,9 @@ extension AttachmentMapper on AttachmentGet {
         title: title,
         description: description ?? '',
         wsId: wsId,
+        noteId: noteId,
         name: name,
         type: type ?? '',
         bytes: bytes ?? 0,
-        updatedOn: updatedOn.toLocal(),
       );
 }

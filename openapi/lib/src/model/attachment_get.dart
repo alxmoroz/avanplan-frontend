@@ -16,8 +16,9 @@ part 'attachment_get.g.dart';
 /// * [description] 
 /// * [type] 
 /// * [bytes] 
-/// * [updatedOn] 
 /// * [name] 
+/// * [noteId] 
+/// * [updatedOn] 
 @BuiltValue()
 abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -35,11 +36,14 @@ abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilde
   @BuiltValueField(wireName: r'bytes')
   int? get bytes;
 
-  @BuiltValueField(wireName: r'updated_on')
-  DateTime get updatedOn;
-
   @BuiltValueField(wireName: r'name')
   String get name;
+
+  @BuiltValueField(wireName: r'note_id')
+  int? get noteId;
+
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime get updatedOn;
 
   AttachmentGet._();
 
@@ -95,15 +99,22 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'updated_on';
-    yield serializers.serialize(
-      object.updatedOn,
-      specifiedType: const FullType(DateTime),
-    );
     yield r'name';
     yield serializers.serialize(
       object.name,
       specifiedType: const FullType(String),
+    );
+    if (object.noteId != null) {
+      yield r'note_id';
+      yield serializers.serialize(
+        object.noteId,
+        specifiedType: const FullType(int),
+      );
+    }
+    yield r'updated_on';
+    yield serializers.serialize(
+      object.updatedOn,
+      specifiedType: const FullType(DateTime),
     );
   }
 
@@ -163,19 +174,26 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
           ) as int;
           result.bytes = valueDes;
           break;
-        case r'updated_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.updatedOn = valueDes;
-          break;
         case r'name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.name = valueDes;
+          break;
+        case r'note_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.noteId = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         default:
           unhandled.add(key);

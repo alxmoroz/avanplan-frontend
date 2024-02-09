@@ -107,7 +107,7 @@ class Task extends Project {
   List<Note> notes;
   List<ProjectStatus> projectStatuses;
 
-  Iterable<Attachment> attachments;
+  List<Attachment> attachments;
   Iterable<Member> members;
   Iterable<ProjectFeatureSet> projectFeatureSets;
   TaskSource? taskSource;

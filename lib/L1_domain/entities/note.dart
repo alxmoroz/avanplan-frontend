@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'attachment.dart';
 import 'base_entity.dart';
 
 class Note extends WSBounded {
@@ -22,4 +23,6 @@ class Note extends WSBounded {
   String? type;
   final DateTime? createdOn;
   final DateTime? updatedOn;
+
+  List<Attachment> attachments = [];
 }

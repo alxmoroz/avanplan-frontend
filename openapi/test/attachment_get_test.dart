@@ -32,13 +32,18 @@ void main() {
       // TODO
     });
 
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
+    // String name
+    test('to test the property `name`', () async {
       // TODO
     });
 
-    // String name
-    test('to test the property `name`', () async {
+    // int noteId
+    test('to test the property `noteId`', () async {
+      // TODO
+    });
+
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
       // TODO
     });
   });

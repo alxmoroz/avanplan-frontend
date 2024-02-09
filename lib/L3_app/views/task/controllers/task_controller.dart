@@ -66,9 +66,9 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     statusController = StatusController(this);
     datesController = DatesController(this);
     estimateController = EstimateController(this);
+    attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
     projectStatusesController = ProjectStatusesController(this);
-    attachmentsController = AttachmentsController(this);
     localExportController = LocalExportController(this);
     subtasksController = SubtasksController(this);
     toolbarController = TaskRightToolbarController(this);

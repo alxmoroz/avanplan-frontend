@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../L1_domain/entities/attachment.dart';
 import '../../../../L1_domain/entities/note.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/utils/dates.dart';
@@ -39,8 +40,16 @@ abstract class _NotesControllerBase with Store {
   ObservableList<Note> _notes = ObservableList();
 
   @action
-  void _setNotes(Iterable<Note> notes) => _notes = ObservableList.of(notes);
+  void _setNotes(Iterable<Note> notes) {
+    _notes = ObservableList.of(notes.map((n) {
+      n.attachments = _taskController.attachmentsController.sortedAttachments.where((a) => a.noteId == n.id).toList();
+      return n;
+    }));
+  }
+
   void _refresh() => _setNotes(task.notes);
+
+  Future downloadAttachment(Attachment attachment) async => await _taskController.attachmentsController.download(attachment);
 
   @computed
   List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));

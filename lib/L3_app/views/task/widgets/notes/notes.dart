@@ -19,6 +19,7 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/bytes.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
 import '../../../../presenters/person.dart';
@@ -95,21 +96,57 @@ class Notes extends StatelessWidget {
                         if (!mine) ...[authorIcon, const SizedBox(width: P)],
                         Expanded(
                           child: MTCardButton(
-                            margin: EdgeInsets.only(left: mine ? P6 + P6 : 0, right: mine ? 0 : P4, bottom: P2),
-                            padding: const EdgeInsets.symmetric(vertical: P, horizontal: P2),
+                            margin: EdgeInsets.only(left: mine ? P12 : 0, right: mine ? 0 : P8, bottom: P2),
+                            padding: EdgeInsets.zero,
                             loading: n.loading,
-                            onLongPress: _canEditTask && mine ? () => _noteMenu(context, n) : null,
+                            // onLongPress: !kIsWeb && _canEditTask && mine ? () => _noteMenu(context, n) : null,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                if (!mine) BaseText.medium(authorName),
-                                SelectableLinkify(
-                                  text: n.text,
-                                  style: const BaseText('', maxLines: 42).style(context),
-                                  linkStyle: const BaseText('', color: mainColor).style(context),
-                                  onOpen: (link) async => await launchUrlString(link.url),
+                                MTListTile(
+                                  middle: mine ? null : BaseText.medium(authorName, padding: const EdgeInsets.symmetric(horizontal: P2), maxLines: 1),
+                                  padding: EdgeInsets.zero,
+                                  bottomDivider: false,
+                                  trailing: _canEditTask && mine
+                                      ? MTButton.icon(
+                                          const MenuIcon(size: P4),
+                                          padding: const EdgeInsets.only(left: P3, right: P_2, top: P, bottom: P),
+                                          onTap: () => _noteMenu(context, n),
+                                        )
+                                      : null,
                                 ),
-                                SmallText(n.createdOn!.strTime, align: TextAlign.right),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P_2),
+                                  child: SelectableLinkify(
+                                    text: n.text,
+                                    style: const BaseText('', maxLines: 42).style(context),
+                                    linkStyle: const BaseText('', color: mainColor).style(context),
+                                    onOpen: (link) async => await launchUrlString(link.url),
+                                  ),
+                                ),
+                                if (n.attachments.isNotEmpty)
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: n.attachments.length,
+                                    itemBuilder: (_, index) {
+                                      final a = n.attachments[index];
+                                      return MTListTile(
+                                        leading: MimeTypeIcon(mimeType: a.type, size: P6),
+                                        middle: BaseText(a.title, maxLines: 1),
+                                        subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
+                                        padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                                        dividerIndent: P8,
+                                        bottomDivider: false,
+                                        onTap: () => _controller.downloadAttachment(a),
+                                      );
+                                    },
+                                  ),
+                                SmallText(
+                                  n.createdOn!.strTime,
+                                  align: TextAlign.right,
+                                  padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P_2),
+                                ),
                               ],
                             ),
                           ),

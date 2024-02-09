@@ -2,14 +2,12 @@
 
 import 'package:collection/collection.dart';
 import 'package:file_selector/file_selector.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/attachment.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L2_data/services/api.dart';
-import '../../../../main.dart';
 import '../../../extra/services.dart';
 import 'task_controller.dart';
 
@@ -58,9 +56,6 @@ abstract class _AttachmentsControllerBase with Store {
     final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');
     if (await canLaunchUrlString(urlString)) {
       await launchUrlString(urlString);
-    }
-    if (sortedAttachments.length < 2) {
-      Navigator.of(rootKey.currentContext!).pop();
     }
   }
 }

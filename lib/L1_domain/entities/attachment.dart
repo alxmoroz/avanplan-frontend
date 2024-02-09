@@ -8,15 +8,15 @@ class Attachment extends Titleable {
     required super.title,
     super.description,
     required this.wsId,
+    required this.noteId,
     required this.name,
     required this.type,
     required this.bytes,
-    required this.updatedOn,
   });
 
   final int wsId;
+  final int? noteId;
   final String name;
   final String type;
   final int bytes;
-  final DateTime updatedOn;
 }

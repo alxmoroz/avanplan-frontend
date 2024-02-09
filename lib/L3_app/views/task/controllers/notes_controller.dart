@@ -16,6 +16,7 @@ import '../../../extra/services.dart';
 import '../../../usecases/note_edit.dart';
 import '../../../usecases/task_actions.dart';
 import '../widgets/text_fields/text_edit_dialog.dart';
+import 'attachments_controller.dart';
 import 'task_controller.dart';
 
 part 'notes_controller.g.dart';
@@ -33,6 +34,7 @@ abstract class _NotesControllerBase with Store {
   Task get task => _taskController.task!;
   final _fNoteIndex = TaskFCode.note.index;
   TextEditingController get _te => _taskController.teController(_fNoteIndex)!;
+  AttachmentsController get _attachmentsController => _taskController.attachmentsController;
 
   final notesWidgetGlobalKey = GlobalKey();
 
@@ -42,14 +44,14 @@ abstract class _NotesControllerBase with Store {
   @action
   void _setNotes(Iterable<Note> notes) {
     _notes = ObservableList.of(notes.map((n) {
-      n.attachments = _taskController.attachmentsController.sortedAttachments.where((a) => a.noteId == n.id).toList();
+      n.attachments = _attachmentsController.sortedAttachments.where((a) => a.noteId == n.id).toList();
       return n;
     }));
   }
 
   void _refresh() => _setNotes(task.notes);
 
-  Future downloadAttachment(Attachment attachment) async => await _taskController.attachmentsController.download(attachment);
+  Future downloadAttachment(Attachment attachment) async => await _attachmentsController.download(attachment);
 
   @computed
   List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
@@ -68,11 +70,24 @@ abstract class _NotesControllerBase with Store {
       if (en == null) {
         note.text = oldValue;
       } else {
-        // TODO: это можно сделать на бэке — прописать айдишник коммента вложению после сохранения вложения и коммента
-        if (_taskController.attachmentsController.selectedFiles.isNotEmpty) {
-          for (final f in _taskController.attachmentsController.selectedFiles) {
-            await attachmentUC.upload(task.wsId, task.id!, en.id!, f.openRead, await f.length(), f.name, await f.lastModified());
+        // если есть вложения
+        if (_attachmentsController.selectedFiles.isNotEmpty) {
+          for (final f in _attachmentsController.selectedFiles) {
+            final attachment = await attachmentUC.upload(
+              task.wsId,
+              task.id!,
+              en.id!,
+              f.openRead,
+              await f.length(),
+              f.name,
+              await f.lastModified(),
+            );
+            if (attachment != null) {
+              task.attachments.add(attachment);
+            }
           }
+          _attachmentsController.setSelectedFiles([]);
+          _attachmentsController.setAttachments(task.attachments);
         }
       }
 

@@ -25,6 +25,10 @@ class TextEditDialog extends StatelessWidget {
   MTFieldData get _fd => _controller.fData(_fCode.index);
   TextEditingController get _tc => _controller.teController(_fCode.index)!;
 
+  bool get _isNote => _fCode == TaskFCode.note;
+  bool get _hasFiles => _isNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
+  bool get _canSubmit => _fd.text.trim().isNotEmpty || _hasFiles;
+
   @override
   Widget build(BuildContext context) {
     return MTDialog(
@@ -40,7 +44,14 @@ class TextEditDialog extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    if (_fCode == TaskFCode.note) UploadButton(_controller.attachmentsController) else const SizedBox(width: P2),
+                    if (_isNote)
+                      UploadButton(
+                        _controller,
+                        instantUpload: false,
+                        padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
+                      )
+                    else
+                      const SizedBox(width: P2),
                     Expanded(
                       child: MTTextField(
                         controller: _tc,
@@ -55,12 +66,11 @@ class TextEditDialog extends StatelessWidget {
                       minSize: const Size(P6, P6),
                       middle: const SubmitIcon(color: mainBtnTitleColor),
                       margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                      onTap: _fd.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
+                      onTap: _canSubmit ? () => Navigator.of(context).pop(true) : null,
                     ),
                   ],
                 ),
-                if (_fCode == TaskFCode.note && _controller.attachmentsController.selectedFiles.isNotEmpty)
-                  UploadDetails(_controller.attachmentsController),
+                if (_hasFiles) UploadDetails(_controller.attachmentsController),
               ],
             ),
           );

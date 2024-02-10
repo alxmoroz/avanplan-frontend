@@ -23,7 +23,6 @@ import '../../usecases/task_tree.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/actions/bottom_toolbar.dart';
-import 'widgets/actions/note_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
 import 'widgets/board/board.dart';
@@ -114,8 +113,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
   bool get _isBigGroup => isBigScreen(context) && !task!.isTask;
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
-  bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
-  bool get _showNoteToolbar => task!.canComment;
+  bool get _hasQuickActions => (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate)) || task!.canComment;
 
   @override
   void initState() {
@@ -228,11 +226,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         )
       : null;
 
-  PreferredSizeWidget? get _bottomBar => (_showNoteToolbar
-      ? NoteToolbar(controller)
-      : _hasQuickActions && !_isBigGroup
-          ? TaskBottomToolbar(controller)
-          : null) as PreferredSizeWidget?;
+  PreferredSizeWidget? get _bottomBar => _hasQuickActions ? TaskBottomToolbar(controller) : null;
 
   Widget _page(BuildContext context) {
     final big = isBigScreen(context);
@@ -241,7 +235,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
             body: _body,
             rightBar: TaskRightToolbar(controller.toolbarController),
-            bottomBar: task!.canComment ? NoteToolbar(controller) : null,
+            bottomBar: _bottomBar,
             scrollController: _scrollController,
             scrollOffsetTop: _headerHeight,
             onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

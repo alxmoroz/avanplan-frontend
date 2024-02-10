@@ -61,10 +61,13 @@ extension NoteEditUC on Note {
         return en;
       });
 
-  Future delete(Task task) async => await _edit(task, () async {
-        if (await noteUC.delete(this) != null) {
+  Future<Note?> delete(Task task) async => await _edit(task, () async {
+        final deletedNote = await noteUC.delete(this);
+        if (deletedNote != null) {
           task.notes.remove(this);
+          final noteAttachmentsIds = attachments.map((na) => na.id);
+          task.attachments.removeWhere((ta) => noteAttachmentsIds.contains(ta.id));
         }
-        return null;
+        return deletedNote;
       });
 }

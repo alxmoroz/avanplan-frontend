@@ -32,7 +32,6 @@ class Notes extends StatelessWidget {
   final NotesController _controller;
 
   Task get _task => _controller.task;
-  bool get _canEditTask => _task.canComment;
 
   Future _noteMenu(BuildContext context, Note note) async => await showMTDialog<void>(
         MTDialog(
@@ -107,7 +106,7 @@ class Notes extends StatelessWidget {
                                   middle: mine ? null : BaseText.medium(authorName, padding: const EdgeInsets.symmetric(horizontal: P2), maxLines: 1),
                                   padding: EdgeInsets.zero,
                                   bottomDivider: false,
-                                  trailing: _canEditTask && mine
+                                  trailing: _task.canComment && mine
                                       ? MTButton.icon(
                                           const MenuIcon(size: P4),
                                           padding: const EdgeInsets.only(left: P3, right: P_2, top: P, bottom: P),
@@ -115,15 +114,16 @@ class Notes extends StatelessWidget {
                                         )
                                       : null,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P_2),
-                                  child: SelectableLinkify(
-                                    text: n.text,
-                                    style: const BaseText('', maxLines: 42).style(context),
-                                    linkStyle: const BaseText('', color: mainColor).style(context),
-                                    onOpen: (link) async => await launchUrlString(link.url),
+                                if (n.text.isNotEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P_2),
+                                    child: SelectableLinkify(
+                                      text: n.text,
+                                      style: const BaseText('', maxLines: 42).style(context),
+                                      linkStyle: const BaseText('', color: mainColor).style(context),
+                                      onOpen: (link) async => await launchUrlString(link.url),
+                                    ),
                                   ),
-                                ),
                                 if (n.attachments.isNotEmpty)
                                   ListView.builder(
                                     shrinkWrap: true,

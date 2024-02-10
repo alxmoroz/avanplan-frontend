@@ -38,6 +38,42 @@ abstract class _NotesControllerBase with Store {
 
   final notesWidgetGlobalKey = GlobalKey();
 
+  /// вложения
+
+  Future _uploadAttachments(Note note) async {
+    if (_attachmentsController.selectedFiles.isNotEmpty) {
+      for (final f in _attachmentsController.selectedFiles) {
+        final attachment = await attachmentUC.upload(
+          task.wsId,
+          task.id!,
+          note.id!,
+          f.openRead,
+          await f.length(),
+          f.name,
+          await f.lastModified(),
+        );
+        if (attachment != null) {
+          task.attachments.add(attachment);
+        }
+      }
+      _attachmentsController.setSelectedFiles([]);
+      _attachmentsController.setAttachments(task.attachments);
+    }
+  }
+
+  Future instantUploadAttachments() async {
+    await _save(Note(
+      text: '',
+      authorId: task.me?.id,
+      taskId: task.id!,
+      wsId: task.wsId,
+    ));
+  }
+
+  Future downloadAttachment(Attachment attachment) async => await _attachmentsController.download(attachment);
+
+  /// комменты
+
   @observable
   ObservableList<Note> _notes = ObservableList();
 
@@ -51,8 +87,6 @@ abstract class _NotesControllerBase with Store {
 
   void _refresh() => _setNotes(task.notes);
 
-  Future downloadAttachment(Attachment attachment) async => await _attachmentsController.download(attachment);
-
   @computed
   List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
   @computed
@@ -61,9 +95,9 @@ abstract class _NotesControllerBase with Store {
   List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
 
   Future _save(Note note) async {
-    final newValue = _te.text;
+    final newValue = _te.text.trim();
     final oldValue = note.text;
-    if (newValue.trim().isNotEmpty && (note.text != newValue || note.isNew)) {
+    if (note.text != newValue || note.isNew) {
       _taskController.updateField(_fNoteIndex, loading: true, text: '');
       note.text = newValue;
       final en = await note.save(task);
@@ -71,28 +105,15 @@ abstract class _NotesControllerBase with Store {
         note.text = oldValue;
       } else {
         // если есть вложения
-        if (_attachmentsController.selectedFiles.isNotEmpty) {
-          for (final f in _attachmentsController.selectedFiles) {
-            final attachment = await attachmentUC.upload(
-              task.wsId,
-              task.id!,
-              en.id!,
-              f.openRead,
-              await f.length(),
-              f.name,
-              await f.lastModified(),
-            );
-            if (attachment != null) {
-              task.attachments.add(attachment);
-            }
-          }
-          _attachmentsController.setSelectedFiles([]);
-          _attachmentsController.setAttachments(task.attachments);
-        }
+        await _uploadAttachments(en);
       }
 
       _refresh();
       _taskController.updateField(_fNoteIndex, loading: false);
+
+      if (notesWidgetGlobalKey.currentContext?.mounted == true) {
+        Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
+      }
     }
   }
 
@@ -104,9 +125,6 @@ abstract class _NotesControllerBase with Store {
       _te.text = '';
     } else if (!note.isNew) {
       _te.text = '';
-    }
-    if (notesWidgetGlobalKey.currentContext?.mounted == true) {
-      Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
     }
   }
 
@@ -121,6 +139,7 @@ abstract class _NotesControllerBase with Store {
 
   Future delete(Note note) async {
     await note.delete(task);
+    _attachmentsController.setAttachments(task.attachments);
     _refresh();
   }
 }

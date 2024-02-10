@@ -17,6 +17,7 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/attachments_controller.dart';
+import '../../controllers/task_controller.dart';
 
 enum _FileSource { gallery, files }
 
@@ -65,17 +66,22 @@ Future<List<XFile>> _selectFiles() async {
 }
 
 class UploadButton extends StatelessWidget {
-  const UploadButton(this._controller, {super.key});
+  const UploadButton(this._controller, {super.key, this.padding, this.instantUpload = true});
 
-  final AttachmentsController _controller;
+  final TaskController _controller;
+  final EdgeInsets? padding;
+  final bool instantUpload;
+
+  Future _startUpload() async {
+    _controller.attachmentsController.setSelectedFiles(await _selectFiles());
+    if (instantUpload && _controller.attachmentsController.selectedFiles.isNotEmpty) {
+      await _controller.notesController.instantUploadAttachments();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MTButton.icon(
-      const AttachmentIcon(size: P6),
-      margin: const EdgeInsets.only(left: P2, right: P, bottom: P),
-      onTap: () async => _controller.setSelectedFiles(await _selectFiles()),
-    );
+    return MTButton.icon(const AttachmentIcon(size: P6), padding: padding, onTap: _startUpload);
   }
 }
 

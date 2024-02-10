@@ -10,7 +10,9 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../attachments/upload_dialog.dart';
 import '../create/create_task_button.dart';
 import '../local_transfer/local_import_dialog.dart';
 import 'toggle_view_button.dart';
@@ -42,9 +44,20 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
                 constrained: false,
                 onTap: () => localImportDialog(_controller),
               ),
-            if (_task.canCreate) ...[
+            if (_task.hasSubtasks && _task.canCreate) ...[
               const SizedBox(width: P2),
               CreateTaskButton(_controller, compact: true, type: ButtonType.secondary),
+            ],
+            if (_task.canComment) ...[
+              UploadButton(
+                _controller,
+                padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P2, right: P + P_2),
+              ),
+              MTButton.icon(
+                const NoteAddIcon(),
+                padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P + P_2, right: P),
+                onTap: () => _controller.notesController.create(),
+              ),
             ],
             const SizedBox(width: P2),
           ],

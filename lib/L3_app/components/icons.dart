@@ -457,6 +457,16 @@ class MimeTypeIcon extends MTIcon {
       );
 }
 
+class NoteAddIcon extends MTIcon {
+  const NoteAddIcon({super.key, super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.plus_bubble,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 class NoteMarkIcon extends MTIcon {
   const NoteMarkIcon({super.key, this.mine = true, this.theirs = true, super.color, super.size});
   final bool mine;

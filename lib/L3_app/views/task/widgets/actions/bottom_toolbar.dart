@@ -32,7 +32,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
       builder: (_) => MTAppBar(
         isBottom: true,
         color: b2Color,
-        padding: const EdgeInsets.only(top: P2),
+        padding: EdgeInsets.only(top: P2, bottom: isTaskDialog ? P2 : 0),
         middle: Row(
           children: [
             const SizedBox(width: P2),

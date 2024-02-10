@@ -67,9 +67,6 @@ class TaskDetails extends StatelessWidget {
           if (_showDescription(context))
             TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins(context) && _showStatusRow(context)),
 
-          /// Назначенный
-          if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins(context)),
-
           /// Кнопка для добавления чек-листа
           if (!_isTaskDialog(context) && _task.canAddChecklist) TaskChecklistAddField(_controller),
 
@@ -78,6 +75,9 @@ class TaskDetails extends StatelessWidget {
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],
+
+          /// Назначенный
+          if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Даты
           TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),

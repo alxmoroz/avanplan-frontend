@@ -45,6 +45,7 @@ extension TaskActionsUC on Task {
   /// доступные действия
 
   bool get canCreate => !closed && isLocal && _hpCreate;
+  bool get canCreateSubtask => canCreate && !isTask;
   bool get canEdit => isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => (isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete);
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);

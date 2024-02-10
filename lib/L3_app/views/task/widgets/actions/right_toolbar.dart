@@ -42,7 +42,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
         /// быстрые действия
         if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _controller.compact),
-        if (_task.canCreate && !_task.isTask) CreateTaskButton(_taskController, compact: _controller.compact),
+        if (_task.canCreateSubtask) CreateTaskButton(_taskController, compact: _controller.compact),
         if (_task.canLocalImport)
           MTListTile(
             leading: const LocalImportIcon(circled: true, size: P6),

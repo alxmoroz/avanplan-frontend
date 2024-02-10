@@ -226,8 +226,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
         )
       : null;
 
-  PreferredSizeWidget? get _bottomBar => _hasQuickActions ? TaskBottomToolbar(controller) : null;
-
   Widget _page(BuildContext context) {
     final big = isBigScreen(context);
     return _isTaskDialog
@@ -235,7 +233,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
             body: _body,
             rightBar: TaskRightToolbar(controller.toolbarController),
-            bottomBar: _bottomBar,
+            bottomBar: _hasQuickActions ? TaskBottomToolbar(controller, isTaskDialog: true) : null,
             scrollController: _scrollController,
             scrollOffsetTop: _headerHeight,
             onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
@@ -252,7 +250,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   ),
             leftBar: big ? const LeftMenu() : null,
             body: _body,
-            bottomBar: _bottomBar,
+            bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
             rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
             scrollController: _scrollController,
             scrollOffsetTop: _headerHeight,

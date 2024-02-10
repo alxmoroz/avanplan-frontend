@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -17,16 +18,17 @@ import '../../controllers/task_controller.dart';
 import '../attachments/upload_dialog.dart';
 
 class TextEditDialog extends StatelessWidget {
-  const TextEditDialog(this._controller, this._fCode, this._title, {super.key});
+  const TextEditDialog(this._controller, this._fCode, this._title, {super.key, this.note});
   final TaskController _controller;
   final TaskFCode _fCode;
   final String _title;
+  final Note? note;
 
   MTFieldData get _fd => _controller.fData(_fCode.index);
   TextEditingController get _tc => _controller.teController(_fCode.index)!;
 
-  bool get _isNote => _fCode == TaskFCode.note;
-  bool get _hasFiles => _isNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
+  bool get _isNewNote => note?.isNew == true;
+  bool get _hasFiles => _isNewNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
   bool get _canSubmit => _fd.text.trim().isNotEmpty || _hasFiles;
 
   @override
@@ -44,7 +46,7 @@ class TextEditDialog extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    if (_isNote)
+                    if (_isNewNote)
                       UploadButton(
                         _controller,
                         instantUpload: false,

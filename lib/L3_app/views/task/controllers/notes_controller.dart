@@ -119,7 +119,15 @@ abstract class _NotesControllerBase with Store {
 
   Future edit(Note note) async {
     _te.text = note.text;
-    if (await showMTDialog<bool?>(TextEditDialog(_taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
+    if (await showMTDialog<bool?>(
+            TextEditDialog(
+              _taskController,
+              TaskFCode.note,
+              loc.task_note_title,
+              note: note,
+            ),
+            maxWidth: SCR_M_WIDTH) ==
+        true) {
       // добавление или редактирование
       await _save(note);
       _te.text = '';

@@ -71,7 +71,7 @@ extension TaskActionsUC on Task {
   bool get canLocalExport => canEdit && hfsGoals && goalsForLocalExport.isNotEmpty;
   bool get canLocalImport => !isTask && canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
 
-  bool get canComment => isTask && canEdit;
+  bool get canComment => isTask && !closed && canEdit;
 
   bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;

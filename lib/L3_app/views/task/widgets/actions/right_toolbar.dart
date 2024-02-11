@@ -53,13 +53,15 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
         if (_task.canComment) ...[
           MTListTile(
-            leading: const AttachmentIcon(size: P6),
+            leading: const AttachmentIcon(circled: true),
             middle: _controller.compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor),
+            bottomDivider: false,
             onTap: () => _taskController.notesController.startUpload(),
           ),
           MTListTile(
-            leading: const NoteAddIcon(size: P6),
+            leading: const NoteAddIcon(circled: true, size: P6),
             middle: _controller.compact ? null : BaseText(loc.task_note_add_action_title, color: mainColor),
+            bottomDivider: false,
             onTap: () => _taskController.notesController.create(),
           ),
         ],

@@ -4,27 +4,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/upload_dialog.dart';
+import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../local_transfer/local_import_dialog.dart';
-import 'toggle_view_button.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskBottomToolbar(this._controller, {super.key, this.isTaskDialog = false});
+  const TaskBottomToolbar(this._controller, {super.key});
   final TaskController _controller;
-  final bool isTaskDialog;
 
   Task get _task => _controller.task!;
 
   @override
-  Size get preferredSize => Size.fromHeight(P10 + (isTaskDialog ? P2 : 0));
+  Size get preferredSize => const Size.fromHeight(P10);
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +33,21 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
       builder: (_) => MTAppBar(
         isBottom: true,
         color: b2Color,
-        padding: EdgeInsets.only(top: P2, bottom: isTaskDialog ? P2 : 0),
+        padding: const EdgeInsets.only(top: P2),
         middle: Row(
           children: [
             const SizedBox(width: P2),
             if (_task.canShowBoard) TaskToggleViewButton(_controller),
+            if (_task.isTask && _task.canClose)
+              MTButton.main(
+                titleText: loc.close_action_title,
+                leading: const DoneIcon(true, color: mainBtnTitleColor),
+                constrained: false,
+                color: greenColor,
+                padding: const EdgeInsets.symmetric(horizontal: P3),
+                loading: _controller.fData(TaskFCode.status.index).loading,
+                onTap: () => _controller.statusController.setStatus(_task, close: true),
+              ),
             const Spacer(),
             if (_task.canLocalImport)
               MTButton.secondary(
@@ -49,13 +60,15 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
               CreateTaskButton(_controller, compact: true, type: ButtonType.secondary),
             ],
             if (_task.canComment) ...[
-              UploadButton(
-                _controller,
-                padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P2, right: P + P_2),
+              MTButton.secondary(
+                middle: const AttachmentIcon(size: P4),
+                constrained: false,
+                onTap: () => _controller.notesController.startUpload(),
               ),
-              MTButton.icon(
-                const NoteAddIcon(),
-                padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P + P_2, right: P),
+              const SizedBox(width: P2),
+              MTButton.secondary(
+                middle: const NoteAddIcon(),
+                constrained: false,
                 onTap: () => _controller.notesController.create(),
               ),
             ],

@@ -463,7 +463,7 @@ class NoteAddIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.plus_bubble,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
+        size: size ?? P4,
       );
 }
 

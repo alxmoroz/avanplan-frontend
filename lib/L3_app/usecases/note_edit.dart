@@ -28,7 +28,7 @@ extension NoteEditUC on Note {
 
   Future<Note?> save(Task task) async => await _edit(task, () async {
         Note? en;
-        if (await task.ws.checkBalance(loc.task_note_placeholder)) {
+        if (await task.ws.checkBalance(loc.task_note_add_action_title)) {
           en = await noteUC.save(this);
           if (en != null) {
             // TODO: вложенности

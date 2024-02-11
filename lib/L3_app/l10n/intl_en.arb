@@ -7,6 +7,8 @@
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
   "are_closed_suffix": "are closed",
+
+  "attachment_add_action_title": "Attach files",
   "attachment_source_files_title": "Files",
   "attachment_source_gallery_title": "Gallery",
   "attachment_source_selector_title": "Select source",
@@ -384,7 +386,7 @@
   "task_multi_create_quiz_title": "Add tasks",
 
   "task_new_title": "New Task",
-  "task_note_placeholder": "Leave a comment",
+  "task_note_add_action_title": "Leave a comment",
   "task_note_title": "Comment",
 
   "task_plural": "{count, plural, one{task} other{tasks}}",

@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -17,11 +16,10 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/attachments_controller.dart';
-import '../../controllers/task_controller.dart';
 
 enum _FileSource { gallery, files }
 
-Future<List<XFile>> _selectFiles() async {
+Future<List<XFile>> selectFilesDialog() async {
   List<XFile> files = [];
 
   final type = kIsWeb
@@ -63,26 +61,6 @@ Future<List<XFile>> _selectFiles() async {
   }
 
   return files;
-}
-
-class UploadButton extends StatelessWidget {
-  const UploadButton(this._controller, {super.key, this.padding, this.instantUpload = true});
-
-  final TaskController _controller;
-  final EdgeInsets? padding;
-  final bool instantUpload;
-
-  Future _startUpload() async {
-    _controller.attachmentsController.setSelectedFiles(await _selectFiles());
-    if (instantUpload && _controller.attachmentsController.selectedFiles.isNotEmpty) {
-      await _controller.notesController.instantUploadAttachments();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MTButton.icon(const AttachmentIcon(size: P6), padding: padding, onTap: _startUpload);
-  }
 }
 
 class UploadDetails extends StatelessWidget {

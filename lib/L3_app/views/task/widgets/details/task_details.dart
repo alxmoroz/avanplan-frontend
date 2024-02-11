@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -44,11 +43,11 @@ class TaskDetails extends StatelessWidget {
   Task get _task => _controller.task!;
 
   bool _isTaskDialog(BuildContext context) => isBigScreen(context) && _task.isTask;
-  bool _isTaskView(BuildContext context) => !isBigScreen(context) && _task.isTask;
-  bool _showStatusRow(BuildContext context) => _isTaskView(context) && (_task.canShowStatus || _task.canClose || _task.closed);
+  bool _isTaskMobileView(BuildContext context) => !isBigScreen(context) && _task.isTask;
+  bool _showStatusRow(BuildContext context) => _isTaskMobileView(context) && (_task.canShowStatus || _task.closed);
   bool _showDescription(BuildContext context) => !_isTaskDialog(context) && (_task.hasDescription || _task.canEdit);
 
-  bool _hasMargins(BuildContext context) => standalone || _isTaskView(context);
+  bool _hasMargins(BuildContext context) => standalone || _isTaskMobileView(context);
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +58,12 @@ class TaskDetails extends StatelessWidget {
         children: [
           /// Статус
           if (_showStatusRow(context)) ...[
-            const SizedBox(height: kIsWeb ? P2 : P),
+            const SizedBox(height: P),
             TaskStatusField(_controller),
           ],
 
           /// Описание
-          if (_showDescription(context))
-            TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins(context) && _showStatusRow(context)),
+          if (_showDescription(context)) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Кнопка для добавления чек-листа
           if (!_isTaskDialog(context) && _task.canAddChecklist) TaskChecklistAddField(_controller),
@@ -138,7 +136,7 @@ class TaskDetails extends StatelessWidget {
             ),
 
           /// Комментарии
-          if (_isTaskView(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
+          if (_isTaskMobileView(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
         ],
       ),
     );

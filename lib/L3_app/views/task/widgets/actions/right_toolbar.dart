@@ -15,12 +15,12 @@ import '../../../../components/vertical_toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';
 import '../local_transfer/local_import_dialog.dart';
 import 'action_item.dart';
 import 'right_toolbar_controller.dart';
-import 'toggle_view_button.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskRightToolbar(this._controller, {super.key});
@@ -51,9 +51,22 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
             onTap: () => localImportDialog(_taskController),
           ),
 
+        if (_task.canComment) ...[
+          MTListTile(
+            leading: const AttachmentIcon(size: P6),
+            middle: _controller.compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor),
+            onTap: () => _taskController.notesController.startUpload(),
+          ),
+          MTListTile(
+            leading: const NoteAddIcon(size: P6),
+            middle: _controller.compact ? null : BaseText(loc.task_note_add_action_title, color: mainColor),
+            onTap: () => _taskController.notesController.create(),
+          ),
+        ],
+
         /// действия с задачей
         if (actions.isNotEmpty) ...[
-          if (_task.isTask || _controller.showActions)
+          if (_controller.showActions)
             for (final at in actions)
               MTListTile(
                 middle: TaskActionItem(at, compact: _controller.compact, popup: false),

@@ -57,7 +57,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
       MTFieldData(TaskFCode.features.index, label: loc.feature_sets_label),
       MTFieldData(TaskFCode.statuses.index, label: loc.status_list_title, placeholder: loc.status_list_title),
-      MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder),
+      MTFieldData(TaskFCode.note.index),
       MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
     ]);
 

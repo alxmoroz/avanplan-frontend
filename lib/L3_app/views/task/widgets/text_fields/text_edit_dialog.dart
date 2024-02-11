@@ -47,10 +47,10 @@ class TextEditDialog extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     if (_isNewNote)
-                      UploadButton(
-                        _controller,
-                        instantUpload: false,
+                      MTButton.icon(
+                        const AttachmentIcon(),
                         padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
+                        onTap: () => _controller.notesController.startUpload(instant: false),
                       )
                     else
                       const SizedBox(width: P2),

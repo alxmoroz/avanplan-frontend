@@ -7,6 +7,8 @@
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
   "are_closed_suffix": "закрыты",
+
+  "attachment_add_action_title": "Прикрепить файлы",
   "attachment_source_files_title": "Файлы",
   "attachment_source_gallery_title": "Галерея",
   "attachment_source_selector_title": "Источник файлов",
@@ -384,7 +386,7 @@
   "task_multi_create_quiz_title": "Добавьте задачи",
 
   "task_new_title": "Новая задача",
-  "task_note_placeholder": "Оставить комментарий",
+  "task_note_add_action_title": "Оставить комментарий",
   "task_note_title": "Комментарий",
 
   "task_plural": "{count, plural, one{задача} few{задачи} other{задач}}",

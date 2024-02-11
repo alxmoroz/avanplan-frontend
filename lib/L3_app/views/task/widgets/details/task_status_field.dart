@@ -27,41 +27,23 @@ class TaskStatusField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: _task.canShowStatus
-          ? MTButton.main(
-              titleText: '${_task.status}',
-              color: _task.closed ? greenColor : null,
-              constrained: false,
-              margin: _margin,
-              padding: _padding,
-              trailing: _task.canSetStatus
-                  ? const Padding(
-                      padding: EdgeInsets.only(left: P_2, top: P_2),
-                      child: CaretIcon(size: Size(P2 * 0.8, P2 * 0.75), color: mainBtnTitleColor),
-                    )
-                  : null,
-              loading: _statusFD.loading,
-              onTap: _task.canSetStatus ? _controller.statusController.selectStatus : null,
-            )
-          : _task.canClose
-              ? MTButton.main(
-                  titleText: loc.close_action_title,
-                  leading: const DoneIcon(true, color: mainBtnTitleColor),
-                  constrained: false,
-                  color: greenColor,
-                  margin: _margin,
-                  padding: _padding,
-                  loading: _statusFD.loading,
-                  onTap: () => _controller.statusController.setStatus(_task, close: true),
-                )
-              : MTButton(
-                  titleText: loc.state_closed,
-                  type: ButtonType.card,
-                  color: greenLightColor,
-                  titleColor: greenColor,
-                  margin: _margin,
-                  padding: _padding,
-                ),
+      child: MTButton(
+        titleColor: _task.canSetStatus ? null : greenColor,
+        titleText: _task.canSetStatus ? '${_task.status}' : loc.state_closed,
+        type: _task.canSetStatus ? ButtonType.main : ButtonType.card,
+        color: _task.closed ? (_task.canSetStatus ? greenColor : greenLightColor) : null,
+        constrained: false,
+        margin: _margin,
+        padding: _padding,
+        trailing: _task.canSetStatus
+            ? const Padding(
+                padding: EdgeInsets.only(left: P_2, top: P_2),
+                child: CaretIcon(size: Size(P2 * 0.8, P2 * 0.75), color: mainBtnTitleColor),
+              )
+            : null,
+        loading: _statusFD.loading,
+        onTap: _task.canSetStatus ? _controller.statusController.selectStatus : null,
+      ),
     );
   }
 }

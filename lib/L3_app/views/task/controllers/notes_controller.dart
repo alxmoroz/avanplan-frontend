@@ -56,18 +56,21 @@ abstract class _NotesControllerBase with Store {
           task.attachments.add(attachment);
         }
       }
-      _attachmentsController.setSelectedFiles([]);
+      _attachmentsController.setFiles([]);
       _attachmentsController.setAttachments(task.attachments);
     }
   }
 
-  Future instantUploadAttachments() async {
-    await _save(Note(
-      text: '',
-      authorId: task.me?.id,
-      taskId: task.id!,
-      wsId: task.wsId,
-    ));
+  Future startUpload({bool instant = true}) async {
+    await _attachmentsController.selectFiles();
+    if (instant && _attachmentsController.selectedFiles.isNotEmpty) {
+      await _save(Note(
+        text: '',
+        authorId: task.me?.id,
+        taskId: task.id!,
+        wsId: task.wsId,
+      ));
+    }
   }
 
   Future downloadAttachment(Attachment attachment) async => await _attachmentsController.download(attachment);

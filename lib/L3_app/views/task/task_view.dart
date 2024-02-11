@@ -233,7 +233,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
             topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
             body: _body,
             rightBar: TaskRightToolbar(controller.toolbarController),
-            bottomBar: _hasQuickActions ? TaskBottomToolbar(controller, isTaskDialog: true) : null,
             scrollController: _scrollController,
             scrollOffsetTop: _headerHeight,
             onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

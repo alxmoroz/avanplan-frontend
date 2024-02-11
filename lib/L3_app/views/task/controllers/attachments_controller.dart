@@ -9,6 +9,7 @@ import '../../../../L1_domain/entities/attachment.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
+import '../widgets/attachments/upload_dialog.dart';
 import 'task_controller.dart';
 
 part 'attachments_controller.g.dart';
@@ -45,12 +46,17 @@ abstract class _AttachmentsControllerBase with Store {
   @observable
   List<XFile> selectedFiles = [];
   @action
-  void setSelectedFiles(List<XFile> files) => selectedFiles = files;
+  void setFiles(List<XFile> files) => selectedFiles = files;
 
   @computed
   String get selectedFilesStr => selectedFiles.map((f) => f.name).take(_visibleFileNames).join(', ');
   @computed
   String get selectedFilesCountMoreStr => selectedFiles.length > _visibleFileNames ? loc.more_count(selectedFiles.length - _visibleFileNames) : '';
+
+  Future selectFiles() async {
+    final files = await selectFilesDialog();
+    setFiles(files);
+  }
 
   Future download(Attachment attachment) async {
     final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');

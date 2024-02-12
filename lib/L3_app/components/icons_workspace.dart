@@ -7,7 +7,7 @@ import 'constants.dart';
 import 'icons.dart';
 
 class PeopleIcon extends MTIcon {
-  const PeopleIcon({super.key, super.color, super.size}) : super(CupertinoIcons.person_2);
+  const PeopleIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_2);
 }
 
 class ProjectsIcon extends MTIcon {
@@ -18,10 +18,10 @@ class TariffIcon extends MTIcon {
   const TariffIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.creditcard);
 }
 
-class WSIconHome extends MTIcon {
-  const WSIconHome({super.key, super.color, super.size = P6}) : super(CupertinoIcons.house_alt);
+class WSHomeIcon extends MTIcon {
+  const WSHomeIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.house_alt);
 }
 
-class WSIconPublic extends MTIcon {
-  const WSIconPublic({super.key, super.color, super.size = P6}) : super(CupertinoIcons.building_2_fill);
+class WSPublicIcon extends MTIcon {
+  const WSPublicIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.building_2_fill);
 }

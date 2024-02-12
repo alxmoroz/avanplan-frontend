@@ -111,7 +111,7 @@ class _WorkspaceDialog extends StatelessWidget {
       );
 
   Widget _users(BuildContext context) => MTListTile(
-        leading: const PeopleIcon(size: P6),
+        leading: const PeopleIcon(),
         titleText: '${loc.user_list_title} (${_ws.users.length})',
         subtitle: Row(children: [
           Flexible(child: SmallText(_ws.usersStr, maxLines: 1)),

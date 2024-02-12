@@ -17,19 +17,13 @@ class MTIcon extends StatelessWidget {
     this.color = mainColor,
     this.size = P4,
     this.solid = false,
+    this.circled = false,
   });
 
   final IconData? iconData;
   final Color color;
   final double size;
   final bool solid;
-
-  @override
-  Widget build(BuildContext context) => Icon(iconData, color: color.resolve(context), size: size);
-}
-
-class _Inner extends MTIcon {
-  const _Inner(super.iconData, {super.key, super.color, super.size, super.solid, this.circled = false});
   final bool circled;
 
   @override
@@ -45,9 +39,9 @@ class _Inner extends MTIcon {
             border: Border.all(color: rColor, width: 2),
           ),
         if (iconData != null)
-          MTIcon(
+          Icon(
             iconData,
-            color: color,
+            color: rColor,
             size: size - (circled == true ? ((size / 3) + 2) : 0),
           ),
       ],
@@ -55,7 +49,7 @@ class _Inner extends MTIcon {
   }
 }
 
-class AttachmentIcon extends _Inner {
+class AttachmentIcon extends MTIcon {
   const AttachmentIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.paperclip);
 }
 
@@ -75,12 +69,18 @@ class BellIcon extends MTIcon {
   }
 }
 
-class BoardIcon extends _Inner {
+class BoardIcon extends MTIcon {
   const BoardIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.rectangle_split_3x1);
 }
 
 class CalendarIcon extends MTIcon {
-  const CalendarIcon({super.key, super.color, super.size = P6, this.startMark = false, this.endMark = false}) : super(CupertinoIcons.calendar);
+  const CalendarIcon({
+    super.key,
+    this.startMark = false,
+    this.endMark = false,
+    super.color,
+    super.size = P6,
+  }) : super(CupertinoIcons.calendar);
   final bool startMark;
   final bool endMark;
 
@@ -126,7 +126,9 @@ class CaretIcon extends StatelessWidget {
 
 class CheckboxIcon extends MTIcon {
   const CheckboxIcon(this.checked, {super.key, super.color, super.size = P6, super.solid})
-      : super(checked ? (solid == true ? CupertinoIcons.checkmark_square_fill : CupertinoIcons.checkmark_square) : CupertinoIcons.square);
+      : super(
+          checked ? (solid == true ? CupertinoIcons.checkmark_square_fill : CupertinoIcons.checkmark_square) : CupertinoIcons.square,
+        );
   final bool checked;
 }
 
@@ -136,7 +138,9 @@ class ChevronIcon extends MTIcon {
 
 class ChevronCircleIcon extends MTIcon {
   const ChevronCircleIcon({super.key, super.color, super.size = P6, required this.left})
-      : super(left ? CupertinoIcons.chevron_left_circle : CupertinoIcons.chevron_right_circle);
+      : super(
+          left ? CupertinoIcons.chevron_left_circle : CupertinoIcons.chevron_right_circle,
+        );
   final bool left;
 }
 
@@ -148,7 +152,7 @@ class CopyIcon extends MTIcon {
   const CopyIcon({super.key, super.color, super.size = P4}) : super(CupertinoIcons.doc_on_clipboard);
 }
 
-class DeleteIcon extends _Inner {
+class DeleteIcon extends MTIcon {
   const DeleteIcon({super.key, super.color = dangerColor, super.size = P4, super.circled}) : super(CupertinoIcons.trash);
 }
 
@@ -160,7 +164,7 @@ class DocumentIcon extends MTIcon {
   const DocumentIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.doc_plaintext);
 }
 
-class DoneIcon extends _Inner {
+class DoneIcon extends MTIcon {
   const DoneIcon(this.done, {super.key, super.color, super.solid, super.size = P4})
       : super(
           done ? CupertinoIcons.checkmark : null,
@@ -177,8 +181,8 @@ class DropdownIcon extends MTIcon {
   const DropdownIcon({super.key, super.color, super.size}) : super(CupertinoIcons.chevron_up_chevron_down);
 }
 
-class DuplicateIcon extends _Inner {
-  const DuplicateIcon({super.key, super.color = mainColor, super.size, super.circled}) : super(CupertinoIcons.plus_square_on_square);
+class DuplicateIcon extends MTIcon {
+  const DuplicateIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.plus_square_on_square);
 }
 
 class EditIcon extends MTIcon {
@@ -199,7 +203,10 @@ class EstimateIcon extends MTIcon {
 }
 
 class EyeIcon extends MTIcon {
-  const EyeIcon({super.key, this.open = true, super.color = f2Color, super.size}) : super(open ? CupertinoIcons.eye : CupertinoIcons.eye_slash);
+  const EyeIcon({super.key, this.open = true, super.color = f2Color, super.size})
+      : super(
+          open ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+        );
   final bool open;
 }
 
@@ -224,7 +231,7 @@ class LinkIcon extends MTIcon {
   const LinkIcon({super.key, super.color, super.size = P3}) : super(Icons.link);
 }
 
-class LinkBreakIcon extends _Inner {
+class LinkBreakIcon extends MTIcon {
   const LinkBreakIcon({super.key, super.color = warningColor, super.size, super.circled}) : super(Icons.link_off);
 }
 
@@ -232,16 +239,16 @@ class LinkOutIcon extends MTIcon {
   const LinkOutIcon({super.key, super.color, super.size = P3}) : super(CupertinoIcons.arrow_up_right);
 }
 
-class ListIcon extends _Inner {
-  const ListIcon({super.key, super.color = mainColor, super.size, super.circled}) : super(CupertinoIcons.list_dash);
+class ListIcon extends MTIcon {
+  const ListIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.list_dash);
 }
 
-class LocalExportIcon extends _Inner {
-  const LocalExportIcon({super.key, super.color = mainColor, super.size, super.circled}) : super(CupertinoIcons.arrow_up);
+class LocalExportIcon extends MTIcon {
+  const LocalExportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.arrow_up);
 }
 
-class LocalImportIcon extends _Inner {
-  const LocalImportIcon({super.key, super.color = mainColor, super.size, super.circled}) : super(CupertinoIcons.arrow_down);
+class LocalImportIcon extends MTIcon {
+  const LocalImportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.arrow_down);
 }
 
 class MailIcon extends MTIcon {
@@ -252,8 +259,8 @@ class MemberAddIcon extends MTIcon {
   const MemberAddIcon({super.key, super.color, super.size}) : super(CupertinoIcons.person_crop_circle_badge_plus);
 }
 
-class MenuIcon extends _Inner {
-  const MenuIcon({super.key, super.color = mainColor, super.size, super.circled}) : super(CupertinoIcons.ellipsis_vertical);
+class MenuIcon extends MTIcon {
+  const MenuIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.ellipsis_vertical);
 }
 
 class MimeTypeIcon extends MTIcon {
@@ -261,8 +268,8 @@ class MimeTypeIcon extends MTIcon {
   final String mimeType;
 }
 
-class NoteAddIcon extends _Inner {
-  const NoteAddIcon({super.key, super.color = mainColor, super.size = P4, super.circled}) : super(CupertinoIcons.bubble_right);
+class NoteAddIcon extends MTIcon {
+  const NoteAddIcon({super.key, super.color, super.size = P4, super.circled}) : super(CupertinoIcons.bubble_right);
 }
 
 class NoteMarkIcon extends MTIcon {
@@ -280,8 +287,8 @@ class PersonIcon extends MTIcon {
   const PersonIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_circle);
 }
 
-class PlusIcon extends _Inner {
-  const PlusIcon({super.key, super.color = mainColor, super.size = P4, super.circled}) : super(CupertinoIcons.plus);
+class PlusIcon extends MTIcon {
+  const PlusIcon({super.key, super.color, super.size = P4, super.circled}) : super(CupertinoIcons.plus);
 }
 
 class PrivacyIcon extends MTIcon {
@@ -312,7 +319,7 @@ class SubmitIcon extends MTIcon {
   const SubmitIcon({super.key, super.color, super.size}) : super(CupertinoIcons.arrow_up);
 }
 
-class TasksIcon extends _Inner {
+class TasksIcon extends MTIcon {
   const TasksIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.checkmark, solid: false, circled: true);
 }
 

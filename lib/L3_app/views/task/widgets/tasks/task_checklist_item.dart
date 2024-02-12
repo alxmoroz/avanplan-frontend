@@ -123,7 +123,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         ),
         if (_fieldHover)
           MTButton.icon(
-            DeleteIcon(color: _delBtnHover ? mainColor : f2Color, size: deleteIconSize),
+            DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: deleteIconSize),
             padding: EdgeInsets.symmetric(vertical: (_minHeight - deleteIconSize) / 2).copyWith(left: 0, right: P3),
             margin: const EdgeInsets.only(left: P2),
             onHover: (hover) => setState(() => _delBtnHover = hover),

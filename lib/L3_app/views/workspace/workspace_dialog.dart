@@ -90,7 +90,7 @@ class _WorkspaceDialog extends StatelessWidget {
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
-              MTCurrency(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
+              MTBigPrice(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),
               if (_ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
@@ -100,9 +100,15 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget get _tariff => MTListTile(
         leading: const TariffIcon(),
-        titleText: loc.tariff_title,
+        middle: Row(
+          children: [
+            BaseText(_ws.invoice.tariff.title, maxLines: 1),
+            const Spacer(),
+            if (_ws.invoice.tariff.basePrice > 0) D5('${_ws.invoice.tariff.basePrice}₽ ', color: f3Color),
+          ],
+        ),
         subtitle: SmallText(
-          '${_ws.invoice.tariff.title} (${loc.contract_effective_date_title.toLowerCase()} ${_ws.invoice.contract.createdOn.strMedium})',
+          '${loc.contract_effective_date_title.toLowerCase()} ${_ws.invoice.contract.createdOn.strMedium}',
           maxLines: 1,
         ),
         trailing: const ChevronIcon(),

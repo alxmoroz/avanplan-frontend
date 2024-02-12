@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../presenters/number.dart';
 import 'text.dart';
 
-class MTCurrency extends StatelessWidget {
-  const MTCurrency(this.value, {super.key, this.color});
+class MTBigPrice extends StatelessWidget {
+  const MTBigPrice(this.value, {super.key, this.color});
 
   final num value;
   final Color? color;

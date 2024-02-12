@@ -22,7 +22,7 @@ class TariffBasePrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      middle: MTBigPrice(tariff.basePrice, color: mainColor),
+      middle: MTPrice(tariff.basePrice, color: mainColor),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

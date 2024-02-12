@@ -20,7 +20,7 @@ class RequestTariffCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
     return MTCard(
-      margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
+      margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : P),
       child: Column(
         children: [
           H2(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),

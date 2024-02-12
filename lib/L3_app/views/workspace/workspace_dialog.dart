@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
@@ -58,6 +59,30 @@ class _WorkspaceDialog extends StatelessWidget {
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);
+  Invoice get _invoice => _ws.invoice;
+  Tariff get _tariff => _invoice.tariff;
+
+  bool get _showMoney => _invoice.overallChargePerMonth > 0 || _ws.balance != 0;
+
+  num get _chargeUsers => _invoice.chargePerMonth(TOCode.USERS_COUNT);
+
+  num get _consumedTasks => _invoice.consumed(TOCode.TASKS_COUNT);
+  num get _chargeTasks => _invoice.chargePerMonth(TOCode.TASKS_COUNT);
+
+  num get _consumedFSVolume => _invoice.consumed(TOCode.FS_VOLUME);
+  num get _chargeFSVolume => _invoice.chargePerMonth(TOCode.FS_VOLUME);
+
+  num get _balanceDays => (_ws.balance / _invoice.overallChargePerMonth) * 30.41666;
+
+  Widget _rowTitle(Widget title, num sum) => Row(
+        children: [
+          Expanded(child: title),
+          if (_showMoney) ...[
+            MTPrice(sum, color: f3Color, size: AdaptiveSize.xxs),
+            const SizedBox(width: P_2),
+          ]
+        ],
+      );
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -90,7 +115,7 @@ class _WorkspaceDialog extends StatelessWidget {
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
-              MTBigPrice(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
+              MTPrice(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),
               if (_ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
@@ -98,17 +123,11 @@ class _WorkspaceDialog extends StatelessWidget {
         ),
       );
 
-  Widget get _tariff => MTListTile(
+  Widget get _tariffRow => MTListTile(
         leading: const TariffIcon(),
-        middle: Row(
-          children: [
-            BaseText(_ws.invoice.tariff.title, maxLines: 1),
-            const Spacer(),
-            if (_ws.invoice.tariff.basePrice > 0) D5('${_ws.invoice.tariff.basePrice}₽ ', color: f3Color),
-          ],
-        ),
+        middle: _rowTitle(BaseText(_tariff.title, maxLines: 1), _tariff.basePrice),
         subtitle: SmallText(
-          '${loc.contract_effective_date_title.toLowerCase()} ${_ws.invoice.contract.createdOn.strMedium}',
+          '${loc.contract_effective_date_title.toLowerCase()} ${_invoice.contract.createdOn.strMedium}',
           maxLines: 1,
         ),
         trailing: const ChevronIcon(),
@@ -118,25 +137,58 @@ class _WorkspaceDialog extends StatelessWidget {
 
   Widget _users(BuildContext context) => MTListTile(
         leading: const PeopleIcon(),
-        titleText: '${loc.user_list_title} (${_ws.users.length})',
+        middle: _rowTitle(
+          Row(
+            children: [
+              BaseText('${_ws.users.length}', maxLines: 1),
+              BaseText.f2(' ${loc.member_plural(_ws.users.length)}', maxLines: 1),
+            ],
+          ),
+          _chargeUsers,
+        ),
         subtitle: Row(children: [
           Flexible(child: SmallText(_ws.usersStr, maxLines: 1)),
-          if (_ws.usersCountMoreStr.isNotEmpty) SmallText(_ws.usersCountMoreStr, maxLines: 1, padding: const EdgeInsets.only(left: P))
+          if (_ws.usersCountMoreStr.isNotEmpty)
+            SmallText(
+              _ws.usersCountMoreStr,
+              maxLines: 1,
+              padding: const EdgeInsets.only(left: P),
+            )
         ]),
         trailing: const ChevronIcon(),
+        bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || _ws.hpSourceCreate,
         dividerIndent: P11,
         onTap: () async => await MTRouter.navigate(UsersRouter, context, args: _ws.id!),
       );
 
   Widget _tasks(BuildContext context) => MTListTile(
         leading: const TasksIcon(),
-        titleText: '${loc.task_list_title} (${(_ws.invoice.consumed(TOCode.TASKS_COUNT).humanValueStr)})',
+        middle: _rowTitle(
+          Row(
+            children: [
+              BaseText(_consumedTasks.humanValueStr, maxLines: 1),
+              BaseText.f2(' ${loc.task_plural(_consumedTasks)}', maxLines: 1),
+            ],
+          ),
+          _chargeTasks,
+        ),
+        trailing: const SizedBox(width: P3),
         dividerIndent: P11,
+        bottomDivider: _consumedFSVolume > 0 || _ws.hpSourceCreate,
       );
 
   Widget _storage(BuildContext context) => MTListTile(
         leading: const FileStorageIcon(),
-        titleText: '${loc.file_storage_title} (${_ws.invoice.consumed(TOCode.FS_VOLUME).humanBytesStr})',
+        middle: _rowTitle(
+          Row(
+            children: [
+              BaseText(_consumedFSVolume.humanBytesStr, maxLines: 1),
+              BaseText.f2(' ${loc.tariff_option_fs_volume_suffix}', maxLines: 1),
+            ],
+          ),
+          _chargeFSVolume,
+        ),
+        trailing: const SizedBox(width: P3),
         dividerIndent: P11,
         bottomDivider: _ws.hpSourceCreate,
       );
@@ -150,6 +202,26 @@ class _WorkspaceDialog extends StatelessWidget {
         _ws.checkSources();
         await MTRouter.navigate(SourcesRouter, context, args: _ws.id!);
       });
+
+  Widget _overallCharge(BuildContext context) => MTListTile(
+        // leading: const ImportIcon(),
+        middle: Row(
+          children: [
+            BaseText(loc.workspace_money_consumption_per_month, maxLines: 1),
+            const Spacer(),
+            MTPrice(_invoice.overallChargePerMonth, size: AdaptiveSize.xs),
+            const SizedBox(width: P_2),
+          ],
+        ),
+        subtitle: SmallText(
+          '${loc.workspace_money_remaining_time_prefix} ${loc.days_count(_balanceDays.round())}',
+          maxLines: 1,
+        ),
+        trailing: const ChevronIcon(),
+        margin: const EdgeInsets.only(top: P3),
+        bottomDivider: false,
+        onTap: () => print('ЧЕК'),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -170,13 +242,14 @@ class _WorkspaceDialog extends StatelessWidget {
           shrinkWrap: true,
           children: [
             _header,
-            _balance,
-            _tariff,
+            if (_showMoney) _balance,
+            _tariffRow,
             const SizedBox(height: P3),
             if (_ws.hpMemberRead) _users(context),
             _tasks(context),
             _storage(context),
             if (_ws.hpSourceCreate) _sources(context),
+            if (_showMoney) _overallCharge(context),
           ],
         ),
       );

@@ -439,6 +439,8 @@
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
+  "workspace_money_consumption_per_month": "Current consumption per month",
+  "workspace_money_remaining_time_prefix": "Funds will be enough for",
   "workspace_my_title": "My Workspace",
   "workspace_selector_title": "Choose a workspace",
   "workspace_title": "Workspace",

@@ -8,6 +8,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/adaptive.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
@@ -107,7 +108,7 @@ class TaskDetails extends StatelessWidget {
             MTField(
               _controller.fData(TaskFCode.features.index),
               margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
-              leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
+              leading: SettingsIcon(color: _task.canEditFeatureSets ? mainColor : f3Color),
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
               compact: compact,
               onTap: _task.canEditFeatureSets ? () => featureSetsDialog(_controller) : null,

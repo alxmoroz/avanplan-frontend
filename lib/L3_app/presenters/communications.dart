@@ -2,19 +2,20 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../L3_app/extra/services.dart';
 import '../components/button.dart';
+import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
+import '../extra/services.dart';
 import '../usecases/communications.dart';
 
 String get appTitle => '${loc.app_title} ${localSettingsController.settings.version}';
 
 class ReportErrorButton extends StatelessWidget {
-  const ReportErrorButton(this.errorText, {super.key, this.color, this.titleColor});
+  const ReportErrorButton(this.errorText, {super.key, this.color, this.titleColor = mainColor});
   final String errorText;
   final Color? color;
-  final Color? titleColor;
+  final Color titleColor;
 
   @override
   Widget build(BuildContext context) {

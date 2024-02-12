@@ -42,7 +42,7 @@ class _AttachmentsDialog extends StatelessWidget {
             itemBuilder: (_, index) {
               final a = _controller.sortedAttachments[index];
               return MTListTile(
-                leading: MimeTypeIcon(mimeType: a.type),
+                leading: MimeTypeIcon(a.type),
                 titleText: a.title,
                 subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
                 dividerIndent: P6 + P5,

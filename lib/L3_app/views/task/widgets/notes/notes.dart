@@ -132,7 +132,7 @@ class Notes extends StatelessWidget {
                                     itemBuilder: (_, index) {
                                       final a = n.attachments[index];
                                       return MTListTile(
-                                        leading: MimeTypeIcon(mimeType: a.type, size: P6),
+                                        leading: MimeTypeIcon(a.type),
                                         middle: BaseText(a.title, maxLines: 1),
                                         subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
                                         padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),

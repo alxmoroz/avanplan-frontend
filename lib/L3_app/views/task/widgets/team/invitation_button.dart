@@ -37,7 +37,7 @@ class InvitationButton extends StatelessWidget {
           )
         : MTButton(
             type: type,
-            leading: MemberAddIcon(color: type == ButtonType.main ? mainBtnTitleColor : null),
+            leading: MemberAddIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
             titleText: loc.invitation_create_title,
             onTap: () => onTap(task),
           );

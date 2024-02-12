@@ -36,7 +36,7 @@ Future<List<XFile>> selectFilesDialog() async {
                 shrinkWrap: true,
                 children: [
                   MTListTile(
-                    leading: const MimeTypeIcon(mimeType: 'image'),
+                    leading: MimeTypeIcon('image'),
                     titleText: loc.attachment_source_gallery_title,
                     dividerIndent: P6 + P5,
                     onTap: () => Navigator.of(context).pop(_FileSource.gallery),

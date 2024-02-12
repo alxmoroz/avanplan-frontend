@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -28,7 +29,7 @@ class WorkspaceListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: ws.isMine ? const WSIconHome() : WSIconPublic(color: _disabled ? f2Color : null),
+      leading: ws.isMine ? const WSIconHome() : WSIconPublic(color: _disabled ? f2Color : mainColor),
       dividerIndent: P11,
       middle: Row(children: [
         Expanded(child: BaseText(ws.title, maxLines: 1)),

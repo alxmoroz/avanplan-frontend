@@ -13,7 +13,7 @@ import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
 import 'tariff_base_price.dart';
-import 'tariff_limits.dart';
+import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
 
 class TariffCard extends StatelessWidget {
@@ -39,7 +39,7 @@ class TariffCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           H2(_tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
-          if (smallHeight) const Spacer() else Expanded(child: TariffLimits(_tariff)),
+          if (smallHeight) const Spacer() else Expanded(child: TariffOptions(_tariff)),
           TariffBasePrice(_tariff),
           const SizedBox(height: P3),
           _isCurrent

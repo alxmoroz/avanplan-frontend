@@ -69,12 +69,11 @@
 
   "copied_notification_title": "Copied to clipboard",
 
-  "count_gigabytes_short": "{count} Gb",
-  "count_kilobytes_short": "{count} Kb",
-  "count_megabytes_short": "{count} Mb",
-  "count_millions_short": "{count} M",
-  "count_terabytes_short": "{count} Tb",
-  "count_thousands_short": "{count} k",
+  "gigabytes_short": "Gb",
+  "kilobytes_short": "Kb",
+  "megabytes_short": "Mb",
+  "millions_short": "M",
+  "thousands_short": "k",
 
   "create_from_scratch_action_description": "Add an empty project",
   "create_from_scratch_action_title": "Create from scratch",
@@ -339,7 +338,7 @@
   "tariff_limit_special_conditions_title3": "No limits",
   "tariff_limit_special_conditions_title4": "On premise server",
   "tariff_option_base_price_suffix": "per month*",
-  "tariff_option_fs_volume_suffix": "file storage",
+  "tariff_option_fs_volume_suffix": "files",
   "tariff_price_request_action_hint": "to suit your\nbusiness needs",
   "tariff_price_request_action_title": "Request an offer",
   "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",

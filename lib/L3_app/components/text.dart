@@ -190,7 +190,7 @@ class D4 extends _BaseDText {
 }
 
 class D3 extends _BaseDText {
-  const D3(super.text, {super.color, super.padding}) : super(sizeScale: 1.55);
+  const D3(super.text, {super.color, super.padding}) : super(sizeScale: 1.62);
 }
 
 class D2 extends _BaseDText {

@@ -190,21 +190,9 @@ class _WorkspaceDialog extends StatelessWidget {
         ),
         trailing: const SizedBox(width: P3),
         dividerIndent: P11,
-        bottomDivider: _ws.hpSourceCreate,
       );
 
-  Widget _sources(BuildContext context) => MTListTile(
-      leading: const ImportIcon(),
-      titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
-      trailing: const ChevronIcon(),
-      bottomDivider: false,
-      onTap: () async {
-        _ws.checkSources();
-        await MTRouter.navigate(SourcesRouter, context, args: _ws.id!);
-      });
-
   Widget _overallCharge(BuildContext context) => MTListTile(
-        // leading: const ImportIcon(),
         middle: Row(
           children: [
             BaseText(loc.workspace_money_consumption_per_month, maxLines: 1),
@@ -218,10 +206,20 @@ class _WorkspaceDialog extends StatelessWidget {
           maxLines: 1,
         ),
         trailing: const ChevronIcon(),
-        margin: const EdgeInsets.only(top: P3),
         bottomDivider: false,
         onTap: () => print('ЧЕК'),
       );
+
+  Widget _sources(BuildContext context) => MTListTile(
+      leading: const ImportIcon(),
+      titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
+      trailing: const ChevronIcon(),
+      margin: const EdgeInsets.only(top: P3),
+      bottomDivider: false,
+      onTap: () async {
+        _ws.checkSources();
+        await MTRouter.navigate(SourcesRouter, context, args: _ws.id!);
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -248,8 +246,8 @@ class _WorkspaceDialog extends StatelessWidget {
             if (_ws.hpMemberRead) _users(context),
             _tasks(context),
             _storage(context),
-            if (_ws.hpSourceCreate) _sources(context),
             if (_showMoney) _overallCharge(context),
+            if (_ws.hpSourceCreate) _sources(context),
           ],
         ),
       );

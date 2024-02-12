@@ -69,12 +69,12 @@
 
   "copied_notification_title": "Скопировано",
 
-  "count_gigabytes_short": "{count} Гб",
-  "count_kilobytes_short": "{count} Кб",
-  "count_megabytes_short": "{count} Мб",
-  "count_millions_short": "{count} млн.",
-  "count_thousands_short": "{count} тыс.",
-  "count_terabytes_short": "{count} Тб",
+  "gigabytes_short": "Гб",
+  "kilobytes_short": "Кб",
+  "megabytes_short": "Мб",
+  "millions_short": "млн.",
+  "thousands_short": "тыс.",
+
 
   "create_from_scratch_action_description": "Добавить пустой проект",
   "create_from_scratch_action_title": "Создать с нуля",
@@ -339,7 +339,7 @@
   "tariff_limit_special_conditions_title4": "На ваши сервера",
   "tariff_list_title": "Тарифы",
   "tariff_option_base_price_suffix": "в месяц*",
-  "tariff_option_fs_volume_suffix": "для файлов",
+  "tariff_option_fs_volume_suffix": "файлов",
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",
   "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",

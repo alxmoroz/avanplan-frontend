@@ -8,7 +8,6 @@ import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
-import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -29,7 +28,6 @@ class TariffBasePrice extends StatelessWidget {
           SmallText(loc.tariff_option_base_price_suffix, align: TextAlign.center, maxLines: 1),
           const SizedBox(width: P2),
           SmallText(loc.details.toLowerCase(), color: mainColor, maxLines: 1),
-          const LinkOutIcon(size: P3),
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),

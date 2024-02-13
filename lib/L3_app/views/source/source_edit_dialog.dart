@@ -128,12 +128,10 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
               controller.selectedType?.isTrello == true
                   ? MTButton.secondary(
                       titleText: loc.source_get_token_action,
-                      trailing: const LinkOutIcon(),
                       onTap: controller.getTrelloToken,
                     )
                   : MTButton.secondary(
                       titleText: loc.source_get_token_help_action,
-                      trailing: const LinkOutIcon(),
                       onTap: () => launchUrlString(_sourceEditHelperAddress),
                     ),
             if (controller.selectedType?.isTrelloJson == false) controller.tf(SourceFCode.apiKey),

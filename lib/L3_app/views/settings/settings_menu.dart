@@ -61,7 +61,6 @@ class _SettingsDialog extends StatelessWidget {
           MTListTile(
             leading: const MailIcon(),
             titleText: loc.contact_us_title,
-            trailing: const LinkOutIcon(),
             bottomDivider: !isIOS,
             onTap: mailUs,
           ),
@@ -69,14 +68,12 @@ class _SettingsDialog extends StatelessWidget {
             MTListTile(
               leading: const DocumentIcon(),
               titleText: loc.legal_rules_title,
-              trailing: const LinkOutIcon(),
               onTap: () => launchUrlString(legalRulesPath),
             ),
           if (!isIOS)
             MTListTile(
               leading: const PrivacyIcon(),
               titleText: loc.legal_privacy_policy_title,
-              trailing: const LinkOutIcon(),
               bottomDivider: false,
               onTap: () => launchUrlString(legalConfidentialPath),
             ),

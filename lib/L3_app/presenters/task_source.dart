@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../L1_domain/entities/task.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
-import '../components/icons.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
 import '../usecases/task_source.dart';
@@ -20,8 +19,6 @@ extension TaskSourcePresenter on Task {
           const SizedBox(width: P),
         ],
         BaseText(loc.task_go2source_title, color: mainColor),
-        const SizedBox(width: P_2),
-        const LinkOutIcon(),
       ],
     );
   }

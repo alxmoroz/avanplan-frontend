@@ -108,7 +108,6 @@ class _NotificationListDialog extends StatelessWidget {
                         align: TextAlign.center,
                         maxLines: 2,
                       ),
-                      trailing: const LinkOutIcon(),
                       onTap: _showGotoSystemSettingsDialog,
                     ),
                     if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),

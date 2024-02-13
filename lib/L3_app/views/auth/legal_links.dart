@@ -7,7 +7,6 @@ import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 
@@ -19,13 +18,11 @@ class LegalLinks extends StatelessWidget {
         children: [
           MTButton(
             middle: SmallText(loc.legal_rules_title, color: mainColor),
-            trailing: const LinkOutIcon(),
             onTap: () => launchUrlString(legalRulesPath),
           ),
           const SizedBox(height: P),
           MTButton(
             middle: SmallText(loc.legal_privacy_policy_title, color: mainColor),
-            trailing: const LinkOutIcon(),
             onTap: () => launchUrlString(legalConfidentialPath),
           ),
         ],

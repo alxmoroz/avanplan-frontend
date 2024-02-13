@@ -1,10 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
@@ -13,26 +11,16 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class TariffBasePrice extends StatelessWidget {
-  const TariffBasePrice(this.tariff, {super.key});
-  final Tariff tariff;
-
-  String get _uriPath => tariffsPath + (tariff.hidden ? '/archive/${tariff.code.toLowerCase()}' : '');
+  const TariffBasePrice(this._tariff, {super.key});
+  final Tariff _tariff;
 
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      middle: MTPrice(tariff.basePrice, color: mainColor),
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SmallText(loc.tariff_option_base_price_suffix, align: TextAlign.center, maxLines: 1),
-          const SizedBox(width: P2),
-          SmallText(loc.details.toLowerCase(), color: mainColor, maxLines: 1),
-        ],
-      ),
+      middle: MTPrice(_tariff.basePrice, color: mainColor),
+      subtitle: BaseText.f2(loc.tariff_option_base_price_suffix, align: TextAlign.center, maxLines: 1),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
       bottomDivider: false,
-      onTap: () => launchUrlString(_uriPath),
     );
   }
 }

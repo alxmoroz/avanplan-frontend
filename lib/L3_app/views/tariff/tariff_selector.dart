@@ -69,7 +69,7 @@ class _TariffSelectorDialog extends StatelessWidget {
 
   Widget _tariffPages(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: P * 90),
+      constraints: const BoxConstraints(maxHeight: P * 94),
       child: _controller.loading
           ? const Center(child: MTCircularProgress(color: mainColor, unbound: true))
           : LayoutBuilder(

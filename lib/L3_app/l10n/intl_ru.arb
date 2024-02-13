@@ -333,17 +333,18 @@
   "tariff_change_action_title": "Сменить тариф",
 
   "tariff_current_title": "Текущий тариф",
+  "tariff_details_action_title": "Подробнее об условиях тарифа",
   "tariff_limit_special_conditions_title1": "Уникальное решение",
   "tariff_limit_special_conditions_title2": "Новые функции",
   "tariff_limit_special_conditions_title3": "Без ограничений",
   "tariff_limit_special_conditions_title4": "На ваши сервера",
   "tariff_list_title": "Тарифы",
-  "tariff_option_base_price_suffix": "в месяц*",
+  "tariff_option_base_price_suffix": "в месяц",
   "tariff_option_fs_volume_suffix": "файлов",
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",
   "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",
-  "tariff_select_action_title": "Выбрать",
+  "tariff_subscribe_action_title": "Подключить",
 
   "tariff_title": "Тариф",
 

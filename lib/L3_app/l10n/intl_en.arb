@@ -332,17 +332,18 @@
   "tariff_change_action_title": "Change tariff",
 
   "tariff_current_title": "Current Tariff",
+  "tariff_details_action_title": "More details about the tariff",
   "tariff_list_title": "Tariffs",
   "tariff_limit_special_conditions_title1": "Unique solution",
   "tariff_limit_special_conditions_title2": "New features",
   "tariff_limit_special_conditions_title3": "No limits",
   "tariff_limit_special_conditions_title4": "On premise server",
-  "tariff_option_base_price_suffix": "per month*",
+  "tariff_option_base_price_suffix": "per month",
   "tariff_option_fs_volume_suffix": "files",
   "tariff_price_request_action_hint": "to suit your\nbusiness needs",
   "tariff_price_request_action_title": "Request an offer",
   "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",
-  "tariff_select_action_title": "Select",
+  "tariff_subscribe_action_title": "Subscribe",
 
   "tariff_title": "Tariff",
 

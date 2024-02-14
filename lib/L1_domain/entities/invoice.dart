@@ -23,20 +23,18 @@ class Invoice extends RPersistable {
 
   num consumed(String code) => details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
 
-  num _tariffQuantity(String code) => tariff.tariffQuantity(code);
-  num _freeLimit(String code) => tariff.freeLimit(code);
-  num _overdraft(String code) {
-    final diff = max(0, consumed(code) - _freeLimit(code));
-    return (diff / _tariffQuantity(code)).ceil();
+  num overdraft(String code) {
+    final diff = max(0, consumed(code) - tariff.freeLimit(code));
+    return (diff / tariff.billingQuantity(code)).ceil();
   }
 
-  num chargePerMonth(String code) => _overdraft(code) * tariff.pricePerMonth(code);
+  num expensesPerMonth(String code) => overdraft(code) * tariff.price(code);
 
-  num get overallChargePerMonth {
-    num charge = 0;
+  num get overallExpensesPerMonth {
+    num sum = 0;
     for (String code in tariff.optionsMap.keys) {
-      charge += chargePerMonth(code);
+      sum += expensesPerMonth(code);
     }
-    return charge;
+    return sum;
   }
 }

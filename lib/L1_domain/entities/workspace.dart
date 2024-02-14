@@ -5,7 +5,7 @@ import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
 import 'source.dart';
-import 'user.dart';
+import 'ws_member.dart';
 import 'ws_settings.dart';
 
 class WorkspaceUpsert extends Titleable {
@@ -24,7 +24,7 @@ class Workspace extends WorkspaceUpsert {
     required super.title,
     required super.description,
     required super.code,
-    required this.users,
+    required this.wsMembers,
     required this.roles,
     required this.invoice,
     required this.balance,
@@ -33,12 +33,12 @@ class Workspace extends WorkspaceUpsert {
     required this.sources,
   });
 
-  final Iterable<User> users;
+  final Iterable<WSMember> wsMembers;
   final Iterable<Role> roles;
   Invoice invoice;
   num balance;
 
-  final WSettings? settings;
+  final WSSettings? settings;
 
   // редактируемые поля
   List<EstimateValue> estimateValues;
@@ -49,7 +49,7 @@ class Workspace extends WorkspaceUpsert {
         title: '',
         description: '',
         code: '',
-        users: [],
+        wsMembers: [],
         roles: [],
         invoice: Invoice.dummy,
         balance: 0,

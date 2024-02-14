@@ -3,8 +3,8 @@
 import 'person.dart';
 import 'user_activity.dart';
 
-class User extends Person {
-  User({
+class WSMember extends Person {
+  WSMember({
     required super.id,
     required super.email,
     required super.fullName,
@@ -17,5 +17,5 @@ class User extends Person {
   final int wsId;
   final Iterable<UActivity> activities;
 
-  static User get dummy => User(id: null, email: '', fullName: '', roles: [], permissions: [], wsId: -1, activities: []);
+  static WSMember get dummy => WSMember(id: null, email: '', fullName: '', roles: [], permissions: [], wsId: -1, activities: []);
 }

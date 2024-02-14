@@ -2,11 +2,11 @@
 
 import '../entities/notification.dart';
 import '../entities/task.dart';
-import '../entities/user.dart';
+import '../entities/ws_member.dart';
 
 abstract class AbstractMyRepo {
-  Future<User?> getAccount();
-  Future<User?> registerActivity(String code, {int? wsId});
+  Future<WSMember?> getAccount();
+  Future<WSMember?> registerActivity(String code, {int? wsId});
   Future deleteAccount();
 
   Future<Iterable<Task>> getProjects(int wsId, {bool? closed, bool? imported});

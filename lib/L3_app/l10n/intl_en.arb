@@ -184,6 +184,7 @@
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
   "member_title": "Member",
+  "members_title": "Members",
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
   "more_count": "and {count} more",
@@ -213,6 +214,9 @@
   "notification_title": "Notification",
 
   "ok": "Ok",
+
+  "per_day_suffix": "/ day",
+  "per_month_suffix": "per month",
 
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
@@ -331,6 +335,7 @@
 
   "tariff_change_action_title": "Change tariff",
 
+  "tariff_additional_options_title": "Additional options",
   "tariff_current_title": "Current Tariff",
   "tariff_details_action_title": "More details about the tariff",
   "tariff_list_title": "Tariffs",
@@ -338,7 +343,6 @@
   "tariff_limit_special_conditions_title2": "New features",
   "tariff_limit_special_conditions_title3": "No limits",
   "tariff_limit_special_conditions_title4": "On premise server",
-  "tariff_option_base_price_suffix": "per month",
   "tariff_option_fs_volume_suffix": "files",
   "tariff_price_request_action_hint": "to suit your\nbusiness needs",
   "tariff_price_request_action_title": "Request an offer",
@@ -428,18 +432,16 @@
 
   "today_date_title": "today",
   "tomorrow_date_title": "tomorrow",
+  "total_title": "Total",
 
   "update_app_recommendation_title": "Update the app to the latest version",
   "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
-
-  "user_list_title": "Users",
-  "user_title": "User",
 
   "validation_empty_text": "Should not be empty",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
-  "workspace_money_consumption_per_month": "Current consumption per month",
+  "workspace_expenses": "Current expenses are",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",
   "workspace_my_title": "My Workspace",
   "workspace_selector_title": "Choose a workspace",

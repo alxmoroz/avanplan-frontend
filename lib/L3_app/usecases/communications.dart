@@ -8,7 +8,7 @@ Future<bool> mailUs({String? subject, String? text}) async {
   return await sendMail(
     subject ?? loc.contact_us_mail_subject,
     appTitle,
-    accountController.user?.id,
+    accountController.me?.id,
     text: text,
   );
 }

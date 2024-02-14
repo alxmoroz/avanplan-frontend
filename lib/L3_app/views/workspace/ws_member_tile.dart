@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/user.dart';
+import '../../../L1_domain/entities/ws_member.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../presenters/person.dart';
-import 'user_dialog.dart';
+import 'ws_member_dialog.dart';
 
-class UserTile extends StatelessWidget {
-  const UserTile(this._user, {super.key, required this.bottomBorder});
-  final User _user;
+class WSMemberTile extends StatelessWidget {
+  const WSMemberTile(this._wsMember, {super.key, required this.bottomBorder});
+  final WSMember _wsMember;
   final bool bottomBorder;
 
   static const _iconSize = P8;
@@ -21,13 +21,13 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: _user.icon(_iconSize / 2, borderColor: mainColor),
-      middle: BaseText('$_user', maxLines: 1),
-      subtitle: SmallText(_user.rolesStr, maxLines: 1),
+      leading: _wsMember.icon(_iconSize / 2, borderColor: mainColor),
+      middle: BaseText('$_wsMember', maxLines: 1),
+      subtitle: SmallText(_wsMember.rolesStr, maxLines: 1),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       dividerIndent: _iconSize + P5,
-      onTap: () async => await userDialog(_user),
+      onTap: () async => await wsMemberDialog(_wsMember),
     );
   }
 }

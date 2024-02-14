@@ -3,8 +3,8 @@
 import 'base_entity.dart';
 import 'estimate_unit.dart';
 
-class WSettings extends RPersistable {
-  WSettings({
+class WSSettings extends RPersistable {
+  WSSettings({
     required super.id,
     required this.estimateUnit,
   });

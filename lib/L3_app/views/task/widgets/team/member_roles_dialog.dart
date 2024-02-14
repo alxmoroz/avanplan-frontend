@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task_member.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
@@ -24,7 +24,7 @@ class _MemberRolesDialog extends StatelessWidget {
   final MemberRolesController _controller;
 
   Task get _task => _controller.task;
-  Member? get _member => _task.memberForId(_controller.memberId);
+  TaskMember? get _member => _task.memberForId(_controller.memberId);
 
   Widget _roleItem(BuildContext context, int index) {
     final role = _controller.roles[index];

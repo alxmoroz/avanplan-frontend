@@ -1,8 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/member.dart';
 import '../entities/task.dart';
+import '../entities/task_member.dart';
 
 abstract class AbstractTaskMemberRoleRepo {
-  Future<Iterable<Member>> assignRoles(Task task, int memberId, Iterable<int> rolesIds);
+  Future<Iterable<TaskMember>> assignRoles(Task task, int memberId, Iterable<int> rolesIds);
 }

@@ -10,11 +10,11 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
-import 'user_tile.dart';
+import 'ws_member_tile.dart';
 
-class UsersRouter extends MTRouter {
+class WSMembersRouter extends MTRouter {
   static const _wsPrefix = '/settings/workspaces';
-  static const _suffix = 'users';
+  static const _suffix = 'members';
 
   @override
   bool get isDialog => true;
@@ -24,35 +24,35 @@ class UsersRouter extends MTRouter {
   int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
-  Widget get page => _UserListDialog(_id);
+  Widget get page => _WSMembersDialog(_id);
 
   @override
-  String get title => '${wsMainController.ws(_id).code} | ${loc.user_list_title}';
+  String get title => '${wsMainController.ws(_id).code} | ${loc.members_title}';
 
   @override
   Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
-class _UserListDialog extends StatelessWidget {
-  const _UserListDialog(this._wsId);
+class _WSMembersDialog extends StatelessWidget {
+  const _WSMembersDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);
 
-  Widget _userBuilder(BuildContext context, int index) => UserTile(
-        _ws.sortedUsers[index],
-        bottomBorder: index < _ws.sortedUsers.length - 1,
+  Widget _userBuilder(BuildContext context, int index) => WSMemberTile(
+        _ws.sortedMembers[index],
+        bottomBorder: index < _ws.sortedMembers.length - 1,
       );
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _ws.subPageTitle(loc.user_list_title)),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _ws.subPageTitle(loc.members_title)),
         body: ListView.builder(
           shrinkWrap: true,
           itemBuilder: _userBuilder,
-          itemCount: _ws.users.length,
+          itemCount: _ws.wsMembers.length,
         ),
       );
     });

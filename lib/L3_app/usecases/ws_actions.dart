@@ -2,12 +2,12 @@
 
 import 'package:collection/collection.dart';
 
-import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
+import '../../L1_domain/entities/ws_member.dart';
 import '../extra/services.dart';
 
 extension WSActionsUC on Workspace {
-  User get me => users.firstWhereOrNull((u) => u.id == accountController.user?.id) ?? User.dummy;
+  WSMember get me => wsMembers.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? WSMember.dummy;
 
   // bool get hpInfoRead => me.hp('INFO_READ');
   bool get hpInfoUpdate => me.hp('INFO_UPDATE');

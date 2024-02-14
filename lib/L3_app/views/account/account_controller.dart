@@ -3,8 +3,8 @@
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
+import '../../../L1_domain/entities/ws_member.dart';
 import '../../components/alert_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
@@ -15,13 +15,13 @@ class AccountController extends _AccountControllerBase with _$AccountController 
 
 abstract class _AccountControllerBase extends EditController with Store {
   @observable
-  User? user;
+  WSMember? me;
 
   @computed
-  Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(user?.activities ?? [], (a) => a.code);
+  Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(me?.activities ?? [], (a) => a.code);
 
   @action
-  Future getData() async => user = await myUC.getAccount();
+  Future getData() async => me = await myUC.getAccount();
 
   // @action
   // Future _registerActivity(String code, {int? wsId}) async {
@@ -34,7 +34,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   // bool tariffExcessInfoViewed(int wsId) => _hasActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
 
   @action
-  void clearData() => user = null;
+  void clearData() => me = null;
 
   Future delete() async {
     final confirm = await showMTAlertDialog(

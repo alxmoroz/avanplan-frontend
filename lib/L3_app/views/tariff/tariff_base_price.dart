@@ -18,7 +18,7 @@ class TariffBasePrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       middle: MTPrice(_tariff.basePrice, color: mainColor),
-      subtitle: BaseText.f2(loc.tariff_option_base_price_suffix, align: TextAlign.center, maxLines: 1),
+      subtitle: BaseText.f2(loc.per_month_suffix, align: TextAlign.center, maxLines: 1),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
       bottomDivider: false,
     );

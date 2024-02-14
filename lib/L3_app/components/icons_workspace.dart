@@ -6,16 +6,16 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
 
+class BankCardIcon extends MTIcon {
+  const BankCardIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.creditcard);
+}
+
 class PeopleIcon extends MTIcon {
   const PeopleIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_2);
 }
 
 class ProjectsIcon extends MTIcon {
   const ProjectsIcon({super.key, super.color = f2Color, super.size = P6}) : super(CupertinoIcons.folder);
-}
-
-class TariffIcon extends MTIcon {
-  const TariffIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.creditcard);
 }
 
 class WSHomeIcon extends MTIcon {

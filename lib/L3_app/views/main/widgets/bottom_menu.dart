@@ -53,10 +53,10 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                   onTap: () => MTRouter.navigate(MyTasksRouter, context),
                 ),
               ),
-            if (accountController.user != null)
+            if (accountController.me != null)
               Flexible(
                 child: MTListTile(
-                  middle: accountController.user!.icon(P6 / 2, borderColor: mainColor),
+                  middle: accountController.me!.icon(P6 / 2, borderColor: mainColor),
                   color: Colors.transparent,
                   padding: _btnPadding,
                   bottomDivider: false,

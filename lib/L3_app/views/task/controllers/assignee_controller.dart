@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
-import '../../../../L1_domain/entities/member.dart';
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/task_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -36,7 +36,7 @@ class AssigneeController {
   Timer? _assigneeEditTimer;
 
   Future startAssign() async {
-    final assignee = await showMTSelectDialog<Member>(
+    final assignee = await showMTSelectDialog<TaskMember>(
       task.activeMembers,
       task.assigneeId,
       loc.task_assignee_placeholder,

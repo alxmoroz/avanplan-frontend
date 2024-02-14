@@ -2,8 +2,8 @@
 
 import 'person.dart';
 
-class Member extends Person {
-  Member({
+class TaskMember extends Person {
+  TaskMember({
     required super.id,
     required super.email,
     required super.fullName,

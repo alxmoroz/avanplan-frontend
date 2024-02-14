@@ -120,10 +120,12 @@ class _TariffSelectorDialog extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          top: true,
           left: false,
           right: false,
-          child: _tariffPages(context),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P2 : 0),
+            child: _tariffPages(context),
+          ),
         ),
       ),
     );

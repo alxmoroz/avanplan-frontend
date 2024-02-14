@@ -15,7 +15,7 @@ class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.icon(
-      accountController.user!.icon(P3, borderColor: mainColor),
+      accountController.me!.icon(P3, borderColor: mainColor),
       onTap: settingsMenu,
     );
   }

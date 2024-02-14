@@ -24,13 +24,15 @@ class _TariffOption extends StatelessWidget {
   static const iconSize = P6;
   static const iconColor = mainColor;
 
-  TariffOption? get _option => _tariff.optionsMap[_code];
-  num get _freeLimit => _option?.freeLimit ?? 0;
-  num get _quantity => _option?.tariffQuantity ?? 1;
+  num get _freeLimit => _tariff.freeLimit(_code);
+  num get _quantity => _tariff.billingQuantity(_code);
+  num get _price => _tariff.price(_code);
   int get _freeLimitHuman => (_freeLimit / _quantity).round();
 
   @override
   Widget build(BuildContext context) {
+    final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
+
     String unit = '';
     String suffix = '';
     String quantityStr = '';
@@ -57,15 +59,19 @@ class _TariffOption extends StatelessWidget {
       width: (SCR_XXS_WIDTH - P6) / 3,
       child: Column(
         children: [
-          icon,
-          const SizedBox(height: P2),
+          if (!smallHeight) ...[
+            icon,
+            const SizedBox(height: P2),
+          ],
           D3('$_freeLimitHuman'),
           const SizedBox(height: P),
           SmallText('$suffix$unit', maxLines: 1),
-          const SizedBox(height: P3),
-          D4('+$quantityStr'),
-          const SizedBox(height: P),
-          MTPrice(_option?.price ?? 0, color: f3Color, size: AdaptiveSize.xs),
+          if (!smallHeight) ...[
+            const SizedBox(height: P3),
+            D4('+$quantityStr'),
+            const SizedBox(height: P),
+            MTPrice(_price, color: f3Color, size: AdaptiveSize.xs),
+          ]
         ],
       ),
     );

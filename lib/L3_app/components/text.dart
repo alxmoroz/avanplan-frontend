@@ -163,42 +163,44 @@ abstract class _BaseDText extends BaseText {
     super.color,
     super.sizeScale,
     super.padding,
+    super.align = TextAlign.center,
     FontWeight? weight,
-  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w500, maxLines: 1);
+  }) : super(weight: weight ?? FontWeight.w500, maxLines: 1);
 
   const _BaseDText.bold(
     super.text, {
     super.color,
     super.sizeScale,
     super.padding,
-  }) : super(align: TextAlign.center, weight: FontWeight.w700, maxLines: 1);
+    super.align = TextAlign.center,
+  }) : super(weight: FontWeight.w700, maxLines: 1);
 
   @override
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Montserrat');
 }
 
 class D5 extends _BaseDText {
-  const D5(super.text, {super.color, super.padding}) : super(sizeScale: 0.9);
+  const D5(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 0.9);
 }
 
 class D5Bold extends _BaseDText {
-  const D5Bold(super.text, {super.color, super.padding}) : super.bold(sizeScale: 0.9);
+  const D5Bold(super.text, {super.color, super.padding, super.align}) : super.bold(sizeScale: 0.9);
 }
 
 class D4 extends _BaseDText {
-  const D4(super.text, {super.color, super.padding}) : super(sizeScale: 1.15);
+  const D4(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 1.15);
 }
 
 class D3 extends _BaseDText {
-  const D3(super.text, {super.color, super.padding}) : super(sizeScale: 1.65);
+  const D3(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 1.65);
 }
 
 class D2 extends _BaseDText {
-  const D2(super.text, {super.color, super.padding}) : super(sizeScale: 2.6);
+  const D2(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 2.6);
 }
 
 class D1 extends _BaseDText {
-  const D1(super.text, {super.color, super.padding}) : super(sizeScale: 7);
+  const D1(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 7);
 }
 
 /// Декоративный стиль (для названия приложения)

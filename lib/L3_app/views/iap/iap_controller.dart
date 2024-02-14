@@ -36,7 +36,7 @@ abstract class _IAPControllerBase with Store {
 
   @action
   Future pay(int wsId, IAPProduct product) async {
-    final userId = accountController.user?.id;
+    final userId = accountController.me?.id;
     if (userId != null) {
       loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_purchasing_title);
       loader.start();

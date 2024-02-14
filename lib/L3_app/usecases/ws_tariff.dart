@@ -27,7 +27,7 @@ extension WSTariffUC on Workspace {
       final hasSelectPay = await replenishBalanceDialog(
         id!,
         reason: loc.error_insufficient_funds_for_operation(
-          '${lack.ceil().currency} ₽',
+          '${lack.ceil().currency}₽',
           operation.toLowerCase(),
         ),
       );

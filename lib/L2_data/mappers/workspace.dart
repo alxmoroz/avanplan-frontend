@@ -7,8 +7,8 @@ import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
 import 'source.dart';
-import 'user.dart';
-import 'w_settings.dart';
+import 'ws_member.dart';
+import 'ws_settings.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {
   Workspace get workspace {
@@ -17,7 +17,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
       code: code,
       title: title.trim(),
       description: description?.trim() ?? '',
-      users: users?.map((u) => u.user(id)) ?? [],
+      wsMembers: users?.map((u) => u.wsMember(id)) ?? [],
       roles: roles?.map((r) => r.role) ?? [],
       balance: balance ?? 0,
       invoice: invoice!.invoice,

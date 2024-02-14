@@ -2,11 +2,11 @@
 
 import 'package:openapi/openapi.dart' as api;
 
-import '../../L1_domain/entities/user.dart';
+import '../../L1_domain/entities/ws_member.dart';
 import 'user_activity.dart';
 
-extension UserMapper on api.User {
-  User user(int wsId) => User(
+extension WSMemberMapper on api.User {
+  WSMember wsMember(int wsId) => WSMember(
         wsId: wsId,
         id: id,
         email: email,
@@ -18,7 +18,7 @@ extension UserMapper on api.User {
 }
 
 extension MyUserMapper on api.MyUser {
-  User myUser(int wsId) => User(
+  WSMember myUser(int wsId) => WSMember(
         wsId: wsId,
         id: id,
         email: email,

@@ -29,8 +29,8 @@ import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/project_statuses/project_statuses.dart';
 import '../views/task/widgets/team/team_invitation_quiz_view.dart';
-import '../views/user/user_list_dialog.dart';
-import '../views/workspace/workspace_dialog.dart';
+import '../views/workspace/ws_dialog.dart';
+import '../views/workspace/ws_members_dialog.dart';
 
 extension RouteSettingsExt on RouteSettings {
   Uri get uri => Uri.parse(name ?? '/');
@@ -68,11 +68,11 @@ final _routers = <MTRouter>[
   // Settings - My Notifications
   NotificationsRouter(),
   // Settings - Workspaces
-  WorkspaceRouter(),
+  WSRouter(),
   // Settings - Workspaces - Sources
   SourcesRouter(),
-  // Settings - Workspaces - Users
-  UsersRouter(),
+  // Settings - Workspaces - Members
+  WSMembersRouter(),
 ];
 
 abstract class MTRouter {

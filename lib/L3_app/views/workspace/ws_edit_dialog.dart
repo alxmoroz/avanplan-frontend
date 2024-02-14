@@ -9,7 +9,7 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import 'workspace_edit_controller.dart';
+import 'ws_edit_controller.dart';
 
 Future<Workspace?> editWS(Workspace ws) async => await showMTDialog<Workspace?>(_WSEditDialog(ws));
 
@@ -22,13 +22,13 @@ class _WSEditDialog extends StatefulWidget {
 }
 
 class _WSEditDialogState extends State<_WSEditDialog> {
-  late final WorkspaceEditController controller;
+  late final WSEditController controller;
 
   bool get canSave => controller.validated;
 
   @override
   void initState() {
-    controller = WorkspaceEditController(widget.ws);
+    controller = WSEditController(widget.ws);
     super.initState();
   }
 

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/colors.dart';
@@ -26,8 +25,6 @@ class TariffCard extends StatelessWidget {
   final bool _isCurrent;
   final TariffSelectorController _controller;
 
-  String get _uriPath => tariffsPath + (_tariff.hidden ? '/archive/${_tariff.code.toLowerCase()}' : '');
-
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_subscribe_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P3),
@@ -36,15 +33,13 @@ class TariffCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
-
     return MTCard(
-      margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : P),
+      margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           H2(_tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
-          if (smallHeight) const Spacer() else Expanded(child: TariffOptions(_tariff)),
+          Expanded(child: TariffOptions(_tariff)),
           TariffBasePrice(_tariff),
           const SizedBox(height: P3),
           _isCurrent
@@ -58,7 +53,7 @@ class TariffCard extends StatelessWidget {
           const SizedBox(height: P3),
           MTButton(
             middle: BaseText(loc.tariff_details_action_title, color: mainColor, maxLines: 1),
-            onTap: () => launchUrlString(_uriPath),
+            onTap: () => launchUrlString(_tariff.detailsUri),
           ),
           const SizedBox(height: P3),
         ],

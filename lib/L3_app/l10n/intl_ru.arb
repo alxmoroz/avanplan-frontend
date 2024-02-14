@@ -75,7 +75,6 @@
   "millions_short": "млн.",
   "thousands_short": "тыс.",
 
-
   "create_from_scratch_action_description": "Добавить пустой проект",
   "create_from_scratch_action_title": "Создать с нуля",
   "create_from_template_action_description": "Выбрать готовый из библиотеки",
@@ -185,6 +184,7 @@
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
   "member_title": "Участник",
+  "members_title": "Участники",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
   "more_count": "и ещё {count}",
@@ -214,6 +214,9 @@
   "notification_title": "Уведомление",
 
   "ok": "Понятно",
+
+  "per_day_suffix": "в день",
+  "per_month_suffix": "в месяц",
 
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
@@ -332,6 +335,7 @@
 
   "tariff_change_action_title": "Сменить тариф",
 
+  "tariff_additional_options_title": "Дополнительные опции",
   "tariff_current_title": "Текущий тариф",
   "tariff_details_action_title": "Подробнее об условиях тарифа",
   "tariff_limit_special_conditions_title1": "Уникальное решение",
@@ -339,7 +343,6 @@
   "tariff_limit_special_conditions_title3": "Без ограничений",
   "tariff_limit_special_conditions_title4": "На ваши сервера",
   "tariff_list_title": "Тарифы",
-  "tariff_option_base_price_suffix": "в месяц",
   "tariff_option_fs_volume_suffix": "файлов",
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",
@@ -429,18 +432,16 @@
 
   "today_date_title": "сегодня",
   "tomorrow_date_title": "завтра",
+  "total_title": "Итого",
 
   "update_app_recommendation_title": "Убедитесь, что у вас самая свежая версия приложения.\nПопробуйте ещё раз",
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
-
-  "user_list_title": "Пользователи",
-  "user_title": "Пользователь",
 
   "validation_empty_text": "Нужно заполнить",
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
-  "workspace_money_consumption_per_month": "Текущее потребление в месяц",
+  "workspace_expenses": "Текущие затраты",
   "workspace_money_remaining_time_prefix": "Средств хватит на",
   "workspace_my_title": "Моё рабочее пространство",
   "workspace_selector_title": "Выберите рабочее пространство",

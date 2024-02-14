@@ -16,8 +16,8 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
-import '../workspace/workspace_dialog.dart';
-import '../workspace/workspace_list_tile.dart';
+import '../workspace/ws_dialog.dart';
+import '../workspace/ws_list_tile.dart';
 import 'account_button.dart';
 import 'app_version.dart';
 import 'notifications_button.dart';
@@ -31,7 +31,7 @@ class _SettingsDialog extends StatelessWidget {
 
   void _toWS(BuildContext context, int wsId) {
     Navigator.of(context).pop();
-    MTRouter.navigate(WorkspaceRouter, context, args: wsId);
+    MTRouter.navigate(WSRouter, context, args: wsId);
   }
 
   Widget _workspaces(BuildContext context) => Column(
@@ -44,7 +44,7 @@ class _SettingsDialog extends StatelessWidget {
             itemCount: _wss.length,
             itemBuilder: (_, index) {
               final ws = _wss[index];
-              return WorkspaceListTile(
+              return WSListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
                 onTap: () async => _toWS(context, ws.id!),

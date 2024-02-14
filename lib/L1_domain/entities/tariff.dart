@@ -14,12 +14,12 @@ class TariffOption extends Codable {
     required super.id,
     required super.code,
     required this.price,
-    required this.tariffQuantity,
+    required this.billingQuantity,
     required this.freeLimit,
   });
 
   final num price;
-  final num tariffQuantity;
+  final num billingQuantity;
   final num freeLimit;
 }
 
@@ -38,11 +38,11 @@ class Tariff extends Codable {
   final num estimateChargePerBillingPeriod;
   final Map<String, TariffOption> optionsMap;
 
-  num pricePerMonth(String code) => optionsMap[code]?.price ?? 0;
+  num price(String code) => optionsMap[code]?.price ?? 0;
   num freeLimit(String code) => optionsMap[code]?.freeLimit ?? 0;
-  num tariffQuantity(String code) => optionsMap[code]?.tariffQuantity ?? 1;
+  num billingQuantity(String code) => optionsMap[code]?.billingQuantity ?? 1;
 
-  num get basePrice => pricePerMonth(TOCode.BASE_PRICE);
+  num get basePrice => price(TOCode.BASE_PRICE);
 
   static Tariff get dummy => Tariff(id: -1, code: '', tier: 0, hidden: false, estimateChargePerBillingPeriod: 0, optionsMap: {});
 }

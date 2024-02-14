@@ -12,7 +12,7 @@ import '../../components/icons.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
-import 'workspace_list_tile.dart';
+import 'ws_list_tile.dart';
 
 Future<int?> selectWS({bool canCreate = false}) async => await showMTDialog<int?>(_WSSelectDialog(canCreate));
 
@@ -40,7 +40,7 @@ class _WSSelectDialog extends StatelessWidget {
             } else {
               final ws = _wss[index];
               final canSelect = ws.hpProjectCreate;
-              return WorkspaceListTile(
+              return WSListTile(
                 ws,
                 onTap: canSelect ? () => Navigator.of(context).pop(ws.id) : null,
                 bottomDivider: index < _wss.length - 1,

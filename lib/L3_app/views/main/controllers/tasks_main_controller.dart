@@ -50,7 +50,7 @@ abstract class _TasksMainControllerBase with Store {
 
   @computed
   Iterable<Task> get myTasks => allTasks.where(
-        (t) => !t.closed && t.assignee != null && t.assignee!.userId == accountController.user!.id && t.isTask,
+        (t) => !t.closed && t.assignee != null && t.assignee!.userId == accountController.me!.id && t.isTask,
       );
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);

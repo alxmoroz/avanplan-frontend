@@ -12,12 +12,12 @@ import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
-part 'workspace_edit_controller.g.dart';
+part 'ws_edit_controller.g.dart';
 
 enum WSFCode { code, title, description }
 
-class WorkspaceEditController extends _WorkspaceEditControllerBase with _$WorkspaceEditController {
-  WorkspaceEditController(Workspace ws) {
+class WSEditController extends _WSEditControllerBase with _$WSEditController {
+  WSEditController(Workspace ws) {
     _ws = ws;
     initState(fds: [
       MTFieldData(WSFCode.code.index, label: loc.code, text: ws.code, validate: true),
@@ -27,7 +27,7 @@ class WorkspaceEditController extends _WorkspaceEditControllerBase with _$Worksp
   }
 }
 
-abstract class _WorkspaceEditControllerBase extends EditController with Store {
+abstract class _WSEditControllerBase extends EditController with Store {
   late final Workspace _ws;
 
   /// действия

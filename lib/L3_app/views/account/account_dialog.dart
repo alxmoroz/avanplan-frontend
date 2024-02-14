@@ -1,12 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/colors_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/user.dart';
+import '../../../L1_domain/entities/ws_member.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -34,7 +34,7 @@ class AccountRouter extends MTRouter {
 class _AccountDialog extends StatelessWidget {
   const _AccountDialog();
 
-  User? get _user => accountController.user;
+  WSMember? get _me => accountController.me;
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +46,14 @@ class _AccountDialog extends StatelessWidget {
           title: loc.my_account_title,
           trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.all(P2)),
         ),
-        body: _user != null
+        body: _me != null
             ? ListView(
                 shrinkWrap: true,
                 children: [
-                  _user!.icon(P10, borderColor: mainColor),
+                  _me!.icon(P10, borderColor: mainColor),
                   const SizedBox(height: P3),
-                  H3('$_user', align: TextAlign.center),
-                  BaseText(_user!.email, align: TextAlign.center),
+                  H3('$_me', align: TextAlign.center),
+                  BaseText(_me!.email, align: TextAlign.center),
                   const SizedBox(height: P3),
                   MTListTile(
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),

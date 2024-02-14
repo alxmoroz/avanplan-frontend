@@ -3,9 +3,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/user.dart';
+import '../../L1_domain/entities/task_member.dart';
+import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
@@ -29,10 +29,10 @@ enum TaskAction {
 }
 
 extension TaskActionsUC on Task {
-  User? get _authUser => accountController.user;
+  WSMember? get _authUser => accountController.me;
 
-  /// разрешения для текущего пользователя для РП, выбранной задачи или проекта
-  Member? get me => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
+  /// разрешения для текущего участника РП, выбранной задачи или проекта
+  TaskMember? get me => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
   bool get _hpMemberUpdate => me?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
   bool get _hpMemberRead => me?.hp('MEMBER_READ') == true || ws.hpProjectContentUpdate;

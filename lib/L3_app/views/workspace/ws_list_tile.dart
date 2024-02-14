@@ -13,8 +13,8 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 
-class WorkspaceListTile extends StatelessWidget {
-  const WorkspaceListTile(
+class WSListTile extends StatelessWidget {
+  const WSListTile(
     this.ws, {
     super.key,
     required this.bottomDivider,

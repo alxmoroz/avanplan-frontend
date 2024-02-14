@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task_member.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -25,7 +25,7 @@ class Team extends StatelessWidget {
   final bool standalone;
 
   Task get _task => _controller.task!;
-  List<Member> get _sortedMembers => _task.sortedMembers;
+  List<TaskMember> get _sortedMembers => _task.sortedMembers;
 
   static const _iconSize = P8;
 
@@ -38,7 +38,7 @@ class Team extends StatelessWidget {
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
       bottomDivider: index < _sortedMembers.length - 1 || _task.canInviteMembers,
-      onTap: () async => await memberDialog(_controller, member.id!),
+      onTap: () async => await taskMemberDialog(_controller, member.id!),
     );
   }
 

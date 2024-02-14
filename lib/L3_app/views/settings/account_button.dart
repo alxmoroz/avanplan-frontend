@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/user.dart';
+import '../../../L1_domain/entities/ws_member.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -16,7 +16,7 @@ import '../account/account_dialog.dart';
 class AccountButton extends StatelessWidget {
   const AccountButton({super.key});
 
-  User? get user => accountController.user;
+  WSMember? get me => accountController.me;
 
   void _toUser(BuildContext context) {
     Navigator.of(context).pop();
@@ -25,10 +25,10 @@ class AccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = '$user';
-    final mail = user?.email ?? '';
+    final name = '$me';
+    final mail = me?.email ?? '';
     return MTListTile(
-      leading: user?.icon(P6, borderColor: mainColor),
+      leading: me?.icon(P6, borderColor: mainColor),
       middle: H3(name, maxLines: 2),
       subtitle: mail != name ? BaseText.f2(mail, maxLines: 1) : null,
       trailing: const ChevronIcon(),

@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task_member.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -21,7 +21,7 @@ import '../../controllers/task_controller.dart';
 import 'member_roles_controller.dart';
 import 'member_roles_dialog.dart';
 
-Future memberDialog(TaskController controller, int memberId) async => await showMTDialog<void>(_MemberDialog(controller, memberId));
+Future taskMemberDialog(TaskController controller, int memberId) async => await showMTDialog<void>(_MemberDialog(controller, memberId));
 
 class _MemberDialog extends StatelessWidget {
   const _MemberDialog(this._controller, this._memberId);
@@ -29,7 +29,7 @@ class _MemberDialog extends StatelessWidget {
   final int _memberId;
 
   Task get _task => _controller.task!;
-  Member? get _member => _task.memberForId(_memberId);
+  TaskMember? get _member => _task.memberForId(_memberId);
 
   Future editRoles(BuildContext context) async {
     await memberRolesDialog(MemberRolesController(_task, _memberId));

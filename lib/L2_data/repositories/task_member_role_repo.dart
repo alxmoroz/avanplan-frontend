@@ -3,8 +3,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_member.dart';
 import '../../L1_domain/repositories/abs_member_role_repo.dart';
 import '../../L2_data/mappers/member.dart';
 import '../services/api.dart';
@@ -13,7 +13,7 @@ class TaskMemberRoleRepo extends AbstractTaskMemberRoleRepo {
   o_api.TaskRolesApi get api => openAPI.getTaskRolesApi();
 
   @override
-  Future<Iterable<Member>> assignRoles(Task task, int memberId, Iterable<int> rolesIds) async {
+  Future<Iterable<TaskMember>> assignRoles(Task task, int memberId, Iterable<int> rolesIds) async {
     final taskId = task.id!;
     final response = await api.assignRole(
       taskId: taskId,

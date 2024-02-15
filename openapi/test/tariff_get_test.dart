@@ -32,13 +32,13 @@ void main() {
       // TODO
     });
 
-    // BuiltList<TariffLimitGet> limits
-    test('to test the property `limits`', () async {
+    // BuiltList<TariffOptionGet> options
+    test('to test the property `options`', () async {
       // TODO
     });
 
-    // BuiltList<TariffOptionGet> options
-    test('to test the property `options`', () async {
+    // BuiltList<TariffLimitGet> limits
+    test('to test the property `limits`', () async {
       // TODO
     });
 

@@ -19,8 +19,8 @@ part 'tariff_get.g.dart';
 /// * [hidden] 
 /// * [tier] 
 /// * [billingPeriodDays] 
-/// * [limits] 
 /// * [options] 
+/// * [limits] 
 /// * [estimateChargePerBillingPeriod] 
 @BuiltValue()
 abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
@@ -39,11 +39,11 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   @BuiltValueField(wireName: r'billing_period_days')
   int? get billingPeriodDays;
 
-  @BuiltValueField(wireName: r'limits')
-  BuiltList<TariffLimitGet> get limits;
-
   @BuiltValueField(wireName: r'options')
   BuiltList<TariffOptionGet> get options;
+
+  @BuiltValueField(wireName: r'limits')
+  BuiltList<TariffLimitGet> get limits;
 
   @BuiltValueField(wireName: r'estimate_charge_per_billing_period')
   num? get estimateChargePerBillingPeriod;
@@ -100,15 +100,15 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'limits';
-    yield serializers.serialize(
-      object.limits,
-      specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
-    );
     yield r'options';
     yield serializers.serialize(
       object.options,
       specifiedType: const FullType(BuiltList, [FullType(TariffOptionGet)]),
+    );
+    yield r'limits';
+    yield serializers.serialize(
+      object.limits,
+      specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
     );
     if (object.estimateChargePerBillingPeriod != null) {
       yield r'estimate_charge_per_billing_period';
@@ -175,19 +175,19 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
           ) as int;
           result.billingPeriodDays = valueDes;
           break;
-        case r'limits':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
-          ) as BuiltList<TariffLimitGet>;
-          result.limits.replace(valueDes);
-          break;
         case r'options':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList, [FullType(TariffOptionGet)]),
           ) as BuiltList<TariffOptionGet>;
           result.options.replace(valueDes);
+          break;
+        case r'limits':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
+          ) as BuiltList<TariffLimitGet>;
+          result.limits.replace(valueDes);
           break;
         case r'estimate_charge_per_billing_period':
           final valueDes = serializers.deserialize(

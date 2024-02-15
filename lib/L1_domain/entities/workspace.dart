@@ -57,6 +57,4 @@ class Workspace extends WorkspaceUpsert {
         estimateValues: [],
         sources: [],
       );
-
-  num get balanceLack => invoice.tariff.estimateChargePerBillingPeriod - balance;
 }

@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -28,9 +29,9 @@ class VelocityChart extends StatelessWidget {
   static const _barWidth = _bgWidth - _borderWidth * 2;
 
   double get _velocity => _task.projectVelocity ?? 0;
-  double get _maxValue => max(_velocity, _task.requiredVelocity ?? 1 / daysPerMonth) * 1.05;
+  double get _maxValue => max(_velocity, _task.requiredVelocity ?? 1 / DAYS_IN_MONTH) * 1.05;
 
-  num get _hVelocity => (_velocity * daysPerMonth).round();
+  num get _hVelocity => (_velocity * DAYS_IN_MONTH).round();
   String get _displayText => '$_hVelocity';
 
   MTPieChartData get _bgBar => MTPieChartData(_maxValue, strokeWidth: _bgWidth);

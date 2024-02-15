@@ -21,7 +21,6 @@ extension TariffMapper on api.TariffGet {
         code: code,
         tier: tier,
         hidden: hidden,
-        estimateChargePerBillingPeriod: estimateChargePerBillingPeriod ?? 0,
         optionsMap: {for (var to in options.sortedBy<num>((opt) => opt.id)) to.code: to.tariffOption},
       );
 }

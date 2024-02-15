@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import '../utils/dates.dart';
 import 'base_entity.dart';
 import 'contract.dart';
 import 'invoice_detail.dart';
@@ -23,18 +24,29 @@ class Invoice extends RPersistable {
 
   num consumed(String code) => details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
 
-  num overdraft(String code) {
+  num overdraft(String code, Tariff tariff) {
     final diff = max(0, consumed(code) - tariff.freeLimit(code));
     return (diff / tariff.billingQuantity(code)).ceil();
   }
 
-  num expensesPerMonth(String code) => overdraft(code) * tariff.price(code);
+  bool hasOverdraft(Tariff tariff) {
+    for (final code in tariff.optionsMap.keys) {
+      if (overdraft(code, tariff) > 0 && code != TOCode.BASE_PRICE) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-  num get overallExpensesPerMonth {
+  num expensesPerMonth(String code, Tariff tariff) => overdraft(code, tariff) * tariff.price(code);
+
+  num overallExpensesPerMonth(Tariff tariff) {
     num sum = 0;
     for (String code in tariff.optionsMap.keys) {
-      sum += expensesPerMonth(code);
+      sum += expensesPerMonth(code, tariff);
     }
     return sum;
   }
+
+  num get currentExpensesPerDay => overallExpensesPerMonth(tariff) / DAYS_IN_MONTH;
 }

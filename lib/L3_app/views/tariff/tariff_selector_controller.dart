@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
+import 'tariff_confirm_expenses_dialog.dart';
 
 part 'tariff_selector_controller.g.dart';
 
@@ -58,8 +59,13 @@ abstract class _TariffSelectorControllerBase with Store {
   bool showPageButton(bool left) => pageIndex != null && left ? pageIndex! > 0 : pageIndex! < pagesCount - 1;
 
   Future selectTariff(BuildContext context, Tariff tariff) async {
-    if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: tariff.estimateChargePerBillingPeriod) && context.mounted) {
-      Navigator.of(context).pop(tariff);
+    // проверка на возможное превышение лимитов по выбранному тарифу
+    if (!ws.invoice.hasOverdraft(tariff) || await tariffConfirmExpenses(ws, tariff) == true) {
+      // проверка, что хватит денег на один день после смены
+      final enoughMoney = await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.invoice.currentExpensesPerDay);
+      if (enoughMoney && context.mounted) {
+        Navigator.of(context).pop(tariff);
+      }
     }
   }
 }

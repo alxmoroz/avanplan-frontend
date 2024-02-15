@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/card.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -13,7 +14,6 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/duration.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
@@ -43,7 +43,7 @@ class _AnalyticsDialog extends StatelessWidget {
       );
 
   int get _timeDelta => _task.leftPeriod!.inDays;
-  num get _hVelocity => (_task.project!.velocity * daysPerMonth).round();
+  num get _hVelocity => (_task.project!.velocity * DAYS_IN_MONTH).round();
   num get _closedVolume => (_task.closedVolume ?? 0).round();
   num get _totalVolume => _task.totalVolume.round();
   String get _velocityUnit => loc.chart_velocity_unit_mo(_task.hfsEstimates ? _task.ws.estimateUnitCode : loc.task_plural(_hVelocity));
@@ -88,7 +88,7 @@ class _AnalyticsDialog extends StatelessWidget {
               if (_task.requiredVelocity != null)
                 _details(
                   loc.chart_velocity_required_label,
-                  '${(_task.requiredVelocity! * daysPerMonth).round()}',
+                  '${(_task.requiredVelocity! * DAYS_IN_MONTH).round()}',
                   unit: _velocityUnit,
                   divider: false,
                 ),

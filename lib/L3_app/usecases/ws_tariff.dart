@@ -12,9 +12,9 @@ extension WSTariffUC on Workspace {
     if (tariff != null) {
       loader.setSaving();
       loader.start();
-      final signedContractInvoice = await contractUC.sign(tariff.id!, id!);
-      if (signedContractInvoice != null) {
-        invoice = signedContractInvoice;
+      final signedInvoice = await contractUC.sign(tariff.id!, id!);
+      if (signedInvoice != null) {
+        invoice = signedInvoice;
         await wsMainController.reloadWS(id!);
       }
       await loader.stop();
@@ -22,7 +22,7 @@ extension WSTariffUC on Workspace {
   }
 
   Future<bool> checkBalance(String operation, {num extraMoney = 0}) async {
-    final lack = balanceLack + extraMoney;
+    final lack = invoice.currentExpensesPerDay + extraMoney - balance;
     if (lack > 0) {
       final hasSelectPay = await replenishBalanceDialog(
         id!,

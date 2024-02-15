@@ -1,5 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+const YEAR = Duration(days: 365);
+const DAYS_IN_MONTH = 30.41666;
+
 DateTime get now => DateTime.now();
 DateTime get yesterday => DateTime(now.year, now.month, now.day - 1);
 DateTime get today => DateTime(now.year, now.month, now.day);

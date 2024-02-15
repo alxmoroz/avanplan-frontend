@@ -333,11 +333,12 @@
   "subtask_plural_accusative": "{count, plural, one{подзадачу} few{подзадачи} other{подзадач}}",
   "subtask_title": "Подзадача",
 
-  "tariff_change_action_title": "Сменить тариф",
-
   "tariff_additional_options_title": "Дополнительные опции",
+  "tariff_change_action_title": "Сменить тариф",
+  "tariff_current_expenses_title": "Текущие затраты",
   "tariff_current_title": "Текущий тариф",
   "tariff_details_action_title": "Подробнее об условиях тарифа",
+  "tariff_estimated_expenses_title": "Расчётная стоимость",
   "tariff_limit_special_conditions_title1": "Уникальное решение",
   "tariff_limit_special_conditions_title2": "Новые функции",
   "tariff_limit_special_conditions_title3": "Без ограничений",
@@ -347,8 +348,7 @@
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",
   "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",
-  "tariff_subscribe_action_title": "Подключить",
-
+  "tariff_sign_action_title": "Подключить",
   "tariff_title": "Тариф",
 
   "tariff_type_base_title": "Базовый",
@@ -441,7 +441,6 @@
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
-  "workspace_expenses": "Текущие затраты",
   "workspace_money_remaining_time_prefix": "Средств хватит на",
   "workspace_my_title": "Моё рабочее пространство",
   "workspace_selector_title": "Выберите рабочее пространство",

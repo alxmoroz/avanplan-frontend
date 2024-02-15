@@ -25,8 +25,8 @@ class TariffCard extends StatelessWidget {
   final bool _isCurrent;
   final TariffSelectorController _controller;
 
-  Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
-        titleText: loc.tariff_subscribe_action_title,
+  Widget _signButton(BuildContext context, Tariff tariff) => MTButton.main(
+        titleText: loc.tariff_sign_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P3),
         onTap: () => _controller.selectTariff(context, tariff),
       );
@@ -48,7 +48,7 @@ class TariffCard extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: P3),
                 )
               : _controller.ws.hpTariffUpdate
-                  ? _selectButton(context, _tariff)
+                  ? _signButton(context, _tariff)
                   : const MTButton.main(middle: PrivacyIcon(color: f2Color), margin: EdgeInsets.symmetric(horizontal: P3)),
           const SizedBox(height: P3),
           MTButton(

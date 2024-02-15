@@ -10,7 +10,6 @@ import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/duration.dart';
 import 'task_controller.dart';
 
 class DatesController {
@@ -53,8 +52,8 @@ class DatesController {
     final hasFutureStart = _task.startDate != null && _task.startDate!.isAfter(today);
     final selectedDate = isStart ? _task.startDate : _task.dueDate;
 
-    final pastDate = today.subtract(year * 100);
-    final futureDate = today.add(year * 100);
+    final pastDate = today.subtract(YEAR * 100);
+    final futureDate = today.add(YEAR * 100);
 
     final initialDate = selectedDate ?? (hasFutureStart ? _task.startDate! : today);
     final firstDate = isStart ? pastDate : _task.startDate ?? today;

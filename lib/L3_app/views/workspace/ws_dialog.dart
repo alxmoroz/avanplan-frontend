@@ -22,7 +22,6 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/date.dart';
-import '../../presenters/duration.dart';
 import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
@@ -62,15 +61,12 @@ class _WSDialog extends StatelessWidget {
 
   Workspace get _ws => wsMainController.ws(_wsId);
   Invoice get _invoice => _ws.invoice;
-  Tariff get _tariff => _invoice.tariff;
 
-  num get _chargePerDay => _invoice.overallExpensesPerMonth / daysPerMonth;
-  bool get _showMoney => _chargePerDay > 0 || _ws.balance != 0;
-
+  num get _expensesPerDay => _invoice.currentExpensesPerDay;
   num get _consumedTasks => _invoice.consumed(TOCode.TASKS_COUNT);
   num get _consumedFSVolume => _invoice.consumed(TOCode.FS_VOLUME);
-
-  num get _balanceDays => (_ws.balance / _chargePerDay);
+  bool get _hasExpenses => _expensesPerDay > 0;
+  num get _balanceDays => (_ws.balance / _expensesPerDay);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -113,24 +109,24 @@ class _WSDialog extends StatelessWidget {
 
   Widget get _tariffRow => MTListTile(
         leading: const StarIcon(),
-        titleText: _tariff.title,
+        titleText: _invoice.tariff.title,
         subtitle: SmallText(
           '${loc.contract_effective_date_title.toLowerCase()} ${_invoice.contract.createdOn.strMedium}',
           maxLines: 1,
         ),
         trailing: const ChevronIcon(),
-        bottomDivider: _showMoney,
+        bottomDivider: _hasExpenses,
         dividerIndent: P11,
         onTap: () async => await _ws.changeTariff(),
       );
 
-  Widget _overallExpenses(BuildContext context) => MTListTile(
+  Widget _tariffExpenses(BuildContext context) => MTListTile(
         leading: const BankCardIcon(),
         middle: Row(
           children: [
-            BaseText(loc.workspace_expenses, maxLines: 1),
+            BaseText(loc.tariff_current_expenses_title, maxLines: 1),
             const Spacer(),
-            MTPrice(_chargePerDay, size: AdaptiveSize.xxs),
+            MTPrice(_expensesPerDay, size: AdaptiveSize.xxs),
             const SizedBox(width: P_2),
             BaseText.f2(loc.per_day_suffix),
           ],
@@ -223,9 +219,9 @@ class _WSDialog extends StatelessWidget {
           children: [
             _header,
             _balanceCard,
-            _showMoney ? MTListSection(titleText: loc.tariff_title) : const SizedBox(height: P3),
+            _hasExpenses ? MTListSection(titleText: loc.tariff_title) : const SizedBox(height: P3),
             _tariffRow,
-            if (_showMoney) _overallExpenses(context),
+            if (_hasExpenses) _tariffExpenses(context),
             const SizedBox(height: P3),
             if (_ws.hpMemberRead) _wsMembers(context),
             _tasks(context),

@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
@@ -13,11 +12,11 @@ import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
+import '../../usecases/communications.dart';
 import '../main/widgets/app_title.dart';
 import '../settings/app_version.dart';
+import 'auth_extra_dialog.dart';
 import 'legal_links.dart';
-import 'registration_form.dart';
-import 'sign_in_email_form.dart';
 
 class AuthView extends StatefulWidget {
   const AuthView({super.key});
@@ -68,7 +67,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
         color: _btnColor,
         titleColor: _btnColor,
         onTap: onTap,
-        margin: const EdgeInsets.only(top: P3),
+        margin: const EdgeInsets.only(top: P2),
       );
 
   @override
@@ -77,64 +76,55 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
       appBar: const MTAppBar(middle: AppTitle(), color: Colors.transparent),
       body: SafeArea(
         child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: SCR_XXS_WIDTH),
-            child: LayoutBuilder(
-              builder: (_, size) => Observer(
-                builder: (_) => ListView(
-                  shrinkWrap: true,
-                  children: [
-                    // ColorsDemo(),
-                    // TextDemo(),
-                    MTImage(ImageName.hello.name),
-                    H3(
-                      authController.registerMode ? loc.register_with_title : loc.auth_sign_in_with_title,
-                      align: TextAlign.center,
-                      padding: const EdgeInsets.only(top: P3),
-                    ),
-                    _authBtn(
-                      googleIcon,
-                      loc.auth_sign_in_google_title,
-                      MIN_BTN_HEIGHT - 2,
-                      authController.signInGoogle,
-                    ),
-                    // для Андроида не показываем SignInWithApple
-                    if (authController.signInWithAppleIsAvailable && !isAndroid)
-                      _authBtn(
-                        appleIcon,
-                        loc.auth_sign_in_apple_title,
-                        MIN_BTN_HEIGHT - 2,
-                        authController.signInApple,
-                      ),
-                    _authBtn(
-                      MailIcon(color: _titleColor, size: P4),
-                      loc.auth_sign_in_email_title,
-                      P4,
-                      authController.registerMode ? registrationDialog : signInEmailDialog,
-                      titleLeftPadding: P2,
-                    ),
-                    const SizedBox(height: P3),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BaseText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : ''),
-                        const SizedBox(width: P),
-                        MTButton(
-                          titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.register_mode_title,
-                          onTap: authController.toggleRegisterMode,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: P6),
-                    if (!isIOS) ...[
-                      const LegalLinks(),
-                      const SizedBox(height: P3),
-                    ],
-                    const AppVersion(),
-                  ],
-                ),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              // ColorsDemo(),
+              // TextDemo(),
+              MTImage(ImageName.hello.name),
+              H3(
+                loc.auth_sign_in_with_title,
+                align: TextAlign.center,
+                padding: const EdgeInsets.only(top: P2),
               ),
-            ),
+              _authBtn(
+                googleIcon,
+                loc.auth_sign_in_google_title,
+                MIN_BTN_HEIGHT - 2,
+                authController.signInGoogle,
+              ),
+              // для Андроида не показываем SignInWithApple
+              if (authController.signInWithAppleIsAvailable && !isAndroid)
+                _authBtn(
+                  appleIcon,
+                  loc.auth_sign_in_apple_title,
+                  MIN_BTN_HEIGHT - 2,
+                  authController.signInApple,
+                ),
+              MTButton.main(
+                middle: BaseText.medium(loc.auth_sign_in_extra_title, color: _titleColor),
+                color: b3Color.color,
+                // titleColor: _btnColor,
+                margin: const EdgeInsets.only(top: P2),
+                onTap: authExtraDialog,
+              ),
+              const SizedBox(height: P3),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MTButton(
+                    titleText: '${loc.auth_help_title}? ${loc.contact_us_title}',
+                    onTap: () => mailUs(subject: loc.auth_help_title),
+                  ),
+                ],
+              ),
+              const SizedBox(height: P6),
+              if (!isIOS) ...[
+                const LegalLinks(),
+                const SizedBox(height: P3),
+              ],
+              const AppVersion(),
+            ],
           ),
         ),
       ),

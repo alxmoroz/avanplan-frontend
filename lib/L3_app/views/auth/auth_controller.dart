@@ -29,12 +29,6 @@ abstract class _AuthControllerBase with Store {
   @observable
   bool authorized = false;
 
-  @observable
-  bool registerMode = false;
-
-  @action
-  void toggleRegisterMode() => registerMode = !registerMode;
-
   @action
   Future _signInWithRegistration() async {
     if (registrationTokenController.hasToken) {

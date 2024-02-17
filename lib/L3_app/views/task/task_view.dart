@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -79,12 +79,25 @@ class TaskRouter extends MTRouter {
         arguments: args,
       );
 
+  Future _pushReplace(BuildContext context, {Object? args}) async => await Navigator.of(context).pushReplacementNamed(
+        _navPath((args as TaskController).task!),
+        arguments: args,
+      );
+
   Future navigateBreadcrumbs(BuildContext context, Task parent) async {
-    // переходим назад
+    final pName = (previousName ?? '');
+
+    // переходим один раз назад в любом случае
     Navigator.of(context).pop();
 
-    // если переход из Мои задачи или с главной то нужно запушить родителя
-    if (!(previousName ?? '').startsWith('/projects')) {
+    if (parent.isGoal) {
+      // при переходе наверх в другую цель, меняем старого родителя на нового
+      final previousTaskId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
+      if (parent.isGoal && previousTaskId != parent.id) {
+        await _pushReplace(context, args: TaskController(parent));
+      }
+    } else if (!pName.startsWith('/projects')) {
+      // если переход из Мои задачи или с главной то нужно запушить родителя
       await pushNamed(context, args: TaskController(parent));
     }
   }

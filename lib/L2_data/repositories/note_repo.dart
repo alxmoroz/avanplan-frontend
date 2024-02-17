@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as o_api;
 
@@ -14,6 +14,7 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
   Future<Note?> save(Note data) async {
     final b = o_api.NoteUpsertBuilder()
       ..id = data.id
+      ..createdOn = data.createdOn?.toUtc()
       ..authorId = data.authorId
       ..taskId = data.taskId
       ..parentId = data.parent?.id

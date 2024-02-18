@@ -1,5 +1,7 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 /// tests for TasksApi
 void main() {
@@ -59,6 +61,13 @@ void main() {
     //
     //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody) async
     test('test setupFeatureSets', () async {
+      // TODO
+    });
+
+    // Status Tasks Count
+    //
+    //Future<int> statusTasksCount(int wsId, int taskId, int projectStatusId) async
+    test('test statusTasksCount', () async {
       // TODO
     });
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,8 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
 
   @override
   void initState() {
-    _controller = ProjectStatusEditController(widget._status, widget._statusesController);
+    _controller = ProjectStatusEditController(widget._statusesController);
+    _controller.init(widget._status);
     super.initState();
   }
 
@@ -62,7 +63,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
           showCloseButton: true,
           color: b2Color,
           title: loc.status_title,
-          trailing: !_used
+          trailing: !_used && !_controller.loading
               ? MTButton.icon(
                   const DeleteIcon(),
                   onTap: () => _controller.delete(context),
@@ -110,6 +111,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
                 ),
                 padding: EdgeInsets.zero,
                 bottomDivider: false,
+                loading: _controller.loading,
               ),
             ),
             if (_used)

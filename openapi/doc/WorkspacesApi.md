@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**getMyWorkspaces**](WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | Get My Workspaces
 [**getWorkspace**](WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [**setupFeatureSets**](WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[**statusTasksCount**](WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [**updateWorkspace**](WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [**uploadAttachment**](WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [**upsertNote**](WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
@@ -608,6 +609,57 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **statusTasksCount**
+> int statusTasksCount(wsId, taskId, projectStatusId)
+
+Status Tasks Count
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWorkspacesApi();
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+final int projectStatusId = 56; // int | 
+
+try {
+    final response = api.statusTasksCount(wsId, taskId, projectStatusId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->statusTasksCount: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+ **projectStatusId** | **int**|  | 
+
+### Return type
+
+**int**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

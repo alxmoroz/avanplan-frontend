@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -131,7 +131,7 @@ class _ProjectStatusesQuizView extends StatelessWidget {
                   QuizNextButton(
                     _qController,
                     loading: _controller.project.loading,
-                    margin: EdgeInsets.zero,
+                    margin: const EdgeInsets.only(top: P3),
                   ),
                 ],
               ),

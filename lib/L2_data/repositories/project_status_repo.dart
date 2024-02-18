@@ -1,14 +1,24 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/project_status.dart';
-import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/repositories/abs_project_status_repo.dart';
 import '../mappers/project_status.dart';
 import '../services/api.dart';
 
-class ProjectStatusRepo extends AbstractApiRepo<ProjectStatus, ProjectStatus> {
+class ProjectStatusRepo extends AbstractProjectStatusRepo {
   o_api.ProjectStatusesApi get _api => openAPI.getProjectStatusesApi();
+
+  @override
+  Future<int> statusTasksCount(int wsId, int projectId, int statusId) async {
+    final response = await _api.statusTasksCount(
+      wsId: wsId,
+      taskId: projectId,
+      projectStatusId: statusId,
+    );
+    return response.data as int;
+  }
 
   @override
   Future<ProjectStatus?> save(ProjectStatus data) async {

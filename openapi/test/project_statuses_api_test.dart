@@ -1,5 +1,7 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 /// tests for ProjectStatusesApi
 void main() {
@@ -10,6 +12,13 @@ void main() {
     //
     //Future<bool> deleteStatus(int statusId, int wsId, int taskId) async
     test('test deleteStatus', () async {
+      // TODO
+    });
+
+    // Status Tasks Count
+    //
+    //Future<int> statusTasksCount(int wsId, int taskId, int projectStatusId) async
+    test('test statusTasksCount', () async {
       // TODO
     });
 

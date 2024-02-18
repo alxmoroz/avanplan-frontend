@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -19,15 +19,8 @@ part 'project_status_edit_controller.g.dart';
 enum StatusFCode { title, description, closed }
 
 class ProjectStatusEditController extends _ProjectStatusEditControllerBase with _$ProjectStatusEditController {
-  ProjectStatusEditController(ProjectStatus stIn, ProjectStatusesController statusesController) {
+  ProjectStatusEditController(ProjectStatusesController statusesController) {
     _statusesController = statusesController;
-    initState(fds: [
-      MTFieldData(StatusFCode.title.index, text: stIn.isNew ? '' : stIn.title),
-      MTFieldData(StatusFCode.description.index, text: stIn.isNew ? '' : stIn.description),
-      MTFieldData(StatusFCode.closed.index),
-    ]);
-
-    _init(stIn);
   }
 }
 
@@ -42,11 +35,38 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   @computed
   ProjectStatus get status => _project.statusForId(_status!.id) ?? _status!;
 
+  @observable
+  int tasksWithStatusCount = 0;
+
+  @computed
+  bool get usedInTasks => tasksWithStatusCount > 0;
+
+  @observable
+  bool loading = false;
+
   @action
-  Future _init(ProjectStatus statusIn) async {
+  Future init(ProjectStatus statusIn) async {
+    initState(fds: [
+      MTFieldData(StatusFCode.title.index, text: statusIn.isNew ? '' : statusIn.title),
+      MTFieldData(StatusFCode.description.index, text: statusIn.isNew ? '' : statusIn.description),
+      MTFieldData(StatusFCode.closed.index),
+    ]);
+
     _status = statusIn;
     if (_status!.isNew && _checkDup(_status!.title)) {
       await saveField(StatusFCode.title);
+    }
+    // количество задач, в которых используется
+    tasksWithStatusCount = tasksMainController.allTasks
+        .where(
+          (t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
+        )
+        .length;
+
+    if (tasksWithStatusCount == 0) {
+      loading = true;
+      tasksWithStatusCount = await projectStatusUC.statusTasksCount(status.wsId, status.projectId, status.id!);
+      loading = false;
     }
   }
 
@@ -106,16 +126,6 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
       _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
     }
   }
-
-  @computed
-  int get tasksWithStatusCount => tasksMainController.allTasks
-      .where(
-        (t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
-      )
-      .length;
-
-  @computed
-  bool get usedInTasks => tasksWithStatusCount > 0;
 
   Future toggleClosed() async {
     final oldValue = status.closed;

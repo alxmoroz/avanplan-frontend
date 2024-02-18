@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSets**](doc/ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**deleteStatus**](doc/ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
+[*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**statusTasksCount**](doc/ProjectStatusesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**upsertStatus**](doc/ProjectStatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**getAvailableTariffs**](doc/TariffsApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
@@ -109,6 +110,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**duplicateTask**](doc/TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate Task
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**setupFeatureSets**](doc/TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*TasksApi*](doc/TasksApi.md) | [**statusTasksCount**](doc/TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*TasksApi*](doc/TasksApi.md) | [**uploadAttachment**](doc/TasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*TasksApi*](doc/TasksApi.md) | [**upsertNote**](doc/TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertStatus**](doc/TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
@@ -127,6 +129,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspaces**](doc/WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | Get My Workspaces
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspace**](doc/WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**uploadAttachment**](doc/WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertNote**](doc/WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert

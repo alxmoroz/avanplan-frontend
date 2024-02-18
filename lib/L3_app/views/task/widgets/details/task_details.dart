@@ -25,7 +25,6 @@ import '../../controllers/task_controller.dart';
 import '../attachments/attachment_list_dialog.dart';
 import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
-import '../project_statuses/project_statuses.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
 import 'checklist_add_field.dart';
@@ -112,17 +111,6 @@ class TaskDetails extends StatelessWidget {
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
               compact: compact,
               onTap: _task.canEditFeatureSets ? () => featureSetsDialog(_controller) : null,
-            ),
-
-          /// Набор статусов
-          if (_task.canEditProjectStatuses)
-            MTField(
-              _controller.fData(TaskFCode.statuses.index),
-              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
-              leading: const StatusIcon(),
-              value: _task.projectStatuses.isNotEmpty ? BaseText(_controller.projectStatusesController.statusesStr, maxLines: 1) : null,
-              compact: compact,
-              onTap: () => projectStatusesDialog(_controller.projectStatusesController),
             ),
 
           /// Связь с источником импорта

@@ -12,7 +12,6 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/adaptive.dart';
 import '../extra/services.dart';
 import 'task_feature_sets.dart';
-import 'task_status.dart';
 import 'task_transfer.dart';
 import 'task_tree.dart';
 import 'ws_actions.dart';
@@ -59,7 +58,7 @@ extension TaskActionsUC on Task {
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
 
   bool get canShowStatus => hfsTaskboard && hasStatus;
-  bool get canSetStatus => isTask && hfsTaskboard && statuses.isNotEmpty && canEdit;
+  bool get canSetStatus => isTask && hfsTaskboard && project!.projectStatuses.isNotEmpty && canEdit;
 
   bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
   bool get canShowAssignee => hfsTeam && (hasAssignee || canAssign);
@@ -76,7 +75,7 @@ extension TaskActionsUC on Task {
   bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
 
-  bool get canEditProjectStatuses => isProject && hfsTaskboard && _hpProjectInfoUpdate;
+  bool get canEditProjectStatuses => hfsTaskboard && _hpProjectInfoUpdate;
 
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;

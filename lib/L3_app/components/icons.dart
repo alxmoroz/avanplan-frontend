@@ -311,10 +311,6 @@ class StarIcon extends MTIcon {
   const StarIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.star);
 }
 
-class StatusIcon extends MTIcon {
-  const StatusIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.rectangle_split_3x1);
-}
-
 class SubmitIcon extends MTIcon {
   const SubmitIcon({super.key, super.color, super.size}) : super(CupertinoIcons.arrow_up);
 }

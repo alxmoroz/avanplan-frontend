@@ -1,14 +1,11 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:collection/collection.dart';
-
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_type.dart';
 import '../usecases/task_edit.dart';
-import '../usecases/task_status.dart';
 import 'task_feature_sets.dart';
 import 'ws_tariff.dart';
 
@@ -23,7 +20,7 @@ extension WSTasksUC on Workspace {
 
       final taskData = Task(
         title: newSubtaskTitle(parent),
-        projectStatusId: statusId ?? ((newProject || newGoal) ? null : parent.statuses.firstOrNull?.id),
+        projectStatusId: statusId,
         closed: false,
         parentId: parent?.id,
         members: [],

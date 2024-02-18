@@ -53,7 +53,8 @@ class CreateTaskButton extends StatelessWidget {
     if (_onTap != null) {
       _onTap!();
     } else {
-      final newTask = await _ws.createTask(_parent);
+      final newTask =
+          await _ws.createTask(_parent, statusId: _parent.isProject ? null : _parentTaskController.projectStatusesController.firstOpenedStatusId);
       if (newTask != null) {
         final tc = TaskController(newTask, isNew: true);
         if (newTask.isGoal) {

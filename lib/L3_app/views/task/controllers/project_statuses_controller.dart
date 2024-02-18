@@ -9,6 +9,7 @@ import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/task_tree.dart';
 import '../widgets/project_statuses/project_status_edit_dialog.dart';
 import 'task_controller.dart';
 
@@ -17,7 +18,7 @@ part 'project_statuses_controller.g.dart';
 class ProjectStatusesController extends _ProjectStatusesControllerBase with _$ProjectStatusesController {
   ProjectStatusesController(TaskController taskController) {
     _taskController = taskController;
-    _setStatuses(_taskController.task!.projectStatuses);
+    _setStatuses(_taskController.task!.project!.projectStatuses);
   }
 
   Future edit(ProjectStatus status) async => await projectStatusEditDialog(status, this);
@@ -38,10 +39,19 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
 abstract class _ProjectStatusesControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get project => _taskController.task!;
+  Task get project => _taskController.task!.project!;
 
   @observable
   ObservableList<ProjectStatus> _statuses = ObservableList();
+
+  @computed
+  Iterable<int> get _closedStatusIds => _statuses.where((s) => s.closed == true).map((s) => s.id!);
+  @computed
+  int? get firstClosedStatusId => _closedStatusIds.firstOrNull;
+  @computed
+  Iterable<int> get _openedStatusIds => _statuses.where((s) => s.closed == false).map((s) => s.id!);
+  @computed
+  int? get firstOpenedStatusId => _openedStatusIds.firstOrNull;
 
   @action
   void _setStatuses(Iterable<ProjectStatus> sts) => _statuses = ObservableList.of(sts);
@@ -50,9 +60,6 @@ abstract class _ProjectStatusesControllerBase with Store {
 
   @computed
   List<ProjectStatus> get sortedStatuses => _statuses.sorted((s1, s2) => s1.position.compareTo(s2.position));
-
-  @computed
-  String get statusesStr => sortedStatuses.map((s) => s.title).join(', ');
 
   Iterable<String> siblingsTitles(int? sId) => _statuses.where((s) => s.id != sId).map((s) => s.title.trim().toLowerCase());
 

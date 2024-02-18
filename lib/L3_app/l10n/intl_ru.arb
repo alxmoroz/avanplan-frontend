@@ -315,8 +315,6 @@
   "status_code_placeholder": "Новый статус",
   "status_create_action_title": "Добавить статус",
   "status_error_validate_dup": "Такой статус уже есть",
-  "status_list_title": "Статусы задач",
-  "status_quiz_title": "Выберите статусы для задач",
   "status_title": "Статус",
   "status_used_in_tasks_label": "{count, plural, one{Используется в {count} задаче} other{Используется в {count} задачах}}",
 

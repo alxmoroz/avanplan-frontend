@@ -27,7 +27,6 @@ import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
-import '../views/task/widgets/project_statuses/project_statuses.dart';
 import '../views/task/widgets/team/team_invitation_quiz_view.dart';
 import '../views/workspace/ws_dialog.dart';
 import '../views/workspace/ws_members_dialog.dart';
@@ -51,8 +50,6 @@ final _routers = <MTRouter>[
   CreateProjectQuizRouter(),
   // Projects - Create - FeatureSets
   FeatureSetsQuizRouter(),
-  // Projects - Create - Statuses
-  ProjectStatusesQuizRouter(),
   // Projects - Create - Team
   TeamInvitationQuizRouter(),
   // Projects - Create - Goal

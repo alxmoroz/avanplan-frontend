@@ -1,22 +1,23 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/list_tile.dart';
-import 'package:avanplan/L3_app/usecases/ws_tasks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/board/board_column.dart';
 import '../../../../components/board/dd_item.dart';
+import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
+import '../../../../usecases/ws_tasks.dart';
 import '../../controllers/task_controller.dart';
 import '../tasks/task_card.dart';
 
@@ -56,7 +57,7 @@ class TaskBoardColumn {
   final int _index;
 
   Task get _parent => _taskController.task!;
-  ProjectStatus get _status => _parent.statuses.elementAt(_index);
+  ProjectStatus get _status => _taskController.projectStatusesController.sortedStatuses.elementAt(_index);
   List<Task> get _tasks => _parent.subtasksForStatus(_status.id!);
 
   Widget _taskItem(Task t, {bool dragging = false}) {
@@ -100,15 +101,33 @@ class TaskBoardColumn {
             )
           : null;
 
-  MTBoardColumn builder() => _Column(
-        _status,
-        header: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+  Widget get _header => Observer(
+        builder: (_) => Row(
           children: [
-            if (_status.closed) const DoneIcon(true, color: f2Color),
-            Flexible(child: H3('$_status', padding: const EdgeInsets.all(P), maxLines: 2, align: TextAlign.center)),
+            if (_parent.canEditProjectStatuses) const SizedBox(width: P6),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_status.closed) const DoneIcon(true, color: f2Color),
+                  Flexible(child: H3('$_status', padding: const EdgeInsets.all(P), maxLines: 2, align: TextAlign.center)),
+                ],
+              ),
+            ),
+            if (_parent.canEditProjectStatuses) ...[
+              MTButton.icon(
+                const MenuIcon(),
+                padding: const EdgeInsets.all(P),
+                onTap: () => _taskController.projectStatusesController.edit(_status),
+              ),
+            ],
           ],
         ),
+      );
+
+  MTBoardColumn builder() => _Column(
+        _status,
+        header: _header,
         children: [for (final t in _tasks) _taskBuilder(t)],
         canDrag: false,
         contentsWhenEmpty: Container(),

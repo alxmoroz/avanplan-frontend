@@ -8,15 +8,7 @@ import '../../L1_domain/utils/dates.dart';
 import 'task_tree.dart';
 
 extension TaskStatus on Task {
-  Iterable<ProjectStatus> get statuses => project?.projectStatuses ?? [];
-
-  Iterable<int> get _closedStatusIds => statuses.where((s) => s.closed == true).map((s) => s.id!);
-  int? get firstClosedStatusId => _closedStatusIds.firstOrNull;
-
-  Iterable<int> get _openedStatusIds => statuses.where((s) => s.closed == false).map((s) => s.id!);
-  int? get firstOpenedStatusId => _openedStatusIds.firstOrNull;
-
-  ProjectStatus? statusForId(int? id) => statuses.firstWhereOrNull((s) => s.id == id);
+  ProjectStatus? statusForId(int? id) => project?.projectStatuses.firstWhereOrNull((s) => s.id == id);
 
   ProjectStatus? get status => statusForId(projectStatusId);
 

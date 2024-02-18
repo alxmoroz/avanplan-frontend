@@ -4,35 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/board/board.dart';
 import '../../../../components/constants.dart';
-import '../../../../usecases/task_status.dart';
+import '../../controllers/project_statuses_controller.dart';
 import '../../controllers/status_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'column.dart';
 
 class TasksBoard extends StatelessWidget {
-  const TasksBoard(this.taskController, {super.key, this.scrollController});
-  final TaskController taskController;
-  StatusController get controller => taskController.statusController;
+  const TasksBoard(this._taskController, {super.key, this.scrollController});
+  final TaskController _taskController;
+  StatusController get _statusController => _taskController.statusController;
+  ProjectStatusesController get _psController => _taskController.projectStatusesController;
   final ScrollController? scrollController;
-
-  Task get _task => controller.task;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTBoard(
         children: [
-          for (var i = 0; i < _task.statuses.length; i++) TaskBoardColumn(taskController, i).builder(),
+          for (var i = 0; i < _psController.sortedStatuses.length; i++) TaskBoardColumn(_taskController, i).builder(),
         ],
         scrollController: scrollController,
-        onItemReorder: controller.moveTask,
+        onItemReorder: _statusController.moveTask,
         onItemDraggingChanged: (_, dragging) => dragging ? HapticFeedback.mediumImpact() : null,
-        itemTargetOnWillAccept: controller.canMoveTaskTarget,
-        itemOnWillAccept: controller.canMoveTask,
+        itemTargetOnWillAccept: _statusController.canMoveTaskTarget,
+        itemOnWillAccept: _statusController.canMoveTask,
         onColumnReorder: (int oldColumnIndex, int newColumnIndex) {},
         columnWidth: SCR_XS_WIDTH - P6,
         columnDivider: const SizedBox(width: P3),

@@ -37,7 +37,7 @@ abstract class _SubtasksControllerBase with Store {
 
   @action
   Future addTask() async {
-    final newTask = await parent.ws.createTask(parent);
+    final newTask = await parent.ws.createTask(parent, statusId: _parentTaskController.projectStatusesController.firstOpenedStatusId);
     if (newTask != null) {
       final tc = TaskController(newTask, isNew: true);
       taskControllers.add(tc);

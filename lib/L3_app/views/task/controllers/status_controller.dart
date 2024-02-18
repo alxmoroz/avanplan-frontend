@@ -23,13 +23,15 @@ import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_status.dart';
 import '../../../usecases/task_tree.dart';
 import '../widgets/tasks/task_card.dart';
+import 'project_statuses_controller.dart';
 import 'task_controller.dart';
 
 class StatusController {
   StatusController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task!;
+  Task get _task => _taskController.task!;
+  ProjectStatusesController get _psController => _taskController.projectStatusesController;
 
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,
@@ -42,7 +44,7 @@ class StatusController {
 
   Future setStatus(Task t, {int? stId, bool? close}) async {
     if (stId != null || close != null) {
-      stId ??= t.canSetStatus ? (close == true ? t.firstClosedStatusId : t.firstOpenedStatusId) : null;
+      stId ??= t.canSetStatus ? (close == true ? _psController.firstClosedStatusId : _psController.firstOpenedStatusId) : null;
       close ??= t.statusForId(stId)?.closed;
 
       if (close == true && t.hasOpenedSubtasks) {
@@ -65,7 +67,7 @@ class StatusController {
       t.projectStatusId = stId;
       t.setClosed(close);
 
-      final sameTask = t == task;
+      final sameTask = t == _task;
       final saved = sameTask ? await _taskController.saveField(TaskFCode.status) : (await t.save() != null);
 
       if (!saved) {
@@ -84,11 +86,11 @@ class StatusController {
 
   Future selectStatus() async {
     final selectedStatus = await showMTSelectDialog<ProjectStatus>(
-      task.statuses.toList(),
-      task.projectStatusId,
+      _psController.sortedStatuses,
+      _task.projectStatusId,
       loc.task_status_select_placeholder,
       valueBuilder: (_, status) {
-        final selected = task.projectStatusId == status.id;
+        final selected = _task.projectStatusId == status.id;
         final closed = status.closed;
         final text = '$status';
         return Row(
@@ -104,16 +106,16 @@ class StatusController {
     );
 
     if (selectedStatus != null) {
-      await setStatus(task, stId: selectedStatus.id);
+      await setStatus(_task, stId: selectedStatus.id);
     }
   }
 
   Future moveTask(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
     if (oldStatusIndex != newStatusIndex) {
-      final oldStatusId = task.statuses.elementAt(oldStatusIndex).id!;
-      final newStatusId = task.statuses.elementAt(newStatusIndex).id!;
+      final oldStatusId = _psController.sortedStatuses.elementAt(oldStatusIndex).id!;
+      final newStatusId = _psController.sortedStatuses.elementAt(newStatusIndex).id!;
 
-      final t = task.subtasksForStatus(oldStatusId)[oldTaskIndex];
+      final t = _task.subtasksForStatus(oldStatusId)[oldTaskIndex];
       await setStatus(t, stId: newStatusId);
     }
   }

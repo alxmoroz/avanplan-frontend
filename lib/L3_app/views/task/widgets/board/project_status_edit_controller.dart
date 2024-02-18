@@ -54,20 +54,25 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
     ]);
 
     _status = statusIn;
-    if (_status!.isNew && _checkDup(_status!.title)) {
-      await saveField(StatusFCode.title);
-    }
-    // количество задач, в которых используется
-    tasksWithStatusCount = tasksMainController.allTasks
-        .where(
-          (t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
-        )
-        .length;
+    if (_status!.isNew) {
+      if (_checkDup(_status!.title)) {
+        await saveField(StatusFCode.title);
+      }
+    } else {
+      // количество задач, в которых используется
+      if (!status.closed) {
+        tasksWithStatusCount = tasksMainController.allTasks
+            .where(
+              (t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
+            )
+            .length;
+      }
 
-    if (tasksWithStatusCount == 0) {
-      loading = true;
-      tasksWithStatusCount = await projectStatusUC.statusTasksCount(status.wsId, status.projectId, status.id!);
-      loading = false;
+      if (tasksWithStatusCount == 0) {
+        loading = true;
+        tasksWithStatusCount = await projectStatusUC.statusTasksCount(status.wsId, status.projectId, status.id!);
+        loading = false;
+      }
     }
   }
 

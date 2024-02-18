@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import '../colors.dart';
 import '../colors_base.dart';
 import '../constants.dart';
-import '../text.dart';
 import 'dd_column_interface.dart';
 import 'dd_item.dart';
 import 'dd_item_target.dart';
@@ -22,12 +21,14 @@ class MTBoardColumn implements MTDragNDropColumnInterface {
     this.lastTarget,
     this.decoration,
     this.canDrag = true,
+    this.hasTarget = true,
   });
 
   final Widget? header;
   final Widget? footer;
   final Widget? contentsWhenEmpty;
   final Widget? lastTarget;
+  final bool hasTarget;
   final Decoration? decoration;
 
   @override
@@ -58,33 +59,36 @@ class MTBoardColumn implements MTDragNDropColumnInterface {
         ),
         child: Stack(
           children: [
-            MediaQuery(
-              data: MediaQueryData(padding: EdgeInsets.only(top: _headerHeight, bottom: footer != null ? _footerHeight : 0)),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  if (children.isNotEmpty) ...[
-                    if (params.addLastItemTargetHeightToTop) SizedBox(height: lastItemTargetHeight),
-                    ListView.builder(
+            hasTarget
+                ? MediaQuery(
+                    data:
+                        MediaQueryData(padding: EdgeInsets.only(top: header != null ? _headerHeight : 0, bottom: footer != null ? _footerHeight : 0)),
+                    child: ListView(
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: children.length,
-                      itemBuilder: (_, index) => MTDragNDropItemWrapper(
-                        child: children[index],
-                        parameters: params,
-                      ),
+                      children: [
+                        if (children.isNotEmpty) ...[
+                          if (params.addLastItemTargetHeightToTop) SizedBox(height: lastItemTargetHeight),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: children.length,
+                            itemBuilder: (_, index) => MTDragNDropItemWrapper(
+                              child: children[index],
+                              parameters: params,
+                            ),
+                          ),
+                        ] else
+                          contentsWhenEmpty ?? const SizedBox(),
+                        MTDragNDropItemTarget(
+                          parent: this,
+                          parameters: params,
+                          onReorderOrAdd: params.onItemDropOnLastTarget!,
+                          child: lastTarget ?? SizedBox(height: lastItemTargetHeight),
+                        ),
+                      ],
                     ),
-                  ] else
-                    contentsWhenEmpty ?? const BaseText.f2('Empty list'),
-                  MTDragNDropItemTarget(
-                    parent: this,
-                    parameters: params,
-                    onReorderOrAdd: params.onItemDropOnLastTarget!,
-                    child: lastTarget ?? SizedBox(height: lastItemTargetHeight),
-                  ),
-                ],
-              ),
-            ),
+                  )
+                : const SizedBox(),
             if (header != null) Container(color: b2Color.resolve(context), height: _headerHeight, child: header),
             if (footer != null)
               Positioned(

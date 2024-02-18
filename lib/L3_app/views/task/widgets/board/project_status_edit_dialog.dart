@@ -84,8 +84,8 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
             if (_controller.canMoveLeft)
               MTListTile(
                 leading: const MoveLeft(),
-                middle: BaseText.medium(loc.status_move_left_action_title, maxLines: 1),
-                subtitle: SmallText('${_controller.leftStatus} ${_controller.leftStatus?.position}', maxLines: 1),
+                middle: BaseText.medium(loc.status_move_left_action_title, maxLines: 1, color: mainColor),
+                subtitle: SmallText('${_controller.leftStatus}', maxLines: 1),
                 bottomDivider: _controller.canMoveRight || !_used,
                 dividerIndent: P11,
                 loading: _controller.fData(StatusFCode.position.index).loading,
@@ -94,8 +94,8 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
             if (_controller.canMoveRight)
               MTListTile(
                 leading: const MoveRight(),
-                middle: BaseText.medium(loc.status_move_right_action_title, maxLines: 1),
-                subtitle: SmallText('${_controller.rightStatus} ${_controller.rightStatus?.position}', maxLines: 1),
+                middle: BaseText.medium(loc.status_move_right_action_title, maxLines: 1, color: mainColor),
+                subtitle: SmallText('${_controller.rightStatus}', maxLines: 1),
                 bottomDivider: !_used,
                 dividerIndent: P11,
                 loading: _controller.fData(StatusFCode.position.index).loading,
@@ -109,21 +109,26 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
               ),
             MTListTile(
               leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P6),
-              middle: BaseText.medium(loc.status_means_closed_title, maxLines: 1, color: _used ? f3Color : null),
+              middle: BaseText.medium(
+                loc.status_means_closed_title,
+                maxLines: 1,
+                color: _used ? f3Color : null,
+              ),
               trailing: CupertinoSwitch(
                 value: _status.closed,
                 activeColor: mainColor,
                 thumbColor: b3Color,
-                trackColor: b2Color,
+                trackColor: b1Color,
                 onChanged: _used ? null : (_) => _controller.toggleClosed(),
               ),
               bottomDivider: true,
               dividerIndent: P11,
               loading: _controller.loading || _controller.fData(StatusFCode.closed.index).loading,
+              onTap: _used ? null : _controller.toggleClosed,
             ),
             MTListTile(
-              leading: const DeleteIcon(size: P6),
-              middle: BaseText.medium(loc.delete_action_title, maxLines: 1, color: _used ? f3Color : null),
+              leading: DeleteIcon(size: P6, color: _used ? f3Color : dangerColor),
+              middle: BaseText.medium(loc.delete_action_title, maxLines: 1, color: _used ? f3Color : dangerColor),
               bottomDivider: false,
               onTap: _used ? null : () => _controller.delete(context),
             ),

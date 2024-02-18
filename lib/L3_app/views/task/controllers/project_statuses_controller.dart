@@ -27,7 +27,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
         ProjectStatus(
           title: loc.status_code_placeholder,
           closed: false,
-          position: sortedStatuses.length,
+          position: (sortedStatuses.lastOrNull?.position ?? 0) + 1,
           wsId: project.wsId,
           projectId: project.id!,
         ),

@@ -10,7 +10,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
-import '../widgets/project_statuses/project_status_edit_dialog.dart';
+import '../widgets/board/project_status_edit_dialog.dart';
 import 'task_controller.dart';
 
 part 'project_statuses_controller.g.dart';
@@ -56,6 +56,9 @@ abstract class _ProjectStatusesControllerBase with Store {
   @action
   void _setStatuses(Iterable<ProjectStatus> sts) => _statuses = ObservableList.of(sts);
 
+  ProjectStatus? leftStatus(ProjectStatus status) => sortedStatuses.lastWhereOrNull((s) => s.position < status.position);
+  ProjectStatus? rightStatus(ProjectStatus status) => sortedStatuses.firstWhereOrNull((s) => s.position > status.position);
+
   void refresh() => _setStatuses(project.projectStatuses);
 
   @computed
@@ -66,12 +69,14 @@ abstract class _ProjectStatusesControllerBase with Store {
   Future<ProjectStatus?> _editStatus(ProjectStatus status, Future<ProjectStatus?> Function() function) async {
     status.loading = true;
     refresh();
+
     ProjectStatus? es;
     try {
       es = await function();
     } on DioException catch (e) {
       status.error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
+
     status.loading = false;
     refresh();
 

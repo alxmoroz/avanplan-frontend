@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
-import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -20,10 +19,7 @@ import '../../../../extra/services.dart';
 import '../../controllers/project_statuses_controller.dart';
 import 'project_status_edit_controller.dart';
 
-Future projectStatusEditDialog(
-  ProjectStatus status,
-  ProjectStatusesController statusesController,
-) async =>
+Future projectStatusEditDialog(ProjectStatus status, ProjectStatusesController statusesController) async =>
     await showMTDialog<void>(_ProjectStatusEditDialog(status, statusesController));
 
 class _ProjectStatusEditDialog extends StatefulWidget {
@@ -59,18 +55,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          title: loc.status_title,
-          trailing: !_used && !_controller.loading
-              ? MTButton.icon(
-                  const DeleteIcon(),
-                  onTap: () => _controller.delete(context),
-                  padding: const EdgeInsets.all(P2),
-                )
-              : null,
-        ),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.status_title),
         body: ListView(
           shrinkWrap: true,
           children: [
@@ -96,31 +81,52 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
               color: b2Color,
             ),
-            const SizedBox(height: P),
-            MTField(
-              _controller.fData(StatusFCode.closed.index),
-              value: MTListTile(
-                leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P6),
-                middle: BaseText.medium(loc.state_closed, maxLines: 1, color: _used ? f3Color : null),
-                trailing: CupertinoSwitch(
-                  value: _status.closed,
-                  activeColor: mainColor,
-                  thumbColor: b3Color,
-                  trackColor: b2Color,
-                  onChanged: _used ? null : (_) => _controller.toggleClosed(),
-                ),
-                padding: EdgeInsets.zero,
-                bottomDivider: false,
-                loading: _controller.loading,
+            if (_controller.canMoveLeft)
+              MTListTile(
+                leading: const MoveLeft(),
+                middle: BaseText.medium(loc.status_move_left_action_title, maxLines: 1),
+                subtitle: SmallText('${_controller.leftStatus} ${_controller.leftStatus?.position}', maxLines: 1),
+                bottomDivider: _controller.canMoveRight || !_used,
+                dividerIndent: P11,
+                loading: _controller.fData(StatusFCode.position.index).loading,
+                onTap: _controller.moveLeft,
               ),
-            ),
+            if (_controller.canMoveRight)
+              MTListTile(
+                leading: const MoveRight(),
+                middle: BaseText.medium(loc.status_move_right_action_title, maxLines: 1),
+                subtitle: SmallText('${_controller.rightStatus} ${_controller.rightStatus?.position}', maxLines: 1),
+                bottomDivider: !_used,
+                dividerIndent: P11,
+                loading: _controller.fData(StatusFCode.position.index).loading,
+                onTap: _controller.moveRight,
+              ),
             if (_used)
               BaseText.f2(
                 loc.status_used_in_tasks_label(_controller.tasksWithStatusCount),
-                align: TextAlign.center,
                 maxLines: 1,
-                padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P),
+                padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
               ),
+            MTListTile(
+              leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P6),
+              middle: BaseText.medium(loc.status_means_closed_title, maxLines: 1, color: _used ? f3Color : null),
+              trailing: CupertinoSwitch(
+                value: _status.closed,
+                activeColor: mainColor,
+                thumbColor: b3Color,
+                trackColor: b2Color,
+                onChanged: _used ? null : (_) => _controller.toggleClosed(),
+              ),
+              bottomDivider: true,
+              dividerIndent: P11,
+              loading: _controller.loading || _controller.fData(StatusFCode.closed.index).loading,
+            ),
+            MTListTile(
+              leading: const DeleteIcon(size: P6),
+              middle: BaseText.medium(loc.delete_action_title, maxLines: 1, color: _used ? f3Color : null),
+              bottomDivider: false,
+              onTap: _used ? null : () => _controller.delete(context),
+            ),
           ],
         ),
       ),

@@ -315,6 +315,9 @@
   "status_code_placeholder": "New Status",
   "status_create_action_title": "Add status",
   "status_error_validate_dup": "This status already exists",
+  "status_means_closed_title": "Means Closed",
+  "status_move_left_action_title": "Move left",
+  "status_move_right_action_title": "Move right",
   "status_title": "Status",
   "status_used_in_tasks_label": "{count, plural, one{Used in {count} task} other{Used in {count} tasks}}",
 

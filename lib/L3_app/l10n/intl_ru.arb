@@ -315,6 +315,9 @@
   "status_code_placeholder": "Новый статус",
   "status_create_action_title": "Добавить статус",
   "status_error_validate_dup": "Такой статус уже есть",
+  "status_means_closed_title": "Считать выполненным",
+  "status_move_left_action_title": "Переместить левее",
+  "status_move_right_action_title": "Переместить правее",
   "status_title": "Статус",
   "status_used_in_tasks_label": "{count, plural, one{Используется в {count} задаче} other{Используется в {count} задачах}}",
 

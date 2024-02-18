@@ -16,7 +16,7 @@ import '../../controllers/project_statuses_controller.dart';
 
 part 'project_status_edit_controller.g.dart';
 
-enum StatusFCode { title, description, closed }
+enum StatusFCode { title, description, position, closed }
 
 class ProjectStatusEditController extends _ProjectStatusEditControllerBase with _$ProjectStatusEditController {
   ProjectStatusEditController(ProjectStatusesController statusesController) {
@@ -49,6 +49,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
     initState(fds: [
       MTFieldData(StatusFCode.title.index, text: statusIn.isNew ? '' : statusIn.title),
       MTFieldData(StatusFCode.description.index, text: statusIn.isNew ? '' : statusIn.description),
+      MTFieldData(StatusFCode.position.index),
       MTFieldData(StatusFCode.closed.index),
     ]);
 
@@ -132,6 +133,40 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
     status.closed = !status.closed;
     if (!(await saveField(StatusFCode.closed))) {
       status.closed = oldValue;
+    }
+  }
+
+  Future _swapPosition(ProjectStatus swapStatus) async {
+    final pos = status.position;
+    final swapPos = swapStatus.position;
+
+    status.position = swapPos;
+    swapStatus.position = pos;
+    if (!(await saveField(StatusFCode.position)) || (await _statusesController.saveStatus(swapStatus) == null)) {
+      status.position = pos;
+      swapStatus.position = swapPos;
+    }
+  }
+
+  @computed
+  ProjectStatus? get leftStatus => _statusesController.leftStatus(status);
+  @computed
+  bool get canMoveLeft => leftStatus != null;
+
+  @computed
+  ProjectStatus? get rightStatus => _statusesController.rightStatus(status);
+  @computed
+  bool get canMoveRight => rightStatus != null;
+
+  Future moveLeft() async {
+    if (canMoveLeft) {
+      await _swapPosition(leftStatus!);
+    }
+  }
+
+  Future moveRight() async {
+    if (canMoveRight) {
+      await _swapPosition(rightStatus!);
     }
   }
 

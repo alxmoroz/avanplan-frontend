@@ -108,7 +108,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
                 padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
               ),
             MTListTile(
-              leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P6),
+              leading: DoneIcon(true, color: _used ? f3Color : mainColor, size: P6),
               middle: BaseText.medium(
                 loc.status_means_closed_title,
                 maxLines: 1,

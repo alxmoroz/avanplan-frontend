@@ -9,7 +9,7 @@ import '../../../../L2_data/services/platform.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
 import '../../app/app_may_upgrade_dialog.dart';
-import '../../app/whats_new_dialog.dart';
+import '../../app/release_notes_dialog.dart';
 
 part 'main_controller.g.dart';
 

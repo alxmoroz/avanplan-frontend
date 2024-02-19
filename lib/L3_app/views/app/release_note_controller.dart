@@ -18,7 +18,7 @@ abstract class _ReleaseNoteControllerBase with Store {
   Future getData() async => _releaseNotes = await releaseNoteUC.getReleaseNotes(localSettingsController.oldVersion);
 
   @computed
-  List<ReleaseNote> get releaseNotes => _releaseNotes.sorted((rn1, rn2) => compareNatural(rn1.version, rn2.version));
+  List<ReleaseNote> get releaseNotes => _releaseNotes.sorted((rn1, rn2) => compareNatural(rn2.version, rn1.version));
 
   @action
   void clearData() => _releaseNotes = [];

@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:io';
 
@@ -108,6 +108,9 @@ abstract class _LoaderControllerBase with Store {
             if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
             } else {
+              if (kDebugMode) {
+                print(e);
+              }
               _setHTTPError(errorText, e.detail);
             }
           }

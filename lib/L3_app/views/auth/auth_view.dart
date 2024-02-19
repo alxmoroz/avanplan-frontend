@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -13,8 +13,8 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
-import '../main/widgets/app_title.dart';
-import '../settings/app_version.dart';
+import '../app/app_title.dart';
+import '../app/app_version.dart';
 import 'auth_extra_dialog.dart';
 import 'legal_links.dart';
 

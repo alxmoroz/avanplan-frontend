@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../L2_data/repositories/communications_repo.dart';
-import '../../../components/button.dart';
-import '../../../components/constants.dart';
-import '../../../components/dialog.dart';
-import '../../../components/images.dart';
-import '../../../components/text.dart';
-import '../../../extra/services.dart';
+import '../../../L2_data/repositories/communications_repo.dart';
+import '../../components/button.dart';
+import '../../components/constants.dart';
+import '../../components/dialog.dart';
+import '../../components/images.dart';
+import '../../components/text.dart';
+import '../../extra/services.dart';
 
 Future showAppMayUpgradeDialog() async => await showMTDialog(const _AppMayUpgradeDialog());
 

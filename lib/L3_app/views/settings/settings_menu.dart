@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -16,10 +16,10 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
+import '../app/app_version.dart';
 import '../workspace/ws_dialog.dart';
 import '../workspace/ws_list_tile.dart';
 import 'account_button.dart';
-import 'app_version.dart';
 import 'notifications_button.dart';
 
 Future settingsMenu() async => await showMTDialog<void>(const _SettingsDialog());

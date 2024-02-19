@@ -357,7 +357,6 @@
   "tariff_price_request_action_title": "Request an offer",
   "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",
   "tariff_sign_action_title": "Subscribe",
-
   "tariff_title": "Tariff",
 
   "tariff_type_base_title": "Base",
@@ -446,6 +445,7 @@
   "validation_empty_text": "Should not be empty",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
+  "whats_new": "What's New",
   "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",
   "workspace_my_title": "My Workspace",

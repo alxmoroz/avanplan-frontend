@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -15,10 +15,10 @@ import '../../../components/vertical_toolbar.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
+import '../../app/app_title.dart';
 import '../../my_tasks/my_tasks_view.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
-import 'app_title.dart';
 
 class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   const LeftMenu({super.key});

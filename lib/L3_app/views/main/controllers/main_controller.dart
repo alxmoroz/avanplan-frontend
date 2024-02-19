@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -8,7 +8,8 @@ import '../../../../L1_domain/utils/dates.dart';
 import '../../../../L2_data/services/platform.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
-import '../widgets/app_may_upgrade_dialog.dart';
+import '../../app/app_may_upgrade_dialog.dart';
+import '../../app/whats_new_dialog.dart';
 
 part 'main_controller.g.dart';
 
@@ -68,11 +69,13 @@ abstract class _MainControllerBase with Store {
 
   Future _processAppUpgraded() async {
     if (!localSettingsController.isFirstLaunch) {
-      // новая версия
-      final oldVersion = localSettingsController.oldVersion;
-      final settings = localSettingsController.settings;
-      if (oldVersion != settings.version) {
-        // действия после обновления версии
+      // действия после обновления версии
+      if (localSettingsController.oldVersion != localSettingsController.settings.version) {
+        await releaseNoteController.getData();
+        if (releaseNoteController.releaseNotes.isNotEmpty) {
+          await showReleaseNotesDialog();
+        }
+
         await localSettingsController.resetAppUpgradeProposalDate();
       }
     }
@@ -130,5 +133,6 @@ abstract class _MainControllerBase with Store {
     accountController.clearData();
     notificationController.clearData();
     localSettingsController.clearData();
+    releaseNoteController.clearData();
   }
 }

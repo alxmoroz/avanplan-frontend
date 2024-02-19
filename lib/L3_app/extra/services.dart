@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -17,6 +17,7 @@ import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
 import '../../L1_domain/usecases/project_status_uc.dart';
 import '../../L1_domain/usecases/project_transfer_uc.dart';
+import '../../L1_domain/usecases/release_note_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
@@ -37,6 +38,7 @@ import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/note_repo.dart';
 import '../../L2_data/repositories/project_status_repo.dart';
 import '../../L2_data/repositories/project_transfer_repo.dart';
+import '../../L2_data/repositories/release_note_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
@@ -47,6 +49,7 @@ import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
+import '../views/app/release_note_controller.dart';
 import '../views/auth/auth_controller.dart';
 import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
@@ -79,6 +82,7 @@ RegistrationTokenController get registrationTokenController => GetIt.I<Registrat
 InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
 IAPController get iapController => GetIt.I<IAPController>();
 LeftMenuController get leftMenuController => GetIt.I<LeftMenuController>();
+ReleaseNoteController get releaseNoteController => GetIt.I<ReleaseNoteController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
@@ -98,6 +102,7 @@ NoteUC get noteUC => GetIt.I<NoteUC>();
 AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 FeatureSetUC get featureSetUC => GetIt.I<FeatureSetUC>();
 ProjectTransferUC get projectTransferUC => GetIt.I<ProjectTransferUC>();
+ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
 
 void setup() {
   // device
@@ -140,6 +145,7 @@ void setup() {
   getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
   getIt.registerSingleton<FeatureSetUC>(FeatureSetUC(FeatureSetRepo()));
   getIt.registerSingleton<ProjectTransferUC>(ProjectTransferUC(ProjectTransferRepo()));
+  getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
 
   // global state controllers
   getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [Openapi]);
@@ -156,4 +162,5 @@ void setup() {
   getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
   getIt.registerSingleton<IAPController>(IAPController());
   getIt.registerSingleton<LeftMenuController>(LeftMenuController());
+  getIt.registerSingleton<ReleaseNoteController>(ReleaseNoteController());
 }

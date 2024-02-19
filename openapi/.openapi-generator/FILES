@@ -14,6 +14,7 @@ doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
 doc/BodyRedeemV1MyInvitationsRedeemPost.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
+doc/BodyReleaseNotes.md
 doc/BodyRequestRegistration.md
 doc/BodyRequestSourceType.md
 doc/BodyStartImport.md
@@ -54,6 +55,8 @@ doc/ProjectStatusGet.md
 doc/ProjectStatusUpsert.md
 doc/ProjectStatusesApi.md
 doc/Registration.md
+doc/ReleaseNoteGet.md
+doc/ReleaseNotesApi.md
 doc/RoleGet.md
 doc/SettingsApi.md
 doc/SettingsGet.md
@@ -98,6 +101,7 @@ lib/src/api/my_tasks_api.dart
 lib/src/api/payments_api.dart
 lib/src/api/project_feature_sets_api.dart
 lib/src/api/project_statuses_api.dart
+lib/src/api/release_notes_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/tariffs_api.dart
 lib/src/api/task_invitations_api.dart
@@ -124,6 +128,7 @@ lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
 lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
+lib/src/model/body_release_notes.dart
 lib/src/model/body_request_registration.dart
 lib/src/model/body_request_source_type.dart
 lib/src/model/body_start_import.dart
@@ -151,6 +156,7 @@ lib/src/model/project_get.dart
 lib/src/model/project_status_get.dart
 lib/src/model/project_status_upsert.dart
 lib/src/model/registration.dart
+lib/src/model/release_note_get.dart
 lib/src/model/role_get.dart
 lib/src/model/settings_get.dart
 lib/src/model/source_get.dart
@@ -184,6 +190,7 @@ test/body_iap_notification_v1_payments_iap_notification_post_test.dart
 test/body_redeem_v1_my_invitations_redeem_post_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
+test/body_release_notes_test.dart
 test/body_request_registration_test.dart
 test/body_request_source_type_test.dart
 test/body_start_import_test.dart
@@ -224,6 +231,8 @@ test/project_status_get_test.dart
 test/project_status_upsert_test.dart
 test/project_statuses_api_test.dart
 test/registration_test.dart
+test/release_note_get_test.dart
+test/release_notes_api_test.dart
 test/role_get_test.dart
 test/settings_api_test.dart
 test/settings_get_test.dart

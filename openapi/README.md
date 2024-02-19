@@ -94,6 +94,7 @@ Class | Method | HTTP request | Description
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**deleteStatus**](doc/ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**statusTasksCount**](doc/ProjectStatusesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**upsertStatus**](doc/ProjectStatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
+[*ReleaseNotesApi*](doc/ReleaseNotesApi.md) | [**releaseNotes**](doc/ReleaseNotesApi.md#releasenotes) | **GET** /v1/release_notes | Release Notes
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**getAvailableTariffs**](doc/TariffsApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*TaskInvitationsApi*](doc/TaskInvitationsApi.md) | [**createInvitation**](doc/TaskInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
@@ -150,6 +151,7 @@ Class | Method | HTTP request | Description
  - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
+ - [BodyReleaseNotes](doc/BodyReleaseNotes.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyRequestSourceType](doc/BodyRequestSourceType.md)
  - [BodyStartImport](doc/BodyStartImport.md)
@@ -176,6 +178,7 @@ Class | Method | HTTP request | Description
  - [ProjectStatusGet](doc/ProjectStatusGet.md)
  - [ProjectStatusUpsert](doc/ProjectStatusUpsert.md)
  - [Registration](doc/Registration.md)
+ - [ReleaseNoteGet](doc/ReleaseNoteGet.md)
  - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)

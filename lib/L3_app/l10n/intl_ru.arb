@@ -445,6 +445,7 @@
   "validation_empty_text": "Нужно заполнить",
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
+  "whats_new": "Что нового",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_money_remaining_time_prefix": "Средств хватит на",
   "workspace_my_title": "Моё рабочее пространство",

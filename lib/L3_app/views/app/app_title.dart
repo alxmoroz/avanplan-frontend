@@ -1,12 +1,12 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/colors_base.dart';
-import '../../../components/constants.dart';
-import '../../../components/images.dart';
-import '../../../components/text.dart';
-import '../../../extra/services.dart';
+import '../../components/colors_base.dart';
+import '../../components/constants.dart';
+import '../../components/images.dart';
+import '../../components/text.dart';
+import '../../extra/services.dart';
 
 class AppTitle extends StatelessWidget {
   const AppTitle({super.key, this.compact = false});

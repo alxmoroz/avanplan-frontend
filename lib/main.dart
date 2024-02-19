@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart'; // ignore: depend_on_referenced_packages
 
 import 'L2_data/services/firebase_options.dart';
+import 'L2_data/services/platform.dart';
 import 'L3_app/components/background.dart';
 import 'L3_app/components/circular_progress.dart';
 import 'L3_app/components/colors.dart';
@@ -34,7 +35,7 @@ Future main() async {
   }
 
   // certs
-  if (!kIsWeb) {
+  if (!isWeb) {
     final ByteData data = await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
     SecurityContext.defaultContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
   }
@@ -78,7 +79,7 @@ class App extends StatelessWidget {
               debugShowCheckedModeBanner: true,
               theme: themeData,
               scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-                if (kIsWeb) PointerDeviceKind.mouse,
+                if (isWeb) PointerDeviceKind.mouse,
                 ...const MaterialScrollBehavior().dragDevices,
               }),
               localizationsDelegates: localizationsDelegates,

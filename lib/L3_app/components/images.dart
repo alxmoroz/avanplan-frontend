@@ -34,6 +34,7 @@ enum ImageName {
   server_error,
   sync,
   transfer,
+  upgrade,
 }
 
 String _assetPath(String name, BuildContext context) {

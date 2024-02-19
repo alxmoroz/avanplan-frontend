@@ -18,9 +18,21 @@ abstract class _ServiceSettingsControllerBase with Store {
   @observable
   ServiceSettings? settings;
 
+  @action
+  Future getSettings() async => settings = await serviceSettingsUC.getSettings();
+
   @computed
   Duration get lowStartThreshold => Duration(days: settings?.lowStartThresholdDays ?? 0);
 
-  @action
-  Future getSettings() async => settings = await serviceSettingsUC.getSettings();
+  @computed
+  int get _buildNumber => int.parse((settings?.frontendVersion ?? '1.0').split('.').last);
+
+  @computed
+  int get _ltsBuildNumber => int.parse((settings?.frontendLtsVersion ?? '1.0').split('.').last);
+
+  @computed
+  bool get mayUpgrade => localSettingsController.buildNumber < _buildNumber;
+
+  @computed
+  bool get mustUpgrade => localSettingsController.buildNumber < _ltsBuildNumber;
 }

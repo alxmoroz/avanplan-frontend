@@ -1,11 +1,11 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
@@ -37,7 +37,7 @@ class TaskDialogDetails extends StatelessWidget {
         children: [
           /// Статус
           if (_showStatusRow) ...[
-            const SizedBox(height: kIsWeb ? P2 : P),
+            SizedBox(height: isWeb ? P2 : P),
             TaskStatusField(_controller),
           ],
 

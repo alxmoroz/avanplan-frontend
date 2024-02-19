@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -77,7 +77,7 @@ class _MyTasksViewState extends State<MyTasksView> {
         bottom: false,
         child: Observer(
           builder: (_) => ListView(
-            controller: kIsWeb ? _scrollController : null,
+            controller: isWeb ? _scrollController : null,
             children: [
               _bigTitle,
               const SizedBox(height: P3),

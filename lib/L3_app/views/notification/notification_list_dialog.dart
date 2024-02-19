@@ -1,12 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:app_settings/app_settings.dart' as sys_settings;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
@@ -99,7 +99,7 @@ class _NotificationListDialog extends StatelessWidget {
                     itemBuilder: (_, index) => _itemBuilder(context, index),
                     itemCount: _controller.notifications.length + 1,
                   ),
-                  if (!kIsWeb && !_controller.pushAuthorized) ...[
+                  if (!isWeb && !_controller.pushAuthorized) ...[
                     MTButton(
                       margin: const EdgeInsets.all(P3).copyWith(bottom: 0),
                       leading: const PrivacyIcon(),

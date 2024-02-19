@@ -1,10 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
@@ -48,7 +48,7 @@ class TaskHeader extends StatelessWidget {
               style: const H1('', maxLines: 5).style(context),
               onChanged: _controller.titleController.editTitle,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: kIsWeb ? P : 0),
+            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P : 0),
             color: Colors.transparent,
           ),
         ],

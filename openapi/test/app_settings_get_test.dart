@@ -52,5 +52,15 @@ void main() {
     test('to test the property `estimateAvgDefault`', () async {
       // TODO
     });
+
+    // String frontendVersion
+    test('to test the property `frontendVersion`', () async {
+      // TODO
+    });
+
+    // String frontendLtsVersion
+    test('to test the property `frontendLtsVersion`', () async {
+      // TODO
+    });
   });
 }

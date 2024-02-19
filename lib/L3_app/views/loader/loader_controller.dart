@@ -7,7 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
@@ -137,7 +139,7 @@ abstract class _LoaderControllerBase with Store {
 
   void _setHTTPError(String? errorText, String? errorDetail) {
     errorText ??= 'LoaderHTTPError';
-    final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
+    final mainRecommendationText = isWeb ? loc.error_http_upgrade_web_recommendation_title : loc.error_http_upgrade_app_recommendation_title;
     set(
       imageName: ImageName.server_error.name,
       titleText: errorText,
@@ -225,4 +227,13 @@ abstract class _LoaderControllerBase with Store {
         imageName: ImageName.import.name,
       );
   void setUnlinking() => set(titleText: loc.loader_unlinking_title, imageName: ImageName.transfer.name);
+  void setMustUpgrade() => set(
+        titleText: loc.app_must_upgrade_title,
+        descriptionText: loc.app_must_upgrade_description,
+        imageName: ImageName.privacy.name,
+        action: MTButton.main(
+          titleText: loc.app_install_action_title,
+          onTap: () => launchUrlString(appInstallUrl),
+        ),
+      );
 }

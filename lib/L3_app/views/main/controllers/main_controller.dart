@@ -5,8 +5,10 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/utils/dates.dart';
+import '../../../../L2_data/services/platform.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
+import '../widgets/app_may_upgrade_dialog.dart';
 
 part 'main_controller.g.dart';
 
@@ -64,13 +66,14 @@ abstract class _MainControllerBase with Store {
     }
   }
 
-  Future _checkAppUpgrade() async {
+  Future _processAppUpgraded() async {
     if (!localSettingsController.isFirstLaunch) {
       // новая версия
       final oldVersion = localSettingsController.oldVersion;
       final settings = localSettingsController.settings;
       if (oldVersion != settings.version) {
         // действия после обновления версии
+        await localSettingsController.resetAppUpgradeProposalDate();
       }
     }
   }
@@ -79,7 +82,6 @@ abstract class _MainControllerBase with Store {
 
   Future _authorizedStartupActions() async {
     await _tryUpdate();
-    await _checkAppUpgrade();
     // await _showOnboarding();
     await notificationController.initPush();
   }
@@ -93,14 +95,28 @@ abstract class _MainControllerBase with Store {
       _inStartup = true;
 
       await serviceSettingsController.getSettings();
-      await authController.checkLocalAuth();
-      if (authController.authorized) {
-        await _authorizedStartupActions();
+
+      // если нужно обязательно обновить приложение, заставляем обновиться
+      if (!isWeb && serviceSettingsController.mustUpgrade) {
+        loader.setMustUpgrade();
+      } else {
+        // если можно обновить приложение, предлагаем обновиться
+        if (!isWeb && serviceSettingsController.mayUpgrade && localSettingsController.canAppUpgradeProposal) {
+          await showAppMayUpgradeDialog();
+          await localSettingsController.setAppUpgradeProposalDate();
+        }
+
+        await _processAppUpgraded();
+
+        await authController.checkLocalAuth();
+        if (authController.authorized) {
+          await _authorizedStartupActions();
+        }
+
+        loader.stopInit();
+
+        _inStartup = false;
       }
-
-      loader.stopInit();
-
-      _inStartup = false;
     }
   }
 

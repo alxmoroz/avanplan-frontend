@@ -1,11 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/local_auth.dart';
 import '../models/local_settings.dart';
+import '../services/platform.dart';
 
 class HType {
   static const LOCAL_SETTINGS = 1;
@@ -14,7 +14,7 @@ class HType {
 
 class HiveStorage {
   Future<HiveStorage> init() async {
-    if (!kIsWeb) {
+    if (!isWeb) {
       final dir = await getApplicationDocumentsDirectory();
       Hive.init(dir.path);
     } else {

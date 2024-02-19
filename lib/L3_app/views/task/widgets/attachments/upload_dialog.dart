@@ -2,9 +2,9 @@
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -22,7 +22,7 @@ enum _FileSource { gallery, files }
 Future<List<XFile>> selectFilesDialog() async {
   List<XFile> files = [];
 
-  final type = kIsWeb
+  final type = isWeb
       ? _FileSource.files
       : await showMTDialog<_FileSource?>(
           MTDialog(

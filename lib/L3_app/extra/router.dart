@@ -2,11 +2,11 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../L2_data/services/platform.dart';
 import '../../main.dart';
 import '../components/adaptive.dart';
 import '../components/colors.dart';
@@ -162,7 +162,7 @@ Future setWebpageTitle(String title) async {
 class MTRouteObserver extends NavigatorObserver {
   void _setTitle(MTRouter r) {
     // Только для веба
-    if (kIsWeb) {
+    if (isWeb) {
       setWebpageTitle(r.title);
     }
   }

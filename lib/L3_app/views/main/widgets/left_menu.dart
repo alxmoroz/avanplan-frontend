@@ -1,9 +1,9 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../L2_data/services/platform.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -69,7 +69,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () => _goToTasks(context),
               ),
             const Spacer(),
-            if (!kIsWeb)
+            if (!isWeb)
               MTListTile(
                 leading: const RefreshIcon(),
                 middle: compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),

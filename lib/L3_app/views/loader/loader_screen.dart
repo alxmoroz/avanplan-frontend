@@ -15,16 +15,16 @@ import '../../extra/services.dart';
 class LoaderScreen extends StatelessWidget {
   const LoaderScreen({super.key});
 
-  Widget get _title => H3(
+  Widget get _title => H2(
         loader.titleText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
+        padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: P3),
       );
 
   Widget get _description => BaseText(
         loader.descriptionText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
+        padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: P3),
         maxLines: 5,
       );
 
@@ -49,7 +49,7 @@ class LoaderScreen extends StatelessWidget {
                   ],
                   if (loader.actionWidget != null) ...[
                     const SizedBox(height: P6),
-                    MTAdaptive.xxs(child: loader.actionWidget),
+                    MTAdaptive.xs(child: loader.actionWidget),
                   ]
                 ],
               ),

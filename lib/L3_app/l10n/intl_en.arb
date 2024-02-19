@@ -4,8 +4,15 @@
   "about_service_title": "About service",
   "action_add_title": "Add",
   "analytics_title": "Analytics",
+
+  "app_install_action_title": "Install",
+  "app_may_upgrade_title": "New version available",
+  "app_may_upgrade_description": "Upgrade the app, get more features",
+  "app_must_upgrade_title": "Your app version is out of date",
+  "app_must_upgrade_description": "Install the new version to continue working",
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
+
   "are_closed_suffix": "are closed",
 
   "attachment_add_action_title": "Attach files",
@@ -92,6 +99,8 @@
   "error_auth_popup_blocked_by_browser": "The authentication window is blocked by the browser\nOpen a blocked window and reload the page",
   "error_auth_title": "Authorisation Error",
   "error_get_products_title": "Error getting information about purchases",
+  "error_http_upgrade_app_recommendation_title": "Update the app to the latest version",
+  "error_http_upgrade_web_recommendation_title": "Refresh the page in your browser or reinstall the web application",
   "error_import_connection": "Connection Error\nThe import source is not available",
   "error_import_title": "Import Error",
   "error_insufficient_funds_for_operation": "You need to top up your balance with {value} to pay your current tariff bill and {operation}",
@@ -161,6 +170,7 @@
   "invitation_share_label": "Invitation Link",
   "invitation_share_text": "1. Install app:\n{installUrl}\n\n2. Join the project:\n{invitationUrl}",
 
+  "later": "Later",
   "legal_privacy_policy_title": "Privacy Policy",
   "legal_rules_title": "License Agreement",
 
@@ -432,9 +442,6 @@
   "today_date_title": "today",
   "tomorrow_date_title": "tomorrow",
   "total_title": "Total",
-
-  "update_app_recommendation_title": "Update the app to the latest version",
-  "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
 
   "validation_empty_text": "Should not be empty",
 

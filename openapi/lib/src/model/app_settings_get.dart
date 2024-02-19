@@ -20,6 +20,8 @@ part 'app_settings_get.g.dart';
 /// * [estimateReliabilityDays] 
 /// * [estimateReliabilityClosedRatioThreshold] 
 /// * [estimateAvgDefault] 
+/// * [frontendVersion] 
+/// * [frontendLtsVersion] 
 @BuiltValue()
 abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -48,6 +50,12 @@ abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBui
 
   @BuiltValueField(wireName: r'estimate_avg_default')
   num? get estimateAvgDefault;
+
+  @BuiltValueField(wireName: r'frontend_version')
+  String? get frontendVersion;
+
+  @BuiltValueField(wireName: r'frontend_lts_version')
+  String? get frontendLtsVersion;
 
   AppSettingsGet._();
 
@@ -131,6 +139,20 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
       yield serializers.serialize(
         object.estimateAvgDefault,
         specifiedType: const FullType(num),
+      );
+    }
+    if (object.frontendVersion != null) {
+      yield r'frontend_version';
+      yield serializers.serialize(
+        object.frontendVersion,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.frontendLtsVersion != null) {
+      yield r'frontend_lts_version';
+      yield serializers.serialize(
+        object.frontendLtsVersion,
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -218,6 +240,20 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
             specifiedType: const FullType(num),
           ) as num;
           result.estimateAvgDefault = valueDes;
+          break;
+        case r'frontend_version':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.frontendVersion = valueDes;
+          break;
+        case r'frontend_lts_version':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.frontendLtsVersion = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -13,6 +13,11 @@ const legalRulesPath = '$_host/avanplan/legal/rules';
 const tariffsPath = '$_host/avanplan/tariffs';
 const docsPath = '$_host/avanplan/docs/';
 
+const _appAppStoreUrl = 'https://apps.apple.com/app/avanplan/id1661313266';
+const _appGooglePlayUrl = 'https://play.google.com/store/apps/details?id=team.moroz.avanplan';
+
+String get appInstallUrl => isIOS ? _appAppStoreUrl : _appGooglePlayUrl;
+
 Future<bool> sendMail(String subject, String appIdentifier, int? userId, {String? text = ''}) async {
   final body = ''
       '$text'

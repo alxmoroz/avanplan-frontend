@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -9,6 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -140,7 +140,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       fData,
       loading: _taskEditing && task.loading == true,
       minHeight: _minHeight,
-      value: kIsWeb
+      value: isWeb
           ? _fieldValue(context)
           : Slidable(
               key: ObjectKey(tc),
@@ -166,7 +166,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       dividerIndent: tc.task!.isCheckItem ? P11 : P3,
       dividerEndIndent: P3,
       bottomDivider: tc.task!.isCheckItem || _index < _controller.taskControllers.length - 1,
-      onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,
+      onHover: isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
       onTap: () => _controller.setFocus(true, tc),
     );
   }

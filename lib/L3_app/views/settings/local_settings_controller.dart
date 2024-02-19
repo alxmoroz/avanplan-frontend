@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/local_settings.dart';
+import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../extra/services.dart';
 
@@ -24,7 +25,7 @@ class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalS
 
 abstract class _LocalSettingsControllerBase with Store {
   @observable
-  LocalSettings settings = LocalSettings(flags: {});
+  LocalSettings settings = LocalSettings();
 
   @observable
   String oldVersion = '';
@@ -32,8 +33,20 @@ abstract class _LocalSettingsControllerBase with Store {
   @computed
   bool get isFirstLaunch => oldVersion.isEmpty;
 
+  @computed
+  int get buildNumber => int.parse(settings.version.split('.').lastOrNull ?? '0');
+
+  @computed
+  DateTime? get _appUpgradeProposalDate => settings.getDate(LSDateCode.APP_UPGRADE_PROPOSAL);
+  @computed
+  bool get canAppUpgradeProposal => _appUpgradeProposalDate == null || _appUpgradeProposalDate!.isBefore(lastWeek);
+
   @action
-  void clearData() {
-    oldVersion = '';
-  }
+  Future setAppUpgradeProposalDate() async => settings = await localSettingsUC.setAppUpgradeProposalDate(now);
+
+  @action
+  Future resetAppUpgradeProposalDate() async => settings = await localSettingsUC.setAppUpgradeProposalDate(null);
+
+  @action
+  void clearData() => oldVersion = '';
 }

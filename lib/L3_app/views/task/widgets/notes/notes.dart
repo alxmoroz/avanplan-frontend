@@ -98,7 +98,7 @@ class Notes extends StatelessWidget {
                             margin: EdgeInsets.only(left: mine ? P12 : 0, right: mine ? 0 : P8, bottom: P2),
                             padding: EdgeInsets.zero,
                             loading: n.loading,
-                            // onLongPress: !kIsWeb && _canEditTask && mine ? () => _noteMenu(context, n) : null,
+                            // onLongPress: !isWeb && _canEditTask && mine ? () => _noteMenu(context, n) : null,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [

@@ -1,11 +1,11 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -130,7 +130,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
-    if (kIsWeb) {
+    if (isWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
     _scrollController = ScrollController();
@@ -163,7 +163,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         child: LayoutBuilder(builder: (ctx, size) {
           final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
           return ListView(
-            controller: kIsWeb ? _scrollController : null,
+            controller: isWeb ? _scrollController : null,
             children: [
               if (_isBigGroup && !_hasScrolled) SizedBox(height: _headerHeight),
 
@@ -195,7 +195,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               ? Container(
                                   height: expandedHeight + P2,
                                   padding: const EdgeInsets.only(top: P3),
-                                  child: kIsWeb
+                                  child: isWeb
                                       ? Scrollbar(
                                           controller: _boardScrollController,
                                           thumbVisibility: true,

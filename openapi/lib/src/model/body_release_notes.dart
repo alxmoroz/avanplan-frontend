@@ -1,5 +1,3 @@
-// Copyright (c) 2024. Alexandr Moroz
-
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -13,7 +11,7 @@ part 'body_release_notes.g.dart';
 /// BodyReleaseNotes
 ///
 /// Properties:
-/// * [oldVersion]
+/// * [oldVersion] 
 @BuiltValue()
 abstract class BodyReleaseNotes implements Built<BodyReleaseNotes, BodyReleaseNotesBuilder> {
   @BuiltValueField(wireName: r'old_version')
@@ -105,3 +103,4 @@ class _$BodyReleaseNotesSerializer implements PrimitiveSerializer<BodyReleaseNot
     return result.build();
   }
 }
+

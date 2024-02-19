@@ -1,11 +1,14 @@
-// Copyright (c) 2024. Alexandr Moroz
-
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
+import 'package:built_value/serializer.dart';
+import 'package:openapi/src/serializers.dart';
+import 'package:openapi/src/auth/api_key_auth.dart';
+import 'package:openapi/src/auth/basic_auth.dart';
+import 'package:openapi/src/auth/bearer_auth.dart';
+import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/contracts_api.dart';
 import 'package:openapi/src/api/feature_sets_api.dart';
@@ -30,11 +33,6 @@ import 'package:openapi/src/api/task_roles_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 import 'package:openapi/src/api/transfer_api.dart';
 import 'package:openapi/src/api/workspaces_api.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
-import 'package:openapi/src/serializers.dart';
 
 class Openapi {
   static const String basePath = r'/api';
@@ -68,36 +66,25 @@ class Openapi {
 
   void setOAuthToken(String name, String token) {
     if (this.dio.interceptors.any((i) => i is OAuthInterceptor)) {
-      (this.dio.interceptors.firstWhere((i) => i is OAuthInterceptor)
-              as OAuthInterceptor)
-          .tokens[name] = token;
+      (this.dio.interceptors.firstWhere((i) => i is OAuthInterceptor) as OAuthInterceptor).tokens[name] = token;
     }
   }
 
   void setBearerAuth(String name, String token) {
     if (this.dio.interceptors.any((i) => i is BearerAuthInterceptor)) {
-      (this.dio.interceptors.firstWhere((i) => i is BearerAuthInterceptor)
-              as BearerAuthInterceptor)
-          .tokens[name] = token;
+      (this.dio.interceptors.firstWhere((i) => i is BearerAuthInterceptor) as BearerAuthInterceptor).tokens[name] = token;
     }
   }
 
   void setBasicAuth(String name, String username, String password) {
     if (this.dio.interceptors.any((i) => i is BasicAuthInterceptor)) {
-      (this.dio.interceptors.firstWhere((i) => i is BasicAuthInterceptor)
-              as BasicAuthInterceptor)
-          .authInfo[name] = BasicAuthInfo(username, password);
+      (this.dio.interceptors.firstWhere((i) => i is BasicAuthInterceptor) as BasicAuthInterceptor).authInfo[name] = BasicAuthInfo(username, password);
     }
   }
 
   void setApiKey(String name, String apiKey) {
     if (this.dio.interceptors.any((i) => i is ApiKeyAuthInterceptor)) {
-      (this
-                  .dio
-                  .interceptors
-                  .firstWhere((element) => element is ApiKeyAuthInterceptor)
-              as ApiKeyAuthInterceptor)
-          .apiKeys[name] = apiKey;
+      (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor).apiKeys[name] = apiKey;
     }
   }
 

@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"version.json": "d08a13de9743e88723753f00a2c7c5f0",
+const RESOURCES = {"version.json": "06830ea4e07449c1a1f86d2d53a62d67",
 "splash/img/light-2x.png": "de04581de96618c7774eb07917cbb0b5",
 "splash/img/dark-4x.png": "d23a48799930e68b79537f9521b54392",
 "splash/img/light-3x.png": "0bd86804e97e7c72cff21b1d4bc703ca",
@@ -12,10 +12,10 @@ const RESOURCES = {"version.json": "d08a13de9743e88723753f00a2c7c5f0",
 "splash/img/dark-2x.png": "1de000216e9b5b35639dc772bdb23a54",
 "splash/img/dark-1x.png": "efade7303c0cbca00b2a44781e1f4732",
 "splash/img/light-1x.png": "de41a29d2394649c3b563d87703d1dcb",
-"index.html": "e6bd6fb5f1d3e1d182f935c81be8993c",
-"/": "e6bd6fb5f1d3e1d182f935c81be8993c",
+"index.html": "41a85391ac917d88694976c34a8dee3e",
+"/": "41a85391ac917d88694976c34a8dee3e",
 "firebase-messaging-sw.js": "28562d3c6999025f15c6faa4e861b175",
-"main.dart.js": "8d758baf05da7b0867f00a7f1e2d9856",
+"main.dart.js": "a3184adff766f325cfdd372c88702c05",
 ".well-known/apple-app-site-association": "bda08a6d5ec9db358dab1e697df75298",
 ".well-known/assetlinks.json": "768c5dec63b05d4c684582be06574c1c",
 "flutter.js": "7d69e653079438abfbb24b82a655b0a4",

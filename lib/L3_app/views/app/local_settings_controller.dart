@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -29,9 +29,11 @@ abstract class _LocalSettingsControllerBase with Store {
 
   @observable
   String oldVersion = '';
+  @action
+  void resetOldVersionFlag() => oldVersion = '';
 
   @computed
-  bool get isFirstLaunch => oldVersion.isEmpty;
+  bool get isNewVersion => oldVersion.isNotEmpty && oldVersion != settings.version;
 
   @computed
   int get buildNumber => int.parse(settings.version.split('.').lastOrNull ?? '0');
@@ -46,7 +48,4 @@ abstract class _LocalSettingsControllerBase with Store {
 
   @action
   Future resetAppUpgradeProposalDate() async => settings = await localSettingsUC.setAppUpgradeProposalDate(null);
-
-  @action
-  void clearData() => oldVersion = '';
 }

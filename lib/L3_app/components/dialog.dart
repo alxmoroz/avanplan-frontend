@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:math';
 
@@ -12,7 +12,7 @@ import 'constants.dart';
 import 'material_wrapper.dart';
 import 'scrollable.dart';
 
-Color get barrierColor => b0Color.resolve(globalContext).withAlpha(220);
+Color get barrierColor => b0Color.resolve(globalContext).withAlpha(245);
 
 BoxConstraints dialogConstrains(BuildContext context, double? maxWidth) {
   final size = screenSize(context);
@@ -87,7 +87,7 @@ class MTDialog extends StatelessWidget {
             data: mq.copyWith(
               padding: mqPadding.copyWith(
                 top: (topBar?.preferredSize ?? Size.zero).height,
-                bottom: bottomBar?.preferredSize.height ?? mq.padding.bottom,
+                bottom: (bottomBar?.preferredSize.height ?? 0) + mq.padding.bottom,
               ),
             ),
             child: scrollOffsetTop != null && scrollController != null

@@ -1,14 +1,10 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
 export 'package:openapi/src/api.dart';
-export 'package:openapi/src/auth/api_key_auth.dart';
-export 'package:openapi/src/auth/basic_auth.dart';
-export 'package:openapi/src/auth/oauth.dart';
-export 'package:openapi/src/serializers.dart';
-export 'package:openapi/src/model/date.dart';
-
 export 'package:openapi/src/api/auth_api.dart';
 export 'package:openapi/src/api/contracts_api.dart';
 export 'package:openapi/src/api/feature_sets_api.dart';
@@ -33,7 +29,9 @@ export 'package:openapi/src/api/task_roles_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';
 export 'package:openapi/src/api/transfer_api.dart';
 export 'package:openapi/src/api/workspaces_api.dart';
-
+export 'package:openapi/src/auth/api_key_auth.dart';
+export 'package:openapi/src/auth/basic_auth.dart';
+export 'package:openapi/src/auth/oauth.dart';
 export 'package:openapi/src/model/account_get.dart';
 export 'package:openapi/src/model/account_operation_get.dart';
 export 'package:openapi/src/model/app_settings_get.dart';
@@ -45,13 +43,13 @@ export 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notifica
 export 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
 export 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 export 'package:openapi/src/model/body_registration_token.dart';
-export 'package:openapi/src/model/body_release_notes.dart';
 export 'package:openapi/src/model/body_request_registration.dart';
 export 'package:openapi/src/model/body_request_source_type.dart';
 export 'package:openapi/src/model/body_start_import.dart';
 export 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 export 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 export 'package:openapi/src/model/contract_get.dart';
+export 'package:openapi/src/model/date.dart';
 export 'package:openapi/src/model/estimate_unit_get.dart';
 export 'package:openapi/src/model/estimate_value_get.dart';
 export 'package:openapi/src/model/feature_set_get.dart';
@@ -92,3 +90,4 @@ export 'package:openapi/src/model/validation_error.dart';
 export 'package:openapi/src/model/validation_error_loc_inner.dart';
 export 'package:openapi/src/model/workspace_get.dart';
 export 'package:openapi/src/model/workspace_upsert.dart';
+export 'package:openapi/src/serializers.dart';

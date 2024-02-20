@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -96,7 +96,7 @@ abstract class _AuthControllerBase with Store {
 
   Future startupActions() async {
     await _signInWithRegistration();
-    loader.stopInit();
+    await appController.initState();
   }
 
   void _startLdrAuth() {

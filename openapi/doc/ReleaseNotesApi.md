@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **releaseNotes**
-> BuiltList<ReleaseNoteGet> releaseNotes(bodyReleaseNotes)
+> BuiltList<ReleaseNoteGet> releaseNotes(oldVersion)
 
 Release Notes
 
@@ -26,10 +26,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
 
 final api = Openapi().getReleaseNotesApi();
-final BodyReleaseNotes bodyReleaseNotes = ; // BodyReleaseNotes | 
+final String oldVersion = oldVersion_example; // String | 
 
 try {
-    final response = api.releaseNotes(bodyReleaseNotes);
+    final response = api.releaseNotes(oldVersion);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling ReleaseNotesApi->releaseNotes: $e\n');
@@ -40,7 +40,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bodyReleaseNotes** | [**BodyReleaseNotes**](BodyReleaseNotes.md)|  | 
+ **oldVersion** | **String**|  | 
 
 ### Return type
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

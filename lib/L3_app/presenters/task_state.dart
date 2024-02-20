@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -150,7 +150,7 @@ extension TaskStatePresenter on Task {
   }
 
   String get _etaDetails => loc.state_eta_duration(etaPeriod!.localizedString);
-  String get _lowStartDetails => loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
+  String get _lowStartDetails => loc.state_low_start_duration(appController.lowStartThreshold.localizedString);
   String get _noProgressDetails => loc.state_no_progress_details;
 
   String get _subtasksStateTitle {
@@ -208,7 +208,7 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
+  Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(appController.lowStartThreshold).difference(DateTime.now());
 
   TaskState get overallState => isImportingProject
       ? TaskState.IMPORTING

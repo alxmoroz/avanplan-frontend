@@ -12,7 +12,7 @@ class ReleaseNoteRepo extends AbstractReleaseNoteRepo {
 
   @override
   Future<Iterable<ReleaseNote>> getReleaseNotes(String oldVersion) async {
-    final response = await api.releaseNotes(bodyReleaseNotes: (o_api.BodyReleaseNotesBuilder()..oldVersion = oldVersion).build());
+    final response = await api.releaseNotes(oldVersion: oldVersion);
     return response.data?.map((rn) => rn.releaseNote) ?? [];
   }
 }

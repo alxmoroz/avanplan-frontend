@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -32,25 +32,25 @@ class _AuthExtraDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(title: loc.auth_sign_in_extra_title, color: b2Color, showCloseButton: true),
-      body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            MTButton.main(
-              leading: const MailIcon(color: f1Color, size: P4),
-              middle: BaseText.medium(loc.auth_sign_in_email_title, color: f1Color),
-              color: b3Color,
-              trailing: const SizedBox(width: P2),
-              onTap: () => _mail(context),
-            ),
-            MTButton.main(
-              middle: BaseText.medium(loc.register_action_title, color: f1Color),
-              color: b3Color,
-              margin: const EdgeInsets.only(top: P3),
-              onTap: () => _register(context),
-            ),
-          ],
-        ),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          MTButton.main(
+            leading: const MailIcon(color: f1Color, size: P4),
+            middle: BaseText.medium(loc.auth_sign_in_email_title, color: f1Color),
+            color: b3Color,
+            margin: const EdgeInsets.only(top: P3),
+            trailing: const SizedBox(width: P2),
+            onTap: () => _mail(context),
+          ),
+          MTButton.main(
+            middle: BaseText.medium(loc.register_action_title, color: f1Color),
+            color: b3Color,
+            margin: const EdgeInsets.only(top: P3),
+            onTap: () => _register(context),
+          ),
+          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P6),
+        ],
       ),
     );
   }

@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -128,13 +128,12 @@ class _ImportDialog extends StatelessWidget {
 
   String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
 
-  PreferredSizeWidget? get _bottomBar => _hasProjects
+  PreferredSizeWidget? _bottomBar(BuildContext context) => _hasProjects
       ? MTAppBar(
           isBottom: true,
           color: b2Color,
-          padding: const EdgeInsets.only(top: P2, bottom: P2),
+          padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: MTButton.main(
-            constrained: false,
             padding: const EdgeInsets.symmetric(horizontal: P3),
             titleText: '${loc.import_action_title}$_importBtnCountHint',
             onTap: _validated ? controller.startImport : null,
@@ -154,7 +153,7 @@ class _ImportDialog extends StatelessWidget {
           bottom: _hasSources ? _header : null,
         ),
         body: _body(context),
-        bottomBar: _bottomBar,
+        bottomBar: _bottomBar(context),
       ),
     );
   }

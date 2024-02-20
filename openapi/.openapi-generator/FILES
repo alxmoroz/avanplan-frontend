@@ -14,7 +14,6 @@ doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
 doc/BodyRedeemV1MyInvitationsRedeemPost.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
-doc/BodyReleaseNotes.md
 doc/BodyRequestRegistration.md
 doc/BodyRequestSourceType.md
 doc/BodyStartImport.md
@@ -128,7 +127,6 @@ lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
 lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
-lib/src/model/body_release_notes.dart
 lib/src/model/body_request_registration.dart
 lib/src/model/body_request_source_type.dart
 lib/src/model/body_start_import.dart
@@ -190,7 +188,6 @@ test/body_iap_notification_v1_payments_iap_notification_post_test.dart
 test/body_redeem_v1_my_invitations_redeem_post_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
-test/body_release_notes_test.dart
 test/body_request_registration_test.dart
 test/body_request_source_type_test.dart
 test/body_start_import_test.dart

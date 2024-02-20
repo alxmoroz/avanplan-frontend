@@ -5,11 +5,8 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/utils/dates.dart';
-import '../../../../L2_data/services/platform.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
-import '../../app/app_may_upgrade_dialog.dart';
-import '../../app/release_notes_dialog.dart';
 
 part 'main_controller.g.dart';
 
@@ -29,7 +26,6 @@ abstract class _MainControllerBase with Store {
     await accountController.getData();
     await refsController.getData();
     await notificationController.getData();
-
     await wsMainController.getData();
     await tasksMainController.getData();
 
@@ -67,72 +63,24 @@ abstract class _MainControllerBase with Store {
     }
   }
 
-  Future _processAppUpgraded() async {
-    if (!localSettingsController.isFirstLaunch) {
-      // действия после обновления версии
-      if (localSettingsController.oldVersion != localSettingsController.settings.version) {
-        await releaseNoteController.getData();
-        if (releaseNoteController.releaseNotes.isNotEmpty) {
-          await showReleaseNotesDialog();
-        }
-
-        await localSettingsController.resetAppUpgradeProposalDate();
-      }
-    }
-  }
-
   // static const _updatePeriod = Duration(hours: 1);
-
-  Future _authorizedStartupActions() async {
-    await _tryUpdate();
-    // await _showOnboarding();
-    await notificationController.initPush();
-  }
-
-  @observable
-  bool _inStartup = false;
 
   @action
   Future startupActions() async {
-    if (!_inStartup) {
-      _inStartup = true;
-
-      await serviceSettingsController.getSettings();
-
-      // если нужно обязательно обновить приложение, заставляем обновиться
-      if (!isWeb && serviceSettingsController.mustUpgrade) {
-        loader.setMustUpgrade();
-      } else {
-        // если можно обновить приложение, предлагаем обновиться
-        if (!isWeb && serviceSettingsController.mayUpgrade && localSettingsController.canAppUpgradeProposal) {
-          await showAppMayUpgradeDialog();
-          await localSettingsController.setAppUpgradeProposalDate();
-        }
-
-        await _processAppUpgraded();
-
-        await authController.checkLocalAuth();
-        if (authController.authorized) {
-          await _authorizedStartupActions();
-        }
-
-        loader.stopInit();
-
-        _inStartup = false;
-      }
-    }
+    await appController.initState(authorizedActions: () async {
+      await _tryUpdate();
+      // await _showOnboarding();
+      await notificationController.initPush();
+    });
   }
 
   void clearData() {
-    wsMainController.clearData();
     tasksMainController.clearData();
-
-    _setUpdateDate(null);
-
+    wsMainController.clearData();
+    notificationController.clearData();
     refsController.clearData();
     accountController.clearData();
-    notificationController.clearData();
-    localSettingsController.clearData();
-    releaseNoteController.clearData();
+
+    _setUpdateDate(null);
   }
 }

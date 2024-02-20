@@ -151,7 +151,6 @@ Class | Method | HTTP request | Description
  - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
- - [BodyReleaseNotes](doc/BodyReleaseNotes.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyRequestSourceType](doc/BodyRequestSourceType.md)
  - [BodyStartImport](doc/BodyStartImport.md)

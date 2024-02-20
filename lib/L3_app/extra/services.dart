@@ -49,7 +49,8 @@ import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
-import '../views/app/release_note_controller.dart';
+import '../views/app/app_controller.dart';
+import '../views/app/local_settings_controller.dart';
 import '../views/auth/auth_controller.dart';
 import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
@@ -61,15 +62,13 @@ import '../views/main/controllers/tasks_main_controller.dart';
 import '../views/main/controllers/ws_main_controller.dart';
 import '../views/notification/notification_controller.dart';
 import '../views/references/references_controller.dart';
-import '../views/settings/local_settings_controller.dart';
-import '../views/settings/service_settings_controller.dart';
 
 S get loc => S.current;
 
 GetIt getIt = GetIt.instance;
 
 LocalSettingsController get localSettingsController => GetIt.I<LocalSettingsController>();
-ServiceSettingsController get serviceSettingsController => GetIt.I<ServiceSettingsController>();
+AppController get appController => GetIt.I<AppController>();
 MainController get mainController => GetIt.I<MainController>();
 WSMainController get wsMainController => GetIt.I<WSMainController>();
 TasksMainController get tasksMainController => GetIt.I<TasksMainController>();
@@ -82,7 +81,6 @@ RegistrationTokenController get registrationTokenController => GetIt.I<Registrat
 InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
 IAPController get iapController => GetIt.I<IAPController>();
 LeftMenuController get leftMenuController => GetIt.I<LeftMenuController>();
-ReleaseNoteController get releaseNoteController => GetIt.I<ReleaseNoteController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
@@ -105,23 +103,14 @@ ProjectTransferUC get projectTransferUC => GetIt.I<ProjectTransferUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
 
 void setup() {
-  // device
+  /// device
   getIt.registerSingletonAsync<BaseDeviceInfo>(() async => await DeviceInfoPlugin().deviceInfo);
   getIt.registerSingletonAsync<PackageInfo>(() async => await PackageInfo.fromPlatform());
 
-  // repo / adapters
+  /// repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
 
-  // первый контроллер
-  getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
-
-  // Openapi
-  getIt.registerSingletonAsync<Openapi>(
-    () async => await setupApi([loader.interceptor], localSettingsController.settings),
-    dependsOn: [LocalSettingsController],
-  );
-
-  // use cases
+  /// use cases
   getIt.registerSingleton<AuthUC>(AuthUC(
     authAvanplanRepo: AuthAvanplanRepo(),
     googleRepo: AuthGoogleRepo(),
@@ -147,10 +136,17 @@ void setup() {
   getIt.registerSingleton<ProjectTransferUC>(ProjectTransferUC(ProjectTransferRepo()));
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
 
-  // global state controllers
-  getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [Openapi]);
+  /// global state controllers
+  // первый контроллер
+  getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
 
+  // Openapi
+  getIt.registerSingletonAsync<Openapi>(
+    () async => await setupApi([loader.interceptor], localSettingsController.settings),
+    dependsOn: [LocalSettingsController],
+  );
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [Openapi]);
+  getIt.registerSingleton<AppController>(AppController());
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<WSMainController>(WSMainController());
@@ -162,5 +158,4 @@ void setup() {
   getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
   getIt.registerSingleton<IAPController>(IAPController());
   getIt.registerSingleton<LeftMenuController>(LeftMenuController());
-  getIt.registerSingleton<ReleaseNoteController>(ReleaseNoteController());
 }

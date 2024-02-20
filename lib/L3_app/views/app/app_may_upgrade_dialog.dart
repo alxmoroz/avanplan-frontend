@@ -40,6 +40,7 @@ class _AppMayUpgradeDialog extends StatelessWidget {
             ),
             const SizedBox(height: P3),
             MTButton(titleText: loc.later, onTap: () => Navigator.of(context).pop()),
+            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
       ),

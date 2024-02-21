@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -8,15 +8,21 @@ import '../services/platform.dart';
 const _host = 'https://moroz.team';
 const _contactUsMailAddress = 'hello@avanplan.ru';
 
-const legalConfidentialPath = '$_host/legal/confidential';
-const legalRulesPath = '$_host/avanplan/legal/rules';
-const tariffsPath = '$_host/avanplan/tariffs';
 const docsPath = '$_host/avanplan/docs/';
 
-const _appAppStoreUrl = 'https://apps.apple.com/app/avanplan/id1661313266';
-const _appGooglePlayUrl = 'https://play.google.com/store/apps/details?id=team.moroz.avanplan';
+const feedbackUrlString = '$_host/avanplan/feedback';
+const legalConfidentialUrlString = '$_host/legal/confidential';
+const legalRulesUrlString = '$_host/avanplan/legal/rules';
+const releaseNotesUrlString = '$_host/avanplan/changelog';
+const tariffsUrlString = '$_host/avanplan/tariffs';
+const telegramUrlString = 'https://t.me/avanplan';
+const vkUrlString = 'https://vk.com/morozteamnews';
+const homepageUrlString = '$_host/avanplan';
 
-String get appInstallUrl => isIOS ? _appAppStoreUrl : _appGooglePlayUrl;
+const _appAppStoreUrlString = 'https://apps.apple.com/app/avanplan/id1661313266';
+const _appGooglePlayUrlString = 'https://play.google.com/store/apps/details?id=team.moroz.avanplan';
+
+String get appInstallUrlString => isIOS ? _appAppStoreUrlString : _appGooglePlayUrlString;
 
 Future<bool> sendMail(String subject, String appIdentifier, int? userId, {String? text = ''}) async {
   final body = ''

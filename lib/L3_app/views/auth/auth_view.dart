@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../L2_data/services/platform.dart';
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/divider.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/page.dart';
@@ -13,10 +15,9 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
+import '../app/about_dialog.dart';
 import '../app/app_title.dart';
-import '../app/app_version.dart';
 import 'auth_extra_dialog.dart';
-import 'legal_links.dart';
 
 class AuthView extends StatefulWidget {
   const AuthView({super.key});
@@ -109,21 +110,12 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                 onTap: authExtraDialog,
               ),
               const SizedBox(height: P3),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MTButton(
-                    titleText: '${loc.auth_help_title}? ${loc.contact_us_title}',
-                    onTap: () => mailUs(subject: loc.auth_help_title),
-                  ),
-                ],
+              MTButton(
+                titleText: '${loc.auth_help_title}? ${loc.contact_us_title}',
+                onTap: () => mailUs(subject: loc.auth_help_title),
               ),
-              const SizedBox(height: P6),
-              if (!isIOS) ...[
-                const LegalLinks(),
-                const SizedBox(height: P3),
-              ],
-              const AppVersion(),
+              const MTAdaptive.xs(child: MTDivider(indent: P2, endIndent: P2, verticalIndent: P4)),
+              MTButton(titleText: loc.about_service_title, onTap: showAboutServiceDialog),
             ],
           ),
         ),

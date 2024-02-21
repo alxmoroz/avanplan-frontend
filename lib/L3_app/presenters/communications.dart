@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 
@@ -9,7 +9,7 @@ import '../components/icons.dart';
 import '../extra/services.dart';
 import '../usecases/communications.dart';
 
-String get appTitle => '${loc.app_title} ${localSettingsController.settings.version}';
+String get appIdentifier => '${loc.app_title} ${localSettingsController.settings.version}';
 
 class ReportErrorButton extends StatelessWidget {
   const ReportErrorButton(this.errorText, {super.key, this.color, this.titleColor = mainColor});

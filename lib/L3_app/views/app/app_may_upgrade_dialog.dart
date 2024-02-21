@@ -1,15 +1,14 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
+import '../../usecases/communications.dart';
 
 Future showAppMayUpgradeDialog() async => await showMTDialog(const _AppMayUpgradeDialog());
 
@@ -34,7 +33,7 @@ class _AppMayUpgradeDialog extends StatelessWidget {
             MTButton.main(
               titleText: loc.app_install_action_title,
               onTap: () {
-                launchUrlString(appInstallUrl);
+                go2AppInstall();
                 Navigator.of(context).pop();
               },
             ),

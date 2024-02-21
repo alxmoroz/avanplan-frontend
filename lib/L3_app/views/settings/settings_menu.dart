@@ -2,11 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L2_data/repositories/communications_repo.dart';
-import '../../../L2_data/services/platform.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -15,8 +12,7 @@ import '../../components/list_tile.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../usecases/communications.dart';
-import '../app/app_version.dart';
+import '../app/about_dialog.dart';
 import '../workspace/ws_dialog.dart';
 import '../workspace/ws_list_tile.dart';
 import 'account_button.dart';
@@ -54,30 +50,13 @@ class _SettingsDialog extends StatelessWidget {
         ],
       );
 
-  Widget get _about => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MTListSection(titleText: loc.about_service_title),
-          MTListTile(
-            leading: const MailIcon(),
-            titleText: loc.contact_us_title,
-            bottomDivider: !isIOS,
-            onTap: mailUs,
-          ),
-          if (!isIOS)
-            MTListTile(
-              leading: const DocumentIcon(),
-              titleText: loc.legal_rules_title,
-              onTap: () => launchUrlString(legalRulesPath),
-            ),
-          if (!isIOS)
-            MTListTile(
-              leading: const PrivacyIcon(),
-              titleText: loc.legal_privacy_policy_title,
-              bottomDivider: false,
-              onTap: () => launchUrlString(legalConfidentialPath),
-            ),
-        ],
+  Widget get _about => MTListTile(
+        leading: const QuestionIcon(),
+        titleText: loc.about_service_title,
+        margin: const EdgeInsets.only(top: P3),
+        trailing: const ChevronIcon(),
+        bottomDivider: false,
+        onTap: () => showAboutServiceDialog(),
       );
 
   @override
@@ -93,11 +72,6 @@ class _SettingsDialog extends StatelessWidget {
             const NotificationsButton(),
             if (_wss.isNotEmpty) _workspaces(context),
             _about,
-
-            /// версия
-            const SizedBox(height: P3),
-            const AppVersion(),
-            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
       );

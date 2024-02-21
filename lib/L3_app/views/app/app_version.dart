@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../L2_data/services/environment.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -13,13 +14,11 @@ class AppVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          BaseText.f3(localSettingsController.settings.version),
-          if (visibleApiHost.isNotEmpty) BaseText.medium(visibleApiHost, color: dangerColor, padding: const EdgeInsets.only(left: P2)),
-        ]),
+        D5(localSettingsController.settings.version, color: f2Color),
+        if (visibleApiHost.isNotEmpty) BaseText.medium(visibleApiHost, color: dangerColor, padding: const EdgeInsets.only(left: P2)),
       ],
     );
   }

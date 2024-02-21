@@ -5,13 +5,20 @@
   "action_add_title": "Добавить",
   "analytics_title": "Аналитика",
 
+  "app_about_title": "О приложении",
+  "app_feedback_action_title": "Оценить приложение",
   "app_install_action_title": "Установить",
+  "app_legal_docs_title": "Документация",
+  "app_legal_privacy_policy_title": "Политика конфиденциальности",
+  "app_legal_rules_title": "Пользовательское соглашение",
+  "app_release_notes_title": "История обновлений",
   "app_may_upgrade_title": "Доступна новая версия",
   "app_may_upgrade_description": "Обновите приложение, получите больше возможностей",
   "app_must_upgrade_title": "Ваша версия приложения устарела",
   "app_must_upgrade_description": "Установите новую версию, чтобы продолжить работу",
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
+  "app_whats_new": "Что нового",
 
   "are_closed_suffix": "закрыты",
 
@@ -171,9 +178,6 @@
   "invitation_share_text": "1. Установите приложение:\n{installUrl}\n\n2. Присоединяйтесь к проекту:\n{invitationUrl}",
 
   "later": "Позже",
-  "legal_privacy_policy_title": "Политика конфиденциальности",
-  "legal_rules_title": "Пользовательское соглашение",
-
   "lets_go_action_title": "Поехали",
 
   "loader_auth_title": "Проверяем доступ...",
@@ -445,7 +449,6 @@
   "validation_empty_text": "Нужно заполнить",
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
-  "whats_new": "Что нового",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_money_remaining_time_prefix": "Средств хватит на",
   "workspace_my_title": "Моё рабочее пространство",

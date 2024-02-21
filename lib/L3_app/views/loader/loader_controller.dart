@@ -7,15 +7,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
-import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
+import '../../usecases/communications.dart';
 
 part 'loader_controller.g.dart';
 
@@ -234,9 +233,6 @@ abstract class _LoaderControllerBase with Store {
         titleText: loc.app_must_upgrade_title,
         descriptionText: loc.app_must_upgrade_description,
         imageName: ImageName.privacy.name,
-        action: MTButton.main(
-          titleText: loc.app_install_action_title,
-          onTap: () => launchUrlString(appInstallUrl),
-        ),
+        action: MTButton.main(titleText: loc.app_install_action_title, onTap: go2AppInstall),
       );
 }

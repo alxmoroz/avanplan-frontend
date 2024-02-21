@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 
@@ -22,6 +22,7 @@ enum ImageName {
   hello,
   import,
   loading,
+  mail_icon,
   network_error,
   no_info,
   notifications,
@@ -34,7 +35,10 @@ enum ImageName {
   server_error,
   sync,
   transfer,
+  telegram_icon,
   upgrade,
+  vk_icon,
+  web_icon,
 }
 
 String _assetPath(String name, BuildContext context) {

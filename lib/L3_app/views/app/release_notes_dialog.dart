@@ -33,7 +33,7 @@ class _ReleaseNotesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(
-        middle: H3(loc.whats_new, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
+        middle: H3(loc.app_whats_new, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
         showCloseButton: true,
         color: b2Color,
       ),

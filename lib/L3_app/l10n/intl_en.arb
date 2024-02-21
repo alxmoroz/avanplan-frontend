@@ -5,13 +5,20 @@
   "action_add_title": "Add",
   "analytics_title": "Analytics",
 
+  "app_about_title": "About the App",
+  "app_feedback_action_title": "Feedback",
   "app_install_action_title": "Install",
+  "app_legal_docs_title": "Legal Docs",
+  "app_legal_privacy_policy_title": "Privacy Policy",
+  "app_legal_rules_title": "License Agreement",
   "app_may_upgrade_title": "New version available",
   "app_may_upgrade_description": "Upgrade the app, get more features",
   "app_must_upgrade_title": "Your app version is out of date",
   "app_must_upgrade_description": "Install the new version to continue working",
+  "app_release_notes_title": "Release Notes",
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
+  "app_whats_new": "What's New",
 
   "are_closed_suffix": "are closed",
 
@@ -171,9 +178,6 @@
   "invitation_share_text": "1. Install app:\n{installUrl}\n\n2. Join the project:\n{invitationUrl}",
 
   "later": "Later",
-  "legal_privacy_policy_title": "Privacy Policy",
-  "legal_rules_title": "License Agreement",
-
   "lets_go_action_title": "Let's get started!",
 
   "loader_auth_title": "Checking access...",
@@ -445,7 +449,6 @@
   "validation_empty_text": "Should not be empty",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
-  "whats_new": "What's New",
   "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",
   "workspace_my_title": "My Workspace",

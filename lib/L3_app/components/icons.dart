@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -219,6 +219,10 @@ class ExitIcon extends MTIcon {
       );
 }
 
+class FeedbackIcon extends MTIcon {
+  const FeedbackIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.hand_thumbsup);
+}
+
 class FileStorageIcon extends MTIcon {
   const FileStorageIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cube);
 }
@@ -252,7 +256,7 @@ class LocalImportIcon extends MTIcon {
 }
 
 class MailIcon extends MTIcon {
-  const MailIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.envelope);
+  const MailIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.envelope);
 }
 
 class MemberAddIcon extends MTIcon {
@@ -303,8 +307,16 @@ class PrivacyIcon extends MTIcon {
   const PrivacyIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.lock_shield);
 }
 
+class QuestionIcon extends MTIcon {
+  const QuestionIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.question_circle);
+}
+
 class RefreshIcon extends MTIcon {
   const RefreshIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.refresh);
+}
+
+class ReleaseNotesIcon extends MTIcon {
+  const ReleaseNotesIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.time);
 }
 
 class SettingsIcon extends MTIcon {

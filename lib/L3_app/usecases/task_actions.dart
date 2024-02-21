@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,7 +78,7 @@ extension TaskActionsUC on Task {
   bool get canEditProjectStatuses => hfsTaskboard && _hpProjectInfoUpdate;
 
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
-  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;
+  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard;
 
   Iterable<TaskAction> actions(BuildContext context) => [
         if (canShowDetails(context)) TaskAction.details,

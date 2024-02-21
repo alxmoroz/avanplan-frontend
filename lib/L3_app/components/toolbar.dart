@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +73,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isBottom = false,
     this.showCloseButton = false,
     this.onClose,
+    this.transitionBetweenRoutes = true,
   });
 
   final Widget? leading;
@@ -86,6 +87,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isBottom;
   final bool showCloseButton;
   final VoidCallback? onClose;
+  final bool transitionBetweenRoutes;
 
   double get _pTop => padding?.top ?? 0;
   double get _innerHeight => innerHeight ?? P8;
@@ -124,6 +126,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : CupertinoNavigationBar(
+              transitionBetweenRoutes: transitionBetweenRoutes,
               automaticallyImplyLeading: false,
               automaticallyImplyMiddle: false,
               padding: EdgeInsetsDirectional.only(top: _pTop, bottom: _pBottom, start: 0, end: 0),

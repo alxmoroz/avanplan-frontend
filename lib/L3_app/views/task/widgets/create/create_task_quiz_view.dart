@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -53,10 +53,10 @@ class CreateTaskQuizView extends TaskView {
   final CreateTaskQuizArgs _args;
 
   @override
-  State<CreateTaskQuizView> createState() => CreateTaskQuizViewState();
+  State<CreateTaskQuizView> createState() => _CreateTaskQuizViewState();
 }
 
-class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
+class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
   AbstractQuizController get qController => widget._args._qController;
 
   @override
@@ -69,8 +69,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
                 MTPage(
                   appBar: QuizHeader(qController),
                   leftBar: isBigScreen(context) ? const LeftMenu() : null,
-                  body: SafeArea(
-                    bottom: false,
+                  body: MTAdaptive(
                     child: ListView(
                       children: [
                         const SizedBox(height: P),

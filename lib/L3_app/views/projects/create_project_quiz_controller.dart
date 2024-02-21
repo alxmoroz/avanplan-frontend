@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -24,8 +24,8 @@ part 'create_project_quiz_controller.g.dart';
 enum _StepCode { projectSetup, featureSets, team, goals, tasks }
 
 class CreateProjectQuizController extends _CreateProjectQuizControllerBase with _$CreateProjectQuizController {
-  CreateProjectQuizController(TaskController taskController) {
-    _taskController = taskController;
+  CreateProjectQuizController(TaskController projectController) {
+    _projectController = projectController;
   }
 
   @override
@@ -45,10 +45,10 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
-      _fsController ??= FeatureSetsController(_taskController);
+      _fsController ??= FeatureSetsController(_projectController);
       await MTRouter.navigate(FeatureSetsQuizRouter, context, args: FSQuizArgs(_fsController!, this));
     } else if (step.code == _StepCode.team.name) {
-      await MTRouter.navigate(TeamInvitationQuizRouter, context, args: TIQuizArgs(_taskController, this));
+      await MTRouter.navigate(TeamInvitationQuizRouter, context, args: TIQuizArgs(_projectController, this));
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) {
         final newGoal = await _project.ws.createTask(_project);
@@ -60,25 +60,26 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
         await MTRouter.navigate(CreateGoalQuizRouter, context, args: CreateTaskQuizArgs(_goalController!, this));
       }
     } else if (step.code == _StepCode.tasks.name) {
-      await MTRouter.navigate(CreateMultiTaskQuizRouter, context, args: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this));
+      await MTRouter.navigate(CreateMultiTaskQuizRouter, context, args: CreateMultiTaskQuizArgs(_goalController ?? _projectController, this));
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
-    _goalController?.dispose();
 
     MTRouter.navigate(ProjectsRouter, context);
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    MTRouter.navigate(TaskRouter, context, args: TaskController(_project));
+    await MTRouter.navigate(TaskRouter, context, args: TaskController(_project));
+
+    _goalController?.dispose();
   }
 }
 
 abstract class _CreateProjectQuizControllerBase extends AbstractQuizController with Store {
-  late final TaskController _taskController;
-  Task get _project => _taskController.task!;
+  late final TaskController _projectController;
+  Task get _project => _projectController.task!;
 
   TaskController? _goalController;
   @observable
@@ -87,6 +88,8 @@ abstract class _CreateProjectQuizControllerBase extends AbstractQuizController w
   bool get _hasTeam => _fsController?.hasChecked(FSCode.TEAM) == true;
   @computed
   bool get _hasGoals => _fsController?.hasChecked(FSCode.GOALS) == true;
+  @computed
+  bool get _hasBoard => _fsController?.hasChecked(FSCode.TASKBOARD) == true;
 
   @override
   Iterable<QuizStep> get steps => [
@@ -94,6 +97,6 @@ abstract class _CreateProjectQuizControllerBase extends AbstractQuizController w
         QuizStep(_StepCode.featureSets.name, loc.feature_sets_quiz_title, loc.next_action_title),
         if (_hasTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title, loc.next_action_title),
         if (_hasGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title, loc.next_action_title),
-        QuizStep(_StepCode.tasks.name, _project.subtasks.isNotEmpty ? loc.task_multi_create_quiz_title : '$_project', ''),
+        if (!_hasBoard) QuizStep(_StepCode.tasks.name, _project.subtasks.isNotEmpty ? loc.task_multi_create_quiz_title : '$_project', ''),
       ];
 }

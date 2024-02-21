@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/task_feature_sets.dart';
 import '../../../usecases/task_tree.dart';
 import '../../projects/projects_view.dart';
 import '../../quiz/abstract_quiz_controller.dart';
@@ -39,7 +40,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
     MTRouter.navigate(TaskRouter, context, args: TaskController(_goal.project!));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    MTRouter.navigate(TaskRouter, context, args: TaskController(_goal));
+    await MTRouter.navigate(TaskRouter, context, args: TaskController(_goal));
   }
 }
 
@@ -51,6 +52,6 @@ abstract class _CreateGoalQuizControllerBase extends AbstractQuizController with
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.goalSetup.name, loc.goal_create_quiz_title, loc.next_action_title),
-        QuizStep(_StepCode.tasks.name, _goal.subtasks.isNotEmpty ? loc.task_multi_create_quiz_title : '$_goal', ''),
+        if (!_goal.hfsTaskboard) QuizStep(_StepCode.tasks.name, _goal.subtasks.isNotEmpty ? loc.task_multi_create_quiz_title : '$_goal', ''),
       ];
 }

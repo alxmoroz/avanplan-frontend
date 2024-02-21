@@ -1,10 +1,9 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_state.dart';
@@ -35,7 +34,7 @@ extension TaskTreeUC on Task {
   Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);
 
-  bool get hasSubtasks => totalVolume > 0 || (closedSubtasksCount ?? 0) > 0;
+  bool get hasSubtasks => subtasks.isNotEmpty || (closedSubtasksCount ?? 0) > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
   List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();

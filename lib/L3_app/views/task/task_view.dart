@@ -50,10 +50,11 @@ class TaskRouter extends MTRouter {
   int get _taskId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(2) ?? '-1');
   Task? get _task => tasksMainController.task(_wsId, _taskId);
 
+  TaskController? get _rsArgsTaskController => rs!.arguments as TaskController?;
   // TODO: костыль
   @override
   Widget get page => rs?.arguments != null
-      ? TaskView(rs!.arguments as TaskController)
+      ? TaskView(_rsArgsTaskController!)
       : Observer(
           builder: (ctx) => loader.loading
               ? Container()
@@ -63,7 +64,7 @@ class TaskRouter extends MTRouter {
         );
 
   @override
-  String get title => (rs!.arguments as TaskController?)?.task?.viewTitle ?? '';
+  String get title => _rsArgsTaskController?.task?.viewTitle ?? '';
   String _navPrefix(Task task) => task.isProject
       ? '/projects'
       : task.isGoal
@@ -180,7 +181,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       : MTAdaptive(child: TaskDetails(controller))
 
                   /// Группа задач без подзадач
-                  : !task!.hasSubtasks
+                  : !task!.hasSubtasks && !task!.canShowBoard
                       ? SizedBox(
                           // TODO: хардкод ((
                           height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
@@ -243,7 +244,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     final big = isBigScreen(context);
     return _isTaskDialog
         ? MTDialog(
-            topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
+            topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title, key: widget.key),
             body: _body,
             rightBar: TaskRightToolbar(controller.toolbarController),
             scrollController: _scrollController,
@@ -254,6 +255,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             appBar: big && !_hasScrolled
                 ? null
                 : MTAppBar(
+                    key: widget.key,
                     innerHeight: big ? _headerHeight : null,
                     color: _isBigGroup ? b2Color : null,
                     leading: _isBigGroup ? const SizedBox() : null,

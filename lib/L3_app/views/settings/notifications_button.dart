@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,7 @@ import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../notification/notification_list_dialog.dart';
+import '../notification/notifications_dialog.dart';
 
 class NotificationsButton extends StatelessWidget {
   const NotificationsButton({super.key});

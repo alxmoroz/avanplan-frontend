@@ -20,9 +20,9 @@ import '../views/auth/registration_token_controller.dart';
 import '../views/loader/loader_screen.dart';
 import '../views/main/main_view.dart';
 import '../views/my_tasks/my_tasks_view.dart';
-import '../views/notification/notification_list_dialog.dart';
+import '../views/notification/notifications_dialog.dart';
 import '../views/projects/projects_view.dart';
-import '../views/source/source_list_dialog.dart';
+import '../views/source/sources_dialog.dart';
 import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
@@ -80,7 +80,7 @@ abstract class MTRouter {
   String get title => '';
   RouteSettings? get settings => null;
   bool get isDialog => false;
-  double get maxWidth => SCR_M_WIDTH;
+  double get maxWidth => SCR_S_WIDTH;
 
   String path({Object? args}) => '/';
   RegExp get pathRe => RegExp('^${path()}\$');

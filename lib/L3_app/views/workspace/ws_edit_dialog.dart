@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,11 @@ class _WSEditDialogState extends State<_WSEditDialog> {
     super.dispose();
   }
 
-  Widget get _form => ListView(
+  @override
+  Widget build(BuildContext context) {
+    return MTDialog(
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
+      body: ListView(
         shrinkWrap: true,
         children: [
           for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
@@ -49,13 +53,7 @@ class _WSEditDialogState extends State<_WSEditDialog> {
           ),
           if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
-      body: _form,
+      ),
     );
   }
 }

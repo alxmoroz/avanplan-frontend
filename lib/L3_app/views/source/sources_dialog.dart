@@ -33,14 +33,14 @@ class SourcesRouter extends MTRouter {
   int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
-  Widget get page => _SourceListDialog(_id);
+  Widget get page => _SourcesDialog(_id);
 
   @override
   String get title => '${wsMainController.ws(_id).code} | ${loc.source_list_title}';
 }
 
-class _SourceListDialog extends StatelessWidget {
-  const _SourceListDialog(this._wsId);
+class _SourcesDialog extends StatelessWidget {
+  const _SourcesDialog(this._wsId);
   final int _wsId;
 
   Workspace get _ws => wsMainController.ws(_wsId);

@@ -27,16 +27,18 @@ class NotificationsRouter extends MTRouter {
 
   @override
   bool get isDialog => true;
+  @override
+  double get maxWidth => SCR_M_WIDTH;
 
   @override
   String get title => loc.notification_list_title;
 
   @override
-  Widget get page => const _NotificationListDialog();
+  Widget get page => const _NotificationsDialog();
 }
 
-class _NotificationListDialog extends StatelessWidget {
-  const _NotificationListDialog();
+class _NotificationsDialog extends StatelessWidget {
+  const _NotificationsDialog();
 
   NotificationController get _controller => notificationController;
 

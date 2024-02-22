@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 
-Future notificationDialog() async => await showMTDialog<void>(const _NotificationDialog());
+Future notificationDialog() async => await showMTDialog<void>(const _NotificationDialog(), maxWidth: SCR_M_WIDTH);
 
 class _NotificationDialog extends StatelessWidget {
   const _NotificationDialog();

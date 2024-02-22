@@ -29,7 +29,7 @@ import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../../usecases/ws_tariff.dart';
 import '../iap/iap_dialog.dart';
-import '../source/source_list_dialog.dart';
+import '../source/sources_dialog.dart';
 import 'ws_edit_dialog.dart';
 import 'ws_expenses_dialog.dart';
 import 'ws_members_dialog.dart';

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ import '../../presenters/number.dart';
 
 Future<bool?> replenishBalanceDialog(int wsId, {String reason = ''}) async {
   await iapController.getProducts();
-  return await showMTDialog<bool?>(_StoreDialog(wsId, reason));
+  return await showMTDialog<bool?>(_StoreDialog(wsId, reason), maxWidth: SCR_XS_WIDTH);
 }
 
 class _StoreDialog extends StatelessWidget {

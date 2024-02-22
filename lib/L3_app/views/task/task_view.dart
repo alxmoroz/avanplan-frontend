@@ -240,7 +240,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     final big = isBigScreen(context);
     return _isTaskDialog
         ? MTDialog(
-            topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title, key: widget.key),
+            topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
             body: _body,
             rightBar: TaskRightToolbar(controller.toolbarController),
             scrollController: _scrollController,
@@ -251,7 +251,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
             appBar: big && !_hasScrolled
                 ? null
                 : MTAppBar(
-                    key: widget.key,
                     innerHeight: big ? _headerHeight : null,
                     color: _isBigGroup ? b2Color : null,
                     leading: _isBigGroup ? const SizedBox() : null,

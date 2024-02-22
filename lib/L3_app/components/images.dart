@@ -62,11 +62,10 @@ class MTImage extends StatelessWidget {
       height: h,
       child: Image.asset(
         _assetPath(name, context),
+        // isAntiAlias: true,
         // filterQuality: FilterQuality.high,
         errorBuilder: (_, __, ___) => Image.asset(
           _assetPath('no_info', context),
-          width: w,
-          height: h,
         ),
       ),
     );

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,6 +17,9 @@ class WSMembersRouter extends MTRouter {
   static const _suffix = 'members';
 
   @override
+  String path({Object? args}) => '$_wsPrefix/${args as int}/$_suffix';
+
+  @override
   bool get isDialog => true;
 
   @override
@@ -28,9 +31,6 @@ class WSMembersRouter extends MTRouter {
 
   @override
   String get title => '${wsMainController.ws(_id).code} | ${loc.members_title}';
-
-  @override
-  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
 class _WSMembersDialog extends StatelessWidget {

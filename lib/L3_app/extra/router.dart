@@ -82,8 +82,8 @@ abstract class MTRouter {
   bool get isDialog => false;
   double get maxWidth => SCR_M_WIDTH;
 
-  String get path => '/';
-  RegExp get pathRe => RegExp('^$path\$');
+  String path({Object? args}) => '/';
+  RegExp get pathRe => RegExp('^${path()}\$');
   bool hasMatch(RouteSettings rsIn) {
     final match = pathRe.hasMatch(rsIn.uri.path);
     if (match) {
@@ -93,11 +93,25 @@ abstract class MTRouter {
   }
 
   Widget? get page => null;
-  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(path, arguments: args);
+
+  Future push(BuildContext context, {MTRouter? removeUntil, bool replace = false, Object? args}) async {
+    final n = Navigator.of(context);
+    final p = path(args: args);
+    if (removeUntil != null) {
+      final stopPath = removeUntil.path(args: args);
+      await n.pushNamedAndRemoveUntil(p, (r) => r.isFirst || r.settings.name == stopPath, arguments: args);
+    } else if (replace) {
+      await n.pushReplacementNamed(p, arguments: args);
+    } else {
+      await n.pushNamed(p, arguments: args);
+    }
+  }
 
   static MTRouter routerForType(Type type) => _routers.firstWhere((r) => r.runtimeType == type);
   static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
-  static Future navigate(Type type, BuildContext context, {Object? args}) async => routerForType(type).pushNamed(context, args: args);
+
+  static Future navigate(Type type, BuildContext context, {Type? removeUntil, Object? args}) async =>
+      routerForType(type).push(context, removeUntil: removeUntil != null ? routerForType(removeUntil) : null, args: args);
 
   static Widget _pageWidget(Widget child) {
     return Observer(
@@ -209,9 +223,10 @@ class MTRouteObserver extends NavigatorObserver {
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    print('pop ${route.settings.name} -> ${previousRoute?.settings.name}');
     _setTitleWithRS(previousRoute?.settings);
     super.didPop(route, previousRoute);
   }
 }
 
-void popTop() => Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() == false);
+void popTop() => Navigator.of(rootKey.currentContext!).popUntil((r) => r.isFirst);

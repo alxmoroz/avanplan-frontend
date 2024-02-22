@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -35,9 +35,12 @@ import 'ws_expenses_dialog.dart';
 import 'ws_members_dialog.dart';
 
 class WSRouter extends MTRouter {
-  int get _wsId => int.parse(rs!.uri.pathSegments.lastOrNull ?? '-1');
-
   static const _prefix = '/settings/workspaces';
+
+  @override
+  String path({Object? args}) => '$_prefix/${args as int}';
+
+  int get _wsId => int.parse(rs!.uri.pathSegments.lastOrNull ?? '-1');
 
   @override
   bool get isDialog => true;
@@ -50,9 +53,6 @@ class WSRouter extends MTRouter {
 
   @override
   String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
-
-  @override
-  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_prefix/${args as int}');
 }
 
 class _WSDialog extends StatelessWidget {

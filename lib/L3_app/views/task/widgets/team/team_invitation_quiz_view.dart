@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -25,7 +25,7 @@ class TIQuizArgs {
 
 class TeamInvitationQuizRouter extends MTRouter {
   @override
-  String get path => '/projects/create/team';
+  String path({Object? args}) => '/projects/create/team';
 
   TIQuizArgs? get _args => rs!.arguments as TIQuizArgs?;
 

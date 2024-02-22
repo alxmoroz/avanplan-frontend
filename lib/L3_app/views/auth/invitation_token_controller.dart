@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -10,7 +10,7 @@ part 'invitation_token_controller.g.dart';
 
 class InvitationTokenRouter extends MTRouter {
   @override
-  String get path => '/invite';
+  String path({Object? args}) => '/invite';
 
   @override
   RouteSettings? get settings {

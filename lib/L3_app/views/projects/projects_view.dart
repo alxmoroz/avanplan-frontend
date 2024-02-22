@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -22,7 +22,7 @@ import 'right_toolbar_controller.dart';
 
 class ProjectsRouter extends MTRouter {
   @override
-  String get path => '/projects';
+  String path({Object? args}) => '/projects';
 
   @override
   String get title => loc.project_list_title;

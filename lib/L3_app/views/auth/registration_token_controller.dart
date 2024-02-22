@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -10,7 +10,7 @@ part 'registration_token_controller.g.dart';
 
 class RegistrationTokenRouter extends MTRouter {
   @override
-  String get path => '/register';
+  String path({Object? args}) => '/register';
 
   @override
   RouteSettings? get settings {

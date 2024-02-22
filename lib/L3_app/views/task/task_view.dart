@@ -37,6 +37,18 @@ import 'widgets/tasks/tasks_list_view.dart';
 
 class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
+  String _navPrefix(Task task) => task.isProject
+      ? '/projects'
+      : task.isGoal
+          ? '/projects/goals'
+          : task.isBacklog
+              ? '/projects/backlogs'
+              : '/projects/tasks';
+
+  String _navPath(Task task) => '${_navPrefix(task)}/${task.wsId}/${task.id}';
+
+  @override
+  String path({Object? args}) => _navPath((args as TaskController).task!);
 
   @override
   bool get isDialog => isBigScreen(globalContext) && rs!.uri.path.startsWith('/projects/tasks');
@@ -65,25 +77,6 @@ class TaskRouter extends MTRouter {
 
   @override
   String get title => _rsArgsTaskController?.task?.viewTitle ?? '';
-  String _navPrefix(Task task) => task.isProject
-      ? '/projects'
-      : task.isGoal
-          ? '/projects/goals'
-          : task.isBacklog
-              ? '/projects/backlogs'
-              : '/projects/tasks';
-
-  String _navPath(Task task) => '${_navPrefix(task)}/${task.wsId}/${task.id}';
-  @override
-  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
-        _navPath((args as TaskController).task!),
-        arguments: args,
-      );
-
-  Future _pushReplace(BuildContext context, {Object? args}) async => await Navigator.of(context).pushReplacementNamed(
-        _navPath((args as TaskController).task!),
-        arguments: args,
-      );
 
   Future navigateBreadcrumbs(BuildContext context, Task parent) async {
     final pName = (previousName ?? '');
@@ -95,11 +88,11 @@ class TaskRouter extends MTRouter {
       // при переходе наверх в другую цель, меняем старого родителя на нового
       final previousTaskId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
       if (parent.isGoal && previousTaskId != parent.id) {
-        await _pushReplace(context, args: TaskController(parent));
+        await push(context, replace: true, args: TaskController(parent));
       }
     } else if (!pName.startsWith('/projects')) {
       // если переход из Мои задачи или с главной то нужно запушить родителя
-      await pushNamed(context, args: TaskController(parent));
+      await push(context, args: TaskController(parent));
     }
   }
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ import 'notification_controller.dart';
 
 class NotificationsRouter extends MTRouter {
   @override
-  String get path => '/settings/my_notifications';
+  String path({Object? args}) => '/settings/my_notifications';
 
   @override
   bool get isDialog => true;

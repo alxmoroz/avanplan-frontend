@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,6 +23,9 @@ class SourcesRouter extends MTRouter {
   static const _suffix = 'sources';
 
   @override
+  String path({Object? args}) => '$_wsPrefix/${args as int}/$_suffix';
+
+  @override
   bool get isDialog => true;
 
   @override
@@ -34,9 +37,6 @@ class SourcesRouter extends MTRouter {
 
   @override
   String get title => '${wsMainController.ws(_id).code} | ${loc.source_list_title}';
-
-  @override
-  Future pushNamed(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
 class _SourceListDialog extends StatelessWidget {

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -92,7 +92,7 @@ class FSQuizArgs {
 
 class FeatureSetsQuizRouter extends MTRouter {
   @override
-  String get path => '/projects/create/feature_sets';
+  String path({Object? args}) => '/projects/create/feature_sets';
 
   FSQuizArgs? get _args => rs!.arguments as FSQuizArgs?;
 

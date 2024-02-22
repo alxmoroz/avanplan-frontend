@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class CreateMultiTaskQuizArgs {
 
 class CreateMultiTaskQuizRouter extends MTRouter {
   @override
-  String get path => '/projects/create/tasks';
+  String path({Object? args}) => '/projects/create/tasks';
 
   CreateMultiTaskQuizArgs? get _args => rs!.arguments as CreateMultiTaskQuizArgs?;
 

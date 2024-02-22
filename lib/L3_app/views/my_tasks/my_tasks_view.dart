@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,7 +18,7 @@ import '../task/widgets/tasks/tasks_list_view.dart';
 
 class MyTasksRouter extends MTRouter {
   @override
-  String get path => '/my_tasks';
+  String path({Object? args}) => '/my_tasks';
 
   @override
   String get title => loc.my_tasks_title;

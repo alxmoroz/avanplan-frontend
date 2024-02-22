@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -19,7 +19,7 @@ import '../../presenters/person.dart';
 
 class AccountRouter extends MTRouter {
   @override
-  String get path => '/settings/my_account';
+  String path({Object? args}) => '/settings/my_account';
 
   @override
   bool get isDialog => true;

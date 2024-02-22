@@ -40,12 +40,12 @@ class _CreateQuizRouter extends MTRouter {
 
 class CreateProjectQuizRouter extends _CreateQuizRouter {
   @override
-  String get path => '/projects/create';
+  String path({Object? args}) => '/projects/create';
 }
 
 class CreateGoalQuizRouter extends _CreateQuizRouter {
   @override
-  String get path => '/projects/create/goal';
+  String path({Object? args}) => '/projects/create/goal';
 }
 
 class CreateTaskQuizView extends TaskView {

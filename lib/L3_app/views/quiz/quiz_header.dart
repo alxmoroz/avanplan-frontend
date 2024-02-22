@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
@@ -42,6 +43,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
     return Observer(
       builder: (_) => MTAppBar(
         innerHeight: preferredSize.height,
+        color: isBigScreen(context) ? b2Color : null,
         leading: MTButton(
           titleText: loc.back_action_title,
           padding: const EdgeInsets.only(left: P2),

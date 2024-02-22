@@ -79,20 +79,23 @@ class TaskRouter extends MTRouter {
   String get title => _rsArgsTaskController?.task?.viewTitle ?? '';
 
   Future navigateBreadcrumbs(BuildContext context, Task parent) async {
-    final pName = (previousName ?? '');
+    final pName = (prevName ?? '');
 
     // переходим один раз назад в любом случае
     Navigator.of(context).pop();
 
-    if (parent.isGoal) {
-      // при переходе наверх в другую цель, меняем старого родителя на нового
-      final previousTaskId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
-      if (parent.isGoal && previousTaskId != parent.id) {
-        await push(context, replace: true, args: TaskController(parent));
-      }
-    } else if (!pName.startsWith('/projects')) {
-      // если переход из Мои задачи или с главной то нужно запушить родителя
+    // если переход из Мои задачи или с главной то нужно запушить родителя
+    final fromRoots = !pName.startsWith('/projects');
+    if (fromRoots) {
       await push(context, args: TaskController(parent));
+    } else {
+      // при переходе наверх в другую цель, меняем старого родителя на нового
+      if (parent.isGoal) {
+        final previousTaskId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
+        if (previousTaskId != parent.id) {
+          await push(context, replace: true, args: TaskController(parent));
+        }
+      }
     }
   }
 }

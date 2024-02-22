@@ -73,7 +73,7 @@ final _routers = <MTRouter>[
 ];
 
 abstract class MTRouter {
-  String? previousName;
+  String? prevName;
   // для title и settings
   RouteSettings? rs;
 
@@ -181,49 +181,38 @@ class MTRouteObserver extends NavigatorObserver {
     }
   }
 
-  void _setTitleWithRS(RouteSettings? rs) {
+  void _setRouteChanges(Route? r, String? prevName) {
+    final rs = r?.settings;
     if (rs != null) {
       final r = MTRouter.router(rs);
       if (r != null) {
         _setTitle(r);
+        r.prevName = prevName;
       }
     }
   }
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    final rs = route.settings;
-    final r = MTRouter.router(rs);
-    if (r != null) {
-      _setTitle(r);
-      r.previousName = previousRoute?.settings.name;
-    }
+    _setRouteChanges(route, previousRoute?.settings.name);
     super.didPush(route, previousRoute);
   }
 
   @override
   void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _setTitleWithRS(previousRoute?.settings);
+    _setRouteChanges(route, route.settings.name);
     super.didRemove(route, previousRoute);
   }
 
   @override
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-    final newRS = newRoute?.settings;
-    if (newRS != null) {
-      final r = MTRouter.router(newRS);
-      if (r != null) {
-        _setTitle(r);
-        r.previousName = oldRoute?.settings.name;
-      }
-    }
-
+    _setRouteChanges(newRoute, newRoute?.settings.name);
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _setTitleWithRS(previousRoute?.settings);
+    _setRouteChanges(route, route.settings.name);
     super.didPop(route, previousRoute);
   }
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -223,7 +223,6 @@ class MTRouteObserver extends NavigatorObserver {
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    print('pop ${route.settings.name} -> ${previousRoute?.settings.name}');
     _setTitleWithRS(previousRoute?.settings);
     super.didPop(route, previousRoute);
   }

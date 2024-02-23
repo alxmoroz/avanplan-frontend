@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,16 +53,16 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
         if (_task.canComment) ...[
           MTListTile(
-            leading: const AttachmentIcon(circled: true),
-            middle: _controller.compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor),
-            bottomDivider: false,
-            onTap: () => _taskController.notesController.startUpload(),
-          ),
-          MTListTile(
             leading: const NoteAddIcon(circled: true, size: P6),
             middle: _controller.compact ? null : BaseText(loc.task_note_add_action_title, color: mainColor),
             bottomDivider: false,
             onTap: () => _taskController.notesController.create(),
+          ),
+          MTListTile(
+            leading: const AttachmentIcon(circled: true),
+            middle: _controller.compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor),
+            bottomDivider: false,
+            onTap: () => _taskController.notesController.startUpload(),
           ),
         ],
 

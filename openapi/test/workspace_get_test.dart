@@ -57,11 +57,6 @@ void main() {
       // TODO
     });
 
-    // AccountGet mainAccount
-    test('to test the property `mainAccount`', () async {
-      // TODO
-    });
-
     // SettingsGet settings
     test('to test the property `settings`', () async {
       // TODO

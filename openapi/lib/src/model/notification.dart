@@ -17,8 +17,6 @@ part 'notification.g.dart';
 /// * [scheduledDate] 
 /// * [url] 
 /// * [isRead] 
-/// * [messageId] 
-/// * [channel] 
 @BuiltValue()
 abstract class Notification implements Built<Notification, NotificationBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -38,12 +36,6 @@ abstract class Notification implements Built<Notification, NotificationBuilder> 
 
   @BuiltValueField(wireName: r'is_read')
   bool get isRead;
-
-  @BuiltValueField(wireName: r'message_id')
-  int? get messageId;
-
-  @BuiltValueField(wireName: r'channel')
-  String? get channel;
 
   Notification._();
 
@@ -104,20 +96,6 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
       object.isRead,
       specifiedType: const FullType(bool),
     );
-    if (object.messageId != null) {
-      yield r'message_id';
-      yield serializers.serialize(
-        object.messageId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.channel != null) {
-      yield r'channel';
-      yield serializers.serialize(
-        object.channel,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
@@ -182,20 +160,6 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.isRead = valueDes;
-          break;
-        case r'message_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.messageId = valueDes;
-          break;
-        case r'channel':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.channel = valueDes;
           break;
         default:
           unhandled.add(key);

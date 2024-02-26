@@ -140,8 +140,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AccountGet](doc/AccountGet.md)
- - [AccountOperationGet](doc/AccountOperationGet.md)
  - [AppSettingsGet](doc/AppSettingsGet.md)
  - [AttachmentGet](doc/AttachmentGet.md)
  - [AuthToken](doc/AuthToken.md)

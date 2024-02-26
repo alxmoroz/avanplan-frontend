@@ -18,7 +18,6 @@ Name | Type | Description | Notes
 **roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] 
 **invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 
 **balance** | **num** |  | [optional] [default to 0]
-**mainAccount** | [**AccountGet**](AccountGet.md) |  | [optional] 
 **settings** | [**SettingsGet**](SettingsGet.md) |  | [optional] 
 **estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] 
 **sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] 

@@ -229,8 +229,6 @@
   "per_day_suffix": "/ day",
   "per_month_suffix": "per month",
 
-  "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
-  "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_delete_dialog_title": "Delete project?",
   "project_list_empty_title": "Taking a break from projects",
@@ -447,7 +445,6 @@
   "validation_empty_text": "Should not be empty",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
-  "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",
   "workspace_my_title": "My Workspace",
   "workspace_selector_title": "Choose a workspace",

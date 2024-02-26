@@ -229,8 +229,6 @@
   "per_day_suffix": "в день",
   "per_month_suffix": "в месяц",
 
-  "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
-  "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_creation_method_selector_title": "Выберите способ создания проекта",
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title": "Отдыхаем от проектов",
@@ -447,7 +445,6 @@
   "validation_empty_text": "Нужно заполнить",
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
-  "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_money_remaining_time_prefix": "Средств хватит на",
   "workspace_my_title": "Моё рабочее пространство",
   "workspace_selector_title": "Выберите рабочее пространство",

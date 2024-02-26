@@ -32,16 +32,15 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
         color: b2Color,
         middle: Row(
           children: [
-            if (tasksMainController.projects.isNotEmpty)
-              Flexible(
-                child: MTListTile(
-                  middle: const ProjectsIcon(color: mainColor, size: P6),
-                  color: Colors.transparent,
-                  padding: _btnPadding,
-                  bottomDivider: false,
-                  onTap: () => MTRouter.navigate(ProjectsRouter, context),
-                ),
+            Flexible(
+              child: MTListTile(
+                middle: const ProjectsIcon(color: mainColor, size: P6),
+                color: Colors.transparent,
+                padding: _btnPadding,
+                bottomDivider: false,
+                onTap: () => MTRouter.navigate(ProjectsRouter, context),
               ),
+            ),
             if (accountController.me != null)
               Flexible(
                 child: MTListTile(

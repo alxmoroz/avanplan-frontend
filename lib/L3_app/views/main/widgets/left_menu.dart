@@ -45,15 +45,14 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                 bottomDivider: false,
                 onTap: popTop,
               ),
-            if (tasksMainController.projects.isNotEmpty)
-              MTListTile(
-                leading: const ProjectsIcon(color: mainColor, size: P6),
-                middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
-                trailing: compact ? null : const ChevronIcon(),
-                dividerIndent: P6 + P5,
-                bottomDivider: tasksMainController.myTasks.isNotEmpty,
-                onTap: () => _goToProjects(context),
-              ),
+            MTListTile(
+              leading: const ProjectsIcon(color: mainColor, size: P6),
+              middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
+              trailing: compact ? null : const ChevronIcon(),
+              dividerIndent: P6 + P5,
+              bottomDivider: tasksMainController.myTasks.isNotEmpty,
+              onTap: () => _goToProjects(context),
+            ),
             const Spacer(),
             if (!isWeb)
               MTListTile(

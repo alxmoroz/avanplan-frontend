@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'attachment.dart';
 import 'base_entity.dart';
@@ -9,8 +9,8 @@ import 'task_member.dart';
 import 'task_source.dart';
 
 class TType {
-  static const ROOT = 'ROOT';
   static const PROJECT = 'PROJECT';
+  static const INBOX = 'INBOX';
   static const GOAL = 'GOAL';
   static const BACKLOG = 'BACKLOG';
   static const TASK = 'TASK';

@@ -236,45 +236,42 @@ class TaskViewState<T extends TaskView> extends State<T> {
         )
       : null;
 
-  Widget _page(BuildContext context) {
-    final big = isBigScreen(context);
-    return _isTaskDialog
-        ? MTDialog(
-            topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-            body: _body,
-            rightBar: TaskRightToolbar(controller.toolbarController),
-            scrollController: _scrollController,
-            scrollOffsetTop: _headerHeight,
-            onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-          )
-        : MTPage(
-            appBar: big && !_hasScrolled
-                ? null
-                : MTAppBar(
-                    innerHeight: big ? _headerHeight : null,
-                    color: _isBigGroup ? b2Color : null,
-                    leading: _isBigGroup ? const SizedBox() : null,
-                    middle: _title,
-                    trailing: !_isBigGroup && task!.loading != true && task!.actions(context).isNotEmpty ? TaskPopupMenu(controller) : null,
-                  ),
-            leftBar: big ? const LeftMenu() : null,
-            body: _body,
-            bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
-            rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
-            scrollController: _scrollController,
-            scrollOffsetTop: _headerHeight,
-            onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-          );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
+      final big = isBigScreen(context);
       return task != null
           ? Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                _page(context),
+                _isTaskDialog
+                    ? MTDialog(
+                        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
+                        body: _body,
+                        rightBar: TaskRightToolbar(controller.toolbarController),
+                        scrollController: _scrollController,
+                        scrollOffsetTop: _headerHeight,
+                        onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                      )
+                    : MTPage(
+                        appBar: big && !_hasScrolled
+                            ? null
+                            : MTAppBar(
+                                innerHeight: big ? _headerHeight : null,
+                                color: _isBigGroup ? b2Color : null,
+                                leading: _isBigGroup ? const SizedBox() : null,
+                                middle: _title,
+                                trailing:
+                                    !_isBigGroup && task!.loading != true && task!.actions(context).isNotEmpty ? TaskPopupMenu(controller) : null,
+                              ),
+                        leftBar: big ? const LeftMenu() : null,
+                        body: _body,
+                        bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
+                        rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
+                        scrollController: _scrollController,
+                        scrollOffsetTop: _headerHeight,
+                        onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                      ),
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {
                     task!.error = null;

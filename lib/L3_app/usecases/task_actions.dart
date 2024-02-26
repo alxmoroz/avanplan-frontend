@@ -45,13 +45,14 @@ extension TaskActionsUC on Task {
 
   bool get canCreate => !closed && isLocal && _hpCreate;
   bool get canCreateSubtask => canCreate && !isTask;
-  bool get canEdit => isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
-  bool get canDelete => (isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete);
+  bool get canDuplicate => !isInbox && canCreate;
+  bool get canEdit => !isInbox && isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
+  bool get canDelete => !isInbox && ((isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete));
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
 
-  bool canShowDetails(BuildContext context) => !isBigScreen(context) && isGroup;
+  bool canShowDetails(BuildContext context) => !isBigScreen(context) && isGroup && !isInbox;
 
   bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
@@ -85,7 +86,7 @@ extension TaskActionsUC on Task {
         if (canClose) TaskAction.close,
         if (canReopen) TaskAction.reopen,
         if (canLocalExport) TaskAction.localExport,
-        if (canCreate) TaskAction.duplicate,
+        if (canDuplicate) TaskAction.duplicate,
         // if (didImported) TaskAction.go2source,
         if (canUnlink) TaskAction.unlink,
         if (canDelete) TaskAction.delete,

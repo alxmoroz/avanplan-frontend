@@ -18,7 +18,7 @@ extension TaskTreeUC on Task {
 
   // TODO: что за ситуация такая, когда нет проекта?
   Task? get project {
-    if (isProject) {
+    if (isProject || isInbox) {
       return this;
     } else if (parentId != null && parent != null) {
       return parent!.project;

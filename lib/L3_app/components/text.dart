@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 
@@ -199,9 +199,9 @@ class D2 extends _BaseDText {
   const D2(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 2.6);
 }
 
-class D1 extends _BaseDText {
-  const D1(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 7);
-}
+// class D1 extends _BaseDText {
+//   const D1(super.text, {super.color, super.padding, super.align}) : super(sizeScale: 7);
+// }
 
 /// Декоративный стиль (для названия приложения)
 abstract class _BaseDecorText extends BaseText {

@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:intl/intl.dart';
 
@@ -11,9 +11,9 @@ extension DateFormatterPresenter on DateTime {
   String get strMedium => date == yesterday
       ? loc.yesterday_date_title
       : date == today
-          ? loc.today_date_title
+          ? loc.today_title.toLowerCase()
           : date == tomorrow
-              ? loc.tomorrow_date_title
+              ? loc.tomorrow_title.toLowerCase()
               : thisYear
                   ? DateFormat.MMMMd().format(this)
                   : DateFormat.yMMMMd().format(this);

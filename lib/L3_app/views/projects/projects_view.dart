@@ -76,7 +76,7 @@ class _ProjectsViewState extends State<ProjectsView> {
           middle: _hasScrolled
               ? big
                   ? _bigTitle
-                  : BaseText.medium(loc.project_list_title)
+                  : H3(loc.project_list_title)
               : null,
         ),
         leftBar: big ? const LeftMenu() : null,

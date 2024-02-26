@@ -36,7 +36,7 @@ dependencies:
   mobx: any
   openapi:
     path: ./openapi
-  package_info_plus: any
+  package_info_plus: ^5.0.1
   path_provider: any
   share_plus: any
   sign_in_with_apple: any

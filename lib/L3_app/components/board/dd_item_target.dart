@@ -47,14 +47,15 @@ class _MTDragNDropItemTarget extends State<MTDragNDropItemTarget> with TickerPro
               if (candidateData.isNotEmpty) {}
               return Container();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
               bool accept = true;
+              final incomingWidget = incoming.data;
               if (widget.parameters.itemTargetOnWillAccept != null) {
-                accept = widget.parameters.itemTargetOnWillAccept!(incoming, widget);
+                accept = widget.parameters.itemTargetOnWillAccept!(incomingWidget, widget);
               }
               if (accept && mounted) {
                 setState(() {
-                  _hoveredDraggable = incoming;
+                  _hoveredDraggable = incomingWidget;
                 });
               }
               return accept;
@@ -66,10 +67,11 @@ class _MTDragNDropItemTarget extends State<MTDragNDropItemTarget> with TickerPro
                 });
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
+                final incomingWidget = incoming.data;
                 setState(() {
-                  widget.onReorderOrAdd(incoming, widget.parent!, widget);
+                  widget.onReorderOrAdd(incomingWidget, widget.parent!, widget);
                   _hoveredDraggable = null;
                 });
               }

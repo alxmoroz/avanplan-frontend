@@ -110,7 +110,7 @@ String groupStateTitle(TaskState groupState) {
     case TaskState.NO_PROGRESS:
       return loc.state_no_info_title;
     case TaskState.TODAY:
-      return loc.my_tasks_today_title;
+      return loc.today_title;
     case TaskState.THIS_WEEK:
       return loc.my_tasks_this_week_title;
     case TaskState.FUTURE_DUE:

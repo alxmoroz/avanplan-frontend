@@ -64,14 +64,15 @@ class _MTDragNDropColumnTarget extends State<MTDragNDropColumnTarget> with Ticke
               if (candidateData.isNotEmpty) {}
               return Container();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
+              final incomingWidget = incoming.data;
               bool accept = true;
               if (widget.parameters.columnTargetOnWillAccept != null) {
-                accept = widget.parameters.columnTargetOnWillAccept!(incoming, widget);
+                accept = widget.parameters.columnTargetOnWillAccept!(incomingWidget, widget);
               }
               if (accept && mounted) {
                 setState(() {
-                  _hoveredDraggable = incoming;
+                  _hoveredDraggable = incomingWidget;
                 });
               }
               return accept;
@@ -83,10 +84,11 @@ class _MTDragNDropColumnTarget extends State<MTDragNDropColumnTarget> with Ticke
                 });
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
+                final incomingWidget = incoming.data;
                 setState(() {
-                  widget.onDropOnLastTarget(incoming, widget);
+                  widget.onDropOnLastTarget(incomingWidget, widget);
                   _hoveredDraggable = null;
                 });
               }

@@ -134,14 +134,15 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
               if (candidateData.isNotEmpty) {}
               return Container();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
               bool accept = true;
+              final incomingWidget = incoming.data;
               if (widget.parameters.columnOnWillAccept != null) {
-                accept = widget.parameters.columnOnWillAccept!(incoming, widget.ddColumn);
+                accept = widget.parameters.columnOnWillAccept!(incomingWidget, widget.ddColumn);
               }
               if (accept && mounted) {
                 setState(() {
-                  _hoveredDraggable = incoming;
+                  _hoveredDraggable = incomingWidget;
                 });
               }
               return accept;
@@ -155,10 +156,11 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
                 }
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
+                final incomingWidget = incoming.data;
                 setState(() {
-                  widget.parameters.onColumnReordered!(incoming, widget.ddColumn);
+                  widget.parameters.onColumnReordered!(incomingWidget, widget.ddColumn);
                   _hoveredDraggable = null;
                 });
               }

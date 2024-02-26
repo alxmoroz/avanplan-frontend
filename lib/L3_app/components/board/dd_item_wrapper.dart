@@ -181,14 +181,15 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
               if (candidateData.isNotEmpty) {}
               return Container();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
               bool accept = true;
+              final incomingWidget = incoming.data;
               if (widget.parameters!.itemOnWillAccept != null) {
-                accept = widget.parameters!.itemOnWillAccept!(incoming, widget.child);
+                accept = widget.parameters!.itemOnWillAccept!(incomingWidget, widget.child);
               }
               if (accept && mounted) {
                 setState(() {
-                  _hoveredDraggable = incoming;
+                  _hoveredDraggable = incomingWidget;
                 });
               }
               return accept;
@@ -200,11 +201,12 @@ class _MTDragNDropItemWrapper extends State<MTDragNDropItemWrapper> with TickerP
                 });
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
+                final incomingWidget = incoming.data;
                 setState(() {
                   if (widget.parameters!.onItemReordered != null) {
-                    widget.parameters!.onItemReordered!(incoming, widget.child);
+                    widget.parameters!.onItemReordered!(incomingWidget, widget.child);
                   }
                   _hoveredDraggable = null;
                 });

@@ -206,13 +206,11 @@
   "my_account_delete_dialog_title": "Delete your account?",
   "my_account_title": "Account",
 
-  "my_tasks_upcoming_all_title": "Assigned to me",
   "my_tasks_empty_hint": "Assign yourself tasks from projects or add new ones",
   "my_tasks_future_title": "Future",
   "my_tasks_no_due_title": "No due date",
   "my_tasks_this_week_title": "This week",
-  "my_tasks_title": "My Tasks",
-  "my_tasks_today_title": "Today",
+  "my_tasks_upcoming_title": "Upcoming Tasks",
 
   "next_action_title": "Next",
   "new_title": "New",
@@ -442,8 +440,8 @@
   "tmpl_category_personal": "Personal Activities and Plans",
   "tmpl_category_universal": "Universal",
 
-  "today_date_title": "today",
-  "tomorrow_date_title": "tomorrow",
+  "today_title": "Today",
+  "tomorrow_title": "Tomorrow",
   "total_title": "Total",
 
   "validation_empty_text": "Should not be empty",

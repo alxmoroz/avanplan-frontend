@@ -16,7 +16,6 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
 import '../../app/app_title.dart';
-import '../../my_tasks/my_tasks_view.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
@@ -26,11 +25,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   Future _goToProjects(BuildContext context) async {
     popTop();
     await MTRouter.navigate(ProjectsRouter, context);
-  }
-
-  Future _goToTasks(BuildContext context) async {
-    popTop();
-    await MTRouter.navigate(MyTasksRouter, context);
   }
 
   @override
@@ -59,14 +53,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                 dividerIndent: P6 + P5,
                 bottomDivider: tasksMainController.myTasks.isNotEmpty,
                 onTap: () => _goToProjects(context),
-              ),
-            if (tasksMainController.myTasks.isNotEmpty)
-              MTListTile(
-                leading: const TasksIcon(color: mainColor, size: P6),
-                middle: compact ? null : BaseText(loc.my_tasks_title, maxLines: 1),
-                trailing: compact ? null : const ChevronIcon(),
-                bottomDivider: false,
-                onTap: () => _goToTasks(context),
               ),
             const Spacer(),
             if (!isWeb)

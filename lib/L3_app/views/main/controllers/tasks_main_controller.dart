@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -72,13 +72,6 @@ abstract class _TasksMainControllerBase with Store {
             ? _myThisWeekTasks.length
             : myTasks.length;
   }
-
-  @computed
-  String get myUpcomingTasksTitle => _myTodayTasks.isNotEmpty
-      ? loc.my_tasks_today_title
-      : _myThisWeekTasks.isNotEmpty
-          ? loc.my_tasks_this_week_title
-          : loc.my_tasks_upcoming_all_title;
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {

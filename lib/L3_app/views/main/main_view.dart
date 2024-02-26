@@ -1,16 +1,20 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
+import '../../components/constants.dart';
 import '../../components/page.dart';
+import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../projects/create_project_controller.dart';
+import '../task/controllers/task_controller.dart';
+import '../task/widgets/tasks/tasks_list_view.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
-import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
 
 class MainRouter extends MTRouter {
@@ -58,10 +62,19 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
       builder: (_) => loader.loading
           ? Container()
           : MTPage(
+              appBar: MTAppBar(
+                leading: const SizedBox(height: P8),
+                middle: H3(loc.my_tasks_upcoming_title, maxLines: 1),
+              ),
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: tasksMainController.hasOpenedProjects ? const MainDashboard() : NoProjects(CreateProjectController()),
+                child: tasksMainController.hasOpenedProjects
+                    ? TasksListView(
+                        tasksMainController.myTasksGroups,
+                        filters: const {TasksFilter.my},
+                      )
+                    : NoProjects(CreateProjectController()),
               ),
               leftBar: canShowVerticalBars(context) ? const LeftMenu() : null,
               bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),

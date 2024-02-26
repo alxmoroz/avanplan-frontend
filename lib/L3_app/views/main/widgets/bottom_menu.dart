@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -13,7 +13,6 @@ import '../../../components/toolbar.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
-import '../../my_tasks/my_tasks_view.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
@@ -41,16 +40,6 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                   padding: _btnPadding,
                   bottomDivider: false,
                   onTap: () => MTRouter.navigate(ProjectsRouter, context),
-                ),
-              ),
-            if (tasksMainController.myTasks.isNotEmpty)
-              Flexible(
-                child: MTListTile(
-                  middle: const TasksIcon(color: mainColor, size: P6),
-                  color: Colors.transparent,
-                  padding: _btnPadding,
-                  bottomDivider: false,
-                  onTap: () => MTRouter.navigate(MyTasksRouter, context),
                 ),
               ),
             if (accountController.me != null)

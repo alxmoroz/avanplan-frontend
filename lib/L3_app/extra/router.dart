@@ -19,7 +19,6 @@ import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/loader/loader_screen.dart';
 import '../views/main/main_view.dart';
-import '../views/my_tasks/my_tasks_view.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/projects/projects_view.dart';
 import '../views/source/sources_dialog.dart';
@@ -41,8 +40,6 @@ final _routers = <MTRouter>[
 
   //
   MainRouter(),
-  // My Tasks
-  MyTasksRouter(),
   // Projects
   ProjectsRouter(),
 

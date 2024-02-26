@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 
@@ -30,7 +30,7 @@ class TextDemo extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        _t(const D1('D1'), context),
+        // _t(const D1('D1'), context),
         _t(const D2('D2'), context),
         _t(const D3('D3'), context),
         _t(const H1('H1'), context),

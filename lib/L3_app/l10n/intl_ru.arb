@@ -206,13 +206,11 @@
   "my_account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "my_account_title": "Моя учётная запись",
 
-  "my_tasks_upcoming_all_title": "Назначены мне",
   "my_tasks_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
   "my_tasks_future_title": "Будущие",
   "my_tasks_no_due_title": "Без срока",
   "my_tasks_this_week_title": "На этой неделе",
-  "my_tasks_title": "Мои задачи",
-  "my_tasks_today_title": "Сегодня",
+  "my_tasks_upcoming_title": "Ближайшие дела",
 
   "next_action_title": "Продолжить",
   "new_title": "Новый",
@@ -442,8 +440,8 @@
   "tmpl_category_personal": "Личные дела и планы",
   "tmpl_category_universal": "Универсальные",
 
-  "today_date_title": "сегодня",
-  "tomorrow_date_title": "завтра",
+  "today_title": "Сегодня",
+  "tomorrow_title": "Завтра",
   "total_title": "Итого",
 
   "validation_empty_text": "Нужно заполнить",

@@ -3,17 +3,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../usecases/task_tree.dart';
 import '../main/widgets/left_menu.dart';
+import '../main/widgets/no_projects.dart';
+import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'create_project_button.dart';
 import 'create_project_controller.dart';
@@ -41,12 +47,14 @@ class ProjectsView extends StatefulWidget {
 class _ProjectsViewState extends State<ProjectsView> {
   late final ProjectsRightToolbarController _toolbarController;
   late final ScrollController _scrollController;
+  late final CreateProjectController _createProjectController;
   bool _hasScrolled = false;
 
   @override
   void initState() {
     _toolbarController = ProjectsRightToolbarController();
     _scrollController = ScrollController();
+    _createProjectController = CreateProjectController();
     super.initState();
   }
 
@@ -60,6 +68,10 @@ class _ProjectsViewState extends State<ProjectsView> {
         alignment: Alignment.centerLeft,
         child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
       );
+
+  TaskController get _inboxTaskController => TaskController(tasksMainController.inbox);
+  Task get _inbox => _inboxTaskController.task!;
+  bool get _showProjects => tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _createProjectController.showClosed);
 
   @override
   Widget build(BuildContext context) {
@@ -88,19 +100,42 @@ class _ProjectsViewState extends State<ProjectsView> {
             children: [
               _bigTitle,
               const SizedBox(height: P3),
-              TasksListView(tasksMainController.projectsGroups, scrollable: false),
+              MTListTile(
+                leading: const InboxIcon(),
+                titleText: _inbox.title,
+                trailing: Row(children: [
+                  if (_inbox.openedSubtasks.isNotEmpty)
+                    BaseText(
+                      '${_inbox.openedSubtasks.length}',
+                      padding: const EdgeInsets.only(right: P),
+                    ),
+                  const ChevronIcon(),
+                ]),
+                bottomDivider: false,
+                onTap: () => _inboxTaskController.showTask(),
+              ),
+              const SizedBox(height: P3),
+              _showProjects
+                  ? TasksListView(tasksMainController.projectsGroups, scrollable: false)
+                  : NoProjects(_createProjectController, inline: true),
             ],
           ),
         ),
-        bottomBar: canShowVerticalBars(context)
-            ? null
-            : MTAppBar(
-                isBottom: true,
-                padding: const EdgeInsets.only(top: P2),
-                color: b2Color,
-                trailing: CreateProjectButton(CreateProjectController(), compact: true, type: ButtonType.secondary),
-              ),
-        rightBar: canShowVerticalBars(context) ? ProjectsRightToolbar(_toolbarController) : null,
+        bottomBar: _showProjects
+            ? canShowVerticalBars(context)
+                ? null
+                : MTAppBar(
+                    isBottom: true,
+                    padding: const EdgeInsets.only(top: P2),
+                    color: b2Color,
+                    trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary),
+                  )
+            : null,
+        rightBar: _showProjects
+            ? canShowVerticalBars(context)
+                ? ProjectsRightToolbar(_toolbarController)
+                : null
+            : null,
         scrollController: _scrollController,
         scrollOffsetTop: P8,
         onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

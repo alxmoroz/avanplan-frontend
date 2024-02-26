@@ -169,6 +169,8 @@
   "import_source_select_hint": "Выберите источник импорта",
   "import_title": "Импорт проектов",
 
+  "inbox_title": "Входящие",
+
   "invitation_activations_count_placeholder": "Число активаций",
   "invitation_expires_placeholder": "Срок годности",
   "invitation_create_title": "Пригласить участника",
@@ -231,8 +233,8 @@
 
   "project_creation_method_selector_title": "Выберите способ создания проекта",
   "project_delete_dialog_title": "Удалить проект?",
-  "project_list_empty_title": "Отдыхаем от проектов",
-  "project_list_empty_hint": "Не останавливайтесь. Продолжите работу с новым проектом",
+  "project_list_empty_title": "Добавьте проект",
+  "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",

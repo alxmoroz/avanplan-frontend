@@ -29,6 +29,10 @@ abstract class _TasksMainControllerBase with Store {
   @observable
   ObservableList<Task> allTasks = ObservableList();
 
+  /// Inbox
+  @computed
+  Task get inbox => allTasks.firstWhere((t) => t.isInbox);
+
   /// проекты
 
   @computed

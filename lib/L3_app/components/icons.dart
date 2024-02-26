@@ -231,6 +231,10 @@ class ImportIcon extends MTIcon {
   const ImportIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cloud_download);
 }
 
+class InboxIcon extends MTIcon {
+  const InboxIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.tray);
+}
+
 class LinkIcon extends MTIcon {
   const LinkIcon({super.key, super.color, super.size = P3}) : super(Icons.link);
 }

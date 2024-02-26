@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:avanplan/main.dart';
 import 'package:mobx/mobx.dart';
@@ -34,6 +34,11 @@ abstract class _CreateProjectControllerBase with Store {
 
   @computed
   bool get _mustSelectWS => _selectedWSId == null && wsMainController.canSelectWS;
+
+  @observable
+  bool showClosed = false;
+  @action
+  void setShowClosed() => showClosed = true;
 
   Future _selectWS() async {
     if (_mustSelectWS) {

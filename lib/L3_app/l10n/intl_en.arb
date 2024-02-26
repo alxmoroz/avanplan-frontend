@@ -169,6 +169,8 @@
   "import_source_select_hint": "Select source",
   "import_title": "Import",
 
+  "inbox_title": "Inbox",
+
   "invitation_activations_count_placeholder": "Activations Count",
   "invitation_expires_placeholder": "Expires",
   "invitation_create_title": "Invite member",
@@ -231,8 +233,8 @@
 
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_delete_dialog_title": "Delete project?",
-  "project_list_empty_title": "Taking a break from projects",
-  "project_list_empty_hint": "Do not stop. Continue with your new project",
+  "project_list_empty_title": "Add a project",
+  "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
   "project_list_title": "Projects",
   "project_new_title": "New Project",
   "project_plural": "{count, plural, one{project} other{projects}}",

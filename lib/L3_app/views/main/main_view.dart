@@ -15,7 +15,7 @@ import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
-import 'widgets/no_projects.dart';
+import 'widgets/no_tasks.dart';
 
 class MainRouter extends MTRouter {
   @override
@@ -69,12 +69,14 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: tasksMainController.hasOpenedProjects
+                child: tasksMainController.myTasks.isNotEmpty
                     ? TasksListView(
                         tasksMainController.myTasksGroups,
                         filters: const {TasksFilter.my},
                       )
-                    : NoProjects(CreateProjectController()),
+                    : NoTasks(CreateProjectController()),
+
+                //   NoProjects(CreateProjectController())
               ),
               leftBar: canShowVerticalBars(context) ? const LeftMenu() : null,
               bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),

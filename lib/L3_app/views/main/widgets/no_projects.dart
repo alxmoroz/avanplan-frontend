@@ -19,7 +19,7 @@ class NoProjects extends StatelessWidget {
   final CreateProjectController _controller;
   final bool inline;
 
-  bool get allClosed => tasksMainController.projects.isNotEmpty;
+  bool get _isAllProjectsClosed => tasksMainController.isAllProjectsClosed;
 
   Future _tapShowClosed(BuildContext context) async {
     if (inline) {
@@ -38,9 +38,9 @@ class NoProjects extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             const SizedBox(height: P3),
-            MTImage((allClosed ? ImageName.ok : ImageName.empty_tasks).name),
+            MTImage((_isAllProjectsClosed ? ImageName.ok : ImageName.empty_tasks).name),
             const SizedBox(height: P3),
-            if (allClosed)
+            if (_isAllProjectsClosed)
               MTButton(
                 leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
                 middle: H2(loc.are_closed_suffix, maxLines: 1),

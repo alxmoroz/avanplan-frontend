@@ -27,6 +27,7 @@ enum ImageName {
   no_info,
   notifications,
   ok,
+  ok_blue,
   overdue,
   privacy,
   purchase,

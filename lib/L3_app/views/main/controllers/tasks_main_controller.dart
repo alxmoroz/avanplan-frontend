@@ -48,14 +48,20 @@ abstract class _TasksMainControllerBase with Store {
   @computed
   bool get hasOpenedProjects => projects.where((p) => !p.closed).isNotEmpty;
   @computed
+  bool get isAllProjectsClosed => projects.isNotEmpty && !hasOpenedProjects;
+
+  @computed
   Iterable<TaskSource> get importingTSs => projects.where((p) => p.isImportingProject).map((p) => p.taskSource!);
 
   /// задачи
 
+  Iterable<Task> get tasks => allTasks.where((t) => t.isTask);
+  Iterable<Task> get openedTasks => tasks.where((t) => !t.closed);
   @computed
-  Iterable<Task> get myTasks => allTasks.where(
-        (t) => !t.closed && t.assignee != null && t.assignee!.userId == accountController.me!.id && t.isTask,
-      );
+  bool get hasOpenedTasks => openedTasks.isNotEmpty;
+
+  @computed
+  Iterable<Task> get myTasks => openedTasks.where((t) => t.assignee != null && t.assignee!.userId == accountController.me!.id);
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed

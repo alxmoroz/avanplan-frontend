@@ -1,5 +1,7 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_tree.dart';
+import 'package:avanplan/L3_app/components/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -33,6 +35,7 @@ class TaskHeader extends StatelessWidget {
           /// Название
           MTField(
             _controller.fData(TaskFCode.title.index),
+            leading: _task.isInbox ? const InboxIcon(color: f2Color) : null,
             value: MTTextField(
               controller: _controller.teController(TaskFCode.title.index),
               readOnly: !_task.canEdit,
@@ -45,7 +48,7 @@ class TaskHeader extends StatelessWidget {
                 hintText: _controller.titleController.titlePlaceholder,
                 hintStyle: const H1('', color: f3Color, maxLines: 5).style(context),
               ),
-              style: const H1('', maxLines: 5).style(context),
+              style: H1('', color: _task.isInbox ? f2Color : null, maxLines: 5).style(context),
               onChanged: _controller.titleController.editTitle,
             ),
             padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P : 0),

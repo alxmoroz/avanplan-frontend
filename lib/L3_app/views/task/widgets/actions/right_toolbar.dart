@@ -8,6 +8,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/divider.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -32,8 +33,31 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromWidth(_controller.width);
 
+  List<Widget> _actionTiles(Iterable<TaskAction> actions) {
+    return [
+      for (final at in actions)
+        MTListTile(
+          middle: TaskActionItem(at, compact: _controller.compact, popup: false),
+          bottomDivider: false,
+          onTap: () async {
+            await _taskController.taskAction(at);
+            _controller.toggleShowActions();
+          },
+        )
+    ];
+  }
+
   Widget _actions(BuildContext context) {
-    final actions = _task.actions(context);
+    final otherActions = <TaskAction>[];
+    final fastActions = <TaskAction>[];
+    for (final a in _task.actions(context)) {
+      if (_task.isTask && [TaskAction.close, TaskAction.reopen].contains(a)) {
+        fastActions.add(a);
+      } else {
+        otherActions.add(a);
+      }
+    }
+
     return Column(
       children: [
         /// параметры задачи
@@ -66,26 +90,20 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
 
-        /// действия с задачей
-        if (actions.isNotEmpty) ...[
-          if (_controller.showActions)
-            for (final at in actions)
-              MTListTile(
-                middle: TaskActionItem(at, compact: _controller.compact, popup: false),
-                bottomDivider: false,
-                onTap: () async {
-                  await _taskController.taskAction(at);
-                  _controller.toggleShowActions();
-                },
-              )
-          else
+        ..._actionTiles(fastActions),
+
+        /// остальные действия с задачей
+        if (otherActions.isNotEmpty)
+          if (_controller.showActions) ...[
+            const MTDivider(verticalIndent: P2),
+            ..._actionTiles(otherActions),
+          ] else
             MTListTile(
               leading: const MenuIcon(circled: true, size: P6),
               middle: _controller.compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor),
               bottomDivider: false,
               onTap: _controller.toggleShowActions,
             ),
-        ]
       ],
     );
   }

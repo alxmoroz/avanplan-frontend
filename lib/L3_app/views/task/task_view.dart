@@ -11,6 +11,7 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/error_sheet.dart';
+import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
@@ -223,18 +224,29 @@ class TaskViewState<T extends TaskView> extends State<T> {
           maxLines: 1,
           padding: const EdgeInsets.symmetric(horizontal: P6),
         );
-  Widget? get _title => _hasScrolled
-      ? Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
-          children: [
-            if (_hasParent) _parentTitle,
-            _isBigGroup
-                ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: _hasParent ? P : 0))
-                : H3(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P6)),
-          ],
-        )
-      : null;
+
+  Widget? get _title {
+    final textColor = task!.isInbox ? f2Color : null;
+    return _hasScrolled
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (_hasParent) _parentTitle,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: _isBigGroup ? P3 : P6).copyWith(top: _isBigGroup && _hasParent ? P : 0),
+                child: Row(
+                  mainAxisAlignment: _isBigGroup ? MainAxisAlignment.start : MainAxisAlignment.center,
+                  children: [
+                    if (task!.isInbox) InboxIcon(color: f2Color, size: _isBigGroup ? P6 : P4),
+                    SizedBox(width: _isBigGroup ? P2 : P),
+                    _isBigGroup ? H1(task!.title, maxLines: 1, color: textColor) : H3(task!.title, maxLines: 1, color: textColor),
+                  ],
+                ),
+              ),
+            ],
+          )
+        : null;
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -33,6 +33,7 @@ extension TaskTreeUC on Task {
   Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
 
   bool get isCheckList => isTask && subtasks.isNotEmpty;
+  bool get isInboxTask => isTask && project!.isInbox;
 
   Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);

@@ -68,7 +68,7 @@ extension TaskActionsUC on Task {
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
-  bool get canLocalExport => canEdit && hfsGoals && goalsForLocalExport.isNotEmpty;
+  bool get canLocalExport => canEdit && ((hfsGoals && goalsForLocalExport.isNotEmpty) || (isInboxTask && tasksMainController.hasOpenedProjects));
   bool get canLocalImport => !isTask && canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
 
   bool get canComment => isTask && !closed && canEdit;

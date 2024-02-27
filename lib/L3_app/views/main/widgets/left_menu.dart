@@ -48,7 +48,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
             MTListTile(
               leading: const ProjectsIcon(color: mainColor, size: P6),
               middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
-              trailing: compact ? null : const ChevronIcon(),
               bottomDivider: false,
               onTap: () => _goToProjects(context),
             ),
@@ -64,7 +63,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
               MTListTile(
                 leading: accountController.me!.icon(P6 / 2, borderColor: mainColor),
                 middle: compact ? null : BaseText('${accountController.me!}', maxLines: 1),
-                trailing: compact ? null : const ChevronIcon(),
                 bottomDivider: false,
                 onTap: settingsMenu,
               )

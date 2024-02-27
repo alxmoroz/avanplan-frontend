@@ -15,6 +15,7 @@ import '../../../../components/text.dart';
 import '../../../../components/vertical_toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
@@ -51,7 +52,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
     final otherActions = <TaskAction>[];
     final fastActions = <TaskAction>[];
     for (final a in _task.actions(context)) {
-      if (_task.isTask && [TaskAction.close, TaskAction.reopen].contains(a)) {
+      if (_task.isTask && ([TaskAction.close, TaskAction.reopen].contains(a) || (_task.isInboxTask && a == TaskAction.localExport))) {
         fastActions.add(a);
       } else {
         otherActions.add(a);
@@ -90,7 +91,10 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
 
-        ..._actionTiles(fastActions),
+        if (fastActions.isNotEmpty) ...[
+          const MTDivider(verticalIndent: P2),
+          ..._actionTiles(fastActions),
+        ],
 
         /// остальные действия с задачей
         if (otherActions.isNotEmpty)

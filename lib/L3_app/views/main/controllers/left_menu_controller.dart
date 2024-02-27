@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:mobx/mobx.dart';
 
@@ -10,5 +10,5 @@ class LeftMenuController extends _LeftMenuControllerBase with _$LeftMenuControll
 
 abstract class _LeftMenuControllerBase extends VerticalToolbarController with Store {
   @override
-  double get wideWidth => 250.0;
+  double get wideWidth => 242.0;
 }

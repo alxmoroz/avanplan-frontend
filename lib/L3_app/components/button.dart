@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +159,8 @@ class MTButton extends StatelessWidget with FocusManaging {
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _custom => [ButtonType.card].contains(type);
   Color get _titleColor => _enabled || _custom ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : f2Color;
-  double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
+  Size get _minSize => minSize ?? const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT);
+  double get _radius => (type == ButtonType.card ? DEF_BORDER_RADIUS : _minSize.height / 2);
 
   ButtonStyle _style(BuildContext context) {
     final btnColor = (_enabled || _custom ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
@@ -170,7 +171,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       backgroundColor: btnColor,
       disabledForegroundColor: btnColor,
       disabledBackgroundColor: btnColor,
-      minimumSize: minSize ?? const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
+      minimumSize: _minSize,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_radius)),
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,

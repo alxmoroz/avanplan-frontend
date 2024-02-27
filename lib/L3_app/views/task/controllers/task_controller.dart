@@ -39,10 +39,6 @@ enum TasksFilter { my, projects }
 class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController(Task taskIn, {bool isNew = false, bool? allowDisposeFromView}) {
     _task = taskIn;
-    if (_task.isInbox) {
-      _task.title = loc.inbox_title;
-    }
-
     creating = isNew;
 
     initState(fds: [

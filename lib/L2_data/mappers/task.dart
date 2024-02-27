@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +6,7 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import 'attachment.dart';
 import 'feature_set.dart';
 import 'member.dart';
@@ -15,17 +16,11 @@ import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
   Task task(int wsId) {
-    final ts = taskSource?.taskSource;
-    String t = title.trim();
-    if (type != null && type?.toLowerCase() == 'backlog') {
-      t = Intl.message(t);
-    }
-
-    return Task(
+    final mappedTask = Task(
       id: id,
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
-      title: t,
+      title: title,
       type: type ?? 'TASK',
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
@@ -41,7 +36,7 @@ extension TaskMapper on api.TaskGet {
       members: members?.map((m) => m.member(id)) ?? [],
       projectStatuses: projectStatuses?.map((ps) => ps.projectStatus(wsId)).sorted((s1, s2) => s1.position.compareTo(s2.position)) ?? [],
       projectFeatureSets: projectFeatureSets?.map((pfs) => pfs.projectFeatureSet) ?? [],
-      taskSource: ts,
+      taskSource: taskSource?.taskSource,
       parentId: parentId,
       wsId: wsId,
       state: tStateFromStr(state ?? ''),
@@ -53,6 +48,12 @@ extension TaskMapper on api.TaskGet {
       closedVolume: closedVolume,
       closedSubtasksCount: closedSubtasksCount,
     );
+
+    if (mappedTask.isBacklog || mappedTask.isInbox) {
+      mappedTask.title = Intl.message(mappedTask.title.toLowerCase());
+    }
+
+    return mappedTask;
   }
 }
 

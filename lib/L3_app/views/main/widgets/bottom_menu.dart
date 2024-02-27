@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
@@ -13,8 +14,11 @@ import '../../../components/toolbar.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
+import '../../../usecases/task_tree.dart';
+import '../../../usecases/ws_tasks.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
+import '../../task/controllers/task_controller.dart';
 
 class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   const BottomMenu({super.key});
@@ -27,41 +31,65 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTAppBar(
-        isBottom: true,
-        color: b2Color,
-        middle: Row(
-          children: [
-            Flexible(
-              child: MTListTile(
-                middle: const ProjectsIcon(color: mainColor, size: P6),
-                color: Colors.transparent,
-                padding: _btnPadding,
-                bottomDivider: false,
-                onTap: () => MTRouter.navigate(ProjectsRouter, context),
-              ),
-            ),
-            if (accountController.me != null)
-              Flexible(
-                child: MTListTile(
-                  middle: accountController.me!.icon(P6 / 2, borderColor: mainColor),
-                  color: Colors.transparent,
-                  padding: _btnPadding,
-                  bottomDivider: false,
-                  onTap: settingsMenu,
+      builder: (_) => Stack(
+        alignment: Alignment.topCenter,
+        clipBehavior: Clip.none,
+        children: [
+          MTAppBar(
+            isBottom: true,
+            color: b2Color,
+            middle: Row(
+              children: [
+                Flexible(
+                  child: MTListTile(
+                    middle: const ProjectsIcon(color: mainColor, size: P6),
+                    color: Colors.transparent,
+                    padding: _btnPadding,
+                    bottomDivider: false,
+                    onTap: () => MTRouter.navigate(ProjectsRouter, context),
+                  ),
                 ),
-              ),
-            Flexible(
-              child: MTListTile(
-                middle: const RefreshIcon(),
-                color: Colors.transparent,
-                padding: _btnPadding,
-                bottomDivider: false,
-                onTap: mainController.update,
-              ),
+                const Spacer(),
+                const SizedBox(width: P11 + P4),
+                Flexible(
+                  child: accountController.me != null
+                      ? MTListTile(
+                          middle: accountController.me!.icon(P6 / 2, borderColor: mainColor),
+                          color: Colors.transparent,
+                          padding: _btnPadding,
+                          bottomDivider: false,
+                          onTap: settingsMenu,
+                        )
+                      : const Spacer(),
+                ),
+                Flexible(
+                  child: MTListTile(
+                    middle: const RefreshIcon(),
+                    color: Colors.transparent,
+                    padding: _btnPadding,
+                    bottomDivider: false,
+                    onTap: mainController.update,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            top: -P2,
+            child: MTButton.main(
+              middle: const PlusIcon(color: mainBtnTitleColor, size: P6),
+              constrained: false,
+              minSize: const Size(P11, P11),
+              onTap: () async {
+                final parent = tasksMainController.inbox;
+                final newTask = await parent.ws.createTask(parent);
+                if (newTask != null) {
+                  await TaskController(newTask, isNew: true).showTask();
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

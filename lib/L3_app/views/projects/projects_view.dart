@@ -69,8 +69,7 @@ class _ProjectsViewState extends State<ProjectsView> {
         child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
       );
 
-  TaskController get _inboxTaskController => TaskController(tasksMainController.inbox);
-  Task get _inbox => _inboxTaskController.task!;
+  Task get _inbox => tasksMainController.inbox;
   bool get _showProjects => tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _createProjectController.showClosed);
 
   @override
@@ -112,7 +111,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                   const ChevronIcon(),
                 ]),
                 bottomDivider: false,
-                onTap: () => _inboxTaskController.showTask(),
+                onTap: () => TaskController(_inbox).showTask(),
               ),
               const SizedBox(height: P3),
               _showProjects ? TasksListView(tasksMainController.projectsGroups, scrollable: false) : NoProjects(_createProjectController),

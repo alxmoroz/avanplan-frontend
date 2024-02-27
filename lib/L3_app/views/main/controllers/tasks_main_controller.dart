@@ -33,9 +33,8 @@ abstract class _TasksMainControllerBase with Store {
   Task get inbox => allTasks.firstWhere((t) => t.isInbox);
 
   /// проекты
-
   @computed
-  Iterable<Task> get projects => allTasks.where((r) => r.isProject);
+  Iterable<Task> get projects => allTasks.where((t) => t.isProject);
   @computed
   bool get hasLinkedProjects => projects.where((p) => p.isLinked).isNotEmpty;
   @computed
@@ -45,7 +44,9 @@ abstract class _TasksMainControllerBase with Store {
   @computed
   TaskState get overallProjectsState => attentionalState(projectsGroups);
   @computed
-  bool get hasOpenedProjects => projects.where((p) => !p.closed).isNotEmpty;
+  Iterable<Task> get openedProjects => projects.where((p) => !p.closed);
+  @computed
+  bool get hasOpenedProjects => openedProjects.isNotEmpty;
   @computed
   bool get isAllProjectsClosed => projects.isNotEmpty && !hasOpenedProjects;
 

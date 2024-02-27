@@ -169,7 +169,7 @@
   "import_source_select_hint": "Выберите источник импорта",
   "import_title": "Импорт проектов",
 
-  "inbox_title": "Входящие",
+  "inbox": "Входящие",
 
   "invitation_activations_count_placeholder": "Число активаций",
   "invitation_expires_placeholder": "Срок годности",

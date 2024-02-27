@@ -60,7 +60,7 @@ class NoTasks extends StatelessWidget {
               CreateProjectButton(_controller, type: ButtonType.main),
             ],
             if (_freshStart) ...[
-              const SizedBox(height: P6),
+              const SizedBox(height: P7),
               BaseText(
                 loc.my_tasks_add_action_hint,
                 align: TextAlign.center,
@@ -68,7 +68,7 @@ class NoTasks extends StatelessWidget {
               ),
               const SizedBox(height: P2),
               const LocalImportIcon(size: P6, color: f2Color),
-              const SizedBox(height: P2),
+              const SizedBox(height: P3),
             ]
           ],
         ),

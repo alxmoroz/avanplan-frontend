@@ -169,7 +169,7 @@
   "import_source_select_hint": "Select source",
   "import_title": "Import",
 
-  "inbox_title": "Inbox",
+  "inbox": "Inbox",
 
   "invitation_activations_count_placeholder": "Activations Count",
   "invitation_expires_placeholder": "Expires",

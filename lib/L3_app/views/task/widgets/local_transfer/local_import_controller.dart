@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +8,8 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_transfer.dart';
 import '../../../../usecases/task_edit.dart';
-import '../../../../usecases/task_transfer.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import 'task_selector.dart';

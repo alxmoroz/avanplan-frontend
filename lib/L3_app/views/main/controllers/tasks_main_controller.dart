@@ -9,7 +9,6 @@ import '../../../../L1_domain/entities/errors.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_source.dart';
 import '../../../../L1_domain/entities/workspace.dart';
-import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
@@ -61,7 +60,7 @@ abstract class _TasksMainControllerBase with Store {
   bool get hasOpenedTasks => openedTasks.isNotEmpty;
 
   @computed
-  Iterable<Task> get myTasks => openedTasks.where((t) => t.assignee != null && t.assignee!.userId == accountController.me!.id);
+  Iterable<Task> get myTasks => openedTasks.where((t) => t.assignedToMe);
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed

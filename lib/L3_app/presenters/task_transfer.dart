@@ -1,8 +1,8 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
-import 'task_tree.dart';
+import '../usecases/task_tree.dart';
 
 extension TaskTransferPresenter on Task {
   // TODO: запрос на бэк

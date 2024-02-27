@@ -4,9 +4,11 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
+import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_state.dart';
+import 'task_feature_sets.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
   final gt = groupBy<Task, TaskState>(tasks, (t) => t.overallState);
@@ -14,6 +16,7 @@ List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
 }
 
 extension TaskTreeUC on Task {
+  Workspace get ws => wsMainController.ws(wsId);
   Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId && t.wsId == wsId);
 
   // TODO: что за ситуация такая, когда нет проекта?
@@ -40,5 +43,5 @@ extension TaskTreeUC on Task {
   List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
 
-  Workspace get ws => wsMainController.ws(wsId);
+  bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hfsTeam;
 }

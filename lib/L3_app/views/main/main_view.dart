@@ -10,6 +10,7 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../app/app_title.dart';
 import '../projects/create_project_controller.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
@@ -30,6 +31,8 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
+  bool get _showTasks => tasksMainController.myTasks.isNotEmpty;
+
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
         leftMenuController.setCompact(!isBigScreen(context));
         await mainController.startupActions();
@@ -63,20 +66,22 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           ? Container()
           : MTPage(
               appBar: MTAppBar(
-                leading: const SizedBox(height: P8),
-                middle: H3(loc.my_tasks_upcoming_title, maxLines: 1),
-              ),
+                  leading: const SizedBox(height: P8),
+                  middle: _showTasks ? H3(loc.my_tasks_upcoming_title, maxLines: 1) : const AppTitle(),
+                  color: _showTasks
+                      ? null
+                      : isBigScreen(context)
+                          ? Colors.transparent
+                          : null),
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: tasksMainController.myTasks.isNotEmpty
+                child: _showTasks
                     ? TasksListView(
                         tasksMainController.myTasksGroups,
                         filters: const {TasksFilter.my},
                       )
                     : NoTasks(CreateProjectController()),
-
-                //   NoProjects(CreateProjectController())
               ),
               leftBar: canShowVerticalBars(context) ? const LeftMenu() : null,
               bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),

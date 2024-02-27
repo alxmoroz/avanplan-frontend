@@ -180,7 +180,9 @@
   "invitation_share_text": "1. Установите приложение:\n{installUrl}\n\n2. Присоединяйтесь к проекту:\n{invitationUrl}",
 
   "later": "Позже",
-  "lets_go_action_title": "Поехали",
+
+  "lets_get_started": "Начните работу",
+  "lets_go_action_title": "Поехали!",
 
   "loader_auth_title": "Проверяем доступ...",
   "loader_check_connection_title": "Проверка соединения...",
@@ -208,7 +210,7 @@
   "my_account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "my_account_title": "Моя учётная запись",
 
-  "my_tasks_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
+  "my_tasks_add_action_hint": "Или просто добавьте задачи",
   "my_tasks_future_title": "Будущие",
   "my_tasks_no_due_title": "Без срока",
   "my_tasks_this_week_title": "На этой неделе",
@@ -393,9 +395,11 @@
   "task_go2source_title": "Перейти к источнику",
 
   "task_list_empty_hint": "Добавьте задачи, чтобы начать работу",
-  "task_list_empty_local_import_hint": "Добавьте задачи или перенесите из другой цели",
+  "task_list_empty_local_import_hint": "Добавьте или перенесите задачи из другой цели",
   "task_list_empty_overview_title": "Приступим к достижению цели",
-  "task_list_empty_title": "Отдыхаем от задач",
+  "task_list_empty_title": "Отдыхаем от дел",
+  "task_list_schedule_action_title": "Запланировать",
+  "task_list_schedule_hint": "Запланируйте задачи, чтобы продолжить работу",
   "task_list_title": "Задачи",
   "task_multi_create_quiz_title": "Добавьте задачи",
 

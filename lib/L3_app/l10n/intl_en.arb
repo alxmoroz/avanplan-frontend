@@ -180,7 +180,9 @@
   "invitation_share_text": "1. Install app:\n{installUrl}\n\n2. Join the project:\n{invitationUrl}",
 
   "later": "Later",
-  "lets_go_action_title": "Let's get started!",
+
+  "lets_get_started": "Let's get started",
+  "lets_go_action_title": "Let's go!",
 
   "loader_auth_title": "Checking access...",
   "loader_check_connection_title": "Checking connection...",
@@ -208,7 +210,7 @@
   "my_account_delete_dialog_title": "Delete your account?",
   "my_account_title": "Account",
 
-  "my_tasks_empty_hint": "Assign yourself tasks from projects or add new ones",
+  "my_tasks_add_action_hint": "Or just add tasks",
   "my_tasks_future_title": "Future",
   "my_tasks_no_due_title": "No due date",
   "my_tasks_this_week_title": "This week",
@@ -396,6 +398,8 @@
   "task_list_empty_local_import_hint": "Add tasks or transfer from another goal",
   "task_list_empty_overview_title": "Let's start achieving the goal",
   "task_list_empty_title": "Taking a break from tasks",
+  "task_list_schedule_action_title": "Schedule",
+  "task_list_schedule_hint": "Schedule tasks to keep working",
   "task_list_title": "Tasks",
   "task_multi_create_quiz_title": "Add tasks",
 

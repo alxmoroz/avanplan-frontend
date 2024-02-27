@@ -18,11 +18,11 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_tree.dart';
 import '../main/widgets/left_menu.dart';
-import '../main/widgets/no_projects.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'create_project_button.dart';
 import 'create_project_controller.dart';
+import 'no_projects.dart';
 import 'right_toolbar.dart';
 import 'right_toolbar_controller.dart';
 
@@ -115,9 +115,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                 onTap: () => _inboxTaskController.showTask(),
               ),
               const SizedBox(height: P3),
-              _showProjects
-                  ? TasksListView(tasksMainController.projectsGroups, scrollable: false)
-                  : NoProjects(_createProjectController, inline: true),
+              _showProjects ? TasksListView(tasksMainController.projectsGroups, scrollable: false) : NoProjects(_createProjectController),
             ],
           ),
         ),

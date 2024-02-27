@@ -3,30 +3,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../components/button.dart';
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/images.dart';
-import '../../../components/text.dart';
-import '../../../extra/router.dart';
-import '../../../extra/services.dart';
-import '../../projects/create_project_button.dart';
-import '../../projects/create_project_controller.dart';
-import '../../projects/projects_view.dart';
+import '../../components/button.dart';
+import '../../components/colors.dart';
+import '../../components/constants.dart';
+import '../../components/images.dart';
+import '../../components/text.dart';
+import '../../extra/services.dart';
+import 'create_project_button.dart';
+import 'create_project_controller.dart';
 
 class NoProjects extends StatelessWidget {
-  const NoProjects(this._controller, {super.key, this.inline = false});
+  const NoProjects(this._controller, {super.key});
   final CreateProjectController _controller;
-  final bool inline;
 
   bool get _isAllProjectsClosed => tasksMainController.isAllProjectsClosed;
 
   Future _tapShowClosed(BuildContext context) async {
-    if (inline) {
-      _controller.setShowClosed();
-    } else {
-      await MTRouter.navigate(ProjectsRouter, context);
-    }
+    _controller.setShowClosed();
   }
 
   @override

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -78,7 +78,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Даты
-          TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (!_task.isInbox) TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
           if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Оценки

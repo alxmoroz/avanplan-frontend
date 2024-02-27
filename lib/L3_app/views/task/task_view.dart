@@ -37,7 +37,7 @@ import 'widgets/tasks/tasks_list_view.dart';
 
 class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
-  String _navPrefix(Task task) => task.isProject
+  String _navPrefix(Task task) => task.isProject || task.isInbox
       ? '/projects'
       : task.isGoal
           ? '/projects/goals'
@@ -267,7 +267,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                         leftBar: big ? const LeftMenu() : null,
                         body: _body,
                         bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
-                        rightBar: _isBigGroup ? TaskRightToolbar(controller.toolbarController) : null,
+                        rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? TaskRightToolbar(controller.toolbarController) : null,
                         scrollController: _scrollController,
                         scrollOffsetTop: _headerHeight,
                         onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

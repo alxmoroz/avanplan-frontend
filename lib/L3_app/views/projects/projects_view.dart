@@ -99,22 +99,28 @@ class _ProjectsViewState extends State<ProjectsView> {
             children: [
               _bigTitle,
               const SizedBox(height: P3),
-              MTListTile(
-                leading: const InboxIcon(),
-                titleText: _inbox.title,
-                trailing: Row(children: [
-                  if (_inbox.openedSubtasks.isNotEmpty)
-                    BaseText(
-                      '${_inbox.openedSubtasks.length}',
-                      padding: const EdgeInsets.only(right: P),
-                    ),
-                  const ChevronIcon(),
-                ]),
-                bottomDivider: false,
-                onTap: () => TaskController(_inbox).showTask(),
+              MTAdaptive(
+                child: MTListTile(
+                  leading: const InboxIcon(),
+                  titleText: _inbox.title,
+                  trailing: Row(
+                    children: [
+                      if (_inbox.openedSubtasks.isNotEmpty)
+                        BaseText(
+                          '${_inbox.openedSubtasks.length}',
+                          padding: const EdgeInsets.only(right: P),
+                        ),
+                      const ChevronIcon(),
+                    ],
+                  ),
+                  bottomDivider: false,
+                  onTap: () => TaskController(_inbox).showTask(),
+                ),
               ),
               const SizedBox(height: P3),
-              _showProjects ? TasksListView(tasksMainController.projectsGroups, scrollable: false) : NoProjects(_createProjectController),
+              _showProjects
+                  ? TasksListView(tasksMainController.projectsGroups, scrollable: false)
+                  : MTAdaptive(child: NoProjects(_createProjectController)),
             ],
           ),
         ),

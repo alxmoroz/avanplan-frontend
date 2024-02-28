@@ -52,7 +52,7 @@ extension TaskActionsUC on Task {
   bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
 
-  bool canShowDetails(BuildContext context) => !isBigScreen(context) && isGroup && !isInbox;
+  bool canShowDetails(BuildContext context) => !isBigScreen(context) && isGroup;
 
   bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
@@ -68,7 +68,7 @@ extension TaskActionsUC on Task {
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
-  bool get canLocalExport => canEdit && ((hfsGoals && goalsForLocalExport.isNotEmpty) || (isInboxTask && tasksMainController.hasOpenedProjects));
+  bool get canLocalExport => canEdit && targetsForLocalExport.isNotEmpty;
   bool get canLocalImport => !isTask && canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
 
   bool get canComment => isTask && !closed && canEdit;

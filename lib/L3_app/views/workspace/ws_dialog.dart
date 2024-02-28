@@ -94,14 +94,14 @@ class _WSDialog extends StatelessWidget {
   Widget get _balanceCard => MTAdaptive.xxs(
         child: MTCardButton(
           margin: const EdgeInsets.only(top: P3),
-          onTap: _ws.hpTariffUpdate ? () => replenishBalanceDialog(_wsId) : null,
+          onTap: () => replenishBalanceDialog(_wsId),
           child: Column(
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
               MTPrice(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),
-              if (_ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
+              BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
           ),
         ),

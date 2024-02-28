@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class MTLoader extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius ?? 0),
             ),
           ),
-          const MTCircularProgress(color: mainColor, unbound: true),
+          const MTCircularProgress(unbound: true),
         ],
       ),
     );

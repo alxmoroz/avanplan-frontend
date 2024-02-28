@@ -76,7 +76,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                     )
                   : big
                       ? null
-                      : const MTAppBar(middle: AppTitle()),
+                      : const MTAppBar(leading: SizedBox(), middle: AppTitle()),
               body: SafeArea(
                 top: false,
                 bottom: false,

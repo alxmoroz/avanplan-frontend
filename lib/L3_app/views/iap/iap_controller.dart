@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
@@ -18,12 +18,22 @@ abstract class _IAPControllerBase with Store {
   @observable
   List<IAPProduct> products = [];
 
+  @observable
+  bool loading = false;
+
+  @observable
+  bool? _isAppStore;
+  @computed
+  bool get paymentMethodSelected => _isAppStore != null;
+
   @action
-  Future getProducts() async {
-    loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_refreshing_title);
-    loader.start();
+  Future getProducts({required bool isAppStore}) async {
+    loading = true;
+    _isAppStore = isAppStore;
+
     products = (await iapUC.products(
-      (errorText) => loader.set(
+      appStore: isAppStore,
+      onError: (errorText) => loader.set(
         imageName: ImageName.purchase.name,
         titleText: loc.error_get_products_title,
         descriptionText: errorText,
@@ -31,8 +41,12 @@ abstract class _IAPControllerBase with Store {
       ),
     ))
         .sorted((p1, p2) => p1.value.compareTo(p2.value));
-    await loader.stop();
+
+    loading = false;
   }
+
+  Future getAppStoreProducts() async => await getProducts(isAppStore: true);
+  Future getYMProducts() async => await getProducts(isAppStore: false);
 
   @action
   Future pay(int wsId, IAPProduct product) async {
@@ -44,6 +58,7 @@ abstract class _IAPControllerBase with Store {
         product: product,
         wsId: wsId,
         userId: userId,
+        appStore: _isAppStore == true,
         done: ({String? error, num? purchasedAmount}) {
           if (error != null && error.isNotEmpty) {
             loader.set(
@@ -65,5 +80,10 @@ abstract class _IAPControllerBase with Store {
   }
 
   @action
-  void resetWaiting() => waitingPayment = false;
+  void reset() {
+    waitingPayment = false;
+    _isAppStore = null;
+    products = [];
+    loading = false;
+  }
 }

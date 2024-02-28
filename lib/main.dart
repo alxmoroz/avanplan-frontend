@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:io';
 import 'dart:ui';
@@ -88,7 +88,7 @@ class App extends StatelessWidget {
               onGenerateRoute: MTRouter.generateRoute,
               navigatorObservers: [MTRouteObserver()],
             )
-          : const MTBackgroundWrapper(Center(child: MTCircularProgress(color: mainColor, size: P10))),
+          : const MTBackgroundWrapper(Center(child: MTCircularProgress(size: P10))),
     );
   }
 }

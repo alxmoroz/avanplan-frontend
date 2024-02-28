@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -84,7 +84,7 @@ class _InvitationDialog extends StatelessWidget {
                     );
                   }),
             ] else
-              const Center(child: MTCircularProgress(color: mainColor, unbound: true)),
+              const Center(child: MTCircularProgress(unbound: true)),
           ],
         ),
       ),

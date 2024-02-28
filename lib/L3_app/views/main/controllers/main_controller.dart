@@ -58,7 +58,7 @@ abstract class _MainControllerBase with Store {
       loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
       loader.start();
       await wsMainController.getData();
-      iapController.resetWaiting();
+      iapController.reset();
       loader.stop();
     }
   }

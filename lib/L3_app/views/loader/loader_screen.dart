@@ -1,11 +1,10 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
 import '../../components/circular_progress.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/images.dart';
 import '../../components/page.dart';
@@ -45,7 +44,7 @@ class LoaderScreen extends StatelessWidget {
                   if (loader.descriptionText != null) _description,
                   if (loader.actionWidget == null) ...[
                     const SizedBox(height: P6),
-                    const Center(child: MTCircularProgress(color: mainColor, size: P10)),
+                    const Center(child: MTCircularProgress(size: P10)),
                   ],
                   if (loader.actionWidget != null) ...[
                     const SizedBox(height: P6),

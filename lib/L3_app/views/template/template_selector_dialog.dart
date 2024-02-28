@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -8,7 +8,6 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/circular_progress.dart';
-import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -82,7 +81,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.template_selector_title),
       body: Observer(
         builder: (_) => _controller.loading
-            ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress(color: mainColor)))
+            ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress()))
             : ListView.builder(
                 shrinkWrap: true,
                 itemCount: _controller.templatesGroups.length,

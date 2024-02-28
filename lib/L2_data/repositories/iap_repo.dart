@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -9,14 +9,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../L1_domain/entities/iap_product.dart';
 import '../../L1_domain/repositories/abs_iap_repo.dart';
 import '../services/api.dart';
-import '../services/platform.dart';
 
 class IAPRepo extends AbstractIAPRepo {
   @override
-  Future<Iterable<IAPProduct>> products(Function(String error) onError) async {
+  Future<Iterable<IAPProduct>> products({required bool appStore, required Function(String error) onError}) async {
     Iterable<IAPProduct> products = [];
 
-    if (isIOS) {
+    if (appStore) {
       if (await InAppPurchase.instance.isAvailable()) {
         final response = await InAppPurchase.instance.queryProductDetails(IAPProduct.productsValues.keys.toSet());
         if (response.error != null) {
@@ -53,10 +52,11 @@ class IAPRepo extends AbstractIAPRepo {
     required IAPProduct product,
     required int wsId,
     required int userId,
+    required bool appStore,
     required Function({String? error, num? purchasedAmount}) done,
   }) async {
-    if (isIOS) {
-      await _iosPay(wsId: wsId, product: product, done: done);
+    if (appStore) {
+      await _appStorePay(wsId: wsId, product: product, done: done);
     } else {
       await _ymPay(product.value, wsId, userId);
       await done();
@@ -82,7 +82,7 @@ class IAPRepo extends AbstractIAPRepo {
         .data;
   }
 
-  Future _iosPay({
+  Future _appStorePay({
     required int wsId,
     required IAPProduct product,
     required Function({String? error, num? purchasedAmount}) done,

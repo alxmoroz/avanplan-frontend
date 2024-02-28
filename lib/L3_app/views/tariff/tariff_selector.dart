@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -71,7 +71,7 @@ class _TariffSelectorDialog extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: P * 94),
       child: _controller.loading
-          ? const Center(child: MTCircularProgress(color: mainColor, unbound: true))
+          ? const Center(child: MTCircularProgress(unbound: true))
           : LayoutBuilder(
               builder: (_, size) {
                 final pageController = PageController(

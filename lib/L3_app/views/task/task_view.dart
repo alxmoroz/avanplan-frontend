@@ -124,6 +124,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
   bool get _isBigGroup => isBigScreen(context) && !task!.isTask;
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
+  // TODO: определить как и fast / other actions в задаче
   bool get _hasQuickActions => (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate)) || task!.canComment;
 
   @override
@@ -252,6 +253,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final big = isBigScreen(context);
+      final actions = task!.actions(context);
       return task != null
           ? Stack(
               alignment: Alignment.bottomCenter,
@@ -273,8 +275,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                 color: _isBigGroup ? b2Color : null,
                                 leading: _isBigGroup ? const SizedBox() : null,
                                 middle: _title,
-                                trailing:
-                                    !_isBigGroup && task!.loading != true && task!.actions(context).isNotEmpty ? TaskPopupMenu(controller) : null,
+                                trailing: !_isBigGroup && task!.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                               ),
                         leftBar: big ? const LeftMenu() : null,
                         body: _body,

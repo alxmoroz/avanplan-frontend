@@ -17,6 +17,7 @@ String addSubtaskActionTitle(Task? parent) {
   final objTitle = {
         'ROOT': loc.project_plural(1),
         TType.PROJECT: parent?.hfsGoals == true ? loc.goal_plural_accusative(1) : taskTitle,
+        TType.INBOX: taskTitle,
         TType.GOAL: taskTitle,
         TType.BACKLOG: taskTitle,
       }[parent?.type ?? 'ROOT'] ??
@@ -28,6 +29,7 @@ String newSubtaskTitle(Task? parent) =>
     {
       'ROOT': loc.project_new_title,
       TType.PROJECT: parent?.hfsGoals == true ? loc.goal_new_title : loc.task_new_title,
+      TType.INBOX: loc.task_new_title,
       TType.GOAL: loc.task_new_title,
       TType.BACKLOG: loc.task_new_title,
     }[parent?.type ?? 'ROOT'] ??
@@ -66,6 +68,7 @@ extension TaskTypePresenter on Task {
   String dativeSubtasksCount(int count) =>
       {
         TType.PROJECT: hfsGoals ? loc.goal_count_dative(count) : loc.task_count_dative(count),
+        TType.INBOX: loc.task_count_dative(count),
         TType.GOAL: loc.task_count_dative(count),
         TType.BACKLOG: loc.task_count_dative(count),
       }[type] ??
@@ -74,6 +77,7 @@ extension TaskTypePresenter on Task {
   String subtasksCountStr(int count) =>
       {
         TType.PROJECT: hfsGoals ? loc.goal_count(count) : loc.task_count(count),
+        TType.INBOX: loc.task_count(count),
         TType.GOAL: loc.task_count(count),
         TType.BACKLOG: loc.task_count(count),
       }[type] ??

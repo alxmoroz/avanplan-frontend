@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -17,7 +17,7 @@ abstract class _VerticalToolbarControllerBase with Store {
   void setCompact(bool value) => compact = value;
 
   @computed
-  double get wideWidth => 290.0;
+  double get wideWidth => 278.0;
   @computed
   double get compactWidth => P12;
 

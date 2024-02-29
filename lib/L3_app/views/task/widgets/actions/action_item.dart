@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 
@@ -6,23 +6,27 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 
 class TaskActionItem extends StatelessWidget {
-  const TaskActionItem(this._ta, {super.key, this.compact = false, this.popup = true});
+  const TaskActionItem(this._ta, {super.key, this.compact = false, this.inPopup = true, this.onTap});
   final TaskAction _ta;
   final bool compact;
-  final bool popup;
+  final bool inPopup;
+  final Function()? onTap;
 
   double _iconSize(BuildContext context) => isBigScreen(context) ? P6 : P4;
-  double _iconPadding(BuildContext context) => compact ? 0 : (isBigScreen(context) ? P2 : P);
 
-  Widget _tile(BuildContext context, {Widget? leading, String? title, Color? color}) => Row(children: [
-        Container(width: _iconSize(context) + _iconPadding(context), alignment: Alignment.centerLeft, child: leading),
-        if (!compact && title != null) Expanded(child: BaseText(title, color: color ?? mainColor, maxLines: 1)),
-      ]);
+  Widget _tile(BuildContext context, {Widget? leading, String? title, Color? color}) => MTListTile(
+        leading: leading,
+        middle: !compact && title != null ? BaseText(title, color: color ?? mainColor, maxLines: 1) : null,
+        minHeight: P4,
+        bottomDivider: false,
+        onTap: onTap,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +39,20 @@ class TaskActionItem extends StatelessWidget {
       case TaskAction.reopen:
         return _tile(context, leading: DoneIcon(false, size: iconSize), title: loc.task_reopen_action_title);
       case TaskAction.localExport:
-        return _tile(context, leading: LocalExportIcon(size: iconSize, circled: !popup), title: loc.task_transfer_export_action_title);
+        return _tile(context, leading: LocalExportIcon(size: iconSize, circled: !inPopup), title: loc.task_transfer_export_action_title);
       case TaskAction.duplicate:
-        return _tile(context, leading: DuplicateIcon(size: iconSize, circled: !popup), title: loc.task_duplicate_action_title);
+        return _tile(context, leading: DuplicateIcon(size: iconSize, circled: !inPopup), title: loc.task_duplicate_action_title);
       // case TaskActionType.go2source:
       //   return _task.go2SourceTitle;
       case TaskAction.unlink:
         return _tile(
           context,
-          leading: LinkBreakIcon(size: iconSize, circled: !popup),
+          leading: LinkBreakIcon(size: iconSize, circled: !inPopup),
           title: loc.task_unlink_action_title,
           color: warningColor,
         );
       case TaskAction.delete:
-        return _tile(context, leading: DeleteIcon(size: iconSize, circled: !popup), title: loc.delete_action_title, color: dangerColor);
+        return _tile(context, leading: DeleteIcon(size: iconSize, circled: !inPopup), title: loc.delete_action_title, color: dangerColor);
       default:
         return BaseText('$_ta');
     }

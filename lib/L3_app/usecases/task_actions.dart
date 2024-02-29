@@ -91,4 +91,19 @@ extension TaskActionsUC on Task {
         if (canUnlink) TaskAction.unlink,
         if (canDelete) TaskAction.delete,
       ];
+
+  Iterable<TaskAction> get quickActions => [
+        if (isTask && canClose) TaskAction.close,
+        if (isTask && canReopen) TaskAction.reopen,
+        if (isInboxTask && canLocalExport) TaskAction.localExport,
+      ];
+
+  Iterable<TaskAction> get otherActions => [
+        if (!isTask && canClose) TaskAction.close,
+        if (!isTask && canReopen) TaskAction.reopen,
+        if (!isInboxTask && canLocalExport) TaskAction.localExport,
+        if (canDuplicate) TaskAction.duplicate,
+        if (canUnlink) TaskAction.unlink,
+        if (canDelete) TaskAction.delete,
+      ];
 }

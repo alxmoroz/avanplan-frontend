@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -7,7 +7,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/ws_actions.dart';
 
 part 'ws_main_controller.g.dart';
 
@@ -18,13 +17,10 @@ abstract class _WSMainControllerBase with Store {
   ObservableList<Workspace> workspaces = ObservableList();
 
   @computed
-  Iterable<Workspace> get myWSs => workspaces.where((ws) => ws.isMine);
-
-  @computed
   bool get multiWS => workspaces.length > 1;
 
   @computed
-  bool get canSelectWS => multiWS || myWSs.isEmpty;
+  bool get canSelectWS => multiWS;
 
   Workspace ws(int wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId) ?? Workspace.dummy;
 
@@ -52,14 +48,6 @@ abstract class _WSMainControllerBase with Store {
       setWS(ws);
     }
     return ws;
-  }
-
-  Future<Workspace?> createMyWS() async {
-    final newWS = await workspaceUC.create();
-    if (newWS != null) {
-      setWS(newWS);
-    }
-    return newWS;
   }
 
   @action

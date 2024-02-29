@@ -452,7 +452,6 @@
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",
-  "workspace_my_title": "My Workspace",
   "workspace_selector_title": "Choose a workspace",
   "workspace_title": "Workspace",
   "workspaces_title": "Workspaces",

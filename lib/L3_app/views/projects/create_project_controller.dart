@@ -27,8 +27,6 @@ abstract class _CreateProjectControllerBase with Store {
   @action
   void _setWS(int? wsId) => _selectedWSId = wsId;
 
-  bool get _noMyWss => wsMainController.myWSs.isEmpty;
-
   @computed
   Workspace? get _ws => _selectedWSId != null ? wsMainController.ws(_selectedWSId!) : null;
 
@@ -42,17 +40,9 @@ abstract class _CreateProjectControllerBase with Store {
 
   Future _selectWS() async {
     if (_mustSelectWS) {
-      int? wsId = await selectWS(canCreate: _noMyWss);
+      final wsId = await selectWS();
       if (wsId != null) {
-        if (wsId == -1) {
-          loader.setSaving();
-          loader.start();
-          wsId = (await wsMainController.createMyWS())?.id;
-          await loader.stop();
-        }
-        if (wsId != null && wsId > -1) {
-          _setWS(wsId);
-        }
+        _setWS(wsId);
       }
     }
   }

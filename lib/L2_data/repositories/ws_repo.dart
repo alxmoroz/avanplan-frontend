@@ -1,13 +1,13 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/repositories/abs_ws_repo.dart';
+import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/workspace.dart';
 import '../services/api.dart';
 
-class WSRepo extends AbstractWSRepo {
+class WSRepo extends AbstractApiRepo<Workspace, WorkspaceUpsert> {
   o_api.WorkspacesApi get _api => openAPI.getWorkspacesApi();
 
   @override
@@ -19,12 +19,6 @@ class WSRepo extends AbstractWSRepo {
   @override
   Future<Workspace?> getOne(int id) async {
     final response = await _api.getWorkspace(wsId: id);
-    return response.data?.workspace;
-  }
-
-  @override
-  Future<Workspace?> create() async {
-    final response = await _api.createWorkspace();
     return response.data?.workspace;
   }
 

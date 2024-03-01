@@ -20,7 +20,7 @@ extension TaskMapper on api.TaskGet {
       id: id,
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
-      title: title,
+      title: title.trim(),
       type: type ?? 'TASK',
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
@@ -50,7 +50,7 @@ extension TaskMapper on api.TaskGet {
     );
 
     if (mappedTask.isBacklog || mappedTask.isInbox) {
-      mappedTask.title = Intl.message(mappedTask.title.toLowerCase());
+      mappedTask.title = Intl.message(mappedTask.isInbox ? mappedTask.title.toLowerCase() : mappedTask.title);
     }
 
     return mappedTask;

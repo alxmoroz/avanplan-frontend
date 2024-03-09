@@ -48,7 +48,7 @@ class Project extends Titleable {
     this.icon,
   });
 
-  final int wsId;
+  int wsId;
   final String? category;
   final String? icon;
 }

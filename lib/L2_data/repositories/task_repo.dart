@@ -1,13 +1,13 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/repositories/abs_task_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
+class TaskRepo extends AbstractTaskRepo {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
@@ -46,6 +46,7 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
   Future<TasksChanges> duplicate(Task data) async {
     final changes = (await api.duplicateTask(
       wsId: data.wsId,
+      srcWsId: data.wsId,
       taskId: data.id!,
     ))
         .data;
@@ -53,6 +54,22 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
     return TasksChanges(
       changes?.updatedTask.task(data.wsId),
       changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
+    );
+  }
+
+  @override
+  Future<TasksChanges?> move(Task src, Task destination) async {
+    final changes = (await api.moveTask(
+      srcWsId: src.wsId,
+      srcTaskId: src.id!,
+      wsId: destination.wsId,
+      taskId: destination.id!,
+    ))
+        .data;
+
+    return TasksChanges(
+      changes?.updatedTask.task(destination.wsId),
+      changes?.affectedTasks.map((t) => t.task(destination.wsId)) ?? [],
     );
   }
 

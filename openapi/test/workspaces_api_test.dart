@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -41,7 +43,7 @@ void main() {
       // TODO
     });
 
-    // Delete
+    // Delete Task
     //
     //Future<TasksChanges> deleteTask(int wsId, int taskId) async
     test('test deleteTask', () async {
@@ -50,7 +52,7 @@ void main() {
 
     // Duplicate Task
     //
-    //Future<TasksChanges> duplicateTask(int wsId, int taskId) async
+    //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
     test('test duplicateTask', () async {
       // TODO
     });
@@ -80,6 +82,13 @@ void main() {
     //
     //Future<WorkspaceGet> getWorkspace(int wsId) async
     test('test getWorkspace', () async {
+      // TODO
+    });
+
+    // Move Task
+    //
+    //Future<TasksChanges> moveTask(int wsId, int taskId, int srcTaskId, int srcWsId) async
+    test('test moveTask', () async {
       // TODO
     });
 

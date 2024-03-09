@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -49,16 +51,6 @@ void main() {
 
     // DateTime updatedOn
     test('to test the property `updatedOn`', () async {
-      // TODO
-    });
-
-    // BuiltList<NoteGet> notes
-    test('to test the property `notes`', () async {
-      // TODO
-    });
-
-    // BuiltList<AttachmentGet> attachments
-    test('to test the property `attachments`', () async {
       // TODO
     });
   });

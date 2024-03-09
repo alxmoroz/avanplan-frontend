@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:dio/dio.dart';
 
@@ -53,6 +53,17 @@ extension TaskEditUC on Task {
     return et;
   }
 
+  void _processAffected(Iterable<Task> affected) {
+    for (Task at in affected) {
+      final existingTask = tasksMainController.task(at.wsId, at.id);
+      if (existingTask != null) {
+        existingTask._update(at);
+      } else {
+        tasksMainController.setTask(at);
+      }
+    }
+  }
+
   Future<Task?> save() async => await edit(() async {
         if (await ws.checkBalance(loc.edit_action_title)) {
           final changes = await taskUC.save(this);
@@ -65,19 +76,27 @@ extension TaskEditUC on Task {
         return null;
       });
 
+  Future<Task?> move(Task destination) async => await edit(() async {
+        // TODO: текст локализации
+        if (await destination.ws.checkBalance(loc.task_duplicate_action_title)) {
+          final changes = await taskUC.move(this, destination);
+          final newTask = changes?.updated;
+          if (newTask != null) {
+            _processAffected(changes?.affected ?? []);
+            tasksMainController.setTask(newTask);
+            tasksMainController.removeTask(this);
+            return newTask;
+          }
+        }
+        return null;
+      });
+
   Future<Task?> duplicate() async => await edit(() async {
         if (await ws.checkBalance(loc.task_duplicate_action_title)) {
           final changes = await taskUC.duplicate(this);
           final newTask = changes?.updated;
           if (newTask != null) {
-            for (Task at in changes?.affected ?? []) {
-              final existingTask = tasksMainController.task(at.wsId, at.id);
-              if (existingTask != null) {
-                existingTask._update(at);
-              } else {
-                tasksMainController.setTask(at);
-              }
-            }
+            _processAffected(changes?.affected ?? []);
             tasksMainController.setTask(newTask);
             return newTask;
           }

@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as o_api;
 
@@ -18,7 +18,7 @@ class ProjectTransferRepo extends AbstractProjectTransferRepo {
 
   @override
   Future<TasksChanges?> transfer(int srcWsId, int srcProjectId, int dstWsId) async {
-    final changes = (await api.transferProject(
+    final changes = (await api.createFromTemplate(
       srcWsId: srcWsId,
       srcProjectId: srcProjectId,
       wsId: dstWsId,

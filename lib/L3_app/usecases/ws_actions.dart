@@ -1,13 +1,13 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 
+import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/entities/ws_member.dart';
 import '../extra/services.dart';
 
 extension WSActionsUC on Workspace {
-  WSMember get me => wsMembers.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? WSMember.dummy;
+  User get me => users.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? User.dummy;
 
   // bool get hpInfoRead => me.hp('INFO_READ');
   bool get hpInfoUpdate => me.hp('INFO_UPDATE');

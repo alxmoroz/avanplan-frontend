@@ -1,11 +1,12 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
+import 'member.dart';
 import 'role.dart';
 import 'source.dart';
-import 'ws_member.dart';
+import 'user.dart';
 import 'ws_settings.dart';
 
 class WorkspaceUpsert extends Titleable {
@@ -24,7 +25,8 @@ class Workspace extends WorkspaceUpsert {
     required super.title,
     required super.description,
     required super.code,
-    required this.wsMembers,
+    required this.users,
+    required this.members,
     required this.roles,
     required this.invoice,
     required this.balance,
@@ -33,7 +35,8 @@ class Workspace extends WorkspaceUpsert {
     required this.sources,
   });
 
-  final Iterable<WSMember> wsMembers;
+  final Iterable<User> users;
+  final Iterable<WSMember> members;
   final Iterable<Role> roles;
   Invoice invoice;
   num balance;
@@ -49,7 +52,8 @@ class Workspace extends WorkspaceUpsert {
         title: '',
         description: '',
         code: '',
-        wsMembers: [],
+        users: [],
+        members: [],
         roles: [],
         invoice: Invoice.dummy,
         balance: 0,

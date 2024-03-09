@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **type** | **String** |  | [optional] [default to 'PRIVATE']
 **users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] 
+**members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] 
 **invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 
 **balance** | **num** |  | [optional] [default to 0]

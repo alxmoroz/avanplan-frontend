@@ -32,6 +32,6 @@ extension TaskTransferPresenter on Task {
     return targets;
   }
 
-  // TODO: можно доделать перенос из инбокса и других проектов / целей
+  // TODO: можно дополнить переносом из инбокса и других проектов / целей - возможно, нет ещё такой задачи в бэклоге
   Iterable<Task> get goalsForLocalImport => (isGoal || isBacklog) ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
 }

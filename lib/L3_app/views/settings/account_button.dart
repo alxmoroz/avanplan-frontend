@@ -1,8 +1,8 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/ws_member.dart';
+import '../../../L1_domain/entities/user.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -16,7 +16,7 @@ import '../account/account_dialog.dart';
 class AccountButton extends StatelessWidget {
   const AccountButton({super.key});
 
-  WSMember? get me => accountController.me;
+  User? get me => accountController.me;
 
   void _toUser(BuildContext context) {
     Navigator.of(context).pop();

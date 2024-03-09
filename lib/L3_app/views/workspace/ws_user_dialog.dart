@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/ws_member.dart';
+import '../../../L1_domain/entities/user.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -12,11 +12,11 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
-Future wsMemberDialog(WSMember wsMember) async => await showMTDialog<void>(_MemberDialog(wsMember));
+Future wsUserDialog(User user) async => await showMTDialog<void>(_WSUserDialog(user));
 
-class _MemberDialog extends StatelessWidget {
-  const _MemberDialog(this._wsMember);
-  final WSMember _wsMember;
+class _WSUserDialog extends StatelessWidget {
+  const _WSUserDialog(this._user);
+  final User _user;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +25,13 @@ class _MemberDialog extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          _wsMember.icon(P10),
+          _user.icon(P10),
           const SizedBox(height: P3),
-          H2('$_wsMember', align: TextAlign.center),
-          BaseText(_wsMember.email, align: TextAlign.center),
-          if (_wsMember.roles.isNotEmpty) ...[
+          H2('$_user', align: TextAlign.center),
+          BaseText(_user.email, align: TextAlign.center),
+          if (_user.roles.isNotEmpty) ...[
             MTListSection(titleText: loc.role_list_title),
-            MTListTile(titleText: _wsMember.rolesStr, bottomDivider: false),
+            MTListTile(titleText: _user.rolesStr, bottomDivider: false),
           ]
         ],
       ),

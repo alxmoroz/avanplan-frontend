@@ -1,11 +1,21 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as api;
 
-import '../../L1_domain/entities/task_member.dart';
+import '../../L1_domain/entities/member.dart';
 
 extension MemberMapper on api.MemberGet {
-  TaskMember member(int taskId) => TaskMember(
+  WSMember get wsMember => WSMember(
+        id: id,
+        email: email,
+        fullName: fullName,
+        roles: [],
+        permissions: [],
+        isActive: isActive == true,
+        userId: userId,
+      );
+
+  TaskMember taskMember(int taskId) => TaskMember(
         id: id,
         email: email,
         fullName: fullName,

@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../../L1_domain/entities_extensions/ws_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -24,6 +24,7 @@ import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/notes_controller.dart';
 
 class Notes extends StatelessWidget {
@@ -85,7 +86,7 @@ class Notes extends StatelessWidget {
                   itemCount: ng.length,
                   itemBuilder: (_, index) {
                     final n = ng[index];
-                    final author = _task.memberForId(n.authorId);
+                    final author = _task.ws.memberForId(n.authorId);
                     final authorIcon = author != null ? author.icon(P3) : const PersonIcon(size: P6, color: f3Color);
                     final authorName = author != null ? '$author' : 'Deleted member';
                     final mine = n.isMine(_task);

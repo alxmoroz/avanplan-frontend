@@ -1,8 +1,8 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import '../entities/notification.dart';
 import '../entities/task.dart';
-import '../entities/ws_member.dart';
+import '../entities/user.dart';
 import '../repositories/abs_my_repo.dart';
 
 class MyUC {
@@ -24,10 +24,10 @@ class MyUC {
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds) async => await repo.markReadNotifications(notificationsIds);
 
-  Future<WSMember?> getAccount() async => await repo.getAccount();
+  Future<User?> getAccount() async => await repo.getAccount();
   Future deleteAccount() async => await repo.deleteAccount();
 
-  Future<WSMember?> registerActivity(String code, {int? wsId}) async => repo.registerActivity(code, wsId: wsId);
+  Future<User?> registerActivity(String code, {int? wsId}) async => repo.registerActivity(code, wsId: wsId);
 
   Future updatePushToken(String token, bool hasPermission) async => await repo.updatePushToken(token, hasPermission);
 

@@ -1,10 +1,10 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 
 import '../../L3_app/usecases/task_tree.dart';
+import '../entities/member.dart';
 import '../entities/task.dart';
-import '../entities/task_member.dart';
 
 extension TaskMembersExtension on Task {
   TaskMember? memberForId(int? id) => projectMembers.firstWhereOrNull((m) => m.id == id);

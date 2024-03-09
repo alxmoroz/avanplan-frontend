@@ -1,13 +1,14 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/workspace.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
+import 'member.dart';
 import 'role.dart';
 import 'source.dart';
-import 'ws_member.dart';
+import 'user.dart';
 import 'ws_settings.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {
@@ -17,7 +18,8 @@ extension WorkspaceMapper on api.WorkspaceGet {
       code: code,
       title: title.trim(),
       description: description?.trim() ?? '',
-      wsMembers: users?.map((u) => u.wsMember(id)) ?? [],
+      users: users?.map((u) => u.user(id)) ?? [],
+      members: members?.map((m) => m.wsMember) ?? [],
       roles: roles?.map((r) => r.role) ?? [],
       balance: balance ?? 0,
       invoice: invoice!.invoice,

@@ -1,9 +1,12 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/source_get.dart';
+import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
@@ -25,6 +28,7 @@ part 'workspace_get.g.dart';
 /// * [code] 
 /// * [type] 
 /// * [users] 
+/// * [members] 
 /// * [roles] 
 /// * [invoice] 
 /// * [balance] 
@@ -53,6 +57,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'users')
   BuiltList<User>? get users;
+
+  @BuiltValueField(wireName: r'members')
+  BuiltList<MemberGet>? get members;
 
   @BuiltValueField(wireName: r'roles')
   BuiltList<RoleGet>? get roles;
@@ -136,6 +143,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.users,
         specifiedType: const FullType(BuiltList, [FullType(User)]),
+      );
+    }
+    if (object.members != null) {
+      yield r'members';
+      yield serializers.serialize(
+        object.members,
+        specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
       );
     }
     if (object.roles != null) {
@@ -251,6 +265,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(User)]),
           ) as BuiltList<User>;
           result.users.replace(valueDes);
+          break;
+        case r'members':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
+          ) as BuiltList<MemberGet>;
+          result.members.replace(valueDes);
           break;
         case r'roles':
           final valueDes = serializers.deserialize(

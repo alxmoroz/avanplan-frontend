@@ -1,10 +1,10 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'person.dart';
 import 'user_activity.dart';
 
-class WSMember extends Person {
-  WSMember({
+class User extends Person {
+  User({
     required super.id,
     required super.email,
     required super.fullName,
@@ -17,5 +17,5 @@ class WSMember extends Person {
   final int wsId;
   final Iterable<UActivity> activities;
 
-  static WSMember get dummy => WSMember(id: null, email: '', fullName: '', roles: [], permissions: [], wsId: -1, activities: []);
+  static User get dummy => User(id: null, email: '', fullName: '', roles: [], permissions: [], wsId: -1, activities: []);
 }

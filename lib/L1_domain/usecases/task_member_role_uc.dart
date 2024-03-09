@@ -1,7 +1,7 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
+import '../entities/member.dart';
 import '../entities/task.dart';
-import '../entities/task_member.dart';
 import '../repositories/abs_member_role_repo.dart';
 
 class TaskMemberRoleUC {

@@ -1,10 +1,10 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
-import '../../../L1_domain/entities/ws_member.dart';
 import '../../components/alert_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
@@ -15,7 +15,7 @@ class AccountController extends _AccountControllerBase with _$AccountController 
 
 abstract class _AccountControllerBase extends EditController with Store {
   @observable
-  WSMember? me;
+  User? me;
 
   @computed
   Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(me?.activities ?? [], (a) => a.code);

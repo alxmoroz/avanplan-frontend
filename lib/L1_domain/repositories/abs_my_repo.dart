@@ -1,12 +1,12 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import '../entities/notification.dart';
 import '../entities/task.dart';
-import '../entities/ws_member.dart';
+import '../entities/user.dart';
 
 abstract class AbstractMyRepo {
-  Future<WSMember?> getAccount();
-  Future<WSMember?> registerActivity(String code, {int? wsId});
+  Future<User?> getAccount();
+  Future<User?> registerActivity(String code, {int? wsId});
   Future deleteAccount();
 
   Future<Iterable<Task>> getProjects(int wsId, {bool? closed, bool? imported});

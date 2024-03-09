@@ -77,8 +77,7 @@ extension TaskEditUC on Task {
       });
 
   Future<Task?> move(Task destination) async => await edit(() async {
-        // TODO: текст локализации
-        if (await destination.ws.checkBalance(loc.task_duplicate_action_title)) {
+        if (await destination.ws.checkBalance(loc.task_transfer_export_action_title)) {
           final changes = await taskUC.move(this, destination);
           final newTask = changes?.updated;
           if (newTask != null) {

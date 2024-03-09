@@ -3,9 +3,9 @@
 import 'attachment.dart';
 import 'base_entity.dart';
 import 'feature_set.dart';
+import 'member.dart';
 import 'note.dart';
 import 'project_status.dart';
-import 'task_member.dart';
 import 'task_source.dart';
 
 class TType {

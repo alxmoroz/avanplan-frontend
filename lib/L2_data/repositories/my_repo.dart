@@ -1,15 +1,15 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/ws_member.dart';
+import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
 import '../mappers/task.dart';
-import '../mappers/ws_member.dart';
+import '../mappers/user.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
 
@@ -23,7 +23,7 @@ class MyRepo extends AbstractMyRepo {
   o_api.MyProjectsApi get _projectsApi => openAPI.getMyProjectsApi();
 
   @override
-  Future<WSMember?> getAccount() async {
+  Future<User?> getAccount() async {
     final response = await _accountApi.accountV1MyAccountGet();
     return response.data?.myUser(-1);
   }
@@ -71,7 +71,7 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
-  Future<WSMember?> registerActivity(String code, {int? wsId}) async {
+  Future<User?> registerActivity(String code, {int? wsId}) async {
     final body = (o_api.BodyRegisterV1MyActivitiesRegisterPostBuilder()
           ..code = code
           ..wsId = wsId)

@@ -3,9 +3,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_member.dart';
-import '../../L1_domain/entities/ws_member.dart';
+import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
@@ -28,7 +28,7 @@ enum TaskAction {
 }
 
 extension TaskActionsUC on Task {
-  WSMember? get _authUser => accountController.me;
+  User? get _authUser => accountController.me;
 
   /// разрешения для текущего участника РП, выбранной задачи или проекта
   TaskMember? get me => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);

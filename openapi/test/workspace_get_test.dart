@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -39,6 +41,11 @@ void main() {
 
     // BuiltList<User> users
     test('to test the property `users`', () async {
+      // TODO
+    });
+
+    // BuiltList<MemberGet> members
+    test('to test the property `members`', () async {
       // TODO
     });
 

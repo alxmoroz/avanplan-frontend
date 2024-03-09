@@ -1,12 +1,12 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:openapi/openapi.dart' as api;
 
-import '../../L1_domain/entities/ws_member.dart';
+import '../../L1_domain/entities/user.dart';
 import 'user_activity.dart';
 
-extension WSMemberMapper on api.User {
-  WSMember wsMember(int wsId) => WSMember(
+extension UserMapper on api.User {
+  User user(int wsId) => User(
         wsId: wsId,
         id: id,
         email: email,
@@ -18,7 +18,7 @@ extension WSMemberMapper on api.User {
 }
 
 extension MyUserMapper on api.MyUser {
-  WSMember myUser(int wsId) => WSMember(
+  User myUser(int wsId) => User(
         wsId: wsId,
         id: id,
         email: email,

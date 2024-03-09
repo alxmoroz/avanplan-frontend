@@ -1,9 +1,9 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
+import '../../../../L1_domain/entities/member.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';

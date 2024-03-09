@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/ws_member.dart';
+import '../../../L1_domain/entities/user.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
@@ -34,7 +34,7 @@ class AccountRouter extends MTRouter {
 class _AccountDialog extends StatelessWidget {
   const _AccountDialog();
 
-  WSMember? get _me => accountController.me;
+  User? get _me => accountController.me;
 
   @override
   Widget build(BuildContext context) {

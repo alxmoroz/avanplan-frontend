@@ -32,7 +32,7 @@ import '../iap/iap_dialog.dart';
 import '../source/sources_dialog.dart';
 import 'ws_edit_dialog.dart';
 import 'ws_expenses_dialog.dart';
-import 'ws_members_dialog.dart';
+import 'ws_users_dialog.dart';
 
 class WSRouter extends MTRouter {
   static const _prefix = '/settings/workspaces';
@@ -144,8 +144,8 @@ class _WSDialog extends StatelessWidget {
         leading: const PeopleIcon(),
         middle: Row(
           children: [
-            BaseText('${_ws.wsMembers.length}', maxLines: 1),
-            BaseText.f2(' ${loc.member_plural(_ws.wsMembers.length)}', maxLines: 1),
+            BaseText('${_ws.users.length}', maxLines: 1),
+            BaseText.f2(' ${loc.member_plural(_ws.users.length)}', maxLines: 1),
           ],
         ),
         subtitle: Row(children: [
@@ -160,7 +160,7 @@ class _WSDialog extends StatelessWidget {
         trailing: const ChevronIcon(),
         bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || _ws.hpSourceCreate,
         dividerIndent: P11,
-        onTap: () async => await MTRouter.navigate(WSMembersRouter, context, args: _ws.id!),
+        onTap: () async => await MTRouter.navigate(WSUsersRouter, context, args: _ws.id!),
       );
 
   Widget _tasks(BuildContext context) => MTListTile(

@@ -1,15 +1,15 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'attachment.dart';
 import 'base_entity.dart';
 
 class Note extends WSBounded {
   Note({
+    required super.wsId,
     super.id,
     required this.text,
-    required this.authorId,
     required this.taskId,
-    required super.wsId,
+    this.authorId,
     this.parent,
     this.type,
     this.createdOn,
@@ -17,8 +17,9 @@ class Note extends WSBounded {
   });
 
   String text;
-  final int? authorId;
   final int taskId;
+
+  final int? authorId;
   final Note? parent;
   String? type;
   final DateTime? createdOn;

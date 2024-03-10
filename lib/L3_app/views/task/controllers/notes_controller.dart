@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -14,7 +14,6 @@ import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/note_edit.dart';
-import '../../../usecases/task_actions.dart';
 import '../widgets/text_fields/text_edit_dialog.dart';
 import 'attachments_controller.dart';
 import 'task_controller.dart';
@@ -66,7 +65,6 @@ abstract class _NotesControllerBase with Store {
     if (instant && _attachmentsController.selectedFiles.isNotEmpty) {
       await _save(Note(
         text: '',
-        authorId: task.me?.id,
         taskId: task.id!,
         wsId: task.wsId,
       ));
@@ -142,7 +140,6 @@ abstract class _NotesControllerBase with Store {
   Future create() async {
     await edit(Note(
       text: _te.text,
-      authorId: task.me?.id,
       taskId: task.id!,
       wsId: task.wsId,
     ));

@@ -1,7 +1,7 @@
 name: avanplan
 description: Avanplan
 
-version: 1.20.2187+2187
+version: 1.20.2188+2188
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -13,7 +13,7 @@ dependencies:
   built_collection: any
   collection: any
   crypto: any
-  cupertino_icons: any
+  cupertino_icons: 1.0.1
   device_info_plus: any
   dio: any
   file_selector: any

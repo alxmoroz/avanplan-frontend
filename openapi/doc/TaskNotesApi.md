@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **deleteNote**
-> bool deleteNote(noteId, wsId, taskId)
+> bool deleteNote(wsId, noteId, taskId)
 
 Delete
 
@@ -30,12 +30,12 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getTaskNotesApi();
-final int noteId = 56; // int | 
 final int wsId = 56; // int | 
+final int noteId = 56; // int | 
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteNote(noteId, wsId, taskId);
+    final response = api.deleteNote(wsId, noteId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TaskNotesApi->deleteNote: $e\n');
@@ -46,8 +46,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **noteId** | **int**|  | 
  **wsId** | **int**|  | 
+ **noteId** | **int**|  | 
  **taskId** | **int**|  | 
 
 ### Return type

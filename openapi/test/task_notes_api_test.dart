@@ -8,7 +8,7 @@ void main() {
   group(TaskNotesApi, () {
     // Delete
     //
-    //Future<bool> deleteNote(int noteId, int wsId, int taskId) async
+    //Future<bool> deleteNote(int wsId, int noteId, int taskId) async
     test('test deleteNote', () async {
       // TODO
     });

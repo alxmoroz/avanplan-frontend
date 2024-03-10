@@ -260,8 +260,8 @@ class TasksApi {
   /// 
   ///
   /// Parameters:
-  /// * [noteId] 
   /// * [wsId] 
+  /// * [noteId] 
   /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -273,8 +273,8 @@ class TasksApi {
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<bool>> deleteNote({ 
-    required int noteId,
     required int wsId,
+    required int noteId,
     required int taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -283,7 +283,7 @@ class TasksApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}'.replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{

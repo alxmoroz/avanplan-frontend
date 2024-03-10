@@ -253,46 +253,48 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final big = isBigScreen(context);
-      final actions = task!.actions(context);
-      return task != null
-          ? Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                _isTaskDialog
-                    ? MTDialog(
-                        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-                        body: _body,
-                        rightBar: TaskRightToolbar(controller.toolbarController),
-                        scrollController: _scrollController,
-                        scrollOffsetTop: _headerHeight,
-                        onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-                      )
-                    : MTPage(
-                        appBar: big && !_hasScrolled
-                            ? null
-                            : MTAppBar(
-                                innerHeight: big ? _headerHeight : null,
-                                color: _isBigGroup ? b2Color : null,
-                                leading: _isBigGroup ? const SizedBox() : null,
-                                middle: _title,
-                                trailing: !_isBigGroup && task!.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
-                              ),
-                        leftBar: big ? const LeftMenu() : null,
-                        body: _body,
-                        bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
-                        rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? TaskRightToolbar(controller.toolbarController) : null,
-                        scrollController: _scrollController,
-                        scrollOffsetTop: _headerHeight,
-                        onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-                      ),
-                if (task!.error != null)
-                  MTErrorSheet(task!.error!, onClose: () {
-                    task!.error = null;
-                    tasksMainController.refreshTasks();
-                  }),
-              ],
-            )
-          : Container();
+      if (task != null) {
+        final actions = task!.actions(context);
+        return Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            _isTaskDialog
+                ? MTDialog(
+                    topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
+                    body: _body,
+                    rightBar: TaskRightToolbar(controller.toolbarController),
+                    scrollController: _scrollController,
+                    scrollOffsetTop: _headerHeight,
+                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                  )
+                : MTPage(
+                    appBar: big && !_hasScrolled
+                        ? null
+                        : MTAppBar(
+                            innerHeight: big ? _headerHeight : null,
+                            color: _isBigGroup ? b2Color : null,
+                            leading: _isBigGroup ? const SizedBox() : null,
+                            middle: _title,
+                            trailing: !_isBigGroup && task!.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
+                          ),
+                    leftBar: big ? const LeftMenu() : null,
+                    body: _body,
+                    bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
+                    rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? TaskRightToolbar(controller.toolbarController) : null,
+                    scrollController: _scrollController,
+                    scrollOffsetTop: _headerHeight,
+                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                  ),
+            if (task!.error != null)
+              MTErrorSheet(task!.error!, onClose: () {
+                task!.error = null;
+                tasksMainController.refreshTasks();
+              }),
+          ],
+        );
+      } else {
+        return const SizedBox();
+      }
     });
   }
 }

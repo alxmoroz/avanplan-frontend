@@ -15,7 +15,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
-import 'fast_add_task_button.dart';
+import 'inbox_add_task_button.dart';
 
 class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   const BottomMenu({super.key});
@@ -73,7 +73,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
           ),
           const Positioned(
             top: -P2,
-            child: FastAddTaskButton(),
+            child: InboxAddTaskButton(),
           ),
         ],
       ),

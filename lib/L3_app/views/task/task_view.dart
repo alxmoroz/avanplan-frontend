@@ -21,6 +21,7 @@ import '../../presenters/task_type.dart';
 import '../../presenters/task_view.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
+import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/actions/bottom_toolbar.dart';
@@ -249,6 +250,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
         : null;
   }
 
+  TaskRightToolbar get _toolbar => TaskRightToolbar(
+        controller,
+        task?.isTask == true ? taskToolbarController : taskGroupToolbarController,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -262,7 +268,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                 ? MTDialog(
                     topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
                     body: _body,
-                    rightBar: TaskRightToolbar(controller.toolbarController),
+                    rightBar: _toolbar,
                     scrollController: _scrollController,
                     scrollOffsetTop: _headerHeight,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
@@ -277,10 +283,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
                             middle: _title,
                             trailing: !_isBigGroup && task!.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                           ),
-                    leftBar: big ? const LeftMenu() : null,
+                    leftBar: big ? LeftMenu(leftMenuController) : null,
                     body: _body,
                     bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
-                    rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? TaskRightToolbar(controller.toolbarController) : null,
+                    rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? _toolbar : null,
                     scrollController: _scrollController,
                     scrollOffsetTop: _headerHeight,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

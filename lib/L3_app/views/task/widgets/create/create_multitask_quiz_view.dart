@@ -16,6 +16,7 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
@@ -85,7 +86,7 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
         children: [
           MTPage(
             appBar: QuizHeader(qController),
-            leftBar: isBigScreen(context) ? const LeftMenu() : null,
+            leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
             body: SafeArea(
               top: false,
               bottom: false,

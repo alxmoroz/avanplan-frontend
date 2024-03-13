@@ -7,27 +7,27 @@ import 'constants.dart';
 
 part 'vertical_toolbar_controller.g.dart';
 
-abstract class VerticalToolbarController extends _VerticalToolbarControllerBase with _$VerticalToolbarController {}
+class VerticalToolbarController extends _VerticalToolbarControllerBase with _$VerticalToolbarController {
+  VerticalToolbarController({bool isCompact = false, double wideWidth = 278.0}) {
+    compact = isCompact;
+    _wideWidth = wideWidth;
+    _compactWidth = P12;
+  }
+}
 
 abstract class _VerticalToolbarControllerBase with Store {
+  late final double _wideWidth;
+  late final double _compactWidth;
+
   @observable
   bool compact = false;
-
   @action
   void setCompact(bool value) => compact = value;
 
   @computed
-  double get wideWidth => 278.0;
-  @computed
-  double get compactWidth => P12;
-
-  @computed
-  double get width => compact ? compactWidth : wideWidth;
+  double get width => compact ? _compactWidth : _wideWidth;
 
   @mustCallSuper
   @action
   void toggleWidth() => compact = !compact;
-
-  // @action
-  // void swiped(DragUpdateDetails details) => compact = details.delta.dx < 0;
 }

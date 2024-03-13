@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
+import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../components/vertical_toolbar_controller.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../app/app_title.dart';
@@ -16,9 +19,15 @@ import '../projects/create_project_controller.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'widgets/bottom_menu.dart';
-import 'widgets/fast_add_task_button.dart';
 import 'widgets/left_menu.dart';
 import 'widgets/no_tasks.dart';
+import 'widgets/right_toolbar.dart';
+import 'widgets/view_settings_dialog.dart';
+
+late VerticalToolbarController leftMenuController;
+late VerticalToolbarController rightToolbarController;
+late VerticalToolbarController taskGroupToolbarController;
+late VerticalToolbarController taskToolbarController;
 
 class MainRouter extends MTRouter {
   @override
@@ -36,7 +45,11 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   bool get _showTasks => tasksMainController.myTasks.isNotEmpty;
 
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
-        leftMenuController.setCompact(!isBigScreen(context));
+        leftMenuController = VerticalToolbarController(isCompact: !isBigScreen(context), wideWidth: 242.0);
+        rightToolbarController = VerticalToolbarController(isCompact: true, wideWidth: 220);
+        taskGroupToolbarController = VerticalToolbarController(isCompact: true);
+        taskToolbarController = VerticalToolbarController(isCompact: false);
+
         await mainController.startupActions();
       });
 
@@ -73,6 +86,13 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                       leading: const SizedBox(height: P8),
                       color: big ? b2Color : null,
                       middle: H3(loc.my_tasks_upcoming_title, maxLines: 1),
+                      trailing: big
+                          ? null
+                          : const MTButton.icon(
+                              SettingsIcon(),
+                              padding: EdgeInsets.only(right: P2),
+                              onTap: showViewSettingsDialog,
+                            ),
                     )
                   : big
                       ? null
@@ -81,23 +101,14 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 top: false,
                 bottom: false,
                 child: _showTasks
-                    ? Stack(
-                        children: [
-                          TasksListView(
-                            tasksMainController.myTasksGroups,
-                            filters: const {TasksFilter.my},
-                          ),
-                          if (big)
-                            const Positioned(
-                              bottom: P5,
-                              right: P5,
-                              child: FastAddTaskButton(),
-                            ),
-                        ],
+                    ? TasksListView(
+                        tasksMainController.myTasksGroups,
+                        filters: const {TasksFilter.my},
                       )
                     : NoTasks(CreateProjectController()),
               ),
-              leftBar: canShowVerticalBars(context) ? const LeftMenu() : null,
+              leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
+              rightBar: big && _showTasks ? MainRightToolbar(rightToolbarController) : null,
               bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),
             );
     });

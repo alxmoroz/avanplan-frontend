@@ -17,6 +17,7 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_tree.dart';
+import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
@@ -24,7 +25,6 @@ import 'create_project_button.dart';
 import 'create_project_controller.dart';
 import 'no_projects.dart';
 import 'right_toolbar.dart';
-import 'right_toolbar_controller.dart';
 
 class ProjectsRouter extends MTRouter {
   @override
@@ -45,14 +45,12 @@ class ProjectsView extends StatefulWidget {
 }
 
 class _ProjectsViewState extends State<ProjectsView> {
-  late final ProjectsRightToolbarController _toolbarController;
   late final ScrollController _scrollController;
   late final CreateProjectController _createProjectController;
   bool _hasScrolled = false;
 
   @override
   void initState() {
-    _toolbarController = ProjectsRightToolbarController();
     _scrollController = ScrollController();
     _createProjectController = CreateProjectController();
     super.initState();
@@ -90,7 +88,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                   : H3(loc.project_list_title)
               : null,
         ),
-        leftBar: big ? const LeftMenu() : null,
+        leftBar: big ? LeftMenu(leftMenuController) : null,
         body: SafeArea(
           top: false,
           bottom: false,
@@ -136,7 +134,7 @@ class _ProjectsViewState extends State<ProjectsView> {
             : null,
         rightBar: _showProjects
             ? canShowVerticalBars(context)
-                ? ProjectsRightToolbar(_toolbarController)
+                ? ProjectsRightToolbar(rightToolbarController)
                 : null
             : null,
         scrollController: _scrollController,

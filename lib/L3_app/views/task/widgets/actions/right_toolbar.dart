@@ -13,6 +13,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/vertical_toolbar.dart';
+import '../../../../components/vertical_toolbar_controller.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
@@ -22,14 +23,14 @@ import '../details/task_details.dart';
 import '../local_transfer/local_import_dialog.dart';
 import 'action_item.dart';
 import 'popup_menu.dart';
-import 'right_toolbar_controller.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskRightToolbar(this._controller, {super.key});
-  final TaskRightToolbarController _controller;
+  const TaskRightToolbar(this._taskController, this._controller, {super.key});
+  final TaskController _taskController;
+  final VerticalToolbarController _controller;
 
-  TaskController get _taskController => _controller.taskController;
   Task get _task => _taskController.task!;
+  bool get _compact => _controller.compact;
 
   @override
   Size get preferredSize => Size.fromWidth(_controller.width);
@@ -38,16 +39,16 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       children: [
         /// параметры задачи
-        TaskDetails(_taskController, compact: _controller.compact),
+        TaskDetails(_taskController, compact: _compact),
         const Spacer(),
 
         /// контекстные быстрые действия
-        if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _controller.compact),
-        if (_task.canCreateSubtask) CreateTaskButton(_taskController, compact: _controller.compact),
+        if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _compact),
+        if (_task.canCreateSubtask) CreateTaskButton(_taskController, compact: _compact),
         if (_task.canLocalImport)
           MTListTile(
             leading: const LocalImportIcon(circled: true, size: P6),
-            middle: _controller.compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
+            middle: _compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
             bottomDivider: false,
             onTap: () => localImportDialog(_taskController),
           ),
@@ -55,13 +56,13 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         if (_task.canComment) ...[
           MTListTile(
             leading: const NoteAddIcon(circled: true, size: P6),
-            middle: _controller.compact ? null : BaseText(loc.task_note_add_action_title, color: mainColor),
+            middle: _compact ? null : BaseText(loc.task_note_add_action_title, color: mainColor),
             bottomDivider: false,
             onTap: () => _taskController.notesController.create(),
           ),
           MTListTile(
             leading: const AttachmentIcon(circled: true),
-            middle: _controller.compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor),
+            middle: _compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor),
             bottomDivider: false,
             onTap: () => _taskController.notesController.startUpload(),
           ),
@@ -73,14 +74,14 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
           for (final ta in _task.quickActions)
             TaskActionItem(
               ta,
-              compact: _controller.compact,
+              compact: _compact,
               inPopup: false,
               onTap: () => _taskController.taskAction(ta),
             ),
         ],
 
         /// остальные действия с задачей
-        if (_task.otherActions.isNotEmpty) TaskPopupMenu(_taskController, _task.otherActions, compact: _controller.compact),
+        if (_task.otherActions.isNotEmpty) TaskPopupMenu(_taskController, _task.otherActions, compact: _compact),
       ],
     );
   }

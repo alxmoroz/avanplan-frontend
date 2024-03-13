@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 
@@ -7,11 +7,12 @@ import 'colors_base.dart';
 import 'constants.dart';
 
 class MTCircle extends StatelessWidget {
-  const MTCircle({super.key, this.color, this.size, this.border});
+  const MTCircle({super.key, this.color, this.size, this.border, this.child});
 
   final Color? color;
   final double? size;
   final Border? border;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class MTCircle extends StatelessWidget {
         shape: BoxShape.circle,
         border: border ?? const Border(),
       ),
+      child: child,
     );
   }
 }

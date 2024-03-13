@@ -10,6 +10,7 @@ import '../../../../components/page.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
@@ -53,7 +54,7 @@ class TeamInvitationQuizView extends StatelessWidget {
       builder: (_) => _task != null
           ? MTPage(
               appBar: QuizHeader(_args._qController),
-              leftBar: isBigScreen(context) ? const LeftMenu() : null,
+              leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
               body: SafeArea(
                 top: false,
                 bottom: false,

@@ -12,6 +12,7 @@ import '../../../components/icons_workspace.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../components/vertical_toolbar.dart';
+import '../../../components/vertical_toolbar_controller.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
@@ -20,34 +21,36 @@ import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
 class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
-  const LeftMenu({super.key});
+  const LeftMenu(this._controller, {super.key});
+  final VerticalToolbarController _controller;
+  bool get _compact => _controller.compact;
 
+  // TODO: проверять, где сейчас находимся. Не вызывать лишний раз. И должно быть оформление текущего пункта меню
   Future _goToProjects(BuildContext context) async {
     popTop();
     await MTRouter.navigate(ProjectsRouter, context);
   }
 
   @override
-  Size get preferredSize => Size.fromWidth(leftMenuController.width);
+  Size get preferredSize => Size.fromWidth(_controller.width);
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      final compact = leftMenuController.compact;
       return VerticalToolbar(
-        leftMenuController,
+        _controller,
         rightSide: false,
         child: Column(
           children: [
             if (isBigScreen(context))
               MTListTile(
-                middle: AppTitle(compact: compact),
+                middle: AppTitle(compact: _compact),
                 bottomDivider: false,
                 onTap: popTop,
               ),
             MTListTile(
               leading: const ProjectsIcon(color: mainColor, size: P6),
-              middle: compact ? null : BaseText(loc.project_list_title, maxLines: 1),
+              middle: _compact ? null : BaseText(loc.project_list_title, maxLines: 1),
               bottomDivider: false,
               onTap: () => _goToProjects(context),
             ),
@@ -55,14 +58,14 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
             if (!isWeb)
               MTListTile(
                 leading: const RefreshIcon(),
-                middle: compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
+                middle: _compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
                 bottomDivider: false,
                 onTap: mainController.update,
               ),
             if (accountController.me != null)
               MTListTile(
                 leading: accountController.me!.icon(P6 / 2, borderColor: mainColor),
-                middle: compact ? null : BaseText('${accountController.me!}', maxLines: 1),
+                middle: _compact ? null : BaseText('${accountController.me!}', maxLines: 1),
                 bottomDivider: false,
                 onTap: settingsMenu,
               )

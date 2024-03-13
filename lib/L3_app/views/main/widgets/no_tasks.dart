@@ -15,7 +15,7 @@ import '../../../extra/services.dart';
 import '../../projects/create_project_button.dart';
 import '../../projects/create_project_controller.dart';
 import '../../projects/projects_view.dart';
-import 'fast_add_task_button.dart';
+import 'inbox_add_task_button.dart';
 
 class NoTasks extends StatelessWidget {
   const NoTasks(this._controller, {super.key});
@@ -73,7 +73,7 @@ class NoTasks extends StatelessWidget {
                 const SizedBox(height: P2),
                 const LocalImportIcon(size: P6, color: f2Color),
                 const SizedBox(height: P3),
-                if (big) const Align(child: FastAddTaskButton()),
+                if (big) const Align(child: InboxAddTaskButton(standalone: true)),
               ]
             ],
           ),

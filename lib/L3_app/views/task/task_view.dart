@@ -252,7 +252,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   TaskRightToolbar get _toolbar => TaskRightToolbar(
         controller,
-        task?.isTask == true ? taskToolbarController : taskGroupToolbarController,
+        task?.isTask == true
+            ? taskToolbarController
+            : task?.isInbox == true
+                ? rightToolbarController
+                : taskGroupToolbarController,
       );
 
   @override

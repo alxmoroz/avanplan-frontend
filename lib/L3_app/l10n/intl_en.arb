@@ -47,6 +47,8 @@
   "balance_replenish_action_title": "Replenish",
   "balance_replenish_store_title": "Replenish balance",
 
+  "calendar_connect_action_google_title": "Connect to Google Calendar",
+
   "cancel": "Cancel",
 
   "chart_delta_ahead_label": "Ahead",
@@ -215,6 +217,7 @@
   "my_tasks_no_due_title": "No due date",
   "my_tasks_this_week_title": "This week",
   "my_tasks_upcoming_title": "Upcoming Tasks",
+  "my_tasks_view_settings_title": "View settings",
 
   "next_action_title": "Next",
   "new_title": "New",

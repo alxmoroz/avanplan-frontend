@@ -47,6 +47,8 @@
   "balance_replenish_action_title": "Пополнить",
   "balance_replenish_store_title": "Пополнить баланс",
 
+  "calendar_connect_action_google_title": "Подключить календарь Google",
+
   "cancel": "Отмена",
 
   "chart_delta_ahead_label": "Опережение",
@@ -215,6 +217,7 @@
   "my_tasks_no_due_title": "Без срока",
   "my_tasks_this_week_title": "На этой неделе",
   "my_tasks_upcoming_title": "Ближайшие дела",
+  "my_tasks_view_settings_title": "Настройки вида",
 
   "next_action_title": "Продолжить",
   "new_title": "Новый",

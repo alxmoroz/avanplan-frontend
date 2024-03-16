@@ -4,14 +4,16 @@
 
 // ignore_for_file: unused_import
 
+import 'package:one_of_serializer/any_of_serializer.dart';
+import 'package:one_of_serializer/one_of_serializer.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:one_of_serializer/any_of_serializer.dart';
-import 'package:one_of_serializer/one_of_serializer.dart';
+import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
+import 'package:openapi/src/model/date.dart';
+
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
@@ -28,7 +30,6 @@ import 'package:openapi/src/model/body_start_import.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
-import 'package:openapi/src/model/date'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/feature_set_get.dart';

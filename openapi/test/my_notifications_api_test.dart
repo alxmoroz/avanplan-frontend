@@ -1,5 +1,3 @@
-// Copyright (c) 2024. Alexandr Moroz
-
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 

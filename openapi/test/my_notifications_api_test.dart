@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -6,10 +8,10 @@ void main() {
   final instance = Openapi().getMyNotificationsApi();
 
   group(MyNotificationsApi, () {
-    // Mark Read Notifications
+    // Mark Read
     //
-    //Future<bool> markReadNotificationsV1MyNotificationsPost(BuiltList<int> requestBody) async
-    test('test markReadNotificationsV1MyNotificationsPost', () async {
+    //Future<bool> markReadV1MyNotificationsPost(BuiltList<int> requestBody) async
+    test('test markReadV1MyNotificationsPost', () async {
       // TODO
     });
 

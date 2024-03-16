@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -16,6 +18,7 @@ export 'package:openapi/src/api/integrations_sources_api.dart';
 export 'package:openapi/src/api/integrations_tasks_api.dart';
 export 'package:openapi/src/api/my_account_api.dart';
 export 'package:openapi/src/api/my_activities_api.dart';
+export 'package:openapi/src/api/my_calendar_api.dart';
 export 'package:openapi/src/api/my_invitations_api.dart';
 export 'package:openapi/src/api/my_notifications_api.dart';
 export 'package:openapi/src/api/my_projects_api.dart';
@@ -40,6 +43,7 @@ export 'package:openapi/src/model/auth_token.dart';
 export 'package:openapi/src/model/body_auth_apple_token.dart';
 export 'package:openapi/src/model/body_auth_google_token.dart';
 export 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
+export 'package:openapi/src/model/body_my_calendar_update_google_accounts.dart';
 export 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
 export 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 export 'package:openapi/src/model/body_registration_token.dart';

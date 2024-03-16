@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/attachment_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
+import '../../L1_domain/usecases/calendar_uc.dart';
 import '../../L1_domain/usecases/contract_uc.dart';
 import '../../L1_domain/usecases/feature_set_uc.dart';
 import '../../L1_domain/usecases/iap_uc.dart';
@@ -28,6 +29,7 @@ import '../../L2_data/repositories/attachment_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
+import '../../L2_data/repositories/calendar_repo.dart';
 import '../../L2_data/repositories/contract_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/feature_set_repo.dart';
@@ -54,6 +56,7 @@ import '../views/app/local_settings_controller.dart';
 import '../views/auth/auth_controller.dart';
 import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
+import '../views/calendar/calendar_controller.dart';
 import '../views/iap/iap_controller.dart';
 import '../views/loader/loader_controller.dart';
 import '../views/main/controllers/main_controller.dart';
@@ -79,6 +82,7 @@ NotificationController get notificationController => GetIt.I<NotificationControl
 RegistrationTokenController get registrationTokenController => GetIt.I<RegistrationTokenController>();
 InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
 IAPController get iapController => GetIt.I<IAPController>();
+CalendarController get calendarController => GetIt.I<CalendarController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
@@ -99,6 +103,7 @@ AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 FeatureSetUC get featureSetUC => GetIt.I<FeatureSetUC>();
 ProjectTransferUC get projectTransferUC => GetIt.I<ProjectTransferUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
+CalendarUC get calendarUC => GetIt.I<CalendarUC>();
 
 void setup() {
   /// device
@@ -133,6 +138,7 @@ void setup() {
   getIt.registerSingleton<FeatureSetUC>(FeatureSetUC(FeatureSetRepo()));
   getIt.registerSingleton<ProjectTransferUC>(ProjectTransferUC(ProjectTransferRepo()));
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
+  getIt.registerSingleton<CalendarUC>(CalendarUC(googleCalendarRepo: CalendarGoogleRepo()));
 
   /// global state controllers
   // первый контроллер
@@ -155,4 +161,5 @@ void setup() {
   getIt.registerSingleton<InvitationTokenController>(InvitationTokenController());
   getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
   getIt.registerSingleton<IAPController>(IAPController());
+  getIt.registerSingleton<CalendarController>(CalendarController());
 }

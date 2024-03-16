@@ -9,6 +9,7 @@ doc/AuthToken.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
+doc/BodyMyCalendarUpdateGoogleAccounts.md
 doc/BodyRedeemV1MyInvitationsRedeemPost.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
@@ -33,6 +34,7 @@ doc/InvoiceGet.md
 doc/MemberGet.md
 doc/MyAccountApi.md
 doc/MyActivitiesApi.md
+doc/MyCalendarApi.md
 doc/MyInvitationsApi.md
 doc/MyNotificationsApi.md
 doc/MyProjectsApi.md
@@ -90,6 +92,7 @@ lib/src/api/integrations_sources_api.dart
 lib/src/api/integrations_tasks_api.dart
 lib/src/api/my_account_api.dart
 lib/src/api/my_activities_api.dart
+lib/src/api/my_calendar_api.dart
 lib/src/api/my_invitations_api.dart
 lib/src/api/my_notifications_api.dart
 lib/src/api/my_projects_api.dart
@@ -120,6 +123,7 @@ lib/src/model/auth_token.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
+lib/src/model/body_my_calendar_update_google_accounts.dart
 lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
@@ -179,6 +183,7 @@ test/auth_token_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_iap_notification_v1_payments_iap_notification_post_test.dart
+test/body_my_calendar_update_google_accounts_test.dart
 test/body_redeem_v1_my_invitations_redeem_post_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
@@ -203,6 +208,7 @@ test/invoice_get_test.dart
 test/member_get_test.dart
 test/my_account_api_test.dart
 test/my_activities_api_test.dart
+test/my_calendar_api_test.dart
 test/my_invitations_api_test.dart
 test/my_notifications_api_test.dart
 test/my_projects_api_test.dart

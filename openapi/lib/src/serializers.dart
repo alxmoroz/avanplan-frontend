@@ -4,22 +4,21 @@
 
 // ignore_for_file: unused_import
 
-import 'package:one_of_serializer/any_of_serializer.dart';
-import 'package:one_of_serializer/one_of_serializer.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:built_value/iso_8601_date_time_serializer.dart';
+import 'package:one_of_serializer/any_of_serializer.dart';
+import 'package:one_of_serializer/one_of_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
-import 'package:openapi/src/model/date.dart';
-
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
+import 'package:openapi/src/model/body_my_calendar_update_google_accounts.dart';
 import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
@@ -29,6 +28,7 @@ import 'package:openapi/src/model/body_start_import.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
+import 'package:openapi/src/model/date'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/feature_set_get.dart';
@@ -79,6 +79,7 @@ part 'serializers.g.dart';
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
   BodyIapNotificationV1PaymentsIapNotificationPost,
+  BodyMyCalendarUpdateGoogleAccounts,
   BodyRedeemV1MyInvitationsRedeemPost,
   BodyRegisterV1MyActivitiesRegisterPost,
   BodyRegistrationToken,
@@ -131,20 +132,8 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TaskRemote)]),
-        () => ListBuilder<TaskRemote>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
         () => ListBuilder<ProjectFeatureSetGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(ProjectGet)]),
-        () => ListBuilder<ProjectGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(int)]),
-        () => ListBuilder<int>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Notification)]),
@@ -159,6 +148,22 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TariffGet>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(InvitationGet)]),
+        () => ListBuilder<InvitationGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskRemote)]),
+        () => ListBuilder<TaskRemote>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectGet)]),
+        () => ListBuilder<ProjectGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(int)]),
+        () => ListBuilder<int>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ReleaseNoteGet)]),
         () => ListBuilder<ReleaseNoteGet>(),
       )
@@ -171,8 +176,8 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<FeatureSetGet>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(InvitationGet)]),
-        () => ListBuilder<InvitationGet>(),
+        const FullType(BuiltList, [FullType(String)]),
+        () => ListBuilder<String>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

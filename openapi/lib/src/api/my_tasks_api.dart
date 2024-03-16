@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -21,7 +23,7 @@ class MyTasksApi {
   const MyTasksApi(this._dio, this._serializers);
 
   /// My Tasks
-  /// 
+  /// Доступные задачи, цели или проекты
   ///
   /// Parameters:
   /// * [wsId] 

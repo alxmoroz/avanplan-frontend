@@ -2,13 +2,8 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:openapi/src/serializers.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
+import 'package:dio/dio.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/contracts_api.dart';
 import 'package:openapi/src/api/feature_sets_api.dart';
@@ -16,6 +11,7 @@ import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
 import 'package:openapi/src/api/my_account_api.dart';
 import 'package:openapi/src/api/my_activities_api.dart';
+import 'package:openapi/src/api/my_calendar_api.dart';
 import 'package:openapi/src/api/my_invitations_api.dart';
 import 'package:openapi/src/api/my_notifications_api.dart';
 import 'package:openapi/src/api/my_projects_api.dart';
@@ -33,6 +29,11 @@ import 'package:openapi/src/api/task_roles_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 import 'package:openapi/src/api/transfer_api.dart';
 import 'package:openapi/src/api/workspaces_api.dart';
+import 'package:openapi/src/auth/api_key_auth.dart';
+import 'package:openapi/src/auth/basic_auth.dart';
+import 'package:openapi/src/auth/bearer_auth.dart';
+import 'package:openapi/src/auth/oauth.dart';
+import 'package:openapi/src/serializers'package:openapi/src/api/workspaces_api.dart';
 
 class Openapi {
   static const String basePath = r'/api';
@@ -128,6 +129,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   MyActivitiesApi getMyActivitiesApi() {
     return MyActivitiesApi(dio, serializers);
+  }
+
+  /// Get MyCalendarApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyCalendarApi getMyCalendarApi() {
+    return MyCalendarApi(dio, serializers);
   }
 
   /// Get MyInvitationsApi instance, base route and serializer can be overridden by a given but be careful,

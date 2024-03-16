@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -7,6 +9,8 @@ void main() {
 
   group(MyTasksApi, () {
     // My Tasks
+    //
+    // Доступные задачи, цели или проекты
     //
     //Future<BuiltList<TaskGet>> myTasksV1MyTasksGet(int wsId, { int parentId, bool closed }) async
     test('test myTasksV1MyTasksGet', () async {

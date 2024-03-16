@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 My Tasks
 
+Доступные задачи, цели или проекты
+
 ### Example
 ```dart
 import 'package:openapi/api.dart';

@@ -83,8 +83,10 @@ Class | Method | HTTP request | Description
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
+[*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarGoogleAccounts**](doc/MyCalendarApi.md#mycalendargoogleaccounts) | **GET** /v1/my/calendar/google_accounts | Google Accounts
+[*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarUpdateGoogleAccounts**](doc/MyCalendarApi.md#mycalendarupdategoogleaccounts) | **POST** /v1/my/calendar/google_accounts | Update Google Accounts
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
-[*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
+[*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
 [*MyProjectsApi*](doc/MyProjectsApi.md) | [**myProjectsV1MyProjectsGet**](doc/MyProjectsApi.md#myprojectsv1myprojectsget) | **GET** /v1/my/projects | My Projects
 [*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
@@ -148,6 +150,7 @@ Class | Method | HTTP request | Description
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyIapNotificationV1PaymentsIapNotificationPost](doc/BodyIapNotificationV1PaymentsIapNotificationPost.md)
+ - [BodyMyCalendarUpdateGoogleAccounts](doc/BodyMyCalendarUpdateGoogleAccounts.md)
  - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)

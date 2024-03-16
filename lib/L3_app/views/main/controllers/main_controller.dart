@@ -28,6 +28,7 @@ abstract class _MainControllerBase with Store {
     await notificationController.getData();
     await wsMainController.getData();
     await tasksMainController.getData();
+    await calendarController.getData();
 
     _setUpdateDate(now);
     await loader.stop();

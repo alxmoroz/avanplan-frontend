@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -11,25 +13,25 @@ part 'task_source_get.g.dart';
 /// TaskSourceGet
 ///
 /// Properties:
-/// * [id] 
-/// * [sourceId] 
-/// * [code] 
-/// * [rootCode] 
-/// * [url] 
-/// * [state] 
-/// * [stateDetails] 
-/// * [updatedOn] 
-/// * [keepConnection] 
+/// * [id]
+/// * [code]
+/// * [sourceId]
+/// * [rootCode]
+/// * [url]
+/// * [state]
+/// * [stateDetails]
+/// * [updatedOn]
+/// * [keepConnection]
 @BuiltValue()
 abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'source_id')
-  int get sourceId;
-
   @BuiltValueField(wireName: r'code')
   String get code;
+
+  @BuiltValueField(wireName: r'source_id')
+  int get sourceId;
 
   @BuiltValueField(wireName: r'root_code')
   String get rootCode;
@@ -55,8 +57,8 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceGetBuilder b) => b
-      ..state = 'UNKNOWN'
-      ..keepConnection = false;
+    ..state = 'UNKNOWN'
+    ..keepConnection = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskSourceGet> get serializer => _$TaskSourceGetSerializer();
@@ -79,15 +81,15 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'source_id';
-    yield serializers.serialize(
-      object.sourceId,
-      specifiedType: const FullType(int),
-    );
     yield r'code';
     yield serializers.serialize(
       object.code,
       specifiedType: const FullType(String),
+    );
+    yield r'source_id';
+    yield serializers.serialize(
+      object.sourceId,
+      specifiedType: const FullType(int),
     );
     yield r'root_code';
     yield serializers.serialize(
@@ -155,19 +157,19 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'source_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.sourceId = valueDes;
-          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
+          break;
+        case r'source_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sourceId = valueDes;
           break;
         case r'root_code':
           final valueDes = serializers.deserialize(
@@ -239,4 +241,3 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
     return result.build();
   }
 }
-

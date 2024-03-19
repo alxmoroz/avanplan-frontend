@@ -1,5 +1,7 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 // tests for TaskSourceGet
 void main() {
@@ -12,13 +14,13 @@ void main() {
       // TODO
     });
 
-    // int sourceId
-    test('to test the property `sourceId`', () async {
+    // String code
+    test('to test the property `code`', () async {
       // TODO
     });
 
-    // String code
-    test('to test the property `code`', () async {
+    // int sourceId
+    test('to test the property `sourceId`', () async {
       // TODO
     });
 

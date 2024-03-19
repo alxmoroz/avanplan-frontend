@@ -9,6 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
+**expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **createdOn** | [**DateTime**](DateTime.md) |  | 
 **title** | **String** |  | 
 **description** | **String** |  | [optional] 

@@ -1,5 +1,7 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 // tests for WorkspaceUpsert
 void main() {
@@ -29,6 +31,11 @@ void main() {
 
     // String type (default value: 'PRIVATE')
     test('to test the property `type`', () async {
+      // TODO
+    });
+
+    // DateTime expiresOn
+    test('to test the property `expiresOn`', () async {
       // TODO
     });
   });

@@ -1,12 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import '../entities/calendar_source.dart';
 import '../repositories/abs_calendar_repo.dart';
 
 class CalendarUC {
-  const CalendarUC({required this.googleCalendarRepo});
+  const CalendarUC({required this.calendarRepo});
 
-  final AbstractCalendarGoogleRepo googleCalendarRepo;
+  final AbstractCalendarRepo calendarRepo;
 
-  Future<Iterable<String>> authenticateGoogleAccount() async => await googleCalendarRepo.authenticateAccount();
-  Future<Iterable<String>> getGoogleAccounts() async => await googleCalendarRepo.getAccounts();
+  Future<CalendarSource?> updateSource(CalendarSourceType type) async => await calendarRepo.updateSource(type);
+  Future<Iterable<CalendarSource>> getSources() async => await calendarRepo.getSources();
 }

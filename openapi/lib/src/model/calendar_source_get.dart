@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -6,60 +8,71 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_my_calendar_update_google_accounts.g.dart';
+part 'calendar_source_get.g.dart';
 
-/// BodyMyCalendarUpdateGoogleAccounts
+/// CalendarSourceGet
 ///
 /// Properties:
-/// * [email] 
-/// * [accessToken] 
+/// * [id]
+/// * [email]
+/// * [type]
 @BuiltValue()
-abstract class BodyMyCalendarUpdateGoogleAccounts implements Built<BodyMyCalendarUpdateGoogleAccounts, BodyMyCalendarUpdateGoogleAccountsBuilder> {
+abstract class CalendarSourceGet implements Built<CalendarSourceGet, CalendarSourceGetBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int get id;
+
   @BuiltValueField(wireName: r'email')
   String get email;
 
-  @BuiltValueField(wireName: r'access_token')
-  String get accessToken;
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
-  BodyMyCalendarUpdateGoogleAccounts._();
+  CalendarSourceGet._();
 
-  factory BodyMyCalendarUpdateGoogleAccounts([void updates(BodyMyCalendarUpdateGoogleAccountsBuilder b)]) = _$BodyMyCalendarUpdateGoogleAccounts;
+  factory CalendarSourceGet([void updates(CalendarSourceGetBuilder b)]) = _$CalendarSourceGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyMyCalendarUpdateGoogleAccountsBuilder b) => b;
+  static void _defaults(CalendarSourceGetBuilder b) => b..type = 'GOOGLE';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyMyCalendarUpdateGoogleAccounts> get serializer => _$BodyMyCalendarUpdateGoogleAccountsSerializer();
+  static Serializer<CalendarSourceGet> get serializer => _$CalendarSourceGetSerializer();
 }
 
-class _$BodyMyCalendarUpdateGoogleAccountsSerializer implements PrimitiveSerializer<BodyMyCalendarUpdateGoogleAccounts> {
+class _$CalendarSourceGetSerializer implements PrimitiveSerializer<CalendarSourceGet> {
   @override
-  final Iterable<Type> types = const [BodyMyCalendarUpdateGoogleAccounts, _$BodyMyCalendarUpdateGoogleAccounts];
+  final Iterable<Type> types = const [CalendarSourceGet, _$CalendarSourceGet];
 
   @override
-  final String wireName = r'BodyMyCalendarUpdateGoogleAccounts';
+  final String wireName = r'CalendarSourceGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyMyCalendarUpdateGoogleAccounts object, {
+    CalendarSourceGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
     yield r'email';
     yield serializers.serialize(
       object.email,
       specifiedType: const FullType(String),
     );
-    yield r'access_token';
-    yield serializers.serialize(
-      object.accessToken,
-      specifiedType: const FullType(String),
-    );
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    BodyMyCalendarUpdateGoogleAccounts object, {
+    CalendarSourceGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -70,13 +83,20 @@ class _$BodyMyCalendarUpdateGoogleAccountsSerializer implements PrimitiveSeriali
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyMyCalendarUpdateGoogleAccountsBuilder result,
+    required CalendarSourceGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
         case r'email':
           final valueDes = serializers.deserialize(
             value,
@@ -84,12 +104,12 @@ class _$BodyMyCalendarUpdateGoogleAccountsSerializer implements PrimitiveSeriali
           ) as String;
           result.email = valueDes;
           break;
-        case r'access_token':
+        case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.accessToken = valueDes;
+          result.type = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -100,12 +120,12 @@ class _$BodyMyCalendarUpdateGoogleAccountsSerializer implements PrimitiveSeriali
   }
 
   @override
-  BodyMyCalendarUpdateGoogleAccounts deserialize(
+  CalendarSourceGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyMyCalendarUpdateGoogleAccountsBuilder();
+    final result = CalendarSourceGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
@@ -119,4 +139,3 @@ class _$BodyMyCalendarUpdateGoogleAccountsSerializer implements PrimitiveSeriali
     return result.build();
   }
 }
-

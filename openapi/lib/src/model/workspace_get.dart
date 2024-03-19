@@ -1,42 +1,48 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-// ignore_for_file: unused_element
-import 'package:openapi/src/model/source_get.dart';
-import 'package:openapi/src/model/member_get.dart';
-import 'package:openapi/src/model/settings_get.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/estimate_value_get.dart';
-import 'package:openapi/src/model/invoice_get.dart';
-import 'package:openapi/src/model/user.dart';
-import 'package:openapi/src/model/role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:openapi/src/model/estimate_value_get.dart';
+import 'package:openapi/src/model/invoice_get.dart';
+import 'package:openapi/src/model/member_get.dart';
+import 'package:openapi/src/model/role_get.dart';
+import 'package:openapi/src/model/settings_get.dart';
+// ignore_for_file: unused_element
+import 'package:openapi/src/model/source_get.dart';
+import 'package:openapi/src/model/user.dart';
 
 part 'workspace_get.g.dart';
 
 /// WorkspaceGet
 ///
 /// Properties:
-/// * [id] 
-/// * [createdOn] 
-/// * [title] 
-/// * [description] 
-/// * [code] 
-/// * [type] 
-/// * [users] 
-/// * [members] 
-/// * [roles] 
-/// * [invoice] 
-/// * [balance] 
-/// * [settings] 
-/// * [estimateValues] 
-/// * [sources] 
+/// * [id]
+/// * [expiresOn]
+/// * [createdOn]
+/// * [title]
+/// * [description]
+/// * [code]
+/// * [type]
+/// * [users]
+/// * [members]
+/// * [roles]
+/// * [invoice]
+/// * [balance]
+/// * [settings]
+/// * [estimateValues]
+/// * [sources]
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
+
+  @BuiltValueField(wireName: r'expires_on')
+  DateTime? get expiresOn;
 
   @BuiltValueField(wireName: r'created_on')
   DateTime get createdOn;
@@ -83,8 +89,8 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
-      ..type = 'PRIVATE'
-      ..balance = 0;
+    ..type = 'PRIVATE'
+    ..balance = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -107,6 +113,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
+    if (object.expiresOn != null) {
+      yield r'expires_on';
+      yield serializers.serialize(
+        object.expiresOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     yield r'created_on';
     yield serializers.serialize(
       object.createdOn,
@@ -221,6 +234,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
+          break;
+        case r'expires_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.expiresOn = valueDes;
           break;
         case r'created_on':
           final valueDes = serializers.deserialize(
@@ -341,4 +361,3 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
     return result.build();
   }
 }
-

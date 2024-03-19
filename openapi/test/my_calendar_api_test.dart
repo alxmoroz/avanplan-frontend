@@ -1,22 +1,31 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 /// tests for MyCalendarApi
 void main() {
   final instance = Openapi().getMyCalendarApi();
 
   group(MyCalendarApi, () {
-    // Google Accounts
+    // Events
     //
-    //Future<BuiltList<String>> myCalendarGoogleAccounts() async
-    test('test myCalendarGoogleAccounts', () async {
+    //Future<BuiltList<CalendarEvent>> myCalendarEvents() async
+    test('test myCalendarEvents', () async {
       // TODO
     });
 
-    // Update Google Accounts
+    // Sources
     //
-    //Future<BuiltList<String>> myCalendarUpdateGoogleAccounts(BodyMyCalendarUpdateGoogleAccounts bodyMyCalendarUpdateGoogleAccounts) async
-    test('test myCalendarUpdateGoogleAccounts', () async {
+    //Future<BuiltList<CalendarSourceGet>> myCalendarSources() async
+    test('test myCalendarSources', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<CalendarSourceGet> myCalendarSourcesUpsert(BodyMyCalendarSourcesUpsert bodyMyCalendarSourcesUpsert) async
+    test('test myCalendarSourcesUpsert', () async {
       // TODO
     });
   });

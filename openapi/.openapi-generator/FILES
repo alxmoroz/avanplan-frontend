@@ -9,7 +9,7 @@ doc/AuthToken.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
-doc/BodyMyCalendarUpdateGoogleAccounts.md
+doc/BodyMyCalendarSourcesUpsert.md
 doc/BodyRedeemV1MyInvitationsRedeemPost.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
@@ -18,6 +18,9 @@ doc/BodyRequestSourceType.md
 doc/BodyStartImport.md
 doc/BodyUpdateAccountV1MyAccountPost.md
 doc/BodyUpdatePushTokenV1MyPushTokensPost.md
+doc/CalendarEvent.md
+doc/CalendarEventAttendee.md
+doc/CalendarSourceGet.md
 doc/ContractGet.md
 doc/ContractsApi.md
 doc/EstimateUnitGet.md
@@ -123,7 +126,7 @@ lib/src/model/auth_token.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
-lib/src/model/body_my_calendar_update_google_accounts.dart
+lib/src/model/body_my_calendar_sources_upsert.dart
 lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
@@ -132,6 +135,9 @@ lib/src/model/body_request_source_type.dart
 lib/src/model/body_start_import.dart
 lib/src/model/body_update_account_v1_my_account_post.dart
 lib/src/model/body_update_push_token_v1_my_push_tokens_post.dart
+lib/src/model/calendar_event.dart
+lib/src/model/calendar_event_attendee.dart
+lib/src/model/calendar_source_get.dart
 lib/src/model/contract_get.dart
 lib/src/model/date.dart
 lib/src/model/estimate_unit_get.dart
@@ -183,7 +189,7 @@ test/auth_token_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_iap_notification_v1_payments_iap_notification_post_test.dart
-test/body_my_calendar_update_google_accounts_test.dart
+test/body_my_calendar_sources_upsert_test.dart
 test/body_redeem_v1_my_invitations_redeem_post_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
@@ -192,6 +198,9 @@ test/body_request_source_type_test.dart
 test/body_start_import_test.dart
 test/body_update_account_v1_my_account_post_test.dart
 test/body_update_push_token_v1_my_push_tokens_post_test.dart
+test/calendar_event_attendee_test.dart
+test/calendar_event_test.dart
+test/calendar_source_get_test.dart
 test/contract_get_test.dart
 test/contracts_api_test.dart
 test/estimate_unit_get_test.dart

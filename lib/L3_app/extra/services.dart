@@ -138,7 +138,7 @@ void setup() {
   getIt.registerSingleton<FeatureSetUC>(FeatureSetUC(FeatureSetRepo()));
   getIt.registerSingleton<ProjectTransferUC>(ProjectTransferUC(ProjectTransferRepo()));
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
-  getIt.registerSingleton<CalendarUC>(CalendarUC(googleCalendarRepo: CalendarGoogleRepo()));
+  getIt.registerSingleton<CalendarUC>(CalendarUC(calendarRepo: CalendarRepo()));
 
   /// global state controllers
   // первый контроллер

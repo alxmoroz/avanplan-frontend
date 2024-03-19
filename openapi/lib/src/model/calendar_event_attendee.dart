@@ -8,100 +8,87 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'workspace_upsert.g.dart';
+part 'calendar_event_attendee.g.dart';
 
-/// WorkspaceUpsert
+/// CalendarEventAttendee
 ///
 /// Properties:
-/// * [id]
-/// * [title]
-/// * [description]
-/// * [code]
-/// * [type]
-/// * [expiresOn]
+/// * [email]
+/// * [fullName]
+/// * [nickName]
+/// * [locale]
+/// * [sourceCode]
 @BuiltValue()
-abstract class WorkspaceUpsert
-    implements Built<WorkspaceUpsert, WorkspaceUpsertBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int? get id;
+abstract class CalendarEventAttendee implements Built<CalendarEventAttendee, CalendarEventAttendeeBuilder> {
+  @BuiltValueField(wireName: r'email')
+  String get email;
 
-  @BuiltValueField(wireName: r'title')
-  String get title;
+  @BuiltValueField(wireName: r'full_name')
+  String? get fullName;
 
-  @BuiltValueField(wireName: r'description')
-  String? get description;
+  @BuiltValueField(wireName: r'nick_name')
+  String? get nickName;
 
-  @BuiltValueField(wireName: r'code')
-  String get code;
+  @BuiltValueField(wireName: r'locale')
+  String? get locale;
 
-  @BuiltValueField(wireName: r'type')
-  String? get type;
+  @BuiltValueField(wireName: r'source_code')
+  String? get sourceCode;
 
-  @BuiltValueField(wireName: r'expires_on')
-  DateTime? get expiresOn;
+  CalendarEventAttendee._();
 
-  WorkspaceUpsert._();
-
-  factory WorkspaceUpsert([void updates(WorkspaceUpsertBuilder b)]) =
-      _$WorkspaceUpsert;
+  factory CalendarEventAttendee([void updates(CalendarEventAttendeeBuilder b)]) = _$CalendarEventAttendee;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WorkspaceUpsertBuilder b) => b..type = 'PRIVATE';
+  static void _defaults(CalendarEventAttendeeBuilder b) => b..locale = 'ru';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<WorkspaceUpsert> get serializer =>
-      _$WorkspaceUpsertSerializer();
+  static Serializer<CalendarEventAttendee> get serializer => _$CalendarEventAttendeeSerializer();
 }
 
-class _$WorkspaceUpsertSerializer
-    implements PrimitiveSerializer<WorkspaceUpsert> {
+class _$CalendarEventAttendeeSerializer implements PrimitiveSerializer<CalendarEventAttendee> {
   @override
-  final Iterable<Type> types = const [WorkspaceUpsert, _$WorkspaceUpsert];
+  final Iterable<Type> types = const [CalendarEventAttendee, _$CalendarEventAttendee];
 
   @override
-  final String wireName = r'WorkspaceUpsert';
+  final String wireName = r'CalendarEventAttendee';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    WorkspaceUpsert object, {
+    CalendarEventAttendee object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
-    yield r'title';
+    yield r'email';
     yield serializers.serialize(
-      object.title,
+      object.email,
       specifiedType: const FullType(String),
     );
-    if (object.description != null) {
-      yield r'description';
+    if (object.fullName != null) {
+      yield r'full_name';
       yield serializers.serialize(
-        object.description,
+        object.fullName,
         specifiedType: const FullType(String),
       );
     }
-    yield r'code';
-    yield serializers.serialize(
-      object.code,
-      specifiedType: const FullType(String),
-    );
-    if (object.type != null) {
-      yield r'type';
+    if (object.nickName != null) {
+      yield r'nick_name';
       yield serializers.serialize(
-        object.type,
+        object.nickName,
         specifiedType: const FullType(String),
       );
     }
-    if (object.expiresOn != null) {
-      yield r'expires_on';
+    if (object.locale != null) {
+      yield r'locale';
       yield serializers.serialize(
-        object.expiresOn,
-        specifiedType: const FullType(DateTime),
+        object.locale,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.sourceCode != null) {
+      yield r'source_code';
+      yield serializers.serialize(
+        object.sourceCode,
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -109,12 +96,10 @@ class _$WorkspaceUpsertSerializer
   @override
   Object serialize(
     Serializers serializers,
-    WorkspaceUpsert object, {
+    CalendarEventAttendee object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -122,54 +107,47 @@ class _$WorkspaceUpsertSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required WorkspaceUpsertBuilder result,
+    required CalendarEventAttendeeBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
-        case r'title':
+        case r'email':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
+          result.email = valueDes;
           break;
-        case r'description':
+        case r'full_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.description = valueDes;
+          result.fullName = valueDes;
           break;
-        case r'code':
+        case r'nick_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.code = valueDes;
+          result.nickName = valueDes;
           break;
-        case r'type':
+        case r'locale':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.type = valueDes;
+          result.locale = valueDes;
           break;
-        case r'expires_on':
+        case r'source_code':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.expiresOn = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.sourceCode = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -180,12 +158,12 @@ class _$WorkspaceUpsertSerializer
   }
 
   @override
-  WorkspaceUpsert deserialize(
+  CalendarEventAttendee deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = WorkspaceUpsertBuilder();
+    final result = CalendarEventAttendeeBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

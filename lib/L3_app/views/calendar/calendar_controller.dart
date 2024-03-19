@@ -1,8 +1,10 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/calendar_event.dart';
+import '../../../L1_domain/entities/calendar_source.dart';
 import '../../extra/services.dart';
 
 part 'calendar_controller.g.dart';
@@ -11,7 +13,10 @@ class CalendarController extends _CalendarControllerBase with _$CalendarControll
 
 abstract class _CalendarControllerBase with Store {
   @observable
-  Iterable<String> googleAccounts = [];
+  ObservableList<CalendarSource> _sources = ObservableList();
+
+  @computed
+  List<CalendarSource> get sources => _sources.sortedBy<String>((s) => s.email);
 
   @observable
   Iterable<CalendarEvent> events = [];
@@ -20,16 +25,29 @@ abstract class _CalendarControllerBase with Store {
   bool loading = false;
 
   @action
-  Future authenticateGoogleAccount() async {
+  void _setSource(CalendarSource es) {
+    final index = _sources.indexWhere((s) => s.id == es.id);
+    if (index > -1) {
+      _sources[index] = es;
+    } else {
+      _sources.add(es);
+    }
+  }
+
+  @action
+  Future authenticateGoogleCalendar() async {
     loading = true;
-    googleAccounts = await calendarUC.authenticateGoogleAccount();
+    final es = await calendarUC.updateSource(CalendarSourceType.GOOGLE);
+    if (es != null) {
+      _setSource(es);
+    }
     loading = false;
   }
 
   @action
   Future getData() async {
-    // список подключенных календарей (учёток гугла)
-    googleAccounts = await calendarUC.getGoogleAccounts();
+    // список подключенных календарей (учёток гугла, эпла и т.п.)
+    _sources = ObservableList.of(await calendarUC.getSources());
 
     // TODO: список событий из подключенных календарей
     events = [];
@@ -38,6 +56,6 @@ abstract class _CalendarControllerBase with Store {
   @action
   void clearData() {
     events = [];
-    googleAccounts = [];
+    _sources.clear();
   }
 }

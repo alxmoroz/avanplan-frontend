@@ -1,6 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-abstract class AbstractCalendarGoogleRepo {
-  Future<Iterable<String>> authenticateAccount();
-  Future<Iterable<String>> getAccounts();
+import '../entities/calendar_source.dart';
+
+abstract class AbstractCalendarRepo {
+  Future<CalendarSource?> updateSource(CalendarSourceType type);
+  Future<Iterable<CalendarSource>> getSources();
 }

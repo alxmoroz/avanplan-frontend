@@ -1,26 +1,26 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
 // ignore_for_file: unused_import
 
-import 'package:one_of_serializer/any_of_serializer.dart';
-import 'package:one_of_serializer/one_of_serializer.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:built_value/iso_8601_date_time_serializer.dart';
+import 'package:one_of_serializer/any_of_serializer.dart';
+import 'package:one_of_serializer/one_of_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
-import 'package:openapi/src/model/date.dart';
-
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
-import 'package:openapi/src/model/body_my_calendar_update_google_accounts.dart';
+import 'package:openapi/src/model/body_my_calendar_sources_upsert.dart';
 import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
@@ -29,7 +29,11 @@ import 'package:openapi/src/model/body_request_source_type.dart';
 import 'package:openapi/src/model/body_start_import.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
+import 'package:openapi/src/model/calendar_event.dart';
+import 'package:openapi/src/model/calendar_event_attendee.dart';
+import 'package:openapi/src/model/calendar_source_get.dart';
 import 'package:openapi/src/model/contract_get.dart';
+import 'package:openapi/src/model/date.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/feature_set_get.dart';
@@ -80,7 +84,7 @@ part 'serializers.g.dart';
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
   BodyIapNotificationV1PaymentsIapNotificationPost,
-  BodyMyCalendarUpdateGoogleAccounts,
+  BodyMyCalendarSourcesUpsert,
   BodyRedeemV1MyInvitationsRedeemPost,
   BodyRegisterV1MyActivitiesRegisterPost,
   BodyRegistrationToken,
@@ -89,6 +93,9 @@ part 'serializers.g.dart';
   BodyStartImport,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokensPost,
+  CalendarEvent,
+  CalendarEventAttendee,
+  CalendarSourceGet,
   ContractGet,
   EstimateUnitGet,
   EstimateValueGet,
@@ -133,6 +140,10 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CalendarEvent)]),
+        () => ListBuilder<CalendarEvent>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
         () => ListBuilder<ProjectFeatureSetGet>(),
       )
@@ -169,16 +180,16 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<ReleaseNoteGet>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CalendarSourceGet)]),
+        () => ListBuilder<CalendarSourceGet>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(MemberGet)]),
         () => ListBuilder<MemberGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(FeatureSetGet)]),
         () => ListBuilder<FeatureSetGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(String)]),
-        () => ListBuilder<String>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

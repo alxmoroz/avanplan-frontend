@@ -9,8 +9,8 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**sourceId** | **int** |  | 
 **code** | **String** |  | 
+**sourceId** | **int** |  | 
 **rootCode** | **String** |  | 
 **url** | **String** |  | 
 **state** | **String** |  | [optional] [default to 'UNKNOWN']

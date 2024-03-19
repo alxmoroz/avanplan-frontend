@@ -8,8 +8,8 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sourceId** | **int** |  | 
 **code** | **String** |  | 
+**sourceId** | **int** |  | 
 **rootCode** | **String** |  | 
 **url** | **String** |  | [optional] [default to '']
 **state** | **String** |  | [optional] [default to 'UNKNOWN']

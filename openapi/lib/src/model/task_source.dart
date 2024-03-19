@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -11,24 +13,24 @@ part 'task_source.g.dart';
 /// TaskSource
 ///
 /// Properties:
-/// * [sourceId] 
-/// * [code] 
-/// * [rootCode] 
-/// * [url] 
-/// * [state] 
-/// * [stateDetails] 
-/// * [updatedOn] 
-/// * [keepConnection] 
-/// * [parentCode] 
-/// * [versionCode] 
-/// * [skipUpdate] 
+/// * [code]
+/// * [sourceId]
+/// * [rootCode]
+/// * [url]
+/// * [state]
+/// * [stateDetails]
+/// * [updatedOn]
+/// * [keepConnection]
+/// * [parentCode]
+/// * [versionCode]
+/// * [skipUpdate]
 @BuiltValue()
 abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
-  @BuiltValueField(wireName: r'source_id')
-  int get sourceId;
-
   @BuiltValueField(wireName: r'code')
   String get code;
+
+  @BuiltValueField(wireName: r'source_id')
+  int get sourceId;
 
   @BuiltValueField(wireName: r'root_code')
   String get rootCode;
@@ -63,10 +65,10 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceBuilder b) => b
-      ..url = ''
-      ..state = 'UNKNOWN'
-      ..keepConnection = false
-      ..skipUpdate = false;
+    ..url = ''
+    ..state = 'UNKNOWN'
+    ..keepConnection = false
+    ..skipUpdate = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskSource> get serializer => _$TaskSourceSerializer();
@@ -84,15 +86,15 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
     TaskSource object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'source_id';
-    yield serializers.serialize(
-      object.sourceId,
-      specifiedType: const FullType(int),
-    );
     yield r'code';
     yield serializers.serialize(
       object.code,
       specifiedType: const FullType(String),
+    );
+    yield r'source_id';
+    yield serializers.serialize(
+      object.sourceId,
+      specifiedType: const FullType(int),
     );
     yield r'root_code';
     yield serializers.serialize(
@@ -163,7 +165,9 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
     TaskSource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -178,19 +182,19 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'source_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.sourceId = valueDes;
-          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
+          break;
+        case r'source_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sourceId = valueDes;
           break;
         case r'root_code':
           final valueDes = serializers.deserialize(
@@ -283,4 +287,3 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
     return result.build();
   }
 }
-

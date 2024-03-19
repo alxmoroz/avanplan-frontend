@@ -1,4 +1,4 @@
-# openapi.model.WorkspaceUpsert
+# openapi.model.CalendarSourceGet
 
 ## Load the model package
 ```dart
@@ -8,12 +8,9 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**title** | **String** |  | 
-**description** | **String** |  | [optional] 
-**code** | **String** |  | 
-**type** | **String** |  | [optional] [default to 'PRIVATE']
-**expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
+**id** | **int** |  | 
+**email** | **String** |  | 
+**type** | **String** |  | [optional] [default to 'GOOGLE']
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

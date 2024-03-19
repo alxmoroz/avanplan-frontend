@@ -1,4 +1,4 @@
-# openapi.model.WorkspaceUpsert
+# openapi.model.CalendarEventAttendee
 
 ## Load the model package
 ```dart
@@ -8,12 +8,11 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**title** | **String** |  | 
-**description** | **String** |  | [optional] 
-**code** | **String** |  | 
-**type** | **String** |  | [optional] [default to 'PRIVATE']
-**expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
+**email** | **String** |  | 
+**fullName** | **String** |  | [optional] 
+**nickName** | **String** |  | [optional] 
+**locale** | **String** |  | [optional] [default to 'ru']
+**sourceCode** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

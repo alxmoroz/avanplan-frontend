@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
 
+import '../../L1_domain/entities/calendar_source.dart';
 import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/repositories/abs_calendar_repo.dart';
+import '../mappers/calendar_source.dart';
 import '../services/api.dart';
 
-class CalendarGoogleRepo extends AbstractCalendarGoogleRepo {
+class CalendarRepo extends AbstractCalendarRepo {
   MyCalendarApi get _myCalendarApi => openAPI.getMyCalendarApi();
 
   GoogleSignIn get _gSI => GoogleSignIn(
@@ -20,10 +22,20 @@ class CalendarGoogleRepo extends AbstractCalendarGoogleRepo {
       );
 
   @override
-  Future<Iterable<String>> getAccounts() async => (await _myCalendarApi.myCalendarGoogleAccounts()).data as Iterable<String>;
+  Future<Iterable<CalendarSource>> getSources() async => (await _myCalendarApi.myCalendarSources()).data?.map((cs) => cs.source) ?? [];
 
-  @override
-  Future<Iterable<String>> authenticateAccount() async {
+  Future<CalendarSource?> _updateSource(String accessToken, String email, String type) async {
+    final response = await _myCalendarApi.myCalendarSourcesUpsert(
+      bodyMyCalendarSourcesUpsert: (BodyMyCalendarSourcesUpsertBuilder()
+            ..accessToken = accessToken
+            ..email = email
+            ..sourceType = type)
+          .build(),
+    );
+    return response.data?.source;
+  }
+
+  Future<CalendarSource?> _updateGoogleSource() async {
     GoogleSignInAccount? account;
     GoogleSignInAuthentication? auth;
     try {
@@ -42,15 +54,17 @@ class CalendarGoogleRepo extends AbstractCalendarGoogleRepo {
       final email = account.email;
 
       if (accessToken != null) {
-        final response = await _myCalendarApi.myCalendarUpdateGoogleAccounts(
-          bodyMyCalendarUpdateGoogleAccounts: (BodyMyCalendarUpdateGoogleAccountsBuilder()
-                ..accessToken = accessToken
-                ..email = email)
-              .build(),
-        );
-        return response.data as Iterable<String>;
+        return await _updateSource(accessToken, email, CalendarSourceType.GOOGLE.name);
       }
     }
-    return [];
+    return null;
+  }
+
+  @override
+  Future<CalendarSource?> updateSource(CalendarSourceType type) async {
+    if (type == CalendarSourceType.GOOGLE) {
+      return await _updateGoogleSource();
+    }
+    return null;
   }
 }

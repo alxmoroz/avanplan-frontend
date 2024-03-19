@@ -1,5 +1,7 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 // tests for WorkspaceGet
 void main() {
@@ -9,6 +11,11 @@ void main() {
   group(WorkspaceGet, () {
     // int id
     test('to test the property `id`', () async {
+      // TODO
+    });
+
+    // DateTime expiresOn
+    test('to test the property `expiresOn`', () async {
       // TODO
     });
 

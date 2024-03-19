@@ -1,0 +1,163 @@
+# openapi.api.IntegrationsTasksApi
+
+## Load the API package
+```dart
+import 'package:openapi/api.dart';
+```
+
+All URIs are relative to */api*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**projectsListV1IntegrationsTasksGet**](IntegrationsTasksApi.md#projectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Projects List
+[**startImport**](IntegrationsTasksApi.md#startimport) | **POST** /v1/integrations/tasks/start_import | Start Import
+[**unlinkV1IntegrationsTasksUnlinkPost**](IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
+
+
+# **projectsListV1IntegrationsTasksGet**
+> BuiltList<TaskRemote> projectsListV1IntegrationsTasksGet(wsId, sourceId)
+
+Projects List
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getIntegrationsTasksApi();
+final int wsId = 56; // int | 
+final int sourceId = 56; // int | 
+
+try {
+    final response = api.projectsListV1IntegrationsTasksGet(wsId, sourceId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling IntegrationsTasksApi->projectsListV1IntegrationsTasksGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **sourceId** | **int**|  | 
+
+### Return type
+
+[**BuiltList&lt;TaskRemote&gt;**](TaskRemote.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **startImport**
+> bool startImport(wsId, bodyStartImport)
+
+Start Import
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getIntegrationsTasksApi();
+final int wsId = 56; // int | 
+final BodyStartImport bodyStartImport = ; // BodyStartImport | 
+
+try {
+    final response = api.startImport(wsId, bodyStartImport);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling IntegrationsTasksApi->startImport: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **bodyStartImport** | [**BodyStartImport**](BodyStartImport.md)|  | 
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **unlinkV1IntegrationsTasksUnlinkPost**
+> bool unlinkV1IntegrationsTasksUnlinkPost(taskId, wsId)
+
+Unlink
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getIntegrationsTasksApi();
+final int taskId = 56; // int | 
+final int wsId = 56; // int | 
+
+try {
+    final response = api.unlinkV1IntegrationsTasksUnlinkPost(taskId, wsId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling IntegrationsTasksApi->unlinkV1IntegrationsTasksUnlinkPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **taskId** | **int**|  | 
+ **wsId** | **int**|  | 
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

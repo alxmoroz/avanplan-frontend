@@ -18,8 +18,8 @@ abstract class _CalendarControllerBase with Store {
   @computed
   List<CalendarSource> get sources => _sources.sortedBy<String>((s) => s.email);
 
-  @observable
-  Iterable<CalendarEvent> events = [];
+  // @observable
+  // Iterable<CalendarEvent> events = [];
 
   @observable
   bool loading = false;
@@ -50,12 +50,12 @@ abstract class _CalendarControllerBase with Store {
     _sources = ObservableList.of(await calendarUC.getSources());
 
     // TODO: список событий из подключенных календарей
-    events = [];
+    // events = [];
   }
 
   @action
   void clearData() {
-    events = [];
+    // events = [];
     _sources.clear();
   }
 }

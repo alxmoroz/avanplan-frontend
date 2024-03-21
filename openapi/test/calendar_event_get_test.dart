@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for CalendarEvent
+// tests for CalendarEventGet
 void main() {
-  final instance = CalendarEventBuilder();
+  final instance = CalendarEventGetBuilder();
   // TODO add properties to the builder and call build()
 
-  group(CalendarEvent, () {
+  group(CalendarEventGet, () {
     // String title
     test('to test the property `title`', () async {
       // TODO

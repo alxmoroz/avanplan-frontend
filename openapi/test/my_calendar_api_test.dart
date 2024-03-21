@@ -6,13 +6,6 @@ void main() {
   final instance = Openapi().getMyCalendarApi();
 
   group(MyCalendarApi, () {
-    // Events
-    //
-    //Future<BuiltList<CalendarEvent>> myCalendarEvents() async
-    test('test myCalendarEvents', () async {
-      // TODO
-    });
-
     // Sources
     //
     //Future<BuiltList<CalendarSourceGet>> myCalendarSources() async
@@ -24,6 +17,13 @@ void main() {
     //
     //Future<CalendarSourceGet> myCalendarSourcesUpsert(BodyMyCalendarSourcesUpsert bodyMyCalendarSourcesUpsert) async
     test('test myCalendarSourcesUpsert', () async {
+      // TODO
+    });
+
+    // Calendars Events
+    //
+    //Future<CalendarsEvents> myCalendarsEvents() async
+    test('test myCalendarsEvents', () async {
       // TODO
     });
   });

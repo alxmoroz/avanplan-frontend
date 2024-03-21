@@ -83,9 +83,9 @@ Class | Method | HTTP request | Description
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
-[*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarEvents**](doc/MyCalendarApi.md#mycalendarevents) | **GET** /v1/my/calendar/events | Events
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSources**](doc/MyCalendarApi.md#mycalendarsources) | **GET** /v1/my/calendar/sources | Sources
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSourcesUpsert**](doc/MyCalendarApi.md#mycalendarsourcesupsert) | **POST** /v1/my/calendar/sources | Upsert
+[*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarsEvents**](doc/MyCalendarApi.md#mycalendarsevents) | **GET** /v1/my/calendar/calendars_events | Calendars Events
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
@@ -160,9 +160,11 @@ Class | Method | HTTP request | Description
  - [BodyStartImport](doc/BodyStartImport.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokensPost](doc/BodyUpdatePushTokenV1MyPushTokensPost.md)
- - [CalendarEvent](doc/CalendarEvent.md)
  - [CalendarEventAttendee](doc/CalendarEventAttendee.md)
+ - [CalendarEventGet](doc/CalendarEventGet.md)
+ - [CalendarGet](doc/CalendarGet.md)
  - [CalendarSourceGet](doc/CalendarSourceGet.md)
+ - [CalendarsEvents](doc/CalendarsEvents.md)
  - [ContractGet](doc/ContractGet.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)

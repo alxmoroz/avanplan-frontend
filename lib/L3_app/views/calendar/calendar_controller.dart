@@ -3,6 +3,7 @@
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/calendar.dart';
 import '../../../L1_domain/entities/calendar_event.dart';
 import '../../../L1_domain/entities/calendar_source.dart';
 import '../../extra/services.dart';
@@ -14,12 +15,18 @@ class CalendarController extends _CalendarControllerBase with _$CalendarControll
 abstract class _CalendarControllerBase with Store {
   @observable
   ObservableList<CalendarSource> _sources = ObservableList();
-
   @computed
   List<CalendarSource> get sources => _sources.sortedBy<String>((s) => s.email);
 
-  // @observable
-  // Iterable<CalendarEvent> events = [];
+  @observable
+  ObservableList<Calendar> _calendars = ObservableList();
+  @computed
+  List<Calendar> get calendars => _calendars.sortedBy<String>((c) => c.title);
+
+  @observable
+  ObservableList<CalendarEvent> _events = ObservableList();
+  @computed
+  List<CalendarEvent> get events => _events.sortedBy<DateTime>((ce) => ce.startDate);
 
   @observable
   bool loading = false;
@@ -49,13 +56,18 @@ abstract class _CalendarControllerBase with Store {
     // список подключенных календарей (учёток гугла, эпла и т.п.)
     _sources = ObservableList.of(await calendarUC.getSources());
 
-    // TODO: список событий из подключенных календарей
-    // events = [];
+    // календари и события
+    final data = await calendarUC.getCalendarsEvents();
+    _calendars = ObservableList.of(data.calendars);
+    _events = ObservableList.of(data.events);
+
+    print(calendars);
+    print(events);
   }
 
   @action
   void clearData() {
-    // events = [];
+    _events.clear();
     _sources.clear();
   }
 }

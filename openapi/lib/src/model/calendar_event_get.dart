@@ -8,9 +8,9 @@ import 'package:openapi/src/model/calendar_event_attendee.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'calendar_event.g.dart';
+part 'calendar_event_get.g.dart';
 
-/// CalendarEvent
+/// CalendarEventGet
 ///
 /// Properties:
 /// * [title] 
@@ -23,7 +23,7 @@ part 'calendar_event.g.dart';
 /// * [attendees] 
 /// * [sourceCode] 
 @BuiltValue()
-abstract class CalendarEvent implements Built<CalendarEvent, CalendarEventBuilder> {
+abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEventGetBuilder> {
   @BuiltValueField(wireName: r'title')
   String get title;
 
@@ -46,33 +46,33 @@ abstract class CalendarEvent implements Built<CalendarEvent, CalendarEventBuilde
   String? get location;
 
   @BuiltValueField(wireName: r'attendees')
-  BuiltList<CalendarEventAttendee>? get attendees;
+  BuiltList<CalendarEventAttendee> get attendees;
 
   @BuiltValueField(wireName: r'source_code')
   String? get sourceCode;
 
-  CalendarEvent._();
+  CalendarEventGet._();
 
-  factory CalendarEvent([void updates(CalendarEventBuilder b)]) = _$CalendarEvent;
+  factory CalendarEventGet([void updates(CalendarEventGetBuilder b)]) = _$CalendarEventGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(CalendarEventBuilder b) => b
+  static void _defaults(CalendarEventGetBuilder b) => b
       ..allDay = false;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CalendarEvent> get serializer => _$CalendarEventSerializer();
+  static Serializer<CalendarEventGet> get serializer => _$CalendarEventGetSerializer();
 }
 
-class _$CalendarEventSerializer implements PrimitiveSerializer<CalendarEvent> {
+class _$CalendarEventGetSerializer implements PrimitiveSerializer<CalendarEventGet> {
   @override
-  final Iterable<Type> types = const [CalendarEvent, _$CalendarEvent];
+  final Iterable<Type> types = const [CalendarEventGet, _$CalendarEventGet];
 
   @override
-  final String wireName = r'CalendarEvent';
+  final String wireName = r'CalendarEventGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    CalendarEvent object, {
+    CalendarEventGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'title';
@@ -116,13 +116,11 @@ class _$CalendarEventSerializer implements PrimitiveSerializer<CalendarEvent> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.attendees != null) {
-      yield r'attendees';
-      yield serializers.serialize(
-        object.attendees,
-        specifiedType: const FullType(BuiltList, [FullType(CalendarEventAttendee)]),
-      );
-    }
+    yield r'attendees';
+    yield serializers.serialize(
+      object.attendees,
+      specifiedType: const FullType(BuiltList, [FullType(CalendarEventAttendee)]),
+    );
     if (object.sourceCode != null) {
       yield r'source_code';
       yield serializers.serialize(
@@ -135,7 +133,7 @@ class _$CalendarEventSerializer implements PrimitiveSerializer<CalendarEvent> {
   @override
   Object serialize(
     Serializers serializers,
-    CalendarEvent object, {
+    CalendarEventGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -146,7 +144,7 @@ class _$CalendarEventSerializer implements PrimitiveSerializer<CalendarEvent> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required CalendarEventBuilder result,
+    required CalendarEventGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -225,12 +223,12 @@ class _$CalendarEventSerializer implements PrimitiveSerializer<CalendarEvent> {
   }
 
   @override
-  CalendarEvent deserialize(
+  CalendarEventGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = CalendarEventBuilder();
+    final result = CalendarEventGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

@@ -29,9 +29,11 @@ import 'package:openapi/src/model/body_request_source_type.dart';
 import 'package:openapi/src/model/body_start_import.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
-import 'package:openapi/src/model/calendar_event.dart';
 import 'package:openapi/src/model/calendar_event_attendee.dart';
+import 'package:openapi/src/model/calendar_event_get.dart';
+import 'package:openapi/src/model/calendar_get.dart';
 import 'package:openapi/src/model/calendar_source_get.dart';
+import 'package:openapi/src/model/calendars_events.dart';
 import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
@@ -92,9 +94,11 @@ part 'serializers.g.dart';
   BodyStartImport,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokensPost,
-  CalendarEvent,
   CalendarEventAttendee,
+  CalendarEventGet,
+  CalendarGet,
   CalendarSourceGet,
+  CalendarsEvents,
   ContractGet,
   EstimateUnitGet,
   EstimateValueGet,
@@ -138,10 +142,6 @@ part 'serializers.g.dart';
   WorkspaceUpsert,
 ])
 Serializers serializers = (_$serializers.toBuilder()
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(CalendarEvent)]),
-        () => ListBuilder<CalendarEvent>(),
-      )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
         () => ListBuilder<ProjectFeatureSetGet>(),

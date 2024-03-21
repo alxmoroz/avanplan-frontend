@@ -1,4 +1,4 @@
-# openapi.model.CalendarEvent
+# openapi.model.CalendarEventGet
 
 ## Load the model package
 ```dart
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **endDate** | [**DateTime**](DateTime.md) |  | 
 **allDay** | **bool** |  | [optional] [default to false]
 **location** | **String** |  | [optional] 
-**attendees** | [**BuiltList&lt;CalendarEventAttendee&gt;**](CalendarEventAttendee.md) |  | [optional] 
+**attendees** | [**BuiltList&lt;CalendarEventAttendee&gt;**](CalendarEventAttendee.md) |  | 
 **sourceCode** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

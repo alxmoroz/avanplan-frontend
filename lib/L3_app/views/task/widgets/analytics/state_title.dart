@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/task_state.dart';
 
@@ -18,15 +19,10 @@ class _StateTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return place == StateTitlePlace.groupHeader
-        ? Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              stateIconGroup(context, state),
-              const SizedBox(width: P2),
-              Expanded(
-                child: BaseText(text, padding: const EdgeInsets.only(bottom: P)),
-              ),
-            ],
+        ? MTListGroupTitle(
+            leading: Padding(padding: const EdgeInsets.only(top: P2), child: stateIconGroup(context, state)),
+            middle: BaseText(text),
+            padding: EdgeInsets.zero,
           )
         : SmallText(text);
   }

@@ -111,7 +111,7 @@ abstract class _ImportControllerBase with Store {
       }
       if (connected) {
         loader.setSourceListing(loaderDescription);
-        projects = (await importUC.getProjectsList(wsId, selectedSourceId!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
+        projects = (await importUC.getProjectsList(wsId, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
       } else {
         errorCode = 'error_import_connection';
       }

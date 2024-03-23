@@ -21,12 +21,10 @@ abstract class _CalendarControllerBase with Store {
   @observable
   ObservableList<Calendar> _calendars = ObservableList();
   @computed
-  List<Calendar> get calendars => _calendars.sortedBy<String>((c) => c.title);
+  List<Calendar> get calendars => _calendars.sorted((c1, c2) => c1.compareTo(c2));
 
   @observable
-  ObservableList<CalendarEvent> _events = ObservableList();
-  @computed
-  List<CalendarEvent> get events => _events.sortedBy<DateTime>((ce) => ce.startDate);
+  ObservableList<CalendarEvent> events = ObservableList();
 
   @observable
   bool loading = false;
@@ -59,15 +57,12 @@ abstract class _CalendarControllerBase with Store {
     // календари и события
     final data = await calendarUC.getCalendarsEvents();
     _calendars = ObservableList.of(data.calendars);
-    _events = ObservableList.of(data.events);
-
-    print(calendars);
-    print(events);
+    events = ObservableList.of(data.events);
   }
 
   @action
   void clearData() {
-    _events.clear();
+    events.clear();
     _sources.clear();
   }
 }

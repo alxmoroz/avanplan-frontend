@@ -34,7 +34,7 @@ class _AboutDialog extends StatelessWidget {
           const AppVersion(),
 
           /// юр. документы
-          MTListSection(titleText: loc.app_legal_docs_title),
+          MTListGroupTitle(titleText: loc.app_legal_docs_title),
           MTListTile(
             leading: const DocumentIcon(),
             titleText: loc.app_legal_rules_title,
@@ -51,7 +51,7 @@ class _AboutDialog extends StatelessWidget {
           ),
 
           /// о приложении
-          MTListSection(titleText: loc.app_about_title),
+          MTListGroupTitle(titleText: loc.app_about_title),
           MTListTile(
             leading: const ReleaseNotesIcon(),
             titleText: loc.app_release_notes_title,

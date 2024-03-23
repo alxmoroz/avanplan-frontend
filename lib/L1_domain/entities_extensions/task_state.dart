@@ -21,7 +21,7 @@ extension TaskStateExtension on Task {
               ? TaskState.TODAY
               : today.isBefore(due) && due.isBefore(nextWeek)
                   ? TaskState.THIS_WEEK
-                  : TaskState.FUTURE_DUE;
+                  : TaskState.FUTURE_DATE;
     }
 
     return st;

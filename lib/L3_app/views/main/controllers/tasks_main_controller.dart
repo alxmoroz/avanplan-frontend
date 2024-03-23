@@ -10,10 +10,8 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_source.dart';
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../../L1_domain/entities_extensions/task_source.dart';
-import '../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
 import '../../../usecases/task_tree.dart';
@@ -62,26 +60,6 @@ abstract class _TasksMainControllerBase with Store {
 
   @computed
   Iterable<Task> get myTasks => openedTasks.where((t) => t.assignedToMe);
-  @computed
-  List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
-  @computed
-  Iterable<Task> get _myDT => myTasks.where((t) => t.hasDueDate);
-  @computed
-  Iterable<Task> get _myOverdueTasks => _myDT.where((t) => t.hasOverdue);
-  @computed
-  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.leafState == TaskState.TODAY);
-  @computed
-  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.leafState == TaskState.THIS_WEEK);
-  @computed
-  int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
-  @computed
-  int get myUpcomingTasksCount {
-    return _todayCount > 0
-        ? _todayCount
-        : _myThisWeekTasks.isNotEmpty
-            ? _myThisWeekTasks.length
-            : myTasks.length;
-  }
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {
@@ -90,6 +68,12 @@ abstract class _TasksMainControllerBase with Store {
 
   Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.wsId == wsId);
 
+  /// логика экрана Ближайшие дела
+  @computed
+  bool get freshStart => !hasOpenedProjects && !hasOpenedTasks;
+  @computed
+  bool get canPlan => hasOpenedProjects || hasOpenedTasks;
+
   /// задачи из списка
 
   Task? task(int wsId, int? id) => _tasksMap[wsId]?[id];
@@ -97,7 +81,7 @@ abstract class _TasksMainControllerBase with Store {
   @action
   void addTasks(Iterable<Task> tasks) {
     allTasks.addAll(tasks);
-    allTasks.sort(sortByDateAsc);
+    allTasks.sort();
   }
 
   @action
@@ -108,7 +92,7 @@ abstract class _TasksMainControllerBase with Store {
     } else {
       allTasks.add(et);
     }
-    allTasks.sort(sortByDateAsc);
+    allTasks.sort();
   }
 
   @action
@@ -126,7 +110,7 @@ abstract class _TasksMainControllerBase with Store {
     for (Workspace ws in wsMainController.workspaces) {
       tasks.addAll(await myUC.getTasks(ws.id!));
     }
-    allTasks = ObservableList.of(tasks.sorted(sortByDateAsc));
+    allTasks = ObservableList.of(tasks.sorted((t1, t2) => t1.compareTo(t2)));
   }
 
   Future updateImportingProjects() async {

@@ -30,7 +30,7 @@ class _WSUserDialog extends StatelessWidget {
           H2('$_user', align: TextAlign.center),
           BaseText(_user.email, align: TextAlign.center),
           if (_user.roles.isNotEmpty) ...[
-            MTListSection(titleText: loc.role_list_title),
+            MTListGroupTitle(titleText: loc.role_list_title),
             MTListTile(titleText: _user.rolesStr, bottomDivider: false),
           ]
         ],

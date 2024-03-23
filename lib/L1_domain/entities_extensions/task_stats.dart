@@ -9,15 +9,6 @@ extension TaskStatsExtension on Task {
   DateTime get calculatedStartDate => startDate ?? createdOn!;
   Duration? get elapsedPeriod => (closedDate ?? now).difference(calculatedStartDate);
 
-  Duration? get closedPeriod => closedDate != null ? now.difference(closedDate!) : null;
-  Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.difference(tomorrow) : null;
-  Duration? get etaPeriod => etaDate?.difference(now);
-  Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
-
-  num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
-
-  Duration get beforeStartPeriod => calculatedStartDate.difference(now);
-
   bool get hasDueDate => dueDate != null;
   bool get hasOverdue => hasDueDate && dueDate!.isBefore(today);
   bool get hasEtaDate => etaDate != null;
@@ -26,6 +17,15 @@ extension TaskStatsExtension on Task {
   bool get isFuture => state == TaskState.FUTURE_START;
   bool get isOk => state == TaskState.OK;
   bool get isAhead => state == TaskState.AHEAD;
+
+  Duration? get closedPeriod => closedDate != null ? now.difference(closedDate!) : null;
+  Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.difference(tomorrow) : null;
+  Duration? get etaPeriod => etaDate?.difference(now);
+  Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
+
+  num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
+
+  Duration get beforeStartPeriod => calculatedStartDate.difference(now);
 
   bool get hasEstimate => openedVolume != null || estimate != null;
   bool get didImported => taskSource != null;

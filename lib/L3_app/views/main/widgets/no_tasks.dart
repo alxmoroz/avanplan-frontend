@@ -22,10 +22,9 @@ class NoTasks extends StatelessWidget {
   final CreateProjectController _controller;
 
   bool get _hasOpenedProjects => tasksMainController.hasOpenedProjects;
-  bool get _hasOpenedTasks => tasksMainController.hasOpenedTasks;
-  bool get _canPlan => _hasOpenedProjects || _hasOpenedTasks;
   bool get _isAllProjectsClosed => tasksMainController.isAllProjectsClosed;
-  bool get _freshStart => !_hasOpenedProjects && !_hasOpenedTasks;
+  bool get _freshStart => tasksMainController.freshStart;
+  bool get _canPlan => tasksMainController.canPlan;
 
   @override
   Widget build(BuildContext context) {

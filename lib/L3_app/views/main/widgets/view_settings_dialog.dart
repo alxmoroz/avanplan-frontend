@@ -32,7 +32,7 @@ class _ViewSettingsDialog extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   if (calendarController.sources.isNotEmpty) ...[
-                    MTListSection(titleText: loc.calendar_connected_list_title),
+                    MTListGroupTitle(titleText: loc.calendar_connected_list_title),
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

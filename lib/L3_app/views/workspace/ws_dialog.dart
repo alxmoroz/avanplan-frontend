@@ -219,7 +219,7 @@ class _WSDialog extends StatelessWidget {
           children: [
             _header,
             _balanceCard,
-            _hasExpenses ? MTListSection(titleText: loc.tariff_title) : const SizedBox(height: P3),
+            _hasExpenses ? MTListGroupTitle(titleText: loc.tariff_title) : const SizedBox(height: P3),
             _tariffRow,
             if (_hasExpenses) _tariffExpenses(context),
             const SizedBox(height: P3),

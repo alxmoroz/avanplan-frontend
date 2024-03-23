@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import '../entities_extensions/task_stats.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
 import 'feature_set.dart';
@@ -31,7 +32,7 @@ enum TaskState {
   NO_INFO,
   TODAY,
   THIS_WEEK,
-  FUTURE_DUE,
+  FUTURE_DATE,
   NO_DUE,
   BACKLOG,
   IMPORTING,
@@ -118,6 +119,27 @@ class Task extends Project {
   int? authorId;
   int? assigneeId;
   num? estimate;
+
+  @override
+  int compareTo(t2) {
+    int res = 0;
+    t2 = t2 as Task;
+    if ((hasDueDate && !closed) || (t2.hasDueDate && !t2.closed)) {
+      if (!hasDueDate) {
+        res = 1;
+      } else if (!t2.hasDueDate) {
+        res = -1;
+      } else {
+        res = dueDate!.compareTo(t2.dueDate!);
+      }
+    }
+
+    if (res == 0) {
+      res = super.compareTo(t2);
+    }
+
+    return res;
+  }
 }
 
 class ProjectRemote extends Project {

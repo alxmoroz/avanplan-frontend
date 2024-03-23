@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_transfer.dart';
@@ -36,7 +35,7 @@ abstract class _LocalImportControllerBase with Store {
   @action
   void _setSrc(Task src) {
     sourceGoal = src;
-    srcTasks = sourceGoal?.openedSubtasks.sorted(sortByDateAsc) ?? [];
+    srcTasks = sourceGoal?.openedSubtasks.sorted((t1, t2) => t1.compareTo(t2)) ?? [];
     checks = ObservableList.of([for (var _ in srcTasks) false]);
   }
 
@@ -59,7 +58,7 @@ abstract class _LocalImportControllerBase with Store {
   void checkTask(int index, bool? selected) => checks[index] = selected == true;
 
   Future selectSourceGoal() async {
-    final srcGoal = await selectTask(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
+    final srcGoal = await selectTask(destinationGoal.goalsForLocalImport.sorted((t1, t2) => t1.compareTo(t2)), loc.task_transfer_source_hint);
     if (srcGoal != null) {
       _setSrc(srcGoal);
     }

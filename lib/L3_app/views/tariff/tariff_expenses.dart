@@ -47,7 +47,7 @@ class TariffExpenses extends StatelessWidget {
           trailing: MTPrice(_tariff.basePrice, size: AdaptiveSize.xs),
           bottomDivider: false,
         ),
-        if (_invoice.hasOverdraft(_tariff)) MTListSection(titleText: loc.tariff_additional_options_title),
+        if (_invoice.hasOverdraft(_tariff)) MTListGroupTitle(titleText: loc.tariff_additional_options_title),
         if (_usersExpenses > 0)
           MTListTile(
             titleText: loc.members_title,

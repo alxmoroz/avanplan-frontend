@@ -21,7 +21,7 @@ class _ReleaseNotesDialog extends StatelessWidget {
   Widget _rnBuilder(BuildContext _, int index) {
     final rn = _releaseNotes[index];
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      MTListSection(middle: H3(rn.title)),
+      MTListGroupTitle(middle: H3(rn.title)),
       MTListTile(
         middle: BaseText(rn.description),
         bottomDivider: false,

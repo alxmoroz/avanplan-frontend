@@ -53,7 +53,7 @@ class _MemberDialog extends StatelessWidget {
                   H3('$_member', align: TextAlign.center),
                   BaseText(_member!.email, align: TextAlign.center),
                   if (_member!.roles.isNotEmpty) ...[
-                    MTListSection(titleText: loc.role_list_title),
+                    MTListGroupTitle(titleText: loc.role_list_title),
                     MTListTile(
                       middle: BaseText(_member!.rolesStr),
                       trailing: _task.canEditMembers ? const EditIcon() : null,

@@ -25,7 +25,7 @@ abstract class _WSMainControllerBase with Store {
   Workspace ws(int wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId) ?? Workspace.dummy;
 
   @action
-  Future getData() async => workspaces = ObservableList.of((await workspaceUC.getAll()).sorted((w1, w2) => compareNatural(w1.title, w2.title)));
+  Future getData() async => workspaces = ObservableList.of((await workspaceUC.getAll()).sorted((w1, w2) => w1.compareTo(w2)));
 
   @action
   // TODO: после переноса логики источников импорта на подобие статусов и задач — этот метод можно будет убрать
@@ -39,7 +39,7 @@ abstract class _WSMainControllerBase with Store {
     } else {
       workspaces.add(ews);
     }
-    workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
+    workspaces.sort();
   }
 
   Future<Workspace?> reloadWS(int wsId) async {

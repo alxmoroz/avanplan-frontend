@@ -16,10 +16,9 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../app/app_title.dart';
 import '../projects/create_project_controller.dart';
-import '../task/controllers/task_controller.dart';
-import '../task/widgets/tasks/tasks_list_view.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
+import 'widgets/next_tasks.dart';
 import 'widgets/no_tasks.dart';
 import 'widgets/right_toolbar.dart';
 import 'widgets/view_settings_dialog.dart';
@@ -42,7 +41,11 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
-  bool get _showTasks => tasksMainController.myTasks.isNotEmpty;
+  bool get _hasTasks => tasksMainController.myTasks.isNotEmpty;
+  bool get _hasEvents => calendarController.events.isNotEmpty;
+  bool get _freshStart => tasksMainController.freshStart;
+
+  bool get _showTasks => _hasTasks || _hasEvents;
 
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
         leftMenuController = VerticalToolbarController(isCompact: !isBigScreen(context), wideWidth: 242.0);
@@ -81,7 +84,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
       return loader.loading
           ? Container()
           : MTPage(
-              appBar: _showTasks
+              appBar: !_freshStart
                   ? MTAppBar(
                       leading: const SizedBox(height: P8),
                       color: big ? b2Color : null,
@@ -100,12 +103,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: _showTasks
-                    ? TasksListView(
-                        tasksMainController.myTasksGroups,
-                        filters: const {TasksFilter.my},
-                      )
-                    : NoTasks(CreateProjectController()),
+                child: _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
               ),
               leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
               rightBar: big && _showTasks ? MainRightToolbar(rightToolbarController) : null,

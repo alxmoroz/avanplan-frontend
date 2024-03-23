@@ -2,8 +2,11 @@
 
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../L1_domain/entities/next_task_or_event.dart';
+import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
@@ -13,6 +16,17 @@ part 'main_controller.g.dart';
 class MainController extends _MainControllerBase with _$MainController {}
 
 abstract class _MainControllerBase with Store {
+  @computed
+  List<MapEntry<TaskState, List<NextTaskOrEvent>>> get nextTasksOrEventsDateGroups {
+    final nextTasksOrEvents = [
+      ...tasksMainController.myTasks.map((t) => NextTaskOrEvent(t.dueDate, t)),
+      ...calendarController.events.map((e) => NextTaskOrEvent(e.startDate, e)),
+    ].sorted((n1, n2) => n1.compareTo(n2));
+
+    final ge = groupBy<NextTaskOrEvent, TaskState>(nextTasksOrEvents, (nte) => nte.state);
+    return ge.entries.sortedBy<num>((g) => g.key.index);
+  }
+
   @observable
   DateTime? _updatedDate;
 

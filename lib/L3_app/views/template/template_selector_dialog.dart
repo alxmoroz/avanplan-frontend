@@ -55,7 +55,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        MTListSection(titleText: Intl.message(group.key), topPadding: gIndex == 0 ? P : null),
+        MTListGroupTitle(titleText: Intl.message(group.key), topPadding: gIndex == 0 ? P : null),
         ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

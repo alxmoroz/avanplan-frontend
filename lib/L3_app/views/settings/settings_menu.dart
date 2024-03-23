@@ -33,7 +33,7 @@ class _SettingsDialog extends StatelessWidget {
   Widget _workspaces(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MTListSection(titleText: loc.workspaces_title),
+          MTListGroupTitle(titleText: loc.workspaces_title),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

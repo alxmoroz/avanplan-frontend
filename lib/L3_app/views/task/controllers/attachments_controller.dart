@@ -33,7 +33,7 @@ abstract class _AttachmentsControllerBase with Store {
   void setAttachments(Iterable<Attachment> attachments) => _attachments = ObservableList.of(attachments);
 
   @computed
-  List<Attachment> get sortedAttachments => _attachments.sorted((a1, a2) => compareNatural(a1.title, a2.title));
+  List<Attachment> get sortedAttachments => _attachments.sorted((a1, a2) => a1.compareTo(a2));
 
   static const _visibleFileNames = 1;
 

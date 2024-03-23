@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+
 import 'errors.dart';
 
 abstract class LocalPersistable {
@@ -36,7 +38,7 @@ abstract class Codable extends RPersistable {
   String toString() => code;
 }
 
-abstract class Titleable extends RPersistable {
+abstract class Titleable extends RPersistable implements Comparable {
   Titleable({super.id, required this.title, this.description = ''});
 
   String title;
@@ -44,4 +46,7 @@ abstract class Titleable extends RPersistable {
 
   @override
   String toString() => title;
+
+  @override
+  int compareTo(t2) => compareNatural(title, t2.title);
 }

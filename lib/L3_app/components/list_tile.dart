@@ -135,14 +135,15 @@ class MTListTile extends StatelessWidget with FocusManaging {
   }
 }
 
-class MTListSection extends StatelessWidget {
-  const MTListSection({
+class MTListGroupTitle extends StatelessWidget {
+  const MTListGroupTitle({
     super.key,
     this.leading,
     this.middle,
     this.titleText,
     this.trailing,
     this.color,
+    this.padding,
     this.topPadding,
     this.onTap,
   });
@@ -152,16 +153,18 @@ class MTListSection extends StatelessWidget {
   final String? titleText;
   final Widget? trailing;
   final Color? color;
+  final EdgeInsets? padding;
   final double? topPadding;
   final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return MTListTile(
+      minHeight: 0,
       leading: leading,
       middle: middle ?? BaseText.f2(titleText ?? ''),
       trailing: trailing,
-      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topPadding ?? P3, bottom: P),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topPadding ?? P3, bottom: P),
       color: color ?? Colors.transparent,
       bottomDivider: false,
       onTap: onTap,

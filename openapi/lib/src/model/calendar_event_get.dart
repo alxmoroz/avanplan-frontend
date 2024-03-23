@@ -46,7 +46,7 @@ abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEvent
   String? get location;
 
   @BuiltValueField(wireName: r'attendees')
-  BuiltList<CalendarEventAttendee> get attendees;
+  BuiltList<CalendarEventAttendee>? get attendees;
 
   @BuiltValueField(wireName: r'source_code')
   String? get sourceCode;
@@ -116,11 +116,13 @@ class _$CalendarEventGetSerializer implements PrimitiveSerializer<CalendarEventG
         specifiedType: const FullType(String),
       );
     }
-    yield r'attendees';
-    yield serializers.serialize(
-      object.attendees,
-      specifiedType: const FullType(BuiltList, [FullType(CalendarEventAttendee)]),
-    );
+    if (object.attendees != null) {
+      yield r'attendees';
+      yield serializers.serialize(
+        object.attendees,
+        specifiedType: const FullType(BuiltList, [FullType(CalendarEventAttendee)]),
+      );
+    }
     if (object.sourceCode != null) {
       yield r'source_code';
       yield serializers.serialize(

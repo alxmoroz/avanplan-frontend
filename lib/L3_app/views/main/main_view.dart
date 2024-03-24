@@ -106,7 +106,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 child: _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
               ),
               leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
-              rightBar: big && _showTasks ? MainRightToolbar(rightToolbarController) : null,
+              rightBar: big && _freshStart ? null : MainRightToolbar(rightToolbarController),
               bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),
             );
     });

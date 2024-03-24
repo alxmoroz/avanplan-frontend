@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/calendar_event.dart';
 import '../../../../L1_domain/entities/next_task_or_event.dart';
@@ -44,6 +45,7 @@ class NextTasks extends StatelessWidget {
                 : EventCard(
                     item.item as CalendarEvent,
                     showStateMark: true,
+                    isFirst: index == 0,
                     bottomDivider: index < items.length - 1,
                   );
           },
@@ -55,10 +57,12 @@ class NextTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTAdaptive(
-      child: ListView.builder(
-        padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
-        itemBuilder: (_, index) => _groupedItemBuilder(index),
-        itemCount: _groups.length,
+      child: Observer(
+        builder: (_) => ListView.builder(
+          padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
+          itemBuilder: (_, index) => _groupedItemBuilder(index),
+          itemCount: _groups.length,
+        ),
       ),
     );
   }

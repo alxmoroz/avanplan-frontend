@@ -1,10 +1,10 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../L1_domain/entities/calendar_source.dart';
 import '../../../components/button.dart';
 import '../../../components/circular_progress.dart';
 import '../../../components/colors.dart';
@@ -12,6 +12,7 @@ import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../components/icons.dart';
+import '../../../components/images.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
 import '../../../extra/services.dart';
@@ -40,7 +41,7 @@ class _ViewSettingsDialog extends StatelessWidget {
                         itemBuilder: (_, index) {
                           final cs = calendarController.sources.elementAt(index);
                           return MTListTile(
-                            leading: BaseText(cs.type.name),
+                            leading: cs.type == CalendarSourceType.GOOGLE ? MTImage(ImageName.google_calendar.name, height: P6) : null,
                             titleText: cs.email,
                             bottomDivider: index < calendarController.sources.length - 1,
                           );

@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 import '../../../../../L1_domain/entities/calendar_event.dart';
 import '../../../../../L1_domain/entities_extensions/calendar_event_state.dart';
 import '../../../../../L1_domain/utils/dates.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../components/circle.dart';
+import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
+import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/task_state.dart';
 
@@ -20,11 +24,13 @@ class EventCard extends StatelessWidget {
     super.key,
     this.showStateMark = false,
     this.bottomDivider = false,
+    this.isFirst = false,
   });
 
   final CalendarEvent event;
   final bool bottomDivider;
   final bool showStateMark;
+  final bool isFirst;
 
   Color? get _textColor => null;
 
@@ -37,7 +43,7 @@ class EventCard extends StatelessWidget {
   Color get _dateColor => event.startDate.isBefore(tomorrow) ? stateColor(event.state) : _textColor ?? f2Color;
   Widget get _date => Row(
         children: [
-          CalendarIcon(color: _dateColor, size: P4, endMark: true),
+          CalendarIcon(color: _dateColor, size: P3, endMark: true),
           const SizedBox(width: P_2),
           SmallText(event.startDate.strMedium, color: _dateColor, maxLines: 1),
         ],
@@ -47,11 +53,12 @@ class EventCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: P2),
           BaseText(event.title, maxLines: 2, color: _textColor),
           // ошибки
           if (event.error != null) _error(event.error!.title),
           const SizedBox(height: P_2),
-          _date,
+          if (event.state != TaskState.TODAY) _date,
         ],
       );
 
@@ -59,6 +66,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Stack(
+        clipBehavior: Clip.none,
         children: [
           MTListTile(
             leading: showStateMark ? const SizedBox(width: P) : null,
@@ -82,6 +90,26 @@ class EventCard extends StatelessWidget {
             dividerIndent: showStateMark ? P6 : 0,
             loading: event.loading,
             onTap: _tap,
+          ),
+          // метка события
+          Positioned(
+            left: P3 + 1,
+            top: isFirst ? 0 : -1,
+            child: Container(
+              decoration: BoxDecoration(
+                color: b1Color.resolve(context),
+                borderRadius: const BorderRadius.only(bottomRight: Radius.circular(P)),
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: P),
+                  const MTCircle(color: b3Color, size: P),
+                  const SizedBox(width: P - 1),
+                  SmallText(event.allDay ? loc.calendar_event_all_day_label_title : loc.calendar_event_label_title),
+                  const SizedBox(width: P3),
+                ],
+              ),
+            ),
           ),
           if (showStateMark)
             Positioned(

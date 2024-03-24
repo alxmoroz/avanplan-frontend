@@ -19,6 +19,7 @@ enum ImageName {
   fs_team,
   goal,
   goal_done,
+  google_calendar,
   hello,
   import,
   loading,

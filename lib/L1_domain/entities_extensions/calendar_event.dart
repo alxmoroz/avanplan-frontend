@@ -12,4 +12,6 @@ extension CEExtension on CalendarEvent {
           : today.isBefore(startDate) && startDate.isBefore(nextWeek)
               ? TaskState.THIS_WEEK
               : TaskState.FUTURE_DATE;
+
+  int get days => endDate.difference(startDate).inDays;
 }

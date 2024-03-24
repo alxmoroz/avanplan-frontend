@@ -8,6 +8,8 @@ class CalendarEvent extends Titleable {
     required super.title,
     super.description,
     required this.calendarId,
+    required this.sourceCode,
+    required this.sourceLink,
     required this.startDate,
     required this.endDate,
     required this.allDay,
@@ -15,6 +17,8 @@ class CalendarEvent extends Titleable {
   });
 
   final int calendarId;
+  String sourceCode;
+  String sourceLink;
 
   DateTime startDate;
   DateTime endDate;

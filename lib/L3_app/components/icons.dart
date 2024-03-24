@@ -263,6 +263,10 @@ class LocalImportIcon extends MTIcon {
   const LocalImportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.arrow_down);
 }
 
+class LocationIcon extends MTIcon {
+  const LocationIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.location_solid);
+}
+
 class MailIcon extends MTIcon {
   const MailIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.envelope);
 }

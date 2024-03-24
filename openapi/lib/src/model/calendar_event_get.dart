@@ -22,6 +22,7 @@ part 'calendar_event_get.g.dart';
 /// * [location] 
 /// * [attendees] 
 /// * [sourceCode] 
+/// * [sourceLink] 
 @BuiltValue()
 abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEventGetBuilder> {
   @BuiltValueField(wireName: r'title')
@@ -50,6 +51,9 @@ abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEvent
 
   @BuiltValueField(wireName: r'source_code')
   String? get sourceCode;
+
+  @BuiltValueField(wireName: r'source_link')
+  String? get sourceLink;
 
   CalendarEventGet._();
 
@@ -127,6 +131,13 @@ class _$CalendarEventGetSerializer implements PrimitiveSerializer<CalendarEventG
       yield r'source_code';
       yield serializers.serialize(
         object.sourceCode,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.sourceLink != null) {
+      yield r'source_link';
+      yield serializers.serialize(
+        object.sourceLink,
         specifiedType: const FullType(String),
       );
     }
@@ -215,6 +226,13 @@ class _$CalendarEventGetSerializer implements PrimitiveSerializer<CalendarEventG
             specifiedType: const FullType(String),
           ) as String;
           result.sourceCode = valueDes;
+          break;
+        case r'source_link':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.sourceLink = valueDes;
           break;
         default:
           unhandled.add(key);

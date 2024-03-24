@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/calendar_event.dart';
-import '../../../../../L1_domain/entities_extensions/calendar_event_state.dart';
+import '../../../../../L1_domain/entities_extensions/calendar_event.dart';
 import '../../../../../L1_domain/utils/dates.dart';
+import '../../../L1_domain/entities/calendar.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/circle.dart';
 import '../../components/colors.dart';
@@ -17,6 +18,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/task_state.dart';
+import 'event_dialog.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard(
@@ -32,6 +34,7 @@ class EventCard extends StatelessWidget {
   final bool showStateMark;
   final bool isFirst;
 
+  Calendar? get _calendar => calendarController.calendarForId(event.calendarId);
   Color? get _textColor => null;
 
   Widget _error(String errText) => Row(children: [
@@ -40,12 +43,13 @@ class EventCard extends StatelessWidget {
         SmallText(errText, color: _textColor, maxLines: 1),
       ]);
 
-  Color get _dateColor => event.startDate.isBefore(tomorrow) ? stateColor(event.state) : _textColor ?? f2Color;
-  Widget get _date => Row(
+  Color get _datesColor => event.startDate.isBefore(tomorrow) ? stateColor(event.state) : _textColor ?? f2Color;
+  Widget get _dates => Row(
         children: [
-          CalendarIcon(color: _dateColor, size: P3, endMark: true),
+          CalendarIcon(color: _datesColor, size: P3, endMark: true),
           const SizedBox(width: P_2),
-          SmallText(event.startDate.strMedium, color: _dateColor, maxLines: 1),
+          SmallText(event.startDate.strMedium, color: _datesColor, maxLines: 1),
+          if (event.days > 0) SmallText(' - ${event.endDate.strMedium}', color: _datesColor, maxLines: 1),
         ],
       );
 
@@ -58,11 +62,11 @@ class EventCard extends StatelessWidget {
           // ошибки
           if (event.error != null) _error(event.error!.title),
           const SizedBox(height: P_2),
-          if (event.state != TaskState.TODAY) _date,
+          if (event.state != TaskState.TODAY) _dates,
         ],
       );
 
-  Future _tap() async => print(event.title);
+  Future _tap() async => await showEventDialog(event);
 
   @override
   Widget build(BuildContext context) => Stack(
@@ -73,7 +77,7 @@ class EventCard extends StatelessWidget {
             middle: _content,
             trailing: Row(
               children: [
-                if (!event.allDay) ...[
+                if (!event.allDay && event.days < 1) ...[
                   const SizedBox(width: P_2),
                   Column(
                     children: [
@@ -97,7 +101,7 @@ class EventCard extends StatelessWidget {
             top: isFirst ? 0 : -1,
             child: Container(
               decoration: BoxDecoration(
-                color: b1Color.resolve(context),
+                color: (_calendar?.hasColors == true ? _calendar!.bgColor! : b1Color).resolve(context),
                 borderRadius: const BorderRadius.only(bottomRight: Radius.circular(P)),
               ),
               child: Row(
@@ -105,7 +109,10 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: P),
                   const MTCircle(color: b3Color, size: P),
                   const SizedBox(width: P - 1),
-                  SmallText(event.allDay ? loc.calendar_event_all_day_label_title : loc.calendar_event_label_title),
+                  SmallText(
+                    event.allDay ? loc.calendar_event_all_day_label_title : loc.calendar_event_title.toLowerCase(),
+                    color: _calendar?.hasColors == true ? _calendar!.fgColor! : f2Color,
+                  ),
                   const SizedBox(width: P3),
                 ],
               ),

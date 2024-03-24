@@ -50,7 +50,9 @@
   "calendar_connect_action_google_title": "Connect to Google Calendar",
   "calendar_connected_list_title": "Connected Calendars",
   "calendar_event_all_day_label_title": "all day",
-  "calendar_event_label_title": "event",
+  "calendar_event_dates_title": "The time of the event",
+  "calendar_event_location_title": "Location",
+  "calendar_event_title": "Event",
 
   "cancel": "Cancel",
 

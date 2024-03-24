@@ -65,6 +65,7 @@ class MTField extends StatelessWidget {
               : fd.placeholder.isNotEmpty
                   ? BaseText.f3(fd.placeholder, maxLines: 1)
                   : null,
+      trailing: trailing,
       bottomDivider: bottomDivider,
       dividerIndent: dividerIndent,
       dividerEndIndent: dividerEndIndent,

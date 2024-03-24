@@ -50,7 +50,9 @@
   "calendar_connect_action_google_title": "Подключить календарь Google",
   "calendar_connected_list_title": "Подключенные календари",
   "calendar_event_all_day_label_title": "весь день",
-  "calendar_event_label_title": "событие",
+  "calendar_event_dates_title": "Время проведения",
+  "calendar_event_location_title": "Место проведения",
+  "calendar_event_title": "Событие",
 
   "cancel": "Отмена",
 

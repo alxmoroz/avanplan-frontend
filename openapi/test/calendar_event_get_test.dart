@@ -51,5 +51,10 @@ void main() {
     test('to test the property `sourceCode`', () async {
       // TODO
     });
+
+    // String sourceLink
+    test('to test the property `sourceLink`', () async {
+      // TODO
+    });
   });
 }

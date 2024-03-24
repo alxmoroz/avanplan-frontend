@@ -23,6 +23,8 @@ abstract class _CalendarControllerBase with Store {
   @computed
   List<Calendar> get calendars => _calendars.sorted((c1, c2) => c1.compareTo(c2));
 
+  Calendar? calendarForId(int id) => _calendars.firstWhereOrNull((c) => c.id == id);
+
   @observable
   ObservableList<CalendarEvent> events = ObservableList();
 

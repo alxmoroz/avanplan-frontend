@@ -2,7 +2,7 @@
 
 import 'package:collection/collection.dart';
 
-import '../entities_extensions/calendar_event_state.dart';
+import '../entities_extensions/calendar_event.dart';
 import '../entities_extensions/task_state.dart';
 import 'base_entity.dart';
 import 'calendar_event.dart';

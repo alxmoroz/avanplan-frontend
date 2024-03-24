@@ -17,7 +17,6 @@ class CalendarRepo extends AbstractCalendarRepo {
   o_api.MyCalendarApi get _myCalendarApi => openAPI.getMyCalendarApi();
 
   GoogleSignIn get _gSI => GoogleSignIn(
-        forceCodeForRefreshToken: true,
         scopes: [
           'https://www.googleapis.com/auth/calendar.calendarlist.readonly',
           'https://www.googleapis.com/auth/calendar.events',

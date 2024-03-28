@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../components/circle.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
@@ -72,8 +73,12 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           const Positioned(
-            top: -P2,
-            child: InboxAddTaskButton(),
+            top: -P3,
+            child: MTCircle(
+              size: P12 + P,
+              color: b2Color,
+              child: UnconstrainedBox(child: InboxAddTaskButton()),
+            ),
           ),
         ],
       ),

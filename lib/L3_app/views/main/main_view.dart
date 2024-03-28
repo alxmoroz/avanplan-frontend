@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
@@ -41,6 +42,9 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
+  late final ScrollController _scrollController;
+  bool _hasScrolled = false;
+
   bool get _hasTasks => tasksMainController.myTasks.isNotEmpty;
   bool get _hasEvents => calendarController.events.isNotEmpty;
   bool get _freshStart => tasksMainController.freshStart;
@@ -60,6 +64,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   void initState() {
     _startupActions();
     WidgetsBinding.instance.addObserver(this);
+    _scrollController = ScrollController();
     super.initState();
   }
 
@@ -74,8 +79,14 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   void dispose() {
     mainController.clearData();
     WidgetsBinding.instance.removeObserver(this);
+    _scrollController.dispose();
     super.dispose();
   }
+
+  Widget get _bigTitle => Align(
+        alignment: Alignment.centerLeft,
+        child: H1(loc.my_tasks_upcoming_title, padding: const EdgeInsets.symmetric(horizontal: P3), maxLines: 1),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +98,16 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
               appBar: !_freshStart
                   ? MTAppBar(
                       leading: const SizedBox(height: P8),
-                      color: big ? b2Color : null,
-                      middle: H3(loc.my_tasks_upcoming_title, maxLines: 1),
+                      color: big
+                          ? _hasScrolled
+                              ? b2Color
+                              : Colors.transparent
+                          : null,
+                      middle: _hasScrolled
+                          ? big
+                              ? _bigTitle
+                              : H3(loc.my_tasks_upcoming_title, maxLines: 1)
+                          : null,
                       trailing: big
                           ? null
                           : const MTButton.icon(
@@ -103,11 +122,23 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
+                child: _showTasks
+                    ? ListView(
+                        controller: isWeb ? _scrollController : null,
+                        children: [
+                          _bigTitle,
+                          const SizedBox(height: P3),
+                          const NextTasks(),
+                        ],
+                      )
+                    : NoTasks(CreateProjectController()),
               ),
               leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
               rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,
               bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),
+              scrollController: _scrollController,
+              scrollOffsetTop: P8,
+              onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
             );
     });
   }

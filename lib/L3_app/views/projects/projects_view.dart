@@ -64,7 +64,7 @@ class _ProjectsViewState extends State<ProjectsView> {
 
   Widget get _bigTitle => Align(
         alignment: Alignment.centerLeft,
-        child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3)),
+        child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3), maxLines: 1),
       );
 
   Task get _inbox => tasksMainController.inbox;
@@ -85,7 +85,7 @@ class _ProjectsViewState extends State<ProjectsView> {
           middle: _hasScrolled
               ? big
                   ? _bigTitle
-                  : H3(loc.project_list_title)
+                  : H3(loc.project_list_title, maxLines: 1)
               : null,
         ),
         leftBar: big ? LeftMenu(leftMenuController) : null,

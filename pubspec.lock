@@ -261,10 +261,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
+      sha256: "0978e9a3e45305a80a7210dbeaf79d6ee8bee33f70c8e542dc654c952070217f"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.1"
+    version: "5.4.2+1"
   fake_async:
     dependency: transitive
     description:
@@ -442,10 +442,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: e2a421b7e59244faef694ba7b30562e489c2b489866e505074eb005cd7060db7
+      sha256: "9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -455,18 +455,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_mobx
-      sha256: "4a5d062ff85ed3759f4aac6410ff0ffae32e324b2e71ca722ae1b37b32e865f4"
+      sha256: "859fbf452fa9c2519d2700b125dd7fb14c508bbdd7fb65e26ca8ff6c92280e2e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0+2"
+    version: "2.2.1+1"
   flutter_native_splash:
     dependency: "direct dev"
     description:
       name: flutter_native_splash
-      sha256: "558f10070f03ee71f850a78f7136ab239a67636a294a44a06b6b7345178edb1e"
+      sha256: edf39bcf4d74aca1eb2c1e43c3e445fd9f494013df7f0da752fefe72020eedc0
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.10"
+    version: "2.4.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -479,10 +479,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_slidable
-      sha256: "19ed4813003a6ff4e9c6bcce37e792a2a358919d7603b2b31ff200229191e44c"
+      sha256: "673403d2eeef1f9e8483bd6d8d92aae73b1d8bd71f382bc3930f699c731bc27c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -529,10 +529,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_android
-      sha256: bfd42c81c30c6faba16e0f62968d5505a87504aaa672b3155ee931461abb0a49
+      sha256: "38cef11ed22fc0c9bfa7b00bf7f2d91012138f5613089522917fd26c853be93e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.21"
+    version: "6.1.22"
   google_sign_in_ios:
     dependency: transitive
     description:
@@ -649,10 +649,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_ios
-      sha256: fadafce49e8569257a0cad56d24438a6fa1f0cbd7ee0af9b631f7492818a4ca3
+      sha256: "917a5cadd67d052554cfb258595e54217de53fac5b52939426e26319a02e6297"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.9+1"
+    version: "0.8.9+2"
   image_picker_linux:
     dependency: transitive
     description:
@@ -697,10 +697,10 @@ packages:
     dependency: transitive
     description:
       name: in_app_purchase_android
-      sha256: c94aebe986723b6f4e4d8551d160c6602e73d0b38bf86a59fb054dfeb44bc1e5
+      sha256: "996da8020228658c71eddb30f2a2e723d87d5eef77d8007f9206969605e8f803"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   in_app_purchase_platform_interface:
     dependency: transitive
     description:
@@ -841,18 +841,18 @@ packages:
     dependency: "direct main"
     description:
       name: mobx
-      sha256: "74ee54012dc7c1b3276eaa960a600a7418ef5f9997565deb8fca1fd88fb36b78"
+      sha256: "22f8318756329cc2cf4981f6c3f36fc8a61b2846315caa3d6141cf526ecb4fb8"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0+1"
+    version: "2.3.3+1"
   mobx_codegen:
     dependency: "direct dev"
     description:
       name: mobx_codegen
-      sha256: b26c7f9c20b38f0ea572c1ed3f29d8e027cb265538bbd1aed3ec198642cfca42
+      sha256: "8e0d8653a0c720ad933cd8358f6f89f740ce89203657c13f25bea772ef1fff7c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0+1"
+    version: "2.6.1"
   nested:
     dependency: transitive
     description:
@@ -1056,10 +1056,10 @@ packages:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: df08bc3a07d01f5ea47b45d03ffcba1fa9cd5370fb44b3f38c70e42cced0f956
+      sha256: "251eb156a8b5fa9ce033747d73535bf53911071f8d3b6f4f0b578505ce0d4496"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "3.4.0"
   shelf:
     dependency: transitive
     description:

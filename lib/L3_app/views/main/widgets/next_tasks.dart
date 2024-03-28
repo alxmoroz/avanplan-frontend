@@ -59,6 +59,8 @@ class NextTasks extends StatelessWidget {
     return MTAdaptive(
       child: Observer(
         builder: (_) => ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
           itemBuilder: (_, index) => _groupedItemBuilder(index),
           itemCount: _groups.length,

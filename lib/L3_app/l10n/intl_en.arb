@@ -250,6 +250,7 @@
   "project_plural": "{count, plural, one{project} other{projects}}",
   "project_plural_accusative": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
+  "projects_group_other_title": "Other Projects",
 
   "recommendation_add_goals_hint": "Set the first goal of the project",
   "recommendation_add_goals_title": "Let's add goals to the project",

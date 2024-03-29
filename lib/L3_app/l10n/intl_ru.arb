@@ -250,6 +250,7 @@
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_plural_accusative": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_title": "Проект",
+  "projects_group_other_title": "Другие проекты",
 
   "recommendation_add_goals_hint": "Поставьте первую цель",
   "recommendation_add_goals_title": "Добавим цели в проект",

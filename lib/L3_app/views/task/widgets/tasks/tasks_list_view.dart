@@ -20,7 +20,7 @@ class TasksListView extends StatelessWidget {
   bool get _showGroupTitles => groups.length > 1;
   bool get _hasExtra => extra != null;
 
-  Widget _groupedItemBuilder(int groupIndex) {
+  Widget _groupBuilder(BuildContext _, int groupIndex) {
     if (_hasExtra && groupIndex == groups.length) {
       return extra!;
     } else {
@@ -48,7 +48,7 @@ class TasksListView extends StatelessWidget {
         padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
         shrinkWrap: !scrollable,
         physics: scrollable ? null : const NeverScrollableScrollPhysics(),
-        itemBuilder: (_, index) => _groupedItemBuilder(index),
+        itemBuilder: _groupBuilder,
         itemCount: groups.length + (_hasExtra ? 1 : 0),
       ),
     );

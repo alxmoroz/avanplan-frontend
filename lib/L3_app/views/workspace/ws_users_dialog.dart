@@ -13,7 +13,7 @@ import '../../presenters/workspace.dart';
 import 'ws_user_tile.dart';
 
 class WSUsersRouter extends MTRouter {
-  static const _wsPrefix = '/settings/workspaces';
+  static const _wsPrefix = '/ws';
   static const _suffix = 'users';
 
   @override

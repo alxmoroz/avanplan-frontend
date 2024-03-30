@@ -40,32 +40,32 @@ final _routers = <MTRouter>[
 
   //
   MainRouter(),
-  // Projects
+  // projects
   ProjectsRouter(),
 
-  // Projects - Create
+  // create_project
   CreateProjectQuizRouter(),
-  // Projects - Create - FeatureSets
+  // create_project / FeatureSets
   FeatureSetsQuizRouter(),
-  // Projects - Create - Team
+  // create_project / Team
   TeamInvitationQuizRouter(),
-  // Projects - Create - Goal
+  // create_goal
   CreateGoalQuizRouter(),
-  // Projects - Create - Tasks
+  // create_task
   CreateMultiTaskQuizRouter(),
 
-  // Projects - Tasks / Goals
+  // ws / projects | goals | backlogs | tasks
   TaskRouter(),
 
-  // Settings - My Account
+  // my_account
   AccountRouter(),
-  // Settings - My Notifications
+  // my_notifications
   NotificationsRouter(),
-  // Settings - Workspaces
+  // ws
   WSRouter(),
-  // Settings - Workspaces - Sources
+  // ws / sources
   SourcesRouter(),
-  // Settings - Workspaces - Members
+  // ws / users
   WSUsersRouter(),
 ];
 

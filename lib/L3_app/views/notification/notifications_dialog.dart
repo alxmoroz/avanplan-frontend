@@ -23,7 +23,7 @@ import 'notification_controller.dart';
 
 class NotificationsRouter extends MTRouter {
   @override
-  String path({Object? args}) => '/settings/my_notifications';
+  String path({Object? args}) => '/my_notifications';
 
   @override
   bool get isDialog => true;

@@ -19,7 +19,7 @@ import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 
 class SourcesRouter extends MTRouter {
-  static const _wsPrefix = '/settings/workspaces';
+  static const _wsPrefix = '/ws';
   static const _suffix = 'sources';
 
   @override

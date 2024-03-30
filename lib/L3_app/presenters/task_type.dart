@@ -39,6 +39,7 @@ extension TaskTypePresenter on Task {
   String get _typeName =>
       {
         TType.PROJECT: loc.project_title,
+        TType.INBOX: loc.inbox,
         TType.GOAL: loc.goal_title,
         TType.TASK: loc.task_title,
         TType.BACKLOG: loc.backlog,

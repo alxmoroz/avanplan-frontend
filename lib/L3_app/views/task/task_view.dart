@@ -38,28 +38,22 @@ import 'widgets/header/task_header.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 
 class TaskRouter extends MTRouter {
-  static const _prefix = '/projects.*?';
-  String _navPrefix(Task task) => task.isProject || task.isInbox
-      ? '/projects'
-      : task.isGoal
-          ? '/projects/goals'
-          : task.isBacklog
-              ? '/projects/backlogs'
-              : '/projects/tasks';
+  static const _wsPrefix = '/ws/(\\d+)/(?:projects|inbox|goals|backlogs|tasks).*?';
 
-  String _navPath(Task task) => '${_navPrefix(task)}/${task.wsId}/${task.id}';
+  String _navPath(Task task) =>
+      '/ws/${task.wsId}/${task.isProject ? 'projects' : task.isInbox ? 'inbox' : task.isGoal ? 'goals' : task.isBacklog ? 'backlogs' : 'tasks'}/${task.id}';
 
   @override
   String path({Object? args}) => _navPath((args as TaskController).task!);
 
   @override
-  bool get isDialog => isBigScreen(globalContext) && rs!.uri.path.startsWith('/projects/tasks');
+  bool get isDialog => isBigScreen(globalContext) && rs!.uri.path.contains('/tasks/');
 
   @override
   double get maxWidth => SCR_L_WIDTH;
 
   @override
-  RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)\$');
+  RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)\$');
   int get _wsId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
   int get _taskId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(2) ?? '-1');
   Task? get _task => tasksMainController.task(_wsId, _taskId);
@@ -86,15 +80,15 @@ class TaskRouter extends MTRouter {
     // переходим один раз назад в любом случае
     Navigator.of(context).pop();
 
-    // если переход из Мои задачи или с главной то нужно запушить родителя
-    final fromRoots = !pName.startsWith('/projects');
+    // если переход был с главной то нужно запушить родителя
+    final fromRoots = !pName.startsWith('/ws/');
     if (fromRoots) {
       await push(context, args: TaskController(parent));
     } else {
       // при переходе наверх в другую цель, меняем старого родителя на нового
       if (parent.isGoal) {
-        final previousTaskId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
-        if (previousTaskId != parent.id) {
+        final previousGoalId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
+        if (previousGoalId != parent.id) {
           await push(context, replace: true, args: TaskController(parent));
         }
       }

@@ -93,7 +93,7 @@ class FSQuizArgs {
 
 class FeatureSetsQuizRouter extends MTRouter {
   @override
-  String path({Object? args}) => '/projects/create/feature_sets';
+  String path({Object? args}) => '/create_project/feature_sets';
 
   FSQuizArgs? get _args => rs!.arguments as FSQuizArgs?;
 
@@ -102,7 +102,7 @@ class FeatureSetsQuizRouter extends MTRouter {
 
   // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
   @override
-  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/');
 
   @override
   String get title => '${(rs!.arguments as FSQuizArgs?)?._controller.project.viewTitle ?? ''} | ${loc.feature_sets_title}';

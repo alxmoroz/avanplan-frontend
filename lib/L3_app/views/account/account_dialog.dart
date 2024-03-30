@@ -19,7 +19,7 @@ import '../../presenters/person.dart';
 
 class AccountRouter extends MTRouter {
   @override
-  String path({Object? args}) => '/settings/my_account';
+  String path({Object? args}) => '/my_account';
 
   @override
   bool get isDialog => true;

@@ -35,7 +35,7 @@ class CreateMultiTaskQuizArgs {
 
 class CreateMultiTaskQuizRouter extends MTRouter {
   @override
-  String path({Object? args}) => '/projects/create/tasks';
+  String path({Object? args}) => '/create_task';
 
   CreateMultiTaskQuizArgs? get _args => rs!.arguments as CreateMultiTaskQuizArgs?;
 
@@ -44,7 +44,7 @@ class CreateMultiTaskQuizRouter extends MTRouter {
 
   // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
   @override
-  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/');
 
   @override
   String get title => (rs!.arguments as CreateMultiTaskQuizArgs?)?._controller.task?.viewTitle ?? '';

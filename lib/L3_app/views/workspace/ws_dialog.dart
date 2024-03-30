@@ -35,7 +35,7 @@ import 'ws_expenses_dialog.dart';
 import 'ws_users_dialog.dart';
 
 class WSRouter extends MTRouter {
-  static const _prefix = '/settings/workspaces';
+  static const _prefix = '/ws';
 
   @override
   String path({Object? args}) => '$_prefix/${args as int}';

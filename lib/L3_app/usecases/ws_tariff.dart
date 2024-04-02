@@ -22,7 +22,7 @@ extension WSTariffUC on Workspace {
   }
 
   Future<bool> checkBalance(String operation, {num extraMoney = 0}) async {
-    final lack = invoice.currentExpensesPerDay + extraMoney - balance;
+    final lack = extraMoney - balance;
     if (lack > 0) {
       final hasSelectPay = await replenishBalanceDialog(
         id!,

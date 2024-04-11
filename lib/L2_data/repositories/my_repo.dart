@@ -32,14 +32,14 @@ class MyRepo extends AbstractMyRepo {
   Future deleteAccount() async => await _accountApi.deleteAccountV1MyAccountDelete();
 
   @override
-  Future<Iterable<Task>> getTasks(int wsId, {Task? parent, bool? closed}) async {
-    final response = await _tasksApi.myTasksV1MyTasksGet(wsId: wsId, parentId: parent?.id, closed: closed);
+  Future<Iterable<Task>> getMyTasks(int wsId) async {
+    final response = await _tasksApi.myTasks(wsId: wsId);
     return response.data?.map((t) => t.task(wsId)) ?? [];
   }
 
   @override
   Future<Iterable<Task>> getProjects(int wsId, {bool? closed, bool? imported}) async {
-    final response = await _projectsApi.myProjectsV1MyProjectsGet(wsId: wsId, closed: closed, imported: imported);
+    final response = await _projectsApi.myProjects(wsId: wsId, closed: closed, imported: imported);
     return response.data?.map((t) => t.task(wsId)) ?? [];
   }
 

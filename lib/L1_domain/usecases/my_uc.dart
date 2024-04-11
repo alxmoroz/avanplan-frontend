@@ -15,11 +15,7 @@ class MyUC {
         imported: imported,
         closed: closed,
       );
-  Future<Iterable<Task>> getTasks(int wsId, {Task? parent, bool? closed}) async => await repo.getTasks(
-        wsId,
-        parent: parent,
-        closed: closed,
-      );
+  Future<Iterable<Task>> getMyTasks(int wsId) async => await repo.getMyTasks(wsId);
 
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds) async => await repo.markReadNotifications(notificationsIds);

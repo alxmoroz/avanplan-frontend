@@ -8,10 +8,10 @@ void main() {
   group(MyTasksApi, () {
     // My Tasks
     //
-    // Доступные задачи, цели или проекты
+    // Мои задачи
     //
-    //Future<BuiltList<TaskGet>> myTasksV1MyTasksGet(int wsId, { int parentId, bool closed }) async
-    test('test myTasksV1MyTasksGet', () async {
+    //Future<BuiltList<TaskGet>> myTasks(int wsId) async
+    test('test myTasks', () async {
       // TODO
     });
   });

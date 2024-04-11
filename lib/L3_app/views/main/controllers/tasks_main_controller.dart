@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/errors.dart';
@@ -55,6 +54,7 @@ abstract class _TasksMainControllerBase with Store {
 
   Iterable<Task> get tasks => allTasks.where((t) => t.isTask);
   Iterable<Task> get openedTasks => tasks.where((t) => !t.closed);
+  // TODO: тут не учитываются не загруженные задачи с бэка
   @computed
   bool get hasOpenedTasks => openedTasks.isNotEmpty;
 
@@ -105,18 +105,18 @@ abstract class _TasksMainControllerBase with Store {
   void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id && t.wsId == parent.wsId);
 
   @action
-  Future _getAllTasks() async {
+  Future getMyProjectsAndTasks() async {
     final tasks = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      tasks.addAll(await myUC.getTasks(ws.id!));
+      tasks.addAll(await myUC.getProjects(ws.id!, closed: false));
+      tasks.addAll(await myUC.getMyTasks(ws.id!));
     }
-    allTasks = ObservableList.of(tasks.sorted((t1, t2) => t1.compareTo(t2)));
+    allTasks = ObservableList.of(tasks);
+    allTasks.sort();
   }
 
+  // TODO: только при входе в список проектов?
   Future updateImportingProjects() async {
-    // !!! дубль запроса про РП при старте создаёт лишние РП
-    // await wsMainController.getData();
-
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
       importedProjects.addAll(await myUC.getProjects(ws.id!, closed: false, imported: true));
@@ -129,17 +129,20 @@ abstract class _TasksMainControllerBase with Store {
           description: p.taskSource!.stateDetails,
         );
       }
-      final existingTask = task(p.wsId, p.id);
-      final existingTS = existingTask?.taskSource;
+      final existingProject = task(p.wsId, p.id);
       final newTS = p.taskSource!;
-      if (existingTS?.state != newTS.state) {
+      if (existingProject?.taskSource?.state != newTS.state) {
         // проект загрузился ок
         if (newTS.isOk) {
+          // TODO: только если уже были загружены?
           // замена подзадач
-          if (existingTask != null) {
-            existingTask.subtasks.toList().forEach((t) => removeTask(t));
+          if (existingProject != null) {
+            existingProject.subtasks.toList().forEach((t) => removeTask(t));
           }
-          addTasks(await myUC.getTasks(p.wsId, parent: p, closed: false));
+          // TODO: может и не надо делать этот запрос здесь, а при входе в проект догрузить уже свежую инфу
+          // TODO: нужно догрузить только Мои задачи из этого проекта...
+          // addTasks(await myUC.getMyTasks(p.wsId, parent: p));
+          addTasks(await myUC.getMyTasks(p.wsId));
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
@@ -155,7 +158,9 @@ abstract class _TasksMainControllerBase with Store {
   void refreshTasks() => allTasks = ObservableList.of(allTasks);
 
   Future getData() async {
-    await _getAllTasks();
+    await getMyProjectsAndTasks();
+
+    // TODO: только при входе в список проектов?
     await updateImportingProjects();
   }
 

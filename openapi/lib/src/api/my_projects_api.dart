@@ -21,7 +21,7 @@ class MyProjectsApi {
   const MyProjectsApi(this._dio, this._serializers);
 
   /// My Projects
-  /// 
+  /// Мои проекты, куда у меня есть доступ
   ///
   /// Parameters:
   /// * [wsId] 
@@ -36,7 +36,7 @@ class MyProjectsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> myProjectsV1MyProjectsGet({ 
+  Future<Response<BuiltList<TaskGet>>> myProjects({ 
     required int wsId,
     bool? closed,
     bool? imported,

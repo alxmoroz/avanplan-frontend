@@ -9,13 +9,15 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**myProjectsV1MyProjectsGet**](MyProjectsApi.md#myprojectsv1myprojectsget) | **GET** /v1/my/projects | My Projects
+[**myProjects**](MyProjectsApi.md#myprojects) | **GET** /v1/my/projects | My Projects
 
 
-# **myProjectsV1MyProjectsGet**
-> BuiltList<TaskGet> myProjectsV1MyProjectsGet(wsId, closed, imported)
+# **myProjects**
+> BuiltList<TaskGet> myProjects(wsId, closed, imported)
 
 My Projects
+
+Мои проекты, куда у меня есть доступ
 
 ### Example
 ```dart
@@ -33,10 +35,10 @@ final bool closed = true; // bool |
 final bool imported = true; // bool | 
 
 try {
-    final response = api.myProjectsV1MyProjectsGet(wsId, closed, imported);
+    final response = api.myProjects(wsId, closed, imported);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MyProjectsApi->myProjectsV1MyProjectsGet: $e\n');
+    print('Exception when calling MyProjectsApi->myProjects: $e\n');
 }
 ```
 

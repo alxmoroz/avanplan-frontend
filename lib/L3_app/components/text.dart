@@ -176,7 +176,7 @@ abstract class _BaseDText extends BaseText {
   }) : super(weight: FontWeight.w700, maxLines: 1);
 
   @override
-  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Montserrat');
+  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'MontserratAvanplan');
 }
 
 class D5 extends _BaseDText {
@@ -214,7 +214,7 @@ abstract class _BaseDecorText extends BaseText {
   }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w600, maxLines: 1);
 
   @override
-  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa', fontSize: 26);
+  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'ComfortaaAvanplan', fontSize: 26);
 }
 
 // название приложения

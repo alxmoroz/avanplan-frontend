@@ -89,9 +89,9 @@ Class | Method | HTTP request | Description
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
-[*MyProjectsApi*](doc/MyProjectsApi.md) | [**myProjectsV1MyProjectsGet**](doc/MyProjectsApi.md#myprojectsv1myprojectsget) | **GET** /v1/my/projects | My Projects
+[*MyProjectsApi*](doc/MyProjectsApi.md) | [**myProjects**](doc/MyProjectsApi.md#myprojects) | **GET** /v1/my/projects | My Projects
 [*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
-[*MyTasksApi*](doc/MyTasksApi.md) | [**myTasksV1MyTasksGet**](doc/MyTasksApi.md#mytasksv1mytasksget) | **GET** /v1/my/tasks | My Tasks
+[*MyTasksApi*](doc/MyTasksApi.md) | [**myTasks**](doc/MyTasksApi.md#mytasks) | **GET** /v1/my/tasks | My Tasks
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSets**](doc/ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**deleteStatus**](doc/ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
@@ -114,6 +114,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**duplicateTask**](doc/TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate_task | Duplicate Task
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**moveTask**](doc/TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move_task | Move Task
+[*TasksApi*](doc/TasksApi.md) | [**root**](doc/TasksApi.md#root) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task
 [*TasksApi*](doc/TasksApi.md) | [**setupFeatureSets**](doc/TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*TasksApi*](doc/TasksApi.md) | [**statusTasksCount**](doc/TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*TasksApi*](doc/TasksApi.md) | [**uploadAttachment**](doc/TasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
@@ -134,6 +135,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspaces**](doc/WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | Get My Workspaces
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspace**](doc/WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**moveTask**](doc/WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move_task | Move Task
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**root**](doc/WorkspacesApi.md#root) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace

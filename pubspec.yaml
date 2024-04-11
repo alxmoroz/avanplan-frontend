@@ -63,13 +63,13 @@ flutter:
     - assets/icons/
     - assets/images/
   fonts:
-    - family: Montserrat
+    - family: MontserratAvanplan
       fonts:
         - asset: assets/fonts/Montserrat-M.ttf
           weight: 500
         - asset: assets/fonts/Montserrat-B.ttf
           weight: 700
-    - family: Comfortaa
+    - family: ComfortaaAvanplan
       fonts:
         - asset: assets/fonts/Comfortaa-SB.ttf
           weight: 600

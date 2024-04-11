@@ -9,15 +9,15 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**myTasksV1MyTasksGet**](MyTasksApi.md#mytasksv1mytasksget) | **GET** /v1/my/tasks | My Tasks
+[**myTasks**](MyTasksApi.md#mytasks) | **GET** /v1/my/tasks | My Tasks
 
 
-# **myTasksV1MyTasksGet**
-> BuiltList<TaskGet> myTasksV1MyTasksGet(wsId, parentId, closed)
+# **myTasks**
+> BuiltList<TaskGet> myTasks(wsId)
 
 My Tasks
 
-Доступные задачи, цели или проекты
+Мои задачи
 
 ### Example
 ```dart
@@ -31,14 +31,12 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getMyTasksApi();
 final int wsId = 56; // int | 
-final int parentId = 56; // int | 
-final bool closed = true; // bool | 
 
 try {
-    final response = api.myTasksV1MyTasksGet(wsId, parentId, closed);
+    final response = api.myTasks(wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MyTasksApi->myTasksV1MyTasksGet: $e\n');
+    print('Exception when calling MyTasksApi->myTasks: $e\n');
 }
 ```
 
@@ -47,8 +45,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
- **parentId** | **int**|  | [optional] 
- **closed** | **bool**|  | [optional] 
 
 ### Return type
 

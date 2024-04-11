@@ -10,7 +10,7 @@ abstract class AbstractMyRepo {
   Future deleteAccount();
 
   Future<Iterable<Task>> getProjects(int wsId, {bool? closed, bool? imported});
-  Future<Iterable<Task>> getTasks(int wsId, {Task? parent, bool? closed});
+  Future<Iterable<Task>> getMyTasks(int wsId);
 
   Future<Iterable<MTNotification>> getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds);

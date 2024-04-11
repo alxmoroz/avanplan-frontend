@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **openedVolume** | **num** |  | [optional] 
 **closedVolume** | **num** |  | [optional] 
 **closedSubtasksCount** | **int** |  | [optional] 
+**tasks** | [**BuiltList&lt;TaskGet&gt;**](TaskGet.md) |  | [optional] 
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 

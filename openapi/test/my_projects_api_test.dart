@@ -8,8 +8,10 @@ void main() {
   group(MyProjectsApi, () {
     // My Projects
     //
-    //Future<BuiltList<TaskGet>> myProjectsV1MyProjectsGet(int wsId, { bool closed, bool imported }) async
-    test('test myProjectsV1MyProjectsGet', () async {
+    // Мои проекты, куда у меня есть доступ
+    //
+    //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
+    test('test myProjects', () async {
       // TODO
     });
   });

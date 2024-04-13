@@ -85,6 +85,7 @@ export 'package:openapi/src/model/tariff_get.dart';
 export 'package:openapi/src/model/tariff_limit_get.dart';
 export 'package:openapi/src/model/tariff_option_get.dart';
 export 'package:openapi/src/model/task_get.dart';
+export 'package:openapi/src/model/task_node.dart';
 export 'package:openapi/src/model/task_remote.dart';
 export 'package:openapi/src/model/task_source.dart';
 export 'package:openapi/src/model/task_source_get.dart';

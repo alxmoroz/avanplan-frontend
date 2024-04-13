@@ -157,6 +157,12 @@ class ProjectRemote extends Project {
 
 class TasksChanges {
   TasksChanges(this.updated, this.affected);
-  final Task? updated;
+  final Task updated;
   final Iterable<Task> affected;
+}
+
+class TaskNode {
+  TaskNode(this.root, this.subtasks);
+  final Task root;
+  final Iterable<Task> subtasks;
 }

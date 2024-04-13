@@ -10,6 +10,7 @@ class TaskUC {
 
   final AbstractTaskRepo repo;
 
+  Future<TaskNode?> getOne(int wsId, int taskId) async => await repo.taskNode(wsId, taskId);
   Future<TasksChanges?> save(Task t) async => await repo.save(t);
   Future<TasksChanges?> duplicate(Task t) async => await repo.duplicate(t);
   Future<TasksChanges?> move(Task src, Task destination) async => await repo.move(src, destination);

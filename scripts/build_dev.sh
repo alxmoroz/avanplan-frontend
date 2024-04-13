@@ -6,5 +6,4 @@ set -e
 set -x
 
 bash ./scripts/api_rebuild.sh
-#bash ./scripts/build_runner_clean.sh
 bash ./scripts/build_runner_watch.sh

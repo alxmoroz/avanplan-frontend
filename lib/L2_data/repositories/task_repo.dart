@@ -11,7 +11,22 @@ class TaskRepo extends AbstractTaskRepo {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<TasksChanges> save(Task data) async {
+  Future<TaskNode?> taskNode(int wsId, int taskId) async {
+    final node = (await api.taskNode(
+      wsId: wsId,
+      taskId: taskId,
+    ))
+        .data;
+    return node != null
+        ? TaskNode(
+            node.root.task(wsId),
+            node.subtasks.map((t) => t.task(wsId)),
+          )
+        : null;
+  }
+
+  @override
+  Future<TasksChanges?> save(Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
       ..createdOn = data.createdOn?.toUtc()
@@ -36,14 +51,16 @@ class TaskRepo extends AbstractTaskRepo {
     ))
         .data;
 
-    return TasksChanges(
-      changes?.updatedTask.task(data.wsId),
-      changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
-    );
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(data.wsId),
+            changes.affectedTasks.map((t) => t.task(data.wsId)),
+          )
+        : null;
   }
 
   @override
-  Future<TasksChanges> duplicate(Task data) async {
+  Future<TasksChanges?> duplicate(Task data) async {
     final changes = (await api.duplicateTask(
       wsId: data.wsId,
       srcWsId: data.wsId,
@@ -51,10 +68,12 @@ class TaskRepo extends AbstractTaskRepo {
     ))
         .data;
 
-    return TasksChanges(
-      changes?.updatedTask.task(data.wsId),
-      changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
-    );
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(data.wsId),
+            changes.affectedTasks.map((t) => t.task(data.wsId)),
+          )
+        : null;
   }
 
   @override
@@ -67,22 +86,26 @@ class TaskRepo extends AbstractTaskRepo {
     ))
         .data;
 
-    return TasksChanges(
-      changes?.updatedTask.task(destination.wsId),
-      changes?.affectedTasks.map((t) => t.task(destination.wsId)) ?? [],
-    );
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(destination.wsId),
+            changes.affectedTasks.map((t) => t.task(destination.wsId)),
+          )
+        : null;
   }
 
   @override
-  Future<TasksChanges> delete(Task data) async {
+  Future<TasksChanges?> delete(Task data) async {
     final changes = (await api.deleteTask(
       taskId: data.id!,
       wsId: data.wsId,
     ))
         .data;
-    return TasksChanges(
-      changes?.updatedTask.task(data.wsId),
-      changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
-    );
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(data.wsId),
+            changes.affectedTasks.map((t) => t.task(data.wsId)),
+          )
+        : null;
   }
 }

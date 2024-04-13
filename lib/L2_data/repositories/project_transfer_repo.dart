@@ -24,9 +24,11 @@ class ProjectTransferRepo extends AbstractProjectTransferRepo {
       wsId: dstWsId,
     ))
         .data;
-    return TasksChanges(
-      changes?.updatedTask.task(dstWsId),
-      changes?.affectedTasks.map((t) => t.task(dstWsId)) ?? [],
-    );
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(dstWsId),
+            changes.affectedTasks.map((t) => t.task(dstWsId)),
+          )
+        : null;
   }
 }

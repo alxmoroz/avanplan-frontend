@@ -25,7 +25,7 @@ extension TaskEditUC on Task {
     return et;
   }
 
-  Task _update(Task et) {
+  Task update(Task et) {
     // вложенности
     if (et.members.isEmpty) {
       et.members = members;
@@ -53,24 +53,13 @@ extension TaskEditUC on Task {
     return et;
   }
 
-  void _processAffected(Iterable<Task> affected) {
-    for (Task at in affected) {
-      final existingTask = tasksMainController.task(at.wsId, at.id);
-      if (existingTask != null) {
-        existingTask._update(at);
-      } else {
-        tasksMainController.setTask(at);
-      }
-    }
-  }
-
   Future<Task?> save() async => await edit(() async {
         if (await ws.checkBalance(loc.edit_action_title)) {
           final changes = await taskUC.save(this);
           final et = changes?.updated;
           if (et != null) {
-            changes?.affected.forEach((at) => tasksMainController.task(at.wsId, at.id)?._update(at));
-            return _update(et);
+            changes?.affected.forEach((at) => tasksMainController.task(at.wsId, at.id)?.update(at));
+            return update(et);
           }
         }
         return null;
@@ -79,10 +68,10 @@ extension TaskEditUC on Task {
   Future<Task?> move(Task destination) async => await edit(() async {
         if (await destination.ws.checkBalance(loc.task_transfer_export_action_title)) {
           final changes = await taskUC.move(this, destination);
-          final newTask = changes?.updated;
-          if (newTask != null) {
-            _processAffected(changes?.affected ?? []);
+          if (changes != null) {
+            final newTask = changes.updated;
             tasksMainController.setTask(newTask);
+            tasksMainController.updateTasks(changes.affected);
             tasksMainController.removeTask(this);
             return newTask;
           }
@@ -93,9 +82,9 @@ extension TaskEditUC on Task {
   Future<Task?> duplicate() async => await edit(() async {
         if (await ws.checkBalance(loc.task_duplicate_action_title)) {
           final changes = await taskUC.duplicate(this);
-          final newTask = changes?.updated;
-          if (newTask != null) {
-            _processAffected(changes?.affected ?? []);
+          if (changes != null) {
+            final newTask = changes.updated;
+            tasksMainController.updateTasks(changes.affected);
             tasksMainController.setTask(newTask);
             return newTask;
           }
@@ -105,10 +94,10 @@ extension TaskEditUC on Task {
 
   Future delete() async => await edit(() async {
         final changes = await taskUC.delete(this);
-        if (changes?.updated != null) {
+        if (changes != null) {
           tasksMainController.removeTask(this);
-          for (Task at in changes?.affected ?? []) {
-            tasksMainController.task(at.wsId, at.id)?._update(at);
+          for (Task at in changes.affected) {
+            tasksMainController.task(at.wsId, at.id)?.update(at);
           }
         }
         return null;

@@ -17,9 +17,9 @@ Method | HTTP request | Description
 [**duplicateTask**](TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate_task | Duplicate Task
 [**getInvitations**](TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**moveTask**](TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move_task | Move Task
-[**root**](TasksApi.md#root) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task
 [**setupFeatureSets**](TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [**statusTasksCount**](TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
+[**taskNode**](TasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
 [**uploadAttachment**](TasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [**upsertNote**](TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [**upsertStatus**](TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
@@ -436,55 +436,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **root**
-> TaskGet root(taskId, wsId)
-
-Task
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getTasksApi();
-final int taskId = 56; // int | 
-final int wsId = 56; // int | 
-
-try {
-    final response = api.root(taskId, wsId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling TasksApi->root: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **taskId** | **int**|  | 
- **wsId** | **int**|  | 
-
-### Return type
-
-[**TaskGet**](TaskGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **setupFeatureSets**
 > BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody)
 
@@ -575,6 +526,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 **int**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **taskNode**
+> TaskNode taskNode(taskId, wsId)
+
+Task Node
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getTasksApi();
+final int taskId = 56; // int | 
+final int wsId = 56; // int | 
+
+try {
+    final response = api.taskNode(taskId, wsId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling TasksApi->taskNode: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **taskId** | **int**|  | 
+ **wsId** | **int**|  | 
+
+### Return type
+
+[**TaskNode**](TaskNode.md)
 
 ### Authorization
 

@@ -13,6 +13,7 @@ import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
+import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
 
 part 'tasks_main_controller.g.dart';
@@ -101,6 +102,17 @@ abstract class _TasksMainControllerBase with Store {
     allTasks.remove(task);
   }
 
+  void updateTasks(Iterable<Task> tasks) {
+    for (Task at in tasks) {
+      final existingTask = task(at.wsId, at.id);
+      if (existingTask != null) {
+        existingTask.update(at);
+      } else {
+        setTask(at);
+      }
+    }
+  }
+
   @action
   void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id && t.wsId == parent.wsId);
 
@@ -112,6 +124,18 @@ abstract class _TasksMainControllerBase with Store {
       tasks.addAll(await myUC.getMyTasks(ws.id!));
     }
     allTasks = ObservableList.of(tasks);
+    allTasks.sort();
+  }
+
+  @action
+  Future getTaskNode(int wsId, int taskId) async {
+    final taskNode = await taskUC.getOne(wsId, taskId);
+    if (taskNode != null) {
+      setTask(taskNode.root);
+      for (Task t in taskNode.subtasks) {
+        setTask(t);
+      }
+    }
     allTasks.sort();
   }
 

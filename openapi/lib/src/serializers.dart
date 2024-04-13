@@ -64,6 +64,7 @@ import 'package:openapi/src/model/tariff_get.dart';
 import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:openapi/src/model/tariff_option_get.dart';
 import 'package:openapi/src/model/task_get.dart';
+import 'package:openapi/src/model/task_node.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
@@ -129,6 +130,7 @@ part 'serializers.g.dart';
   TariffLimitGet,
   TariffOptionGet,
   TaskGet,
+  TaskNode,
   TaskRemote,
   TaskSource,
   TaskSourceGet,

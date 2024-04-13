@@ -72,6 +72,7 @@ doc/TariffOptionGet.md
 doc/TariffsApi.md
 doc/TaskGet.md
 doc/TaskInvitationsApi.md
+doc/TaskNode.md
 doc/TaskNotesApi.md
 doc/TaskRemote.md
 doc/TaskRolesApi.md
@@ -173,6 +174,7 @@ lib/src/model/tariff_get.dart
 lib/src/model/tariff_limit_get.dart
 lib/src/model/tariff_option_get.dart
 lib/src/model/task_get.dart
+lib/src/model/task_node.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
@@ -256,6 +258,7 @@ test/tariff_option_get_test.dart
 test/tariffs_api_test.dart
 test/task_get_test.dart
 test/task_invitations_api_test.dart
+test/task_node_test.dart
 test/task_notes_api_test.dart
 test/task_remote_test.dart
 test/task_roles_api_test.dart

@@ -8,7 +8,6 @@ set -x
 flutter clean
 
 bash ./scripts/api_rebuild.sh
-bash ./scripts/build_runner_clean.sh
 dart run intl_utils:generate
 bash ./scripts/build_runner_build.sh
 

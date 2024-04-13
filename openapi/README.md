@@ -114,9 +114,9 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**duplicateTask**](doc/TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate_task | Duplicate Task
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**moveTask**](doc/TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move_task | Move Task
-[*TasksApi*](doc/TasksApi.md) | [**root**](doc/TasksApi.md#root) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task
 [*TasksApi*](doc/TasksApi.md) | [**setupFeatureSets**](doc/TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*TasksApi*](doc/TasksApi.md) | [**statusTasksCount**](doc/TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
+[*TasksApi*](doc/TasksApi.md) | [**taskNode**](doc/TasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
 [*TasksApi*](doc/TasksApi.md) | [**uploadAttachment**](doc/TasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*TasksApi*](doc/TasksApi.md) | [**upsertNote**](doc/TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertStatus**](doc/TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
@@ -135,9 +135,9 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspaces**](doc/WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | Get My Workspaces
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspace**](doc/WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**moveTask**](doc/WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move_task | Move Task
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**root**](doc/WorkspacesApi.md#root) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**taskNode**](doc/WorkspacesApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**uploadAttachment**](doc/WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertNote**](doc/WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
@@ -197,6 +197,7 @@ Class | Method | HTTP request | Description
  - [TariffLimitGet](doc/TariffLimitGet.md)
  - [TariffOptionGet](doc/TariffOptionGet.md)
  - [TaskGet](doc/TaskGet.md)
+ - [TaskNode](doc/TaskNode.md)
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)

@@ -235,7 +235,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   children: [
                     if (task!.isInbox) InboxIcon(color: f2Color, size: _isBigGroup ? P6 : P4),
                     SizedBox(width: _isBigGroup ? P2 : P),
-                    _isBigGroup ? H1(task!.title, maxLines: 1, color: textColor) : H3(task!.title, maxLines: 1, color: textColor),
+                    Flexible(child: _isBigGroup ? H1(task!.title, maxLines: 1, color: textColor) : H3(task!.title, maxLines: 1, color: textColor)),
                   ],
                 ),
               ),

@@ -23,7 +23,7 @@ part 'notes_controller.g.dart';
 class NotesController extends _NotesControllerBase with _$NotesController {
   NotesController(TaskController taskController) {
     _taskController = taskController;
-    _setNotes(taskController.task!.notes);
+    setData();
   }
 }
 
@@ -56,7 +56,7 @@ abstract class _NotesControllerBase with Store {
         }
       }
       _attachmentsController.setFiles([]);
-      _attachmentsController.setAttachments(task.attachments);
+      _attachmentsController.setData();
     }
   }
 
@@ -79,14 +79,12 @@ abstract class _NotesControllerBase with Store {
   ObservableList<Note> _notes = ObservableList();
 
   @action
-  void _setNotes(Iterable<Note> notes) {
-    _notes = ObservableList.of(notes.map((n) {
+  void setData() {
+    _notes = ObservableList.of(task.notes.map((n) {
       n.attachments = _attachmentsController.sortedAttachments.where((a) => a.noteId == n.id).toList();
       return n;
     }));
   }
-
-  void _refresh() => _setNotes(task.notes);
 
   @computed
   List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
@@ -109,7 +107,7 @@ abstract class _NotesControllerBase with Store {
         await _uploadAttachments(en);
       }
 
-      _refresh();
+      setData();
       _taskController.updateField(_fNoteIndex, loading: false);
 
       if (notesWidgetGlobalKey.currentContext?.mounted == true) {
@@ -147,7 +145,7 @@ abstract class _NotesControllerBase with Store {
 
   Future delete(Note note) async {
     await note.delete(task);
-    _attachmentsController.setAttachments(task.attachments);
-    _refresh();
+    _attachmentsController.setData();
+    setData();
   }
 }

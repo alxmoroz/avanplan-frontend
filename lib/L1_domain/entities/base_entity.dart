@@ -23,6 +23,7 @@ abstract class RPersistable {
   bool filled = false;
 
   bool get isNew => id == null;
+  bool get contentLoading => !filled && loading;
 }
 
 abstract class WSBounded extends RPersistable {

@@ -7,6 +7,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
+import '../../components/circular_progress.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -168,46 +169,48 @@ class TaskViewState<T extends TaskView> extends State<T> {
               if (task!.hasAnalytics || task!.hasTeam) TaskHeaderDashboard(controller),
 
               /// Задача (лист)
-              task!.isTask
-                  ? _isTaskDialog
-                      ? TaskDialogDetails(controller)
-                      : MTAdaptive(child: TaskDetails(controller))
+              task!.contentLoading
+                  ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress()))
+                  : task!.isTask
+                      ? _isTaskDialog
+                          ? TaskDialogDetails(controller)
+                          : MTAdaptive(child: TaskDetails(controller))
 
-                  /// Группа задач без подзадач
-                  : !task!.hasSubtasks && !task!.canShowBoard
-                      ? SizedBox(
-                          // TODO: хардкод ((
-                          height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
-                          child: NoTasks(controller),
-                        )
+                      /// Группа задач без подзадач
+                      : !task!.hasSubtasks && !task!.canShowBoard
+                          ? SizedBox(
+                              // TODO: хардкод ((
+                              height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
+                              child: NoTasks(controller),
+                            )
 
-                      /// Группа задач с задачами
-                      : Observer(
-                          builder: (_) => task!.canShowBoard && controller.showBoard
+                          /// Группа задач с задачами
+                          : Observer(
+                              builder: (_) => task!.canShowBoard && controller.showBoard
 
-                              /// Доска
-                              ? Container(
-                                  height: expandedHeight + P2,
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: isWeb
-                                      ? Scrollbar(
-                                          controller: _boardScrollController,
-                                          thumbVisibility: true,
-                                          child: _board,
-                                        )
-                                      : _board,
-                                )
+                                  /// Доска
+                                  ? Container(
+                                      height: expandedHeight + P2,
+                                      padding: const EdgeInsets.only(top: P3),
+                                      child: isWeb
+                                          ? Scrollbar(
+                                              controller: _boardScrollController,
+                                              thumbVisibility: true,
+                                              child: _board,
+                                            )
+                                          : _board,
+                                    )
 
-                              /// Список
-                              : Container(
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: TasksListView(
-                                    task!.subtaskGroups,
-                                    scrollable: false,
-                                    extra: controller.subtasksController.loadClosedButton(),
-                                  ),
-                                ),
-                        ),
+                                  /// Список
+                                  : Container(
+                                      padding: const EdgeInsets.only(top: P3),
+                                      child: TasksListView(
+                                        task!.subtaskGroups,
+                                        scrollable: false,
+                                        extra: controller.subtasksController.loadClosedButton(),
+                                      ),
+                                    ),
+                            ),
             ],
           );
         }),

@@ -56,12 +56,12 @@ extension TaskUC on Task {
   Future load() async => await editWrapper(() async {
         final taskNode = await taskUC.getOne(wsId, id!);
         if (taskNode != null) {
-          final root = taskNode.root;
-          root.filled = true;
-          tasksMainController.setTask(root);
           for (Task t in taskNode.subtasks) {
             tasksMainController.setTask(t);
           }
+          final root = taskNode.root;
+          root.filled = true;
+          tasksMainController.setTask(root);
         }
         return null;
       });

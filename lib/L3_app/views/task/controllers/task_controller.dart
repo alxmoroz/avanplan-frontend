@@ -74,9 +74,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   }
 
   Future showTask() async {
-    if (!_task.filled) {
-      _task.load();
-    }
+    loadTask();
     await MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: this);
   }
 
@@ -118,16 +116,32 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final StatusController statusController;
   late final DatesController datesController;
   late final EstimateController estimateController;
-  late final NotesController notesController;
+
   late final ProjectStatusesController projectStatusesController;
-  late final AttachmentsController attachmentsController;
   late final LocalExportController localExportController;
+
   late final SubtasksController subtasksController;
+  late final NotesController notesController;
+  late final AttachmentsController attachmentsController;
 
   Task? get task => tasksMainController.task(_task.wsId, _task.id);
 
   @observable
   bool creating = false;
+
+  void _setTaskContentControllers() {
+    subtasksController.setData();
+    attachmentsController.setData();
+    notesController.setData();
+  }
+
+  @action
+  Future loadTask() async {
+    if (task != null && !task!.filled) {
+      await task!.load();
+      _setTaskContentControllers();
+    }
+  }
 
   Future<bool> saveField(TaskFCode code) async {
     updateField(code.index, loading: true);

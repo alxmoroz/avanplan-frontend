@@ -46,7 +46,7 @@ extension TaskLinkUC on Task {
     if (await _unlinkDialog() == true) {
       Navigator.of(rootKey.currentContext!).pop();
       if (await ws.checkBalance(loc.task_unlink_action_title)) {
-        await edit(() async {
+        await editWrapper(() async {
           if (await importUC.unlinkProject(this)) {
             unlinkTaskTree();
           }

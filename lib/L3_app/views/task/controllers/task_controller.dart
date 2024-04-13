@@ -74,7 +74,9 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   }
 
   Future showTask() async {
-    //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
+    if (!_task.filled) {
+      _task.load();
+    }
     await MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: this);
   }
 

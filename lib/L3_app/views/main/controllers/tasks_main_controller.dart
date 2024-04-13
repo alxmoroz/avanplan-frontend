@@ -131,7 +131,9 @@ abstract class _TasksMainControllerBase with Store {
   Future getTaskNode(int wsId, int taskId) async {
     final taskNode = await taskUC.getOne(wsId, taskId);
     if (taskNode != null) {
-      setTask(taskNode.root);
+      final root = taskNode.root;
+      root.filled = true;
+      setTask(root);
       for (Task t in taskNode.subtasks) {
         setTask(t);
       }

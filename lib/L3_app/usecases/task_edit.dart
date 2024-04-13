@@ -9,8 +9,8 @@ import '../extra/services.dart';
 import '../usecases/task_tree.dart';
 import '../usecases/ws_tariff.dart';
 
-extension TaskEditUC on Task {
-  Future<Task?> edit(Future<Task?> Function() function) async {
+extension TaskUC on Task {
+  Future<Task?> editWrapper(Future<Task?> Function() function) async {
     loading = true;
     tasksMainController.refreshTasks();
     Task? et;
@@ -53,7 +53,20 @@ extension TaskEditUC on Task {
     return et;
   }
 
-  Future<Task?> save() async => await edit(() async {
+  Future load() async => await editWrapper(() async {
+        final taskNode = await taskUC.getOne(wsId, id!);
+        if (taskNode != null) {
+          final root = taskNode.root;
+          root.filled = true;
+          tasksMainController.setTask(root);
+          for (Task t in taskNode.subtasks) {
+            tasksMainController.setTask(t);
+          }
+        }
+        return null;
+      });
+
+  Future<Task?> save() async => await editWrapper(() async {
         if (await ws.checkBalance(loc.edit_action_title)) {
           final changes = await taskUC.save(this);
           final et = changes?.updated;
@@ -65,7 +78,7 @@ extension TaskEditUC on Task {
         return null;
       });
 
-  Future<Task?> move(Task destination) async => await edit(() async {
+  Future<Task?> move(Task destination) async => await editWrapper(() async {
         if (await destination.ws.checkBalance(loc.task_transfer_export_action_title)) {
           final changes = await taskUC.move(this, destination);
           if (changes != null) {
@@ -79,7 +92,7 @@ extension TaskEditUC on Task {
         return null;
       });
 
-  Future<Task?> duplicate() async => await edit(() async {
+  Future<Task?> duplicate() async => await editWrapper(() async {
         if (await ws.checkBalance(loc.task_duplicate_action_title)) {
           final changes = await taskUC.duplicate(this);
           if (changes != null) {
@@ -92,7 +105,7 @@ extension TaskEditUC on Task {
         return null;
       });
 
-  Future delete() async => await edit(() async {
+  Future delete() async => await editWrapper(() async {
         final changes = await taskUC.delete(this);
         if (changes != null) {
           tasksMainController.removeTask(this);

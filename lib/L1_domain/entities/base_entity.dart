@@ -18,7 +18,9 @@ abstract class RPersistable {
   bool removed = false;
 
   MTError? error;
-  bool? loading = false;
+
+  bool loading = false;
+  bool filled = false;
 
   bool get isNew => id == null;
 }

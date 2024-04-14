@@ -51,9 +51,9 @@ class StatusController {
         if (await _closeDialog() == true) {
           // TODO: перенести на бэк (есть задача такая)
           for (Task st in t.subtasks.where((t) => t.closed != close)) {
-            st.projectStatusId = t.projectStatusId;
+            st.projectStatusId = stId;
             st.setClosed(close);
-            await taskUC.save(t);
+            await taskUC.save(st);
           }
         } else {
           return;

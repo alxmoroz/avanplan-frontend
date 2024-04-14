@@ -16,7 +16,6 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../usecases/task_tree.dart';
 import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
 import '../task/controllers/task_controller.dart';
@@ -101,16 +100,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                 child: MTListTile(
                   leading: const InboxIcon(),
                   titleText: _inbox.title,
-                  trailing: Row(
-                    children: [
-                      if (_inbox.openedSubtasks.isNotEmpty)
-                        BaseText(
-                          '${_inbox.openedSubtasks.length}',
-                          padding: const EdgeInsets.only(right: P),
-                        ),
-                      const ChevronIcon(),
-                    ],
-                  ),
+                  trailing: const ChevronIcon(),
                   bottomDivider: false,
                   onTap: () => TaskController(_inbox).showTask(),
                 ),

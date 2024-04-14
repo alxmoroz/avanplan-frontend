@@ -85,7 +85,6 @@ class Task extends Project {
     this.etaDate,
     this.openedVolume,
     this.closedVolume,
-    this.closedSubtasksCount,
   });
 
   final DateTime? createdOn;
@@ -100,7 +99,6 @@ class Task extends Project {
 
   final num? openedVolume;
   final num? closedVolume;
-  final int? closedSubtasksCount;
 
   DateTime? startDate;
   bool closed;

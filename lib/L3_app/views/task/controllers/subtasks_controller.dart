@@ -1,15 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/colors.dart';
-import 'package:avanplan/L3_app/components/list_tile.dart';
-import 'package:avanplan/L3_app/components/text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../components/button.dart';
-import '../../../components/constants.dart';
-import '../../../extra/services.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_tasks.dart';
@@ -74,37 +67,4 @@ abstract class _SubtasksControllerBase with Store {
       tc.dispose();
     }
   }
-
-  @observable
-  bool _loading = false;
-
-  @action
-  Future _loadClosed() async {
-    _loading = true;
-    // TODO: закрытые задачи
-    // final tasks = await myUC.getMyTasks(parent.wsId, parent: parent, closed: true);
-    final tasks = await myUC.getMyTasks(parent.wsId);
-    tasksMainController.removeClosed(parent);
-    if (tasks.isNotEmpty) {
-      tasksMainController.addTasks(tasks);
-    }
-    _loading = false;
-  }
-
-  Widget? loadClosedButton({bool board = false}) => (parent.closedSubtasksCount ?? 0) > parent.closedSubtasks.length
-      ? board
-          ? MTListTile(
-              middle: BaseText.medium(loc.show_closed_action_title, color: mainColor, align: TextAlign.center),
-              padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-              loading: _loading,
-              bottomDivider: false,
-              onTap: _loadClosed,
-            )
-          : MTButton.secondary(
-              titleText: loc.show_closed_action_title,
-              margin: const EdgeInsets.only(top: P3),
-              loading: _loading,
-              onTap: _loadClosed,
-            )
-      : null;
 }

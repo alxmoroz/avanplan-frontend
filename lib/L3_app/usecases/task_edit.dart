@@ -17,6 +17,8 @@ extension TaskUC on Task {
     try {
       et = await function();
     } on DioException catch (e) {
+      // TODO: ошибка загрузки 404 - нужно показывать диалог?
+
       error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
@@ -56,9 +58,13 @@ extension TaskUC on Task {
   Future load() async => await editWrapper(() async {
         final taskNode = await taskUC.getOne(wsId, id!);
         if (taskNode != null) {
+          // удаление дерева подзадач
+          subtasks.toList().forEach((t) => tasksMainController.removeTask(t));
+          // новое дерево подзадач
           for (Task t in taskNode.subtasks) {
             tasksMainController.setTask(t);
           }
+          // сама задача
           final root = taskNode.root;
           root.filled = true;
           tasksMainController.setTask(root);

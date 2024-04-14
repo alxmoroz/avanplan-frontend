@@ -41,6 +41,7 @@ class NextTasks extends StatelessWidget {
                     showStateMark: true,
                     showParent: true,
                     bottomDivider: index < items.length - 1,
+                    isMine: true,
                   )
                 : EventCard(
                     item.item as CalendarEvent,

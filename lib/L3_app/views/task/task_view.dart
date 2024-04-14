@@ -204,11 +204,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                   /// Список
                                   : Container(
                                       padding: const EdgeInsets.only(top: P3),
-                                      child: TasksListView(
-                                        task!.subtaskGroups,
-                                        scrollable: false,
-                                        extra: controller.subtasksController.loadClosedButton(),
-                                      ),
+                                      child: TasksListView(task!.subtaskGroups, scrollable: false),
                                     ),
                             ),
             ],

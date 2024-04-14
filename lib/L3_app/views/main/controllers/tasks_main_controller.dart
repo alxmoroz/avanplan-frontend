@@ -114,13 +114,10 @@ abstract class _TasksMainControllerBase with Store {
   }
 
   @action
-  void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id && t.wsId == parent.wsId);
-
-  @action
   Future getMyProjectsAndTasks() async {
     final tasks = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      tasks.addAll(await myUC.getProjects(ws.id!, closed: false));
+      tasks.addAll(await myUC.getProjects(ws.id!));
       tasks.addAll(await myUC.getMyTasks(ws.id!));
     }
     allTasks = ObservableList.of(tasks);

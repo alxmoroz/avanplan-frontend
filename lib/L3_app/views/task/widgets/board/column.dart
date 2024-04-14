@@ -78,28 +78,26 @@ class TaskBoardColumn {
         canDrag: t.canSetStatus,
       );
 
-  Widget? get _footer => _status.closed
-      ? _taskController.subtasksController.loadClosedButton(board: true)
-      : _parent.canCreate
-          ? MTListTile(
-              middle: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const PlusIcon(size: P3),
-                  const SizedBox(width: P),
-                  BaseText.medium(addSubtaskActionTitle(_parent), color: mainColor, maxLines: 1),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-              bottomDivider: false,
-              onTap: () async {
-                final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
-                if (newTask != null) {
-                  await TaskController(newTask, isNew: true).showTask();
-                }
-              },
-            )
-          : null;
+  Widget? get _footer => !_status.closed && _parent.canCreate
+      ? MTListTile(
+          middle: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const PlusIcon(size: P3),
+              const SizedBox(width: P),
+              BaseText.medium(addSubtaskActionTitle(_parent), color: mainColor, maxLines: 1),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+          bottomDivider: false,
+          onTap: () async {
+            final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
+            if (newTask != null) {
+              await TaskController(newTask, isNew: true).showTask();
+            }
+          },
+        )
+      : null;
 
   Widget get _header => Observer(
         builder: (_) => Row(

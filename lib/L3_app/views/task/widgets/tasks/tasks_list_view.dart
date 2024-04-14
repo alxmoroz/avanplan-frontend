@@ -5,25 +5,17 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
-import '../../controllers/task_controller.dart';
 import '../analytics/state_title.dart';
-import 'tasks_group.dart';
+import 'task_card.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView(this.groups, {super.key, this.filters, this.extra, this.scrollable = true});
+  const TasksListView(this.groups, {super.key, this.scrollable = true});
   final List<MapEntry<TaskState, List<Task>>> groups;
-  final Set<TasksFilter>? filters;
-  final Widget? extra;
   final bool scrollable;
 
-  bool get _isMyTasks => filters?.contains(TasksFilter.my) ?? false;
   bool get _showGroupTitles => groups.length > 1;
-  bool get _hasExtra => extra != null;
 
   Widget _groupBuilder(BuildContext _, int groupIndex) {
-    if (_hasExtra && groupIndex == groups.length) {
-      return extra!;
-    } else {
       final group = groups[groupIndex];
       final tasks = group.value;
       final state = group.key;
@@ -35,10 +27,22 @@ class TasksListView extends StatelessWidget {
               state,
               place: StateTitlePlace.groupHeader,
             ),
-          TasksGroup(tasks, isMine: _isMyTasks, standalone: false),
+          ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: tasks.length,
+            itemBuilder: (_, index) {
+              final t = tasks[index];
+              return TaskCard(
+                t,
+                showStateMark: true,
+                bottomDivider: index < tasks.length - 1,
+              );
+            },
+          )
         ],
       );
-    }
   }
 
   @override
@@ -49,7 +53,7 @@ class TasksListView extends StatelessWidget {
         shrinkWrap: !scrollable,
         physics: scrollable ? null : const NeverScrollableScrollPhysics(),
         itemBuilder: _groupBuilder,
-        itemCount: groups.length + (_hasExtra ? 1 : 0),
+        itemCount: groups.length,
       ),
     );
   }

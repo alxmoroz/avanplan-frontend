@@ -136,8 +136,8 @@ abstract class _TaskControllerBase extends EditController with Store {
   }
 
   @action
-  Future loadTask() async {
-    if (task != null && !task!.filled) {
+  Future loadTask({bool force = false}) async {
+    if (task != null && (!task!.filled || force)) {
       await task!.load();
       _setTaskContentControllers();
     }

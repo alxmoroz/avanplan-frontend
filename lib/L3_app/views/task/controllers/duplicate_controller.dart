@@ -13,13 +13,19 @@ import '../task_view.dart';
 import 'task_controller.dart';
 
 class DuplicateController {
-  Future duplicate(Task task) async {
-    loader.setSaving();
-    Navigator.of(rootKey.currentContext!).pop();
-    final newTask = await task.duplicate();
-    if (newTask != null) {
-      MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: TaskController(newTask));
+  DuplicateController(this._taskController);
+  final TaskController _taskController;
+  Task? get _task => _taskController.task;
+
+  Future duplicate() async {
+    if (_task != null) {
+      loader.setSaving();
+      Navigator.of(rootKey.currentContext!).pop();
+      final newTask = await _task!.duplicate();
+      if (newTask != null) {
+        MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: TaskController(newTask));
+      }
+      loader.stop();
     }
-    loader.stop();
   }
 }

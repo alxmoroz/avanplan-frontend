@@ -6,7 +6,6 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
@@ -18,8 +17,6 @@ class TaskStatusField extends StatelessWidget {
   final TaskController _controller;
 
   Task get _task => _controller.task!;
-  MTFieldData get _statusFD => _controller.fData(TaskFCode.status.index);
-
   static const _padding = EdgeInsets.symmetric(horizontal: P3);
   static final _margin = const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P);
 
@@ -41,7 +38,7 @@ class TaskStatusField extends StatelessWidget {
                 child: CaretIcon(size: Size(P2 * 0.8, P2 * 0.75), color: mainBtnTitleColor),
               )
             : null,
-        loading: _statusFD.loading,
+        loading: _task.loading,
         onTap: _task.canSetStatus ? _controller.statusController.selectStatus : null,
       ),
     );

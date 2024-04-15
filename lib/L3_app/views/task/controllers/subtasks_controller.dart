@@ -66,5 +66,6 @@ abstract class _SubtasksControllerBase with Store {
     for (TaskController tc in taskControllers) {
       tc.dispose();
     }
+    taskControllers.clear();
   }
 }

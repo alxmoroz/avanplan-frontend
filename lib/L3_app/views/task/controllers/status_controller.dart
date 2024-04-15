@@ -33,7 +33,7 @@ class StatusController {
   Task get _task => _taskController.task!;
   ProjectStatusesController get _psController => _taskController.projectStatusesController;
 
-  Future<bool?> _closeDialog() async => await showMTAlertDialog(
+  Future<bool?> _closeTreeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
         actions: [
@@ -42,47 +42,49 @@ class StatusController {
         ],
       );
 
-  Future setStatus(Task t, {int? stId, bool? close}) async {
-    if (stId != null || close != null) {
-      stId ??= t.canSetStatus ? (close == true ? _psController.firstClosedStatusId : _psController.firstOpenedStatusId) : null;
-      close ??= t.statusForId(stId)?.closed;
+  // TODO: перенести часть логики на бэк (есть задача такая). Здесь оставить только проход по дереву в памяти без вызова апи
+  // TODO: будет единый код ответа по возможным ошибкам при обходе дерева
 
-      if (close == true && t.hasOpenedSubtasks) {
-        if (await _closeDialog() == true) {
-          // TODO: перенести на бэк (есть задача такая)
-          for (Task st in t.subtasks.where((t) => t.closed != close)) {
-            st.projectStatusId = stId;
-            st.setClosed(close);
-            await taskUC.save(st);
-          }
-        } else {
-          return;
-        }
-      }
+  Future _setTaskTreeStatus(Task t, {int? stId, bool? closed}) async {
+    stId ??= t.canSetStatus ? (closed == true ? _psController.firstClosedStatusId : _psController.firstOpenedStatusId) : null;
+    closed ??= t.statusForId(stId)?.closed;
 
-      final oldStId = t.projectStatusId;
-      final oldClosed = t.closed;
-      final oldClosedDate = t.closedDate;
+    final oldStId = t.projectStatusId;
+    final oldClosed = t.closed;
+    final oldClosedDate = t.closedDate;
 
-      t.projectStatusId = stId;
-      t.setClosed(close);
+    t.projectStatusId = stId;
+    t.setClosed(closed);
 
-      final sameTask = t == _task;
-      final saved = sameTask ? await _taskController.saveField(TaskFCode.status) : (await t.save() != null);
+    if (await t.save() != null) {
+      t.projectStatusId = oldStId;
+      t.closed = oldClosed;
+      t.closedDate = oldClosedDate;
+    }
 
-      if (!saved) {
-        t.projectStatusId = oldStId;
-        t.closed = oldClosed;
-        t.closedDate = oldClosedDate;
-        tasksMainController.refreshTasks();
-      } else {
-        //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (sameTask && t.closed && !t.isCheckItem) {
-          Navigator.of(rootKey.currentContext!).pop();
-        }
+    // рекурсивно закрываем по дереву
+    if (closed == true) {
+      for (Task subtask in t.subtasks.where((t) => !t.closed)) {
+        _setTaskTreeStatus(subtask, closed: true);
       }
     }
   }
+
+  Future _setStatus(Task t, {int? stId, bool? closed}) async {
+    if (closed == true && t.hasOpenedSubtasks && await _closeTreeDialog() != true) {
+      return;
+    }
+    _setTaskTreeStatus(t, stId: stId, closed: closed);
+    tasksMainController.refreshTasks();
+
+    //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
+    final isRoot = t == _task;
+    if (isRoot && t.closed && !t.isCheckItem) {
+      Navigator.of(rootKey.currentContext!).pop();
+    }
+  }
+
+  Future setClosed(bool closed) async => await _setStatus(_task, closed: closed);
 
   Future selectStatus() async {
     final selectedStatus = await showMTSelectDialog<ProjectStatus>(
@@ -105,8 +107,8 @@ class StatusController {
       },
     );
 
-    if (selectedStatus != null) {
-      await setStatus(_task, stId: selectedStatus.id);
+    if (selectedStatus != null && selectedStatus.id != null) {
+      await _setStatus(_task, stId: selectedStatus.id);
     }
   }
 
@@ -116,7 +118,7 @@ class StatusController {
       final newStatusId = _psController.sortedStatuses.elementAt(newStatusIndex).id!;
 
       final t = _task.subtasksForStatus(oldStatusId)[oldTaskIndex];
-      await setStatus(t, stId: newStatusId);
+      await _setStatus(t, stId: newStatusId);
     }
   }
 

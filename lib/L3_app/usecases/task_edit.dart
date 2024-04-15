@@ -51,7 +51,7 @@ extension TaskUC on Task {
     return et;
   }
 
-  Future load() async => await editWrapper(() async {
+  Future<Task?> load() async => await editWrapper(() async {
         final taskNode = await taskUC.getOne(wsId, id!);
         if (taskNode != null) {
           // удаление дерева подзадач
@@ -64,6 +64,7 @@ extension TaskUC on Task {
           final root = taskNode.root;
           root.filled = true;
           tasksMainController.setTask(root);
+          return root;
         }
         return null;
       });
@@ -107,13 +108,14 @@ extension TaskUC on Task {
         return null;
       });
 
-  Future delete() async => await editWrapper(() async {
+  Future<Task?> delete() async => await editWrapper(() async {
         final changes = await taskUC.delete(this);
         if (changes != null) {
-          tasksMainController.removeTask(this);
           for (Task at in changes.affected) {
             tasksMainController.task(at.wsId, at.id)?.update(at);
           }
+          tasksMainController.removeTask(this);
+          return this;
         }
         return null;
       });

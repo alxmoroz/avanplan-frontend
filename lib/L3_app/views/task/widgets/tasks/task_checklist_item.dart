@@ -51,7 +51,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   Future _toggleDone() async {
     setState(() => _taskEditing = true);
-    await tc.statusController.setStatus(task, close: !task.closed);
+    await tc.statusController.setClosed(!task.closed);
   }
 
   Widget _fieldValue(BuildContext context) {

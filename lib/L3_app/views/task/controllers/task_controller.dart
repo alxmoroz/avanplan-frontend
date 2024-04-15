@@ -12,7 +12,6 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
-import '../../../usecases/task_link.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../task_view.dart';
 import '../widgets/details/details_dialog.dart';
@@ -23,6 +22,7 @@ import 'dates_controller.dart';
 import 'delete_controller.dart';
 import 'duplicate_controller.dart';
 import 'estimate_controller.dart';
+import 'link_controller.dart';
 import 'notes_controller.dart';
 import 'project_statuses_controller.dart';
 import 'status_controller.dart';
@@ -31,7 +31,7 @@ import 'title_controller.dart';
 
 part 'task_controller.g.dart';
 
-enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, features, note, attachment }
+enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estimate, author, features, note, attachment }
 
 enum TasksFilter { my, projects }
 
@@ -42,7 +42,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
     initState(fds: [
       MTFieldData(TaskFCode.parent.index),
-      MTFieldData(TaskFCode.status.index),
       MTFieldData(TaskFCode.title.index, text: creating == true ? '' : _task.title),
       MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
       MTFieldData(TaskFCode.description.index, text: _task.description, placeholder: loc.description),
@@ -64,11 +63,17 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     statusController = StatusController(this);
     datesController = DatesController(this);
     estimateController = EstimateController(this);
+
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
+    subtasksController = SubtasksController(this);
+
     projectStatusesController = ProjectStatusesController(this);
     localExportController = LocalExportController(this);
-    subtasksController = SubtasksController(this);
+
+    linkController = LinkController(this);
+    duplicateController = DuplicateController(this);
+    deleteController = DeleteController(this);
 
     setAllowDisposeFromView(allowDisposeFromView);
   }
@@ -84,25 +89,25 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         await showDetailsDialog(this);
         break;
       case TaskAction.close:
-        await statusController.setStatus(_task, close: true);
+        await statusController.setClosed(true);
         break;
       case TaskAction.reopen:
-        await statusController.setStatus(_task, close: false);
+        await statusController.setClosed(false);
         break;
       case TaskAction.localExport:
         await localExportController.localExport();
         break;
       case TaskAction.duplicate:
-        await DuplicateController().duplicate(_task);
+        await duplicateController.duplicate();
         break;
       // case TaskAction.go2source:
       //   await _task.go2source();
       //   break;
       case TaskAction.unlink:
-        await _task.unlink();
+        await linkController.unlink();
         break;
       case TaskAction.delete:
-        await DeleteController().delete(_task);
+        await deleteController.delete();
         break;
       default:
     }
@@ -117,12 +122,16 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final DatesController datesController;
   late final EstimateController estimateController;
 
+  late final AttachmentsController attachmentsController;
+  late final NotesController notesController;
+  late final SubtasksController subtasksController;
+
   late final ProjectStatusesController projectStatusesController;
   late final LocalExportController localExportController;
 
-  late final SubtasksController subtasksController;
-  late final NotesController notesController;
-  late final AttachmentsController attachmentsController;
+  late final LinkController linkController;
+  late final DuplicateController duplicateController;
+  late final DeleteController deleteController;
 
   Task? get task => tasksMainController.task(_task.wsId, _task.id);
 

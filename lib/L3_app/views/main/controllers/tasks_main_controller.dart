@@ -80,12 +80,6 @@ abstract class _TasksMainControllerBase with Store {
   Task? task(int wsId, int? id) => _tasksMap[wsId]?[id];
 
   @action
-  void addTasks(Iterable<Task> tasks) {
-    allTasks.addAll(tasks);
-    allTasks.sort();
-  }
-
-  @action
   void setTask(Task et) {
     final index = allTasks.indexWhere((t) => t.wsId == et.wsId && t.id == et.id);
     if (index > -1) {
@@ -124,7 +118,6 @@ abstract class _TasksMainControllerBase with Store {
     allTasks.sort();
   }
 
-  // TODO: только при входе в список проектов?
   Future updateImportingProjects() async {
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
@@ -143,15 +136,12 @@ abstract class _TasksMainControllerBase with Store {
       if (existingProject?.taskSource?.state != newTS.state) {
         // проект загрузился ок
         if (newTS.isOk) {
-          // TODO: только если уже были загружены?
           // замена подзадач
           if (existingProject != null) {
             existingProject.subtasks.toList().forEach((t) => removeTask(t));
           }
-          // TODO: может и не надо делать этот запрос здесь, а при входе в проект догрузить уже свежую инфу
           // TODO: нужно догрузить только Мои задачи из этого проекта...
-          // addTasks(await myUC.getMyTasks(p.wsId, parent: p));
-          addTasks(await myUC.getMyTasks(p.wsId));
+          (await myUC.getMyTasks(p.wsId)).toList().forEach((t) => setTask(t));
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
@@ -168,8 +158,6 @@ abstract class _TasksMainControllerBase with Store {
 
   Future getData() async {
     await getMyProjectsAndTasks();
-
-    // TODO: только при входе в список проектов?
     await updateImportingProjects();
   }
 

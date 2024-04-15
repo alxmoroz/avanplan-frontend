@@ -46,12 +46,8 @@ extension TaskUC on Task {
     }
 
     et.taskSource ??= taskSource;
+    tasksMainController.setTask(et);
 
-    if (isNew) {
-      tasksMainController.addTasks([et]);
-    } else {
-      tasksMainController.setTask(et);
-    }
     return et;
   }
 

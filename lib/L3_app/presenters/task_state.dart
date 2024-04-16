@@ -194,9 +194,9 @@ extension TaskStatePresenter on Task {
       case TaskState.LOW_START:
         return _lowStartDetails;
       case TaskState.NO_INFO:
-        return project?.state == TaskState.NO_PROGRESS
+        return project.state == TaskState.NO_PROGRESS
             ? _noProgressDetails
-            : project?.state == TaskState.LOW_START
+            : project.state == TaskState.LOW_START
                 ? _lowStartDetails
                 : loc.state_no_info_title;
       case TaskState.BACKLOG:
@@ -208,7 +208,7 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(appController.lowStartThreshold).difference(DateTime.now());
+  Duration? get projectStartEtaCalcPeriod => project.calculatedStartDate.add(appController.lowStartThreshold).difference(DateTime.now());
 
   TaskState get overallState => isImportingProject
       ? TaskState.IMPORTING

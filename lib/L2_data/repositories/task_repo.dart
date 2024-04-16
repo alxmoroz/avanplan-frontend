@@ -19,7 +19,8 @@ class TaskRepo extends AbstractTaskRepo {
         .data;
     return node != null
         ? TaskNode(
-            node.root.task(wsId),
+            node.task.task(wsId),
+            node.parents.map((t) => t.task(wsId)),
             node.subtasks.map((t) => t.task(wsId)),
           )
         : null;

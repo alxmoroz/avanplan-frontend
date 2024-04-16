@@ -18,7 +18,7 @@ part 'project_statuses_controller.g.dart';
 class ProjectStatusesController extends _ProjectStatusesControllerBase with _$ProjectStatusesController {
   ProjectStatusesController(TaskController taskController) {
     _taskController = taskController;
-    _setStatuses(_taskController.task!.project!.projectStatuses);
+    _setStatuses(_taskController.task!.project.projectStatuses);
   }
 
   Future edit(ProjectStatus status) async => await projectStatusEditDialog(status, this);
@@ -39,7 +39,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
 abstract class _ProjectStatusesControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get project => _taskController.task!.project!;
+  Task get project => _taskController.task!.project;
 
   @observable
   ObservableList<ProjectStatus> _statuses = ObservableList();

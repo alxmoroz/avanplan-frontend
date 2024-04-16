@@ -63,7 +63,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
       if (!status.closed) {
         tasksWithStatusCount = tasksMainController.allTasks
             .where(
-              (t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
+              (t) => t.project.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
             )
             .length;
       }

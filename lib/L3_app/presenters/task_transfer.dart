@@ -11,11 +11,11 @@ extension TaskTransferPresenter on Task {
     List<Task> targets = [];
     // в текущем проекте можно переносить задачи между целями
     if (isTask && hfsGoals) {
-      targets = project!.openedSubtasks.where((g) => g.id != parentId).toList();
+      targets = project.openedSubtasks.where((g) => g.id != parentId).toList();
     }
 
     // если есть соседние проекты
-    for (final p in tasksMainController.openedProjects.where((p) => p.id != project?.id)) {
+    for (final p in tasksMainController.openedProjects.where((p) => p.id != project.id)) {
       // если включены цели проекта, то можно переносить только задачу в эти цели или цель в корень проекта
       if (p.hfsGoals) {
         if (isTask) {
@@ -33,5 +33,5 @@ extension TaskTransferPresenter on Task {
   }
 
   // TODO: можно дополнить переносом из инбокса и других проектов / целей - возможно, нет ещё такой задачи в бэклоге
-  Iterable<Task> get goalsForLocalImport => (isGoal || isBacklog) ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
+  Iterable<Task> get goalsForLocalImport => (isGoal || isBacklog) ? project.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
 }

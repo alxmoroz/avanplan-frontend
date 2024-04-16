@@ -43,7 +43,7 @@ class _AnalyticsDialog extends StatelessWidget {
       );
 
   int get _timeDelta => _task.leftPeriod!.inDays;
-  num get _hVelocity => (_task.project!.velocity * DAYS_IN_MONTH).round();
+  num get _hVelocity => (_task.project.velocity * DAYS_IN_MONTH).round();
   num get _closedVolume => (_task.closedVolume ?? 0).round();
   num get _totalVolume => _task.totalVolume.round();
   String get _velocityUnit => loc.chart_velocity_unit_mo(_task.hfsEstimates ? _task.ws.estimateUnitCode : loc.task_plural(_hVelocity));

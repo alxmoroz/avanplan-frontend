@@ -31,7 +31,7 @@ class LocalExportController {
     if (destination != null) {
       bool ok = false;
       // Перенос между проектами или РП
-      if (destination.project?.id != task.project?.id || destination.wsId != task.wsId) {
+      if (destination.project.id != task.project.id || destination.wsId != task.wsId) {
         Navigator.of(rootKey.currentContext!).pop();
         final movedTask = await task.move(destination);
         if (movedTask != null) {

@@ -37,7 +37,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
     MTRouter.navigate(ProjectsRouter, context);
-    MTRouter.navigate(TaskRouter, context, args: TaskController(_goal.project!));
+    MTRouter.navigate(TaskRouter, context, args: TaskController(_goal.project));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
     await MTRouter.navigate(TaskRouter, context, args: TaskController(_goal));

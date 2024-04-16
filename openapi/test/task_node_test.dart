@@ -7,8 +7,13 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(TaskNode, () {
-    // TaskGet root
-    test('to test the property `root`', () async {
+    // TaskGet task
+    test('to test the property `task`', () async {
+      // TODO
+    });
+
+    // BuiltList<TaskGet> parents
+    test('to test the property `parents`', () async {
       // TODO
     });
 

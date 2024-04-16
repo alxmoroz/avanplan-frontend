@@ -56,8 +56,8 @@ extension TaskUC on Task {
         if (taskNode != null) {
           // удаление дерева подзадач
           subtasks.toList().forEach((t) => tasksMainController.removeTask(t));
-          // новое дерево подзадач
-          for (Task t in taskNode.subtasks) {
+          // новое дерево родителей и подзадач
+          for (Task t in [...taskNode.subtasks, ...taskNode.parents]) {
             tasksMainController.setTask(t);
           }
           // сама задача

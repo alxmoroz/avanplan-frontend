@@ -19,21 +19,12 @@ extension TaskTreeUC on Task {
   Workspace get ws => wsMainController.ws(wsId);
   Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId && t.wsId == wsId);
 
-  // TODO: что за ситуация такая, когда нет проекта?
-  Task? get project {
-    if (isProject || isInbox) {
-      return this;
-    } else if (parentId != null && parent != null) {
-      return parent!.project;
-    }
-    return null;
-  }
-
   // TODO: попробовать вынести в computed в один из контроллеров
+  Task get project => (isProject || isInbox) ? this : parent!.project;
   Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
 
   bool get isCheckList => isTask && subtasks.isNotEmpty;
-  bool get isInboxTask => isTask && project!.isInbox;
+  bool get isInboxTask => isTask && project.isInbox;
 
   Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);

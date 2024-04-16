@@ -160,7 +160,8 @@ class TasksChanges {
 }
 
 class TaskNode {
-  TaskNode(this.root, this.subtasks);
+  TaskNode(this.root, this.parents, this.subtasks);
   final Task root;
+  final Iterable<Task> parents;
   final Iterable<Task> subtasks;
 }

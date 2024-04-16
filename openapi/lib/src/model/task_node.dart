@@ -13,12 +13,16 @@ part 'task_node.g.dart';
 /// TaskNode
 ///
 /// Properties:
-/// * [root] 
+/// * [task] 
+/// * [parents] 
 /// * [subtasks] 
 @BuiltValue()
 abstract class TaskNode implements Built<TaskNode, TaskNodeBuilder> {
-  @BuiltValueField(wireName: r'root')
-  TaskGet get root;
+  @BuiltValueField(wireName: r'task')
+  TaskGet get task;
+
+  @BuiltValueField(wireName: r'parents')
+  BuiltList<TaskGet> get parents;
 
   @BuiltValueField(wireName: r'subtasks')
   BuiltList<TaskGet> get subtasks;
@@ -46,10 +50,15 @@ class _$TaskNodeSerializer implements PrimitiveSerializer<TaskNode> {
     TaskNode object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'root';
+    yield r'task';
     yield serializers.serialize(
-      object.root,
+      object.task,
       specifiedType: const FullType(TaskGet),
+    );
+    yield r'parents';
+    yield serializers.serialize(
+      object.parents,
+      specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
     );
     yield r'subtasks';
     yield serializers.serialize(
@@ -79,12 +88,19 @@ class _$TaskNodeSerializer implements PrimitiveSerializer<TaskNode> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'root':
+        case r'task':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(TaskGet),
           ) as TaskGet;
-          result.root.replace(valueDes);
+          result.task.replace(valueDes);
+          break;
+        case r'parents':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+          ) as BuiltList<TaskGet>;
+          result.parents.replace(valueDes);
           break;
         case r'subtasks':
           final valueDes = serializers.deserialize(

@@ -24,7 +24,7 @@ class _TaskSelectDialog extends StatelessWidget {
   static const _AVANPLAN_KEY_OTHER_PROJECTS = '_AVANPLAN_KEY_OTHER_PROJECTS';
 
   List<MapEntry<String, List<Task>>> get _groups {
-    final gt = groupBy<Task, String>(_taskList, (t) => t.isProject ? _AVANPLAN_KEY_OTHER_PROJECTS : t.project!.title);
+    final gt = groupBy<Task, String>(_taskList, (t) => t.isProject ? _AVANPLAN_KEY_OTHER_PROJECTS : t.project.title);
     return gt.entries.sorted((g1, g2) {
       final t1 = g1.key;
       final t2 = g2.key;

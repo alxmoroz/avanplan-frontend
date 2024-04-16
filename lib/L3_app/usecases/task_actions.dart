@@ -59,7 +59,7 @@ extension TaskActionsUC on Task {
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
 
   bool get canShowStatus => hfsTaskboard && hasStatus;
-  bool get canSetStatus => isTask && hfsTaskboard && project!.projectStatuses.isNotEmpty && canEdit;
+  bool get canSetStatus => isTask && hfsTaskboard && project.projectStatuses.isNotEmpty && canEdit;
 
   bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
   bool get canShowAssignee => hfsTeam && (hasAssignee || canAssign);

@@ -40,7 +40,7 @@ abstract class _NotificationControllerBase with Store {
   Future reload() async => notifications = (await myUC.getNotifications()).sorted((n1, n2) => n2.scheduledDate.compareTo(n1.scheduledDate));
 
   @action
-  void clearData() => notifications = [];
+  void clear() => notifications = [];
 
   Future showNotification(BuildContext context, {required MTNotification n}) async {
     _selectNotification(n);

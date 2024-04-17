@@ -51,7 +51,7 @@ abstract class _WSMainControllerBase with Store {
   }
 
   @action
-  void clearData() {
+  void clear() {
     workspaces.clear();
   }
 }

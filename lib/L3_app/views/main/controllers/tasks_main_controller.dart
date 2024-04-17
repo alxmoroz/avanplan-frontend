@@ -161,5 +161,5 @@ abstract class _TasksMainControllerBase with Store {
   }
 
   @action
-  void clearData() => allTasks.clear();
+  void clear() => allTasks.clear();
 }

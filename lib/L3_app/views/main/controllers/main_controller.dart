@@ -89,11 +89,11 @@ abstract class _MainControllerBase with Store {
     });
   }
 
-  void clearData() {
+  void clear() {
     calendarController.clear();
-    tasksMainController.clearData();
-    wsMainController.clearData();
-    notificationController.clearData();
+    tasksMainController.clear();
+    wsMainController.clear();
+    notificationController.clear();
     refsController.clear();
     accountController.clear();
 

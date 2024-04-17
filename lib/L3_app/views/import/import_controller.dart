@@ -66,7 +66,7 @@ abstract class _ImportControllerBase with Store {
   bool _sendingRequest = false;
 
   @action
-  void clearData() {
+  void clear() {
     errorCode = null;
     projects = [];
     _sendingRequest = false;
@@ -100,7 +100,7 @@ abstract class _ImportControllerBase with Store {
   @action
   Future selectSource(int? id) async {
     if (id != null) {
-      clearData();
+      clear();
       selectedSourceId = id;
       final loaderDescription = '$selectedSource';
       loader.start();

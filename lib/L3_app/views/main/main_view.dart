@@ -78,7 +78,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    mainController.clearData();
+    mainController.clear();
     WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
     super.dispose();

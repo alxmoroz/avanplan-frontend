@@ -1,15 +1,15 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities_extensions/task_tree.dart';
-import 'package:avanplan/L3_app/components/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../usecases/task_actions.dart';

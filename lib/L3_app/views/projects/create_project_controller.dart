@@ -1,9 +1,9 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/main.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../main.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_tasks.dart';

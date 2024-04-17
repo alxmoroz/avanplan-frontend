@@ -21,7 +21,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(me?.activities ?? [], (a) => a.code);
 
   @action
-  Future getData() async => me = await myUC.getAccount();
+  Future reload() async => me = await myUC.getAccount();
 
   // @action
   // Future _registerActivity(String code, {int? wsId}) async {
@@ -34,7 +34,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   // bool tariffExcessInfoViewed(int wsId) => _hasActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
 
   @action
-  void clearData() => me = null;
+  void clear() => me = null;
 
   Future delete() async {
     final confirm = await showMTAlertDialog(

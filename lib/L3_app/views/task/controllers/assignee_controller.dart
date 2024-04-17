@@ -50,7 +50,7 @@ class AssigneeController {
     if (assignee != null && assignee.id != oldAssigneeId) {
       _assigneeEditTimer?.cancel();
       task.assigneeId = assignee.id;
-      tasksMainController.refreshTasks();
+      tasksMainController.refreshTasksUI();
       _assigneeEditTimer = Timer(const Duration(seconds: 0), () async => await _assign(oldAssigneeId));
     }
   }

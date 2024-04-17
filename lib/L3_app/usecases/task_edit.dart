@@ -12,7 +12,7 @@ import '../usecases/ws_tariff.dart';
 extension TaskUC on Task {
   Future<Task?> editWrapper(Future<Task?> Function() function) async {
     loading = true;
-    tasksMainController.refreshTasks();
+    tasksMainController.refreshTasksUI();
     Task? et;
     try {
       et = await function();
@@ -22,7 +22,7 @@ extension TaskUC on Task {
       error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
-    tasksMainController.refreshTasks();
+    tasksMainController.refreshTasksUI();
 
     return et;
   }

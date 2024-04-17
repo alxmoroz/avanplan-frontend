@@ -7,7 +7,6 @@ import '../../../components/circle.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons.dart';
 import '../../../components/icons_workspace.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
@@ -59,15 +58,6 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                           onTap: settingsMenu,
                         )
                       : const Spacer(),
-                ),
-                Flexible(
-                  child: MTListTile(
-                    middle: const RefreshIcon(),
-                    color: Colors.transparent,
-                    padding: _btnPadding,
-                    bottomDivider: false,
-                    onTap: mainController.update,
-                  ),
                 ),
               ],
             ),

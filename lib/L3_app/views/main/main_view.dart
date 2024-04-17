@@ -10,6 +10,7 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
+import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../components/vertical_toolbar_controller.dart';
@@ -122,16 +123,19 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: _showTasks
-                    ? ListView(
-                        controller: isWeb ? _scrollController : null,
-                        children: [
-                          _bigTitle,
-                          const SizedBox(height: P3),
-                          const NextTasks(),
-                        ],
-                      )
-                    : NoTasks(CreateProjectController()),
+                child: MTRefresh(
+                  onRefresh: mainController.update,
+                  child: _showTasks
+                      ? ListView(
+                          controller: isWeb ? _scrollController : null,
+                          children: [
+                            _bigTitle,
+                            const SizedBox(height: P3),
+                            const NextTasks(),
+                          ],
+                        )
+                      : NoTasks(CreateProjectController()),
+                ),
               ),
               leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
               rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,

@@ -13,7 +13,7 @@ import '../usecases/ws_tariff.dart';
 extension NoteEditUC on Note {
   Future<Note?> _edit(Task task, Future<Note?> Function() function) async {
     loading = true;
-    tasksMainController.refreshTasks();
+    tasksMainController.refreshTasksUI();
     Note? en;
     try {
       en = await function();
@@ -21,7 +21,7 @@ extension NoteEditUC on Note {
       task.error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
-    tasksMainController.refreshTasks();
+    tasksMainController.refreshTasksUI();
 
     return en;
   }

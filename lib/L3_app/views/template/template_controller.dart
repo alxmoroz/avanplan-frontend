@@ -26,7 +26,7 @@ abstract class _TemplateControllerBase with Store {
   bool loading = true;
 
   @action
-  Future getData() async {
+  Future reload() async {
     loading = true;
     _templates = await projectTransferUC.getProjectTemplates(_wsId);
     loading = false;

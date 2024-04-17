@@ -75,7 +75,7 @@ class StatusController {
       return;
     }
     _setTaskTreeStatus(t, stId: stId, closed: closed);
-    tasksMainController.refreshTasks();
+    tasksMainController.refreshTasksUI();
 
     //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
     final isRoot = t == _task;

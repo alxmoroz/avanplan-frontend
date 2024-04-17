@@ -23,7 +23,7 @@ abstract class _ReferencesControllerBase with Store {
   List<SourceType> sourceTypes = [];
 
   @action
-  Future getData() async {
+  Future reload() async {
     sourceTypes = [
       for (final st in ['Trello', 'Jira', 'GitLab', 'Redmine']) SourceType(id: -1, title: st, code: st.toLowerCase()),
       for (final st in ['Notion', 'GitHub']) SourceType(id: -1, title: st, code: st.toLowerCase(), active: false),
@@ -36,7 +36,7 @@ abstract class _ReferencesControllerBase with Store {
   }
 
   @action
-  void clearData() {
+  void clear() {
     sourceTypes = [];
     featureSets = [];
   }

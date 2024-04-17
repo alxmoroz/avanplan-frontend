@@ -25,9 +25,9 @@ import 'template_controller.dart';
 Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
 Future importTemplate(Workspace ws) async {
-  final itc = TemplateController(ws.id!);
-  itc.getData();
-  final template = await _selectTemplate(itc);
+  final templateController = TemplateController(ws.id!);
+  templateController.reload();
+  final template = await _selectTemplate(templateController);
   if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
     loader.setSaving();
     loader.start();

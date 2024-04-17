@@ -108,13 +108,12 @@ abstract class _TasksMainControllerBase with Store {
   }
 
   @action
-  Future getMyProjectsAndTasks() async {
-    final tasks = <Task>[];
+  Future reloadMyProjectsAndTasks() async {
+    allTasks.clear();
     for (Workspace ws in wsMainController.workspaces) {
-      tasks.addAll(await myUC.getProjects(ws.id!));
-      tasks.addAll(await myUC.getMyTasks(ws.id!));
+      allTasks.addAll(await myUC.getProjects(ws.id!));
+      allTasks.addAll(await myUC.getMyTasks(ws.id!));
     }
-    allTasks = ObservableList.of(tasks);
     allTasks.sort();
   }
 
@@ -154,10 +153,10 @@ abstract class _TasksMainControllerBase with Store {
   }
 
   @action
-  void refreshTasks() => allTasks = ObservableList.of(allTasks);
+  void refreshTasksUI() => allTasks = ObservableList.of(allTasks);
 
-  Future getData() async {
-    await getMyProjectsAndTasks();
+  Future reload() async {
+    await reloadMyProjectsAndTasks();
     await updateImportingProjects();
   }
 

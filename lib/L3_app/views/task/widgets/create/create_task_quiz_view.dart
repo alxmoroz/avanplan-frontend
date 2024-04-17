@@ -85,7 +85,7 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {
                     task!.error = null;
-                    tasksMainController.refreshTasks();
+                    tasksMainController.refreshTasksUI();
                   }),
               ],
             )

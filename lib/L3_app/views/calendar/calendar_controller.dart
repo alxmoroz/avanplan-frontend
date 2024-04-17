@@ -52,7 +52,7 @@ abstract class _CalendarControllerBase with Store {
   }
 
   @action
-  Future getData() async {
+  Future reload() async {
     // список подключенных календарей (учёток гугла, эпла и т.п.)
     _sources = ObservableList.of(await calendarUC.getSources());
 
@@ -63,7 +63,7 @@ abstract class _CalendarControllerBase with Store {
   }
 
   @action
-  void clearData() {
+  void clear() {
     events.clear();
     _sources.clear();
   }

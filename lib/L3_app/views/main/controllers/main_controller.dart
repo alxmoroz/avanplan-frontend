@@ -37,12 +37,12 @@ abstract class _MainControllerBase with Store {
     loader.setLoading();
     loader.start();
 
-    await accountController.getData();
-    await refsController.getData();
-    await notificationController.getData();
-    await wsMainController.getData();
-    await tasksMainController.getData();
-    await calendarController.getData();
+    await accountController.reload();
+    await refsController.reload();
+    await notificationController.reload();
+    await wsMainController.reload();
+    await tasksMainController.reload();
+    await calendarController.reload();
 
     _setUpdateDate(now);
     await loader.stop();
@@ -66,13 +66,13 @@ abstract class _MainControllerBase with Store {
 
   Future _tryUpdate() async {
     final invited = await _tryRedeemInvitation();
-    final timeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
-    if (invited || timeToUpdate) {
+    final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
+    if (invited || isTimeToUpdate) {
       await update();
     } else if (iapController.waitingPayment) {
       loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
       loader.start();
-      await wsMainController.getData();
+      await wsMainController.reload();
       iapController.reset();
       loader.stop();
     }
@@ -90,11 +90,12 @@ abstract class _MainControllerBase with Store {
   }
 
   void clearData() {
+    calendarController.clear();
     tasksMainController.clearData();
     wsMainController.clearData();
     notificationController.clearData();
-    refsController.clearData();
-    accountController.clearData();
+    refsController.clear();
+    accountController.clear();
 
     _setUpdateDate(null);
   }

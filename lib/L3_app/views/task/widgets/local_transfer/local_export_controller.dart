@@ -49,7 +49,7 @@ class LocalExportController {
       }
 
       if (ok) {
-        tasksMainController.refreshTasks();
+        tasksMainController.refreshTasksUI();
       }
     }
   }

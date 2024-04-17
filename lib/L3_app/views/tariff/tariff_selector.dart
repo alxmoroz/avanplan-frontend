@@ -21,7 +21,7 @@ import 'tariff_selector_controller.dart';
 
 Future<Tariff?> selectTariff(int wsId, {String reason = ''}) async {
   final tsController = TariffSelectorController(wsId, reason);
-  tsController.getData();
+  tsController.reload();
   return await showMTDialog<Tariff?>(
     _TariffSelectorDialog(tsController),
     maxWidth: SCR_XL_WIDTH,

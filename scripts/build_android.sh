@@ -4,8 +4,6 @@
 
 echo "BUILDING FOR ANDROID..."
 
-#flutter build apk --release -t lib/L3_app/main.dart
-#flutter build appbundle --target-platform android-arm,android-arm64,android-x64 --release
 flutter build appbundle --release
 
 echo "BUILDING FOR ANDROID COMPLETE"

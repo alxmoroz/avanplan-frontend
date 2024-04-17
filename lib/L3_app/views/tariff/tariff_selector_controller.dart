@@ -34,7 +34,7 @@ abstract class _TariffSelectorControllerBase with Store {
   bool loading = true;
 
   @action
-  Future getData() async {
+  Future reload() async {
     loading = true;
     tariffs = (await tariffUC.getAll(_wsId)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
     pageIndex = suggestedTariffIndex;

@@ -11,10 +11,6 @@ bash ./scripts/api_rebuild.sh
 dart run intl_utils:generate
 bash ./scripts/build_runner_build.sh
 
-#bash ./scripts/test.sh || exit
-#bash ./scripts/build_android.sh
-#bash ./scripts/build_ios.sh
-
 echo "BUILDING FOR WEB..."
 flutter build web
 echo "BUILDING FOR WEB COMPLETE"

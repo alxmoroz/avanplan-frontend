@@ -1,4 +1,4 @@
-# openapi.model.BodyRequestSourceType
+# openapi.model.BodyRequestType
 
 ## Load the model package
 ```dart

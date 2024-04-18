@@ -34,14 +34,14 @@ void main() {
       // TODO
     });
 
-    // Delete Task
+    // Delete
     //
     //Future<TasksChanges> deleteTask(int wsId, int taskId) async
     test('test deleteTask', () async {
       // TODO
     });
 
-    // Duplicate Task
+    // Duplicate
     //
     //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
     test('test duplicateTask', () async {
@@ -55,7 +55,7 @@ void main() {
       // TODO
     });
 
-    // Move Task
+    // Move
     //
     //Future<TasksChanges> moveTask(int wsId, int taskId, int srcTaskId, int srcWsId) async
     test('test moveTask', () async {
@@ -76,10 +76,17 @@ void main() {
       // TODO
     });
 
-    // Task Node
+    // Node
     //
     //Future<TaskNode> taskNode(int taskId, int wsId) async
     test('test taskNode', () async {
+      // TODO
+    });
+
+    // Unlink
+    //
+    //Future<bool> unlinkTask(int taskId, int wsId) async
+    test('test unlinkTask', () async {
       // TODO
     });
 
@@ -104,7 +111,7 @@ void main() {
       // TODO
     });
 
-    // Upsert Task
+    // Upsert
     //
     //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int taskId }) async
     test('test upsertTask', () async {

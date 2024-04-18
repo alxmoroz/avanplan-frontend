@@ -1,17 +1,26 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-/// tests for MyProjectsApi
+/// tests for MyApi
 void main() {
-  final instance = Openapi().getMyProjectsApi();
+  final instance = Openapi().getMyApi();
 
-  group(MyProjectsApi, () {
-    // My Projects
+  group(MyApi, () {
+    // Projects
     //
     // Мои проекты, куда у меня есть доступ
     //
     //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
     test('test myProjects', () async {
+      // TODO
+    });
+
+    // Tasks
+    //
+    // Мои задачи
+    //
+    //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId }) async
+    test('test myTasks', () async {
       // TODO
     });
   });

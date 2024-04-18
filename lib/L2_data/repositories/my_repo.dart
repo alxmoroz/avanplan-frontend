@@ -4,11 +4,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
-import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
-import '../mappers/task.dart';
 import '../mappers/user.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
@@ -19,8 +17,6 @@ class MyRepo extends AbstractMyRepo {
   o_api.MyActivitiesApi get _activitiesApi => openAPI.getMyActivitiesApi();
   o_api.MyNotificationsApi get _notificationsApi => openAPI.getMyNotificationsApi();
   o_api.MyPushTokensApi get _pushTokensApi => openAPI.getMyPushTokensApi();
-  o_api.MyTasksApi get _tasksApi => openAPI.getMyTasksApi();
-  o_api.MyProjectsApi get _projectsApi => openAPI.getMyProjectsApi();
 
   @override
   Future<User?> getAccount() async {
@@ -30,18 +26,6 @@ class MyRepo extends AbstractMyRepo {
 
   @override
   Future deleteAccount() async => await _accountApi.deleteAccountV1MyAccountDelete();
-
-  @override
-  Future<Iterable<Task>> getMyTasks(int wsId) async {
-    final response = await _tasksApi.myTasks(wsId: wsId);
-    return response.data?.map((t) => t.task(wsId)) ?? [];
-  }
-
-  @override
-  Future<Iterable<Task>> getProjects(int wsId, {bool? closed, bool? imported}) async {
-    final response = await _projectsApi.myProjects(wsId: wsId, closed: closed, imported: imported);
-    return response.data?.map((t) => t.task(wsId)) ?? [];
-  }
 
   @override
   Future<Iterable<MTNotification>> getNotifications() async {

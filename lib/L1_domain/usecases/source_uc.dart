@@ -10,7 +10,7 @@ class SourceUC {
   final AbstractSourceRepo repo;
 
   Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
-  Future<bool> requestSourceType(SourceType st) async => await repo.requestSourceType(st);
+  Future<bool> requestType(SourceType st, int wsId) async => await repo.requestType(st, wsId);
 
   Future<Source?> save(Source source) async => await repo.save(source);
 

@@ -41,10 +41,5 @@ void main() {
     test('to test the property `noteId`', () async {
       // TODO
     });
-
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
-      // TODO
-    });
   });
 }

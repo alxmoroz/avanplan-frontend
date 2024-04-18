@@ -14,6 +14,7 @@ import '../../components/dialog.dart';
 import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
+import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -281,7 +282,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
                             trailing: !_isBigGroup && task!.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                           ),
                     leftBar: big ? LeftMenu(leftMenuController) : null,
-                    body: _body,
+                    body: MTRefresh(
+                      onRefresh: () => controller.loadTask(force: true),
+                      child: _body,
+                    ),
                     bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
                     rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? _toolbar : null,
                     scrollController: _scrollController,

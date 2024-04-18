@@ -13,17 +13,17 @@ void main() {
       // TODO
     });
 
+    // Check Connection
+    //
+    //Future<bool> checkConnection(int wsId, int sourceId) async
+    test('test checkConnection', () async {
+      // TODO
+    });
+
     // Create
     //
     //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async
     test('test createInvitation', () async {
-      // TODO
-    });
-
-    // Create Workspace
-    //
-    //Future<WorkspaceGet> createWorkspace() async
-    test('test createWorkspace', () async {
       // TODO
     });
 
@@ -36,19 +36,26 @@ void main() {
 
     // Delete
     //
+    //Future<bool> deleteSource(int sourceId, int wsId) async
+    test('test deleteSource', () async {
+      // TODO
+    });
+
+    // Delete
+    //
     //Future<bool> deleteStatus(int statusId, int wsId, int taskId) async
     test('test deleteStatus', () async {
       // TODO
     });
 
-    // Delete Task
+    // Delete
     //
     //Future<TasksChanges> deleteTask(int wsId, int taskId) async
     test('test deleteTask', () async {
       // TODO
     });
 
-    // Duplicate Task
+    // Duplicate
     //
     //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
     test('test duplicateTask', () async {
@@ -69,10 +76,17 @@ void main() {
       // TODO
     });
 
-    // Get My Workspaces
+    // My Workspaces
     //
     //Future<BuiltList<WorkspaceGet>> getMyWorkspaces() async
     test('test getMyWorkspaces', () async {
+      // TODO
+    });
+
+    // Get Projects
+    //
+    //Future<BuiltList<TaskRemote>> getProjects(int wsId, int sourceId) async
+    test('test getProjects', () async {
       // TODO
     });
 
@@ -83,10 +97,35 @@ void main() {
       // TODO
     });
 
-    // Move Task
+    // Move
     //
     //Future<TasksChanges> moveTask(int wsId, int taskId, int srcTaskId, int srcWsId) async
     test('test moveTask', () async {
+      // TODO
+    });
+
+    // Projects
+    //
+    // Мои проекты, куда у меня есть доступ
+    //
+    //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
+    test('test myProjects', () async {
+      // TODO
+    });
+
+    // Tasks
+    //
+    // Мои задачи
+    //
+    //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId }) async
+    test('test myTasks', () async {
+      // TODO
+    });
+
+    // Request Type
+    //
+    //Future<bool> requestType(int wsId, BodyRequestType bodyRequestType) async
+    test('test requestType', () async {
       // TODO
     });
 
@@ -97,6 +136,13 @@ void main() {
       // TODO
     });
 
+    // Start Import
+    //
+    //Future<bool> startImport(int wsId, int sourceId, BodyStartImport bodyStartImport) async
+    test('test startImport', () async {
+      // TODO
+    });
+
     // Status Tasks Count
     //
     //Future<int> statusTasksCount(int wsId, int taskId, int projectStatusId) async
@@ -104,14 +150,21 @@ void main() {
       // TODO
     });
 
-    // Task Node
+    // Node
     //
     //Future<TaskNode> taskNode(int taskId, int wsId) async
     test('test taskNode', () async {
       // TODO
     });
 
-    // Update Workspace
+    // Unlink
+    //
+    //Future<bool> unlinkTask(int taskId, int wsId) async
+    test('test unlinkTask', () async {
+      // TODO
+    });
+
+    // Upsert
     //
     //Future<WorkspaceGet> updateWorkspace(int wsId, WorkspaceUpsert workspaceUpsert) async
     test('test updateWorkspace', () async {
@@ -134,12 +187,19 @@ void main() {
 
     // Upsert
     //
+    //Future<SourceGet> upsertSource(int wsId, SourceUpsert sourceUpsert) async
+    test('test upsertSource', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
     //Future<ProjectStatusGet> upsertStatus(int wsId, int taskId, ProjectStatusUpsert projectStatusUpsert) async
     test('test upsertStatus', () async {
       // TODO
     });
 
-    // Upsert Task
+    // Upsert
     //
     //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int taskId }) async
     test('test upsertTask', () async {

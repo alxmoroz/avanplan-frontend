@@ -36,10 +36,5 @@ void main() {
     test('to test the property `invoiceId`', () async {
       // TODO
     });
-
-    // String optionCode (default value: '')
-    test('to test the property `optionCode`', () async {
-      // TODO
-    });
   });
 }

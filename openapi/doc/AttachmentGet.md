@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **bytes** | **int** |  | [optional] 
 **name** | **String** |  | 
 **noteId** | **int** |  | [optional] 
-**updatedOn** | [**DateTime**](DateTime.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

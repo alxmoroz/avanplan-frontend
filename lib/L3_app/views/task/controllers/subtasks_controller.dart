@@ -13,7 +13,7 @@ part 'subtasks_controller.g.dart';
 class SubtasksController extends _SubtasksControllerBase with _$SubtasksController {
   SubtasksController(TaskController parentTaskController) {
     _parentTaskController = parentTaskController;
-    setData();
+    reload();
   }
 }
 
@@ -26,7 +26,7 @@ abstract class _SubtasksControllerBase with Store {
   ObservableList<TaskController> taskControllers = ObservableList();
 
   @action
-  void setData() => taskControllers = ObservableList.of(parent.subtasks.map((t) => TaskController(t)));
+  void reload() => taskControllers = ObservableList.of(parent.subtasks.map((t) => TaskController(t)));
 
   @action
   Future addTask() async {

@@ -17,7 +17,7 @@ part 'attachments_controller.g.dart';
 class AttachmentsController extends _AttachmentsControllerBase with _$AttachmentsController {
   AttachmentsController(TaskController taskController) {
     _taskController = taskController;
-    setData();
+    reload();
   }
 }
 
@@ -30,7 +30,7 @@ abstract class _AttachmentsControllerBase with Store {
   ObservableList<Attachment> _attachments = ObservableList();
 
   @action
-  void setData() => _attachments = ObservableList.of(task.attachments);
+  void reload() => _attachments = ObservableList.of(task.attachments);
 
   @computed
   List<Attachment> get sortedAttachments => _attachments.sorted((a1, a2) => a1.compareTo(a2));

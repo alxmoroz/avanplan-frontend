@@ -5,6 +5,6 @@ import '../entities/source_type.dart';
 import 'abs_api_repo.dart';
 
 abstract class AbstractSourceRepo extends AbstractApiRepo<Source, Source> {
-  Future<bool> checkConnection(Source s);
-  Future<bool> requestSourceType(SourceType st);
+  Future<bool> checkConnection(Source s) async => throw UnimplementedError();
+  Future<bool> requestType(SourceType st, int wsId) async => throw UnimplementedError();
 }

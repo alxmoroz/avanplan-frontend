@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import '../entities/notification.dart';
-import '../entities/task.dart';
 import '../entities/user.dart';
 import '../repositories/abs_my_repo.dart';
 
@@ -9,13 +8,6 @@ class MyUC {
   MyUC(this.repo);
 
   final AbstractMyRepo repo;
-
-  Future<Iterable<Task>> getProjects(int wsId, {bool? imported, bool? closed}) async => await repo.getProjects(
-        wsId,
-        imported: imported,
-        closed: closed,
-      );
-  Future<Iterable<Task>> getMyTasks(int wsId) async => await repo.getMyTasks(wsId);
 
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds) async => await repo.markReadNotifications(notificationsIds);

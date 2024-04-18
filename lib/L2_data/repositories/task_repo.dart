@@ -109,4 +109,13 @@ class TaskRepo extends AbstractTaskRepo {
           )
         : null;
   }
+
+  @override
+  Future<bool> unlink(Task project) async {
+    final response = await api.unlinkTask(
+      wsId: project.wsId,
+      taskId: project.id!,
+    );
+    return response.data == true;
+  }
 }

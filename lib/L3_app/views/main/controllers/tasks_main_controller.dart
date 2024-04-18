@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/errors.dart';
@@ -26,9 +27,12 @@ abstract class _TasksMainControllerBase with Store {
   @observable
   ObservableList<Task> allTasks = ObservableList();
 
+  @action
+  void refreshTasksUI() => allTasks = ObservableList.of(allTasks);
+
   /// Inbox
   @computed
-  Task get inbox => allTasks.firstWhere((t) => t.isInbox);
+  Task? get inbox => allTasks.firstWhereOrNull((t) => t.isInbox);
 
   /// проекты
   @computed
@@ -79,40 +83,44 @@ abstract class _TasksMainControllerBase with Store {
 
   Task? task(int wsId, int? id) => _tasksMap[wsId]?[id];
 
-  @action
-  void setTask(Task et) {
+  void _setTask(Task et, bool refill) {
     final index = allTasks.indexWhere((t) => t.wsId == et.wsId && t.id == et.id);
     if (index > -1) {
-      allTasks[index] = et;
+      allTasks[index] = refill ? allTasks[index].refill(et) : et;
     } else {
       allTasks.add(et);
+    }
+  }
+
+  // TODO: сделать приватным. Выделить ВИ под разную логику использования этого метода
+  @action
+  void setTasks(Iterable<Task> tasks, {bool refill = false}) {
+    for (Task et in tasks) {
+      _setTask(et, refill);
     }
     allTasks.sort();
   }
 
-  @action
-  void removeTask(Task task) {
-    task.subtasks.toList().forEach((t) => removeTask(t));
+  // TODO: сделать приватным. Выделить ВИ под разную логику использования этого метода
+  void setTask(Task et) => setTasks([et]);
+
+  void _removeTask(Task task) {
+    task.subtasks.toList().forEach((t) => _removeTask(t));
     allTasks.remove(task);
   }
 
-  void updateTasks(Iterable<Task> tasks) {
-    for (Task at in tasks) {
-      final existingTask = task(at.wsId, at.id);
-      if (existingTask != null) {
-        existingTask.update(at);
-      } else {
-        setTask(at);
-      }
-    }
+  @action
+  void removeTask(Task task) {
+    _removeTask(task);
+    refreshTasksUI();
   }
 
   @action
-  Future reloadMyProjectsAndTasks() async {
+  Future _reloadMyProjectsAndTasks() async {
     allTasks.clear();
     for (Workspace ws in wsMainController.workspaces) {
-      allTasks.addAll(await myUC.getProjects(ws.id!));
-      allTasks.addAll(await myUC.getMyTasks(ws.id!));
+      allTasks.addAll(await wsUC.getProjects(ws.id!));
+      allTasks.addAll(await wsUC.getMyTasks(ws.id!));
     }
     allTasks.sort();
   }
@@ -120,7 +128,7 @@ abstract class _TasksMainControllerBase with Store {
   Future updateImportingProjects() async {
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      importedProjects.addAll(await myUC.getProjects(ws.id!, closed: false, imported: true));
+      importedProjects.addAll(await wsUC.getProjects(ws.id!, closed: false, imported: true));
     }
 
     for (Task p in importedProjects) {
@@ -139,8 +147,7 @@ abstract class _TasksMainControllerBase with Store {
           if (existingProject != null) {
             existingProject.subtasks.toList().forEach((t) => removeTask(t));
           }
-          // TODO: нужно догрузить только Мои задачи из этого проекта...
-          (await myUC.getMyTasks(p.wsId)).toList().forEach((t) => setTask(t));
+          setTasks(await wsUC.getMyTasks(p.wsId, projectId: p.id));
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
@@ -152,11 +159,8 @@ abstract class _TasksMainControllerBase with Store {
     }
   }
 
-  @action
-  void refreshTasksUI() => allTasks = ObservableList.of(allTasks);
-
   Future reload() async {
-    await reloadMyProjectsAndTasks();
+    await _reloadMyProjectsAndTasks();
     await updateImportingProjects();
   }
 

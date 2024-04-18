@@ -37,7 +37,7 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
   if (sType.active) {
     s = await editSource(ws, sType: sType);
   } else {
-    sourceUC.requestSourceType(sType);
+    sourceUC.requestType(sType, ws.id!);
 
     if (sType.custom) {
       await mailUs(subject: loc.import_custom_request_mail_subject, text: loc.import_custom_request_mail_body_text);

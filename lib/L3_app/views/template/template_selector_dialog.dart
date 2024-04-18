@@ -32,9 +32,9 @@ Future importTemplate(Workspace ws) async {
     loader.setSaving();
     loader.start();
     final changes = await projectTransferUC.transfer(template.wsId, template.id!, ws.id!);
-    final p = changes?.updated;
-    if (p != null) {
-      changes?.affected.forEach((t) => tasksMainController.setTask(t));
+    if (changes != null) {
+      final p = changes.updated;
+      tasksMainController.setTasks(changes.affected);
       tasksMainController.setTask(p);
       MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: TaskController(p));
     }

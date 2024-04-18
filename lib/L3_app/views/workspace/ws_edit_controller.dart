@@ -36,7 +36,7 @@ abstract class _WSEditControllerBase extends EditController with Store {
     // TODO: обработка ошибок редактирования РП. Как в задаче. Локальный лоадер на шапке
     loader.setSaving();
     loader.start();
-    final editedWS = await workspaceUC.save(WorkspaceUpsert(
+    final editedWS = await wsUC.save(WorkspaceUpsert(
       id: _ws.id,
       code: fData(WSFCode.code.index).text,
       title: fData(WSFCode.title.index).text,

@@ -3,7 +3,6 @@
 import '../entities/task.dart';
 
 abstract class AbstractImportRepo {
-  Future<Iterable<ProjectRemote>> getProjectsList(int wsId, int sourceId);
-  Future<bool> import(int wsId, int sourceId, Iterable<ProjectRemote> projects);
-  Future<bool> unlinkProject(Task project);
+  Future<Iterable<ProjectRemote>> getProjectsList(int wsId, int sourceId) async => throw UnimplementedError();
+  Future<bool> import(int wsId, int sourceId, Iterable<ProjectRemote> projects) async => throw UnimplementedError();
 }

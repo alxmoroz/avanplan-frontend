@@ -139,9 +139,9 @@ abstract class _TaskControllerBase extends EditController with Store {
   bool creating = false;
 
   void _setTaskContentControllers() {
-    subtasksController.setData();
-    attachmentsController.setData();
-    notesController.setData();
+    subtasksController.reload();
+    attachmentsController.reload();
+    notesController.reload();
   }
 
   @action

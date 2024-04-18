@@ -9,11 +9,11 @@ import '../mappers/task.dart';
 import '../services/api.dart';
 
 class ImportRepo extends AbstractImportRepo {
-  o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
+  o_api.SourcesApi get api => openAPI.getSourcesApi();
 
   @override
   Future<Iterable<ProjectRemote>> getProjectsList(int wsId, int sourceId) async {
-    final response = await api.projectsListV1IntegrationsTasksGet(wsId: wsId, sourceId: sourceId);
+    final response = await api.getProjects(wsId: wsId, sourceId: sourceId);
     return response.data?.map((t) => t.taskImport) ?? [];
   }
 
@@ -21,6 +21,7 @@ class ImportRepo extends AbstractImportRepo {
   Future<bool> import(int wsId, int sourceId, Iterable<ProjectRemote> projects) async {
     final response = await api.startImport(
       wsId: wsId,
+      sourceId: sourceId,
       bodyStartImport: (o_api.BodyStartImportBuilder()
             ..projects = ListBuilder(
               projects.map<o_api.TaskRemote>((p) => (o_api.TaskRemoteBuilder()
@@ -35,15 +36,6 @@ class ImportRepo extends AbstractImportRepo {
                   .build()),
             ))
           .build(),
-    );
-    return response.data == true;
-  }
-
-  @override
-  Future<bool> unlinkProject(Task project) async {
-    final response = await api.unlinkV1IntegrationsTasksUnlinkPost(
-      wsId: project.wsId,
-      taskId: project.id!,
     );
     return response.data == true;
   }

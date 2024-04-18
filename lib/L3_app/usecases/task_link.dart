@@ -21,7 +21,7 @@ extension TaskLinkUC on Task {
   Future unlink() async {
     if (await ws.checkBalance(loc.task_unlink_action_title)) {
       await editWrapper(() async {
-        if (await importUC.unlinkProject(this)) {
+        if (await taskUC.unlink(this)) {
           unlinkTaskTree();
         }
         return this;

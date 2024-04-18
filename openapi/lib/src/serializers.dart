@@ -25,7 +25,7 @@ import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
-import 'package:openapi/src/model/body_request_source_type.dart';
+import 'package:openapi/src/model/body_request_type.dart';
 import 'package:openapi/src/model/body_start_import.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
@@ -61,7 +61,6 @@ import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/tariff_get.dart';
-import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:openapi/src/model/tariff_option_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_node.dart';
@@ -91,7 +90,7 @@ part 'serializers.g.dart';
   BodyRegisterV1MyActivitiesRegisterPost,
   BodyRegistrationToken,
   BodyRequestRegistration,
-  BodyRequestSourceType,
+  BodyRequestType,
   BodyStartImport,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokensPost,
@@ -127,7 +126,6 @@ part 'serializers.g.dart';
   SourceGet,
   SourceUpsert,
   TariffGet,
-  TariffLimitGet,
   TariffOptionGet,
   TaskGet,
   TaskNode,

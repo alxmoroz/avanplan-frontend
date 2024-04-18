@@ -12,6 +12,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/page.dart';
+import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -66,7 +67,7 @@ class _ProjectsViewState extends State<ProjectsView> {
         child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3), maxLines: 1),
       );
 
-  Task get _inbox => tasksMainController.inbox;
+  Task? get _inbox => tasksMainController.inbox;
   bool get _showProjects => tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _createProjectController.showClosed);
 
   @override
@@ -91,25 +92,30 @@ class _ProjectsViewState extends State<ProjectsView> {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: ListView(
-            controller: isWeb ? _scrollController : null,
-            children: [
-              _bigTitle,
-              const SizedBox(height: P3),
-              MTAdaptive(
-                child: MTListTile(
-                  leading: const InboxIcon(),
-                  titleText: _inbox.title,
-                  trailing: const ChevronIcon(),
-                  bottomDivider: false,
-                  onTap: () => TaskController(_inbox).showTask(),
-                ),
-              ),
-              const SizedBox(height: P3),
-              _showProjects
-                  ? TasksListView(tasksMainController.projectsGroups, scrollable: false)
-                  : MTAdaptive(child: NoProjects(_createProjectController)),
-            ],
+          child: MTRefresh(
+            onRefresh: tasksMainController.reload,
+            child: ListView(
+              controller: isWeb ? _scrollController : null,
+              children: [
+                _bigTitle,
+                if (_inbox != null) ...[
+                  const SizedBox(height: P3),
+                  MTAdaptive(
+                    child: MTListTile(
+                      leading: const InboxIcon(),
+                      titleText: _inbox!.title,
+                      trailing: const ChevronIcon(),
+                      bottomDivider: false,
+                      onTap: () => TaskController(_inbox!).showTask(),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: P3),
+                _showProjects
+                    ? TasksListView(tasksMainController.projectsGroups, scrollable: false)
+                    : MTAdaptive(child: NoProjects(_createProjectController)),
+              ],
+            ),
           ),
         ),
         bottomBar: _showProjects

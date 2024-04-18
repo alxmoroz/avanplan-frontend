@@ -23,7 +23,7 @@ part 'notes_controller.g.dart';
 class NotesController extends _NotesControllerBase with _$NotesController {
   NotesController(TaskController taskController) {
     _taskController = taskController;
-    setData();
+    reload();
   }
 }
 
@@ -56,7 +56,7 @@ abstract class _NotesControllerBase with Store {
         }
       }
       _attachmentsController.setFiles([]);
-      _attachmentsController.setData();
+      _attachmentsController.reload();
     }
   }
 
@@ -79,7 +79,7 @@ abstract class _NotesControllerBase with Store {
   ObservableList<Note> _notes = ObservableList();
 
   @action
-  void setData() {
+  void reload() {
     _notes = ObservableList.of(task.notes.map((n) {
       n.attachments = _attachmentsController.sortedAttachments.where((a) => a.noteId == n.id).toList();
       return n;
@@ -107,7 +107,7 @@ abstract class _NotesControllerBase with Store {
         await _uploadAttachments(en);
       }
 
-      setData();
+      reload();
       _taskController.updateField(_fNoteIndex, loading: false);
 
       if (notesWidgetGlobalKey.currentContext?.mounted == true) {
@@ -145,7 +145,7 @@ abstract class _NotesControllerBase with Store {
 
   Future delete(Note note) async {
     await note.delete(task);
-    _attachmentsController.setData();
-    setData();
+    _attachmentsController.reload();
+    reload();
   }
 }

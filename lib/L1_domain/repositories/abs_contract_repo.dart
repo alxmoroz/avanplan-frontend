@@ -3,5 +3,5 @@
 import '../entities/invoice.dart';
 
 abstract class AbstractContractRepo {
-  Future<Invoice?> sign(int tariffId, int wsId);
+  Future<Invoice?> sign(int tariffId, int wsId) async => throw UnimplementedError();
 }

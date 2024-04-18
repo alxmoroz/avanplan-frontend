@@ -27,23 +27,8 @@ void main() {
       // TODO
     });
 
-    // int billingPeriodDays (default value: 1)
-    test('to test the property `billingPeriodDays`', () async {
-      // TODO
-    });
-
     // BuiltList<TariffOptionGet> options
     test('to test the property `options`', () async {
-      // TODO
-    });
-
-    // BuiltList<TariffLimitGet> limits
-    test('to test the property `limits`', () async {
-      // TODO
-    });
-
-    // num estimateChargePerBillingPeriod (default value: 0)
-    test('to test the property `estimateChargePerBillingPeriod`', () async {
       // TODO
     });
   });

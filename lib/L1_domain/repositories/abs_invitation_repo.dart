@@ -3,6 +3,6 @@
 import '../entities/invitation.dart';
 
 abstract class AbstractInvitationRepo {
-  Future<Invitation?> create(Invitation invitation, int wsId);
-  Future<Invitation?> getInvitation(int wsId, int taskId, int roleId);
+  Future<Invitation?> create(Invitation invitation, int wsId) async => throw UnimplementedError();
+  Future<Invitation?> getInvitation(int wsId, int taskId, int roleId) async => throw UnimplementedError();
 }

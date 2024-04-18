@@ -23,21 +23,20 @@ class InboxAddTaskButton extends StatelessWidget {
   final bool standalone;
   final bool compact;
 
-  Task get _inbox => tasksMainController.inbox;
+  Task? get _inbox => tasksMainController.inbox;
 
   Future _onTap() async {
-    final parent = _inbox;
-    final newTask = await parent.ws.createTask(parent);
-    if (newTask != null) {
-      await TaskController(newTask, isNew: true).showTask();
+    if (_inbox != null) {
+      final newTask = await _inbox!.ws.createTask(_inbox!);
+      if (newTask != null) {
+        await TaskController(newTask, isNew: true).showTask();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final big = isBigScreen(context);
-    final size = big ? P12 : P11;
-    return big && !standalone
+    return isBigScreen(context) && !standalone
         ? MTListTile(
             leading: const MTCircle(
               size: P6,
@@ -51,7 +50,7 @@ class InboxAddTaskButton extends StatelessWidget {
         : MTButton.main(
             middle: const InboxAddIcon(color: mainBtnTitleColor, size: P6),
             constrained: false,
-            minSize: Size(size, size),
+            minSize: const Size(P11, P11),
             onTap: _onTap,
           );
   }

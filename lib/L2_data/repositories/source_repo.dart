@@ -9,7 +9,7 @@ import '../mappers/source.dart';
 import '../services/api.dart';
 
 class SourceRepo extends AbstractSourceRepo {
-  IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
+  SourcesApi get api => openAPI.getSourcesApi();
 
   @override
   Future<Source?> save(Source data) async {
@@ -22,7 +22,7 @@ class SourceRepo extends AbstractSourceRepo {
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.sourcesUpsert(
+    final response = await api.upsertSource(
       wsId: data.wsId,
       sourceUpsert: b.build(),
     );
@@ -31,14 +31,14 @@ class SourceRepo extends AbstractSourceRepo {
 
   @override
   Future<Source?> delete(Source data) async {
-    final response = await api.sourcesDelete(sourceId: data.id!, wsId: data.wsId);
+    final response = await api.deleteSource(sourceId: data.id!, wsId: data.wsId);
     return response.data == true ? data : null;
   }
 
   @override
   Future<bool> checkConnection(Source s) async {
     try {
-      final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.wsId);
+      final response = await api.checkConnection(sourceId: s.id!, wsId: s.wsId);
       return response.data == true;
     } catch (e) {
       return false;
@@ -46,8 +46,8 @@ class SourceRepo extends AbstractSourceRepo {
   }
 
   @override
-  Future<bool> requestSourceType(SourceType st) async {
-    final response = await api.requestSourceType(bodyRequestSourceType: (BodyRequestSourceTypeBuilder()..code = st.code).build());
+  Future<bool> requestType(SourceType st, int wsId) async {
+    final response = await api.requestType(bodyRequestType: (BodyRequestTypeBuilder()..code = st.code).build(), wsId: wsId);
     return response.data == true;
   }
 }

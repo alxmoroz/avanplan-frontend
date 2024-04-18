@@ -6,38 +6,38 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_request_source_type.g.dart';
+part 'body_request_type.g.dart';
 
-/// BodyRequestSourceType
+/// BodyRequestType
 ///
 /// Properties:
 /// * [code] 
 @BuiltValue()
-abstract class BodyRequestSourceType implements Built<BodyRequestSourceType, BodyRequestSourceTypeBuilder> {
+abstract class BodyRequestType implements Built<BodyRequestType, BodyRequestTypeBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  BodyRequestSourceType._();
+  BodyRequestType._();
 
-  factory BodyRequestSourceType([void updates(BodyRequestSourceTypeBuilder b)]) = _$BodyRequestSourceType;
+  factory BodyRequestType([void updates(BodyRequestTypeBuilder b)]) = _$BodyRequestType;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyRequestSourceTypeBuilder b) => b;
+  static void _defaults(BodyRequestTypeBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyRequestSourceType> get serializer => _$BodyRequestSourceTypeSerializer();
+  static Serializer<BodyRequestType> get serializer => _$BodyRequestTypeSerializer();
 }
 
-class _$BodyRequestSourceTypeSerializer implements PrimitiveSerializer<BodyRequestSourceType> {
+class _$BodyRequestTypeSerializer implements PrimitiveSerializer<BodyRequestType> {
   @override
-  final Iterable<Type> types = const [BodyRequestSourceType, _$BodyRequestSourceType];
+  final Iterable<Type> types = const [BodyRequestType, _$BodyRequestType];
 
   @override
-  final String wireName = r'BodyRequestSourceType';
+  final String wireName = r'BodyRequestType';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyRequestSourceType object, {
+    BodyRequestType object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'code';
@@ -50,7 +50,7 @@ class _$BodyRequestSourceTypeSerializer implements PrimitiveSerializer<BodyReque
   @override
   Object serialize(
     Serializers serializers,
-    BodyRequestSourceType object, {
+    BodyRequestType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -61,7 +61,7 @@ class _$BodyRequestSourceTypeSerializer implements PrimitiveSerializer<BodyReque
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyRequestSourceTypeBuilder result,
+    required BodyRequestTypeBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -84,12 +84,12 @@ class _$BodyRequestSourceTypeSerializer implements PrimitiveSerializer<BodyReque
   }
 
   @override
-  BodyRequestSourceType deserialize(
+  BodyRequestType deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyRequestSourceTypeBuilder();
+    final result = BodyRequestTypeBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

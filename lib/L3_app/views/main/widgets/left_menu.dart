@@ -60,7 +60,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                 leading: const RefreshIcon(),
                 middle: _compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
                 bottomDivider: false,
-                onTap: mainController.update,
+                onTap: mainController.reload,
               ),
             if (accountController.me != null)
               MTListTile(

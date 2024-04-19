@@ -70,6 +70,7 @@ final _routers = <MTRouter>[
 ];
 
 abstract class MTRouter {
+  bool local = false;
   String? prevName;
   // для title и settings
   RouteSettings? rs;
@@ -92,6 +93,8 @@ abstract class MTRouter {
   Widget? get page => null;
 
   Future push(BuildContext context, {MTRouter? removeUntil, bool replace = false, Object? args}) async {
+    local = true;
+
     final n = Navigator.of(context);
     final p = path(args: args);
     if (removeUntil != null) {
@@ -125,6 +128,8 @@ abstract class MTRouter {
   static Route? generateRoute(RouteSettings rs) {
     final r = router(rs);
     if (r != null) {
+      r.local = false;
+
       final page = r.page;
       final settings = r.settings;
       final isDialog = r.isDialog;

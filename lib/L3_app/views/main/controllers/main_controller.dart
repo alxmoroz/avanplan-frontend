@@ -33,7 +33,7 @@ abstract class _MainControllerBase with Store {
   @action
   void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
-  Future update() async {
+  Future reload() async {
     loader.setLoading();
     loader.start();
 
@@ -68,7 +68,7 @@ abstract class _MainControllerBase with Store {
     final invited = await _tryRedeemInvitation();
     final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
     if (invited || isTimeToUpdate) {
-      await update();
+      await reload();
     } else if (iapController.waitingPayment) {
       loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
       loader.start();

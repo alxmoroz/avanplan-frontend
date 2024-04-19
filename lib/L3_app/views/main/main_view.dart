@@ -124,7 +124,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 top: false,
                 bottom: false,
                 child: MTRefresh(
-                  onRefresh: mainController.update,
+                  onRefresh: mainController.reload,
                   child: _showTasks
                       ? ListView(
                           controller: isWeb ? _scrollController : null,

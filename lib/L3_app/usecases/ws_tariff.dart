@@ -32,7 +32,7 @@ extension WSTariffUC on Workspace {
         ),
       );
       if (hasSelectPay == true) {
-        await mainController.update();
+        await mainController.reload();
       }
     }
     return lack <= 0;

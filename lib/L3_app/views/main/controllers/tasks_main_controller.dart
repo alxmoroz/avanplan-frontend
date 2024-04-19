@@ -13,7 +13,6 @@ import '../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_state.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
 
@@ -27,8 +26,16 @@ abstract class _TasksMainControllerBase with Store {
   @observable
   ObservableList<Task> allTasks = ObservableList();
 
+  void clear() => allTasks.clear();
+
   @action
-  void refreshTasksUI() => allTasks = ObservableList.of(allTasks);
+  void refreshTasksUI({bool sort = false}) {
+    if (sort) {
+      allTasks.sort();
+    } else {
+      allTasks = ObservableList.of(allTasks);
+    }
+  }
 
   /// Inbox
   @computed
@@ -37,14 +44,10 @@ abstract class _TasksMainControllerBase with Store {
   /// проекты
   @computed
   Iterable<Task> get projects => allTasks.where((t) => t.isProject);
-  @computed
-  bool get hasLinkedProjects => projects.where((p) => p.isLinked).isNotEmpty;
+
   @computed
   List<MapEntry<TaskState, List<Task>>> get projectsGroups => groups(projects);
-  @computed
-  List<Task> get dashboardProjects => projectsGroups.isNotEmpty ? projectsGroups.first.value : [];
-  @computed
-  TaskState get overallProjectsState => attentionalState(projectsGroups);
+
   @computed
   Iterable<Task> get openedProjects => projects.where((p) => !p.closed);
   @computed
@@ -53,7 +56,10 @@ abstract class _TasksMainControllerBase with Store {
   bool get isAllProjectsClosed => projects.isNotEmpty && !hasOpenedProjects;
 
   @computed
-  Iterable<TaskSource> get importingTSs => projects.where((p) => p.isImportingProject).map((p) => p.taskSource!);
+  Iterable<Task> get _importingProjects => projects.where((p) => p.isImportingProject);
+
+  @computed
+  Iterable<TaskSource> get importingTSs => _importingProjects.map((p) => p.taskSource!);
 
   /// задачи
 
@@ -83,46 +89,26 @@ abstract class _TasksMainControllerBase with Store {
 
   Task? task(int wsId, int? id) => _tasksMap[wsId]?[id];
 
-  void _setTask(Task et, bool refill) {
-    final index = allTasks.indexWhere((t) => t.wsId == et.wsId && t.id == et.id);
-    if (index > -1) {
-      allTasks[index] = refill ? allTasks[index].refill(et) : et;
-    } else {
-      allTasks.add(et);
-    }
-  }
-
-  // TODO: сделать приватным. Выделить ВИ под разную логику использования этого метода
-  @action
   void setTasks(Iterable<Task> tasks, {bool refill = false}) {
     for (Task et in tasks) {
-      _setTask(et, refill);
+      final index = allTasks.indexWhere((t) => t.wsId == et.wsId && t.id == et.id);
+      if (index > -1) {
+        allTasks[index] = refill ? allTasks[index].refill(et) : et;
+      } else {
+        allTasks.add(et);
+      }
     }
-    allTasks.sort();
   }
 
-  // TODO: сделать приватным. Выделить ВИ под разную логику использования этого метода
-  void setTask(Task et) => setTasks([et]);
-
-  void _removeTask(Task task) {
-    task.subtasks.toList().forEach((t) => _removeTask(t));
+  void removeTask(Task task) {
+    task.subtasks.toList().forEach((t) => removeTask(t));
     allTasks.remove(task);
   }
 
-  @action
-  void removeTask(Task task) {
-    _removeTask(task);
-    refreshTasksUI();
-  }
-
-  @action
-  Future _reloadMyProjectsAndTasks() async {
-    allTasks.clear();
-    for (Workspace ws in wsMainController.workspaces) {
-      allTasks.addAll(await wsUC.getProjects(ws.id!));
-      allTasks.addAll(await wsUC.getMyTasks(ws.id!));
+  void _setupImportingProjectsRefreshTimer() {
+    if (_importingProjects.isNotEmpty) {
+      Timer(const Duration(seconds: 10), () async => await updateImportingProjects());
     }
-    allTasks.sort();
   }
 
   Future updateImportingProjects() async {
@@ -151,19 +137,26 @@ abstract class _TasksMainControllerBase with Store {
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
-      setTask(p);
+      setTasks([p]);
     }
+    refreshTasksUI(sort: true);
 
-    if (importedProjects.where((p) => p.isImportingProject).isNotEmpty) {
-      Timer(const Duration(seconds: 10), () async => await updateImportingProjects());
-    }
-  }
-
-  Future reload() async {
-    await _reloadMyProjectsAndTasks();
-    await updateImportingProjects();
+    _setupImportingProjectsRefreshTimer();
   }
 
   @action
-  void clear() => allTasks.clear();
+  Future reload() async {
+    final tasks = <Task>[];
+
+    // мои проекты и задачи
+    for (Workspace ws in wsMainController.workspaces) {
+      tasks.addAll(await wsUC.getProjects(ws.id!));
+      tasks.addAll(await wsUC.getMyTasks(ws.id!));
+    }
+
+    tasks.sort();
+    allTasks = ObservableList.of(tasks);
+
+    _setupImportingProjectsRefreshTimer();
+  }
 }

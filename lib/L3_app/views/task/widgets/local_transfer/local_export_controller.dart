@@ -33,23 +33,16 @@ class LocalExportController {
       // Перенос между проектами или РП
       if (destination.project.id != task.project.id || destination.wsId != task.wsId) {
         Navigator.of(rootKey.currentContext!).pop();
-        final movedTask = await task.move(destination);
-        if (movedTask != null) {
-          ok = true;
-        }
+        await task.move(destination);
       }
       // внутри одного проекта
       else {
         // новый родитель
         task.parentId = destination.id;
-        ok = await _taskController.saveField(TaskFCode.parent);
-        if (!ok) {
+        if (!await _taskController.saveField(TaskFCode.parent)) {
           task.parentId = sourceTaskId;
+          tasksMainController.refreshTasksUI();
         }
-      }
-
-      if (ok) {
-        tasksMainController.refreshTasksUI();
       }
     }
   }

@@ -74,7 +74,7 @@ abstract class _CreateProjectControllerBase with Store {
             await _create();
             break;
           case CreationMethod.template:
-            await importTemplate(_ws!);
+            await createFromTemplate(_ws!);
             break;
           case CreationMethod.import:
             await importTasks(_ws!);

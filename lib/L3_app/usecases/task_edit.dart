@@ -26,7 +26,7 @@ extension TaskUC on Task {
       error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
-    tasksMainController.refreshTasksUI();
+    tasksMainController.refreshTasksUI(sort: true);
 
     return et;
   }
@@ -91,7 +91,7 @@ extension TaskUC on Task {
             // TODO: тут именно такая логика, что нужно в других местах на выходе задача заполненная
             final et = changes.updated.refill(changes.updated);
             tasksMainController.setTasks(changes.affected, refill: true);
-            tasksMainController.setTask(et);
+            tasksMainController.setTasks([et]);
             return et;
           }
         }
@@ -103,7 +103,7 @@ extension TaskUC on Task {
           final changes = await taskUC.move(this, destination);
           if (changes != null) {
             final newTask = changes.updated;
-            tasksMainController.setTask(newTask);
+            tasksMainController.setTasks([newTask]);
             tasksMainController.setTasks(changes.affected, refill: true);
             tasksMainController.removeTask(this);
             return newTask;
@@ -118,7 +118,7 @@ extension TaskUC on Task {
           if (changes != null) {
             final newTask = changes.updated;
             tasksMainController.setTasks(changes.affected, refill: true);
-            tasksMainController.setTask(newTask);
+            tasksMainController.setTasks([newTask]);
             return newTask;
           }
         }

@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../main.dart';
 import '../../components/circular_progress.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -15,28 +14,27 @@ import '../../components/images.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_tariff.dart';
 import '../task/controllers/task_controller.dart';
-import '../task/task_view.dart';
 import 'template_controller.dart';
 
 Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
-Future importTemplate(Workspace ws) async {
+Future createFromTemplate(Workspace ws) async {
   final templateController = TemplateController(ws.id!);
   templateController.reload();
   final template = await _selectTemplate(templateController);
   if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
     loader.setSaving();
     loader.start();
-    final changes = await projectTransferUC.transfer(template.wsId, template.id!, ws.id!);
+    final changes = await projectTransferUC.createFromTemplate(template.wsId, template.id!, ws.id!);
     if (changes != null) {
       final p = changes.updated;
-      tasksMainController.setTasks(changes.affected);
-      tasksMainController.setTask(p);
-      MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: TaskController(p));
+      p.filled = true;
+      tasksMainController.setTasks([p, ...changes.affected]);
+      tasksMainController.refreshTasksUI(sort: true);
+      await TaskController(p).showTask();
     }
     loader.stop();
   }

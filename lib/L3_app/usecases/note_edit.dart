@@ -11,7 +11,7 @@ import '../usecases/task_tree.dart';
 import '../usecases/ws_tariff.dart';
 
 extension NoteEditUC on Note {
-  Future<Note?> _edit(Task task, Future<Note?> Function() function) async {
+  Future<Note?> _editWrapper(Task task, Future<Note?> Function() function) async {
     loading = true;
     tasksMainController.refreshTasksUI();
     Note? en;
@@ -26,7 +26,7 @@ extension NoteEditUC on Note {
     return en;
   }
 
-  Future<Note?> save(Task task) async => await _edit(task, () async {
+  Future<Note?> save(Task task) async => await _editWrapper(task, () async {
         Note? en;
         if (await task.ws.checkBalance(loc.task_note_add_action_title)) {
           en = await noteUC.save(this);
@@ -61,7 +61,7 @@ extension NoteEditUC on Note {
         return en;
       });
 
-  Future<Note?> delete(Task task) async => await _edit(task, () async {
+  Future<Note?> delete(Task task) async => await _editWrapper(task, () async {
         final deletedNote = await noteUC.delete(this);
         if (deletedNote != null) {
           task.notes.remove(this);

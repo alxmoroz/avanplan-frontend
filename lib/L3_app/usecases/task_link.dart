@@ -24,7 +24,7 @@ extension TaskLinkUC on Task {
         if (await taskUC.unlink(this)) {
           unlinkTaskTree();
         }
-        return this;
+        return null;
       });
     }
   }

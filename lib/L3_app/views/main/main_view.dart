@@ -53,20 +53,28 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   bool get _showTasks => _hasTasks || _hasEvents;
 
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
-        leftMenuController = VerticalToolbarController(isCompact: !isBigScreen(context), wideWidth: 242.0);
-        rightToolbarController = VerticalToolbarController(isCompact: true, wideWidth: 220);
-        taskGroupToolbarController = VerticalToolbarController(isCompact: true);
-        taskToolbarController = VerticalToolbarController(isCompact: false);
-
         await mainController.startupActions();
       });
 
   @override
   void initState() {
-    _startupActions();
+    print('MainView initState');
+
     WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    leftMenuController = VerticalToolbarController(isCompact: !isBigScreen(context), wideWidth: 242.0);
+    rightToolbarController = VerticalToolbarController(isCompact: true, wideWidth: 220);
+    taskGroupToolbarController = VerticalToolbarController(isCompact: true);
+    taskToolbarController = VerticalToolbarController(isCompact: false);
+
+    _startupActions();
+
+    super.didChangeDependencies();
   }
 
   @override

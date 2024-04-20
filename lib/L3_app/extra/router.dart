@@ -130,6 +130,8 @@ abstract class MTRouter {
     if (r != null) {
       r.local = false;
 
+      print(rs.name);
+
       final page = r.page;
       final settings = r.settings;
       final isDialog = r.isDialog;

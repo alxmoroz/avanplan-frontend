@@ -13,10 +13,7 @@ import '../../quiz/abstract_task_quiz_controller.dart';
 
 part 'create_goal_quiz_controller.g.dart';
 
-enum _StepCode {
-  goalSetup,
-  tasks,
-}
+enum _StepCode { goalSetup, tasks }
 
 class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$CreateGoalQuizController {
   CreateGoalQuizController(super.taskController);
@@ -24,7 +21,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.tasks.name) {
-      context.goSubtasksQuiz(_goal, this);
+      context.goSubtasksQuiz(taskController);
     }
   }
 

@@ -17,46 +17,43 @@ import '../details/task_quiz_details.dart';
 import '../header/task_header.dart';
 
 class CreateTaskQuizView extends TaskView {
-  CreateTaskQuizView(this._qController, {super.key}) : super(_qController.taskController);
-  final AbstractTaskQuizController _qController;
+  const CreateTaskQuizView(super.taskIn, {super.key});
 
   @override
   State<CreateTaskQuizView> createState() => _CreateTaskQuizViewState();
 }
 
 class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
-  AbstractTaskQuizController get qController => widget._qController;
+  AbstractTaskQuizController get qController => controller.quizController!;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => task != null
-          ? Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                MTPage(
-                  appBar: QuizHeader(qController),
-                  leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
-                  body: SafeArea(
-                    top: false,
-                    bottom: false,
-                    child: ListView(
-                      children: [
-                        const SizedBox(height: P),
-                        TaskHeader(controller),
-                        MTAdaptive(child: TaskQuizDetails(qController)),
-                      ],
-                    ),
-                  ),
-                ),
-                if (task!.error != null)
-                  MTErrorSheet(task!.error!, onClose: () {
-                    task!.error = null;
-                    tasksMainController.refreshTasksUI();
-                  }),
-              ],
-            )
-          : Container(),
+      builder: (_) => Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          MTPage(
+            appBar: QuizHeader(qController),
+            leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: ListView(
+                children: [
+                  const SizedBox(height: P),
+                  TaskHeader(controller),
+                  MTAdaptive(child: TaskQuizDetails(qController)),
+                ],
+              ),
+            ),
+          ),
+          if (task != null && task!.error != null)
+            MTErrorSheet(task!.error!, onClose: () {
+              task!.error = null;
+              tasksMainController.refreshTasksUI();
+            }),
+        ],
+      ),
     );
   }
 }

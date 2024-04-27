@@ -17,13 +17,12 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../quiz/abstract_task_quiz_controller.dart';
+import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_route.dart';
-import '../../task_view.dart';
 import '../../widgets/create/create_task_button.dart';
 import '../tasks/task_checklist_item.dart';
 
@@ -39,7 +38,7 @@ class _CreateSubtasksQuizRoute extends TaskRoute {
       };
 
   @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _CreateSubtasksQuizView(qController(TaskController(task(state)!, isNew: true), state)!);
+  GoRouterWidgetBuilder? get builder => (_, state) => _CreateSubtasksQuizView(state.extra as TaskController);
 }
 
 final createSubtasksProjectQuizRoute = _CreateSubtasksQuizRoute('project');
@@ -49,20 +48,15 @@ final createSubtasksQuizRoutes = {
   'goal': createSubtasksGoalQuizRoute,
 };
 
-class _CreateSubtasksQuizView extends TaskView {
-  _CreateSubtasksQuizView(this._qController) : super(_qController.taskController);
-  final AbstractTaskQuizController _qController;
+class _CreateSubtasksQuizView extends StatelessWidget {
+  const _CreateSubtasksQuizView(this._controller);
+  final TaskController _controller;
 
-  @override
-  State<_CreateSubtasksQuizView> createState() => _CreateSubtasksQuizViewState();
-}
-
-class _CreateSubtasksQuizViewState extends TaskViewState<_CreateSubtasksQuizView> {
-  AbstractTaskQuizController get qController => widget._qController;
-  SubtasksController get subtasksController => controller.subtasksController;
+  AbstractQuizController get qController => _controller.quizController!;
+  SubtasksController get subtasksController => _controller.subtasksController;
 
   Widget get addButton => CreateTaskButton(
-        controller,
+        _controller,
         type: ButtonType.secondary,
         margin: const EdgeInsets.only(top: P3),
         onTap: subtasksController.addTask,

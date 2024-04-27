@@ -5,5 +5,5 @@ import 'abstract_quiz_controller.dart';
 
 abstract class AbstractTaskQuizController extends AbstractQuizController {
   AbstractTaskQuizController(this.taskController);
-  late final TaskController taskController;
+  final TaskController taskController;
 }

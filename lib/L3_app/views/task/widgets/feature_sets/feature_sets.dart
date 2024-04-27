@@ -100,16 +100,17 @@ class _FeatureSetsQuizRoute extends TaskRoute {
   String? title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
 
   @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(qController(TaskController(task(state)!, isNew: true), state)!);
+  GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(state.extra as TaskController);
 }
 
 final featureSetsQuizRoute = _FeatureSetsQuizRoute();
 
 class _FeatureSetsQuizView extends StatelessWidget {
-  const _FeatureSetsQuizView(this._qController);
+  const _FeatureSetsQuizView(this._controller);
+  final TaskController _controller;
 
-  final AbstractTaskQuizController _qController;
-  FeatureSetsController get _fsController => _qController.taskController.featureSetsController;
+  AbstractTaskQuizController get _qController => _controller.quizController!;
+  FeatureSetsController get _fsController => _controller.featureSetsController;
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
@@ -33,41 +32,38 @@ class _TeamQuizRoute extends TaskRoute {
   String? title(GoRouterState state) => '${super.title(state)} | ${loc.team_title}';
 
   @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _TeamQuizView(qController(TaskController(task(state)!, isNew: true), state)!);
+  GoRouterWidgetBuilder? get builder => (_, state) => _TeamQuizView(state.extra as TaskController);
 }
 
 final teamQuizRoute = _TeamQuizRoute();
 
 class _TeamQuizView extends StatelessWidget {
-  const _TeamQuizView(this._qController);
-  final AbstractTaskQuizController _qController;
+  const _TeamQuizView(this._controller);
+  final TaskController _controller;
 
-  TaskController get _taskController => _qController.taskController;
-  Task? get _task => _taskController.task;
+  AbstractTaskQuizController get _qController => _controller.quizController!;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _task != null
-          ? MTPage(
-              appBar: QuizHeader(_qController),
-              leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
-              body: SafeArea(
-                top: false,
-                bottom: false,
-                child: MTAdaptive(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      Team(_taskController, standalone: false),
-                      const SizedBox(height: P3),
-                      QuizNextButton(_qController, margin: EdgeInsets.zero),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          : Container(),
+      builder: (_) => MTPage(
+        appBar: QuizHeader(_qController),
+        leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: MTAdaptive(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Team(_controller, standalone: false),
+                const SizedBox(height: P3),
+                QuizNextButton(_qController, margin: EdgeInsets.zero),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -20,8 +20,8 @@ import '../views/loader/loader_screen.dart';
 import '../views/main/main_view.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/projects/projects_view.dart';
-import '../views/quiz/abstract_task_quiz_controller.dart';
 import '../views/source/sources_dialog.dart';
+import '../views/task/controllers/task_controller.dart';
 import '../views/task/task_route.dart';
 import '../views/task/widgets/create/create_subtasks_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
@@ -119,32 +119,23 @@ extension MTRouterHelper on BuildContext {
         extra: extra,
       );
 
-  void goFeatureSetsQuiz(Task task, AbstractTaskQuizController qc) => goLocalTask(
-        task,
+  void goFeatureSetsQuiz(TaskController tc) => goLocalTask(
+        tc.taskDescriptor,
         subRouteName: featureSetsQuizRoute.name!,
-        extra: qc,
+        extra: tc,
       );
 
-  void goTeamQuiz(Task task, AbstractTaskQuizController qc) => goLocalTask(
-        task,
+  void goTeamQuiz(TaskController tc) => goLocalTask(
+        tc.taskDescriptor,
         subRouteName: teamQuizRoute.name!,
-        extra: qc,
+        extra: tc,
       );
 
-  void goSubtasksQuiz(Task task, AbstractTaskQuizController qc) => goLocalTask(
-        task,
-        subRouteName: createSubtasksQuizRoutes[TaskRoute.rName(task)]!.name!,
-        extra: qc,
+  void goSubtasksQuiz(TaskController tc) => goLocalTask(
+        tc.taskDescriptor,
+        subRouteName: createSubtasksQuizRoutes[TaskRoute.rName(tc.taskDescriptor)]!.name!,
+        extra: tc,
       );
-
-  // GoRouterState get _rState => GoRouterState.of(this);
-
-  // int? get wsId => _rState.intPathParam('wsId');
-  // int? get inboxId => _rState.intPathParam('inboxId');
-  // int? get projectId => _rState.intPathParam('projectId');
-  // int? get goalId => _rState.intPathParam('goalId');
-  // int? get backlogId => _rState.intPathParam('backlogId');
-  // int? get taskId => _rState.intPathParam('taskId');
 }
 
 final rootKey = GlobalKey<NavigatorState>();

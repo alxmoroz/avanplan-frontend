@@ -40,8 +40,9 @@ class TaskView extends StatefulWidget {
   // TODO: отвязаться от создания контроллера заранее. Создавать контроллер (инициализировать FData) нужно после загрузки данных,
   //  либо делать реиницилаизацию после загрузки данных.
   //  Кроме того, нужно отправлять сюда только айдишники
-  const TaskView(this._controller, {super.key});
-  final TaskController _controller;
+  const TaskView(this._taskDescriptor, {super.key, this.isNew = false});
+  final Task _taskDescriptor;
+  final bool isNew;
 
   @override
   State<TaskView> createState() => TaskViewState();
@@ -50,20 +51,24 @@ class TaskView extends StatefulWidget {
 class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController _scrollController;
   late final ScrollController _boardScrollController;
+  late final TaskController controller;
+
   bool _hasScrolled = false;
-
-  TaskController get controller => widget._controller;
   Task? get task => controller.task;
-  bool get _hasParent => task?.parent != null;
+  Task get td => widget._taskDescriptor;
+  bool get _hasParent => td.parent != null;
 
-  bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
-  bool get _isBigGroup => isBigScreen(context) && !task!.isTask;
+  bool get _isTaskDialog => isBigScreen(context) && td.isTask;
+  bool get _isBigGroup => isBigScreen(context) && td.isTask;
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   // TODO: определить как и fast / other actions в задаче
   bool get _hasQuickActions => (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate)) || task!.canComment;
 
   @override
   void initState() {
+    controller = TaskController(td, isNew: widget.isNew);
+    controller.loadTask();
+
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
     super.initState();
@@ -106,7 +111,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
               /// Задача (лист)
               task!.contentLoading
                   ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress()))
-                  : task!.isTask
+                  : td.isTask
                       ? _isTaskDialog
                           ? TaskDialogDetails(controller)
                           : MTAdaptive(child: TaskDetails(controller))
@@ -156,7 +161,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         );
 
   Widget? get _title {
-    final textColor = task!.isInbox ? f2Color : null;
+    final textColor = td.isInbox ? f2Color : null;
     return _hasScrolled
         ? Column(
             mainAxisSize: MainAxisSize.min,
@@ -167,7 +172,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                 child: Row(
                   mainAxisAlignment: _isBigGroup ? MainAxisAlignment.start : MainAxisAlignment.center,
                   children: [
-                    if (task!.isInbox) InboxIcon(color: f2Color, size: _isBigGroup ? P6 : P4),
+                    if (td.isInbox) InboxIcon(color: f2Color, size: _isBigGroup ? P6 : P4),
                     SizedBox(width: _isBigGroup ? P2 : P),
                     Flexible(child: _isBigGroup ? H1(task!.title, maxLines: 1, color: textColor) : H3(task!.title, maxLines: 1, color: textColor)),
                   ],
@@ -180,9 +185,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   TaskRightToolbar get _toolbar => TaskRightToolbar(
         controller,
-        task?.isTask == true
+        td.isTask
             ? taskToolbarController
-            : task?.isInbox == true
+            : td.isInbox
                 ? rightToolbarController
                 : taskGroupToolbarController,
       );

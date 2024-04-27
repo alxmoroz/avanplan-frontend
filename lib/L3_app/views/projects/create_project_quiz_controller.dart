@@ -31,16 +31,18 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
       _fsController.reload();
-      context.goFeatureSetsQuiz(_project, this);
+      context.goFeatureSetsQuiz(taskController);
     } else if (step.code == _StepCode.team.name) {
-      context.goTeamQuiz(_project, this);
+      context.goTeamQuiz(taskController);
     } else if (step.code == _StepCode.goals.name) {
-      _goal ??= await _project.ws.createTask(_project);
-      if (_goal != null && context.mounted) {
-        context.goLocalTask(_goal!, extra: this);
+      final goal = await _project.ws.createTask(_project);
+      if (goal != null && context.mounted) {
+        // TODO: тут должен быть ShellRoute или что-то такое...
+        // сейчас сбрасывается на независимое создание цели
+        context.goLocalTask(goal, extra: true);
       }
     } else if (step.code == _StepCode.tasks.name) {
-      context.goSubtasksQuiz(_goal ?? _project, this);
+      context.goSubtasksQuiz(taskController);
     }
   }
 
@@ -55,7 +57,6 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
   _CreateProjectQuizControllerBase(super.taskController);
 
   Task get _project => taskController.task!;
-  Task? _goal;
 
   FeatureSetsController get _fsController => taskController.featureSetsController;
 

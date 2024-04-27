@@ -12,10 +12,13 @@ import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
+import '../../projects/create_project_quiz_controller.dart';
+import '../../quiz/abstract_task_quiz_controller.dart';
 import '../widgets/details/details_dialog.dart';
 import '../widgets/local_transfer/local_export_controller.dart';
 import 'assignee_controller.dart';
 import 'attachments_controller.dart';
+import 'create_goal_quiz_controller.dart';
 import 'dates_controller.dart';
 import 'delete_controller.dart';
 import 'duplicate_controller.dart';
@@ -36,19 +39,19 @@ enum TasksFilter { my, projects }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController(Task taskIn, {bool isNew = false}) {
-    _task = taskIn;
+    taskDescriptor = taskIn;
     creating = isNew;
 
     initState(fds: [
       MTFieldData(TaskFCode.parent.index),
-      MTFieldData(TaskFCode.title.index, text: creating == true ? '' : _task.title),
+      MTFieldData(TaskFCode.title.index, text: creating == true ? '' : taskDescriptor.title),
       MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
-      MTFieldData(TaskFCode.description.index, text: _task.description, placeholder: loc.description),
+      MTFieldData(TaskFCode.description.index, text: taskDescriptor.description, placeholder: loc.description),
       MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
       MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
       MTFieldData(
         TaskFCode.estimate.index,
-        label: (_task.isGroup || _task.isBacklog) ? loc.task_estimate_group_label : loc.task_estimate_label,
+        label: (taskDescriptor.isGroup || taskDescriptor.isBacklog) ? loc.task_estimate_group_label : loc.task_estimate_label,
         placeholder: loc.task_estimate_placeholder,
       ),
       MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
@@ -74,6 +77,14 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     linkController = LinkController(this);
     duplicateController = DuplicateController(this);
     deleteController = DeleteController(this);
+
+    quizController = isNew
+        ? taskDescriptor.isProject
+            ? CreateProjectQuizController(this)
+            : taskDescriptor.isGoal
+                ? CreateGoalQuizController(this)
+                : null
+        : null;
   }
 
   Future taskAction(BuildContext context, TaskAction? actionType) async {
@@ -108,7 +119,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 }
 
 abstract class _TaskControllerBase extends EditController with Store {
-  late final Task _task;
+  late final Task taskDescriptor;
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;
@@ -127,7 +138,9 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final DuplicateController duplicateController;
   late final DeleteController deleteController;
 
-  Task? get task => tasksMainController.task(_task.wsId, _task.id);
+  AbstractTaskQuizController? quizController;
+
+  Task? get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id);
 
   @observable
   bool creating = false;

@@ -24,7 +24,7 @@ class _TaskNotFoundRoute extends MTRoute {
   bool isDialog(BuildContext _) => true;
 
   @override
-  String? title(GoRouterState _) => loc.my_account_title;
+  String? title(GoRouterState _) => loc.error_404_task_title;
 }
 
 // не нужно объявлять в маршрутах, не должно быть диплинков сюда
@@ -37,18 +37,16 @@ class _TaskNotFoundDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: const MTAppBar(showCloseButton: true, color: b2Color),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            MTImage(ImageName.no_info.name),
-            const SizedBox(height: P3),
-            H2(loc.error_404_task_title, align: TextAlign.center),
-            const SizedBox(height: P),
-            BaseText(loc.error_404_task_description, align: TextAlign.center),
-            const SizedBox(height: P3),
-          ],
-        ),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          MTImage(ImageName.no_info.name),
+          const SizedBox(height: P3),
+          H2(loc.error_404_task_title, align: TextAlign.center),
+          const SizedBox(height: P),
+          BaseText(loc.error_404_task_description, align: TextAlign.center),
+          const SizedBox(height: P3),
+        ],
       ),
     );
   }

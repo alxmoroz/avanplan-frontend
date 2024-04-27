@@ -32,19 +32,17 @@ Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}
     );
 
 class MTDialogPage<T> extends Page<T> {
-  const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth});
+  const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth, super.key});
 
   final Widget child;
   final double? maxWidth;
 
-  RouteSettings get _settings => RouteSettings(name: name, arguments: arguments);
-
   @override
   Route<T> createRoute(BuildContext context) => isBigScreen(context)
       ? DialogRoute(
-          context: globalContext,
+          context: context,
           barrierColor: barrierColor,
-          settings: _settings,
+          settings: this,
           builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
         )
       : ModalBottomSheetRoute(
@@ -52,7 +50,7 @@ class MTDialogPage<T> extends Page<T> {
           constraints: _dialogConstrains(context, maxWidth),
           modalBarrierColor: barrierColor,
           isScrollControlled: true,
-          settings: _settings,
+          settings: this,
           builder: (_) => child,
         );
 }

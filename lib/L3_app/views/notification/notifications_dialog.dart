@@ -3,6 +3,7 @@
 import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
@@ -21,21 +22,25 @@ import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import 'notification_controller.dart';
 
-class NotificationsRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/my_notifications';
+class _NotificationsRoute extends MTRoute {
+  _NotificationsRoute()
+      : super(
+          path: 'my_notifications',
+          name: 'my_notifications',
+          builder: (_, __) => const _NotificationsDialog(),
+        );
 
   @override
-  bool get isDialog => true;
-  @override
-  double get maxWidth => SCR_M_WIDTH;
+  bool isDialog(BuildContext _) => true;
 
   @override
-  String get title => loc.notification_list_title;
+  double get dialogMaxWidth => SCR_M_WIDTH;
 
   @override
-  Widget get page => const _NotificationsDialog();
+  String? title(GoRouterState _) => loc.notification_list_title;
 }
+
+final notificationsRoute = _NotificationsRoute();
 
 class _NotificationsDialog extends StatelessWidget {
   const _NotificationsDialog();

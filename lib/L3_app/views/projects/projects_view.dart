@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L2_data/services/platform.dart';
@@ -19,23 +20,25 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
-import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'create_project_button.dart';
 import 'create_project_controller.dart';
 import 'no_projects.dart';
 import 'right_toolbar.dart';
 
-class ProjectsRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/projects';
+class _ProjectsRoute extends MTRoute {
+  _ProjectsRoute()
+      : super(
+          path: 'projects',
+          name: 'projects',
+          builder: (_, __) => const ProjectsView(),
+        );
 
   @override
-  String get title => loc.project_list_title;
-
-  @override
-  Widget get page => const ProjectsView();
+  String? title(GoRouterState _) => loc.project_list_title;
 }
+
+final projectsRoute = _ProjectsRoute();
 
 class ProjectsView extends StatefulWidget {
   const ProjectsView({super.key});
@@ -106,7 +109,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                       titleText: _inbox!.title,
                       trailing: const ChevronIcon(),
                       bottomDivider: false,
-                      onTap: () => TaskController(_inbox!).showTask(),
+                      onTap: () => context.goLocalTask(_inbox!),
                     ),
                   ),
                 ],

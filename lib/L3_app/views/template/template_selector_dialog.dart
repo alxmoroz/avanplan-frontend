@@ -14,14 +14,14 @@ import '../../components/images.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_tariff.dart';
-import '../task/controllers/task_controller.dart';
 import 'template_controller.dart';
 
 Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
-Future createFromTemplate(Workspace ws) async {
+Future createFromTemplate(BuildContext context, Workspace ws) async {
   final templateController = TemplateController(ws.id!);
   templateController.reload();
   final template = await _selectTemplate(templateController);
@@ -34,7 +34,8 @@ Future createFromTemplate(Workspace ws) async {
       p.filled = true;
       tasksMainController.setTasks([p, ...changes.affected]);
       tasksMainController.refreshTasksUI(sort: true);
-      await TaskController(p).showTask();
+
+      if (context.mounted) context.goLocalTask(p);
     }
     loader.stop();
   }

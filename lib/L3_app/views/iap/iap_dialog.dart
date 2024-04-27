@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/iap_product.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../../main.dart';
 import '../../components/button.dart';
 import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
@@ -15,6 +15,7 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 
@@ -36,7 +37,7 @@ class _StoreDialog extends StatelessWidget {
   Workspace get ws => wsMainController.ws(_wsId);
 
   Future _pay(IAPProduct p) async {
-    Navigator.of(rootKey.currentContext!).pop(true);
+    globalContext.pop(true);
     await iapController.pay(_wsId, p);
   }
 

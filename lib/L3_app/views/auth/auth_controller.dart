@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/errors.dart';
-import '../../../main.dart';
 import '../../components/images.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
@@ -30,14 +29,14 @@ abstract class _AuthControllerBase with Store {
   bool authorized = false;
 
   @action
-  Future _signInWithRegistration() async {
+  Future _signInWithRegistration(BuildContext context) async {
     if (registrationTokenController.hasToken) {
       _startLdrAuth();
       final token = registrationTokenController.token!;
       registrationTokenController.clear();
 
       if (authorized) {
-        await signOut();
+        await signOut(context);
       }
       authorized = await authUC.signInWithRegistration(token);
 
@@ -46,11 +45,11 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  Future signInWithPassword(String email, String pwd) async {
+  Future signInWithPassword(BuildContext context, String email, String pwd) async {
     _startLdrAuth();
     authorized = await authUC.signInWithPassword(email, pwd);
-    Navigator.of(rootKey.currentContext!).pop();
-    await loader.stop(300);
+    loader.stop();
+    if (context.mounted) context.goMain();
   }
 
   @action
@@ -58,7 +57,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInGoogle();
-      await loader.stop(300);
+      loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.description);
     }
@@ -69,7 +68,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInApple();
-      await loader.stop(300);
+      loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.description);
     }
@@ -82,21 +81,24 @@ abstract class _AuthControllerBase with Store {
     if (hasToken && localAuth.needRefresh) {
       _startLdrAuth();
       hasToken = await authUC.refreshToken();
-      await loader.stop();
+      loader.stop();
     }
     authorized = hasToken;
   }
 
   @action
-  Future signOut() async {
-    popTop();
+  Future signOut(BuildContext context) async {
     authorized = false;
+    _startLdrAuth();
     await authUC.signOut();
+    if (context.mounted) context.goAuth();
   }
 
-  Future startupActions() async {
-    await _signInWithRegistration();
+  Future startupActions(BuildContext context) async {
+    print('AuthController startupActions');
     await appController.initState();
+    // TODO: возможно, нужно добавить выше unauthorizedActions и добавить этот вызов туда
+    _signInWithRegistration(context);
   }
 
   void _startLdrAuth() {

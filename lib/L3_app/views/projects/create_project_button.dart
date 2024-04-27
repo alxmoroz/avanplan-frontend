@@ -37,7 +37,7 @@ class CreateProjectButton extends StatelessWidget {
             leading: plusIcon,
             middle: !compact ? BaseText(addSubtaskActionTitle(null), maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
-            onTap: _controller.startCreate,
+            onTap: () => _controller.startCreate(context),
           )
         : MTButton(
             margin: EdgeInsets.only(right: compact ? P2 : 0),
@@ -46,7 +46,7 @@ class CreateProjectButton extends StatelessWidget {
             titleText: compact ? null : addSubtaskActionTitle(null),
             middle: compact ? plusIcon : null,
             constrained: !compact,
-            onTap: _controller.startCreate,
+            onTap: () => _controller.startCreate(context),
           );
   }
 }

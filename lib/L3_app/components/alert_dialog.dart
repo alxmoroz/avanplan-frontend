@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../main.dart';
+import '../extra/router.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'divider.dart';
@@ -41,7 +41,7 @@ Future<T?> showMTAlertDialog<T>(
   bool simple = false,
 }) async {
   return await showCupertinoDialog<T?>(
-    context: rootKey.currentContext!,
+    context: globalContext,
     barrierDismissible: true,
     builder: (_) => _MTAlertDialog(title: title, description: description, actions: actions, simple: simple),
   );

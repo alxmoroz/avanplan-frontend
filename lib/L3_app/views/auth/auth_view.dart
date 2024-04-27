@@ -13,35 +13,43 @@ import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import '../app/about_dialog.dart';
 import '../app/app_title.dart';
 import 'auth_extra_dialog.dart';
 
-class AuthView extends StatefulWidget {
-  const AuthView({super.key});
+final authRoute = MTRoute(
+  path: '/auth',
+  name: 'auth',
+  builder: (_, __) => const _AuthView(),
+);
 
-  static String get routeName => '/auth';
+class _AuthView extends StatefulWidget {
+  const _AuthView();
 
   @override
   State<StatefulWidget> createState() => _AuthViewState();
 }
 
-class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
-  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await authController.startupActions());
-
+class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
   @override
   void initState() {
-    _startupActions();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    authController.startupActions(context);
+    super.didChangeDependencies();
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _startupActions();
+      authController.startupActions(context);
     }
   }
 

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors_base.dart';
@@ -13,7 +14,6 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../app/about_dialog.dart';
-import '../workspace/ws_dialog.dart';
 import '../workspace/ws_list_tile.dart';
 import 'account_button.dart';
 import 'notifications_button.dart';
@@ -26,8 +26,8 @@ class _SettingsDialog extends StatelessWidget {
   List<Workspace> get _wss => wsMainController.workspaces;
 
   void _toWS(BuildContext context, int wsId) {
-    Navigator.of(context).pop();
-    MTRouter.navigate(WSRouter, context, args: wsId);
+    context.pop();
+    context.goWS(wsId);
   }
 
   Widget _workspaces(BuildContext context) => Column(

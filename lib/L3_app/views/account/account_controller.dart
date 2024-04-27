@@ -1,11 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
 import '../../components/alert_dialog.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
@@ -36,7 +38,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   @action
   void clear() => me = null;
 
-  Future delete() async {
+  Future delete(BuildContext context) async {
     final confirm = await showMTAlertDialog(
       loc.my_account_delete_dialog_title,
       description: loc.my_account_delete_dialog_description,
@@ -51,9 +53,9 @@ abstract class _AccountControllerBase extends EditController with Store {
       loader.start();
 
       await myUC.deleteAccount();
-      await authController.signOut();
+      await authController.signOut(context.mounted ? context : globalContext);
 
-      await loader.stop();
+      loader.stop();
     }
   }
 }

@@ -1,23 +1,23 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import 'auth_view.dart';
 
 part 'registration_token_controller.g.dart';
 
-class RegistrationTokenRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/register';
-
-  @override
-  RouteSettings? get settings {
-    registrationTokenController.parseLink(rs!.uri);
-    return const RouteSettings(name: '/');
-  }
-}
+final registrationTokenRoute = MTRoute(
+  path: '/register',
+  name: 'register',
+  redirect: (BuildContext context, GoRouterState state) {
+    registrationTokenController.parseLink(state.uri);
+    return authRoute.path;
+  },
+);
 
 class RegistrationTokenController extends _RegistrationTokenControllerBase with _$RegistrationTokenController {}
 

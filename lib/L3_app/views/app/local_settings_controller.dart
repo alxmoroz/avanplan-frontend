@@ -41,7 +41,7 @@ abstract class _LocalSettingsControllerBase with Store {
   @computed
   DateTime? get _appUpgradeProposalDate => settings.getDate(LSDateCode.APP_UPGRADE_PROPOSAL);
   @computed
-  bool get canAppUpgradeProposal => _appUpgradeProposalDate == null || _appUpgradeProposalDate!.isBefore(lastWeek);
+  bool get canProposeAppUpgrade => _appUpgradeProposalDate == null || _appUpgradeProposalDate!.isBefore(lastWeek);
 
   @action
   Future setAppUpgradeProposalDate() async => settings = await localSettingsUC.setAppUpgradeProposalDate(now);

@@ -3,13 +3,12 @@
 import 'package:collection/collection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../../main.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import 'notification_dialog.dart';
 
@@ -58,29 +57,16 @@ abstract class _NotificationControllerBase with Store {
   @observable
   bool pushAuthorized = false;
 
-  Uri? _uri(RemoteMessage msg) {
+  Future _tryNavigate(BuildContext context, RemoteMessage msg) async {
     final data = msg.data;
     final String uriStr = data['uri'] ?? '';
-    return uriStr.isNotEmpty ? Uri.parse(uriStr) : null;
-  }
-
-  Future _tryNavigate(RemoteMessage msg) async {
-    final uri = _uri(msg);
-    if (uri != null) {
-      popTop();
-      String rName = '';
-      for (var ps in uri.pathSegments) {
-        rName += '/$ps';
-        // print(routeName);
-        try {
-          Navigator.of(rootKey.currentContext!).pushNamed(rName);
-        } catch (_) {}
-      }
+    if (Uri.tryParse(uriStr) != null) {
+      context.go(uriStr);
     }
   }
 
   @action
-  Future initPush() async {
+  Future initPush(BuildContext context) async {
     // Запрос разрешения на отправку уведомлений
     final authStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
 
@@ -105,10 +91,9 @@ abstract class _NotificationControllerBase with Store {
     // Обработка входящих push-уведомлений
     // onLaunch
     final msg = await FirebaseMessaging.instance.getInitialMessage();
-    if (msg != null) {
-      _tryNavigate(msg);
-    }
+    if (msg != null && context.mounted) _tryNavigate(context, msg);
+
     // onResume
-    FirebaseMessaging.onMessageOpenedApp.listen(_tryNavigate);
+    FirebaseMessaging.onMessageOpenedApp.listen((msg) => _tryNavigate(context, msg));
   }
 }

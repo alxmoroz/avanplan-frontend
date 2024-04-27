@@ -45,7 +45,7 @@ class TasksBoard extends StatelessWidget {
     return Observer(
       builder: (_) => MTBoard(
         children: [
-          for (var i = 0; i < _psController.sortedStatuses.length; i++) TaskBoardColumn(_taskController, i).builder(),
+          for (var i = 0; i < _psController.sortedStatuses.length; i++) TaskBoardColumn(_taskController, i).builder(context),
           _statusAddButton,
         ],
         scrollController: scrollController,

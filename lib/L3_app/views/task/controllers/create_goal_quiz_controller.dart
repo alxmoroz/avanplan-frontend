@@ -8,11 +8,8 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_feature_sets.dart';
 import '../../../usecases/task_tree.dart';
-import '../../projects/projects_view.dart';
 import '../../quiz/abstract_quiz_controller.dart';
-import '../task_view.dart';
-import '../widgets/create/create_multitask_quiz_view.dart';
-import 'task_controller.dart';
+import '../../quiz/abstract_task_quiz_controller.dart';
 
 part 'create_goal_quiz_controller.g.dart';
 
@@ -22,32 +19,26 @@ enum _StepCode {
 }
 
 class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$CreateGoalQuizController {
-  CreateGoalQuizController(TaskController goalController) {
-    _goalController = goalController;
-  }
+  CreateGoalQuizController(super.taskController);
 
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.tasks.name) {
-      await MTRouter.navigate(CreateMultiTaskQuizRouter, context, args: CreateMultiTaskQuizArgs(_goalController, this));
+      context.goSubtasksQuiz(_goal, this);
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
-    Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
-    MTRouter.navigate(ProjectsRouter, context);
-    MTRouter.navigate(TaskRouter, context, args: TaskController(_goal.project));
-    //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
-    //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    await MTRouter.navigate(TaskRouter, context, args: TaskController(_goal));
+    // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
+    context.goLocalTask(_goal);
   }
 }
 
-abstract class _CreateGoalQuizControllerBase extends AbstractQuizController with Store {
-  late final TaskController _goalController;
+abstract class _CreateGoalQuizControllerBase extends AbstractTaskQuizController with Store {
+  _CreateGoalQuizControllerBase(super.taskController);
 
-  Task get _goal => _goalController.task!;
+  Task get _goal => taskController.task!;
 
   @override
   Iterable<QuizStep> get steps => [

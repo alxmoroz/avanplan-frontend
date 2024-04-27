@@ -14,6 +14,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
@@ -78,7 +79,7 @@ class TaskBoardColumn {
         canDrag: t.canSetStatus,
       );
 
-  Widget? get _footer => !_status.closed && _parent.canCreate
+  Widget? _footer(BuildContext context) => !_status.closed && _parent.canCreate
       ? MTListTile(
           middle: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -92,8 +93,8 @@ class TaskBoardColumn {
           bottomDivider: false,
           onTap: () async {
             final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
-            if (newTask != null) {
-              await TaskController(newTask, isNew: true).showTask();
+            if (newTask != null && context.mounted) {
+              context.goLocalTask(newTask, extra: true);
             }
           },
         )
@@ -123,13 +124,13 @@ class TaskBoardColumn {
         ),
       );
 
-  MTBoardColumn builder() => _Column(
+  MTBoardColumn builder(BuildContext context) => _Column(
         _status,
         header: _header,
         children: [for (final t in _tasks) _taskBuilder(t)],
         canDrag: false,
         contentsWhenEmpty: Container(),
         lastTarget: _tasks.isEmpty ? const _ItemTarget() : null,
-        footer: _footer,
+        footer: _footer(context),
       );
 }

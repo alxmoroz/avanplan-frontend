@@ -2,18 +2,16 @@
 
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../main.dart';
 import '../../../components/field_data.dart';
-import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
-import '../task_view.dart';
 import '../widgets/details/details_dialog.dart';
 import '../widgets/local_transfer/local_export_controller.dart';
 import 'assignee_controller.dart';
@@ -22,6 +20,7 @@ import 'dates_controller.dart';
 import 'delete_controller.dart';
 import 'duplicate_controller.dart';
 import 'estimate_controller.dart';
+import 'feature_sets_controller.dart';
 import 'link_controller.dart';
 import 'notes_controller.dart';
 import 'project_statuses_controller.dart';
@@ -36,7 +35,7 @@ enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estim
 enum TasksFilter { my, projects }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController(Task taskIn, {bool isNew = false, bool? allowDisposeFromView}) {
+  TaskController(Task taskIn, {bool isNew = false}) {
     _task = taskIn;
     creating = isNew;
 
@@ -67,6 +66,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
     subtasksController = SubtasksController(this);
+    featureSetsController = FeatureSetsController(this);
 
     projectStatusesController = ProjectStatusesController(this);
     localExportController = LocalExportController(this);
@@ -74,40 +74,33 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     linkController = LinkController(this);
     duplicateController = DuplicateController(this);
     deleteController = DeleteController(this);
-
-    setAllowDisposeFromView(allowDisposeFromView);
   }
 
-  Future showTask() async {
-    loadTask();
-    await MTRouter.navigate(TaskRouter, rootKey.currentContext!, args: this);
-  }
-
-  Future taskAction(TaskAction? actionType) async {
+  Future taskAction(BuildContext context, TaskAction? actionType) async {
     switch (actionType) {
       case TaskAction.details:
         await showDetailsDialog(this);
         break;
       case TaskAction.close:
-        await statusController.setClosed(true);
+        await statusController.setClosed(context, true);
         break;
       case TaskAction.reopen:
-        await statusController.setClosed(false);
+        await statusController.setClosed(context, false);
         break;
       case TaskAction.localExport:
-        await localExportController.localExport();
+        await localExportController.localExport(context);
         break;
       case TaskAction.duplicate:
-        await duplicateController.duplicate();
+        await duplicateController.duplicate(context);
         break;
       // case TaskAction.go2source:
       //   await _task.go2source();
       //   break;
       case TaskAction.unlink:
-        await linkController.unlink();
+        await linkController.unlink(context);
         break;
       case TaskAction.delete:
-        await deleteController.delete();
+        await deleteController.delete(context);
         break;
       default:
     }
@@ -125,6 +118,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final AttachmentsController attachmentsController;
   late final NotesController notesController;
   late final SubtasksController subtasksController;
+  late final FeatureSetsController featureSetsController;
 
   late final ProjectStatusesController projectStatusesController;
   late final LocalExportController localExportController;
@@ -144,7 +138,6 @@ abstract class _TaskControllerBase extends EditController with Store {
     notesController.reload();
   }
 
-  @action
   Future loadTask({bool force = false}) async {
     if (task != null && (!task!.filled || force)) {
       await task!.load();

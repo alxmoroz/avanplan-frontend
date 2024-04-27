@@ -2,10 +2,10 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../main.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_transfer.dart';
 import '../../../../usecases/task_edit.dart';
@@ -64,8 +64,8 @@ abstract class _LocalImportControllerBase with Store {
     }
   }
 
-  Future moveTasks() async {
-    Navigator.of(rootKey.currentContext!).pop();
+  Future moveTasks(BuildContext context) async {
+    context.pop();
     final dstParentId = destinationGoal.id;
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {

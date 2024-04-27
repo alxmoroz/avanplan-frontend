@@ -10,7 +10,6 @@ import '../../../../components/text.dart';
 import '../../../../extra/router.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../../task_view.dart';
 
 class TaskParentTitle extends StatelessWidget {
   const TaskParentTitle(this._controller, {super.key});
@@ -20,7 +19,7 @@ class TaskParentTitle extends StatelessWidget {
 
   Future _toParent(BuildContext context) async {
     final parent = _task.parent!;
-    (MTRouter.routerForType(TaskRouter) as TaskRouter).navigateBreadcrumbs(context, parent);
+    context.goLocalTask(parent);
   }
 
   @override

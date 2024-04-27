@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/next_task_or_event.dart';
@@ -45,7 +46,7 @@ abstract class _MainControllerBase with Store {
     await calendarController.reload();
 
     _setUpdateDate(now);
-    await loader.stop();
+    loader.stop();
   }
 
   // Future _showOnboarding() async {}
@@ -81,11 +82,13 @@ abstract class _MainControllerBase with Store {
   // static const _updatePeriod = Duration(hours: 1);
 
   @action
-  Future startupActions() async {
+  Future startupActions(BuildContext context) async {
+    print('MainController startupActions');
+
     await appController.initState(authorizedActions: () async {
-      await _tryUpdate();
+      await notificationController.initPush(context);
       // await _showOnboarding();
-      await notificationController.initPush();
+      await _tryUpdate();
     });
   }
 

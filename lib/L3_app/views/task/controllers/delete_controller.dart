@@ -3,10 +3,10 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
@@ -18,7 +18,7 @@ class DeleteController {
   final TaskController _taskController;
   Task? get _task => _taskController.task;
 
-  Future delete() async {
+  Future delete(BuildContext context) async {
     if (_task != null) {
       final confirm = await showMTAlertDialog(
         _task!.deleteDialogTitle,
@@ -30,8 +30,8 @@ class DeleteController {
         simple: true,
       );
       if (confirm == true) {
+        if (context.mounted) context.pop();
         _task!.delete();
-        Navigator.of(rootKey.currentContext!).pop();
       }
     }
   }

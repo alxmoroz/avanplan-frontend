@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors_base.dart';
@@ -12,26 +13,22 @@ import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'ws_user_tile.dart';
 
-class WSUsersRouter extends MTRouter {
-  static const _wsPrefix = '/ws';
-  static const _suffix = 'users';
+class _WSUsersRoute extends MTRoute {
+  _WSUsersRoute()
+      : super(
+          path: 'users',
+          name: 'users',
+    builder: (_, state) => _WSUsersDialog(state.intPathParam('wsId')!),
+        );
 
   @override
-  String path({Object? args}) => '$_wsPrefix/${args as int}/$_suffix';
+  bool isDialog(BuildContext _) => true;
 
   @override
-  bool get isDialog => true;
-
-  @override
-  RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
-  int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
-
-  @override
-  Widget get page => _WSUsersDialog(_id);
-
-  @override
-  String get title => '${wsMainController.ws(_id).code} | ${loc.members_title}';
+  String? title(GoRouterState state) => '${wsMainController.ws(state.intPathParam('wsId')!).code} | ${loc.members_title}';
 }
+
+final wsUsersRoute = _WSUsersRoute();
 
 class _WSUsersDialog extends StatelessWidget {
   const _WSUsersDialog(this._wsId);

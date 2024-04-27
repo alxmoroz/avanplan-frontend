@@ -46,7 +46,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
                 color: greenColor,
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 loading: _task.loading,
-                onTap: () => _controller.statusController.setClosed(true),
+                onTap: () => _controller.statusController.setClosed(context, true),
               ),
             const Spacer(),
             if (_task.canLocalImport)

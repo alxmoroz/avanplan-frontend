@@ -39,7 +39,7 @@ class TaskStatusField extends StatelessWidget {
               )
             : null,
         loading: _task.loading,
-        onTap: _task.canSetStatus ? _controller.statusController.selectStatus : null,
+        onTap: _task.canSetStatus ? () => _controller.statusController.selectStatus(context) : null,
       ),
     );
   }

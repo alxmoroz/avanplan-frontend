@@ -43,6 +43,8 @@ abstract class _AppControllerBase with Store {
   @action
   Future initState({_FutureFunction? authorizedActions}) async {
     if (!_init) {
+      print('AppController initState');
+
       _init = true;
 
       await getSettings();
@@ -52,7 +54,7 @@ abstract class _AppControllerBase with Store {
         loader.setMustUpgrade();
       } else {
         // если можно обновить приложение, предлагаем обновиться
-        if (!isWeb && mayUpgrade && localSettingsController.canAppUpgradeProposal) {
+        if (!isWeb && mayUpgrade && localSettingsController.canProposeAppUpgrade) {
           await showAppMayUpgradeDialog();
           await localSettingsController.setAppUpgradeProposalDate();
         }

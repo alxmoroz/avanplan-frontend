@@ -4,11 +4,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/board/dd_item.dart';
 import '../../../components/board/dd_item_target.dart';
@@ -65,28 +65,28 @@ class StatusController {
     // рекурсивно закрываем по дереву
     if (closed == true) {
       for (Task subtask in t.subtasks.where((t) => !t.closed)) {
+        // тут нет await умышленно
         _setTaskTreeStatus(subtask, closed: true);
       }
     }
   }
 
-  Future _setStatus(Task t, {int? stId, bool? closed}) async {
+  Future _setStatus(Task t, {int? stId, bool? closed, BuildContext? context}) async {
     if (closed == true && t.hasOpenedSubtasks && await _closeTreeDialog() != true) {
       return;
     }
+    //TODO: тут нет await умышленно
     _setTaskTreeStatus(t, stId: stId, closed: closed);
     tasksMainController.refreshTasksUI();
 
-    //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-    final isRoot = t == _task;
-    if (isRoot && t.closed && !t.isCheckItem) {
-      Navigator.of(rootKey.currentContext!).pop();
+    if (context != null && context.mounted && t.closed && !t.isCheckItem) {
+      context.pop();
     }
   }
 
-  Future setClosed(bool closed) async => await _setStatus(_task, closed: closed);
+  Future setClosed(BuildContext context, bool closed) async => await _setStatus(_task, closed: closed, context: context);
 
-  Future selectStatus() async {
+  Future selectStatus(BuildContext context) async {
     final selectedStatus = await showMTSelectDialog<ProjectStatus>(
       _psController.sortedStatuses,
       _task.projectStatusId,
@@ -108,7 +108,7 @@ class StatusController {
     );
 
     if (selectedStatus != null && selectedStatus.id != null) {
-      await _setStatus(_task, stId: selectedStatus.id);
+      _setStatus(_task, stId: selectedStatus.id, context: context.mounted ? context : null);
     }
   }
 

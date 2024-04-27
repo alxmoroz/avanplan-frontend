@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
@@ -34,26 +35,26 @@ import 'ws_edit_dialog.dart';
 import 'ws_expenses_dialog.dart';
 import 'ws_users_dialog.dart';
 
-class WSRouter extends MTRouter {
-  static const _prefix = '/ws';
+class _WSRoute extends MTRoute {
+  _WSRoute()
+      : super(
+          path: 'ws/:wsId',
+          name: 'ws',
+    builder: (context, state) => _WSDialog(state.intPathParam('wsId')!),
+          routes: [
+            wsSourcesRoute,
+            wsUsersRoute,
+          ],
+        );
 
   @override
-  String path({Object? args}) => '$_prefix/${args as int}';
-
-  int get _wsId => int.parse(rs!.uri.pathSegments.lastOrNull ?? '-1');
+  bool isDialog(BuildContext _) => true;
 
   @override
-  bool get isDialog => true;
-
-  @override
-  RegExp get pathRe => RegExp('^$_prefix/\\d+\$');
-
-  @override
-  Widget get page => _WSDialog(_wsId);
-
-  @override
-  String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
+  String title(GoRouterState state) => '${loc.workspace_title_short} ${wsMainController.ws(state.intPathParam('wsId')!).code}';
 }
+
+final wsRoute = _WSRoute();
 
 class _WSDialog extends StatelessWidget {
   const _WSDialog(this._wsId);
@@ -160,7 +161,7 @@ class _WSDialog extends StatelessWidget {
         trailing: const ChevronIcon(),
         bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || _ws.hpSourceCreate,
         dividerIndent: P11,
-        onTap: () async => await MTRouter.navigate(WSUsersRouter, context, args: _ws.id!),
+        onTap: () async => context.goWSUsers(_ws.id!),
       );
 
   Widget _tasks(BuildContext context) => MTListTile(
@@ -194,9 +195,9 @@ class _WSDialog extends StatelessWidget {
       titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
       bottomDivider: false,
-      onTap: () async {
+      onTap: () {
         _ws.checkSources();
-        await MTRouter.navigate(SourcesRouter, context, args: _ws.id!);
+        context.goWSSources(_ws.id!);
       });
 
   @override

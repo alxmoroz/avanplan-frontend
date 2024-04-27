@@ -47,7 +47,7 @@ class _SignInEmailDialogState extends State<_SignInEmailDialog> {
               const SizedBox(height: P3),
               MTButton.main(
                 titleText: loc.auth_sign_in_email_action_title,
-                onTap: controller.validated ? controller.signIn : null,
+                onTap: controller.validated ? () => controller.signIn(context) : null,
               ),
               if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],

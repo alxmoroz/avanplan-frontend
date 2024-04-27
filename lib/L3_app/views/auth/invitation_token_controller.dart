@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../extra/router.dart';
@@ -8,16 +8,15 @@ import '../../extra/services.dart';
 
 part 'invitation_token_controller.g.dart';
 
-class InvitationTokenRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/invite';
-
-  @override
-  RouteSettings? get settings {
-    invitationTokenController.parseLink(rs!.uri);
-    return const RouteSettings(name: '/');
-  }
-}
+final invitationRoute = MTRoute(
+  path: 'invite',
+  name: 'invite',
+  // TODO: здесь можно показать проект, куда добавили человека
+  redirect: (_, GoRouterState state) {
+    invitationTokenController.parseLink(state.uri);
+    return '/';
+  },
+);
 
 class InvitationTokenController extends _InvitationTokenControllerBase with _$InvitationTokenController {}
 

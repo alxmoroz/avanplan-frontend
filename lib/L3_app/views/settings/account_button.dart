@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../components/colors.dart';
@@ -11,7 +12,6 @@ import '../../components/text.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
-import '../account/account_dialog.dart';
 
 class AccountButton extends StatelessWidget {
   const AccountButton({super.key});
@@ -19,8 +19,8 @@ class AccountButton extends StatelessWidget {
   User? get me => accountController.me;
 
   void _toUser(BuildContext context) {
-    Navigator.of(context).pop();
-    MTRouter.navigate(AccountRouter, context);
+    context.pop();
+    context.goAccount();
   }
 
   @override

@@ -46,13 +46,6 @@ abstract class _EditControllerBase with Store {
     _fdMap.clear();
   }
 
-  @observable
-  bool? _allowDisposeFromView;
-  @action
-  void setAllowDisposeFromView(bool? ad) => _allowDisposeFromView = ad;
-  @computed
-  bool get allowDisposeFromView => _allowDisposeFromView ?? true;
-
   @action
   void _updateData(int code, TextEditingController te) {
     final fd = fData(code);

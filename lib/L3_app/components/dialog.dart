@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../extra/router.dart';
 import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
@@ -14,7 +15,7 @@ import 'scrollable.dart';
 
 Color get barrierColor => b0Color.resolve(globalContext).withAlpha(245);
 
-BoxConstraints dialogConstrains(BuildContext context, double? maxWidth) {
+BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final size = screenSize(context);
   final big = isBigScreen(context);
   return BoxConstraints(
@@ -23,12 +24,38 @@ BoxConstraints dialogConstrains(BuildContext context, double? maxWidth) {
   );
 }
 
-Widget constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) => UnconstrainedBox(
+Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) => UnconstrainedBox(
       child: Container(
-        constraints: dialogConstrains(context, maxWidth),
+        constraints: _dialogConstrains(context, maxWidth),
         child: material(child),
       ),
     );
+
+class MTDialogPage<T> extends Page<T> {
+  const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth});
+
+  final Widget child;
+  final double? maxWidth;
+
+  RouteSettings get _settings => RouteSettings(name: name, arguments: arguments);
+
+  @override
+  Route<T> createRoute(BuildContext context) => isBigScreen(context)
+      ? DialogRoute(
+          context: globalContext,
+          barrierColor: barrierColor,
+          settings: _settings,
+          builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
+        )
+      : ModalBottomSheetRoute(
+          useSafeArea: true,
+          constraints: _dialogConstrains(context, maxWidth),
+          modalBarrierColor: barrierColor,
+          isScrollControlled: true,
+          settings: _settings,
+          builder: (_) => child,
+        );
+}
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
   return isBigScreen(globalContext)
@@ -37,7 +64,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
           barrierColor: barrierColor,
           useRootNavigator: false,
           useSafeArea: true,
-          builder: (_) => constrainedDialog(globalContext, child, maxWidth: maxWidth),
+          builder: (_) => _constrainedDialog(globalContext, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: globalContext,
@@ -45,7 +72,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
           isScrollControlled: true,
           useRootNavigator: false,
           useSafeArea: true,
-          constraints: dialogConstrains(globalContext, maxWidth),
+          constraints: _dialogConstrains(globalContext, maxWidth),
           builder: (_) => child,
         );
 }

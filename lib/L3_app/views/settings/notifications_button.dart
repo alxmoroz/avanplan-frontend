@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -8,14 +9,13 @@ import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../notification/notifications_dialog.dart';
 
 class NotificationsButton extends StatelessWidget {
   const NotificationsButton({super.key});
 
   void _toNotifications(BuildContext context) {
-    Navigator.of(context).pop();
-    MTRouter.navigate(NotificationsRouter, context);
+    context.pop();
+    context.goNotifications();
   }
 
   @override

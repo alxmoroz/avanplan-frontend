@@ -51,7 +51,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
             ta,
             onTap: () {
               menuController.close();
-              _controller.taskAction(ta);
+              _controller.taskAction(context, ta);
             },
           )
       ],

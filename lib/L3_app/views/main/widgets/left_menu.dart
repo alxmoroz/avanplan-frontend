@@ -17,19 +17,12 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
 import '../../app/app_title.dart';
-import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 
 class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   const LeftMenu(this._controller, {super.key});
   final VerticalToolbarController _controller;
   bool get _compact => _controller.compact;
-
-  // TODO: проверять, где сейчас находимся. Не вызывать лишний раз. И должно быть оформление текущего пункта меню
-  Future _goToProjects(BuildContext context) async {
-    popTop();
-    await MTRouter.navigate(ProjectsRouter, context);
-  }
 
   @override
   Size get preferredSize => Size.fromWidth(_controller.width);
@@ -46,13 +39,13 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
               MTListTile(
                 middle: AppTitle(compact: _compact),
                 bottomDivider: false,
-                onTap: popTop,
+                onTap: context.goProjects,
               ),
             MTListTile(
               leading: const ProjectsIcon(color: mainColor, size: P6),
               middle: _compact ? null : BaseText(loc.project_list_title, maxLines: 1),
               bottomDivider: false,
-              onTap: () => _goToProjects(context),
+              onTap: context.goProjects,
             ),
             const Spacer(),
             if (!isWeb)

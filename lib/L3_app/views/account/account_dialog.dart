@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../components/button.dart';
@@ -17,19 +18,22 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
-class AccountRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/my_account';
+class _AccountRoute extends MTRoute {
+  _AccountRoute()
+      : super(
+          path: 'my_account',
+          name: 'my_account',
+          builder: (_, __) => const _AccountDialog(),
+        );
 
   @override
-  bool get isDialog => true;
+  bool isDialog(BuildContext _) => true;
 
   @override
-  Widget get page => const _AccountDialog();
-
-  @override
-  String get title => loc.my_account_title;
+  String? title(GoRouterState _) => loc.my_account_title;
 }
+
+final accountRoute = _AccountRoute();
 
 class _AccountDialog extends StatelessWidget {
   const _AccountDialog();
@@ -44,7 +48,7 @@ class _AccountDialog extends StatelessWidget {
           showCloseButton: true,
           color: b2Color,
           title: loc.my_account_title,
-          trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.all(P2)),
+          trailing: MTButton.icon(const DeleteIcon(), onTap: () => accountController.delete(context), padding: const EdgeInsets.all(P2)),
         ),
         body: _me != null
             ? ListView(
@@ -58,7 +62,7 @@ class _AccountDialog extends StatelessWidget {
                   MTListTile(
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
                     bottomDivider: false,
-                    onTap: authController.signOut,
+                    onTap: () => authController.signOut(context),
                   ),
                 ],
               )

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
@@ -18,26 +19,22 @@ import '../../usecases/ws_actions.dart';
 import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 
-class SourcesRouter extends MTRouter {
-  static const _wsPrefix = '/ws';
-  static const _suffix = 'sources';
+class _WSSourcesRoute extends MTRoute {
+  _WSSourcesRoute()
+      : super(
+          path: 'sources',
+          name: 'sources',
+          builder: (_, state) => _SourcesDialog(state.intPathParam('wsId')!),
+        );
 
   @override
-  String path({Object? args}) => '$_wsPrefix/${args as int}/$_suffix';
+  bool isDialog(BuildContext _) => true;
 
   @override
-  bool get isDialog => true;
-
-  @override
-  RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
-  int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
-
-  @override
-  Widget get page => _SourcesDialog(_id);
-
-  @override
-  String get title => '${wsMainController.ws(_id).code} | ${loc.source_list_title}';
+  String? title(GoRouterState state) => '${wsMainController.ws(state.intPathParam('wsId')!).code} | ${loc.source_list_title}';
 }
+
+final wsSourcesRoute = _WSSourcesRoute();
 
 class _SourcesDialog extends StatelessWidget {
   const _SourcesDialog(this._wsId);

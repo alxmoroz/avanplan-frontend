@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../extra/services.dart';
@@ -15,7 +16,6 @@ class QuizStep {
 }
 
 abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
-  Future afterBack(BuildContext context) async {}
   Future afterNext(BuildContext context) async {}
   Future beforeNext(BuildContext context) async {}
   Future afterFinish(BuildContext context) async {}
@@ -23,10 +23,7 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
   @action
   Future back(BuildContext context) async {
     _back();
-    await afterBack(context);
-    if (context.mounted) {
-      Navigator.of(context).pop();
-    }
+    context.pop();
   }
 
   @action

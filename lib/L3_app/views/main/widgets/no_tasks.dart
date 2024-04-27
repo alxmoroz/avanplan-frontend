@@ -14,7 +14,6 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../projects/create_project_button.dart';
 import '../../projects/create_project_controller.dart';
-import '../../projects/projects_view.dart';
 import 'inbox_add_task_button.dart';
 
 class NoTasks extends StatelessWidget {
@@ -56,7 +55,7 @@ class NoTasks extends StatelessWidget {
                 MTButton.secondary(
                   titleText: loc.task_list_schedule_action_title,
                   margin: const EdgeInsets.only(top: P3),
-                  onTap: () => MTRouter.navigate(ProjectsRouter, context),
+                  onTap: context.goProjects,
                 ),
               if (!_hasOpenedProjects) ...[
                 const SizedBox(height: P3),

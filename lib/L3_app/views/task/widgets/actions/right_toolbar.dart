@@ -76,7 +76,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
               ta,
               compact: _compact,
               inPopup: false,
-              onTap: () => _taskController.taskAction(ta),
+              onTap: () => _taskController.taskAction(context, ta),
             ),
         ],
 

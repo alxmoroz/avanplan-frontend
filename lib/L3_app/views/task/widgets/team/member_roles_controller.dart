@@ -1,12 +1,12 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../../main.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../../usecases/ws_tariff.dart';
@@ -41,8 +41,8 @@ abstract class _MemberRolesControllerBase with Store {
     roles = [...roles];
   }
 
-  Future assignRoles() async {
-    Navigator.of(rootKey.currentContext!).pop();
+  Future assignRoles(BuildContext context) async {
+    context.pop();
 
     if (await task.ws.checkBalance(loc.member_edit_action_title)) {
       // TODO: вынести в юзкейс. См. как сделано с комментами

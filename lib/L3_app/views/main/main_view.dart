@@ -16,8 +16,13 @@ import '../../components/toolbar.dart';
 import '../../components/vertical_toolbar_controller.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../account/account_dialog.dart';
 import '../app/app_title.dart';
+import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
+import '../projects/projects_view.dart';
+import '../task/task_view.dart';
+import '../workspace/ws_dialog.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
 import 'widgets/next_tasks.dart';
@@ -30,19 +35,32 @@ late VerticalToolbarController rightToolbarController;
 late VerticalToolbarController taskGroupToolbarController;
 late VerticalToolbarController taskToolbarController;
 
-class MainRouter extends MTRouter {
-  @override
-  Widget get page => const MainView();
-}
+final mainRoute = MTRoute(
+  path: '/',
+  name: 'main',
+  builder: (context, state) => const _MainView(),
+  redirect: (_, __) => !authController.authorized ? '/auth' : null,
+  routes: [
+    accountRoute,
+    notificationsRoute,
+    wsRoute,
+    projectsRoute,
+    inboxRoute,
+    projectRoute,
+    goalRoute,
+    backlogRoute,
+    taskRoute,
+  ],
+);
 
-class MainView extends StatefulWidget {
-  const MainView({super.key});
+class _MainView extends StatefulWidget {
+  const _MainView();
 
   @override
   State<StatefulWidget> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> with WidgetsBindingObserver {
+class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
   late final ScrollController _scrollController;
   bool _hasScrolled = false;
 
@@ -51,10 +69,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   bool get _freshStart => tasksMainController.freshStart;
 
   bool get _showTasks => _hasTasks || _hasEvents;
-
-  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await mainController.startupActions();
-      });
 
   @override
   void initState() {
@@ -72,7 +86,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     taskGroupToolbarController = VerticalToolbarController(isCompact: true);
     taskToolbarController = VerticalToolbarController(isCompact: false);
 
-    _startupActions();
+    mainController.startupActions(context);
 
     super.didChangeDependencies();
   }
@@ -80,7 +94,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _startupActions();
+      mainController.startupActions(context);
     }
   }
 

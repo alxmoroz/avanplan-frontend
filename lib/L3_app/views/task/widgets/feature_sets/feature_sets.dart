@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -13,16 +14,15 @@ import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../quiz/abstract_quiz_controller.dart';
+import '../../../quiz/abstract_task_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../../task_view.dart';
 
 Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(FeatureSetsController(controller)));
 
@@ -85,35 +85,31 @@ class _FSBody extends StatelessWidget {
   }
 }
 
-class FSQuizArgs {
-  FSQuizArgs(this._controller, this._qController);
-  final FeatureSetsController _controller;
-  final AbstractQuizController _qController;
+class _FeatureSetsQuizRoute extends TaskRoute {
+  _FeatureSetsQuizRoute() : super(path: 'feature_sets', name: 'feature_sets');
+
+  @override
+  GoRouterRedirect? get redirect => (context, state) {
+        if (state.extra == null) {
+          return context.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
+        }
+        return null;
+      };
+
+  @override
+  String? title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
+
+  @override
+  GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(qController(TaskController(task(state)!, isNew: true), state)!);
 }
 
-class FeatureSetsQuizRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/create_project/feature_sets';
-
-  FSQuizArgs? get _args => rs!.arguments as FSQuizArgs?;
-
-  @override
-  Widget? get page => _args != null ? _FeatureSetsQuizView(_args!) : null;
-
-  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
-  @override
-  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/');
-
-  @override
-  String get title => '${(rs!.arguments as FSQuizArgs?)?._controller.project.viewTitle ?? ''} | ${loc.feature_sets_title}';
-}
+final featureSetsQuizRoute = _FeatureSetsQuizRoute();
 
 class _FeatureSetsQuizView extends StatelessWidget {
-  const _FeatureSetsQuizView(this._args);
-  final FSQuizArgs _args;
+  const _FeatureSetsQuizView(this._qController);
 
-  FeatureSetsController get _controller => _args._controller;
-  AbstractQuizController get _qController => _args._qController;
+  final AbstractTaskQuizController _qController;
+  FeatureSetsController get _fsController => _qController.taskController.featureSetsController;
 
   @override
   Widget build(BuildContext context) {
@@ -126,10 +122,10 @@ class _FeatureSetsQuizView extends StatelessWidget {
           bottom: false,
           child: MTAdaptive(
             child: _FSBody(
-              _controller,
+              _fsController,
               footer: QuizNextButton(
                 _qController,
-                loading: _controller.project.loading,
+                loading: _fsController.project.loading,
                 margin: const EdgeInsets.symmetric(vertical: P3),
               ),
             ),

@@ -1,9 +1,9 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/icons.dart';
 import '../../../extra/services.dart';
@@ -16,7 +16,7 @@ class LinkController {
   final TaskController _taskController;
   Task? get _task => _taskController.task;
 
-  Future unlink() async {
+  Future unlink(BuildContext context) async {
     if (_task != null) {
       final confirm = await showMTAlertDialog(
         loc.task_unlink_dialog_title,
@@ -39,7 +39,7 @@ class LinkController {
 
       if (confirm == true) {
         _task!.unlink();
-        Navigator.of(rootKey.currentContext!).pop();
+        if (context.mounted) context.pop();
       }
     }
   }

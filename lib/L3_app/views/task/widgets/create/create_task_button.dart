@@ -16,9 +16,7 @@ import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../../usecases/ws_tasks.dart';
-import '../../controllers/create_goal_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
-import 'create_task_quiz_view.dart';
 
 class CreateTaskButton extends StatelessWidget {
   const CreateTaskButton(
@@ -53,17 +51,12 @@ class CreateTaskButton extends StatelessWidget {
     if (_onTap != null) {
       _onTap!();
     } else {
-      final newTask =
-          await _ws.createTask(_parent, statusId: _parent.isProject ? null : _parentTaskController.projectStatusesController.firstOpenedStatusId);
-      if (newTask != null) {
-        final tc = TaskController(newTask, isNew: true);
-        if (newTask.isGoal) {
-          if (context.mounted) {
-            await MTRouter.navigate(CreateGoalQuizRouter, context, args: CreateTaskQuizArgs(tc, CreateGoalQuizController(tc)));
-          }
-        } else {
-          await tc.showTask();
-        }
+      final newTask = await _ws.createTask(
+        _parent,
+        statusId: _parent.isProject ? null : _parentTaskController.projectStatusesController.firstOpenedStatusId,
+      );
+      if (newTask != null && context.mounted) {
+        context.goLocalTask(newTask, extra: true);
       }
     }
   }

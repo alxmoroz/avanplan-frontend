@@ -17,7 +17,7 @@ extension WSTariffUC on Workspace {
         invoice = signedInvoice;
         await wsMainController.reloadWS(id!);
       }
-      await loader.stop();
+      loader.stop();
     }
   }
 

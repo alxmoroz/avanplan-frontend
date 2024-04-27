@@ -1,12 +1,12 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/feature_set.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/ws_sources.dart';
-import '../../../../main.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
 import '../../../usecases/task_feature_sets.dart';
@@ -18,7 +18,7 @@ part 'feature_sets_controller.g.dart';
 class FeatureSetsController extends _FeatureSetsControllerBase with _$FeatureSetsController {
   FeatureSetsController(TaskController taskController) {
     _taskController = taskController;
-    checks = ObservableList.of([for (var fs in refsController.featureSets) project.hfs(fs.code)]);
+    reload();
   }
 }
 
@@ -29,6 +29,9 @@ abstract class _FeatureSetsControllerBase with Store {
 
   @observable
   ObservableList<bool> checks = ObservableList();
+
+  @action
+  void reload() => checks = ObservableList.of([for (var fs in refsController.featureSets) project.hfs(fs.code)]);
 
   @computed
   bool get validated => checks.contains(true);
@@ -89,7 +92,7 @@ abstract class _FeatureSetsControllerBase with Store {
   }
 
   Future save() async {
-    Navigator.of(rootKey.currentContext!).pop();
+    globalContext.pop();
 
     final fIndex = TaskFCode.features.index;
     _taskController.updateField(fIndex, loading: true);

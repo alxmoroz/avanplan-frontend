@@ -12,6 +12,7 @@ import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
 import '../../components/images.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
 import '../../usecases/communications.dart';
@@ -61,7 +62,7 @@ abstract class _LoaderControllerBase with Store {
   }
 
   @action
-  Future stop([int? milliseconds]) async => await Future<void>.delayed(Duration(milliseconds: milliseconds ?? 0), () => --_stack);
+  void stop() => --_stack;
 
   @action
   void _reset() => _stack = 0;
@@ -97,7 +98,7 @@ abstract class _LoaderControllerBase with Store {
               _setRedeemInvitationError();
             } else {
               // в остальных случаях выбрасываем без объяснений
-              await authController.signOut();
+              await authController.signOut(globalContext);
               _reset();
               return;
             }

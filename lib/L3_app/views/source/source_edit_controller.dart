@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -9,7 +10,6 @@ import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
-import '../../../main.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
@@ -72,7 +72,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
 
   /// действия
 
-  Future save() async {
+  Future save(BuildContext context) async {
     if (await ws.checkBalance(loc.source_create_action_title)) {
       loader.setSaving();
       loader.start();
@@ -89,10 +89,10 @@ abstract class _SourceEditControllerBase extends EditController with Store {
         ),
       );
 
-      if (editedSource != null) {
-        Navigator.of(rootKey.currentContext!).pop(editedSource);
+      if (editedSource != null && context.mounted) {
+        context.pop(editedSource);
       }
-      await loader.stop(300);
+      loader.stop();
     }
   }
 
@@ -118,7 +118,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
         tasksMainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());
         tasksMainController.refreshTasksUI();
 
-        await loader.stop(300);
+        loader.stop();
       }
     }
   }

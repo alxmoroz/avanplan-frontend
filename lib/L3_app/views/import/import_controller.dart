@@ -4,13 +4,13 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
-import '../../../main.dart';
 import '../../extra/services.dart';
 import '../../usecases/source.dart';
 import '../../usecases/ws_tariff.dart';
@@ -116,18 +116,18 @@ abstract class _ImportControllerBase with Store {
         errorCode = 'error_import_connection';
       }
       wsMainController.refreshWorkspaces();
-      await loader.stop();
+      loader.stop();
     }
   }
 
   @action
-  Future startImport() async {
+  Future startImport(BuildContext context) async {
     if (await ws.checkBalance(loc.import_action_title)) {
       _sendingRequest = true;
       if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
         await tasksMainController.updateImportingProjects();
       }
-      Navigator.of(rootKey.currentContext!).pop();
+      if (context.mounted) context.pop();
     }
   }
 }

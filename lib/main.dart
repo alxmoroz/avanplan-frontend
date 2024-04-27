@@ -44,8 +44,6 @@ Future main() async {
   runApp(const App());
 }
 
-final rootKey = GlobalKey<NavigatorState>();
-
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -75,7 +73,7 @@ class App extends StatelessWidget {
     return FutureBuilder(
       future: getIt.allReady(),
       builder: (_, snapshot) => snapshot.hasData
-          ? MaterialApp(
+          ? MaterialApp.router(
               debugShowCheckedModeBanner: true,
               theme: themeData,
               scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
@@ -84,9 +82,8 @@ class App extends StatelessWidget {
               }),
               localizationsDelegates: localizationsDelegates,
               supportedLocales: supportedLocales,
-              navigatorKey: rootKey,
-              onGenerateRoute: MTRouter.generateRoute,
-              navigatorObservers: [MTRouteObserver()],
+              routerConfig: goRouter,
+              onGenerateTitle: (context) => loc.app_title,
             )
           : const MTBackgroundWrapper(Center(child: MTCircularProgress(size: P10))),
     );

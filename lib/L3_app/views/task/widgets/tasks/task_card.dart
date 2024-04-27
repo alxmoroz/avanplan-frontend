@@ -16,6 +16,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../extra/router.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
 import '../../../../presenters/person.dart';
@@ -27,7 +28,6 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../controllers/task_controller.dart';
 import '../analytics/state_title.dart';
 
 class TaskCard extends StatelessWidget {
@@ -179,7 +179,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  Future _tap() async => await TaskController(task).showTask();
+  void _tap(BuildContext context) => context.goLocalTask(task);
 
   @override
   Widget build(BuildContext context) => board
@@ -188,7 +188,7 @@ class TaskCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
-          onTap: dragging ? null : _tap,
+          onTap: dragging ? null : () => _tap(context),
           child: _taskContent(false),
         )
       : Stack(
@@ -199,7 +199,7 @@ class TaskCard extends StatelessWidget {
               bottomDivider: bottomDivider,
               dividerIndent: showStateMark ? P6 : 0,
               loading: task.loading,
-              onTap: task.isImportingProject || dragging ? null : _tap,
+              onTap: task.isImportingProject || dragging ? null : () => _tap(context),
             ),
             if (showStateMark)
               Positioned(

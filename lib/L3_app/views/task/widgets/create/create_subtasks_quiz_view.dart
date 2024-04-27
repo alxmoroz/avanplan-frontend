@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -13,12 +14,10 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../quiz/abstract_quiz_controller.dart';
+import '../../../quiz/abstract_task_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/subtasks_controller.dart';
@@ -27,54 +26,52 @@ import '../../task_view.dart';
 import '../../widgets/create/create_task_button.dart';
 import '../tasks/task_checklist_item.dart';
 
-class CreateMultiTaskQuizArgs {
-  CreateMultiTaskQuizArgs(this._controller, this._qController);
-  final TaskController _controller;
-  final AbstractQuizController _qController;
+class _CreateSubtasksQuizRoute extends TaskRoute {
+  _CreateSubtasksQuizRoute(String prefix) : super(path: 'subtasks', name: '$prefix-subtasks');
+
+  @override
+  GoRouterRedirect? get redirect => (context, state) {
+        if (state.extra == null) {
+          return context.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
+        }
+        return null;
+      };
+
+  @override
+  GoRouterWidgetBuilder? get builder => (_, state) => _CreateSubtasksQuizView(qController(TaskController(task(state)!, isNew: true), state)!);
 }
 
-class CreateMultiTaskQuizRouter extends MTRouter {
-  @override
-  String path({Object? args}) => '/create_task';
+final createSubtasksProjectQuizRoute = _CreateSubtasksQuizRoute('project');
+final createSubtasksGoalQuizRoute = _CreateSubtasksQuizRoute('goal');
+final createSubtasksQuizRoutes = {
+  'project': createSubtasksProjectQuizRoute,
+  'goal': createSubtasksGoalQuizRoute,
+};
 
-  CreateMultiTaskQuizArgs? get _args => rs!.arguments as CreateMultiTaskQuizArgs?;
-
-  @override
-  Widget? get page => _args != null ? CreateMultiTaskQuizView(_args!) : null;
-
-  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
-  @override
-  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/');
+class _CreateSubtasksQuizView extends TaskView {
+  _CreateSubtasksQuizView(this._qController) : super(_qController.taskController);
+  final AbstractTaskQuizController _qController;
 
   @override
-  String get title => (rs!.arguments as CreateMultiTaskQuizArgs?)?._controller.task?.viewTitle ?? '';
+  State<_CreateSubtasksQuizView> createState() => _CreateSubtasksQuizViewState();
 }
 
-class CreateMultiTaskQuizView extends TaskView {
-  CreateMultiTaskQuizView(this._args, {super.key}) : super(_args._controller);
-  final CreateMultiTaskQuizArgs _args;
-
-  @override
-  State<CreateMultiTaskQuizView> createState() => _CreateMultiTaskQuizViewState();
-}
-
-class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
-  AbstractQuizController get qController => widget._args._qController;
-  TaskController get parentTaskController => widget._args._controller;
-  SubtasksController get controller => parentTaskController.subtasksController;
+class _CreateSubtasksQuizViewState extends TaskViewState<_CreateSubtasksQuizView> {
+  AbstractTaskQuizController get qController => widget._qController;
+  SubtasksController get subtasksController => controller.subtasksController;
 
   Widget get addButton => CreateTaskButton(
-        parentTaskController,
+        controller,
         type: ButtonType.secondary,
         margin: const EdgeInsets.only(top: P3),
-        onTap: controller.addTask,
+        onTap: subtasksController.addTask,
       );
 
   Widget itemBuilder(BuildContext context, int index) {
-    if (index == controller.taskControllers.length) {
+    if (index == subtasksController.taskControllers.length) {
       return addButton;
     } else {
-      return TaskChecklistItem(controller, index);
+      return TaskChecklistItem(subtasksController, index);
     }
   }
 
@@ -91,12 +88,12 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
               top: false,
               bottom: false,
               child: MTAdaptive(
-                child: controller.taskControllers.isNotEmpty
+                child: subtasksController.taskControllers.isNotEmpty
                     ? MTShadowed(
                         bottomShadow: true,
                         child: ListView.builder(
                           itemBuilder: itemBuilder,
-                          itemCount: controller.taskControllers.length + 1,
+                          itemCount: subtasksController.taskControllers.length + 1,
                         ),
                       )
                     : Center(

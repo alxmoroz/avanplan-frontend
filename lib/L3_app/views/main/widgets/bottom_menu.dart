@@ -13,7 +13,6 @@ import '../../../components/toolbar.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
-import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 import 'inbox_add_task_button.dart';
 
@@ -43,7 +42,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                     color: Colors.transparent,
                     padding: _btnPadding,
                     bottomDivider: false,
-                    onTap: () => MTRouter.navigate(ProjectsRouter, context),
+                    onTap: context.goProjects,
                   ),
                 ),
                 const Spacer(),

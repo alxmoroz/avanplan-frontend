@@ -10,81 +10,58 @@ import '../../extra/services.dart';
 import '../../usecases/task_tree.dart';
 import '../../usecases/ws_tasks.dart';
 import '../quiz/abstract_quiz_controller.dart';
+import '../quiz/abstract_task_quiz_controller.dart';
 import '../task/controllers/feature_sets_controller.dart';
-import '../task/controllers/task_controller.dart';
-import '../task/task_view.dart';
-import '../task/widgets/create/create_multitask_quiz_view.dart';
-import '../task/widgets/create/create_task_quiz_view.dart';
-import '../task/widgets/feature_sets/feature_sets.dart';
-import '../task/widgets/team/team_invitation_quiz_view.dart';
-import 'projects_view.dart';
 
 part 'create_project_quiz_controller.g.dart';
 
 enum _StepCode { projectSetup, featureSets, team, goals, tasks }
 
 class CreateProjectQuizController extends _CreateProjectQuizControllerBase with _$CreateProjectQuizController {
-  CreateProjectQuizController(TaskController projectController) {
-    _projectController = projectController;
-  }
-
-  @override
-  Future afterBack(BuildContext context) async {
-    if (stepIndex == 0) {
-      _goalController?.dispose();
-    }
-  }
+  CreateProjectQuizController(super.taskController);
 
   @override
   Future beforeNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
-      await _fsController?.setup();
+      await _fsController.setup();
     }
   }
 
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
-      _fsController ??= FeatureSetsController(_projectController);
-      await MTRouter.navigate(FeatureSetsQuizRouter, context, args: FSQuizArgs(_fsController!, this));
+      _fsController.reload();
+      context.goFeatureSetsQuiz(_project, this);
     } else if (step.code == _StepCode.team.name) {
-      await MTRouter.navigate(TeamInvitationQuizRouter, context, args: TIQuizArgs(_projectController, this));
+      context.goTeamQuiz(_project, this);
     } else if (step.code == _StepCode.goals.name) {
-      if (_goalController == null) {
-        final newGoal = await _project.ws.createTask(_project);
-        if (newGoal != null) {
-          _goalController = TaskController(newGoal, isNew: true, allowDisposeFromView: false);
-        }
-      }
-      if (_goalController != null && context.mounted) {
-        await MTRouter.navigate(CreateGoalQuizRouter, context, args: CreateTaskQuizArgs(_goalController!, this));
+      _goal ??= await _project.ws.createTask(_project);
+      if (_goal != null && context.mounted) {
+        context.goLocalTask(_goal!, extra: this);
       }
     } else if (step.code == _StepCode.tasks.name) {
-      await MTRouter.navigate(CreateMultiTaskQuizRouter, context, args: CreateMultiTaskQuizArgs(_goalController ?? _projectController, this));
+      context.goSubtasksQuiz(_goal ?? _project, this);
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
-    // показываем окно с проектом и удаляем в истории всё до списка проектов (если есть) или до корня приложения
-    await MTRouter.navigate(TaskRouter, context, removeUntil: ProjectsRouter, args: TaskController(_project));
-    _goalController?.dispose();
+    // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
+    context.goLocalTask(_project);
   }
 }
 
-abstract class _CreateProjectQuizControllerBase extends AbstractQuizController with Store {
-  late final TaskController _projectController;
-  Task get _project => _projectController.task!;
+abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizController with Store {
+  _CreateProjectQuizControllerBase(super.taskController);
 
-  TaskController? _goalController;
-  @observable
-  FeatureSetsController? _fsController;
-  @computed
-  bool get _hasTeam => _fsController?.hasChecked(FSCode.TEAM) == true;
-  @computed
-  bool get _hasGoals => _fsController?.hasChecked(FSCode.GOALS) == true;
-  @computed
-  bool get _hasBoard => _fsController?.hasChecked(FSCode.TASKBOARD) == true;
+  Task get _project => taskController.task!;
+  Task? _goal;
+
+  FeatureSetsController get _fsController => taskController.featureSetsController;
+
+  bool get _hasTeam => _fsController.hasChecked(FSCode.TEAM) == true;
+  bool get _hasGoals => _fsController.hasChecked(FSCode.GOALS) == true;
+  bool get _hasBoard => _fsController.hasChecked(FSCode.TASKBOARD) == true;
 
   @override
   Iterable<QuizStep> get steps => [

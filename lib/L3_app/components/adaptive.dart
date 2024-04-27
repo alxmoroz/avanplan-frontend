@@ -4,10 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../main.dart';
 import 'constants.dart';
-
-BuildContext get globalContext => rootKey.currentContext!;
 
 Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
 EdgeInsets screenPadding(BuildContext context) => MediaQuery.paddingOf(context);

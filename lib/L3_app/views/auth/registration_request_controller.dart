@@ -66,6 +66,6 @@ abstract class _RegistrationControllerBase extends EditController with Store {
       invitationToken: invitationTokenController.token,
     );
     requestCompleted = await authUC.requestRegistration(regRequest, fData(RegistrationFCode.password.index).text);
-    await loader.stop();
+    loader.stop();
   }
 }

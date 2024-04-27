@@ -1,18 +1,15 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../main.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_tasks.dart';
 import '../import/import_dialog.dart';
-import '../task/controllers/task_controller.dart';
-import '../task/widgets/create/create_task_quiz_view.dart';
 import '../template/template_selector_dialog.dart';
 import '../workspace/ws_selector_dialog.dart';
-import 'create_project_quiz_controller.dart';
 import 'creation_method_selector.dart';
 
 part 'create_project_controller.g.dart';
@@ -53,17 +50,14 @@ abstract class _CreateProjectControllerBase with Store {
     }
   }
 
-  Future _create() async {
+  Future _create(BuildContext context) async {
     final newP = await _ws!.createTask(null);
-    if (newP != null) {
-      //TODO: нужно ли в этом месте создавать контроллеры, может, тут достаточно отправить айдишники или задачу?
-      final tc = TaskController(newP, isNew: true);
-      // rootKey тут, потому что если добавлять с главной, то кнопка добавления пропадает оттуда
-      await MTRouter.navigate(CreateProjectQuizRouter, rootKey.currentContext!, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
+    if (newP != null && context.mounted) {
+      context.goLocalTask(newP, extra: true);
     }
   }
 
-  Future startCreate() async {
+  Future startCreate(BuildContext context) async {
     final methodCode = await selectCreationMethod();
     if (methodCode != null) {
       await _selectWS();
@@ -71,10 +65,10 @@ abstract class _CreateProjectControllerBase with Store {
       if (_ws != null) {
         switch (methodCode) {
           case CreationMethod.create:
-            await _create();
+            if (context.mounted) await _create(context);
             break;
           case CreationMethod.template:
-            await createFromTemplate(_ws!);
+            if (context.mounted) await createFromTemplate(context, _ws!);
             break;
           case CreationMethod.import:
             await importTasks(_ws!);

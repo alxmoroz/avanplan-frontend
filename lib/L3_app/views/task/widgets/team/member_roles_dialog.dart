@@ -66,7 +66,7 @@ class _MemberRolesDialog extends StatelessWidget {
             const SizedBox(height: P3),
             MTButton.main(
               titleText: loc.save_action_title,
-              onTap: _controller.assignRoles,
+              onTap: () => _controller.assignRoles(context),
             ),
             if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],

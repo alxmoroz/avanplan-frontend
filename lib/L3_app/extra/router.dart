@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -76,14 +75,13 @@ class MTRoute extends GoRoute {
                 child: child,
               )
             : isBigScreen(context)
-                //TODO: NoTransitionPage?
-                ? MaterialPage(
+                ? NoTransitionPage(
                     name: state.name,
                     arguments: state.extra,
                     key: state.pageKey,
                     child: child,
                   )
-                : CupertinoPage(
+                : MaterialPage(
                     name: state.name,
                     arguments: state.extra,
                     key: state.pageKey,

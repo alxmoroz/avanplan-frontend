@@ -39,7 +39,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
               MTListTile(
                 middle: AppTitle(compact: _compact),
                 bottomDivider: false,
-                onTap: context.goProjects,
+                onTap: context.goMain,
               ),
             MTListTile(
               leading: const ProjectsIcon(color: mainColor, size: P6),

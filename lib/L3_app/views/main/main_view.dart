@@ -22,6 +22,7 @@ import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
 import '../task/task_route.dart';
+import '../task/widgets/empty_state/not_found_dialog.dart';
 import '../workspace/ws_dialog.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
@@ -50,6 +51,7 @@ final mainRoute = MTRoute(
     goalRoute,
     backlogRoute,
     taskRoute,
+    taskNotFoundRoute,
   ],
 );
 

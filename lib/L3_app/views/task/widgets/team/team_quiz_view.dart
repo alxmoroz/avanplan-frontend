@@ -15,7 +15,7 @@ import '../../../quiz/abstract_task_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/task_controller.dart';
-import '../../task_view.dart';
+import '../../task_route.dart';
 import 'team.dart';
 
 class _TeamQuizRoute extends TaskRoute {

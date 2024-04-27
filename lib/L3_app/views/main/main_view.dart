@@ -21,7 +21,7 @@ import '../app/app_title.dart';
 import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
-import '../task/task_view.dart';
+import '../task/task_route.dart';
 import '../workspace/ws_dialog.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';

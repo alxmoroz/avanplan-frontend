@@ -22,6 +22,7 @@ import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../../task_route.dart';
 import '../../task_view.dart';
 import '../../widgets/create/create_task_button.dart';
 import '../tasks/task_checklist_item.dart';

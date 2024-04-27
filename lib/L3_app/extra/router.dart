@@ -22,7 +22,7 @@ import '../views/notification/notifications_dialog.dart';
 import '../views/projects/projects_view.dart';
 import '../views/quiz/abstract_task_quiz_controller.dart';
 import '../views/source/sources_dialog.dart';
-import '../views/task/task_view.dart';
+import '../views/task/task_route.dart';
 import '../views/task/widgets/create/create_subtasks_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/team/team_quiz_view.dart';

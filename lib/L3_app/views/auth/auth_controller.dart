@@ -96,9 +96,7 @@ abstract class _AuthControllerBase with Store {
 
   Future startupActions(BuildContext context) async {
     print('AuthController startupActions');
-    await appController.initState();
-    // TODO: возможно, нужно добавить выше unauthorizedActions и добавить этот вызов туда
-    _signInWithRegistration(context);
+    await appController.initState(unauthorizedActions: () => _signInWithRegistration(context));
   }
 
   void _startLdrAuth() {

@@ -41,7 +41,7 @@ abstract class _AppControllerBase with Store {
   bool _init = false;
 
   @action
-  Future initState({_FutureFunction? authorizedActions}) async {
+  Future initState({_FutureFunction? unauthorizedActions, _FutureFunction? authorizedActions}) async {
     if (!_init) {
       print('AppController initState');
 
@@ -71,7 +71,12 @@ abstract class _AppControllerBase with Store {
           localSettingsController.resetOldVersionFlag();
         }
 
+        // хук для доп. действий без авторизации
+        if (unauthorizedActions != null) await unauthorizedActions();
+
         await authController.checkLocalAuth();
+
+        // хук для доп. действий с авторизацией
         if (authController.authorized && authorizedActions != null) {
           await authorizedActions();
         }

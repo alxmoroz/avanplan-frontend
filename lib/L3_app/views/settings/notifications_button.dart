@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -13,9 +12,9 @@ import '../../extra/services.dart';
 class NotificationsButton extends StatelessWidget {
   const NotificationsButton({super.key});
 
-  void _toNotifications(BuildContext context) {
-    context.pop();
-    context.goNotifications();
+  void _toNotifications() {
+    goRouter.pop();
+    goRouter.goNotifications();
   }
 
   @override
@@ -32,7 +31,7 @@ class NotificationsButton extends StatelessWidget {
         const ChevronIcon(),
       ]),
       bottomDivider: false,
-      onTap: () => _toNotifications(context),
+      onTap: _toNotifications,
     );
   }
 }

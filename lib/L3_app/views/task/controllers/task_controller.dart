@@ -99,19 +99,19 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         await statusController.setClosed(context, false);
         break;
       case TaskAction.localExport:
-        await localExportController.localExport(context);
+        await localExportController.localExport();
         break;
       case TaskAction.duplicate:
-        await duplicateController.duplicate(context);
+        await duplicateController.duplicate();
         break;
       // case TaskAction.go2source:
       //   await _task.go2source();
       //   break;
       case TaskAction.unlink:
-        await linkController.unlink(context);
+        await linkController.unlink();
         break;
       case TaskAction.delete:
-        await deleteController.delete(context);
+        await deleteController.delete();
         break;
       default:
     }

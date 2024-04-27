@@ -90,11 +90,24 @@ class MTRoute extends GoRoute {
       };
 }
 
+final rootKey = GlobalKey<NavigatorState>();
+BuildContext get globalContext => rootKey.currentContext!;
+
+final goRouter = GoRouter(
+  routes: [
+    authRoute,
+    registrationTokenRoute,
+    mainRoute,
+  ],
+  // observers: [MTRouteObserver()],
+  navigatorKey: rootKey,
+);
+
 extension MTPathParametersHelper on GoRouterState {
   int? intPathParam(String param) => int.tryParse(pathParameters[param] ?? '');
 }
 
-extension MTRouterHelper on BuildContext {
+extension MTRouterHelper on GoRouter {
   // Главная и вход
   void goAuth() => goNamed(authRoute.name!);
   void goMain() => goNamed(mainRoute.name!);
@@ -140,19 +153,6 @@ extension MTRouterHelper on BuildContext {
         extra: tc,
       );
 }
-
-final rootKey = GlobalKey<NavigatorState>();
-BuildContext get globalContext => rootKey.currentContext!;
-
-final goRouter = GoRouter(
-  routes: [
-    authRoute,
-    registrationTokenRoute,
-    mainRoute,
-  ],
-  // observers: [MTRouteObserver()],
-  navigatorKey: rootKey,
-);
 
 // Future push(BuildContext context, {MTRouter? removeUntil, bool replace = false, Object? args}) async {
 //   final n = Navigator.of(context);

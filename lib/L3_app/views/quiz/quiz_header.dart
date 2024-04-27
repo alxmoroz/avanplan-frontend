@@ -47,7 +47,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
         leading: MTButton(
           titleText: loc.back_action_title,
           padding: const EdgeInsets.only(left: P2),
-          onTap: () => _controller.back(context),
+          onTap: _controller.back,
         ),
         middle: _controller.stepsCount > 1
             ? Row(
@@ -69,7 +69,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
             ? MTButton(
                 titleText: loc.skip_action_title,
                 padding: const EdgeInsets.only(right: P2),
-                onTap: () => _controller.finish(context),
+                onTap: () => _controller.finish(),
               )
             : null,
       ),

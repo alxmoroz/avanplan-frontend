@@ -47,7 +47,7 @@ class CreateTaskButton extends StatelessWidget {
         circled: isBigScreen(context) && _type == null,
       );
 
-  Future _tap(BuildContext context) async {
+  Future _tap() async {
     if (_onTap != null) {
       _onTap!();
     } else {
@@ -55,8 +55,8 @@ class CreateTaskButton extends StatelessWidget {
         _parent,
         statusId: _parent.isProject ? null : _parentTaskController.projectStatusesController.firstOpenedStatusId,
       );
-      if (newTask != null && context.mounted) {
-        context.goLocalTask(newTask, extra: true);
+      if (newTask != null) {
+        goRouter.goLocalTask(newTask, extra: true);
       }
     }
   }
@@ -69,7 +69,7 @@ class CreateTaskButton extends StatelessWidget {
             leading: plusIcon,
             middle: !_compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
-            onTap: () => _tap(context),
+            onTap: _tap,
           )
         : MTButton(
             leading: _compact ? null : plusIcon,
@@ -78,7 +78,7 @@ class CreateTaskButton extends StatelessWidget {
             titleText: _compact ? null : addSubtaskActionTitle(_parent),
             middle: _compact ? plusIcon : null,
             constrained: !_compact,
-            onTap: () => _tap(context),
+            onTap: _tap,
           );
   }
 }

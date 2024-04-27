@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/feature_set.dart';
@@ -21,35 +20,35 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   CreateProjectQuizController(super.taskController);
 
   @override
-  Future beforeNext(BuildContext context) async {
+  Future beforeNext() async {
     if (step.code == _StepCode.featureSets.name) {
       await _fsController.setup();
     }
   }
 
   @override
-  Future afterNext(BuildContext context) async {
+  Future afterNext() async {
     if (step.code == _StepCode.featureSets.name) {
       _fsController.reload();
-      context.goFeatureSetsQuiz(taskController);
+      goRouter.goFeatureSetsQuiz(taskController);
     } else if (step.code == _StepCode.team.name) {
-      context.goTeamQuiz(taskController);
+      goRouter.goTeamQuiz(taskController);
     } else if (step.code == _StepCode.goals.name) {
       final goal = await _project.ws.createTask(_project);
-      if (goal != null && context.mounted) {
+      if (goal != null) {
         // TODO: тут должен быть ShellRoute или что-то такое...
         // сейчас сбрасывается на независимое создание цели
-        context.goLocalTask(goal, extra: true);
+        goRouter.goLocalTask(goal, extra: true);
       }
     } else if (step.code == _StepCode.tasks.name) {
-      context.goSubtasksQuiz(taskController);
+      goRouter.goSubtasksQuiz(taskController);
     }
   }
 
   @override
-  Future afterFinish(BuildContext context) async {
+  Future afterFinish() async {
     // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
-    context.goLocalTask(_project);
+    goRouter.goLocalTask(_project);
   }
 }
 

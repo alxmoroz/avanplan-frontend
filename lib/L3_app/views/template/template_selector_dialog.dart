@@ -21,7 +21,7 @@ import 'template_controller.dart';
 
 Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
-Future createFromTemplate(BuildContext context, Workspace ws) async {
+Future createFromTemplate(Workspace ws) async {
   final templateController = TemplateController(ws.id!);
   templateController.reload();
   final template = await _selectTemplate(templateController);
@@ -35,7 +35,7 @@ Future createFromTemplate(BuildContext context, Workspace ws) async {
       tasksMainController.setTasks([p, ...changes.affected]);
       tasksMainController.refreshTasksUI(sort: true);
 
-      if (context.mounted) context.goLocalTask(p);
+      goRouter.goLocalTask(p);
     }
     loader.stop();
   }

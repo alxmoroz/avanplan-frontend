@@ -21,7 +21,7 @@ class QuizNextButton extends StatelessWidget {
         titleText: _controller.nextBtnTitle,
         margin: margin ?? const EdgeInsets.symmetric(vertical: P3),
         loading: loading,
-        onTap: disabled == true ? null : () => _controller.next(context),
+        onTap: disabled == true ? null : _controller.next,
       ),
     );
   }

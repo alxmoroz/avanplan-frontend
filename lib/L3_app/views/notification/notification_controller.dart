@@ -9,6 +9,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L2_data/services/platform.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import 'notification_dialog.dart';
 
@@ -57,16 +58,16 @@ abstract class _NotificationControllerBase with Store {
   @observable
   bool pushAuthorized = false;
 
-  Future _tryNavigate(BuildContext context, RemoteMessage msg) async {
+  Future _tryNavigate(RemoteMessage msg) async {
     final data = msg.data;
     final String uriStr = data['uri'] ?? '';
     if (Uri.tryParse(uriStr) != null) {
-      context.go(uriStr);
+      globalContext.go(uriStr);
     }
   }
 
   @action
-  Future initPush(BuildContext context) async {
+  Future _initPush() async {
     // Запрос разрешения на отправку уведомлений
     final authStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
 
@@ -87,13 +88,20 @@ abstract class _NotificationControllerBase with Store {
     if (hasToken) {
       await myUC.updatePushToken(token!, pushAuthorized);
     }
+  }
 
-    // Обработка входящих push-уведомлений
+  // Обработка входящих push-уведомлений
+  Future _listenMessages() async {
     // onLaunch
     final msg = await FirebaseMessaging.instance.getInitialMessage();
-    if (msg != null && context.mounted) _tryNavigate(context, msg);
+    if (msg != null) _tryNavigate(msg);
 
     // onResume
-    FirebaseMessaging.onMessageOpenedApp.listen((msg) => _tryNavigate(context, msg));
+    FirebaseMessaging.onMessageOpenedApp.listen((msg) => _tryNavigate(msg));
+  }
+
+  Future setup() async {
+    await _listenMessages();
+    await _initPush();
   }
 }

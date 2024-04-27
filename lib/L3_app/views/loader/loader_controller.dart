@@ -12,7 +12,6 @@ import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
 import '../../components/images.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
 import '../../usecases/communications.dart';
@@ -98,7 +97,7 @@ abstract class _LoaderControllerBase with Store {
               _setRedeemInvitationError();
             } else {
               // в остальных случаях выбрасываем без объяснений
-              await authController.signOut(globalContext);
+              await authController.signOut();
               _reset();
               return;
             }

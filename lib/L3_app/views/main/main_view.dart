@@ -18,6 +18,7 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../account/account_dialog.dart';
 import '../app/app_title.dart';
+import '../auth/auth_view.dart';
 import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
@@ -40,7 +41,7 @@ final mainRoute = MTRoute(
   path: '/',
   name: 'main',
   builder: (context, state) => const _MainView(),
-  redirect: (_, __) => !authController.authorized ? '/auth' : null,
+  redirect: (_, __) => !authController.authorized ? authRoute.path : null,
   routes: [
     accountRoute,
     notificationsRoute,
@@ -75,7 +76,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
   @override
   void initState() {
     print('MainView initState');
-
+    mainController.startupActions();
     WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController();
     super.initState();
@@ -88,15 +89,13 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
     taskGroupToolbarController = VerticalToolbarController(isCompact: true);
     taskToolbarController = VerticalToolbarController(isCompact: false);
 
-    mainController.startupActions(context);
-
     super.didChangeDependencies();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      mainController.startupActions(context);
+      mainController.startupActions();
     }
   }
 

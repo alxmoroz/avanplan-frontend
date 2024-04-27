@@ -49,7 +49,7 @@ class _WSEditDialogState extends State<_WSEditDialog> {
           const SizedBox(height: P3),
           MTButton.main(
             titleText: loc.save_action_title,
-            onTap: canSave ? () => controller.save(context) : null,
+            onTap: canSave ? () => controller.save : null,
           ),
           if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],

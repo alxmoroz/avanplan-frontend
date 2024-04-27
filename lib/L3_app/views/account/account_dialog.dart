@@ -62,7 +62,7 @@ class _AccountDialog extends StatelessWidget {
                   MTListTile(
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
                     bottomDivider: false,
-                    onTap: () => authController.signOut(context),
+                    onTap: authController.signOut,
                   ),
                 ],
               )

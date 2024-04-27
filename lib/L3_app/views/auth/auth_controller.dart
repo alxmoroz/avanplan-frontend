@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/errors.dart';
@@ -29,27 +28,25 @@ abstract class _AuthControllerBase with Store {
   bool authorized = false;
 
   @action
-  Future _signInWithRegistration(BuildContext context) async {
+  Future _signInWithRegistration() async {
     if (registrationTokenController.hasToken) {
       _startLdrAuth();
       final token = registrationTokenController.token!;
       registrationTokenController.clear();
+      if (authorized) await authUC.signOut();
 
-      if (authorized) {
-        await signOut(context);
-      }
       authorized = await authUC.signInWithRegistration(token);
-
+      if (authorized) goRouter.goMain();
       loader.stop();
     }
   }
 
   @action
-  Future signInWithPassword(BuildContext context, String email, String pwd) async {
+  Future signInWithPassword(String email, String pwd) async {
     _startLdrAuth();
     authorized = await authUC.signInWithPassword(email, pwd);
+    if (authorized) goRouter.goMain();
     loader.stop();
-    if (context.mounted) context.goMain();
   }
 
   @action
@@ -57,6 +54,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInGoogle();
+      if (authorized) goRouter.goMain();
       loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.description);
@@ -68,6 +66,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInApple();
+      if (authorized) goRouter.goMain();
       loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.description);
@@ -87,16 +86,18 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  Future signOut(BuildContext context) async {
+  Future signOut() async {
     authorized = false;
-    _startLdrAuth();
+    loader.start();
     await authUC.signOut();
-    if (context.mounted) context.goAuth();
+    loader.stop();
+    goRouter.goAuth();
   }
 
-  Future startupActions(BuildContext context) async {
+  Future startupActions() async {
     print('AuthController startupActions');
-    await appController.initState(unauthorizedActions: () => _signInWithRegistration(context));
+    await appController.initState();
+    await _signInWithRegistration();
   }
 
   void _startLdrAuth() {

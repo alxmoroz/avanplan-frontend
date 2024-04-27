@@ -11,8 +11,6 @@ import 'release_notes_dialog.dart';
 
 part 'app_controller.g.dart';
 
-typedef _FutureFunction = Future Function();
-
 class AppController extends _AppControllerBase with _$AppController {}
 
 abstract class _AppControllerBase with Store {
@@ -41,7 +39,7 @@ abstract class _AppControllerBase with Store {
   bool _init = false;
 
   @action
-  Future initState({_FutureFunction? unauthorizedActions, _FutureFunction? authorizedActions}) async {
+  Future initState() async {
     if (!_init) {
       print('AppController initState');
 
@@ -69,16 +67,6 @@ abstract class _AppControllerBase with Store {
 
           await localSettingsController.resetAppUpgradeProposalDate();
           localSettingsController.resetOldVersionFlag();
-        }
-
-        // хук для доп. действий без авторизации
-        if (unauthorizedActions != null) await unauthorizedActions();
-
-        await authController.checkLocalAuth();
-
-        // хук для доп. действий с авторизацией
-        if (authController.authorized && authorizedActions != null) {
-          await authorizedActions();
         }
 
         loader.stopInit();

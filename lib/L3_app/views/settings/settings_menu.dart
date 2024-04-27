@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors_base.dart';
@@ -25,9 +24,9 @@ class _SettingsDialog extends StatelessWidget {
 
   List<Workspace> get _wss => wsMainController.workspaces;
 
-  void _toWS(BuildContext context, int wsId) {
-    context.pop();
-    context.goWS(wsId);
+  void _toWS(int wsId) {
+    goRouter.pop();
+    goRouter.goWS(wsId);
   }
 
   Widget _workspaces(BuildContext context) => Column(
@@ -43,7 +42,7 @@ class _SettingsDialog extends StatelessWidget {
               return WSListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () async => _toWS(context, ws.id!),
+                onTap: () => _toWS(ws.id!),
               );
             },
           ),

@@ -50,10 +50,10 @@ abstract class _CreateProjectControllerBase with Store {
     }
   }
 
-  Future _create(BuildContext context) async {
+  Future _create() async {
     final newP = await _ws!.createTask(null);
-    if (newP != null && context.mounted) {
-      context.goLocalTask(newP, extra: true);
+    if (newP != null) {
+      goRouter.goLocalTask(newP, extra: true);
     }
   }
 
@@ -65,10 +65,10 @@ abstract class _CreateProjectControllerBase with Store {
       if (_ws != null) {
         switch (methodCode) {
           case CreationMethod.create:
-            if (context.mounted) await _create(context);
+            await _create();
             break;
           case CreationMethod.template:
-            if (context.mounted) await createFromTemplate(context, _ws!);
+            await createFromTemplate(_ws!);
             break;
           case CreationMethod.import:
             await importTasks(_ws!);

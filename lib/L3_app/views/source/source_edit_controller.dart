@@ -110,8 +110,9 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       if (confirm == true) {
         loader.setDeleting();
         loader.start();
+        final deleted = await sourceUC.delete(source!);
         if (context.mounted) {
-          Navigator.of(context).pop(await sourceUC.delete(source!));
+          Navigator.of(context).pop(deleted);
         }
 
         // отвязываем задачи

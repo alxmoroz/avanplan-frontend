@@ -25,11 +25,11 @@ class InboxAddTaskButton extends StatelessWidget {
 
   Task? get _inbox => tasksMainController.inbox;
 
-  Future _onTap(BuildContext context) async {
+  Future _onTap() async {
     if (_inbox != null) {
       final newTask = await _inbox!.ws.createTask(_inbox!);
-      if (newTask != null && context.mounted) {
-        context.goLocalTask(newTask, extra: true);
+      if (newTask != null) {
+        goRouter.goLocalTask(newTask, extra: true);
       }
     }
   }
@@ -45,13 +45,13 @@ class InboxAddTaskButton extends StatelessWidget {
             ),
             middle: compact ? null : BaseText(addSubtaskActionTitle(_inbox), color: mainColor, maxLines: 1),
             bottomDivider: false,
-            onTap: () => _onTap(context),
+            onTap: _onTap,
           )
         : MTButton.main(
             middle: const InboxAddIcon(color: mainBtnTitleColor, size: P6),
             constrained: false,
             minSize: const Size(P11, P11),
-            onTap: () => _onTap(context),
+            onTap: _onTap,
           );
   }
 }

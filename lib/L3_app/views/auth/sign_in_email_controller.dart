@@ -51,8 +51,7 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
   @action
   void _toggleShowPassword() => _showPassword = !_showPassword;
 
-  Future signIn(BuildContext context) async => await authController.signInWithPassword(
-        context,
+  Future signIn() async => await authController.signInWithPassword(
         fData(SigninFCode.email.index).text,
         fData(SigninFCode.password.index).text,
       );

@@ -39,13 +39,13 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
               MTListTile(
                 middle: AppTitle(compact: _compact),
                 bottomDivider: false,
-                onTap: context.goMain,
+                onTap: goRouter.goMain,
               ),
             MTListTile(
               leading: const ProjectsIcon(color: mainColor, size: P6),
               middle: _compact ? null : BaseText(loc.project_list_title, maxLines: 1),
               bottomDivider: false,
-              onTap: context.goProjects,
+              onTap: goRouter.goProjects,
             ),
             const Spacer(),
             if (!isWeb)

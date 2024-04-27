@@ -3,13 +3,13 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/next_task_or_event.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/images.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 
 part 'main_controller.g.dart';
@@ -82,14 +82,20 @@ abstract class _MainControllerBase with Store {
   // static const _updatePeriod = Duration(hours: 1);
 
   @action
-  Future startupActions(BuildContext context) async {
+  Future startupActions() async {
     print('MainController startupActions');
 
-    await appController.initState(authorizedActions: () async {
-      await notificationController.initPush(context);
+    loader.start();
+    await appController.initState();
+    await authController.checkLocalAuth();
+    if (authController.authorized) {
+      await notificationController.setup();
       // await _showOnboarding();
       await _tryUpdate();
-    });
+    } else {
+      goRouter.goAuth();
+    }
+    loader.stop();
   }
 
   void clear() {

@@ -17,9 +17,9 @@ class TaskParentTitle extends StatelessWidget {
 
   Task get _task => _controller.task!;
 
-  Future _toParent(BuildContext context) async {
+  void _toParent() {
     final parent = _task.parent!;
-    context.goLocalTask(parent);
+    goRouter.goLocalTask(parent);
   }
 
   @override
@@ -30,7 +30,7 @@ class TaskParentTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: P3),
       color: Colors.transparent,
       minHeight: P6,
-      onTap: () => _toParent(context),
+      onTap: _toParent,
     );
   }
 }

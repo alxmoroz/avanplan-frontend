@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../components/colors.dart';
@@ -18,9 +17,9 @@ class AccountButton extends StatelessWidget {
 
   User? get me => accountController.me;
 
-  void _toUser(BuildContext context) {
-    context.pop();
-    context.goAccount();
+  void _toUser() {
+    goRouter.pop();
+    goRouter.goAccount();
   }
 
   @override
@@ -33,7 +32,7 @@ class AccountButton extends StatelessWidget {
       subtitle: mail != name ? BaseText.f2(mail, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: false,
-      onTap: () => _toUser(context),
+      onTap: _toUser,
     );
   }
 }

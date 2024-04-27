@@ -179,7 +179,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  void _tap(BuildContext context) => context.goLocalTask(task);
+  void _tap() => goRouter.goLocalTask(task);
 
   @override
   Widget build(BuildContext context) => board
@@ -188,7 +188,7 @@ class TaskCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
-          onTap: dragging ? null : () => _tap(context),
+          onTap: dragging ? null : _tap,
           child: _taskContent(false),
         )
       : Stack(
@@ -199,7 +199,7 @@ class TaskCard extends StatelessWidget {
               bottomDivider: bottomDivider,
               dividerIndent: showStateMark ? P6 : 0,
               loading: task.loading,
-              onTap: task.isImportingProject || dragging ? null : () => _tap(context),
+              onTap: task.isImportingProject || dragging ? null : _tap,
             ),
             if (showStateMark)
               Positioned(

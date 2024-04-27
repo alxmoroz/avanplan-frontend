@@ -37,19 +37,14 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    authController.startupActions();
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    authController.startupActions(context);
-    super.didChangeDependencies();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      authController.startupActions(context);
+      authController.startupActions();
     }
   }
 

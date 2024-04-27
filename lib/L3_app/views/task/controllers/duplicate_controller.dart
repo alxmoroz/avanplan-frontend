@@ -2,9 +2,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
-
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
@@ -16,13 +13,13 @@ class DuplicateController {
   final TaskController _taskController;
   Task? get _task => _taskController.task;
 
-  Future duplicate(BuildContext context) async {
+  Future duplicate() async {
     if (_task != null) {
       loader.setSaving();
-      context.pop();
+      goRouter.pop();
       final newTask = await _task!.duplicate();
-      if (newTask != null && context.mounted) {
-        context.goLocalTask(newTask);
+      if (newTask != null) {
+        goRouter.goLocalTask(newTask);
       }
       loader.stop();
     }

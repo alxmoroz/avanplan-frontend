@@ -55,7 +55,7 @@ class NoTasks extends StatelessWidget {
                 MTButton.secondary(
                   titleText: loc.task_list_schedule_action_title,
                   margin: const EdgeInsets.only(top: P3),
-                  onTap: context.goProjects,
+                  onTap: goRouter.goProjects,
                 ),
               if (!_hasOpenedProjects) ...[
                 const SizedBox(height: P3),

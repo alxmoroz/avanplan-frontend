@@ -2,13 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/text_field.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
@@ -32,7 +32,7 @@ abstract class _WSEditControllerBase extends EditController with Store {
 
   /// действия
 
-  Future save(BuildContext context) async {
+  Future save() async {
     // TODO: обработка ошибок редактирования РП. Как в задаче. Локальный лоадер на шапке
     loader.setSaving();
     loader.start();
@@ -45,7 +45,7 @@ abstract class _WSEditControllerBase extends EditController with Store {
 
     if (editedWS != null) {
       wsMainController.setWS(editedWS);
-      if (context.mounted) context.pop();
+      goRouter.pop();
     }
     loader.stop();
   }

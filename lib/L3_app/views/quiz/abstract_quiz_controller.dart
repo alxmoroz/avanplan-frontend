@@ -1,9 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 
 part 'abstract_quiz_controller.g.dart';
@@ -16,36 +15,29 @@ class QuizStep {
 }
 
 abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
-  Future afterNext(BuildContext context) async {}
-  Future beforeNext(BuildContext context) async {}
-  Future afterFinish(BuildContext context) async {}
+  Future afterNext() async {}
+  Future beforeNext() async {}
+  Future afterFinish() async {}
 
-  @action
-  Future back(BuildContext context) async {
+  void back() {
     _back();
-    context.pop();
+    goRouter.pop();
   }
 
-  @action
-  Future next(BuildContext context) async {
-    await beforeNext(context);
+  Future next() async {
+    await beforeNext();
     if (_lastStep) {
-      if (context.mounted) {
-        finish(context);
-      }
+      finish();
     } else {
       _next();
-      if (context.mounted) {
-        await afterNext(context);
-      }
+      await afterNext();
       _nextDone();
     }
   }
 
-  @action
-  Future finish(BuildContext context) async {
+  Future finish() async {
     _finish();
-    await afterFinish(context);
+    await afterFinish();
   }
 }
 
@@ -82,9 +74,7 @@ abstract class _QuizControllerBase with Store {
   }
 
   @action
-  void _next() {
-    stepIndex++;
-  }
+  void _next() => stepIndex++;
 
   @action
   void _nextDone() {

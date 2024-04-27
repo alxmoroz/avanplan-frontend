@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -19,16 +18,16 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   CreateGoalQuizController(super.taskController);
 
   @override
-  Future afterNext(BuildContext context) async {
+  Future afterNext() async {
     if (step.code == _StepCode.tasks.name) {
-      context.goSubtasksQuiz(taskController);
+      goRouter.goSubtasksQuiz(taskController);
     }
   }
 
   @override
-  Future afterFinish(BuildContext context) async {
+  Future afterFinish() async {
     // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
-    context.goLocalTask(_goal);
+    goRouter.goLocalTask(_goal);
   }
 }
 

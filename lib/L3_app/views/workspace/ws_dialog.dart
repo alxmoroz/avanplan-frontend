@@ -40,7 +40,7 @@ class _WSRoute extends MTRoute {
       : super(
           path: 'ws/:wsId',
           name: 'ws',
-    builder: (context, state) => _WSDialog(state.intPathParam('wsId')!),
+          builder: (context, state) => _WSDialog(state.intPathParam('wsId')!),
           routes: [
             wsSourcesRoute,
             wsUsersRoute,
@@ -141,7 +141,7 @@ class _WSDialog extends StatelessWidget {
         onTap: () => showWSExpenses(_ws),
       );
 
-  Widget _wsMembers(BuildContext context) => MTListTile(
+  Widget get _wsMembers => MTListTile(
         leading: const PeopleIcon(),
         middle: Row(
           children: [
@@ -161,10 +161,10 @@ class _WSDialog extends StatelessWidget {
         trailing: const ChevronIcon(),
         bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || _ws.hpSourceCreate,
         dividerIndent: P11,
-        onTap: () async => context.goWSUsers(_ws.id!),
+        onTap: () => goRouter.goWSUsers(_ws.id!),
       );
 
-  Widget _tasks(BuildContext context) => MTListTile(
+  Widget get _tasks => MTListTile(
         leading: const TasksIcon(),
         middle: Row(
           children: [
@@ -177,7 +177,7 @@ class _WSDialog extends StatelessWidget {
         bottomDivider: _consumedFSVolume > 0 || _ws.hpSourceCreate,
       );
 
-  Widget _storage(BuildContext context) => MTListTile(
+  Widget get _storage => MTListTile(
         leading: const FileStorageIcon(),
         middle: Row(
           children: [
@@ -190,14 +190,14 @@ class _WSDialog extends StatelessWidget {
         bottomDivider: _ws.hpSourceCreate,
       );
 
-  Widget _sources(BuildContext context) => MTListTile(
+  Widget get _sources => MTListTile(
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
       bottomDivider: false,
       onTap: () {
         _ws.checkSources();
-        context.goWSSources(_ws.id!);
+        goRouter.goWSSources(_ws.id!);
       });
 
   @override
@@ -224,10 +224,10 @@ class _WSDialog extends StatelessWidget {
             _tariffRow,
             if (_hasExpenses) _tariffExpenses(context),
             const SizedBox(height: P3),
-            if (_ws.hpMemberRead) _wsMembers(context),
-            _tasks(context),
-            _storage(context),
-            if (_ws.hpSourceCreate) _sources(context),
+            if (_ws.hpMemberRead) _wsMembers,
+            _tasks,
+            _storage,
+            if (_ws.hpSourceCreate) _sources,
           ],
         ),
       );

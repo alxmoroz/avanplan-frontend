@@ -2,10 +2,8 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
-
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_transfer.dart';
 import '../../../../usecases/task_edit.dart';
@@ -21,7 +19,7 @@ class LocalExportController {
 
   /// перенос в другую цель, проект
 
-  Future localExport(BuildContext context) async {
+  Future localExport() async {
     final sourceTaskId = task.parentId;
     final destination = await selectTask(
       task.targetsForLocalExport,
@@ -31,7 +29,7 @@ class LocalExportController {
     if (destination != null) {
       // Перенос между проектами или РП
       if (destination.project.id != task.project.id || destination.wsId != task.wsId) {
-        if (context.mounted) context.pop();
+        goRouter.pop();
 
         await task.move(destination);
       }

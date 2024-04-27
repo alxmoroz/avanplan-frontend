@@ -79,7 +79,7 @@ class TaskBoardColumn {
         canDrag: t.canSetStatus,
       );
 
-  Widget? _footer(BuildContext context) => !_status.closed && _parent.canCreate
+  Widget? get _footer => !_status.closed && _parent.canCreate
       ? MTListTile(
           middle: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -93,8 +93,8 @@ class TaskBoardColumn {
           bottomDivider: false,
           onTap: () async {
             final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
-            if (newTask != null && context.mounted) {
-              context.goLocalTask(newTask, extra: true);
+            if (newTask != null) {
+              goRouter.goLocalTask(newTask, extra: true);
             }
           },
         )
@@ -131,6 +131,6 @@ class TaskBoardColumn {
         canDrag: false,
         contentsWhenEmpty: Container(),
         lastTarget: _tasks.isEmpty ? const _ItemTarget() : null,
-        footer: _footer(context),
+        footer: _footer,
       );
 }

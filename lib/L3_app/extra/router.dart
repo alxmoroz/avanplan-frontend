@@ -55,6 +55,8 @@ class MTRoute extends GoRoute {
   GoRouterPageBuilder? get pageBuilder => (BuildContext context, GoRouterState state) {
         if (isWeb) _setWebpageTitle(context, title(state) ?? '');
 
+        print('pageBuilder pageKey: ${state.pageKey}');
+
         final child = Observer(
           builder: (_) => Stack(
             alignment: Alignment.center,
@@ -70,6 +72,7 @@ class MTRoute extends GoRoute {
                 name: state.name,
                 arguments: state.extra,
                 maxWidth: dialogMaxWidth,
+                key: state.pageKey,
                 child: child,
               )
             : isBigScreen(context)
@@ -77,11 +80,13 @@ class MTRoute extends GoRoute {
                 ? MaterialPage(
                     name: state.name,
                     arguments: state.extra,
+                    key: state.pageKey,
                     child: child,
                   )
                 : CupertinoPage(
                     name: state.name,
                     arguments: state.extra,
+                    key: state.pageKey,
                     child: child,
                   );
       };

@@ -32,7 +32,7 @@ Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}
     );
 
 class MTDialogPage<T> extends Page<T> {
-  const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth, super.key});
+  const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth, super.key, super.restorationId});
 
   final Widget child;
   final double? maxWidth;

@@ -56,7 +56,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool _hasScrolled = false;
   Task? get task => controller.task;
   Task get td => widget._taskDescriptor;
-  bool get _hasParent => td.parent != null;
+  bool get _hasParent => task?.parent != null;
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
   bool get _isBigGroup => isBigScreen(context) && td.isTask;

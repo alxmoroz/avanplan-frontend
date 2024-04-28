@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
@@ -21,9 +22,9 @@ class _TeamQuizRoute extends TaskRoute {
   _TeamQuizRoute() : super(path: 'team', name: 'team');
 
   @override
-  GoRouterRedirect? get redirect => (context, state) {
+  GoRouterRedirect? get redirect => (_, state) {
         if (state.extra == null) {
-          return context.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
+          return router.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
         }
         return null;
       };

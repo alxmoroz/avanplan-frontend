@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,7 +12,7 @@ part 'registration_token_controller.g.dart';
 final registrationTokenRoute = MTRoute(
   path: '/register',
   name: 'register',
-  redirect: (BuildContext context, GoRouterState state) {
+  redirect: (_, GoRouterState state) {
     registrationTokenController.parseLink(state.uri);
     return authRoute.path;
   },

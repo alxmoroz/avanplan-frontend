@@ -14,6 +14,7 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
@@ -30,9 +31,9 @@ class _CreateSubtasksQuizRoute extends TaskRoute {
   _CreateSubtasksQuizRoute(String prefix) : super(path: 'subtasks', name: '$prefix-subtasks');
 
   @override
-  GoRouterRedirect? get redirect => (context, state) {
+  GoRouterRedirect? get redirect => (_, state) {
         if (state.extra == null) {
-          return context.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
+          return router.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
         }
         return null;
       };

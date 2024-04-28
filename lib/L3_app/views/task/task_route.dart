@@ -67,7 +67,7 @@ class TaskRoute extends MTRoute {
   }
 
   @override
-  GoRouterRedirect? get redirect => (context, state) => task(state) != null ? null : router.namedLocation(taskNotFoundRoute.name!);
+  GoRouterRedirect? get redirect => (_, state) => task(state) != null ? null : router.namedLocation(taskNotFoundRoute.name!);
 
   @override
   GoRouterWidgetBuilder? get builder => (context, state) {

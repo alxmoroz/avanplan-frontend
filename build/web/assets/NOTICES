@@ -5360,6 +5360,7 @@ file_selector_web
 file_selector_windows
 flutter_lints
 flutter_plugin_android_lifecycle
+go_router
 google_sign_in
 google_sign_in_android
 google_sign_in_ios
@@ -35675,7 +35676,7 @@ win32_registry
 
 BSD 3-Clause License
 
-Copyright (c) 2023, Dart | Windows
+Copyright (c) 2023, Halil Durmus
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/base_entity.dart';
+import '../extra/router.dart';
 import 'button.dart';
 import 'circle.dart';
 import 'colors.dart';
@@ -69,7 +70,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
       trailing: selectedIndex == index ? const MTCircle(size: P2, color: mainColor) : null,
       bottomDivider: index < itemCount - 1,
       dividerIndent: dividerIndent,
-      onTap: () => Navigator.of(context).pop(item),
+      onTap: () => router.pop(item),
     );
   }
 
@@ -84,7 +85,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
                   const DeleteIcon(),
                   onTap: () {
                     onReset!();
-                    Navigator.of(context).pop();
+                    router.pop();
                   },
                   padding: const EdgeInsets.all(P2),
                 )

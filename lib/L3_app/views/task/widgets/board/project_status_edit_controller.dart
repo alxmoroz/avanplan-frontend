@@ -2,12 +2,12 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/field_data.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
@@ -175,8 +175,8 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
     }
   }
 
-  Future delete(BuildContext context) async {
-    Navigator.of(context).pop();
+  Future delete() async {
+    router.pop();
     _statusesController.deleteStatus(status);
   }
 }

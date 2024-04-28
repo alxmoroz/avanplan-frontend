@@ -7,6 +7,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import 'registration_request_controller.dart';
@@ -43,7 +44,7 @@ class RegistrationCompletedMessage extends StatelessWidget {
         MTButton.main(
           margin: const EdgeInsets.symmetric(vertical: P3),
           titleText: loc.ok,
-          onTap: () => Navigator.of(context).pop(),
+          onTap: router.pop,
         ),
         const SizedBox(height: P6),
         SmallText(loc.register_troubleshooting_hint, align: TextAlign.center),

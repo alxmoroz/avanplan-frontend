@@ -7,6 +7,7 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 
@@ -34,11 +35,11 @@ class _AppMayUpgradeDialog extends StatelessWidget {
               titleText: loc.app_install_action_title,
               onTap: () {
                 go2AppInstall();
-                Navigator.of(context).pop();
+                router.pop();
               },
             ),
             const SizedBox(height: P3),
-            MTButton(titleText: loc.later, onTap: () => Navigator.of(context).pop()),
+            MTButton(titleText: loc.later, onTap: router.pop),
             if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),

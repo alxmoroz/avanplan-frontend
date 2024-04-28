@@ -12,6 +12,7 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/bytes.dart';
 import '../../controllers/attachments_controller.dart';
@@ -22,10 +23,8 @@ class _AttachmentsDialog extends StatelessWidget {
   const _AttachmentsDialog(this._controller);
   final AttachmentsController _controller;
 
-  Future _download(BuildContext context, Attachment attachment) async {
-    if (_controller.sortedAttachments.length < 2) {
-      Navigator.of(context).pop();
-    }
+  Future _download(Attachment attachment) async {
+    if (_controller.sortedAttachments.length < 2) router.pop();
     await _controller.download(attachment);
   }
 
@@ -47,7 +46,7 @@ class _AttachmentsDialog extends StatelessWidget {
                 subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
                 dividerIndent: P6 + P5,
                 bottomDivider: index < _controller.sortedAttachments.length - 1,
-                onTap: () => _download(context, a),
+                onTap: () => _download(a),
               );
             },
           ),

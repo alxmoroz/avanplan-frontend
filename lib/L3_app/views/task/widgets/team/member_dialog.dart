@@ -13,6 +13,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
@@ -31,11 +32,9 @@ class _MemberDialog extends StatelessWidget {
   Task get _task => _controller.task!;
   TaskMember? get _member => _task.memberForId(_memberId);
 
-  Future editRoles(BuildContext context) async {
+  Future editRoles() async {
     await memberRolesDialog(MemberRolesController(_task, _memberId));
-    if (_member == null && context.mounted) {
-      Navigator.of(context).pop();
-    }
+    if (_member == null) router.pop();
   }
 
   @override
@@ -59,7 +58,7 @@ class _MemberDialog extends StatelessWidget {
                       trailing: _task.canEditMembers ? const EditIcon() : null,
                       bottomDivider: false,
                       loading: _task.loading,
-                      onTap: () => _task.canEditMembers ? editRoles(context) : null,
+                      onTap: _task.canEditMembers ? editRoles : null,
                     )
                   ]
                 ],

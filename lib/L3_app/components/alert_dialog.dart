@@ -82,21 +82,21 @@ class _MTAlertDialog extends StatelessWidget {
               Expanded(child: _actionText(a)),
             ]);
 
-  Future _action(BuildContext context, MTADialogAction a) async {
+  Future _action(MTADialogAction a) async {
     if (a.onTap != null) {
       a.onTap!();
     }
-    Navigator.of(context).pop(a.result);
+    router.pop(a.result);
   }
 
-  Widget _button(BuildContext context, MTADialogAction a) => Column(
+  Widget _button(MTADialogAction a) => Column(
         children: [
           const MTDivider(verticalIndent: P),
           CupertinoButton(
             minSize: 0,
             padding: const EdgeInsets.symmetric(vertical: P, horizontal: P2),
             child: _actionRow(a),
-            onPressed: () => _action(context, a),
+            onPressed: () => _action(a),
           )
         ],
       );
@@ -110,10 +110,10 @@ class _MTAlertDialog extends StatelessWidget {
         children: [
           if (description.isNotEmpty) BaseText(description, maxLines: 12),
           if (!simple)
-            for (final a in actions) _button(context, a),
+            for (final a in actions) _button(a),
         ],
       ),
-      actions: !simple ? [] : [for (final a in actions) CupertinoDialogAction(child: _actionText(a), onPressed: () => _action(context, a))],
+      actions: !simple ? [] : [for (final a in actions) CupertinoDialogAction(child: _actionText(a), onPressed: () => _action(a))],
     );
   }
 }

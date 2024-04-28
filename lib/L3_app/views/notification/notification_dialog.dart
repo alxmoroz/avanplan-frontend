@@ -11,6 +11,7 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 
@@ -21,11 +22,9 @@ class _NotificationDialog extends StatelessWidget {
 
   MTNotification get nf => notificationController.selectedNotification!;
 
-  Future _tryGo(BuildContext context) async {
-    Navigator.of(context).pop();
-    try {
-      Navigator.of(context).pushNamed(Uri.parse(nf.url!).path);
-    } catch (_) {}
+  Future _goToLink() async {
+    router.pop();
+    router.go(nf.url!);
   }
 
   @override
@@ -40,12 +39,12 @@ class _NotificationDialog extends StatelessWidget {
               BaseText(nf.description, maxLines: 100),
               const SizedBox(height: P),
               SmallText('${nf.scheduledDate.date.strMedium} ${nf.scheduledDate.strTime}', maxLines: 1, align: TextAlign.right),
-              if (nf.url?.isNotEmpty == true)
+              if (nf.url != null && Uri.tryParse(nf.url!) != null)
                 MTButton.secondary(
                   margin: const EdgeInsets.only(top: P3),
                   titleText: loc.details,
                   trailing: const ChevronIcon(),
-                  onTap: () => _tryGo(context),
+                  onTap: _goToLink,
                 ),
               if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],

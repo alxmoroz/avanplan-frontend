@@ -43,21 +43,19 @@ abstract class _NotificationControllerBase with Store {
 
   Future showNotification(BuildContext context, {required MTNotification n}) async {
     _selectNotification(n);
-    await notificationDialog();
+    notificationDialog();
 
     if (!n.isRead) {
       n.isRead = true;
       await myUC.markReadNotifications([n.id!]);
-      // TODO: ещё один запрос ведь не обязателен тут! можно дернуть notifications = [...notifications]
-      // TODO: либо получить новый набор уведомлений с запроса выше
-      await reload();
+      notifications = [...notifications];
     }
   }
 
   @observable
   bool pushAuthorized = false;
 
-  Future _tryNavigate(RemoteMessage msg) async {
+  Future tryNavigate(RemoteMessage msg) async {
     final data = msg.data;
     final String uriStr = data['uri'] ?? '';
     if (Uri.tryParse(uriStr) != null) {
@@ -93,10 +91,10 @@ abstract class _NotificationControllerBase with Store {
   Future _listenMessages() async {
     // onLaunch
     final msg = await FirebaseMessaging.instance.getInitialMessage();
-    if (msg != null) _tryNavigate(msg);
+    if (msg != null) tryNavigate(msg);
 
     // onResume
-    FirebaseMessaging.onMessageOpenedApp.listen((msg) => _tryNavigate(msg));
+    FirebaseMessaging.onMessageOpenedApp.listen((msg) => tryNavigate(msg));
   }
 
   Future setup() async {

@@ -1,11 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
@@ -58,14 +58,12 @@ abstract class _TariffSelectorControllerBase with Store {
 
   bool showPageButton(bool left) => pageIndex != null && left ? pageIndex! > 0 : pageIndex! < pagesCount - 1;
 
-  Future selectTariff(BuildContext context, Tariff tariff) async {
+  Future selectTariff(Tariff tariff) async {
     // проверка на возможное превышение лимитов по выбранному тарифу
     if (!ws.invoice.hasOverdraft(tariff) || await tariffConfirmExpenses(ws, tariff) == true) {
       // проверка, что хватит денег на один день после смены
       final enoughMoney = await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.invoice.currentExpensesPerDay);
-      if (enoughMoney && context.mounted) {
-        Navigator.of(context).pop(tariff);
-      }
+      if (enoughMoney) router.pop(tariff);
     }
   }
 }

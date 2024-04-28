@@ -14,6 +14,7 @@ import '../../components/alert_dialog.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/text_field.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../usecases/task_link.dart';
@@ -96,7 +97,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
     }
   }
 
-  Future delete(BuildContext context) async {
+  Future delete() async {
     if (canEdit) {
       final confirm = await showMTAlertDialog(
         loc.source_delete_dialog_title,
@@ -110,10 +111,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       if (confirm == true) {
         loader.setDeleting();
         loader.start();
-        final deleted = await sourceUC.delete(source!);
-        if (context.mounted) {
-          Navigator.of(context).pop(deleted);
-        }
+        router.pop(await sourceUC.delete(source!));
 
         // отвязываем задачи
         tasksMainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../extra/router.dart';
 import 'adaptive.dart';
 import 'close_dialog_button.dart';
 import 'colors.dart';
@@ -57,7 +58,7 @@ class ToolBar extends StatelessWidget {
   }
 }
 
-Widget _backButton(BuildContext context) => CupertinoNavigationBarBackButton(onPressed: () => Navigator.of(context).pop());
+Widget get _backButton => CupertinoNavigationBarBackButton(onPressed: router.pop);
 
 class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MTAppBar({
@@ -94,10 +95,10 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(_pTop + _innerHeight + _pBottom);
 
-  Widget _toolbar(BuildContext context) => ToolBar(
+  Widget get _toolbar => ToolBar(
         showCloseButton: showCloseButton,
         onClose: onClose,
-        leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),
+        leading: leading ?? (!isBottom && !showCloseButton && router.canPop() ? _backButton : null),
         titleText: title,
         middle: middle,
         bottom: bottom,
@@ -120,14 +121,14 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
                 alignment: big ? Alignment.centerLeft : Alignment.center,
                 padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
                 color: (color ?? b2Color).resolve(context),
-                child: _toolbar(context),
+                child: _toolbar,
               ),
             )
           : CupertinoNavigationBar(
               automaticallyImplyLeading: false,
               automaticallyImplyMiddle: false,
               padding: EdgeInsetsDirectional.only(top: _pTop, bottom: _pBottom, start: 0, end: 0),
-              leading: _toolbar(context),
+              leading: _toolbar,
               backgroundColor: color ?? navbarDefaultBgColor,
               border: null,
             ),

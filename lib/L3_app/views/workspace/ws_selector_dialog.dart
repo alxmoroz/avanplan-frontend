@@ -7,6 +7,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import 'ws_list_tile.dart';
@@ -31,7 +32,7 @@ class _WSSelectDialog extends StatelessWidget {
             return WSListTile(
               ws,
               bottomDivider: index < _wss.length - 1,
-              onTap: canSelect ? () => Navigator.of(context).pop(ws.id) : null,
+              onTap: canSelect ? () => router.pop(ws.id) : null,
             );
           },
         ),

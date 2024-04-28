@@ -155,7 +155,6 @@ extension MTRouterHelper on GoRouter {
 }
 
 // Future push(BuildContext context, {MTRouter? removeUntil, bool replace = false, Object? args}) async {
-//   final n = Navigator.of(context);
 //   final p = path(args: args);
 //   if (removeUntil != null) {
 //     final stopPath = removeUntil.path(args: args);

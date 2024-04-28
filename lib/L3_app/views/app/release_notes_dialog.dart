@@ -10,6 +10,7 @@ import '../../components/dialog.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 
 Future showReleaseNotesDialog(List<ReleaseNote> rNotes) async => await showMTDialog(_ReleaseNotesDialog(rNotes));
@@ -46,7 +47,7 @@ class _ReleaseNotesDialog extends StatelessWidget {
         isBottom: true,
         color: b2Color,
         padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
-        middle: MTButton.main(titleText: loc.ok, onTap: () => Navigator.of(context).pop()),
+        middle: MTButton.main(titleText: loc.ok, onTap: router.pop),
       ),
     );
   }

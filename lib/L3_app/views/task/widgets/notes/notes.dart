@@ -18,6 +18,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/bytes.dart';
 import '../../../../presenters/date.dart';
@@ -34,7 +35,7 @@ class Notes extends StatelessWidget {
 
   Task get _task => _controller.task;
 
-  Future _noteMenu(BuildContext context, Note note) async => await showMTDialog<void>(
+  void _noteMenu(Note note) => showMTDialog<void>(
         MTDialog(
           topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.task_note_title),
           body: ListView(
@@ -44,9 +45,9 @@ class Notes extends StatelessWidget {
                 leading: const EditIcon(),
                 middle: BaseText(loc.edit_action_title, color: mainColor, maxLines: 1),
                 dividerIndent: P4 + P5,
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  await _controller.edit(note);
+                onTap: () {
+                  router.pop();
+                  _controller.edit(note);
                 },
               ),
               MTListTile(
@@ -54,8 +55,8 @@ class Notes extends StatelessWidget {
                 middle: BaseText(loc.delete_action_title, color: dangerColor, maxLines: 1),
                 bottomDivider: false,
                 onTap: () async {
-                  Navigator.of(context).pop();
-                  await _controller.delete(note);
+                  router.pop();
+                  _controller.delete(note);
                 },
               ),
             ],
@@ -111,7 +112,7 @@ class Notes extends StatelessWidget {
                                       ? MTButton.icon(
                                           const MenuIcon(size: P4),
                                           padding: const EdgeInsets.only(left: P3, right: P_2, top: P, bottom: P),
-                                          onTap: () => _noteMenu(context, n),
+                                          onTap: () => _noteMenu(n),
                                         )
                                       : null,
                                 ),

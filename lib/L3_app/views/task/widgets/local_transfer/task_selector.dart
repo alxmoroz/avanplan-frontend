@@ -11,6 +11,7 @@ import '../../../../components/dialog.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 
@@ -64,7 +65,7 @@ class _TaskSelectDialog extends StatelessWidget {
               titleText: t.title,
               subtitle: t.description.isNotEmpty ? SmallText(t.description, maxLines: 1) : null,
               bottomDivider: index < tasks.length - 1,
-              onTap: () => Navigator.of(context).pop(t),
+              onTap: () => router.pop(t),
             );
           },
         ),

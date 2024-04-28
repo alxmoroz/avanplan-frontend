@@ -113,7 +113,7 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
           trailing: controller.canEdit
               ? MTButton.icon(
                   const DeleteIcon(),
-                  onTap: () => controller.delete(context),
+                  onTap: controller.delete,
                   padding: const EdgeInsets.all(P2),
                 )
               : null,

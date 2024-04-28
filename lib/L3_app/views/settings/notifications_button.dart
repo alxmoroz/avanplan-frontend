@@ -13,8 +13,8 @@ class NotificationsButton extends StatelessWidget {
   const NotificationsButton({super.key});
 
   void _toNotifications() {
-    goRouter.pop();
-    goRouter.goNotifications();
+    router.pop();
+    router.goNotifications();
   }
 
   @override

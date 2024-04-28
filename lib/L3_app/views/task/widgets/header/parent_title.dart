@@ -19,7 +19,7 @@ class TaskParentTitle extends StatelessWidget {
 
   void _toParent() {
     final parent = _task.parent!;
-    goRouter.goLocalTask(parent);
+    router.goLocalTask(parent);
   }
 
   @override

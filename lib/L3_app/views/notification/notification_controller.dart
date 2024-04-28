@@ -3,7 +3,6 @@
 import 'package:collection/collection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
@@ -62,7 +61,7 @@ abstract class _NotificationControllerBase with Store {
     final data = msg.data;
     final String uriStr = data['uri'] ?? '';
     if (Uri.tryParse(uriStr) != null) {
-      globalContext.go(uriStr);
+      router.go(uriStr);
     }
   }
 

@@ -161,7 +161,7 @@ class _WSDialog extends StatelessWidget {
         trailing: const ChevronIcon(),
         bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || _ws.hpSourceCreate,
         dividerIndent: P11,
-        onTap: () => goRouter.goWSUsers(_ws.id!),
+        onTap: () => router.goWSUsers(_ws.id!),
       );
 
   Widget get _tasks => MTListTile(
@@ -197,7 +197,7 @@ class _WSDialog extends StatelessWidget {
       bottomDivider: false,
       onTap: () {
         _ws.checkSources();
-        goRouter.goWSSources(_ws.id!);
+        router.goWSSources(_ws.id!);
       });
 
   @override

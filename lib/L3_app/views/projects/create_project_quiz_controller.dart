@@ -30,25 +30,25 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext() async {
     if (step.code == _StepCode.featureSets.name) {
       _fsController.reload();
-      goRouter.goFeatureSetsQuiz(taskController);
+      router.goFeatureSetsQuiz(taskController);
     } else if (step.code == _StepCode.team.name) {
-      goRouter.goTeamQuiz(taskController);
+      router.goTeamQuiz(taskController);
     } else if (step.code == _StepCode.goals.name) {
       final goal = await _project.ws.createTask(_project);
       if (goal != null) {
         // TODO: тут должен быть ShellRoute или что-то такое...
         // сейчас сбрасывается на независимое создание цели
-        goRouter.goLocalTask(goal, extra: true);
+        router.goLocalTask(goal, extra: true);
       }
     } else if (step.code == _StepCode.tasks.name) {
-      goRouter.goSubtasksQuiz(taskController);
+      router.goSubtasksQuiz(taskController);
     }
   }
 
   @override
   Future afterFinish() async {
     // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
-    goRouter.goLocalTask(_project);
+    router.goLocalTask(_project);
   }
 }
 

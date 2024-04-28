@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/feature_set.dart';
@@ -92,7 +91,7 @@ abstract class _FeatureSetsControllerBase with Store {
   }
 
   Future save() async {
-    globalContext.pop();
+    router.pop();
 
     final fIndex = TaskFCode.features.index;
     _taskController.updateField(fIndex, loading: true);

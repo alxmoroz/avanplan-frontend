@@ -20,14 +20,14 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext() async {
     if (step.code == _StepCode.tasks.name) {
-      goRouter.goSubtasksQuiz(taskController);
+      router.goSubtasksQuiz(taskController);
     }
   }
 
   @override
   Future afterFinish() async {
     // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
-    goRouter.goLocalTask(_goal);
+    router.goLocalTask(_goal);
   }
 }
 

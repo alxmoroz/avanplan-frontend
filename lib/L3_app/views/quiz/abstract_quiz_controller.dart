@@ -21,7 +21,7 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
 
   void back() {
     _back();
-    goRouter.pop();
+    router.pop();
   }
 
   Future next() async {

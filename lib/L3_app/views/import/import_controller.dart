@@ -126,7 +126,7 @@ abstract class _ImportControllerBase with Store {
       if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
         await tasksMainController.updateImportingProjects();
       }
-      goRouter.pop();
+      router.pop();
     }
   }
 }

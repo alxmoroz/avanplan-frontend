@@ -16,10 +16,10 @@ class DuplicateController {
   Future duplicate() async {
     if (_task != null) {
       loader.setSaving();
-      goRouter.pop();
+      router.pop();
       final newTask = await _task!.duplicate();
       if (newTask != null) {
-        goRouter.goLocalTask(newTask);
+        router.goLocalTask(newTask);
       }
       loader.stop();
     }

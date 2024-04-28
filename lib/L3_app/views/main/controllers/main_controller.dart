@@ -93,7 +93,7 @@ abstract class _MainControllerBase with Store {
       // await _showOnboarding();
       await _tryUpdate();
     } else {
-      goRouter.goAuth();
+      router.goAuth();
     }
     loader.stop();
   }

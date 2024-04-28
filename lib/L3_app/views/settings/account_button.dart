@@ -18,8 +18,8 @@ class AccountButton extends StatelessWidget {
   User? get me => accountController.me;
 
   void _toUser() {
-    goRouter.pop();
-    goRouter.goAccount();
+    router.pop();
+    router.goAccount();
   }
 
   @override

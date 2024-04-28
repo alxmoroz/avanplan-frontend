@@ -53,7 +53,7 @@ abstract class _CreateProjectControllerBase with Store {
   Future _create() async {
     final newP = await _ws!.createTask(null);
     if (newP != null) {
-      goRouter.goLocalTask(newP, extra: true);
+      router.goLocalTask(newP, extra: true);
     }
   }
 

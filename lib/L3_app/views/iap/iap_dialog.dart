@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/iap_product.dart';
 import '../../../L1_domain/entities/workspace.dart';
@@ -37,7 +36,7 @@ class _StoreDialog extends StatelessWidget {
   Workspace get ws => wsMainController.ws(_wsId);
 
   Future _pay(IAPProduct p) async {
-    globalContext.pop(true);
+    router.pop(true);
     await iapController.pay(_wsId, p);
   }
 

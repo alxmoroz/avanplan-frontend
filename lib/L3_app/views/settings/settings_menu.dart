@@ -25,8 +25,8 @@ class _SettingsDialog extends StatelessWidget {
   List<Workspace> get _wss => wsMainController.workspaces;
 
   void _toWS(int wsId) {
-    goRouter.pop();
-    goRouter.goWS(wsId);
+    router.pop();
+    router.goWS(wsId);
   }
 
   Widget _workspaces(BuildContext context) => Column(

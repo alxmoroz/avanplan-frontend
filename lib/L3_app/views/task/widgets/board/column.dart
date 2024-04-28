@@ -94,7 +94,7 @@ class TaskBoardColumn {
           onTap: () async {
             final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
             if (newTask != null) {
-              goRouter.goLocalTask(newTask, extra: true);
+              router.goLocalTask(newTask, extra: true);
             }
           },
         )

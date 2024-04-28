@@ -28,7 +28,7 @@ class DeleteController {
         simple: true,
       );
       if (confirm == true) {
-        goRouter.pop();
+        router.pop();
         _task!.delete();
       }
     }

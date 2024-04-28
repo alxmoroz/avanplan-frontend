@@ -93,7 +93,7 @@ class MTRoute extends GoRoute {
 final rootKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => rootKey.currentContext!;
 
-final goRouter = GoRouter(
+final router = GoRouter(
   routes: [
     authRoute,
     registrationTokenRoute,

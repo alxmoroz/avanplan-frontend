@@ -45,7 +45,7 @@ abstract class _WSEditControllerBase extends EditController with Store {
 
     if (editedWS != null) {
       wsMainController.setWS(editedWS);
-      goRouter.pop();
+      router.pop();
     }
     loader.stop();
   }

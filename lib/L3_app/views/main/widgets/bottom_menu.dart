@@ -42,7 +42,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                     color: Colors.transparent,
                     padding: _btnPadding,
                     bottomDivider: false,
-                    onTap: goRouter.goProjects,
+                    onTap: router.goProjects,
                   ),
                 ),
                 const Spacer(),

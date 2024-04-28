@@ -36,7 +36,7 @@ abstract class _AuthControllerBase with Store {
       if (authorized) await authUC.signOut();
 
       authorized = await authUC.signInWithRegistration(token);
-      if (authorized) goRouter.goMain();
+      if (authorized) router.goMain();
       loader.stop();
     }
   }
@@ -45,7 +45,7 @@ abstract class _AuthControllerBase with Store {
   Future signInWithPassword(String email, String pwd) async {
     _startLdrAuth();
     authorized = await authUC.signInWithPassword(email, pwd);
-    if (authorized) goRouter.goMain();
+    if (authorized) router.goMain();
     loader.stop();
   }
 
@@ -54,7 +54,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInGoogle();
-      if (authorized) goRouter.goMain();
+      if (authorized) router.goMain();
       loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.description);
@@ -66,7 +66,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInApple();
-      if (authorized) goRouter.goMain();
+      if (authorized) router.goMain();
       loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.description);
@@ -91,7 +91,7 @@ abstract class _AuthControllerBase with Store {
     loader.start();
     await authUC.signOut();
     loader.stop();
-    goRouter.goAuth();
+    router.goAuth();
   }
 
   Future startupActions() async {

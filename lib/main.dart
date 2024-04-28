@@ -82,7 +82,7 @@ class App extends StatelessWidget {
               }),
               localizationsDelegates: localizationsDelegates,
               supportedLocales: supportedLocales,
-              routerConfig: goRouter,
+              routerConfig: router,
               onGenerateTitle: (context) => loc.app_title,
             )
           : const MTBackgroundWrapper(Center(child: MTCircularProgress(size: P10))),

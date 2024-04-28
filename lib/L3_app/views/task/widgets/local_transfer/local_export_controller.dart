@@ -29,7 +29,7 @@ class LocalExportController {
     if (destination != null) {
       // Перенос между проектами или РП
       if (destination.project.id != task.project.id || destination.wsId != task.wsId) {
-        goRouter.pop();
+        router.pop();
 
         await task.move(destination);
       }

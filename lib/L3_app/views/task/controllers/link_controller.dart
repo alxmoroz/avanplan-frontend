@@ -37,7 +37,7 @@ class LinkController {
 
       if (confirm == true) {
         _task!.unlink();
-        goRouter.pop();
+        router.pop();
       }
     }
   }

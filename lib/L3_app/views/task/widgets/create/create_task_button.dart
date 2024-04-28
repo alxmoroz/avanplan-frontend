@@ -56,7 +56,7 @@ class CreateTaskButton extends StatelessWidget {
         statusId: _parent.isProject ? null : _parentTaskController.projectStatusesController.firstOpenedStatusId,
       );
       if (newTask != null) {
-        goRouter.goLocalTask(newTask, extra: true);
+        router.goLocalTask(newTask, extra: true);
       }
     }
   }

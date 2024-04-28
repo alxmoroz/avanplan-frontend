@@ -95,7 +95,6 @@ abstract class _AuthControllerBase with Store {
   }
 
   Future startupActions() async {
-    print('AuthController startupActions');
     await appController.initState();
     await _signInWithRegistration();
   }

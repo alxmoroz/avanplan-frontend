@@ -41,8 +41,6 @@ abstract class _AppControllerBase with Store {
   @action
   Future initState() async {
     if (!_init) {
-      print('AppController initState');
-
       _init = true;
 
       await getSettings();

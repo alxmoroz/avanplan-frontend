@@ -75,7 +75,6 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    print('MainView initState');
     mainController.startupActions();
     WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController();

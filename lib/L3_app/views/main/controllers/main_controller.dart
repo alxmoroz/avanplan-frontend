@@ -83,8 +83,6 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future startupActions() async {
-    print('MainController startupActions');
-
     loader.start();
     await appController.initState();
     await authController.checkLocalAuth();

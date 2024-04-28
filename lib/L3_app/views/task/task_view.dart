@@ -59,7 +59,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _hasParent => task?.parent != null;
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
-  bool get _isBigGroup => isBigScreen(context) && td.isTask;
+  bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   // TODO: определить как и fast / other actions в задаче
   bool get _hasQuickActions => (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate)) || task!.canComment;
@@ -183,7 +183,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         : null;
   }
 
-  TaskRightToolbar get _toolbar => TaskRightToolbar(
+  TaskRightToolbar get _rightToolbar => TaskRightToolbar(
         controller,
         td.isTask
             ? taskToolbarController
@@ -205,7 +205,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                 ? MTDialog(
                     topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
                     body: _body,
-                    rightBar: _toolbar,
+                    rightBar: _rightToolbar,
                     scrollController: _scrollController,
                     scrollOffsetTop: _headerHeight,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
@@ -226,7 +226,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       child: _body,
                     ),
                     bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
-                    rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? _toolbar : null,
+                    // панель справа - для проекта и цели. Для инбокса только если он не пустой
+                    rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? _rightToolbar : null,
                     scrollController: _scrollController,
                     scrollOffsetTop: _headerHeight,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

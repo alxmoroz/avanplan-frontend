@@ -17,7 +17,7 @@ import '../details/task_quiz_details.dart';
 import '../header/task_header.dart';
 
 class CreateTaskQuizView extends TaskView {
-  const CreateTaskQuizView(super.taskIn, {super.key});
+  const CreateTaskQuizView(super.taskIn, {super.key}) : super(isNew: true);
 
   @override
   State<CreateTaskQuizView> createState() => _CreateTaskQuizViewState();

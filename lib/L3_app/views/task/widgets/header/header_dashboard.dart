@@ -20,7 +20,7 @@ import '../../../../presenters/task_view.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
-import '../team/invitation_button.dart';
+import '../team/invitation_dialog.dart';
 import '../team/team_dialog.dart';
 
 class TaskHeaderDashboard extends StatelessWidget {
@@ -107,7 +107,7 @@ class TaskHeaderDashboard extends StatelessWidget {
                         ],
                       )
                     : const MemberAddIcon(size: P8),
-                onTap: _task.members.isEmpty ? () => InvitationButton.onTap(_task) : () => showTeamDialog(_controller),
+                onTap: _task.members.isEmpty ? () => invite(_task) : () => showTeamDialog(_controller),
               ),
             ],
 

@@ -14,6 +14,7 @@ import '../components/dialog.dart';
 import '../extra/services.dart';
 import '../views/account/account_dialog.dart';
 import '../views/auth/auth_view.dart';
+import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/loader/loader_screen.dart';
 import '../views/main/main_view.dart';
@@ -53,8 +54,6 @@ class MTRoute extends GoRoute {
   @override
   GoRouterPageBuilder? get pageBuilder => (BuildContext context, GoRouterState state) {
         if (isWeb) _setWebpageTitle(context, title(state) ?? '');
-
-        print('pageBuilder pageKey: ${state.pageKey}');
 
         final child = Observer(
           builder: (_) => Stack(
@@ -97,6 +96,7 @@ final router = GoRouter(
   routes: [
     authRoute,
     registrationTokenRoute,
+    invitationTokenRoute,
     mainRoute,
   ],
   // observers: [MTRouteObserver()],

@@ -18,9 +18,15 @@ import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../usecases/task_tree.dart';
+import '../../../../usecases/ws_tariff.dart';
 import 'invitation_controller.dart';
 
-Future invitationDialog(Task task) async => await showMTDialog<void>(_InvitationDialog(InvitationController(task)));
+Future invite(Task task) async {
+  if (await task.ws.checkBalance(loc.invitation_create_title)) {
+    await showMTDialog<void>(_InvitationDialog(InvitationController(task)));
+  }
+}
 
 class _InvitationDialog extends StatelessWidget {
   const _InvitationDialog(this._controller);
@@ -59,9 +65,10 @@ class _InvitationDialog extends StatelessWidget {
             if (_controller.hasUrl && isWeb) ...[
               MTTextField.noText(
                 label: loc.invitation_share_label,
-                maxLines: 6,
+                maxLines: 12,
                 controller: TextEditingController(text: _controller.invitationText),
                 suffixIcon: _copyButton(context),
+                margin: const EdgeInsets.all(P3),
               )
             ] else if (!_controller.roleSelected) ...[
               BaseText(

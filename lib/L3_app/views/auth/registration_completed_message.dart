@@ -51,6 +51,7 @@ class RegistrationCompletedMessage extends StatelessWidget {
           middle: SmallText(loc.contact_us_title.toLowerCase(), color: mainColor),
           onTap: mailUs,
         ),
+        if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
       ],
     );
   }

@@ -10,8 +10,6 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_tariff.dart';
 import 'invitation_dialog.dart';
 
 class InvitationButton extends StatelessWidget {
@@ -20,12 +18,6 @@ class InvitationButton extends StatelessWidget {
   final bool inList;
   final ButtonType type;
 
-  static Future onTap(Task task) async {
-    if (await task.ws.checkBalance(loc.invitation_create_title)) {
-      await invitationDialog(task);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return inList
@@ -33,13 +25,13 @@ class InvitationButton extends StatelessWidget {
             leading: const MemberAddIcon(size: P8),
             middle: BaseText(loc.invitation_create_title, color: mainColor),
             bottomDivider: false,
-            onTap: () => onTap(task),
+            onTap: () => invite(task),
           )
         : MTButton(
             type: type,
             leading: MemberAddIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
             titleText: loc.invitation_create_title,
-            onTap: () => onTap(task),
+            onTap: () => invite(task),
           );
   }
 }

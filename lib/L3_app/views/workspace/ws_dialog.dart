@@ -42,7 +42,7 @@ class _WSRoute extends MTRoute {
   _WSRoute()
       : super(
           baseName: staticBaseName,
-          path: 'ws/:wsId',
+          path: 'ws_:wsId',
           routes: [
             wsSourcesRoute,
             wsUsersRoute,

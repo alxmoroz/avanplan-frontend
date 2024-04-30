@@ -29,7 +29,7 @@ abstract class BaseTaskRoute extends MTRoute {
   bool get hasWsId => path.contains(':wsId') || _parentHasWsId;
 
   @override
-  String get path => '${!_parentHasWsId ? 'ws/:wsId/' : ''}${baseName}s/:${baseName}Id';
+  String get path => '${!_parentHasWsId ? 'ws_:wsId/' : ''}${baseName}_:${baseName}Id';
 
   @override
   double get dialogMaxWidth => SCR_L_WIDTH;

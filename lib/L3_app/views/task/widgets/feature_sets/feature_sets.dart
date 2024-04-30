@@ -27,6 +27,26 @@ import '../../task_route.dart';
 
 Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(FeatureSetsController(controller)));
 
+class FeatureSetsQuizRoute extends BaseTaskRoute {
+  static String get staticBaseName => 'feature_sets';
+
+  FeatureSetsQuizRoute({required super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  GoRouterRedirect? get redirect => (_, state) {
+        if (state.extra == null) {
+          return router.namedLocation(parent!.name, pathParameters: state.pathParameters);
+        }
+        return null;
+      };
+
+  @override
+  String? title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
+
+  @override
+  GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(state.extra as TaskController);
+}
+
 class _FSBody extends StatelessWidget {
   const _FSBody(this._controller, {this.footer});
   final FeatureSetsController _controller;
@@ -85,26 +105,6 @@ class _FSBody extends StatelessWidget {
     );
   }
 }
-
-class _FeatureSetsQuizRoute extends TaskRoute {
-  _FeatureSetsQuizRoute() : super(path: 'feature_sets', name: 'feature_sets');
-
-  @override
-  GoRouterRedirect? get redirect => (_, state) {
-        if (state.extra == null) {
-          return router.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
-        }
-        return null;
-      };
-
-  @override
-  String? title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
-
-  @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(state.extra as TaskController);
-}
-
-final featureSetsQuizRoute = _FeatureSetsQuizRoute();
 
 class _FeatureSetsQuizView extends StatelessWidget {
   const _FeatureSetsQuizView(this._controller);

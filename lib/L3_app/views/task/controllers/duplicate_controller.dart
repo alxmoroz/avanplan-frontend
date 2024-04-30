@@ -19,7 +19,7 @@ class DuplicateController {
       router.pop();
       final newTask = await _task!.duplicate();
       if (newTask != null) {
-        router.goLocalTask(newTask);
+        router.goTaskView(newTask);
       }
       loader.stop();
     }

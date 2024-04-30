@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
@@ -14,7 +15,7 @@ import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../components/vertical_toolbar_controller.dart';
-import '../../extra/router.dart';
+import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../account/account_dialog.dart';
 import '../app/app_title.dart';
@@ -37,24 +38,31 @@ late VerticalToolbarController rightToolbarController;
 late VerticalToolbarController taskGroupToolbarController;
 late VerticalToolbarController taskToolbarController;
 
-final mainRoute = MTRoute(
-  path: '/',
-  name: 'main',
-  builder: (context, state) => const _MainView(),
-  redirect: (_, __) => !authController.authorized ? authRoute.path : null,
-  routes: [
-    accountRoute,
-    notificationsRoute,
-    wsRoute,
-    projectsRoute,
-    inboxRoute,
-    projectRoute,
-    goalRoute,
-    backlogRoute,
-    taskRoute,
-    taskNotFoundRoute,
-  ],
-);
+class _MainRoute extends MTRoute {
+  _MainRoute()
+      : super(
+          baseName: 'main',
+          path: '/',
+          redirect: (_, __) => !authController.authorized ? authRoute.path : null,
+          builder: (context, state) => const _MainView(),
+        );
+
+  @override
+  List<RouteBase> get routes => [
+        accountRoute,
+        notificationsRoute,
+        wsRoute,
+        projectsRoute,
+        InboxRoute(parent: this),
+        ProjectRoute(parent: this),
+        GoalRoute(parent: this),
+        BacklogRoute(parent: this),
+        TaskRoute(parent: this),
+        TaskNotFoundRoute(parent: this),
+      ];
+}
+
+final mainRoute = _MainRoute();
 
 class _MainView extends StatefulWidget {
   const _MainView();

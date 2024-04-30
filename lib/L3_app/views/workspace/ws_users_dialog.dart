@@ -8,17 +8,20 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
+import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'ws_user_tile.dart';
 
 class _WSUsersRoute extends MTRoute {
+  static const staticBaseName = 'users';
+
   _WSUsersRoute()
       : super(
-          path: 'users',
-          name: 'users',
-    builder: (_, state) => _WSUsersDialog(state.intPathParam('wsId')!),
+          baseName: staticBaseName,
+          path: staticBaseName,
+          builder: (_, state) => _WSUsersDialog(state.intPathParam('wsId')!),
         );
 
   @override

@@ -18,13 +18,18 @@ import '../../controllers/task_controller.dart';
 import '../../task_route.dart';
 import 'team.dart';
 
-class _TeamQuizRoute extends TaskRoute {
-  _TeamQuizRoute() : super(path: 'team', name: 'team');
+class TeamQuizRoute extends BaseTaskRoute {
+  static const staticBaseName = 'team';
+
+  TeamQuizRoute({super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  String get path => staticBaseName;
 
   @override
   GoRouterRedirect? get redirect => (_, state) {
         if (state.extra == null) {
-          return router.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
+          return router.namedLocation(parent!.name, pathParameters: state.pathParameters);
         }
         return null;
       };
@@ -35,8 +40,6 @@ class _TeamQuizRoute extends TaskRoute {
   @override
   GoRouterWidgetBuilder? get builder => (_, state) => _TeamQuizView(state.extra as TaskController);
 }
-
-final teamQuizRoute = _TeamQuizRoute();
 
 class _TeamQuizView extends StatelessWidget {
   const _TeamQuizView(this._controller);

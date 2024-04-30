@@ -29,7 +29,7 @@ class InboxAddTaskButton extends StatelessWidget {
     if (_inbox != null) {
       final newTask = await _inbox!.ws.createTask(_inbox!);
       if (newTask != null) {
-        router.goLocalTask(newTask, extra: true);
+        router.goTaskView(newTask, extra: true);
       }
     }
   }

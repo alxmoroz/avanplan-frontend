@@ -179,7 +179,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  void _tap() => router.goLocalTask(task);
+  void _tap() => router.goTaskView(task);
 
   @override
   Widget build(BuildContext context) => board

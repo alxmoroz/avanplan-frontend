@@ -19,6 +19,7 @@ import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
@@ -36,19 +37,21 @@ import 'ws_expenses_dialog.dart';
 import 'ws_users_dialog.dart';
 
 class _WSRoute extends MTRoute {
+  static const staticBaseName = 'ws';
+
   _WSRoute()
       : super(
+          baseName: staticBaseName,
           path: 'ws/:wsId',
-          name: 'ws',
-          builder: (context, state) => _WSDialog(state.intPathParam('wsId')!),
           routes: [
             wsSourcesRoute,
             wsUsersRoute,
           ],
+          builder: (context, state) => _WSDialog(state.intPathParam('wsId')!),
         );
 
   @override
-  bool isDialog(BuildContext _) => true;
+  bool isDialog(BuildContext context) => true;
 
   @override
   String title(GoRouterState state) => '${loc.workspace_title_short} ${wsMainController.ws(state.intPathParam('wsId')!).code}';

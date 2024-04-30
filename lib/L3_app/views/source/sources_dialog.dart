@@ -11,6 +11,7 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/toolbar.dart';
+import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
@@ -20,10 +21,12 @@ import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 
 class _WSSourcesRoute extends MTRoute {
+  static const staticBaseName = 'sources';
+
   _WSSourcesRoute()
       : super(
-          path: 'sources',
-          name: 'sources',
+          baseName: staticBaseName,
+          path: staticBaseName,
           builder: (_, state) => _SourcesDialog(state.intPathParam('wsId')!),
         );
 

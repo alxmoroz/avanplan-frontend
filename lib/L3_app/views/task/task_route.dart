@@ -7,9 +7,11 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
 import '../../components/constants.dart';
+import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
+import '../main/main_view.dart';
 import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
@@ -17,34 +19,17 @@ import 'widgets/empty_state/not_found_dialog.dart';
 import 'widgets/feature_sets/feature_sets.dart';
 import 'widgets/team/team_quiz_view.dart';
 
-class TaskRoute extends MTRoute {
-  TaskRoute({required super.path, required super.name, super.routes, super.redirect});
+abstract class BaseTaskRoute extends MTRoute {
+  BaseTaskRoute({
+    required super.baseName,
+    super.parent,
+  });
 
-  TaskRoute.inboxRoute() : super(path: 'ws/:wsId/inbox/:inboxId', name: 'inbox');
-  TaskRoute.projectRoute()
-      : super(
-          path: 'ws/:wsId/projects/:projectId',
-          name: 'project',
-          routes: [featureSetsQuizRoute, teamQuizRoute, createSubtasksProjectQuizRoute],
-        );
-  TaskRoute.goalRoute()
-      : super(
-          path: 'ws/:wsId/goals/:goalId',
-          name: 'goal',
-          routes: [createSubtasksGoalQuizRoute],
-        );
-  TaskRoute.backlogRoute() : super(path: 'ws/:wsId/backlogs/:backlogId', name: 'backlog');
-  TaskRoute.taskRoute() : super(path: 'ws/:wsId/tasks/:taskId', name: 'task');
+  bool get _parentHasWsId => parent is BaseTaskRoute && (parent as BaseTaskRoute).hasWsId == true;
+  bool get hasWsId => path.contains(':wsId') || _parentHasWsId;
 
-  static String rName(Task t) => t.isProject
-      ? 'project'
-      : t.isInbox
-          ? 'inbox'
-          : t.isGoal
-              ? 'goal'
-              : t.isBacklog
-                  ? 'backlog'
-                  : 'task';
+  @override
+  String get path => '${!_parentHasWsId ? 'ws/:wsId/' : ''}${baseName}s/:${baseName}Id';
 
   @override
   double get dialogMaxWidth => SCR_L_WIDTH;
@@ -55,19 +40,18 @@ class TaskRoute extends MTRoute {
     return t != null ? t.viewTitle : loc.error_404_task_title;
   }
 
-  bool get _isTaskRoute => name == 'task';
-
   @override
-  bool isDialog(BuildContext context) => isBigScreen(context) && _isTaskRoute;
+  bool isDialog(BuildContext context) => isBigScreen(context) && baseName == TType.TASK.toLowerCase();
 
   Task? task(GoRouterState state) {
     final wsId = state.intPathParam('wsId');
-    final taskId = state.intPathParam('${name}Id');
+    final taskId = state.intPathParam('${baseName}Id');
     return wsId != null && taskId != null ? tasksMainController.task(wsId, taskId) : null;
   }
 
   @override
-  GoRouterRedirect? get redirect => (_, state) => task(state) != null ? null : router.namedLocation(taskNotFoundRoute.name!);
+  GoRouterRedirect? get redirect =>
+      (_, state) => task(state) != null ? null : router.namedLocation('${mainRoute.name}/${TaskNotFoundRoute.staticBaseName}');
 
   @override
   GoRouterWidgetBuilder? get builder => (context, state) {
@@ -80,11 +64,57 @@ class TaskRoute extends MTRoute {
       };
 }
 
-final inboxRoute = TaskRoute.inboxRoute();
-final projectRoute = TaskRoute.projectRoute();
-final goalRoute = TaskRoute.goalRoute();
-final backlogRoute = TaskRoute.backlogRoute();
-final taskRoute = TaskRoute.taskRoute();
+class TaskRoute extends BaseTaskRoute {
+  static String get staticBaseName => TType.TASK.toLowerCase();
+
+  TaskRoute({super.parent}) : super(baseName: staticBaseName);
+}
+
+class GoalRoute extends BaseTaskRoute {
+  static String get staticBaseName => TType.GOAL.toLowerCase();
+
+  GoalRoute({super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  List<RouteBase> get routes => [
+        CreateSubtasksQuizRoute(parent: this),
+        TaskRoute(parent: this),
+      ];
+}
+
+class BacklogRoute extends BaseTaskRoute {
+  static String get staticBaseName => TType.BACKLOG.toLowerCase();
+
+  BacklogRoute({super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  List<RouteBase> get routes => [TaskRoute(parent: this)];
+}
+
+class InboxRoute extends BaseTaskRoute {
+  static String get staticBaseName => TType.INBOX.toLowerCase();
+
+  InboxRoute({super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  List<RouteBase> get routes => [TaskRoute(parent: this)];
+}
+
+class ProjectRoute extends BaseTaskRoute {
+  static String get staticBaseName => TType.PROJECT.toLowerCase();
+
+  ProjectRoute({super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  List<RouteBase> get routes => [
+        FeatureSetsQuizRoute(parent: this),
+        TeamQuizRoute(parent: this),
+        CreateSubtasksQuizRoute(parent: this),
+        GoalRoute(parent: this),
+        BacklogRoute(parent: this),
+        TaskRoute(parent: this),
+      ];
+}
 
 // Future navigateBreadcrumbs(BuildContext context, Task parent) async {
 //   final pName = (prevName ?? '');

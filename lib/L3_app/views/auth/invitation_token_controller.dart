@@ -3,7 +3,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../extra/router.dart';
+import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../main/main_view.dart';
 
@@ -11,7 +11,7 @@ part 'invitation_token_controller.g.dart';
 
 final invitationTokenRoute = MTRoute(
   path: '/invite',
-  name: 'invite',
+  baseName: 'invite',
   // TODO: здесь можно показать проект, куда добавили человека
   redirect: (_, GoRouterState state) {
     invitationTokenController.parseLink(state.uri);

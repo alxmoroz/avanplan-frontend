@@ -14,23 +14,23 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
+import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
 class _AccountRoute extends MTRoute {
   _AccountRoute()
       : super(
+          baseName: 'my_account',
           path: 'my_account',
-          name: 'my_account',
           builder: (_, __) => const _AccountDialog(),
         );
 
   @override
-  bool isDialog(BuildContext _) => true;
+  bool isDialog(BuildContext context) => true;
 
   @override
-  String? title(GoRouterState _) => loc.my_account_title;
+  String? title(GoRouterState state) => loc.my_account_title;
 }
 
 final accountRoute = _AccountRoute();

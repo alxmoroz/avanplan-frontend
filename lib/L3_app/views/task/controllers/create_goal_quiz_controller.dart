@@ -27,7 +27,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterFinish() async {
     // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
-    router.goLocalTask(_goal);
+    router.goTaskView(_goal);
   }
 }
 

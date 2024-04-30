@@ -17,27 +17,29 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
+import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import 'notification_controller.dart';
 
 class _NotificationsRoute extends MTRoute {
+  static const staticBaseName = 'my_notifications';
+
   _NotificationsRoute()
       : super(
-          path: 'my_notifications',
-          name: 'my_notifications',
+          baseName: staticBaseName,
+          path: staticBaseName,
           builder: (_, __) => const _NotificationsDialog(),
         );
 
   @override
-  bool isDialog(BuildContext _) => true;
+  bool isDialog(BuildContext context) => true;
 
   @override
   double get dialogMaxWidth => SCR_M_WIDTH;
 
   @override
-  String? title(GoRouterState _) => loc.notification_list_title;
+  String? title(GoRouterState state) => loc.notification_list_title;
 }
 
 final notificationsRoute = _NotificationsRoute();

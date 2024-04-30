@@ -16,10 +16,12 @@ import '../../components/page.dart';
 import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
+import '../task/task_route.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'create_project_button.dart';
 import 'create_project_controller.dart';
@@ -30,12 +32,18 @@ class _ProjectsRoute extends MTRoute {
   _ProjectsRoute()
       : super(
           path: 'projects',
-          name: 'projects',
+          baseName: 'projects',
           builder: (_, __) => const ProjectsView(),
         );
 
   @override
-  String? title(GoRouterState _) => loc.project_list_title;
+  List<RouteBase> get routes => [
+        InboxRoute(parent: this),
+        ProjectRoute(parent: this),
+      ];
+
+  @override
+  String? title(GoRouterState state) => loc.project_list_title;
 }
 
 final projectsRoute = _ProjectsRoute();
@@ -109,7 +117,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                       titleText: _inbox!.title,
                       trailing: const ChevronIcon(),
                       bottomDivider: false,
-                      onTap: () => router.goLocalTask(_inbox!),
+                      onTap: () => router.goTaskView(_inbox!),
                     ),
                   ),
                 ],

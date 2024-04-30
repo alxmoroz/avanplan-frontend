@@ -27,13 +27,18 @@ import '../../task_route.dart';
 import '../../widgets/create/create_task_button.dart';
 import '../tasks/task_checklist_item.dart';
 
-class _CreateSubtasksQuizRoute extends TaskRoute {
-  _CreateSubtasksQuizRoute(String prefix) : super(path: 'subtasks', name: '$prefix-subtasks');
+class CreateSubtasksQuizRoute extends BaseTaskRoute {
+  static const staticBaseName = 'subtasks';
+
+  CreateSubtasksQuizRoute({super.parent}) : super(baseName: staticBaseName);
+
+  @override
+  String get path => staticBaseName;
 
   @override
   GoRouterRedirect? get redirect => (_, state) {
         if (state.extra == null) {
-          return router.namedLocation(TaskRoute.rName(task(state)!), pathParameters: state.pathParameters);
+          return router.namedLocation(parent!.name, pathParameters: state.pathParameters);
         }
         return null;
       };
@@ -41,13 +46,6 @@ class _CreateSubtasksQuizRoute extends TaskRoute {
   @override
   GoRouterWidgetBuilder? get builder => (_, state) => _CreateSubtasksQuizView(state.extra as TaskController);
 }
-
-final createSubtasksProjectQuizRoute = _CreateSubtasksQuizRoute('project');
-final createSubtasksGoalQuizRoute = _CreateSubtasksQuizRoute('goal');
-final createSubtasksQuizRoutes = {
-  'project': createSubtasksProjectQuizRoute,
-  'goal': createSubtasksGoalQuizRoute,
-};
 
 class _CreateSubtasksQuizView extends StatelessWidget {
   const _CreateSubtasksQuizView(this._controller);

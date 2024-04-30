@@ -3,7 +3,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../extra/router.dart';
+import '../../extra/route.dart';
 import '../../extra/services.dart';
 import 'auth_view.dart';
 
@@ -11,7 +11,7 @@ part 'registration_token_controller.g.dart';
 
 final registrationTokenRoute = MTRoute(
   path: '/register',
-  name: 'register',
+  baseName: 'register',
   redirect: (_, GoRouterState state) {
     registrationTokenController.parseLink(state.uri);
     return authRoute.path;

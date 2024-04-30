@@ -13,7 +13,7 @@ import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
+import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import '../app/about_dialog.dart';
@@ -21,8 +21,8 @@ import '../app/app_title.dart';
 import 'auth_extra_dialog.dart';
 
 final authRoute = MTRoute(
+  baseName: 'auth',
   path: '/auth',
-  name: 'auth',
   builder: (_, __) => const _AuthView(),
 );
 

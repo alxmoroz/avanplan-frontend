@@ -9,26 +9,25 @@ import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
+import '../../../../extra/route.dart';
 import '../../../../extra/services.dart';
 
-class _TaskNotFoundRoute extends MTRoute {
-  _TaskNotFoundRoute()
+class TaskNotFoundRoute extends MTRoute {
+  static const staticBaseName = '404';
+
+  TaskNotFoundRoute({super.parent})
       : super(
-          path: '404',
-          name: 'task404',
+          baseName: staticBaseName,
+          path: staticBaseName,
           builder: (_, __) => const _TaskNotFoundDialog(),
         );
 
   @override
-  bool isDialog(BuildContext _) => true;
+  bool isDialog(BuildContext context) => true;
 
   @override
-  String? title(GoRouterState _) => loc.error_404_task_title;
+  String? title(GoRouterState state) => loc.error_404_task_title;
 }
-
-// не нужно объявлять в маршрутах, не должно быть диплинков сюда
-final taskNotFoundRoute = _TaskNotFoundRoute();
 
 class _TaskNotFoundDialog extends StatelessWidget {
   const _TaskNotFoundDialog();

@@ -38,7 +38,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       if (goal != null) {
         // TODO: тут должен быть ShellRoute или что-то такое...
         // сейчас сбрасывается на независимое создание цели
-        router.goLocalTask(goal, extra: true);
+        router.goTaskView(goal, extra: true);
       }
     } else if (step.code == _StepCode.tasks.name) {
       router.goSubtasksQuiz(taskController);
@@ -48,7 +48,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   @override
   Future afterFinish() async {
     // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
-    router.goLocalTask(_project);
+    router.goTaskView(_project);
   }
 }
 

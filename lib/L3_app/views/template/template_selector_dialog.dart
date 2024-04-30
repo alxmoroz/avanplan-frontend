@@ -35,7 +35,7 @@ Future createFromTemplate(Workspace ws) async {
       tasksMainController.setTasks([p, ...changes.affected]);
       tasksMainController.refreshTasksUI(sort: true);
 
-      router.goLocalTask(p);
+      router.goTaskView(p);
     }
     loader.stop();
   }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../../L2_data/services/platform.dart';
 import '../views/account/account_dialog.dart';
 import '../views/auth/auth_view.dart';
 import '../views/auth/invitation_token_controller.dart';
@@ -51,17 +53,18 @@ extension MTRouterHelper on GoRouter {
   void goWSUsers(int wsId) => goNamed(wsUsersRoute.name, pathParameters: {'wsId': '$wsId'});
 
   // Задачи
-  String? get _currentName => routerDelegate.currentConfiguration.last.route.name;
   void goTaskView(Task task, {String? subRouteName, Object? extra}) {
     final taskRouteName = task.type.toLowerCase();
     subRouteName ??= '';
     if (subRouteName.isNotEmpty) subRouteName = '/$subRouteName';
 
-    final pathParameters = routerDelegate.currentConfiguration.pathParameters;
+    final needPush = !isWeb || task.isTask;
+    final currentName = needPush ? routerDelegate.currentConfiguration.last.route.name : mainRoute.name;
+    final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
     pathParameters.addAll({'wsId': '${task.wsId}', '${taskRouteName}Id': '${task.id!}'});
 
     goNamed(
-      '${_currentName ?? ''}/$taskRouteName$subRouteName',
+      '${currentName ?? ''}/$taskRouteName$subRouteName',
       pathParameters: pathParameters,
       extra: extra,
     );

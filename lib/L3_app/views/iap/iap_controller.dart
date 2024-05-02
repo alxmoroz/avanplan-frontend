@@ -13,9 +13,6 @@ class IAPController extends _IAPControllerBase with _$IAPController {}
 
 abstract class _IAPControllerBase with Store {
   @observable
-  bool waitingPayment = false;
-
-  @observable
   List<IAPProduct> products = [];
 
   @observable
@@ -68,7 +65,6 @@ abstract class _IAPControllerBase with Store {
               actionText: loc.ok,
             );
           } else {
-            waitingPayment = purchasedAmount == null;
             if (purchasedAmount != null) {
               wsMainController.ws(wsId).balance += purchasedAmount;
             }
@@ -81,7 +77,6 @@ abstract class _IAPControllerBase with Store {
 
   @action
   void reset() {
-    waitingPayment = false;
     _isAppStore = null;
     products = [];
     loading = false;

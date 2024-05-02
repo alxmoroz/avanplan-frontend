@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -11,11 +12,9 @@ import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
-import '../main/main_view.dart';
 import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
-import 'widgets/empty_state/not_found_dialog.dart';
 import 'widgets/feature_sets/feature_sets.dart';
 import 'widgets/team/team_quiz_view.dart';
 
@@ -35,32 +34,43 @@ abstract class BaseTaskRoute extends MTRoute {
   double get dialogMaxWidth => SCR_L_WIDTH;
 
   @override
-  String? title(GoRouterState state) {
-    final t = task(state);
-    return t != null ? t.viewTitle : loc.error_404_task_title;
-  }
+  String title(GoRouterState state) => task(state).viewTitle;
 
   @override
   bool isDialog(BuildContext context) => isBigScreen(context) && baseName == TType.TASK.toLowerCase();
 
-  Task? task(GoRouterState state) {
-    final wsId = state.intPathParam('wsId');
-    final taskId = state.intPathParam('${baseName}Id');
-    return wsId != null && taskId != null ? tasksMainController.task(wsId, taskId) : null;
+  Task task(GoRouterState state) {
+    final wsId = state.pathParamInt('wsId')!;
+    final taskId = state.pathParamInt('${baseName}Id')!;
+
+    final existingT = tasksMainController.task(wsId, taskId);
+    return existingT ??
+        Task(
+          wsId: wsId,
+          id: taskId,
+          type: baseName.toUpperCase(),
+          title: '',
+          startDate: null,
+          closed: false,
+          parentId: null,
+          notes: [],
+          attachments: [],
+          members: [],
+          projectStatuses: [],
+          projectFeatureSets: [],
+        );
   }
 
   @override
-  GoRouterRedirect? get redirect =>
-      (_, state) => task(state) != null ? null : router.namedLocation('${mainRoute.name}/${TaskNotFoundRoute.staticBaseName}');
-
-  @override
   GoRouterWidgetBuilder? get builder => (context, state) {
-        final t = task(state)!;
-        final isNew = state.extra != null;
+        final t = task(state);
+        final isNew = state.extraBool == true;
+
         if (isNew && (t.isProject || t.isGoal)) {
           return CreateTaskQuizView(t);
         }
-        return TaskView(t, isNew: isNew);
+
+        return Observer(builder: (_) => loader.loading ? Container() : TaskView(t, isNew: isNew));
       };
 }
 

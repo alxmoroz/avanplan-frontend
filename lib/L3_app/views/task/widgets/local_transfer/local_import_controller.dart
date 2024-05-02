@@ -24,7 +24,7 @@ class LocalImportController extends _LocalImportControllerBase with _$LocalImpor
 abstract class _LocalImportControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get destinationGoal => _taskController.task!;
+  Task get destinationGoal => _taskController.task;
 
   @observable
   Task? sourceGoal;

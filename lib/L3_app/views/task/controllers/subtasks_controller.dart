@@ -20,7 +20,7 @@ class SubtasksController extends _SubtasksControllerBase with _$SubtasksControll
 abstract class _SubtasksControllerBase with Store {
   late final TaskController _parentTaskController;
 
-  Task get parent => _parentTaskController.task!;
+  Task get parent => _parentTaskController.task;
 
   @observable
   ObservableList<TaskController> taskControllers = ObservableList();
@@ -52,7 +52,7 @@ abstract class _SubtasksControllerBase with Store {
 
   @action
   Future<bool> deleteTask(TaskController tc) async {
-    await tc.task!.delete();
+    await tc.task.delete();
     tc.dispose();
     taskControllers.remove(tc);
     return false;

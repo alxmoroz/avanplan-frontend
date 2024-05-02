@@ -16,7 +16,7 @@ class TaskStatusField extends StatelessWidget {
   const TaskStatusField(this._controller, {super.key});
   final TaskController _controller;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
   static const _padding = EdgeInsets.symmetric(horizontal: P3);
   static final _margin = const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P);
 

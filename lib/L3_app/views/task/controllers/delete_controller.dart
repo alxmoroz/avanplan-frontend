@@ -14,23 +14,21 @@ import 'task_controller.dart';
 class DeleteController {
   DeleteController(this._taskController);
   final TaskController _taskController;
-  Task? get _task => _taskController.task;
+  Task get _task => _taskController.task;
 
   Future delete() async {
-    if (_task != null) {
-      final confirm = await showMTAlertDialog(
-        _task!.deleteDialogTitle,
-        description: '${_task!.isTask ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
-        actions: [
-          MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
-          MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
-        ],
-        simple: true,
-      );
-      if (confirm == true) {
-        router.pop();
-        _task!.delete();
-      }
+    final confirm = await showMTAlertDialog(
+      _task.deleteDialogTitle,
+      description: '${_task.isTask ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
+      actions: [
+        MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
+        MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
+      ],
+      simple: true,
+    );
+    if (confirm == true) {
+      router.pop();
+      _task.delete();
     }
   }
 }

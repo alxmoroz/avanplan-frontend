@@ -17,7 +17,7 @@ class QuizStep {
 abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
   Future afterNext() async {}
   Future beforeNext() async {}
-  Future afterFinish() async {}
+  void afterFinish() {}
 
   void back() {
     _back();
@@ -35,9 +35,9 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
     }
   }
 
-  Future finish() async {
+  void finish() {
     _finish();
-    await afterFinish();
+    afterFinish();
   }
 }
 

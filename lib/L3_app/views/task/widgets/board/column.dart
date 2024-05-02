@@ -57,7 +57,7 @@ class TaskBoardColumn {
   final TaskController _taskController;
   final int _index;
 
-  Task get _parent => _taskController.task!;
+  Task get _parent => _taskController.task;
   ProjectStatus get _status => _taskController.projectStatusesController.sortedStatuses.elementAt(_index);
   List<Task> get _tasks => _parent.subtasksForStatus(_status.id!);
 

@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/attachment.dart';
-import '../../../../L1_domain/entities/task.dart';
 import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
 import '../widgets/attachments/upload_dialog.dart';
@@ -17,20 +16,17 @@ part 'attachments_controller.g.dart';
 class AttachmentsController extends _AttachmentsControllerBase with _$AttachmentsController {
   AttachmentsController(TaskController taskController) {
     _taskController = taskController;
-    reload();
   }
 }
 
 abstract class _AttachmentsControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get task => _taskController.task!;
-
   @observable
   ObservableList<Attachment> _attachments = ObservableList();
 
   @action
-  void reload() => _attachments = ObservableList.of(task.attachments);
+  void reload() => _attachments = ObservableList.of(_taskController.task.attachments);
 
   @computed
   List<Attachment> get sortedAttachments => _attachments.sorted((a1, a2) => a1.compareTo(a2));

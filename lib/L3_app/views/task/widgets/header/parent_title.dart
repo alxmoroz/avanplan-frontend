@@ -15,7 +15,7 @@ class TaskParentTitle extends StatelessWidget {
   const TaskParentTitle(this._controller, {super.key});
   final TaskController _controller;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
 
   void _toParent() {
     final parent = _task.parent!;

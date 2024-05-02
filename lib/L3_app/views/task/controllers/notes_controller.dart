@@ -30,7 +30,7 @@ class NotesController extends _NotesControllerBase with _$NotesController {
 abstract class _NotesControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get task => _taskController.task!;
+  Task get task => _taskController.task;
   final _fNoteIndex = TaskFCode.note.index;
   TextEditingController get _te => _taskController.teController(_fNoteIndex)!;
   AttachmentsController get _attachmentsController => _taskController.attachmentsController;

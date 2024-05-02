@@ -29,7 +29,7 @@ class _MemberDialog extends StatelessWidget {
   final TaskController _controller;
   final int _memberId;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
   TaskMember? get _member => _task.memberForId(_memberId);
 
   Future editRoles() async {

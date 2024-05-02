@@ -22,7 +22,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskBottomToolbar(this._controller, {super.key});
   final TaskController _controller;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
 
   @override
   Size get preferredSize => const Size.fromHeight(P10);

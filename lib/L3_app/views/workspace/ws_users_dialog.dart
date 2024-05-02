@@ -21,14 +21,14 @@ class _WSUsersRoute extends MTRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _WSUsersDialog(state.intPathParam('wsId')!),
+          builder: (_, state) => _WSUsersDialog(state.pathParamInt('wsId')!),
         );
 
   @override
   bool isDialog(BuildContext _) => true;
 
   @override
-  String? title(GoRouterState state) => '${wsMainController.ws(state.intPathParam('wsId')!).code} | ${loc.members_title}';
+  String? title(GoRouterState state) => '${wsMainController.ws(state.pathParamInt('wsId')!).code} | ${loc.members_title}';
 }
 
 final wsUsersRoute = _WSUsersRoute();

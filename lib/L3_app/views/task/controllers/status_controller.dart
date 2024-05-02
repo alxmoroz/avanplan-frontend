@@ -30,7 +30,7 @@ class StatusController {
   StatusController(this._taskController);
   final TaskController _taskController;
 
-  Task get _task => _taskController.task!;
+  Task get _task => _taskController.task;
   ProjectStatusesController get _psController => _taskController.projectStatusesController;
 
   Future<bool?> _closeTreeDialog() async => await showMTAlertDialog(

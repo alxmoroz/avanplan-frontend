@@ -68,14 +68,8 @@ abstract class _MainControllerBase with Store {
   Future _tryUpdate() async {
     final invited = await _tryRedeemInvitation();
     final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
-    if (invited || isTimeToUpdate) {
+    if (invited || isTimeToUpdate || router.isDeepLink) {
       await reload();
-    } else if (iapController.waitingPayment) {
-      loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
-      loader.start();
-      await wsMainController.reload();
-      iapController.reset();
-      loader.stop();
     }
   }
 

@@ -15,7 +15,7 @@ class TitleController {
   TitleController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task!;
+  Task get task => _taskController.task;
 
   /// название
   String get titlePlaceholder => newSubtaskTitle(task.parent);

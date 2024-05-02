@@ -39,7 +39,7 @@ class CreateTaskButton extends StatelessWidget {
   final Function()? _onTap;
 
   Workspace get _ws => _parent.ws;
-  Task get _parent => _parentTaskController.task!;
+  Task get _parent => _parentTaskController.task;
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
         color: _type == ButtonType.main ? mainBtnTitleColor : mainColor,

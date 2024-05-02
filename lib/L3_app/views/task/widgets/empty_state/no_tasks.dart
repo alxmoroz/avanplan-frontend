@@ -22,14 +22,13 @@ class NoTasks extends StatelessWidget {
   final TaskController _controller;
   final bool overview;
 
-  Task? get _parent => _controller.task;
-  bool get _isProjectWGoals => _parent!.isProject && _parent!.hfsGoals;
+  Task get _parent => _controller.task;
+  bool get _isProjectWGoals => _parent.isProject && _parent.hfsGoals;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _parent != null
-          ? Center(
+        builder: (_) => Center(
               child: ListView(
                 shrinkWrap: true,
                 children: [
@@ -51,9 +50,9 @@ class NoTasks extends StatelessWidget {
                     align: TextAlign.center,
                     padding: const EdgeInsets.all(P3),
                   ),
-                  if (_parent!.canLocalImport || _parent!.canCreate) ...[
+                  if (_parent.canLocalImport || _parent.canCreate) ...[
                     BaseText(
-                      _parent!.canLocalImport
+                      _parent.canLocalImport
                           ? loc.task_list_empty_local_import_hint
                           : overview
                               ? _isProjectWGoals
@@ -65,14 +64,14 @@ class NoTasks extends StatelessWidget {
                       align: TextAlign.center,
                       padding: const EdgeInsets.symmetric(horizontal: P6),
                     ),
-                    if (_parent!.canLocalImport)
+                    if (_parent.canLocalImport)
                       MTButton.secondary(
                         margin: const EdgeInsets.only(top: P3),
                         leading: const LocalImportIcon(),
                         titleText: loc.task_transfer_import_action_title,
                         onTap: () => localImportDialog(_controller),
                       ),
-                    if (_parent!.canCreate) ...[
+                    if (_parent.canCreate) ...[
                       const SizedBox(height: P3),
                       CreateTaskButton(_controller, compact: false, type: ButtonType.main),
                     ],
@@ -80,8 +79,6 @@ class NoTasks extends StatelessWidget {
                   // newSubtaskTitle
                 ],
               ),
-            )
-          : Container(),
-    );
+            ));
   }
 }

@@ -29,7 +29,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   final TaskController _taskController;
   final VerticalToolbarController _controller;
 
-  Task get _task => _taskController.task!;
+  Task get _task => _taskController.task;
   bool get _compact => _controller.compact;
 
   @override

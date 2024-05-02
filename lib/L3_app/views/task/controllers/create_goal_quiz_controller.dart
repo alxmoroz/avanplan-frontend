@@ -24,17 +24,15 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
     }
   }
 
+  // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
   @override
-  Future afterFinish() async {
-    // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
-    router.goTaskView(_goal);
-  }
+  void afterFinish() => router.goTaskView(_goal);
 }
 
 abstract class _CreateGoalQuizControllerBase extends AbstractTaskQuizController with Store {
   _CreateGoalQuizControllerBase(super.taskController);
 
-  Task get _goal => taskController.task!;
+  Task get _goal => taskController.task;
 
   @override
   Iterable<QuizStep> get steps => [

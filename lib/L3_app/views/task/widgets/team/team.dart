@@ -24,7 +24,7 @@ class Team extends StatelessWidget {
   final TaskController _controller;
   final bool standalone;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
   List<TaskMember> get _sortedMembers => _task.sortedMembers;
 
   static const _iconSize = P8;

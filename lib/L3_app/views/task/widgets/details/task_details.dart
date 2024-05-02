@@ -40,7 +40,7 @@ class TaskDetails extends StatelessWidget {
   final bool standalone;
   final bool compact;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
 
   bool _isTaskDialog(BuildContext context) => isBigScreen(context) && _task.isTask;
   bool _isTaskMobileView(BuildContext context) => !isBigScreen(context) && _task.isTask;

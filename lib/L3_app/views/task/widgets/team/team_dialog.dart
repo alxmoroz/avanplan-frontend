@@ -13,7 +13,7 @@ Future showTeamDialog(TaskController controller) async => await showMTDialog<voi
         topBar: MTAppBar(
           showCloseButton: true,
           color: b2Color,
-          middle: controller.task!.subPageTitle(loc.team_title),
+          middle: controller.task.subPageTitle(loc.team_title),
         ),
         body: Team(controller),
       ),

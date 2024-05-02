@@ -38,27 +38,11 @@ enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estim
 enum TasksFilter { my, projects }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController(Task taskIn, {bool isNew = false}) {
+  TaskController(Task taskIn, {bool isNew = false, bool needFresh = false}) {
     taskDescriptor = taskIn;
     creating = isNew;
 
-    initState(fds: [
-      MTFieldData(TaskFCode.parent.index),
-      MTFieldData(TaskFCode.title.index, text: creating == true ? '' : taskDescriptor.title),
-      MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
-      MTFieldData(TaskFCode.description.index, text: taskDescriptor.description, placeholder: loc.description),
-      MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
-      MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
-      MTFieldData(
-        TaskFCode.estimate.index,
-        label: (taskDescriptor.isGroup || taskDescriptor.isBacklog) ? loc.task_estimate_group_label : loc.task_estimate_label,
-        placeholder: loc.task_estimate_placeholder,
-      ),
-      MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
-      MTFieldData(TaskFCode.features.index, label: loc.feature_sets_label),
-      MTFieldData(TaskFCode.note.index),
-      MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
-    ]);
+    _setupFields();
 
     titleController = TitleController(this);
     assigneeController = AssigneeController(this);
@@ -85,7 +69,32 @@ class TaskController extends _TaskControllerBase with _$TaskController {
                 ? CreateGoalQuizController(this)
                 : null
         : null;
+
+    // TODO: похоже на костыль. Поправим в задаче про рефакторинг "Рефакторинг SubtasksController"
+    if (needFresh && !taskDescriptor.filled) {
+      reloadTask();
+    } else {
+      _reloadContentControllers();
+    }
   }
+
+  void _setupFields() => initState(fds: [
+        MTFieldData(TaskFCode.parent.index),
+        MTFieldData(TaskFCode.title.index, text: creating == true ? '' : taskDescriptor.title),
+        MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
+        MTFieldData(TaskFCode.description.index, text: taskDescriptor.description, placeholder: loc.description),
+        MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
+        MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
+        MTFieldData(
+          TaskFCode.estimate.index,
+          label: (taskDescriptor.isGroup || taskDescriptor.isBacklog) ? loc.task_estimate_group_label : loc.task_estimate_label,
+          placeholder: loc.task_estimate_placeholder,
+        ),
+        MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
+        MTFieldData(TaskFCode.features.index, label: loc.feature_sets_label),
+        MTFieldData(TaskFCode.note.index),
+        MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
+      ]);
 
   Future taskAction(BuildContext context, TaskAction? actionType) async {
     switch (actionType) {
@@ -116,10 +125,28 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       default:
     }
   }
+
+  void _reloadContentControllers() {
+    attachmentsController.reload();
+    notesController.reload();
+    subtasksController.reload();
+    featureSetsController.reload();
+    projectStatusesController.reload();
+  }
+
+  Future reloadTask() async {
+    final reloadedTask = await taskDescriptor.reload();
+    if (reloadedTask != null) taskDescriptor = reloadedTask;
+
+    // TODO: кривовато. Можно это делать в одном месте как-то, а не двумя методами
+    // TODO: нужно инит контроллера этого делать один раз, если не надо задачу перезагружать. И один раз - если надо.
+    _setupFields();
+    _reloadContentControllers();
+  }
 }
 
 abstract class _TaskControllerBase extends EditController with Store {
-  late final Task taskDescriptor;
+  late Task taskDescriptor;
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;
@@ -140,27 +167,14 @@ abstract class _TaskControllerBase extends EditController with Store {
 
   AbstractTaskQuizController? quizController;
 
-  Task? get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id);
+  Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;
 
   @observable
   bool creating = false;
 
-  void _setTaskContentControllers() {
-    subtasksController.reload();
-    attachmentsController.reload();
-    notesController.reload();
-  }
-
-  Future loadTask({bool force = false}) async {
-    if (task != null && (!task!.filled || force)) {
-      await task!.load();
-      _setTaskContentControllers();
-    }
-  }
-
   Future<bool> saveField(TaskFCode code) async {
     updateField(code.index, loading: true);
-    final et = await task?.save();
+    final et = await task.save();
     final saved = et != null;
     updateField(code.index, loading: false);
     return saved;

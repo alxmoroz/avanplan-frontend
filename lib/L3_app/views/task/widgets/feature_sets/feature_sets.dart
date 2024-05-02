@@ -25,7 +25,7 @@ import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_route.dart';
 
-Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(FeatureSetsController(controller)));
+Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(controller));
 
 class FeatureSetsQuizRoute extends BaseTaskRoute {
   static String get staticBaseName => 'feature_sets';
@@ -33,15 +33,15 @@ class FeatureSetsQuizRoute extends BaseTaskRoute {
   FeatureSetsQuizRoute({required super.parent}) : super(baseName: staticBaseName);
 
   @override
-  GoRouterRedirect? get redirect => (_, state) {
-        if (state.extra == null) {
-          return router.namedLocation(parent!.name, pathParameters: state.pathParameters);
-        }
-        return null;
-      };
+  GoRouterRedirect? get redirect => (_, state) => state.extra is TaskController
+      ? null
+      : router.namedLocation(
+          parent!.name,
+          pathParameters: state.pathParameters,
+        );
 
   @override
-  String? title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
+  String title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
 
   @override
   GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(state.extra as TaskController);
@@ -140,18 +140,18 @@ class _FeatureSetsQuizView extends StatelessWidget {
 
 class _FeatureSetsDialog extends StatelessWidget {
   const _FeatureSetsDialog(this._controller);
-  final FeatureSetsController _controller;
+  final TaskController _controller;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.feature_sets_title),
       body: _FSBody(
-        _controller,
+        _controller.featureSetsController,
         footer: MTButton.main(
           titleText: loc.save_action_title,
           margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
-          onTap: _controller.save,
+          onTap: _controller.featureSetsController.save,
         ),
       ),
     );

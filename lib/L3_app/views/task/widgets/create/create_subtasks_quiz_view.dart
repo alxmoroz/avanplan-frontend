@@ -36,12 +36,12 @@ class CreateSubtasksQuizRoute extends BaseTaskRoute {
   String get path => staticBaseName;
 
   @override
-  GoRouterRedirect? get redirect => (_, state) {
-        if (state.extra == null) {
-          return router.namedLocation(parent!.name, pathParameters: state.pathParameters);
-        }
-        return null;
-      };
+  GoRouterRedirect? get redirect => (_, state) => state.extra is TaskController
+      ? null
+      : router.namedLocation(
+          parent!.name,
+          pathParameters: state.pathParameters,
+        );
 
   @override
   GoRouterWidgetBuilder? get builder => (_, state) => _CreateSubtasksQuizView(state.extra as TaskController);

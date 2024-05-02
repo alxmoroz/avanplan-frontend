@@ -36,21 +36,38 @@ final router = GoRouter(
 );
 
 extension MTPathParametersHelper on GoRouterState {
-  int? intPathParam(String param) => int.tryParse(pathParameters[param] ?? '');
+  int? pathParamInt(String param) => int.tryParse(pathParameters[param] ?? '');
+  bool? get extraBool => extra is bool ? extra as bool : null;
+  String? get extraString => extra is String ? extra as String : null;
 }
 
 extension MTRouterHelper on GoRouter {
+  void _goNamed(
+    String name, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
+  }) =>
+      goNamed(
+        name,
+        pathParameters: pathParameters,
+        queryParameters: queryParameters,
+        extra: extra ?? 'local',
+      );
+
+  bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
+
   // Главная и вход
-  void goAuth() => goNamed(authRoute.name);
-  void goMain() => goNamed(mainRoute.name);
-  void goProjects() => goNamed(projectsRoute.name);
-  void goAccount() => goNamed(accountRoute.name);
-  void goNotifications() => goNamed(notificationsRoute.name);
+  void goAuth() => _goNamed(authRoute.name);
+  void goMain() => _goNamed(mainRoute.name);
+  void goProjects() => _goNamed(projectsRoute.name);
+  void goAccount() => _goNamed(accountRoute.name);
+  void goNotifications() => _goNamed(notificationsRoute.name);
 
   // WS
-  void goWS(int wsId) => goNamed(wsRoute.name, pathParameters: {'wsId': '$wsId'});
-  void goWSSources(int wsId) => goNamed(wsSourcesRoute.name, pathParameters: {'wsId': '$wsId'});
-  void goWSUsers(int wsId) => goNamed(wsUsersRoute.name, pathParameters: {'wsId': '$wsId'});
+  void goWS(int wsId) => _goNamed(wsRoute.name, pathParameters: {'wsId': '$wsId'});
+  void goWSSources(int wsId) => _goNamed(wsSourcesRoute.name, pathParameters: {'wsId': '$wsId'});
+  void goWSUsers(int wsId) => _goNamed(wsUsersRoute.name, pathParameters: {'wsId': '$wsId'});
 
   // Задачи
   void goTaskView(Task task, {String? subRouteName, Object? extra}) {
@@ -63,7 +80,7 @@ extension MTRouterHelper on GoRouter {
     final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
     pathParameters.addAll({'wsId': '${task.wsId}', '${taskRouteName}Id': '${task.id!}'});
 
-    goNamed(
+    _goNamed(
       '${currentName ?? ''}/$taskRouteName$subRouteName',
       pathParameters: pathParameters,
       extra: extra,

@@ -19,7 +19,7 @@ class EstimateController {
   EstimateController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task!;
+  Task get task => _taskController.task;
 
   /// оценка
 

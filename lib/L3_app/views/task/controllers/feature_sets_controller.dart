@@ -17,14 +17,13 @@ part 'feature_sets_controller.g.dart';
 class FeatureSetsController extends _FeatureSetsControllerBase with _$FeatureSetsController {
   FeatureSetsController(TaskController taskController) {
     _taskController = taskController;
-    reload();
   }
 }
 
 abstract class _FeatureSetsControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get project => _taskController.task!;
+  Task get project => _taskController.task;
 
   @observable
   ObservableList<bool> checks = ObservableList();
@@ -45,9 +44,7 @@ abstract class _FeatureSetsControllerBase with Store {
   }
 
   @action
-  void selectFeatureSet(int index, bool? selected) {
-    checks[index] = selected == true;
-  }
+  void selectFeatureSet(int index, bool? selected) => checks[index] = selected == true;
 
   Function(bool?)? onChanged(int index) {
     bool disabled = project.loading == true;

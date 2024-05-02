@@ -27,7 +27,7 @@ class TaskHeaderDashboard extends StatelessWidget {
   const TaskHeaderDashboard(this._controller, {super.key});
   final TaskController _controller;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
 
   static const _dashboardHeight = 112.0;
 

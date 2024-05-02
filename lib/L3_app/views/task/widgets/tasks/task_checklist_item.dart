@@ -34,7 +34,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   SubtasksController get _controller => widget._controller;
   int get _index => widget._index;
   TaskController get tc => _controller.taskControllers.elementAt(_index);
-  Task get task => tc.task!;
+  Task get task => tc.task;
 
   bool _fieldHover = false;
   bool _doneBtnHover = false;
@@ -163,9 +163,9 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: tc.task!.isCheckItem ? P11 : P3,
+      dividerIndent: tc.task.isCheckItem ? P11 : P3,
       dividerEndIndent: P3,
-      bottomDivider: tc.task!.isCheckItem || _index < _controller.taskControllers.length - 1,
+      bottomDivider: tc.task.isCheckItem || _index < _controller.taskControllers.length - 1,
       onHover: isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
       onTap: () => _controller.setFocus(true, tc),
     );

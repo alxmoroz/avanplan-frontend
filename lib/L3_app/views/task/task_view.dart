@@ -54,20 +54,19 @@ class TaskViewState<T extends TaskView> extends State<T> {
   late final TaskController controller;
 
   bool _hasScrolled = false;
-  Task? get task => controller.task;
+  Task get task => controller.task;
   Task get td => widget._taskDescriptor;
-  bool get _hasParent => task?.parent != null;
+  bool get _hasParent => task.parent != null;
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
   bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   // TODO: определить как и fast / other actions в задаче
-  bool get _hasQuickActions => (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate)) || task!.canComment;
+  bool get _hasQuickActions => (task.hasSubtasks && (task.canShowBoard || task.canLocalImport || task.canCreate)) || task.canComment;
 
   @override
   void initState() {
-    controller = TaskController(td, isNew: widget.isNew);
-    controller.loadTask();
+    controller = TaskController(td, isNew: widget.isNew, needFresh: true);
 
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
@@ -95,67 +94,67 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget get _body => SafeArea(
         top: false,
         bottom: false,
-        child: LayoutBuilder(builder: (ctx, size) {
-          final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
-          return ListView(
-            controller: isWeb ? _scrollController : null,
-            children: [
-              if (_isBigGroup && !_hasScrolled) SizedBox(height: _headerHeight),
+        child: task.contentLoading
+            ? const Center(child: MTCircularProgress(size: P10))
+            : LayoutBuilder(builder: (ctx, size) {
+                final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
+                return ListView(
+                  controller: isWeb ? _scrollController : null,
+                  children: [
+                    if (_isBigGroup && !_hasScrolled) SizedBox(height: _headerHeight),
 
-              /// Заголовок
-              Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
+                    /// Заголовок
+                    Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
 
-              /// Дашборд (аналитика, команда)
-              if (task!.hasAnalytics || task!.hasTeam) TaskHeaderDashboard(controller),
+                    /// Дашборд (аналитика, команда)
+                    if (task.hasAnalytics || task.hasTeam) TaskHeaderDashboard(controller),
 
-              /// Задача (лист)
-              task!.contentLoading
-                  ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress()))
-                  : td.isTask
-                      ? _isTaskDialog
-                          ? TaskDialogDetails(controller)
-                          : MTAdaptive(child: TaskDetails(controller))
+                    /// Задача (лист)
+                    td.isTask
+                        ? _isTaskDialog
+                            ? TaskDialogDetails(controller)
+                            : MTAdaptive(child: TaskDetails(controller))
 
-                      /// Группа задач без подзадач
-                      : !task!.hasSubtasks && !task!.canShowBoard
-                          ? SizedBox(
-                              // TODO: хардкод ((
-                              height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 112 : 0),
-                              child: NoTasks(controller),
-                            )
+                        /// Группа задач без подзадач
+                        : !task.hasSubtasks && !task.canShowBoard
+                            ? SizedBox(
+                                // TODO: хардкод ((
+                                height: expandedHeight - _headerHeight - (task.hasAnalytics || task.hasTeam ? 112 : 0),
+                                child: NoTasks(controller),
+                              )
 
-                          /// Группа задач с задачами
-                          : Observer(
-                              builder: (_) => task!.canShowBoard && controller.showBoard
+                            /// Группа задач с задачами
+                            : Observer(
+                                builder: (_) => task.canShowBoard && controller.showBoard
 
-                                  /// Доска
-                                  ? Container(
-                                      height: expandedHeight + P2,
-                                      padding: const EdgeInsets.only(top: P3),
-                                      child: isWeb
-                                          ? Scrollbar(
-                                              controller: _boardScrollController,
-                                              thumbVisibility: true,
-                                              child: _board,
-                                            )
-                                          : _board,
-                                    )
+                                    /// Доска
+                                    ? Container(
+                                        height: expandedHeight + P2,
+                                        padding: const EdgeInsets.only(top: P3),
+                                        child: isWeb
+                                            ? Scrollbar(
+                                                controller: _boardScrollController,
+                                                thumbVisibility: true,
+                                                child: _board,
+                                              )
+                                            : _board,
+                                      )
 
-                                  /// Список
-                                  : Container(
-                                      padding: const EdgeInsets.only(top: P3),
-                                      child: TasksListView(task!.subtaskGroups, scrollable: false),
-                                    ),
-                            ),
-            ],
-          );
-        }),
+                                    /// Список
+                                    : Container(
+                                        padding: const EdgeInsets.only(top: P3),
+                                        child: TasksListView(task.subtaskGroups, scrollable: false),
+                                      ),
+                              ),
+                  ],
+                );
+              }),
       );
 
   Widget get _parentTitle => _isBigGroup
       ? TaskParentTitle(controller)
       : SmallText(
-          task!.parent!.title,
+          task.parent!.title,
           maxLines: 1,
           padding: const EdgeInsets.symmetric(horizontal: P6),
         );
@@ -174,7 +173,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   children: [
                     if (td.isInbox) InboxIcon(color: f2Color, size: _isBigGroup ? P6 : P4),
                     SizedBox(width: _isBigGroup ? P2 : P),
-                    Flexible(child: _isBigGroup ? H1(task!.title, maxLines: 1, color: textColor) : H3(task!.title, maxLines: 1, color: textColor)),
+                    Flexible(child: _isBigGroup ? H1(task.title, maxLines: 1, color: textColor) : H3(task.title, maxLines: 1, color: textColor)),
                   ],
                 ),
               ),
@@ -183,34 +182,36 @@ class TaskViewState<T extends TaskView> extends State<T> {
         : null;
   }
 
-  TaskRightToolbar get _rightToolbar => TaskRightToolbar(
-        controller,
-        td.isTask
-            ? taskToolbarController
-            : td.isInbox
-                ? rightToolbarController
-                : taskGroupToolbarController,
-      );
+  TaskRightToolbar? get _rightToolbar => task.contentLoading
+      ? null
+      : TaskRightToolbar(
+          controller,
+          td.isTask
+              ? taskToolbarController
+              : td.isInbox
+                  ? rightToolbarController
+                  : taskGroupToolbarController,
+        );
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      final big = isBigScreen(context);
-      if (task != null) {
-        final actions = task!.actions(context);
-        return Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            _isTaskDialog
-                ? MTDialog(
-                    topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-                    body: _body,
-                    rightBar: _rightToolbar,
-                    scrollController: _scrollController,
-                    scrollOffsetTop: _headerHeight,
-                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-                  )
-                : MTPage(
+    return Observer(
+      builder: (_) => Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          _isTaskDialog
+              ? MTDialog(
+                  topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
+                  body: _body,
+                  rightBar: _rightToolbar,
+                  scrollController: _scrollController,
+                  scrollOffsetTop: _headerHeight,
+                  onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                )
+              : Builder(builder: (_) {
+                  final big = isBigScreen(context);
+                  final actions = task.contentLoading ? <TaskAction>[] : task.actions(context);
+                  return MTPage(
                     appBar: big && !_hasScrolled
                         ? null
                         : MTAppBar(
@@ -218,30 +219,31 @@ class TaskViewState<T extends TaskView> extends State<T> {
                             color: _isBigGroup ? b2Color : null,
                             leading: _isBigGroup ? const SizedBox() : null,
                             middle: _title,
-                            trailing: !_isBigGroup && task!.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
+                            trailing: !_isBigGroup && task.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                           ),
                     leftBar: big ? LeftMenu(leftMenuController) : null,
                     body: MTRefresh(
-                      onRefresh: () => controller.loadTask(force: true),
+                      onRefresh: controller.reloadTask,
                       child: _body,
                     ),
-                    bottomBar: _hasQuickActions && !_isBigGroup ? TaskBottomToolbar(controller) : null,
+                    bottomBar: _hasQuickActions && !_isBigGroup && !task.contentLoading ? TaskBottomToolbar(controller) : null,
                     // панель справа - для проекта и цели. Для инбокса только если он не пустой
-                    rightBar: _isBigGroup && (!task!.isInbox || task!.hasSubtasks) ? _rightToolbar : null,
+                    rightBar: _isBigGroup && (!task.isInbox || task.hasSubtasks) ? _rightToolbar : null,
                     scrollController: _scrollController,
                     scrollOffsetTop: _headerHeight,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-                  ),
-            if (task!.error != null)
-              MTErrorSheet(task!.error!, onClose: () {
-                task!.error = null;
+                  );
+                }),
+          if (task.error != null)
+            MTErrorSheet(
+              task.error!,
+              onClose: () {
+                task.error = null;
                 tasksMainController.refreshTasksUI();
-              }),
-          ],
-        );
-      } else {
-        return const SizedBox();
-      }
-    });
+              },
+            ),
+        ],
+      ),
+    );
   }
 }

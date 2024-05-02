@@ -11,17 +11,15 @@ import 'task_controller.dart';
 class DuplicateController {
   DuplicateController(this._taskController);
   final TaskController _taskController;
-  Task? get _task => _taskController.task;
+  Task get _task => _taskController.task;
 
   Future duplicate() async {
-    if (_task != null) {
-      loader.setSaving();
-      router.pop();
-      final newTask = await _task!.duplicate();
-      if (newTask != null) {
-        router.goTaskView(newTask);
-      }
-      loader.stop();
+    loader.setSaving();
+    router.pop();
+    final newTask = await _task.duplicate();
+    if (newTask != null) {
+      router.goTaskView(newTask);
     }
+    loader.stop();
   }
 }

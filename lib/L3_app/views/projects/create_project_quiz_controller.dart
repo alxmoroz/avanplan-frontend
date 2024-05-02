@@ -21,15 +21,13 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
 
   @override
   Future beforeNext() async {
-    if (step.code == _StepCode.featureSets.name) {
-      await _fsController.setup();
-    }
+    if (step.code == _StepCode.featureSets.name) await _fsc.setup();
   }
 
   @override
   Future afterNext() async {
     if (step.code == _StepCode.featureSets.name) {
-      _fsController.reload();
+      _fsc.reload();
       router.goFeatureSetsQuiz(taskController);
     } else if (step.code == _StepCode.team.name) {
       router.goTeamQuiz(taskController);
@@ -45,23 +43,21 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     }
   }
 
+  // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
   @override
-  Future afterFinish() async {
-    // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
-    router.goTaskView(_project);
-  }
+  void afterFinish() => router.goTaskView(_project);
 }
 
 abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizController with Store {
   _CreateProjectQuizControllerBase(super.taskController);
 
-  Task get _project => taskController.task!;
+  Task get _project => taskController.task;
 
-  FeatureSetsController get _fsController => taskController.featureSetsController;
+  FeatureSetsController get _fsc => taskController.featureSetsController;
 
-  bool get _hasTeam => _fsController.hasChecked(FSCode.TEAM) == true;
-  bool get _hasGoals => _fsController.hasChecked(FSCode.GOALS) == true;
-  bool get _hasBoard => _fsController.hasChecked(FSCode.TASKBOARD) == true;
+  bool get _hasTeam => _fsc.hasChecked(FSCode.TEAM);
+  bool get _hasGoals => _fsc.hasChecked(FSCode.GOALS);
+  bool get _hasBoard => _fsc.hasChecked(FSCode.TASKBOARD);
 
   @override
   Iterable<QuizStep> get steps => [

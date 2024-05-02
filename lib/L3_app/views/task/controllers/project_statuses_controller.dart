@@ -18,7 +18,6 @@ part 'project_statuses_controller.g.dart';
 class ProjectStatusesController extends _ProjectStatusesControllerBase with _$ProjectStatusesController {
   ProjectStatusesController(TaskController taskController) {
     _taskController = taskController;
-    _setStatuses(_taskController.task!.project.projectStatuses);
   }
 
   Future edit(ProjectStatus status) async => await projectStatusEditDialog(status, this);
@@ -39,7 +38,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
 abstract class _ProjectStatusesControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get project => _taskController.task!.project;
+  Task get project => _taskController.task.project;
 
   @observable
   ObservableList<ProjectStatus> _statuses = ObservableList();
@@ -59,7 +58,7 @@ abstract class _ProjectStatusesControllerBase with Store {
   ProjectStatus? leftStatus(ProjectStatus status) => sortedStatuses.lastWhereOrNull((s) => s.position < status.position);
   ProjectStatus? rightStatus(ProjectStatus status) => sortedStatuses.firstWhereOrNull((s) => s.position > status.position);
 
-  void refresh() => _setStatuses(project.projectStatuses);
+  void reload() => _setStatuses(project.projectStatuses);
 
   @computed
   List<ProjectStatus> get sortedStatuses => _statuses.sorted((s1, s2) => s1.position.compareTo(s2.position));
@@ -68,7 +67,7 @@ abstract class _ProjectStatusesControllerBase with Store {
 
   Future<ProjectStatus?> _editStatus(ProjectStatus status, Future<ProjectStatus?> Function() function) async {
     status.loading = true;
-    refresh();
+    reload();
 
     ProjectStatus? es;
     try {
@@ -78,7 +77,7 @@ abstract class _ProjectStatusesControllerBase with Store {
     }
 
     status.loading = false;
-    refresh();
+    reload();
 
     return es;
   }

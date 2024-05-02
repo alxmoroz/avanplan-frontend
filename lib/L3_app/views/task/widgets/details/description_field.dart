@@ -22,7 +22,7 @@ class TaskDescriptionField extends StatelessWidget {
   final bool compact;
   final bool hasMargin;
 
-  Task get _task => _controller.task!;
+  Task get _task => _controller.task;
 
   @override
   Widget build(BuildContext context) {

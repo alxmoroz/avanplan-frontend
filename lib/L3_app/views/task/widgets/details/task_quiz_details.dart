@@ -13,7 +13,7 @@ class TaskQuizDetails extends StatelessWidget {
   const TaskQuizDetails(this.qController, {super.key});
   final AbstractTaskQuizController qController;
 
-  Task get _task => qController.taskController.task!;
+  Task get _task => qController.taskController.task;
 
   @override
   Widget build(BuildContext context) {

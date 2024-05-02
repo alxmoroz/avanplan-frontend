@@ -27,14 +27,14 @@ class _WSSourcesRoute extends MTRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _SourcesDialog(state.intPathParam('wsId')!),
+          builder: (_, state) => _SourcesDialog(state.pathParamInt('wsId')!),
         );
 
   @override
   bool isDialog(BuildContext _) => true;
 
   @override
-  String? title(GoRouterState state) => '${wsMainController.ws(state.intPathParam('wsId')!).code} | ${loc.source_list_title}';
+  String? title(GoRouterState state) => '${wsMainController.ws(state.pathParamInt('wsId')!).code} | ${loc.source_list_title}';
 }
 
 final wsSourcesRoute = _WSSourcesRoute();

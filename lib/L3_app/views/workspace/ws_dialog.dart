@@ -47,14 +47,14 @@ class _WSRoute extends MTRoute {
             wsSourcesRoute,
             wsUsersRoute,
           ],
-          builder: (context, state) => _WSDialog(state.intPathParam('wsId')!),
+          builder: (context, state) => _WSDialog(state.pathParamInt('wsId')!),
         );
 
   @override
   bool isDialog(BuildContext context) => true;
 
   @override
-  String title(GoRouterState state) => '${loc.workspace_title_short} ${wsMainController.ws(state.intPathParam('wsId')!).code}';
+  String title(GoRouterState state) => '${loc.workspace_title_short} ${wsMainController.ws(state.pathParamInt('wsId')!).code}';
 }
 
 final wsRoute = _WSRoute();

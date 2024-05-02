@@ -54,11 +54,12 @@ extension TaskUC on Task {
     }
 
     et.taskSource ??= taskSource;
+    et.filled = true;
+
     return et;
   }
 
-  // TODO: дернуть обновление интерфейса надо один раз в конце всей операции
-  Future<Task?> load() async {
+  Future<Task?> reload() async {
     filled = false;
     return await editWrapper(() async {
       final taskNode = await taskUC.taskNode(wsId, id!);

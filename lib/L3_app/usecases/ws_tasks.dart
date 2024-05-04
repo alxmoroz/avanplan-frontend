@@ -44,6 +44,9 @@ extension WSTasksUC on Workspace {
       loader.setSaving();
       loader.start();
       newTask = await taskData.save();
+      newTask?.creating = true;
+      newTask?.filled = true;
+
       loader.stop();
     }
     return newTask;

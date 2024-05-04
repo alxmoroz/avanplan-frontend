@@ -32,7 +32,7 @@ abstract class _SubtasksControllerBase with Store {
   Future addTask() async {
     final newTask = await parent.ws.createTask(parent, statusId: _parentTaskController.projectStatusesController.firstOpenedStatusId);
     if (newTask != null) {
-      final tc = TaskController(newTask, isNew: true);
+      final tc = TaskController(newTask);
       taskControllers.add(tc);
       setFocus(true, tc);
     }

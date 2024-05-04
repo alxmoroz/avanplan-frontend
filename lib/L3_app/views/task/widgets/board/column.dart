@@ -93,9 +93,7 @@ class TaskBoardColumn {
           bottomDivider: false,
           onTap: () async {
             final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
-            if (newTask != null) {
-              router.goTaskView(newTask, extra: true);
-            }
+            if (newTask != null) router.goTaskView(newTask);
           },
         )
       : null;

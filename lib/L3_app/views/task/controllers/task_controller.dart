@@ -38,9 +38,8 @@ enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estim
 enum TasksFilter { my, projects }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController(Task taskIn, {bool isNew = false, bool needFresh = false}) {
+  TaskController(Task taskIn, {bool needFresh = false}) {
     taskDescriptor = taskIn;
-    creating = isNew;
 
     _setupFields();
 
@@ -62,7 +61,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     duplicateController = DuplicateController(this);
     deleteController = DeleteController(this);
 
-    quizController = isNew
+    quizController = taskDescriptor.creating
         ? taskDescriptor.isProject
             ? CreateProjectQuizController(this)
             : taskDescriptor.isGoal
@@ -80,7 +79,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
   void _setupFields() => initState(fds: [
         MTFieldData(TaskFCode.parent.index),
-        MTFieldData(TaskFCode.title.index, text: creating == true ? '' : taskDescriptor.title),
+        MTFieldData(TaskFCode.title.index, text: taskDescriptor.creating ? '' : taskDescriptor.title),
         MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
         MTFieldData(TaskFCode.description.index, text: taskDescriptor.description, placeholder: loc.description),
         MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
@@ -168,9 +167,6 @@ abstract class _TaskControllerBase extends EditController with Store {
   AbstractTaskQuizController? quizController;
 
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;
-
-  @observable
-  bool creating = false;
 
   Future<bool> saveField(TaskFCode code) async {
     updateField(code.index, loading: true);

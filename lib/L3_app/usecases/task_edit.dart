@@ -36,36 +36,41 @@ extension TaskUC on Task {
   // TODO: можно будет поправить вместе с задачей про рефакторинг StatsController (см. в техдолге задачу)
   // TODO: Также используется при обновлении инфы о родителях при загрузке taskNode. Хотя можно просто игнорировать в том случае.
   Task refill(Task et) {
-    // вложенности
-    if (et.members.isEmpty) {
-      et.members = members;
-    }
-    if (et.projectStatuses.isEmpty) {
-      et.projectStatuses = projectStatuses;
-    }
-    if (et.projectFeatureSets.isEmpty) {
-      et.projectFeatureSets = projectFeatureSets;
-    }
-    if (et.notes.isEmpty) {
-      et.notes = notes;
-    }
-    if (et.attachments.isEmpty) {
-      et.attachments = attachments;
-    }
+    if (filled) {
+      // вложенности
+      if (et.members.isEmpty) {
+        et.members = members;
+      }
+      if (et.projectStatuses.isEmpty) {
+        et.projectStatuses = projectStatuses;
+      }
+      if (et.projectFeatureSets.isEmpty) {
+        et.projectFeatureSets = projectFeatureSets;
+      }
+      if (et.notes.isEmpty) {
+        et.notes = notes;
+      }
+      if (et.attachments.isEmpty) {
+        et.attachments = attachments;
+      }
 
-    et.taskSource ??= taskSource;
-    et.filled = true;
+      et.taskSource ??= taskSource;
+
+      et.filled = true;
+    }
 
     return et;
   }
 
   Future<Task?> reload() async {
+    // TODO: лишнее? - это чтобы сработал флаг contentLoading
     filled = false;
+
     return await editWrapper(() async {
       final taskNode = await taskUC.taskNode(wsId, id!);
       if (taskNode != null) {
         // удаление дерева подзадач
-        subtasks.toList().forEach((t) => tasksMainController.removeTask(t));
+        subtasks.where((t) => !t.immutable).toList().forEach((t) => tasksMainController.removeTask(t));
 
         // новое дерево родителей и подзадач
         // сама задача / цель / проект
@@ -74,10 +79,9 @@ extension TaskUC on Task {
         final newTasks = [root, ...taskNode.subtasks];
         // мои задачи из проекта, если обновляем проект с целями
         if (root.isProject && root.hfsGoals) {
-          // TODO: может дублироваться загрузка целей здесь и из taskNode выше
           newTasks.addAll(await wsUC.getMyTasks(root.wsId, projectId: root.id!));
         }
-        tasksMainController.setTasks(taskNode.parents, refill: true);
+        tasksMainController.setTasks(taskNode.parents);
         tasksMainController.setTasks(newTasks);
         return root;
       }
@@ -89,11 +93,9 @@ extension TaskUC on Task {
         if (await ws.checkBalance(loc.edit_action_title)) {
           final changes = await taskUC.save(this);
           if (changes != null) {
-            // TODO: тут именно такая логика, что нужно в других местах на выходе задача заполненная
-            final et = changes.updated.refill(changes.updated);
-            tasksMainController.setTasks(changes.affected, refill: true);
-            tasksMainController.setTasks([et]);
-            return et;
+            tasksMainController.setTasks(changes.affected);
+            tasksMainController.setTasks([changes.updated]);
+            return changes.updated;
           }
         }
         return null;
@@ -103,11 +105,11 @@ extension TaskUC on Task {
         if (await destination.ws.checkBalance(loc.task_transfer_export_action_title)) {
           final changes = await taskUC.move(this, destination);
           if (changes != null) {
-            final newTask = changes.updated;
-            tasksMainController.setTasks([newTask]);
-            tasksMainController.setTasks(changes.affected, refill: true);
+            changes.updated.filled = true;
+            tasksMainController.setTasks(changes.affected);
+            tasksMainController.setTasks([changes.updated]);
             tasksMainController.removeTask(this);
-            return newTask;
+            return changes.updated;
           }
         }
         return null;
@@ -117,10 +119,10 @@ extension TaskUC on Task {
         if (await ws.checkBalance(loc.task_duplicate_action_title)) {
           final changes = await taskUC.duplicate(this);
           if (changes != null) {
-            final newTask = changes.updated;
-            tasksMainController.setTasks(changes.affected, refill: true);
-            tasksMainController.setTasks([newTask]);
-            return newTask;
+            changes.updated.filled = true;
+            tasksMainController.setTasks(changes.affected);
+            tasksMainController.setTasks([changes.updated]);
+            return changes.updated;
           }
         }
         return null;
@@ -129,7 +131,7 @@ extension TaskUC on Task {
   Future<Task?> delete() async => await editWrapper(() async {
         final changes = await taskUC.delete(this);
         if (changes != null) {
-          tasksMainController.setTasks(changes.affected, refill: true);
+          tasksMainController.setTasks(changes.affected);
           tasksMainController.removeTask(this);
           return this;
         }

@@ -13,7 +13,7 @@ dependencies:
   built_collection: any
   collection: any
   crypto: any
-  cupertino_icons: 1.0.1
+  cupertino_icons: any
   device_info_plus: any
   dio: any
   file_selector: any
@@ -37,7 +37,7 @@ dependencies:
   mobx: any
   openapi:
     path: ./openapi
-  package_info_plus: ^5.0.1
+  package_info_plus: ^8.0.0
   path_provider: any
   share_plus: any
   sign_in_with_apple: any
@@ -51,7 +51,6 @@ dev_dependencies:
   flutter_native_splash: any
   flutter_test:
     sdk: flutter
-  # go_router_builder: any
   hive_generator: any
   intl_utils: any
   mobx_codegen: any

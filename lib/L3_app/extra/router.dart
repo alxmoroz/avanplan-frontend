@@ -37,8 +37,6 @@ final router = GoRouter(
 
 extension MTPathParametersHelper on GoRouterState {
   int? pathParamInt(String param) => int.tryParse(pathParameters[param] ?? '');
-  bool? get extraBool => extra is bool ? extra as bool : null;
-  String? get extraString => extra is String ? extra as String : null;
 }
 
 extension MTRouterHelper on GoRouter {

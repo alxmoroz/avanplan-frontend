@@ -54,7 +54,7 @@ class TitleController {
       final newValue = tc.text.trim();
       final oldValue = task.description;
 
-      if (newValue.isNotEmpty && (task.description != newValue || _taskController.creating)) {
+      if (task.description != newValue) {
         _taskController.updateField(fIndex, loading: true, text: '');
         task.description = newValue;
         if (!(await _taskController.saveField(TaskFCode.description))) {

@@ -36,7 +36,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       if (goal != null) {
         // TODO: тут должен быть ShellRoute или что-то такое...
         // сейчас сбрасывается на независимое создание цели
-        router.goTaskView(goal, extra: true);
+        router.goTaskView(goal);
       }
     } else if (step.code == _StepCode.tasks.name) {
       router.goSubtasksQuiz(taskController);

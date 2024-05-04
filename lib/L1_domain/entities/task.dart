@@ -118,6 +118,9 @@ class Task extends Project {
   int? assigneeId;
   num? estimate;
 
+  bool immutable = false;
+  bool creating = false;
+
   @override
   int compareTo(t2) {
     int res = 0;

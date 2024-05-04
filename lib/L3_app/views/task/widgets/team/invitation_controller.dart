@@ -79,7 +79,7 @@ abstract class _InvitationControllerBase with Store {
 
   Future _share(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
-    await Share.shareWithResult(
+    await Share.share(
       invitationText,
       subject: _invitationSubject,
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,

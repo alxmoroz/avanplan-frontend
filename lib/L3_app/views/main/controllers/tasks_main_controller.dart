@@ -89,11 +89,11 @@ abstract class _TasksMainControllerBase with Store {
 
   Task? task(int wsId, int? id) => _tasksMap[wsId]?[id];
 
-  void setTasks(Iterable<Task> tasks, {bool refill = false}) {
+  void setTasks(Iterable<Task> tasks) {
     for (Task et in tasks) {
       final index = allTasks.indexWhere((t) => t.wsId == et.wsId && t.id == et.id);
       if (index > -1) {
-        allTasks[index] = refill ? allTasks[index].refill(et) : et;
+        allTasks[index] = allTasks[index].refill(et);
       } else {
         allTasks.add(et);
       }

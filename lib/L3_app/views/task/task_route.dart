@@ -63,14 +63,17 @@ abstract class BaseTaskRoute extends MTRoute {
 
   @override
   GoRouterWidgetBuilder? get builder => (context, state) {
-        final t = task(state);
-        final isNew = state.extraBool == true;
-
-        if (isNew && (t.isProject || t.isGoal)) {
-          return CreateTaskQuizView(t);
-        }
-
-        return Observer(builder: (_) => loader.loading ? Container() : TaskView(t, isNew: isNew));
+        return Observer(
+          builder: (_) => loader.loading
+              ? Container()
+              : Builder(
+                  builder: (_) {
+                    final t = task(state);
+                    t.immutable = router.isDeepLink && state.matchedLocation == state.uri.path;
+                    return t.creating && (t.isProject || t.isGoal) ? CreateTaskQuizView(t) : TaskView(t);
+                  },
+                ),
+        );
       };
 }
 

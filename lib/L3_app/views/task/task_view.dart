@@ -40,9 +40,8 @@ class TaskView extends StatefulWidget {
   // TODO: отвязаться от создания контроллера заранее. Создавать контроллер (инициализировать FData) нужно после загрузки данных,
   //  либо делать реиницилаизацию после загрузки данных.
   //  Кроме того, нужно отправлять сюда только айдишники
-  const TaskView(this._taskDescriptor, {super.key, this.isNew = false});
+  const TaskView(this._taskDescriptor, {super.key});
   final Task _taskDescriptor;
-  final bool isNew;
 
   @override
   State<TaskView> createState() => TaskViewState();
@@ -66,8 +65,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
-    controller = TaskController(td, isNew: widget.isNew, needFresh: true);
-
+    controller = TaskController(td, needFresh: true);
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
     super.initState();
@@ -77,6 +75,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   void dispose() {
     controller.subtasksController.dispose();
     controller.dispose();
+    task.creating = false;
 
     _scrollController.dispose();
     _boardScrollController.dispose();

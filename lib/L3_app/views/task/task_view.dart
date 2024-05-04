@@ -225,7 +225,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       onRefresh: controller.reloadTask,
                       child: _body,
                     ),
-                    bottomBar: _hasQuickActions && !_isBigGroup && !task.contentLoading ? TaskBottomToolbar(controller) : null,
+                    bottomBar: !_isBigGroup && !task.contentLoading && _hasQuickActions ? TaskBottomToolbar(controller) : null,
                     // панель справа - для проекта и цели. Для инбокса только если он не пустой
                     rightBar: _isBigGroup && (!task.isInbox || task.hasSubtasks) ? _rightToolbar : null,
                     scrollController: _scrollController,

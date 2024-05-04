@@ -2,43 +2,28 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
-import '../../../../extra/router.dart';
-import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_task_quiz_controller.dart';
+import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/task_controller.dart';
-import '../../task_route.dart';
 import 'team.dart';
 
-class TeamQuizRoute extends BaseTaskRoute {
+class TeamQuizRoute extends AbstractTaskQuizRoute {
   static const staticBaseName = 'team';
 
-  TeamQuizRoute({super.parent}) : super(baseName: staticBaseName);
-
-  @override
-  String get path => staticBaseName;
-
-  @override
-  GoRouterRedirect? get redirect => (_, state) => state.extra is TaskController
-      ? null
-      : router.namedLocation(
-          parent!.name,
-          pathParameters: state.pathParameters,
+  TeamQuizRoute({super.parent})
+      : super(
+          baseName: staticBaseName,
+          path: staticBaseName,
+          builder: (_, state) => _TeamQuizView(state.extra as TaskController),
         );
-
-  @override
-  String title(GoRouterState state) => '${super.title(state)} | ${loc.team_title}';
-
-  @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _TeamQuizView(state.extra as TaskController);
 }
 
 class _TeamQuizView extends StatelessWidget {

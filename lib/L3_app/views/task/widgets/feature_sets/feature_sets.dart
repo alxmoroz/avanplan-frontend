@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -14,37 +13,27 @@ import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_task_quiz_controller.dart';
+import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../../task_route.dart';
 
 Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(controller));
 
-class FeatureSetsQuizRoute extends BaseTaskRoute {
+class FeatureSetsQuizRoute extends AbstractTaskQuizRoute {
   static String get staticBaseName => 'feature_sets';
 
-  FeatureSetsQuizRoute({required super.parent}) : super(baseName: staticBaseName);
-
-  @override
-  GoRouterRedirect? get redirect => (_, state) => state.extra is TaskController
-      ? null
-      : router.namedLocation(
-          parent!.name,
-          pathParameters: state.pathParameters,
+  FeatureSetsQuizRoute({required super.parent})
+      : super(
+          baseName: staticBaseName,
+          path: staticBaseName,
+          builder: (_, state) => _FeatureSetsQuizView(state.extra as TaskController),
         );
-
-  @override
-  String title(GoRouterState state) => '${super.title(state)} | ${loc.feature_sets_title}';
-
-  @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _FeatureSetsQuizView(state.extra as TaskController);
 }
 
 class _FSBody extends StatelessWidget {

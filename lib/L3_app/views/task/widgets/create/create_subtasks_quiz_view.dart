@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -14,37 +13,27 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
+import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../../task_route.dart';
 import '../../widgets/create/create_task_button.dart';
 import '../tasks/task_checklist_item.dart';
 
-class CreateSubtasksQuizRoute extends BaseTaskRoute {
+class CreateSubtasksQuizRoute extends AbstractTaskQuizRoute {
   static const staticBaseName = 'subtasks';
 
-  CreateSubtasksQuizRoute({super.parent}) : super(baseName: staticBaseName);
-
-  @override
-  String get path => staticBaseName;
-
-  @override
-  GoRouterRedirect? get redirect => (_, state) => state.extra is TaskController
-      ? null
-      : router.namedLocation(
-          parent!.name,
-          pathParameters: state.pathParameters,
+  CreateSubtasksQuizRoute({super.parent})
+      : super(
+          baseName: staticBaseName,
+          path: staticBaseName,
+          builder: (_, state) => _CreateSubtasksQuizView(state.extra as TaskController),
         );
-
-  @override
-  GoRouterWidgetBuilder? get builder => (_, state) => _CreateSubtasksQuizView(state.extra as TaskController);
 }
 
 class _CreateSubtasksQuizView extends StatelessWidget {

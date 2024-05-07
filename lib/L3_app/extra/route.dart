@@ -10,16 +10,18 @@ import '../components/adaptive.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/dialog.dart';
+import '../views/_base/loadable.dart';
 import '../views/loader/loader_screen.dart';
 import 'services.dart';
 
 class MTRoute extends GoRoute {
   MTRoute({
     required this.baseName,
-    String? path,
     this.parent,
+    this.controller,
     super.routes,
     super.redirect,
+    String? path,
     GoRouterWidgetBuilder? builder,
   }) : super(
           path: path ?? '/',
@@ -28,6 +30,9 @@ class MTRoute extends GoRoute {
 
   final String baseName;
   final MTRoute? parent;
+  final Loadable? controller;
+
+  bool get loading => controller?.loading == true || parent?.loading == true;
 
   @override
   String get name => '${parent?.name ?? ''}/$baseName';
@@ -48,15 +53,12 @@ class MTRoute extends GoRoute {
           ));
         }
 
-        final child = Observer(
-          builder: (_) => Stack(
-            alignment: Alignment.center,
-            children: [
-              builder!(context, state),
-              if (loader.loading) const LoaderScreen(),
-            ],
-          ),
-        );
+        Widget child = builder!(context, state);
+        if (controller != null || parent?.controller != null) {
+          child = Observer(builder: (_) {
+            return loading ? const LoaderScreen() : child;
+          });
+        }
 
         return isDialog(context)
             ? MTDialogPage(

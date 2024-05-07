@@ -118,7 +118,9 @@ class Task extends Project {
   int? assigneeId;
   num? estimate;
 
+  // TODO: должно уйти после 1.22
   bool immutable = false;
+  // TODO: в контроллер всё же?
   bool creating = false;
 
   @override

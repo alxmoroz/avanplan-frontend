@@ -22,6 +22,7 @@ abstract class BaseTaskRoute extends MTRoute {
     required super.baseName,
     super.parent,
   });
+  // : super(controller: TaskController());
 
   bool get _parentHasWsId => parent is BaseTaskRoute && (parent as BaseTaskRoute).hasWsId == true;
   bool get hasWsId => path.contains(':wsId') || _parentHasWsId;

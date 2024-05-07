@@ -19,10 +19,14 @@ abstract class RPersistable {
 
   MTError? error;
 
+  // TODO: в контроллер всё же?
   bool loading = false;
+  // TODO: в контроллер всё же?
   bool filled = false;
 
   bool get isNew => id == null;
+
+  // TODO: в контроллер всё же?
   bool get contentLoading => !filled && loading;
 }
 

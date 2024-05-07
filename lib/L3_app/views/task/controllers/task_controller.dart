@@ -12,6 +12,7 @@ import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
+import '../../_base/loadable.dart';
 import '../../projects/create_project_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../widgets/details/details_dialog.dart';
@@ -146,7 +147,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   }
 }
 
-abstract class _TaskControllerBase extends EditController with Store {
+abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late Task taskDescriptor;
   late final TitleController titleController;
   late final AssigneeController assigneeController;

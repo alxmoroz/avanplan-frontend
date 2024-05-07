@@ -37,9 +37,6 @@ import 'widgets/header/task_header.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 
 class TaskView extends StatefulWidget {
-  // TODO: отвязаться от создания контроллера заранее. Создавать контроллер (инициализировать FData) нужно после загрузки данных,
-  //  либо делать реиницилаизацию после загрузки данных.
-  //  Кроме того, нужно отправлять сюда только айдишники
   const TaskView(this._taskDescriptor, {super.key});
   final Task _taskDescriptor;
 

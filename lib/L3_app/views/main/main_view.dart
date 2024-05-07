@@ -24,7 +24,6 @@ import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
 import '../task/task_route.dart';
-import '../task/widgets/empty_state/not_found_dialog.dart';
 import '../workspace/ws_dialog.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
@@ -49,16 +48,15 @@ class _MainRoute extends MTRoute {
 
   @override
   List<RouteBase> get routes => [
-        accountRoute,
-        notificationsRoute,
-        wsRoute,
-        projectsRoute,
+        AccountRoute(parent: this),
+        NotificationsRoute(parent: this),
+        WSRoute(parent: this),
+        ProjectsRoute(parent: this),
         InboxRoute(parent: this),
         ProjectRoute(parent: this),
         GoalRoute(parent: this),
         BacklogRoute(parent: this),
         TaskRoute(parent: this),
-        TaskNotFoundRoute(parent: this),
       ];
 }
 

@@ -18,11 +18,13 @@ import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
-class _AccountRoute extends MTRoute {
-  _AccountRoute()
+class AccountRoute extends MTRoute {
+  static const staticBaseName = 'my_account';
+
+  AccountRoute({super.parent})
       : super(
-          baseName: 'my_account',
-          path: 'my_account',
+          baseName: staticBaseName,
+          path: staticBaseName,
           builder: (_, __) => const _AccountDialog(),
         );
 
@@ -32,8 +34,6 @@ class _AccountRoute extends MTRoute {
   @override
   String? title(GoRouterState state) => loc.my_account_title;
 }
-
-final accountRoute = _AccountRoute();
 
 class _AccountDialog extends StatelessWidget {
   const _AccountDialog();

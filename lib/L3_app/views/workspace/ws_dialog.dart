@@ -36,19 +36,21 @@ import 'ws_edit_dialog.dart';
 import 'ws_expenses_dialog.dart';
 import 'ws_users_dialog.dart';
 
-class _WSRoute extends MTRoute {
+class WSRoute extends MTRoute {
   static const staticBaseName = 'ws';
 
-  _WSRoute()
+  WSRoute({super.parent})
       : super(
           baseName: staticBaseName,
           path: 'ws_:wsId',
-          routes: [
-            wsSourcesRoute,
-            wsUsersRoute,
-          ],
           builder: (context, state) => _WSDialog(state.pathParamInt('wsId')!),
         );
+
+  @override
+  List<RouteBase> get routes => [
+        WSSourcesRoute(parent: this),
+        WSUsersRoute(parent: this),
+      ];
 
   @override
   bool isDialog(BuildContext context) => true;
@@ -56,8 +58,6 @@ class _WSRoute extends MTRoute {
   @override
   String title(GoRouterState state) => '${loc.workspace_title_short} ${wsMainController.ws(state.pathParamInt('wsId')!).code}';
 }
-
-final wsRoute = _WSRoute();
 
 class _WSDialog extends StatelessWidget {
   const _WSDialog(this._wsId);

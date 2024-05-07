@@ -22,10 +22,10 @@ import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import 'notification_controller.dart';
 
-class _NotificationsRoute extends MTRoute {
+class NotificationsRoute extends MTRoute {
   static const staticBaseName = 'my_notifications';
 
-  _NotificationsRoute()
+  NotificationsRoute({super.parent})
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
@@ -41,8 +41,6 @@ class _NotificationsRoute extends MTRoute {
   @override
   String? title(GoRouterState state) => loc.notification_list_title;
 }
-
-final notificationsRoute = _NotificationsRoute();
 
 class _NotificationsDialog extends StatelessWidget {
   const _NotificationsDialog();

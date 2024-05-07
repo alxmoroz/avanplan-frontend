@@ -20,10 +20,10 @@ import '../../usecases/ws_actions.dart';
 import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 
-class _WSSourcesRoute extends MTRoute {
+class WSSourcesRoute extends MTRoute {
   static const staticBaseName = 'sources';
 
-  _WSSourcesRoute()
+  WSSourcesRoute({super.parent})
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
@@ -31,13 +31,11 @@ class _WSSourcesRoute extends MTRoute {
         );
 
   @override
-  bool isDialog(BuildContext _) => true;
+  bool isDialog(BuildContext context) => true;
 
   @override
   String? title(GoRouterState state) => '${wsMainController.ws(state.pathParamInt('wsId')!).code} | ${loc.source_list_title}';
 }
-
-final wsSourcesRoute = _WSSourcesRoute();
 
 class _SourcesDialog extends StatelessWidget {
   const _SourcesDialog(this._wsId);

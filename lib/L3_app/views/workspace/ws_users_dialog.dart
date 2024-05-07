@@ -14,10 +14,10 @@ import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'ws_user_tile.dart';
 
-class _WSUsersRoute extends MTRoute {
+class WSUsersRoute extends MTRoute {
   static const staticBaseName = 'users';
 
-  _WSUsersRoute()
+  WSUsersRoute({super.parent})
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
@@ -25,13 +25,11 @@ class _WSUsersRoute extends MTRoute {
         );
 
   @override
-  bool isDialog(BuildContext _) => true;
+  bool isDialog(BuildContext context) => true;
 
   @override
   String? title(GoRouterState state) => '${wsMainController.ws(state.pathParamInt('wsId')!).code} | ${loc.members_title}';
 }
-
-final wsUsersRoute = _WSUsersRoute();
 
 class _WSUsersDialog extends StatelessWidget {
   const _WSUsersDialog(this._wsId);

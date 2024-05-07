@@ -28,11 +28,13 @@ import 'create_project_controller.dart';
 import 'no_projects.dart';
 import 'right_toolbar.dart';
 
-class _ProjectsRoute extends MTRoute {
-  _ProjectsRoute()
+class ProjectsRoute extends MTRoute {
+  static const staticBaseName = 'projects';
+
+  ProjectsRoute({super.parent})
       : super(
-          path: 'projects',
-          baseName: 'projects',
+          path: staticBaseName,
+          baseName: staticBaseName,
           builder: (_, __) => const ProjectsView(),
         );
 
@@ -45,8 +47,6 @@ class _ProjectsRoute extends MTRoute {
   @override
   String? title(GoRouterState state) => loc.project_list_title;
 }
-
-final projectsRoute = _ProjectsRoute();
 
 class ProjectsView extends StatefulWidget {
   const ProjectsView({super.key});

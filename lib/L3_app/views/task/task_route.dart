@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -63,17 +62,9 @@ abstract class BaseTaskRoute extends MTRoute {
 
   @override
   GoRouterWidgetBuilder? get builder => (context, state) {
-        return Observer(
-          builder: (_) => loader.loading
-              ? Container()
-              : Builder(
-                  builder: (_) {
-                    final t = task(state);
-                    t.immutable = router.isDeepLink && state.matchedLocation == state.uri.path;
-                    return t.creating && (t.isProject || t.isGoal) ? CreateTaskQuizView(t) : TaskView(t);
-                  },
-                ),
-        );
+        final t = task(state);
+        t.immutable = router.isDeepLink && state.matchedLocation == state.uri.path;
+        return t.creating && (t.isProject || t.isGoal) ? CreateTaskQuizView(t) : TaskView(t);
       };
 }
 

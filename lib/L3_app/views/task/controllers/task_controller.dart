@@ -135,12 +135,14 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
   Future reloadTask() async {
     final reloadedTask = await taskDescriptor.reload();
-    if (reloadedTask != null) taskDescriptor = reloadedTask;
+    if (reloadedTask != null) {
+      taskDescriptor = reloadedTask;
 
-    // TODO: кривовато. Можно это делать в одном месте как-то, а не двумя методами
-    // TODO: нужно инит контроллера этого делать один раз, если не надо задачу перезагружать. И один раз - если надо.
-    _setupFields();
-    _reloadContentControllers();
+      // TODO: кривовато. Можно это делать в одном месте как-то, а не двумя методами
+      // TODO: нужно инит контроллера этого делать один раз, если не надо задачу перезагружать. И один раз - если надо.
+      _setupFields();
+      _reloadContentControllers();
+    }
   }
 }
 

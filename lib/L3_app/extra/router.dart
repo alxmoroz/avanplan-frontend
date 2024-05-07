@@ -58,14 +58,15 @@ extension MTRouterHelper on GoRouter {
   // Главная и вход
   void goAuth() => _goNamed(authRoute.name);
   void goMain() => _goNamed(mainRoute.name);
-  void goProjects() => _goNamed(projectsRoute.name);
-  void goAccount() => _goNamed(accountRoute.name);
-  void goNotifications() => _goNamed(notificationsRoute.name);
+  void goProjects() => _goNamed('${mainRoute.name}/${ProjectsRoute.staticBaseName}');
+  void goAccount() => _goNamed('${mainRoute.name}/${AccountRoute.staticBaseName}');
+  void goNotifications() => _goNamed('${mainRoute.name}/${NotificationsRoute.staticBaseName}');
 
   // WS
-  void goWS(int wsId) => _goNamed(wsRoute.name, pathParameters: {'wsId': '$wsId'});
-  void goWSSources(int wsId) => _goNamed(wsSourcesRoute.name, pathParameters: {'wsId': '$wsId'});
-  void goWSUsers(int wsId) => _goNamed(wsUsersRoute.name, pathParameters: {'wsId': '$wsId'});
+  String get _wsRName => '${mainRoute.name}/${WSRoute.staticBaseName}';
+  void goWS(int wsId) => _goNamed(_wsRName, pathParameters: {'wsId': '$wsId'});
+  void goWSSources(int wsId) => _goNamed('$_wsRName/${WSSourcesRoute.staticBaseName}', pathParameters: {'wsId': '$wsId'});
+  void goWSUsers(int wsId) => _goNamed('$_wsRName/${WSUsersRoute.staticBaseName}', pathParameters: {'wsId': '$wsId'});
 
   // Задачи
   void goTaskView(Task task, {String? subRouteName, Object? extra}) {

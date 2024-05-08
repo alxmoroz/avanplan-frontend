@@ -19,23 +19,23 @@ import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskChecklistItem extends StatefulWidget {
-  const TaskChecklistItem(this._controller, this._index, {super.key});
-  final SubtasksController _controller;
-  final int _index;
+  const TaskChecklistItem(this._taskIn, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
+  final Task _taskIn;
+  final bool bottomDivider;
+  final Function()? onSubmit;
+  final Function()? onDelete;
 
   @override
   State<StatefulWidget> createState() => _TaskChecklistItemState();
 }
 
 class _TaskChecklistItemState extends State<TaskChecklistItem> {
-  SubtasksController get _controller => widget._controller;
-  int get _index => widget._index;
-  TaskController get tc => _controller.taskControllers.elementAt(_index);
-  Task get task => tc.task;
+  late final TaskController controller;
+
+  Task get task => controller.task;
 
   bool _fieldHover = false;
   bool _doneBtnHover = false;
@@ -45,20 +45,35 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   bool _taskEditing = false;
 
+  @override
+  void initState() {
+    controller = TaskController(widget._taskIn);
+    if (widget._taskIn.creating) controller.titleController.setFocus();
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   Future<bool> _delete() async {
     setState(() => _taskEditing = true);
-    return await _controller.deleteTask(tc);
+
+    if (widget.onDelete != null) await widget.onDelete!();
+    return false;
   }
 
   Future _toggleDone() async {
     setState(() => _taskEditing = true);
-    await tc.statusController.setClosed(context, !task.closed);
+    await controller.statusController.setClosed(context, !task.closed);
   }
 
   Widget _fieldValue(BuildContext context) {
-    final teController = tc.teController(TaskFCode.title.index);
-    final roText = teController?.text.isNotEmpty == true ? teController!.text : tc.titleController.titlePlaceholder;
-    final fNode = tc.focusNode(TaskFCode.title.index);
+    final teController = controller.teController(TaskFCode.title.index);
+    final roText = teController?.text.isNotEmpty == true ? teController!.text : controller.titleController.titlePlaceholder;
+    final fNode = controller.focusNode(TaskFCode.title.index);
     fNode?.addListener(() => setState(() {}));
     final hasFocus = fNode?.hasFocus == true;
     final tfMaxLines = hasFocus ? 1 : 5;
@@ -96,12 +111,12 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
-                    hintText: tc.titleController.titlePlaceholder,
+                    hintText: controller.titleController.titlePlaceholder,
                     hintStyle: const BaseText('', maxLines: 1, color: f3Color).style(context),
                   ),
                   style: BaseText('', maxLines: tfMaxLines, color: task.closed && !hasFocus ? f3Color : null).style(context),
-                  onChanged: (str) => _controller.editTitle(tc, str),
-                  onSubmitted: (_) => _controller.addTask(),
+                  onChanged: (str) => controller.titleController.editTitle(str),
+                  onSubmitted: widget.onSubmit != null ? (_) => widget.onSubmit!() : null,
                   focusNode: fNode,
                 ),
               ),
@@ -136,7 +151,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   @override
   Widget build(BuildContext context) {
-    final fData = tc.fData(TaskFCode.title.index);
+    final fData = controller.fData(TaskFCode.title.index);
     return MTField(
       fData,
       loading: _taskEditing && task.loading == true,
@@ -144,7 +159,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       value: isWeb
           ? _fieldValue(context)
           : Slidable(
-              key: ObjectKey(tc),
+              key: ObjectKey(widget._taskIn),
               endActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(
@@ -164,11 +179,11 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: tc.task.isCheckItem ? P11 : P3,
+      dividerIndent: task.isCheckItem ? P11 : P3,
       dividerEndIndent: P3,
-      bottomDivider: tc.task.isCheckItem || _index < _controller.taskControllers.length - 1,
+      bottomDivider: widget.bottomDivider,
       onHover: isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
-      onTap: () => tc.titleController.setFocus(),
+      onTap: () => controller.titleController.setFocus(),
     );
   }
 }

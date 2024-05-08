@@ -3,8 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities/workspace.dart';
-import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -12,10 +10,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_tasks.dart';
 import '../../controllers/task_controller.dart';
 
 class CreateTaskButton extends StatelessWidget {
@@ -25,20 +20,16 @@ class CreateTaskButton extends StatelessWidget {
     bool compact = false,
     EdgeInsets? margin,
     ButtonType? type,
-    Function()? onTap,
   })  : _parentTaskController = parentTaskController,
         _type = type,
         _compact = compact,
-        _margin = margin,
-        _onTap = onTap;
+        _margin = margin;
 
   final TaskController _parentTaskController;
   final bool _compact;
   final EdgeInsets? _margin;
   final ButtonType? _type;
-  final Function()? _onTap;
 
-  Workspace get _ws => _parent.ws;
   Task get _parent => _parentTaskController.task;
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
@@ -46,18 +37,6 @@ class CreateTaskButton extends StatelessWidget {
         size: _type != null ? P4 : P6,
         circled: isBigScreen(context) && _type == null,
       );
-
-  Future _tap() async {
-    if (_onTap != null) {
-      _onTap!();
-    } else {
-      final newTask = await _ws.createTask(
-        _parent,
-        statusId: _parent.isProject ? null : _parentTaskController.projectStatusesController.firstOpenedStatusId,
-      );
-      if (newTask != null) router.goTaskView(newTask);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +46,7 @@ class CreateTaskButton extends StatelessWidget {
             leading: plusIcon,
             middle: !_compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
-            onTap: _tap,
+            onTap: _parentTaskController.addSubtask,
           )
         : MTButton(
             leading: _compact ? null : plusIcon,
@@ -76,7 +55,7 @@ class CreateTaskButton extends StatelessWidget {
             titleText: _compact ? null : addSubtaskActionTitle(_parent),
             middle: _compact ? plusIcon : null,
             constrained: !_compact,
-            onTap: _tap,
+            onTap: _parentTaskController.addSubtask,
           );
   }
 }

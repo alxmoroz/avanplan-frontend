@@ -8,9 +8,12 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/field_data.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
+import '../../../usecases/task_tree.dart';
+import '../../../usecases/ws_tasks.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../../_base/loadable.dart';
 import '../../projects/create_project_quiz_controller.dart';
@@ -185,4 +188,15 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   bool showBoard = true;
   @action
   void toggleBoardMode() => showBoard = !showBoard;
+
+  /// добавление подзадач
+
+  Future<Task?> addSubtask({int? statusId, bool noGo = false}) async {
+    final newTask = await task.ws.createTask(
+      task,
+      statusId: statusId ?? (task.isProject || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
+    );
+    if (newTask != null && !noGo) router.goTaskView(newTask);
+    return newTask;
+  }
 }

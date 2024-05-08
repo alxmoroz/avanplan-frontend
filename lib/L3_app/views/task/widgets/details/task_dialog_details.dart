@@ -16,7 +16,6 @@ import '../../controllers/task_controller.dart';
 import '../attachments/attachment_list_dialog.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
-import 'checklist_add_field.dart';
 import 'description_field.dart';
 import 'task_status_field.dart';
 
@@ -44,11 +43,8 @@ class TaskDialogDetails extends StatelessWidget {
           /// Описание
           if (_showDescription) TaskDescriptionField(_controller, hasMargin: true),
 
-          /// Кнопка для добавления чек-листа
-          if (_task.canAddChecklist) TaskChecklistAddField(_controller),
-
           /// Чек-лист
-          if (_task.isCheckList) ...[
+          if (_task.canCreateChecklist || _task.isCheckList) ...[
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],

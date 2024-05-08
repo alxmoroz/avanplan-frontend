@@ -45,6 +45,8 @@ extension TaskActionsUC on Task {
 
   bool get canCreate => !closed && isLocal && _hpCreate;
   bool get canCreateSubtask => canCreate && !isTask;
+  bool get canCreateChecklist => canCreate && isTask;
+
   bool get canDuplicate => !isInbox && canCreate;
   bool get canEdit => !isInbox && isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => !isInbox && ((isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete));
@@ -78,7 +80,6 @@ extension TaskActionsUC on Task {
 
   bool get canEditProjectStatuses => hfsTaskboard && _hpProjectInfoUpdate;
 
-  bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard;
 
   Iterable<TaskAction> actions(BuildContext context) => [

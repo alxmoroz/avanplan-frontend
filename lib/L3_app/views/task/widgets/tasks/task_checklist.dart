@@ -3,12 +3,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
+import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'task_checklist_item.dart';
@@ -16,22 +20,25 @@ import 'task_checklist_item.dart';
 class TaskChecklist extends StatelessWidget {
   const TaskChecklist(this._taskController, {super.key});
   final TaskController _taskController;
-
+  Task get _task => _taskController.task;
   SubtasksController get _controller => _taskController.subtasksController;
 
   Widget get _addButton => MTField(
         const MTFieldData(-1),
         leading: const PlusIcon(circled: true, size: P6),
-        value: BaseText.f2(addSubtaskActionTitle(_taskController.task)),
-        onTap: _controller.addTask,
+        value: BaseText.f2(_task.hasSubtasks ? addSubtaskActionTitle(_task) : '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
+        onTap: _controller.add,
       );
 
   Widget _itemBuilder(BuildContext context, int index) {
-    if (index == _controller.taskControllers.length) {
-      return _addButton;
-    } else {
-      return TaskChecklistItem(_controller, index);
-    }
+    return index == _controller.subtasks.length
+        ? _addButton
+        : TaskChecklistItem(
+            _controller.subtasks.elementAt(index),
+            bottomDivider: true,
+            onSubmit: _controller.add,
+            onDelete: () => _controller.delete(index),
+          );
   }
 
   @override
@@ -41,7 +48,7 @@ class TaskChecklist extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: _itemBuilder,
-        itemCount: _controller.taskControllers.length + 1,
+        itemCount: _controller.subtasks.length + (_task.canCreateChecklist ? 1 : 0),
       ),
     );
   }

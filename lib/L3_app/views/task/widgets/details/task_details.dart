@@ -27,7 +27,6 @@ import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
-import 'checklist_add_field.dart';
 import 'description_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
@@ -65,11 +64,8 @@ class TaskDetails extends StatelessWidget {
           /// Описание
           if (_showDescription(context)) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
-          /// Кнопка для добавления чек-листа
-          if (!_isTaskDialog(context) && _task.canAddChecklist) TaskChecklistAddField(_controller),
-
           /// Чек-лист
-          if (!_isTaskDialog(context) && _task.isCheckList) ...[
+          if (!_isTaskDialog(context) && (_task.canCreateChecklist || _task.isCheckList)) ...[
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],

@@ -14,11 +14,9 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_tasks.dart';
 import '../../controllers/task_controller.dart';
 import '../tasks/task_card.dart';
 
@@ -91,10 +89,7 @@ class TaskBoardColumn {
           ),
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           bottomDivider: false,
-          onTap: () async {
-            final newTask = await _parent.ws.createTask(_parent, statusId: _status.id!);
-            if (newTask != null) router.goTaskView(newTask);
-          },
+          onTap: () => _taskController.addSubtask(statusId: _status.id!),
         )
       : null;
 

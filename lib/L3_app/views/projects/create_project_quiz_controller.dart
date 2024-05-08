@@ -7,7 +7,6 @@ import '../../../L1_domain/entities/task.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_tree.dart';
-import '../../usecases/ws_tasks.dart';
 import '../quiz/abstract_quiz_controller.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
 import '../task/controllers/feature_sets_controller.dart';
@@ -32,12 +31,9 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     } else if (step.code == _StepCode.team.name) {
       router.goTeamQuiz(taskController);
     } else if (step.code == _StepCode.goals.name) {
-      final goal = await _project.ws.createTask(_project);
-      if (goal != null) {
-        // TODO: тут должен быть ShellRoute или что-то такое...
-        // сейчас сбрасывается на независимое создание цели
-        router.goTaskView(goal);
-      }
+      // TODO: тут должен быть ShellRoute или что-то такое...
+      // сейчас сбрасывается на независимое создание цели
+      await taskController.addSubtask();
     } else if (step.code == _StepCode.tasks.name) {
       router.goSubtasksQuiz(taskController);
     }

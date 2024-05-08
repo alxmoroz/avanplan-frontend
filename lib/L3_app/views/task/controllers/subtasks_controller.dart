@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
-import '../../../usecases/ws_tasks.dart';
 import 'task_controller.dart';
 
 part 'subtasks_controller.g.dart';
@@ -23,37 +22,20 @@ abstract class _SubtasksControllerBase with Store {
   Task get parent => _parentTaskController.task;
 
   @observable
-  ObservableList<TaskController> taskControllers = ObservableList();
+  ObservableList<Task> subtasks = ObservableList();
 
   @action
-  void reload() => taskControllers = ObservableList.of(parent.subtasks.map((t) => TaskController(t)));
+  void reload() => subtasks = ObservableList.of(parent.subtasks);
 
   @action
-  Future addTask() async {
-    final newTask = await parent.ws.createTask(parent, statusId: _parentTaskController.projectStatusesController.firstOpenedStatusId);
-    if (newTask != null) {
-      final tc = TaskController(newTask);
-      taskControllers.add(tc);
-      tc.titleController.setFocus();
-    }
+  Future add() async {
+    final t = await _parentTaskController.addSubtask(noGo: true);
+    if (t != null) subtasks.add(t);
   }
 
   @action
-  Future<bool> deleteTask(TaskController tc) async {
-    await tc.task.delete();
-    tc.dispose();
-    taskControllers.remove(tc);
-    return false;
-  }
-
-  Future editTitle(TaskController tc, String str) async {
-    await tc.titleController.editTitle(str);
-  }
-
-  void dispose() {
-    for (TaskController tc in taskControllers) {
-      tc.dispose();
-    }
-    taskControllers.clear();
+  Future delete(int index) async {
+    final t = subtasks[index];
+    if (await t.delete() != null) subtasks.remove(t);
   }
 }

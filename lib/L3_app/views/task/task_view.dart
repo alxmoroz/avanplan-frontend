@@ -70,7 +70,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void dispose() {
-    controller.subtasksController.dispose();
     controller.dispose();
     task.creating = false;
 

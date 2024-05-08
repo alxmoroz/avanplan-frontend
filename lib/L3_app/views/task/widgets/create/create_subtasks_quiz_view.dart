@@ -4,16 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/field.dart';
+import '../../../../components/field_data.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_type.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
@@ -22,7 +27,6 @@ import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../../widgets/create/create_task_button.dart';
 import '../tasks/task_checklist_item.dart';
 
 class CreateSubtasksQuizRoute extends AbstractTaskQuizRoute {
@@ -37,25 +41,29 @@ class CreateSubtasksQuizRoute extends AbstractTaskQuizRoute {
 }
 
 class _CreateSubtasksQuizView extends StatelessWidget {
-  const _CreateSubtasksQuizView(this._controller);
-  final TaskController _controller;
+  const _CreateSubtasksQuizView(this._taskController);
+  final TaskController _taskController;
+  Task get _task => _taskController.task;
+  SubtasksController get _subtasksController => _taskController.subtasksController;
 
-  AbstractQuizController get qController => _controller.quizController!;
-  SubtasksController get subtasksController => _controller.subtasksController;
+  AbstractQuizController get qController => _taskController.quizController!;
 
-  Widget get addButton => CreateTaskButton(
-        _controller,
-        type: ButtonType.secondary,
-        margin: const EdgeInsets.only(top: P3),
-        onTap: subtasksController.addTask,
+  Widget get _addButton => MTField(
+        const MTFieldData(-1),
+        leading: const PlusIcon(circled: true, size: P6),
+        value: BaseText.f2(addSubtaskActionTitle(_task)),
+        onTap: _subtasksController.add,
       );
 
-  Widget itemBuilder(BuildContext context, int index) {
-    if (index == subtasksController.taskControllers.length) {
-      return addButton;
-    } else {
-      return TaskChecklistItem(subtasksController, index);
-    }
+  Widget _itemBuilder(BuildContext context, int index) {
+    return index == _subtasksController.subtasks.length
+        ? _addButton
+        : TaskChecklistItem(
+            _subtasksController.subtasks.elementAt(index),
+            bottomDivider: true,
+            onSubmit: _subtasksController.add,
+            onDelete: () => _subtasksController.delete(index),
+          );
   }
 
   @override
@@ -71,12 +79,12 @@ class _CreateSubtasksQuizView extends StatelessWidget {
               top: false,
               bottom: false,
               child: MTAdaptive(
-                child: subtasksController.taskControllers.isNotEmpty
+                child: _task.hasSubtasks
                     ? MTShadowed(
                         bottomShadow: true,
                         child: ListView.builder(
-                          itemBuilder: itemBuilder,
-                          itemCount: subtasksController.taskControllers.length + 1,
+                          itemBuilder: _itemBuilder,
+                          itemCount: _task.subtasks.length + 1,
                         ),
                       )
                     : Center(
@@ -85,7 +93,7 @@ class _CreateSubtasksQuizView extends StatelessWidget {
                           children: [
                             MTImage(ImageName.empty_tasks.name),
                             H2(loc.task_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-                            addButton,
+                            _addButton,
                           ],
                         ),
                       ),

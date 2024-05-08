@@ -43,6 +43,8 @@ class TitleController {
     _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
   }
 
+  void setFocus() => _taskController.focusNode(TaskFCode.title.index)?.requestFocus();
+
   /// описание
 
   Future editDescription() async {

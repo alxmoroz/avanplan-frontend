@@ -18,6 +18,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../extra/services.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 
@@ -78,7 +79,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
             margin: const EdgeInsets.only(right: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
-            onTap: (_controller.parent.closed && task.closed) ? null : _toggleDone,
+            onTap: (task.parent?.closed == true && task.closed) ? null : _toggleDone,
           ),
         Expanded(
           child: Stack(
@@ -167,7 +168,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       dividerEndIndent: P3,
       bottomDivider: tc.task.isCheckItem || _index < _controller.taskControllers.length - 1,
       onHover: isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
-      onTap: () => _controller.setFocus(true, tc),
+      onTap: () => tc.titleController.setFocus(),
     );
   }
 }

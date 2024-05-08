@@ -34,19 +34,7 @@ abstract class _SubtasksControllerBase with Store {
     if (newTask != null) {
       final tc = TaskController(newTask);
       taskControllers.add(tc);
-      setFocus(true, tc);
-    }
-  }
-
-  void setFocus(bool f, TaskController tc) {
-    final fn = tc.focusNode(TaskFCode.title.index);
-    if (fn != null) {
-      final hf = fn.hasFocus == true;
-      if (f && !hf) {
-        fn.requestFocus();
-      } else if (hf) {
-        fn.unfocus();
-      }
+      tc.titleController.setFocus();
     }
   }
 

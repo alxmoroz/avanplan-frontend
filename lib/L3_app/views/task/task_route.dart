@@ -9,8 +9,8 @@ import '../../components/adaptive.dart';
 import '../../components/constants.dart';
 import '../../extra/route.dart';
 import '../../extra/router.dart';
-import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
+import 'controllers/task_controller.dart';
 import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
@@ -21,8 +21,7 @@ abstract class BaseTaskRoute extends MTRoute {
   BaseTaskRoute({
     required super.baseName,
     super.parent,
-  });
-  // : super(controller: TaskController());
+  }) : super(controller: TaskController());
 
   bool get _parentHasWsId => parent is BaseTaskRoute && (parent as BaseTaskRoute).hasWsId == true;
   bool get hasWsId => path.contains(':wsId') || _parentHasWsId;
@@ -34,39 +33,25 @@ abstract class BaseTaskRoute extends MTRoute {
   double get dialogMaxWidth => SCR_L_WIDTH;
 
   @override
-  String title(GoRouterState state) => task(state).viewTitle;
+  String title(GoRouterState state) => task.viewTitle;
 
   @override
   bool isDialog(BuildContext context) => isBigScreen(context) && baseName == TType.TASK.toLowerCase();
 
-  Task task(GoRouterState state) {
-    final wsId = state.pathParamInt('wsId')!;
-    final taskId = state.pathParamInt('${baseName}Id')!;
-
-    final existingT = tasksMainController.task(wsId, taskId);
-    return existingT ??
-        Task(
-          wsId: wsId,
-          id: taskId,
-          type: baseName.toUpperCase(),
-          title: '',
-          startDate: null,
-          closed: false,
-          parentId: null,
-          notes: [],
-          attachments: [],
-          members: [],
-          projectStatuses: [],
-          projectFeatureSets: [],
-        );
-  }
+  TaskController get taskController => controller as TaskController;
+  Task get task => taskController.task;
 
   @override
-  GoRouterWidgetBuilder? get builder => (context, state) {
-        final t = task(state);
-        t.immutable = router.isDeepLink && state.matchedLocation == state.uri.path;
-        return t.creating && (t.isProject || t.isGoal) ? CreateTaskQuizView(t) : TaskView(t);
+  GoRouterRedirect? get redirect => (context, state) {
+        final wsId = state.pathParamInt('wsId')!;
+        final taskId = state.pathParamInt('${baseName}Id')!;
+        taskController.init(wsId, taskId, type: baseName.toUpperCase());
+        return null;
       };
+
+  @override
+  GoRouterWidgetBuilder? get builder =>
+      (context, state) => task.creating && (task.isProject || task.isGoal) ? CreateTaskQuizView(taskController) : TaskView(taskController);
 }
 
 class TaskRoute extends BaseTaskRoute {

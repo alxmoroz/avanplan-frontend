@@ -37,8 +37,8 @@ import 'widgets/header/task_header.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 
 class TaskView extends StatefulWidget {
-  const TaskView(this._taskDescriptor, {super.key});
-  final Task _taskDescriptor;
+  const TaskView(this._controller, {super.key});
+  final TaskController _controller;
 
   @override
   State<TaskView> createState() => TaskViewState();
@@ -47,22 +47,23 @@ class TaskView extends StatefulWidget {
 class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController _scrollController;
   late final ScrollController _boardScrollController;
-  late final TaskController controller;
 
+  TaskController get controller => widget._controller;
   bool _hasScrolled = false;
   Task get task => controller.task;
-  Task get td => widget._taskDescriptor;
+  Task get td => controller.taskDescriptor;
   bool get _hasParent => task.parent != null;
 
-  bool get _isTaskDialog => isBigScreen(context) && td.isTask;
-  bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
+  bool get _isTaskDialog => isBigScreen(context) && task.isTask;
+  bool get _isBigGroup => isBigScreen(context) && (task.isGroup || task.isInbox);
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   // TODO: определить как и fast / other actions в задаче
   bool get _hasQuickActions => (task.hasSubtasks && (task.canShowBoard || task.canLocalImport || task.canCreate)) || task.canComment;
 
   @override
   void initState() {
-    controller = TaskController(td, needFresh: true);
+    if (!td.filled) controller.reloadTask();
+
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
     super.initState();

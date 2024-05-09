@@ -32,7 +32,7 @@ class MTRoute extends GoRoute {
   final MTRoute? parent;
   final Loadable? controller;
 
-  bool get loading => controller?.loading == true || parent?.loading == true;
+  bool get parentLoading => parent?.controller?.l.loading == true;
 
   @override
   String get name => '${parent?.name ?? ''}/$baseName';
@@ -54,9 +54,9 @@ class MTRoute extends GoRoute {
         }
 
         Widget child = builder!(context, state);
-        if (controller != null || parent?.controller != null) {
+        if (parent?.controller != null) {
           child = Observer(builder: (_) {
-            return loading ? const LoaderScreen() : child;
+            return parentLoading ? const LoaderScreen() : child;
           });
         }
 

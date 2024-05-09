@@ -47,7 +47,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   @override
   void initState() {
-    controller = TaskController(widget._taskIn);
+    controller = TaskController(taskIn: widget._taskIn);
     if (widget._taskIn.creating) controller.titleController.setFocus();
     super.initState();
   }

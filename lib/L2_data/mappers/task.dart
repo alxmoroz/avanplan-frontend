@@ -21,7 +21,7 @@ extension TaskMapper on api.TaskGet {
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
       title: title.trim(),
-      type: type ?? 'TASK',
+      type: type ?? TType.TASK,
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
       closedDate: closedDate?.toLocal(),

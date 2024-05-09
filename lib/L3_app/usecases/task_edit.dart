@@ -70,7 +70,7 @@ extension TaskUC on Task {
       final taskNode = await taskUC.taskNode(wsId, id!);
       if (taskNode != null) {
         // удаление дерева подзадач
-        subtasks.where((t) => !t.immutable).toList().forEach((t) => tasksMainController.removeTask(t));
+        subtasks.toList().forEach((t) => tasksMainController.removeTask(t));
 
         // новое дерево родителей и подзадач
         // сама задача / цель / проект

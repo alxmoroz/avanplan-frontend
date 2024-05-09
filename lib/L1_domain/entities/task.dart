@@ -68,6 +68,7 @@ class Task extends Project {
     required this.projectStatuses,
     required this.projectFeatureSets,
     required super.wsId,
+    required this.type,
     this.taskSource,
     this.createdOn,
     this.updatedOn,
@@ -76,7 +77,6 @@ class Task extends Project {
     this.projectStatusId,
     this.authorId,
     this.assigneeId,
-    this.type = 'TASK',
     this.estimate,
     this.state = TaskState.NO_INFO,
     this.velocity = 0,
@@ -118,8 +118,6 @@ class Task extends Project {
   int? assigneeId;
   num? estimate;
 
-  // TODO: должно уйти после 1.22
-  bool immutable = false;
   // TODO: в контроллер всё же?
   bool creating = false;
 

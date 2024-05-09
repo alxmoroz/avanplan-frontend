@@ -2,7 +2,15 @@
 
 import 'package:mobx/mobx.dart';
 
+part 'loadable.g.dart';
+
 mixin Loadable {
+  final l = _Loadable();
+}
+
+class _Loadable extends _LoadableBase with _$_Loadable {}
+
+abstract class _LoadableBase with Store {
   @observable
   bool loading = true;
 

@@ -42,7 +42,11 @@ enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estim
 enum TasksFilter { my, projects }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController(Task taskIn, {bool needFresh = false}) {
+  TaskController({Task? taskIn}) {
+    if (taskIn != null) _initWithTask(taskIn);
+  }
+
+  void _initWithTask(Task taskIn) {
     taskDescriptor = taskIn;
 
     _setupFields();
@@ -73,12 +77,25 @@ class TaskController extends _TaskControllerBase with _$TaskController {
                 : null
         : null;
 
-    // TODO: похоже на костыль. Поправим в задаче про рефакторинг "Рефакторинг SubtasksController"
-    if (needFresh && !taskDescriptor.filled) {
-      reloadTask();
-    } else {
-      _reloadContentControllers();
-    }
+    _reloadContentControllers();
+  }
+
+  void init(int wsId, int taskId, {String? type}) {
+    _initWithTask(tasksMainController.task(wsId, taskId) ??
+        Task(
+          wsId: wsId,
+          id: taskId,
+          type: type ?? TType.TASK,
+          title: '',
+          startDate: null,
+          closed: false,
+          parentId: null,
+          notes: [],
+          attachments: [],
+          members: [],
+          projectStatuses: [],
+          projectFeatureSets: [],
+        ));
   }
 
   void _setupFields() => initState(fds: [
@@ -98,6 +115,26 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.note.index),
         MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
       ]);
+
+  void _reloadContentControllers() {
+    attachmentsController.reload();
+    notesController.reload();
+    subtasksController.reload();
+    featureSetsController.reload();
+    projectStatusesController.reload();
+  }
+
+  Future reloadTask() async {
+    l.startLoading();
+    final reloadedTask = await taskDescriptor.reload();
+    if (reloadedTask != null) {
+      taskDescriptor = reloadedTask;
+
+      _setupFields();
+      _reloadContentControllers();
+    }
+    l.stopLoading();
+  }
 
   Future taskAction(BuildContext context, TaskAction? actionType) async {
     switch (actionType) {
@@ -128,30 +165,11 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       default:
     }
   }
-
-  void _reloadContentControllers() {
-    attachmentsController.reload();
-    notesController.reload();
-    subtasksController.reload();
-    featureSetsController.reload();
-    projectStatusesController.reload();
-  }
-
-  Future reloadTask() async {
-    final reloadedTask = await taskDescriptor.reload();
-    if (reloadedTask != null) {
-      taskDescriptor = reloadedTask;
-
-      // TODO: кривовато. Можно это делать в одном месте как-то, а не двумя методами
-      // TODO: нужно инит контроллера этого делать один раз, если не надо задачу перезагружать. И один раз - если надо.
-      _setupFields();
-      _reloadContentControllers();
-    }
-  }
 }
 
 abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late Task taskDescriptor;
+
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;

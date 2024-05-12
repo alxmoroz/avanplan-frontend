@@ -3,30 +3,29 @@
 import 'package:collection/collection.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:mobx/mobx.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/attachment.dart';
-import '../../../../L2_data/services/api.dart';
+import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
-import '../widgets/attachments/upload_dialog.dart';
 import 'task_controller.dart';
 
 part 'attachments_controller.g.dart';
 
 class AttachmentsController extends _AttachmentsControllerBase with _$AttachmentsController {
-  AttachmentsController(TaskController taskController) {
-    _taskController = taskController;
+  AttachmentsController(TaskController tcIn) {
+    taskController = tcIn;
   }
 }
 
 abstract class _AttachmentsControllerBase with Store {
-  late final TaskController _taskController;
+  late final TaskController taskController;
+  Task get task => taskController.task;
 
   @observable
   ObservableList<Attachment> _attachments = ObservableList();
 
   @action
-  void reload() => _attachments = ObservableList.of(_taskController.task.attachments);
+  void reload() => _attachments = ObservableList.of(taskController.task.attachments);
 
   @computed
   List<Attachment> get sortedAttachments => _attachments.sorted((a1, a2) => a1.compareTo(a2));
@@ -48,16 +47,4 @@ abstract class _AttachmentsControllerBase with Store {
   String get selectedFilesStr => selectedFiles.map((f) => f.name).take(_visibleFileNames).join(', ');
   @computed
   String get selectedFilesCountMoreStr => selectedFiles.length > _visibleFileNames ? loc.more_count(selectedFiles.length - _visibleFileNames) : '';
-
-  Future selectFiles() async {
-    final files = await selectFilesDialog();
-    setFiles(files);
-  }
-
-  Future download(Attachment attachment) async {
-    final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');
-    if (await canLaunchUrlString(urlString)) {
-      await launchUrlString(urlString);
-    }
-  }
 }

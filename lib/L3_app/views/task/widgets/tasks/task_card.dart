@@ -129,7 +129,7 @@ class TaskCard extends StatelessWidget {
           _title,
           // ошибки
           if (task.error != null)
-            _error(task.error!.title)
+            _error(task.error!.message)
           // импортирующийся проект
           else if (task.isImportingProject)
             Container()

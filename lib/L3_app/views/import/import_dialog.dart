@@ -20,17 +20,16 @@ import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_sources.dart';
+import '../_base/loader_screen.dart';
 import '../source/no_sources.dart';
 import '../source/source_edit_dialog.dart';
 import 'import_controller.dart';
-
-Future _importDialog(ImportController controller) async => await showMTDialog<void>(_ImportDialog(controller));
 
 // старт сценария по импорту задач
 Future importTasks(Workspace ws) async {
   final controller = await ImportController().init(ws);
   controller.ws.checkSources();
-  await _importDialog(controller);
+  await showMTDialog<void>(_ImportDialog(controller));
 }
 
 class _ImportDialog extends StatelessWidget {
@@ -144,17 +143,19 @@ class _ImportDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          innerHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
-          middle: controller.ws.subPageTitle(loc.import_title),
-          bottom: _hasSources ? _header : null,
-        ),
-        body: _body(context),
-        bottomBar: _bottomBar(context),
-      ),
+      builder: (_) => controller.loading
+          ? LoaderScreen(controller, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                innerHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
+                middle: controller.ws.subPageTitle(loc.import_title),
+                bottom: _hasSources ? _header : null,
+              ),
+              body: _body(context),
+              bottomBar: _bottomBar(context),
+            ),
     );
   }
 }

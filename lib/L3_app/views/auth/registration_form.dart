@@ -9,6 +9,7 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
+import '../../views/_base/loader_screen.dart';
 import 'registration_completed_message.dart';
 import 'registration_request_controller.dart';
 
@@ -38,28 +39,30 @@ class _RegistrationDialogState extends State<_RegistrationDialog> {
 
   @override
   Widget build(BuildContext context) => Observer(
-        builder: (_) => MTDialog(
-          topBar: MTAppBar(
-            showCloseButton: true,
-            color: b2Color,
-            title: controller.requestCompleted ? loc.register_completed_title : loc.register_title,
-          ),
-          body: controller.requestCompleted
-              ? RegistrationCompletedMessage(controller)
-              : ListView(
-                  shrinkWrap: true,
-                  children: [
-                    controller.tf(RegistrationFCode.name, first: true),
-                    controller.tf(RegistrationFCode.email),
-                    controller.tf(RegistrationFCode.password),
-                    const SizedBox(height: P3),
-                    MTButton.main(
-                      titleText: loc.register_action_title,
-                      onTap: controller.validated ? () => controller.createRequest(context) : null,
-                    ),
-                    if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-                  ],
+        builder: (_) => controller.loading
+            ? LoaderScreen(controller, isDialog: true)
+            : MTDialog(
+                topBar: MTAppBar(
+                  showCloseButton: true,
+                  color: b2Color,
+                  title: controller.requestCompleted ? loc.register_completed_title : loc.register_title,
                 ),
-        ),
+                body: controller.requestCompleted
+                    ? RegistrationCompletedMessage(controller)
+                    : ListView(
+                        shrinkWrap: true,
+                        children: [
+                          controller.tf(RegistrationFCode.name, first: true),
+                          controller.tf(RegistrationFCode.email),
+                          controller.tf(RegistrationFCode.password),
+                          const SizedBox(height: P3),
+                          MTButton.main(
+                            titleText: loc.register_action_title,
+                            onTap: controller.validated ? () => controller.createRequest(context) : null,
+                          ),
+                          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+                        ],
+                      ),
+              ),
       );
 }

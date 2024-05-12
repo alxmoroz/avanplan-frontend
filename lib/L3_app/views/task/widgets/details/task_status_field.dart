@@ -11,6 +11,7 @@ import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/status.dart';
 
 class TaskStatusField extends StatelessWidget {
   const TaskStatusField(this._controller, {super.key});
@@ -39,7 +40,7 @@ class TaskStatusField extends StatelessWidget {
               )
             : null,
         loading: _task.loading,
-        onTap: _task.canSetStatus ? () => _controller.statusController.selectStatus(context) : null,
+        onTap: _task.canSetStatus ? () => _controller.selectStatus(context) : null,
       ),
     );
   }

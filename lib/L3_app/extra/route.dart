@@ -11,7 +11,7 @@ import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/dialog.dart';
 import '../views/_base/loadable.dart';
-import '../views/loader/loader_screen.dart';
+import '../views/_base/loader_screen.dart';
 import 'services.dart';
 
 class MTRoute extends GoRoute {
@@ -32,7 +32,7 @@ class MTRoute extends GoRoute {
   final MTRoute? parent;
   final Loadable? controller;
 
-  bool get parentLoading => parent?.controller?.l.loading == true;
+  bool get parentLoading => parent?.controller?.loading == true;
 
   @override
   String get name => '${parent?.name ?? ''}/$baseName';
@@ -53,14 +53,13 @@ class MTRoute extends GoRoute {
           ));
         }
 
-        Widget child = builder!(context, state);
-        if (parent?.controller != null) {
-          child = Observer(builder: (_) {
-            return parentLoading ? const LoaderScreen() : child;
-          });
-        }
+        final dialog = isDialog(context);
 
-        return isDialog(context)
+        Widget child = parent?.controller != null
+            ? Observer(builder: (_) => parentLoading ? LoaderScreen(parent!.controller!, isDialog: dialog) : builder!(context, state))
+            : builder!(context, state);
+
+        return dialog
             ? MTDialogPage(
                 name: state.name,
                 arguments: state.extra,

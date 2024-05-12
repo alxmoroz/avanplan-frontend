@@ -2,10 +2,10 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/errors.dart';
 import '../../components/images.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../views/_base/loadable.dart';
 
 part 'auth_controller.g.dart';
 
@@ -20,57 +20,47 @@ class AuthController extends _AuthControllerBase with _$AuthController {
   }
 }
 
-abstract class _AuthControllerBase with Store {
+abstract class _AuthControllerBase with Store, Loadable {
   @observable
   bool signInWithAppleIsAvailable = false;
 
   @observable
   bool authorized = false;
 
+  @override
+  startLoading() {
+    setLoaderScreen(imageName: ImageName.privacy.name, titleText: loc.loader_auth_title);
+    super.startLoading();
+  }
+
   @action
   Future _signInWithRegistration() async {
     if (registrationTokenController.hasToken) {
-      _startLdrAuth();
       final token = registrationTokenController.token!;
       registrationTokenController.clear();
       if (authorized) await authUC.signOut();
 
-      authorized = await authUC.signInWithRegistration(token);
+      await load(() async => authorized = await authUC.signInWithRegistration(token));
       if (authorized) router.goMain();
-      loader.stop();
     }
   }
 
   @action
   Future signInWithPassword(String email, String pwd) async {
-    _startLdrAuth();
-    authorized = await authUC.signInWithPassword(email, pwd);
+    await load(() async => authorized = await authUC.signInWithPassword(email, pwd));
     if (authorized) router.goMain();
-    loader.stop();
   }
 
   @action
   Future signInGoogle() async {
-    _startLdrAuth();
-    try {
-      authorized = await authUC.signInGoogle();
-      if (authorized) router.goMain();
-      loader.stop();
-    } on MTOAuthError catch (e) {
-      loader.setAuthError(e.description);
-    }
+    await load(() async => authorized = await authUC.signInGoogle());
+    if (authorized) router.goMain();
   }
 
   @action
   Future signInApple() async {
-    _startLdrAuth();
-    try {
-      authorized = await authUC.signInApple();
-      if (authorized) router.goMain();
-      loader.stop();
-    } on MTOAuthError catch (e) {
-      loader.setAuthError(e.description);
-    }
+    await load(() async => authorized = await authUC.signInApple());
+    if (authorized) router.goMain();
   }
 
   @action
@@ -78,29 +68,20 @@ abstract class _AuthControllerBase with Store {
     final localAuth = await authUC.getLocalAuth();
     bool hasToken = localAuth.hasToken;
     if (hasToken && localAuth.needRefresh) {
-      _startLdrAuth();
       hasToken = await authUC.refreshToken();
-      loader.stop();
     }
     authorized = hasToken;
   }
 
   @action
   Future signOut() async {
-    authorized = false;
-    loader.start();
     await authUC.signOut();
-    loader.stop();
+    authorized = false;
     router.goAuth();
   }
 
-  Future startupActions() async {
-    await appController.initState();
+  Future startup() async {
+    await appController.startup();
     await _signInWithRegistration();
-  }
-
-  void _startLdrAuth() {
-    loader.set(imageName: ImageName.privacy.name, titleText: loc.loader_auth_title);
-    loader.start();
   }
 }

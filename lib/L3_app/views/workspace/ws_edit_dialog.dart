@@ -9,7 +9,8 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import 'ws_edit_controller.dart';
+import '../../views/_base/loader_screen.dart';
+import 'ws_controller.dart';
 
 Future<Workspace?> editWS(Workspace ws) async => await showMTDialog<Workspace?>(_WSEditDialog(ws));
 
@@ -22,13 +23,13 @@ class _WSEditDialog extends StatefulWidget {
 }
 
 class _WSEditDialogState extends State<_WSEditDialog> {
-  late final WSEditController controller;
+  late final WSController controller;
 
   bool get canSave => controller.validated;
 
   @override
   void initState() {
-    controller = WSEditController(widget.ws);
+    controller = WSController(widget.ws);
     super.initState();
   }
 
@@ -40,20 +41,22 @@ class _WSEditDialogState extends State<_WSEditDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
-          const SizedBox(height: P3),
-          MTButton.main(
-            titleText: loc.save_action_title,
-            onTap: canSave ? () => controller.save : null,
-          ),
-          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-        ],
-      ),
-    );
+    return controller.loading
+        ? LoaderScreen(controller, isDialog: true)
+        : MTDialog(
+            topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
+            body: ListView(
+              shrinkWrap: true,
+              children: [
+                for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
+                const SizedBox(height: P3),
+                MTButton.main(
+                  titleText: loc.save_action_title,
+                  onTap: canSave ? () => controller.save : null,
+                ),
+                if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+              ],
+            ),
+          );
   }
 }

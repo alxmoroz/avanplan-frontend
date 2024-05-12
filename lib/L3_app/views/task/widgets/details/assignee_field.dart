@@ -15,6 +15,7 @@ import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/assignee.dart';
 
 class TaskAssigneeField extends StatelessWidget {
   const TaskAssigneeField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
@@ -37,7 +38,7 @@ class TaskAssigneeField extends StatelessWidget {
         value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
         compact: compact,
         margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-        onTap: _task.canAssign ? _controller.assigneeController.startAssign : null,
+        onTap: _task.canAssign ? _controller.startAssign : null,
       ),
     );
   }

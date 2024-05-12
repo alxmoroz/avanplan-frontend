@@ -15,6 +15,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/title.dart';
 
 class TaskDescriptionField extends StatelessWidget {
   const TaskDescriptionField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
@@ -43,7 +44,7 @@ class TaskDescriptionField extends StatelessWidget {
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       crossAxisAlignment: _task.isTask && _task.hasDescription ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-      onTap: _task.canEdit ? _controller.titleController.editDescription : null,
+      onTap: _task.canEdit ? _controller.editDescription : null,
     );
   }
 }

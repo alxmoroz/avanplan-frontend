@@ -19,7 +19,7 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_tariff.dart';
+import '../../../../usecases/ws_actions.dart';
 import 'invitation_controller.dart';
 
 Future invite(Task task) async {

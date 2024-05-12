@@ -14,6 +14,9 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/attachments.dart';
+import '../../usecases/note_edit.dart';
+import '../../usecases/status.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../local_transfer/local_import_dialog.dart';
@@ -46,7 +49,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
                 color: greenColor,
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 loading: _task.loading,
-                onTap: () => _controller.statusController.setClosed(context, true),
+                onTap: () => _controller.setClosed(context, true),
               ),
             const Spacer(),
             if (_task.canLocalImport)
@@ -63,13 +66,13 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
               MTButton.secondary(
                 middle: const AttachmentIcon(size: P4),
                 constrained: false,
-                onTap: () => _controller.notesController.startUpload(),
+                onTap: _controller.attachmentsController.startUpload,
               ),
               const SizedBox(width: P2),
               MTButton.secondary(
                 middle: const NoteAddIcon(),
                 constrained: false,
-                onTap: () => _controller.notesController.create(),
+                onTap: _controller.createNote,
               ),
             ],
             const SizedBox(width: P2),

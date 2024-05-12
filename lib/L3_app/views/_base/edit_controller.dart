@@ -69,10 +69,10 @@ abstract class _EditControllerBase with Store {
   Iterable<MTFieldData> get _validatableFD => _fds.where((fd) => fd.validate);
 
   @computed
-  bool get filled => _validatableFD.every((fd) => fd.text.isNotEmpty);
+  bool get _fieldsFilled => _validatableFD.every((fd) => fd.text.isNotEmpty);
 
   @computed
-  bool get validated => filled && !_validatableFD.any((fd) => fd.errorText != null);
+  bool get validated => _fieldsFilled && !_validatableFD.any((fd) => fd.errorText != null);
 
   MTFieldData fData(int code) => _fdMap[code]!;
 

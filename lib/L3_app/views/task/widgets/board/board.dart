@@ -14,14 +14,13 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/project_statuses_controller.dart';
-import '../../controllers/status_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/status.dart';
 import 'column.dart';
 
 class TasksBoard extends StatelessWidget {
   const TasksBoard(this._taskController, {super.key, this.scrollController});
   final TaskController _taskController;
-  StatusController get _statusController => _taskController.statusController;
   ProjectStatusesController get _psController => _taskController.projectStatusesController;
   final ScrollController? scrollController;
 
@@ -49,10 +48,10 @@ class TasksBoard extends StatelessWidget {
           _statusAddButton,
         ],
         scrollController: scrollController,
-        onItemReorder: _statusController.moveTask,
+        onItemReorder: _taskController.changeStatus,
         onItemDraggingChanged: (_, dragging) => dragging ? HapticFeedback.mediumImpact() : null,
-        itemTargetOnWillAccept: _statusController.canMoveTaskTarget,
-        itemOnWillAccept: _statusController.canMoveTask,
+        itemTargetOnWillAccept: _taskController.itemTargetOnWillAccept,
+        itemOnWillAccept: _taskController.itemOnWillAccept,
         onColumnReorder: (int oldColumnIndex, int newColumnIndex) {},
         columnWidth: SCR_XS_WIDTH - P6,
         columnDivider: const SizedBox(width: P3),

@@ -29,9 +29,9 @@ import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
-import '../../usecases/ws_tariff.dart';
 import '../iap/iap_dialog.dart';
 import '../source/sources_dialog.dart';
+import '../tariff/tariff_selector.dart';
 import 'ws_edit_dialog.dart';
 import 'ws_expenses_dialog.dart';
 import 'ws_users_dialog.dart';
@@ -121,7 +121,7 @@ class _WSDialog extends StatelessWidget {
         trailing: const ChevronIcon(),
         bottomDivider: _hasExpenses,
         dividerIndent: P11,
-        onTap: () async => await _ws.changeTariff(),
+        onTap: () async => await selectTariff(_wsId),
       );
 
   Widget _tariffExpenses(BuildContext context) => MTListTile(

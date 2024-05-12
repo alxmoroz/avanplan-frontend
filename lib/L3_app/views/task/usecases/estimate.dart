@@ -1,11 +1,10 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/estimate_value.dart';
-import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/ws_estimates.dart';
 import '../../../components/constants.dart';
 import '../../../components/select_dialog.dart';
@@ -13,25 +12,19 @@ import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/workspace.dart';
 import '../../../usecases/task_tree.dart';
-import 'task_controller.dart';
+import '../controllers/task_controller.dart';
+import 'edit.dart';
 
-class EstimateController {
-  EstimateController(this._taskController);
-  final TaskController _taskController;
-
-  Task get task => _taskController.task;
-
-  /// оценка
-
+extension EstimateUC on TaskController {
   Future _reset() async {
     final oldValue = task.estimate;
     task.estimate = null;
-    if (!(await _taskController.saveField(TaskFCode.estimate))) {
+    if (!(await saveField(TaskFCode.estimate))) {
       task.estimate = oldValue;
     }
   }
 
-  Future select() async {
+  Future selectEstimate() async {
     final currentId = task.ws.estimateValueForValue(task.estimate)?.id;
     final selectedEstimateValue = await showMTSelectDialog<EstimateValue>(
       task.ws.sortedEstimateValues,
@@ -55,7 +48,7 @@ class EstimateController {
     if (selectedEstimateValue != null) {
       final oldValue = task.estimate;
       task.estimate = selectedEstimateValue.value;
-      if (!(await _taskController.saveField(TaskFCode.estimate))) {
+      if (!(await saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;
       }
     }

@@ -13,6 +13,7 @@ import '../../../../components/text.dart';
 import '../../../../presenters/date.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/dates.dart';
 
 class TaskStartDateField extends StatelessWidget {
   const TaskStartDateField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
@@ -39,7 +40,7 @@ class TaskStartDateField extends StatelessWidget {
           : null,
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-      onTap: _task.canEdit ? () => _controller.datesController.selectDate(context, TaskFCode.startDate) : null,
+      onTap: _task.canEdit ? () => _controller.selectDate(context, TaskFCode.startDate) : null,
     );
   }
 }

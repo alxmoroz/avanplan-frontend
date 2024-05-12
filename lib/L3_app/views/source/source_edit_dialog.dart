@@ -22,6 +22,7 @@ import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/communications.dart';
 import '../../usecases/source.dart';
+import '../../views/_base/loader_screen.dart';
 import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 
@@ -101,50 +102,52 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          middle: Row(mainAxisSize: MainAxisSize.min, children: [
-            if (wsMainController.multiWS) BaseText.f3('${controller.ws.codeStr} ', maxLines: 1),
-            if (_isNew) BaseText('${loc.source_title_new} ', maxLines: 1),
-            controller.selectedType!.iconTitle(size: P4),
-          ]),
-          trailing: controller.canEdit
-              ? MTButton.icon(
-                  const DeleteIcon(),
-                  onTap: controller.delete,
-                  padding: const EdgeInsets.all(P2),
-                )
-              : null,
-        ),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
-            if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
-            if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
-            if (controller.selectedType?.isTrelloJson == false)
-              controller.selectedType?.isTrello == true
-                  ? MTButton.secondary(
-                      titleText: loc.source_get_token_action,
-                      onTap: controller.getTrelloToken,
-                    )
-                  : MTButton.secondary(
-                      titleText: loc.source_get_token_help_action,
-                      onTap: () => launchUrlString(_sourceEditHelperAddress),
-                    ),
-            if (controller.selectedType?.isTrelloJson == false) controller.tf(SourceFCode.apiKey),
-            controller.tf(SourceFCode.description),
-            const SizedBox(height: P3),
-            MTButton.main(
-              titleText: loc.save_action_title,
-              onTap: _canSave ? () => controller.save(context) : null,
+      builder: (_) => controller.loading
+          ? LoaderScreen(controller, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                middle: Row(mainAxisSize: MainAxisSize.min, children: [
+                  if (wsMainController.multiWS) BaseText.f3('${controller.ws.codeStr} ', maxLines: 1),
+                  if (_isNew) BaseText('${loc.source_title_new} ', maxLines: 1),
+                  controller.selectedType!.iconTitle(size: P4),
+                ]),
+                trailing: controller.canEdit
+                    ? MTButton.icon(
+                        const DeleteIcon(),
+                        onTap: controller.delete,
+                        padding: const EdgeInsets.all(P2),
+                      )
+                    : null,
+              ),
+              body: ListView(
+                shrinkWrap: true,
+                children: [
+                  if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
+                  if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
+                  if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
+                  if (controller.selectedType?.isTrelloJson == false)
+                    controller.selectedType?.isTrello == true
+                        ? MTButton.secondary(
+                            titleText: loc.source_get_token_action,
+                            onTap: controller.getTrelloToken,
+                          )
+                        : MTButton.secondary(
+                            titleText: loc.source_get_token_help_action,
+                            onTap: () => launchUrlString(_sourceEditHelperAddress),
+                          ),
+                  if (controller.selectedType?.isTrelloJson == false) controller.tf(SourceFCode.apiKey),
+                  controller.tf(SourceFCode.description),
+                  const SizedBox(height: P3),
+                  MTButton.main(
+                    titleText: loc.save_action_title,
+                    onTap: _canSave ? controller.save : null,
+                  ),
+                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+                ],
+              ),
             ),
-            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-          ],
-        ),
-      ),
     );
   }
 }

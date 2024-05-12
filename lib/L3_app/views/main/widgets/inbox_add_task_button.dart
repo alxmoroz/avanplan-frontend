@@ -15,7 +15,7 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
 import '../../../usecases/task_tree.dart';
-import '../../../usecases/ws_tasks.dart';
+import '../../task/widgets/create/create_task_dialog.dart';
 
 class InboxAddTaskButton extends StatelessWidget {
   const InboxAddTaskButton({super.key, this.standalone = false, this.compact = true});
@@ -27,7 +27,7 @@ class InboxAddTaskButton extends StatelessWidget {
 
   Future _onTap() async {
     if (_inbox != null) {
-      final newTask = await _inbox!.ws.createTask(_inbox!);
+      final newTask = await createTask(_inbox!.ws, _inbox!);
       if (newTask != null) router.goTaskView(newTask);
     }
   }

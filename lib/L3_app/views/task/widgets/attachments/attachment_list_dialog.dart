@@ -16,6 +16,7 @@ import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/bytes.dart';
 import '../../controllers/attachments_controller.dart';
+import '../../usecases/attachments.dart';
 
 Future attachmentsDialog(AttachmentsController controller) async => await showMTDialog<void>(_AttachmentsDialog(controller));
 

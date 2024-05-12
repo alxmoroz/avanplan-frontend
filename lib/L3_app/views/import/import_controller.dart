@@ -9,10 +9,12 @@ import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../components/images.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/source.dart';
-import '../../usecases/ws_tariff.dart';
+import '../../usecases/ws_actions.dart';
+import '../_base/loadable.dart';
 import '../source/source_edit_dialog.dart';
 import '../source/source_type_selector.dart';
 
@@ -37,7 +39,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {
   }
 }
 
-abstract class _ImportControllerBase with Store {
+abstract class _ImportControllerBase with Store, Loadable {
   late final int wsId;
   Workspace get ws => wsMainController.ws(wsId);
 
@@ -56,19 +58,15 @@ abstract class _ImportControllerBase with Store {
   Iterable<ProjectRemote> get selectedProjects => projects.where((p) => p.selected);
 
   @computed
-  bool get validated => selectedProjects.isNotEmpty && !_sendingRequest;
+  bool get validated => selectedProjects.isNotEmpty;
 
   @observable
   String? errorCode;
-
-  @observable
-  bool _sendingRequest = false;
 
   @action
   void clear() {
     errorCode = null;
     projects = [];
-    _sendingRequest = false;
   }
 
   @computed
@@ -102,31 +100,54 @@ abstract class _ImportControllerBase with Store {
       clear();
       selectedSourceId = id;
       final loaderDescription = '$selectedSource';
-      loader.start();
+      startLoading();
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {
-        loader.setCheckConnection(loaderDescription);
+        setLoaderScreen(
+          imageName: ImageName.sync.name,
+          titleText: loc.loader_check_connection_title,
+          descriptionText: loaderDescription,
+        );
         connected = await selectedSource!.checkConnection();
       }
+
       if (connected) {
-        loader.setSourceListing(loaderDescription);
-        projects = (await importUC.getProjectsList(wsId, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
+        setLoaderScreen(
+          titleText: loc.loader_source_listing,
+          descriptionText: loaderDescription,
+          imageName: ImageName.import.name,
+        );
+        try {
+          projects = (await importUC.getProjectsList(wsId, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
+        } on Exception catch (e) {
+          parseError(e);
+        }
       } else {
         errorCode = 'error_import_connection';
       }
       wsMainController.refreshWorkspaces();
-      loader.stop();
+      stopLoading();
     }
   }
 
   @action
   Future startImport() async {
     if (await ws.checkBalance(loc.import_action_title)) {
-      _sendingRequest = true;
-      if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
-        await tasksMainController.updateImportingProjects();
+      setLoaderScreen(
+        titleText: loc.loader_importing_title,
+        imageName: ImageName.import.name,
+      );
+      startLoading();
+      bool importStarted = false;
+      try {
+        importStarted = await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
+      } on Exception catch (e) {
+        parseError(e);
       }
-      router.pop();
+      if (importStarted) {
+        tasksMainController.updateImportingProjects();
+        router.pop();
+      }
     }
   }
 }

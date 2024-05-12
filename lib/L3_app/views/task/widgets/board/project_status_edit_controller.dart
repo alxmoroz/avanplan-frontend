@@ -12,6 +12,7 @@ import '../../../../extra/services.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../_base/edit_controller.dart';
+import '../../../_base/loadable.dart';
 import '../../controllers/project_statuses_controller.dart';
 
 part 'project_status_edit_controller.g.dart';
@@ -19,15 +20,15 @@ part 'project_status_edit_controller.g.dart';
 enum StatusFCode { title, description, position, closed }
 
 class ProjectStatusEditController extends _ProjectStatusEditControllerBase with _$ProjectStatusEditController {
-  ProjectStatusEditController(ProjectStatusesController statusesController) {
-    _statusesController = statusesController;
+  ProjectStatusEditController(ProjectStatusesController psc) {
+    _psController = psc;
   }
 }
 
-abstract class _ProjectStatusEditControllerBase extends EditController with Store {
-  late final ProjectStatusesController _statusesController;
+abstract class _ProjectStatusEditControllerBase extends EditController with Store, Loadable {
+  late final ProjectStatusesController _psController;
 
-  Task get _project => _statusesController.project;
+  Task get _project => _psController.project;
 
   @observable
   ProjectStatus? _status;
@@ -40,9 +41,6 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
 
   @computed
   bool get usedInTasks => tasksWithStatusCount > 0;
-
-  @observable
-  bool loading = false;
 
   @action
   Future init(ProjectStatus statusIn) async {
@@ -69,9 +67,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
       }
 
       if (tasksWithStatusCount == 0) {
-        loading = true;
-        tasksWithStatusCount = await projectStatusUC.statusTasksCount(status.wsId, status.projectId, status.id!);
-        loading = false;
+        await load(() async => tasksWithStatusCount = await projectStatusUC.statusTasksCount(status.wsId, status.projectId, status.id!));
       }
     }
   }
@@ -80,7 +76,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   Future<bool> saveField(StatusFCode fCode) async {
     updateField(fCode.index, loading: true);
 
-    final es = await _statusesController.saveStatus(status);
+    final es = await _psController.saveStatus(status);
     final saved = es != null;
     if (saved) {
       _status = es;
@@ -94,7 +90,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   String? codeError;
 
   @computed
-  Iterable<String> get _siblingsTitles => _statusesController.siblingsTitles(status.id);
+  Iterable<String> get _siblingsTitles => _psController.siblingsTitles(status.id);
 
   String _processedInput(String str) => str.trim().isEmpty ? codePlaceholder : str;
 
@@ -147,19 +143,19 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
 
     status.position = swapPos;
     swapStatus.position = pos;
-    if (!(await saveField(StatusFCode.position)) || (await _statusesController.saveStatus(swapStatus) == null)) {
+    if (!(await saveField(StatusFCode.position)) || (await _psController.saveStatus(swapStatus) == null)) {
       status.position = pos;
       swapStatus.position = swapPos;
     }
   }
 
   @computed
-  ProjectStatus? get leftStatus => _statusesController.leftStatus(status);
+  ProjectStatus? get leftStatus => _psController.leftStatus(status);
   @computed
   bool get canMoveLeft => leftStatus != null;
 
   @computed
-  ProjectStatus? get rightStatus => _statusesController.rightStatus(status);
+  ProjectStatus? get rightStatus => _psController.rightStatus(status);
   @computed
   bool get canMoveRight => rightStatus != null;
 
@@ -177,6 +173,6 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
 
   Future delete() async {
     router.pop();
-    _statusesController.deleteStatus(status);
+    _psController.deleteStatus(status);
   }
 }

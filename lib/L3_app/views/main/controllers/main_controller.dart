@@ -11,12 +11,13 @@ import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/images.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
+import '../../../views/_base/loadable.dart';
 
 part 'main_controller.g.dart';
 
 class MainController extends _MainControllerBase with _$MainController {}
 
-abstract class _MainControllerBase with Store {
+abstract class _MainControllerBase with Store, Loadable {
   @computed
   List<MapEntry<TaskState, List<NextTaskOrEvent>>> get nextTasksOrEventsDateGroups {
     final nextTasksOrEvents = [
@@ -34,10 +35,7 @@ abstract class _MainControllerBase with Store {
   @action
   void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
-  Future reload() async {
-    loader.setLoading();
-    loader.start();
-
+  Future _reloadData() async {
     await accountController.reload();
     await refsController.reload();
     await notificationController.reload();
@@ -46,21 +44,25 @@ abstract class _MainControllerBase with Store {
     await calendarController.reload();
 
     _setUpdateDate(now);
-    loader.stop();
   }
+
+  @override
+  startLoading() {
+    setLoaderScreenLoading();
+    super.startLoading();
+  }
+
+  Future reload() async => await load(_reloadData);
 
   // Future _showOnboarding() async {}
 
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
     if (invitationTokenController.hasToken) {
-      loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
-      loader.start();
+      setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
       final token = invitationTokenController.token!;
       invitationTokenController.clear();
-
       invited = await myUC.redeemInvitation(token);
-      loader.stop();
     }
     return invited;
   }
@@ -69,25 +71,26 @@ abstract class _MainControllerBase with Store {
     final invited = await _tryRedeemInvitation();
     final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
     if (invited || isTimeToUpdate || router.isDeepLink) {
-      await reload();
+      await _reloadData();
     }
   }
 
   // static const _updatePeriod = Duration(hours: 1);
 
   @action
-  Future startupActions() async {
-    loader.start();
-    await appController.initState();
+  Future startup() async {
+    await appController.startup();
+
     await authController.checkLocalAuth();
     if (authController.authorized) {
-      await notificationController.setup();
-      // await _showOnboarding();
-      await _tryUpdate();
+      await load(() async {
+        await notificationController.setup();
+        // await _showOnboarding();
+        await _tryUpdate();
+      });
     } else {
       router.goAuth();
     }
-    loader.stop();
   }
 
   void clear() {

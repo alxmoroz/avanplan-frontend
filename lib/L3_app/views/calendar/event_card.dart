@@ -60,7 +60,7 @@ class EventCard extends StatelessWidget {
           const SizedBox(height: P2),
           BaseText(event.title, maxLines: 2, color: _textColor),
           // ошибки
-          if (event.error != null) _error(event.error!.title),
+          if (event.error != null) _error(event.error!.message),
           const SizedBox(height: P_2),
           if (event.state != TaskState.TODAY) _dates,
         ],

@@ -17,6 +17,7 @@ import '../../components/toolbar.dart';
 import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
+import '../../views/_base/loader_screen.dart';
 
 class AccountRoute extends MTRoute {
   static const staticBaseName = 'my_account';
@@ -43,31 +44,33 @@ class _AccountDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          title: loc.my_account_title,
-          trailing: MTButton.icon(const DeleteIcon(), onTap: () => accountController.delete(context), padding: const EdgeInsets.all(P2)),
-        ),
-        body: _me != null
-            ? ListView(
-                shrinkWrap: true,
-                children: [
-                  _me!.icon(P10, borderColor: mainColor),
-                  const SizedBox(height: P3),
-                  H3('$_me', align: TextAlign.center),
-                  BaseText(_me!.email, align: TextAlign.center),
-                  const SizedBox(height: P3),
-                  MTListTile(
-                    middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                    bottomDivider: false,
-                    onTap: authController.signOut,
-                  ),
-                ],
-              )
-            : Container(),
-      ),
+      builder: (_) => accountController.loading
+          ? LoaderScreen(accountController, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                title: loc.my_account_title,
+                trailing: MTButton.icon(const DeleteIcon(), onTap: () => accountController.delete(context), padding: const EdgeInsets.all(P2)),
+              ),
+              body: _me != null
+                  ? ListView(
+                      shrinkWrap: true,
+                      children: [
+                        _me!.icon(P10, borderColor: mainColor),
+                        const SizedBox(height: P3),
+                        H3('$_me', align: TextAlign.center),
+                        BaseText(_me!.email, align: TextAlign.center),
+                        const SizedBox(height: P3),
+                        MTListTile(
+                          middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                          bottomDivider: false,
+                          onTap: authController.signOut,
+                        ),
+                      ],
+                    )
+                  : Container(),
+            ),
     );
   }
 }

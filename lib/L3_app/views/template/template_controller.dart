@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../extra/services.dart';
+import '../../views/_base/loadable.dart';
 
 part 'template_controller.g.dart';
 
@@ -16,20 +17,16 @@ class TemplateController extends _TemplateControllerBase with _$TemplateControll
   }
 }
 
-abstract class _TemplateControllerBase with Store {
+abstract class _TemplateControllerBase with Store, Loadable {
   late final int _wsId;
 
   @observable
   Iterable<Project> _templates = [];
 
-  @observable
-  bool loading = true;
-
   @action
   Future reload() async {
-    loading = true;
-    _templates = await projectTransferUC.getProjectTemplates(_wsId);
-    loading = false;
+    setLoaderScreenLoading();
+    load(() async => _templates = await projectTransferUC.getProjectTemplates(_wsId));
   }
 
   @computed

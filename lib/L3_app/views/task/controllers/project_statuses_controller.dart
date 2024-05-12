@@ -1,23 +1,21 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/errors.dart';
 import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
+import '../../_base/loadable.dart';
 import '../widgets/board/project_status_edit_dialog.dart';
 import 'task_controller.dart';
 
 part 'project_statuses_controller.g.dart';
 
 class ProjectStatusesController extends _ProjectStatusesControllerBase with _$ProjectStatusesController {
-  ProjectStatusesController(TaskController taskController) {
-    _taskController = taskController;
+  ProjectStatusesController(TaskController tcIn) {
+    _taskController = tcIn;
   }
 
   Future edit(ProjectStatus status) async => await projectStatusEditDialog(status, this);
@@ -35,7 +33,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
 
 //TODO: переделать, как с заметками
 
-abstract class _ProjectStatusesControllerBase with Store {
+abstract class _ProjectStatusesControllerBase with Store, Loadable {
   late final TaskController _taskController;
 
   Task get project => _taskController.task.project;
@@ -65,43 +63,40 @@ abstract class _ProjectStatusesControllerBase with Store {
 
   Iterable<String> siblingsTitles(int? sId) => _statuses.where((s) => s.id != sId).map((s) => s.title.trim().toLowerCase());
 
-  Future<ProjectStatus?> _editStatus(ProjectStatus status, Future<ProjectStatus?> Function() function) async {
+  Future _editWrapper(ProjectStatus status, Function() function) async {
     status.loading = true;
     reload();
 
-    ProjectStatus? es;
-    try {
-      es = await function();
-    } on DioException catch (e) {
-      status.error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
-    }
+    setLoaderScreenSaving();
+    await load(function);
 
     status.loading = false;
     reload();
+  }
+
+  Future<ProjectStatus?> saveStatus(ProjectStatus status) async {
+    ProjectStatus? es;
+
+    await _editWrapper(status, () async {
+      es = await projectStatusUC.save(status);
+      if (es != null) {
+        if (status.isNew) {
+          project.projectStatuses.add(es!);
+        } else {
+          final index = project.projectStatuses.indexWhere((s) => es!.id == s.id);
+          if (index > -1) {
+            project.projectStatuses[index] = es!;
+          }
+        }
+      }
+    });
 
     return es;
   }
 
-  Future<ProjectStatus?> saveStatus(ProjectStatus status) async => await _editStatus(status, () async {
-        final es = await projectStatusUC.save(status);
-        if (es != null) {
-          if (status.isNew) {
-            project.projectStatuses.add(es);
-          } else {
-            final index = project.projectStatuses.indexWhere((s) => es.id == s.id);
-            if (index > -1) {
-              project.projectStatuses[index] = es;
-            }
-          }
-          return es;
-        }
-        return null;
-      });
-
-  Future deleteStatus(ProjectStatus status) async => await _editStatus(status, () async {
+  Future deleteStatus(ProjectStatus status) async => await _editWrapper(status, () async {
         if (await projectStatusUC.delete(status) != null) {
           project.projectStatuses.remove(status);
         }
-        return null;
       });
 }

@@ -7,7 +7,10 @@ extension SourceUC on Source {
   Future<bool> checkConnection() async {
     bool connected = false;
     state = SrcState.checking;
-    connected = await sourceUC.checkConnection(this);
+    try {
+      connected = await sourceUC.checkConnection(this);
+    } catch (_) {}
+
     state = connected ? SrcState.connected : SrcState.error;
     wsMainController.refreshWorkspaces();
     return connected;

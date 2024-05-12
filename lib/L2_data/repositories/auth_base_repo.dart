@@ -10,5 +10,12 @@ mixin AuthMixin {
 
   String? parseTokenResponse(Response<AuthToken> tokenResponse) => tokenResponse.data?.accessToken;
 
-  Future<String> refreshToken() async => parseTokenResponse(await authApi.refreshToken()) ?? '';
+  Future<String> refreshToken() async {
+    try {
+      final tokenResponse = await authApi.refreshToken();
+      return parseTokenResponse(tokenResponse) ?? '';
+    } catch (_) {
+      return '';
+    }
+  }
 }

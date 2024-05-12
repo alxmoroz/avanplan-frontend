@@ -16,6 +16,7 @@ import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/attachments.dart';
 import '../attachments/upload_dialog.dart';
 
 class TextEditDialog extends StatelessWidget {
@@ -51,7 +52,7 @@ class TextEditDialog extends StatelessWidget {
                       MTButton.icon(
                         const AttachmentIcon(),
                         padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
-                        onTap: () => _controller.notesController.startUpload(instant: false),
+                        onTap: () => _controller.attachmentsController.startUpload(instant: false),
                       )
                     else
                       const SizedBox(width: P2),

@@ -1,12 +1,12 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/_base/loader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/circular_progress.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -16,28 +16,27 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../usecases/ws_tariff.dart';
+import '../../usecases/ws_actions.dart';
 import 'template_controller.dart';
 
-Future<Project?> _selectTemplate(TemplateController controller) async => showMTDialog<Project?>(_TemplateSelectorDialog(controller));
-
 Future createFromTemplate(Workspace ws) async {
-  final templateController = TemplateController(ws.id!);
-  templateController.reload();
-  final template = await _selectTemplate(templateController);
-  if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
-    loader.setSaving();
-    loader.start();
-    final changes = await projectTransferUC.createFromTemplate(template.wsId, template.id!, ws.id!);
-    if (changes != null) {
-      final p = changes.updated;
-      p.filled = true;
-      tasksMainController.setTasks([p, ...changes.affected]);
-      tasksMainController.refreshTasksUI(sort: true);
+  final controller = TemplateController(ws.id!);
+  controller.reload();
+  final template = await showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
-      router.goTaskView(p);
-    }
-    loader.stop();
+  if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
+    controller.setLoaderScreenSaving();
+    controller.load(() async {
+      final changes = await projectTransferUC.createFromTemplate(template.wsId, template.id!, ws.id!);
+      if (changes != null) {
+        final p = changes.updated;
+        p.filled = true;
+        tasksMainController.setTasks([p, ...changes.affected]);
+        tasksMainController.refreshTasksUI(sort: true);
+
+        router.goTaskView(p);
+      }
+    });
   }
 }
 
@@ -76,17 +75,17 @@ class _TemplateSelectorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.template_selector_title),
-      body: Observer(
-        builder: (_) => _controller.loading
-            ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress()))
-            : ListView.builder(
+    return Observer(
+      builder: (_) => _controller.loading
+          ? LoaderScreen(_controller, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.template_selector_title),
+              body: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _controller.templatesGroups.length,
                 itemBuilder: _groupBuilder,
               ),
-      ),
+            ),
     );
   }
 }

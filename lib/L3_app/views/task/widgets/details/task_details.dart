@@ -121,7 +121,7 @@ class TaskDetails extends StatelessWidget {
             ),
 
           /// Комментарии
-          if (_isTaskMobileView(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
+          if (_isTaskMobileView(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),
         ],
       ),
     );

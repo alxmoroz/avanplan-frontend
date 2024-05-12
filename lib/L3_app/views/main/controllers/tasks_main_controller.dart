@@ -13,8 +13,8 @@ import '../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
+import '../../task/usecases/edit.dart';
 
 part 'tasks_main_controller.g.dart';
 

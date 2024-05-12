@@ -6,31 +6,39 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/iap_product.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';
+import '../../views/_base/loadable.dart';
 
 part 'iap_controller.g.dart';
 
-class IAPController extends _IAPControllerBase with _$IAPController {}
+class IAPController extends _IAPControllerBase with _$IAPController {
+  IAPController() {
+    stopLoading();
+  }
+}
 
-abstract class _IAPControllerBase with Store {
+abstract class _IAPControllerBase with Store, Loadable {
   @observable
   List<IAPProduct> products = [];
-
-  @observable
-  bool loading = false;
 
   @observable
   bool? _isAppStore;
   @computed
   bool get paymentMethodSelected => _isAppStore != null;
 
+  @override
+  startLoading() {
+    setLoaderScreen(imageName: ImageName.purchase.name, titleText: loc.loader_purchasing_title);
+    super.startLoading();
+  }
+
   @action
   Future getProducts({required bool isAppStore}) async {
-    loading = true;
+    startLoading();
     _isAppStore = isAppStore;
 
     products = (await iapUC.products(
       appStore: isAppStore,
-      onError: (errorText) => loader.set(
+      onError: (errorText) => setLoaderScreen(
         imageName: ImageName.purchase.name,
         titleText: loc.error_get_products_title,
         descriptionText: errorText,
@@ -39,7 +47,7 @@ abstract class _IAPControllerBase with Store {
     ))
         .sorted((p1, p2) => p1.value.compareTo(p2.value));
 
-    loading = false;
+    stopLoading();
   }
 
   Future getAppStoreProducts() async => await getProducts(isAppStore: true);
@@ -49,8 +57,7 @@ abstract class _IAPControllerBase with Store {
   Future pay(int wsId, IAPProduct product) async {
     final userId = accountController.me?.id;
     if (userId != null) {
-      loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_purchasing_title);
-      loader.start();
+      startLoading();
       await iapUC.pay(
         product: product,
         wsId: wsId,
@@ -58,7 +65,7 @@ abstract class _IAPControllerBase with Store {
         appStore: _isAppStore == true,
         done: ({String? error, num? purchasedAmount}) {
           if (error != null && error.isNotEmpty) {
-            loader.set(
+            setLoaderScreen(
               imageName: ImageName.purchase.name,
               titleText: loc.error_purchase_title,
               descriptionText: error,
@@ -68,7 +75,7 @@ abstract class _IAPControllerBase with Store {
             if (purchasedAmount != null) {
               wsMainController.ws(wsId).balance += purchasedAmount;
             }
-            loader.stop();
+            stopLoading();
           }
         },
       );
@@ -79,6 +86,6 @@ abstract class _IAPControllerBase with Store {
   void reset() {
     _isAppStore = null;
     products = [];
-    loading = false;
+    stopLoading();
   }
 }

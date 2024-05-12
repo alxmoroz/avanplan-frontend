@@ -18,6 +18,7 @@ import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/edit.dart';
 import '../tasks/task_card.dart';
 
 class _ItemTarget extends StatelessWidget {

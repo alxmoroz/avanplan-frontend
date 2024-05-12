@@ -12,6 +12,7 @@ import '../../components/icons.dart';
 import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
+import '../_base/loadable.dart';
 
 part 'registration_request_controller.g.dart';
 
@@ -24,10 +25,11 @@ class RegistrationRequestController extends _RegistrationControllerBase with _$R
       MTFieldData(RegistrationFCode.email.index, label: loc.auth_email_placeholder, validate: true),
       MTFieldData(RegistrationFCode.password.index, label: loc.auth_password_placeholder, validate: true),
     ]);
+    stopLoading();
   }
 }
 
-abstract class _RegistrationControllerBase extends EditController with Store {
+abstract class _RegistrationControllerBase extends EditController with Store, Loadable {
   Widget tf(RegistrationFCode code, {bool first = false}) {
     final isPassword = code == RegistrationFCode.password;
     final isEmail = code == RegistrationFCode.email;
@@ -58,14 +60,14 @@ abstract class _RegistrationControllerBase extends EditController with Store {
 
   @action
   Future createRequest(BuildContext context) async {
-    loader.setSaving();
-    loader.start();
-    final regRequest = RegistrationRequest(
-      fData(RegistrationFCode.name.index).text,
-      fData(RegistrationFCode.email.index).text,
-      invitationToken: invitationTokenController.token,
-    );
-    requestCompleted = await authUC.requestRegistration(regRequest, fData(RegistrationFCode.password.index).text);
-    loader.stop();
+    setLoaderScreenSaving();
+    await load(() async {
+      final regRequest = RegistrationRequest(
+        fData(RegistrationFCode.name.index).text,
+        fData(RegistrationFCode.email.index).text,
+        invitationToken: invitationTokenController.token,
+      );
+      requestCompleted = await authUC.requestRegistration(regRequest, fData(RegistrationFCode.password.index).text);
+    });
   }
 }

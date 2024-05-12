@@ -11,43 +11,44 @@ import '../../components/text_field.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
+import '../_base/loadable.dart';
 
-part 'ws_edit_controller.g.dart';
+part 'ws_controller.g.dart';
 
 enum WSFCode { code, title, description }
 
-class WSEditController extends _WSEditControllerBase with _$WSEditController {
-  WSEditController(Workspace ws) {
+class WSController extends _WSControllerBase with _$WSController {
+  WSController(Workspace ws) {
     _ws = ws;
     initState(fds: [
       MTFieldData(WSFCode.code.index, label: loc.code, text: ws.code, validate: true),
       MTFieldData(WSFCode.title.index, label: loc.title, text: ws.title, validate: true),
       MTFieldData(WSFCode.description.index, label: loc.description, text: ws.description),
     ]);
+    stopLoading();
   }
 }
 
-abstract class _WSEditControllerBase extends EditController with Store {
+abstract class _WSControllerBase extends EditController with Store, Loadable {
   late final Workspace _ws;
 
   /// действия
 
   Future save() async {
-    // TODO: обработка ошибок редактирования РП. Как в задаче. Локальный лоадер на шапке
-    loader.setSaving();
-    loader.start();
-    final editedWS = await wsUC.save(WorkspaceUpsert(
-      id: _ws.id,
-      code: fData(WSFCode.code.index).text,
-      title: fData(WSFCode.title.index).text,
-      description: fData(WSFCode.description.index).text,
-    ));
+    setLoaderScreenSaving();
+    await load(() async {
+      final editedWS = await wsUC.save(WorkspaceUpsert(
+        id: _ws.id,
+        code: fData(WSFCode.code.index).text,
+        title: fData(WSFCode.title.index).text,
+        description: fData(WSFCode.description.index).text,
+      ));
 
-    if (editedWS != null) {
-      wsMainController.setWS(editedWS);
-      router.pop();
-    }
-    loader.stop();
+      if (editedWS != null) {
+        wsMainController.setWS(editedWS);
+        router.pop();
+      }
+    });
   }
 
   Widget tf(WSFCode code) {

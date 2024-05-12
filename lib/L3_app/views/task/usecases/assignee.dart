@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import '../../../../L1_domain/entities/member.dart';
-import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -12,28 +11,21 @@ import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
 import '../../../usecases/task_actions.dart';
-import 'task_controller.dart';
+import '../controllers/task_controller.dart';
+import 'edit.dart';
 
-class AssigneeController {
-  AssigneeController(this._taskController);
-  final TaskController _taskController;
-
-  Task get task => _taskController.task;
-
+extension AssigneeUC on TaskController {
   Future _reset() async {
-    _assigneeEditTimer?.cancel();
     final oldAssigneeId = task.assigneeId;
     task.assigneeId = null;
     await _assign(oldAssigneeId);
   }
 
   Future _assign(int? oldAssigneeId) async {
-    if (!(await _taskController.saveField(TaskFCode.assignee))) {
+    if (!(await saveField(TaskFCode.assignee))) {
       task.assigneeId = oldAssigneeId;
     }
   }
-
-  Timer? _assigneeEditTimer;
 
   Future startAssign() async {
     final assignee = await showMTSelectDialog<TaskMember>(
@@ -48,10 +40,9 @@ class AssigneeController {
 
     final oldAssigneeId = task.assigneeId;
     if (assignee != null && assignee.id != oldAssigneeId) {
-      _assigneeEditTimer?.cancel();
       task.assigneeId = assignee.id;
       tasksMainController.refreshTasksUI();
-      _assigneeEditTimer = Timer(const Duration(seconds: 0), () async => await _assign(oldAssigneeId));
+      await _assign(oldAssigneeId);
     }
   }
 }

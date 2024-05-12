@@ -3,8 +3,9 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
+import '../usecases/delete.dart';
+import '../usecases/edit.dart';
 import 'task_controller.dart';
 
 part 'subtasks_controller.g.dart';
@@ -12,7 +13,6 @@ part 'subtasks_controller.g.dart';
 class SubtasksController extends _SubtasksControllerBase with _$SubtasksController {
   SubtasksController(TaskController parentTaskController) {
     _parentTaskController = parentTaskController;
-    reload();
   }
 }
 
@@ -36,6 +36,6 @@ abstract class _SubtasksControllerBase with Store {
   @action
   Future delete(int index) async {
     final t = subtasks[index];
-    if (await t.delete() != null) subtasks.remove(t);
+    if (await TaskController(taskIn: t).delete() != null) subtasks.remove(t);
   }
 }

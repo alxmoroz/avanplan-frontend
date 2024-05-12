@@ -15,20 +15,20 @@ import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
 import 'tariff_base_price.dart';
+import 'tariff_controller.dart';
 import 'tariff_options.dart';
-import 'tariff_selector_controller.dart';
 
 class TariffCard extends StatelessWidget {
   const TariffCard(this._tariff, this._controller, this._isCurrent, {super.key});
 
   final Tariff _tariff;
   final bool _isCurrent;
-  final TariffSelectorController _controller;
+  final TariffController _controller;
 
   Widget _signButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_sign_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P3),
-        onTap: () => _controller.selectTariff(tariff),
+        onTap: () => _controller.changeTariff(tariff),
       );
 
   @override

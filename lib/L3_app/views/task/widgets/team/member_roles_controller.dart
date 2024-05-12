@@ -9,7 +9,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_tariff.dart';
+import '../../../../usecases/ws_actions.dart';
 
 part 'member_roles_controller.g.dart';
 

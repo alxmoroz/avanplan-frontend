@@ -8,19 +8,18 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
-import '../../usecases/ws_tariff.dart';
+import '../../views/_base/loadable.dart';
 import 'tariff_confirm_expenses_dialog.dart';
 
-part 'tariff_selector_controller.g.dart';
+part 'tariff_controller.g.dart';
 
-class TariffSelectorController extends _TariffSelectorControllerBase with _$TariffSelectorController {
-  TariffSelectorController(int wsId, String reasonIn) {
+class TariffController extends _TariffSelectorControllerBase with _$TariffController {
+  TariffController(int wsId) {
     _wsId = wsId;
-    reason = reasonIn;
   }
 }
 
-abstract class _TariffSelectorControllerBase with Store {
+abstract class _TariffSelectorControllerBase with Store, Loadable {
   late final int _wsId;
   Workspace get ws => wsMainController.ws(_wsId);
 
@@ -30,15 +29,13 @@ abstract class _TariffSelectorControllerBase with Store {
   @observable
   List<Tariff> tariffs = [];
 
-  @observable
-  bool loading = true;
-
   @action
   Future reload() async {
-    loading = true;
-    tariffs = (await tariffUC.getAll(_wsId)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
-    pageIndex = suggestedTariffIndex;
-    loading = false;
+    setLoaderScreenLoading();
+    await load(() async {
+      tariffs = (await tariffUC.getAll(_wsId)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
+      pageIndex = suggestedTariffIndex;
+    });
   }
 
   @computed
@@ -58,12 +55,20 @@ abstract class _TariffSelectorControllerBase with Store {
 
   bool showPageButton(bool left) => pageIndex != null && left ? pageIndex! > 0 : pageIndex! < pagesCount - 1;
 
-  Future selectTariff(Tariff tariff) async {
+  Future changeTariff(Tariff tariff) async {
     // проверка на возможное превышение лимитов по выбранному тарифу
     if (!ws.invoice.hasOverdraft(tariff) || await tariffConfirmExpenses(ws, tariff) == true) {
       // проверка, что хватит денег на один день после смены
-      final enoughMoney = await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.invoice.currentExpensesPerDay);
-      if (enoughMoney) router.pop(tariff);
+      if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.invoice.currentExpensesPerDay)) {
+        setLoaderScreenSaving();
+        await load(() async {
+          final signedInvoice = await contractUC.sign(tariff.id!, _wsId);
+          if (signedInvoice != null) {
+            await wsMainController.reloadWS(_wsId);
+          }
+        });
+        router.pop();
+      }
     }
   }
 }

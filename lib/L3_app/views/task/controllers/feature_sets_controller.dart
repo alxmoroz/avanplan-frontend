@@ -10,6 +10,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
 import '../../../usecases/task_feature_sets.dart';
 import '../../../usecases/task_tree.dart';
+import '../usecases/feature_sets.dart';
 import 'task_controller.dart';
 
 part 'feature_sets_controller.g.dart';
@@ -47,7 +48,7 @@ abstract class _FeatureSetsControllerBase with Store {
   void selectFeatureSet(int index, bool? selected) => checks[index] = selected == true;
 
   Function(bool?)? onChanged(int index) {
-    bool disabled = project.loading == true;
+    bool disabled = _taskController.loading == true;
 
     if (!disabled) {
       final fs = refsController.featureSets.elementAt(index);
@@ -84,7 +85,7 @@ abstract class _FeatureSetsControllerBase with Store {
         fsIds.add(refsController.featureSets.elementAt(index).id!);
       }
     }
-    await project.setupFeatureSets(fsIds);
+    await _taskController.setupFeatureSets(fsIds);
   }
 
   Future save() async {

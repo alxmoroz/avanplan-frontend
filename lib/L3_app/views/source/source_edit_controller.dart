@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -17,9 +16,10 @@ import '../../components/text_field.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
-import '../../usecases/task_link.dart';
-import '../../usecases/ws_tariff.dart';
+import '../../usecases/ws_actions.dart';
+import '../../views/task/usecases/link.dart';
 import '../_base/edit_controller.dart';
+import '../_base/loadable.dart';
 
 part 'source_edit_controller.g.dart';
 
@@ -45,7 +45,7 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
   }
 }
 
-abstract class _SourceEditControllerBase extends EditController with Store {
+abstract class _SourceEditControllerBase extends EditController with Store, Loadable {
   late final Workspace ws;
   late final int? srcId;
 
@@ -73,51 +73,49 @@ abstract class _SourceEditControllerBase extends EditController with Store {
 
   /// действия
 
-  Future save(BuildContext context) async {
+  Future save() async {
     if (await ws.checkBalance(loc.source_create_action_title)) {
-      loader.setSaving();
-      loader.start();
-      final editedSource = await sourceUC.save(
-        Source(
-          id: source?.id,
-          url: fData(SourceFCode.url.index).text,
-          apiKey: fData(SourceFCode.apiKey.index).text,
-          username: fData(SourceFCode.username.index).text,
-          // password: tfAnnoForCode(SourceFCode.password.index).text,
-          description: fData(SourceFCode.description.index).text,
-          typeCode: selectedType!.code,
-          wsId: ws.id!,
-        ),
-      );
-
-      if (editedSource != null && context.mounted) {
-        context.pop(editedSource);
-      }
-      loader.stop();
+      setLoaderScreenSaving();
+      load(() async {
+        final editedSource = await sourceUC.save(
+          Source(
+            id: source?.id,
+            url: fData(SourceFCode.url.index).text,
+            apiKey: fData(SourceFCode.apiKey.index).text,
+            username: fData(SourceFCode.username.index).text,
+            // password: tfAnnoForCode(SourceFCode.password.index).text,
+            description: fData(SourceFCode.description.index).text,
+            typeCode: selectedType!.code,
+            wsId: ws.id!,
+          ),
+        );
+        if (editedSource != null) router.pop(editedSource);
+      });
     }
   }
 
   Future delete() async {
     if (canEdit) {
-      final confirm = await showMTAlertDialog(
-        loc.source_delete_dialog_title,
-        description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
-        actions: [
-          MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
-          MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
-        ],
-        simple: true,
-      );
-      if (confirm == true) {
-        loader.setDeleting();
-        loader.start();
-        router.pop(await sourceUC.delete(source!));
-
-        // отвязываем задачи
-        tasksMainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());
-        tasksMainController.refreshTasksUI();
-
-        loader.stop();
+      if (await showMTAlertDialog(
+            loc.source_delete_dialog_title,
+            description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
+            actions: [
+              MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
+              MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
+            ],
+            simple: true,
+          ) ==
+          true) {
+        setLoaderScreenDeleting();
+        load(() async {
+          final s = await sourceUC.delete(source!);
+          if (s != null) {
+            router.pop(s);
+            // отвязываем задачи
+            tasksMainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());
+            tasksMainController.refreshTasksUI();
+          }
+        });
       }
     }
   }

@@ -27,13 +27,17 @@ import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/notes_controller.dart';
+import '../../controllers/task_controller.dart';
+import '../../usecases/attachments.dart';
+import '../../usecases/note_edit.dart';
 
 class Notes extends StatelessWidget {
-  Notes(this._controller) : super(key: _controller.notesWidgetGlobalKey);
+  Notes(this._taskController) : super(key: _taskController.notesWidgetGlobalKey);
 
-  final NotesController _controller;
+  final TaskController _taskController;
+  NotesController get _notesController => _taskController.notesController;
 
-  Task get _task => _controller.task;
+  Task get _task => _taskController.task;
 
   void _noteMenu(Note note) => showMTDialog<void>(
         MTDialog(
@@ -47,7 +51,7 @@ class Notes extends StatelessWidget {
                 dividerIndent: P4 + P5,
                 onTap: () {
                   router.pop();
-                  _controller.edit(note);
+                  _taskController.editNote(note);
                 },
               ),
               MTListTile(
@@ -56,7 +60,7 @@ class Notes extends StatelessWidget {
                 bottomDivider: false,
                 onTap: () async {
                   router.pop();
-                  _controller.delete(note);
+                  _taskController.deleteNote(note);
                 },
               ),
             ],
@@ -72,10 +76,10 @@ class Notes extends StatelessWidget {
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: _controller.sortedNotesDates.length,
+          itemCount: _notesController.sortedNotesDates.length,
           itemBuilder: (_, index) {
-            final gDate = _controller.sortedNotesDates[index];
-            final ng = _controller.notesGroups[gDate]!;
+            final gDate = _notesController.sortedNotesDates[index];
+            final ng = _notesController.notesGroups[gDate]!;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -140,7 +144,7 @@ class Notes extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
                                         dividerIndent: P8,
                                         bottomDivider: false,
-                                        onTap: () => _controller.downloadAttachment(a),
+                                        onTap: () => _taskController.attachmentsController.download(a),
                                       );
                                     },
                                   ),

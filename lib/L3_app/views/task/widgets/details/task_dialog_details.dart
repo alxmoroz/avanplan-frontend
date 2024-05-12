@@ -67,7 +67,7 @@ class TaskDialogDetails extends StatelessWidget {
               onTap: () => attachmentsDialog(_controller.attachmentsController),
             ),
 
-          if (_controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
+          if (_controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),
         ],
       ),
     );

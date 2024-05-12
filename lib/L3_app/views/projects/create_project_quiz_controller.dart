@@ -10,6 +10,7 @@ import '../../usecases/task_tree.dart';
 import '../quiz/abstract_quiz_controller.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
 import '../task/controllers/feature_sets_controller.dart';
+import '../task/usecases/edit.dart';
 
 part 'create_project_quiz_controller.g.dart';
 

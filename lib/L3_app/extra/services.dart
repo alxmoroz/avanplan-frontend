@@ -50,6 +50,7 @@ import '../../L2_data/repositories/ws_repo.dart';
 import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
+import '../views/_base/api_interceptor.dart';
 import '../views/account/account_controller.dart';
 import '../views/app/app_controller.dart';
 import '../views/app/local_settings_controller.dart';
@@ -57,8 +58,6 @@ import '../views/auth/auth_controller.dart';
 import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/calendar/calendar_controller.dart';
-import '../views/iap/iap_controller.dart';
-import '../views/loader/loader_controller.dart';
 import '../views/main/controllers/main_controller.dart';
 import '../views/main/controllers/tasks_main_controller.dart';
 import '../views/main/controllers/ws_main_controller.dart';
@@ -74,14 +73,12 @@ AppController get appController => GetIt.I<AppController>();
 MainController get mainController => GetIt.I<MainController>();
 WSMainController get wsMainController => GetIt.I<WSMainController>();
 TasksMainController get tasksMainController => GetIt.I<TasksMainController>();
-LoaderController get loader => GetIt.I<LoaderController>();
 ReferencesController get refsController => GetIt.I<ReferencesController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
 RegistrationTokenController get registrationTokenController => GetIt.I<RegistrationTokenController>();
 InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
-IAPController get iapController => GetIt.I<IAPController>();
 CalendarController get calendarController => GetIt.I<CalendarController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
@@ -146,7 +143,7 @@ void setup() {
 
   // Openapi
   getIt.registerSingletonAsync<Openapi>(
-    () async => await setupApi([loader.interceptor], localSettingsController.settings),
+    () async => await setupApi([apiInterceptor], localSettingsController.settings),
     dependsOn: [LocalSettingsController],
   );
   getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [Openapi]);
@@ -155,11 +152,9 @@ void setup() {
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<WSMainController>(WSMainController());
   getIt.registerSingleton<TasksMainController>(TasksMainController());
-  getIt.registerSingleton<LoaderController>(LoaderController());
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
   getIt.registerSingleton<InvitationTokenController>(InvitationTokenController());
   getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
-  getIt.registerSingleton<IAPController>(IAPController());
   getIt.registerSingleton<CalendarController>(CalendarController());
 }

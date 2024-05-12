@@ -42,10 +42,7 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
 }
 
 abstract class _QuizControllerBase with Store {
-  @computed
   Iterable<QuizStep> get steps => [];
-
-  @computed
   int get stepsCount => steps.length;
 
   @observable

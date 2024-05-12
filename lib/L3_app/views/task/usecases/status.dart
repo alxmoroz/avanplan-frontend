@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
@@ -19,20 +19,13 @@ import '../../../components/select_dialog.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
-import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_status.dart';
 import '../../../usecases/task_tree.dart';
+import '../controllers/task_controller.dart';
+import '../usecases/edit.dart';
 import '../widgets/tasks/task_card.dart';
-import 'project_statuses_controller.dart';
-import 'task_controller.dart';
 
-class StatusController {
-  StatusController(this._taskController);
-  final TaskController _taskController;
-
-  Task get _task => _taskController.task;
-  ProjectStatusesController get _psController => _taskController.projectStatusesController;
-
+extension StatusUC on TaskController {
   Future<bool?> _closeTreeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
@@ -46,7 +39,7 @@ class StatusController {
   // TODO: будет единый код ответа по возможным ошибкам при обходе дерева
 
   Future _setTaskTreeStatus(Task t, {int? stId, bool? closed}) async {
-    stId ??= t.canSetStatus ? (closed == true ? _psController.firstClosedStatusId : _psController.firstOpenedStatusId) : null;
+    stId ??= t.canSetStatus ? (closed == true ? projectStatusesController.firstClosedStatusId : projectStatusesController.firstOpenedStatusId) : null;
     closed ??= t.statusForId(stId)?.closed;
 
     final oldStId = t.projectStatusId;
@@ -56,7 +49,7 @@ class StatusController {
     t.projectStatusId = stId;
     t.setClosed(closed);
 
-    if (await t.save() != null) {
+    if (await TaskController(taskIn: t).save() != null) {
       t.projectStatusId = oldStId;
       t.closed = oldClosed;
       t.closedDate = oldClosedDate;
@@ -84,15 +77,15 @@ class StatusController {
     }
   }
 
-  Future setClosed(BuildContext context, bool closed) async => await _setStatus(_task, closed: closed, context: context);
+  Future setClosed(BuildContext context, bool closed) async => await _setStatus(task, closed: closed, context: context);
 
   Future selectStatus(BuildContext context) async {
     final selectedStatus = await showMTSelectDialog<ProjectStatus>(
-      _psController.sortedStatuses,
-      _task.projectStatusId,
+      projectStatusesController.sortedStatuses,
+      task.projectStatusId,
       loc.task_status_select_placeholder,
       valueBuilder: (_, status) {
-        final selected = _task.projectStatusId == status.id;
+        final selected = task.projectStatusId == status.id;
         final closed = status.closed;
         final text = '$status';
         return Row(
@@ -108,21 +101,21 @@ class StatusController {
     );
 
     if (selectedStatus != null && selectedStatus.id != null) {
-      _setStatus(_task, stId: selectedStatus.id, context: context.mounted ? context : null);
+      _setStatus(task, stId: selectedStatus.id, context: context.mounted ? context : null);
     }
   }
 
-  Future moveTask(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
+  Future changeStatus(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
     if (oldStatusIndex != newStatusIndex) {
-      final oldStatusId = _psController.sortedStatuses.elementAt(oldStatusIndex).id!;
-      final newStatusId = _psController.sortedStatuses.elementAt(newStatusIndex).id!;
+      final oldStatusId = projectStatusesController.sortedStatuses.elementAt(oldStatusIndex).id!;
+      final newStatusId = projectStatusesController.sortedStatuses.elementAt(newStatusIndex).id!;
 
-      final t = _task.subtasksForStatus(oldStatusId)[oldTaskIndex];
+      final t = task.subtasksForStatus(oldStatusId)[oldTaskIndex];
       await _setStatus(t, stId: newStatusId);
     }
   }
 
-  bool canMoveTaskTarget(MTDragNDropItem? incoming, MTDragNDropItemTarget target) {
+  bool itemTargetOnWillAccept(MTDragNDropItem? incoming, MTDragNDropItemTarget target) {
     // final incomingTask = (incoming?.child as TaskCard).task;
     // final targetColumn = target.parent as MTBoardColumn;
     // return incomingTask.status != targetColumn.status;
@@ -130,14 +123,13 @@ class StatusController {
     return true;
   }
 
-  bool canMoveTask(MTDragNDropItem? incoming, MTDragNDropItem target) {
+  bool itemOnWillAccept(MTDragNDropItem? incoming, MTDragNDropItem target) {
     final incomingTask = (incoming?.child as TaskCard).task;
     final targetTask = (target.child as TaskCard).task;
     // return incomingTask.status != targetTask.status;
     if (incomingTask != targetTask) {
       HapticFeedback.selectionClick();
     }
-
     return true;
   }
 }

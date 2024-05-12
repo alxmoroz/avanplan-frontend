@@ -15,6 +15,7 @@ import '../../../../components/text_field.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/title.dart';
 import 'parent_title.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -45,11 +46,11 @@ class TaskHeader extends StatelessWidget {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
-                hintText: _controller.titleController.titlePlaceholder,
+                hintText: _controller.titlePlaceholder,
                 hintStyle: const H1('', color: f3Color, maxLines: 5).style(context),
               ),
               style: H1('', color: _task.isInbox ? f2Color : null, maxLines: 5).style(context),
-              onChanged: _controller.titleController.editTitle,
+              onChanged: _controller.editTitle,
             ),
             padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P : 0),
             color: Colors.transparent,

@@ -24,9 +24,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 
-Future showEventDialog(CalendarEvent event) async {
-  await showMTDialog(_EventDialog(event));
-}
+Future showEventDialog(CalendarEvent event) async => await showMTDialog(_EventDialog(event));
 
 class _EventDialog extends StatelessWidget {
   const _EventDialog(this.event);

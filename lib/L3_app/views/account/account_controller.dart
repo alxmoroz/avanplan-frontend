@@ -9,12 +9,13 @@ import '../../../L1_domain/entities/user_activity.dart';
 import '../../components/alert_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
+import '../_base/loadable.dart';
 
 part 'account_controller.g.dart';
 
 class AccountController extends _AccountControllerBase with _$AccountController {}
 
-abstract class _AccountControllerBase extends EditController with Store {
+abstract class _AccountControllerBase extends EditController with Store, Loadable {
   @observable
   User? me;
 
@@ -22,7 +23,11 @@ abstract class _AccountControllerBase extends EditController with Store {
   Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(me?.activities ?? [], (a) => a.code);
 
   @action
-  Future reload() async => me = await myUC.getAccount();
+  Future reload() async {
+    // вызывается из mainController с его лоадером
+    me = await myUC.getAccount();
+    stopLoading();
+  }
 
   // @action
   // Future _registerActivity(String code, {int? wsId}) async {
@@ -48,13 +53,11 @@ abstract class _AccountControllerBase extends EditController with Store {
       simple: true,
     );
     if (confirm == true) {
-      loader.setDeleting();
-      loader.start();
-
-      await myUC.deleteAccount();
-      await authController.signOut();
-
-      loader.stop();
+      setLoaderScreenDeleting();
+      await load(() async {
+        await myUC.deleteAccount();
+        await authController.signOut();
+      });
     }
   }
 }

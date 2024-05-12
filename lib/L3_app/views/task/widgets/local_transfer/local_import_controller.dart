@@ -8,9 +8,9 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_transfer.dart';
-import '../../../../usecases/task_edit.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/edit.dart';
 import 'task_selector.dart';
 
 part 'local_import_controller.g.dart';
@@ -71,7 +71,7 @@ abstract class _LocalImportControllerBase with Store {
       if (checks[index]) {
         final t = srcTasks[index];
         t.parentId = dstParentId;
-        await t.save();
+        await TaskController(taskIn: t).save();
       }
     }
   }

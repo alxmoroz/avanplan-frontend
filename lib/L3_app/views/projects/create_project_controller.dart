@@ -6,8 +6,8 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../usecases/ws_tasks.dart';
 import '../import/import_dialog.dart';
+import '../task/widgets/create/create_task_dialog.dart';
 import '../template/template_selector_dialog.dart';
 import '../workspace/ws_selector_dialog.dart';
 import 'creation_method_selector.dart';
@@ -51,7 +51,7 @@ abstract class _CreateProjectControllerBase with Store {
   }
 
   Future _create() async {
-    final newP = await _ws!.createTask(null);
+    final newP = await createTask(_ws!, null);
     if (newP != null) router.goTaskView(newP);
   }
 

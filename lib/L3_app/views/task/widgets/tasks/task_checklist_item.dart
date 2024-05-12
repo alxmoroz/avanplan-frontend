@@ -20,6 +20,8 @@ import '../../../../components/text_field.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/status.dart';
+import '../../usecases/title.dart';
 
 class TaskChecklistItem extends StatefulWidget {
   const TaskChecklistItem(this._taskIn, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
@@ -48,7 +50,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   @override
   void initState() {
     controller = TaskController(taskIn: widget._taskIn);
-    if (widget._taskIn.creating) controller.titleController.setFocus();
+    if (widget._taskIn.creating) controller.setTitleFocus();
     super.initState();
   }
 
@@ -67,12 +69,12 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   Future _toggleDone() async {
     setState(() => _taskEditing = true);
-    await controller.statusController.setClosed(context, !task.closed);
+    await controller.setClosed(context, !task.closed);
   }
 
   Widget _fieldValue(BuildContext context) {
     final teController = controller.teController(TaskFCode.title.index);
-    final roText = teController?.text.isNotEmpty == true ? teController!.text : controller.titleController.titlePlaceholder;
+    final roText = teController?.text.isNotEmpty == true ? teController!.text : controller.titlePlaceholder;
     final fNode = controller.focusNode(TaskFCode.title.index);
     fNode?.addListener(() => setState(() {}));
     final hasFocus = fNode?.hasFocus == true;
@@ -111,11 +113,11 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
-                    hintText: controller.titleController.titlePlaceholder,
+                    hintText: controller.titlePlaceholder,
                     hintStyle: const BaseText('', maxLines: 1, color: f3Color).style(context),
                   ),
                   style: BaseText('', maxLines: tfMaxLines, color: task.closed && !hasFocus ? f3Color : null).style(context),
-                  onChanged: (str) => controller.titleController.editTitle(str),
+                  onChanged: (str) => controller.editTitle(str),
                   onSubmitted: widget.onSubmit != null ? (_) => widget.onSubmit!() : null,
                   focusNode: fNode,
                 ),
@@ -183,7 +185,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       dividerEndIndent: P3,
       bottomDivider: widget.bottomDivider,
       onHover: isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
-      onTap: () => controller.titleController.setFocus(),
+      onTap: controller.setTitleFocus,
     );
   }
 }

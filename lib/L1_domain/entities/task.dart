@@ -118,8 +118,8 @@ class Task extends Project {
   int? assigneeId;
   num? estimate;
 
-  // TODO: в контроллер всё же?
   bool creating = false;
+  bool filled = false;
 
   @override
   int compareTo(t2) {

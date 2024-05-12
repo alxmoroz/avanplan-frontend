@@ -1,25 +1,20 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:async';
 
-import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
-import '../../../usecases/task_edit.dart';
-import 'task_controller.dart';
+import '../controllers/task_controller.dart';
+import 'edit.dart';
 
-class DeleteController {
-  DeleteController(this._taskController);
-  final TaskController _taskController;
-  Task get _task => _taskController.task;
-
+extension DeleteUC on TaskController {
   Future delete() async {
     final confirm = await showMTAlertDialog(
-      _task.deleteDialogTitle,
-      description: '${_task.isTask ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
+      task.deleteDialogTitle,
+      description: '${taskDescriptor.isTask ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
       actions: [
         MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
         MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
@@ -28,7 +23,14 @@ class DeleteController {
     );
     if (confirm == true) {
       router.pop();
-      _task.delete();
+      await editWrapper(() async {
+        final changes = await taskUC.delete(taskDescriptor);
+        if (changes != null) {
+          tasksMainController.setTasks(changes.affected);
+          tasksMainController.removeTask(task);
+        }
+        return null;
+      });
     }
   }
 }

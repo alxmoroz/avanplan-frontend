@@ -7,12 +7,13 @@ import '../../../L1_domain/entities/calendar.dart';
 import '../../../L1_domain/entities/calendar_event.dart';
 import '../../../L1_domain/entities/calendar_source.dart';
 import '../../extra/services.dart';
+import '../../views/_base/loadable.dart';
 
 part 'calendar_controller.g.dart';
 
 class CalendarController extends _CalendarControllerBase with _$CalendarController {}
 
-abstract class _CalendarControllerBase with Store {
+abstract class _CalendarControllerBase with Store, Loadable {
   @observable
   ObservableList<CalendarSource> _sources = ObservableList();
   @computed
@@ -28,9 +29,6 @@ abstract class _CalendarControllerBase with Store {
   @observable
   ObservableList<CalendarEvent> events = ObservableList();
 
-  @observable
-  bool loading = false;
-
   @action
   void _setSource(CalendarSource es) {
     final index = _sources.indexWhere((s) => s.id == es.id);
@@ -43,12 +41,13 @@ abstract class _CalendarControllerBase with Store {
 
   @action
   Future authenticateGoogleCalendar() async {
-    loading = true;
-    final es = await calendarUC.updateSource(CalendarSourceType.GOOGLE);
-    if (es != null) {
-      _setSource(es);
-    }
-    loading = false;
+    setLoaderScreenLoading();
+    await load(() async {
+      final es = await calendarUC.updateSource(CalendarSourceType.GOOGLE);
+      if (es != null) {
+        _setSource(es);
+      }
+    });
   }
 
   @action
@@ -60,6 +59,8 @@ abstract class _CalendarControllerBase with Store {
     final data = await calendarUC.getCalendarsEvents();
     _calendars = ObservableList.of(data.calendars);
     events = ObservableList.of(data.events);
+
+    stopLoading();
   }
 
   @action

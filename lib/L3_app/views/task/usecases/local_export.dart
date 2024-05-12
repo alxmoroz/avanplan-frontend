@@ -2,21 +2,15 @@
 
 import 'dart:async';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../extra/router.dart';
-import '../../../../extra/services.dart';
-import '../../../../presenters/task_transfer.dart';
-import '../../../../usecases/task_edit.dart';
-import '../../../../usecases/task_tree.dart';
-import '../../controllers/task_controller.dart';
-import 'task_selector.dart';
+import '../../../extra/router.dart';
+import '../../../extra/services.dart';
+import '../../../presenters/task_transfer.dart';
+import '../../../usecases/task_tree.dart';
+import '../controllers/task_controller.dart';
+import '../widgets/local_transfer/task_selector.dart';
+import 'edit.dart';
 
-class LocalExportController {
-  LocalExportController(this._taskController);
-  final TaskController _taskController;
-
-  Task get task => _taskController.task;
-
+extension LocalExportUC on TaskController {
   /// перенос в другую цель, проект
 
   Future localExport() async {
@@ -31,13 +25,13 @@ class LocalExportController {
       if (destination.project.id != task.project.id || destination.wsId != task.wsId) {
         router.pop();
 
-        await task.move(destination);
+        await move(destination);
       }
       // внутри одного проекта
       else {
         // новый родитель
         task.parentId = destination.id;
-        if (!await _taskController.saveField(TaskFCode.parent)) {
+        if (!await saveField(TaskFCode.parent)) {
           task.parentId = sourceTaskId;
           tasksMainController.refreshTasksUI();
         }

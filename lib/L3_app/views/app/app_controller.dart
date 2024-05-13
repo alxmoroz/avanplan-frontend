@@ -54,7 +54,6 @@ abstract class _AppControllerBase with Store, Loadable {
 
     // если нужно обязательно обновить приложение, заставляем обновиться
     if (!isWeb && mustUpgrade) {
-      // TODO: проверить
       setLoaderScreen(
         titleText: loc.app_must_upgrade_title,
         descriptionText: loc.app_must_upgrade_description,

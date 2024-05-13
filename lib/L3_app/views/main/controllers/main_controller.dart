@@ -89,7 +89,7 @@ abstract class _MainControllerBase with Store, Loadable {
         await _tryUpdate();
       });
     } else {
-      router.goAuth();
+      authController.signOut();
     }
   }
 

@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
@@ -41,22 +42,24 @@ class _WSEditDialogState extends State<_WSEditDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.loading
-        ? LoaderScreen(controller, isDialog: true)
-        : MTDialog(
-            topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
-            body: ListView(
-              shrinkWrap: true,
-              children: [
-                for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
-                const SizedBox(height: P3),
-                MTButton.main(
-                  titleText: loc.save_action_title,
-                  onTap: canSave ? () => controller.save : null,
-                ),
-                if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-              ],
+    return Observer(
+      builder: (_) => controller.loading
+          ? LoaderScreen(controller, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
+              body: ListView(
+                shrinkWrap: true,
+                children: [
+                  for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
+                  const SizedBox(height: P3),
+                  MTButton.main(
+                    titleText: loc.save_action_title,
+                    onTap: canSave ? () => controller.save : null,
+                  ),
+                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+                ],
+              ),
             ),
-          );
+    );
   }
 }

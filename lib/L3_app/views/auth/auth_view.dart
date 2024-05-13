@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
@@ -77,57 +78,59 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return appController.loading
-        ? LoaderScreen(appController)
-        : authController.loading
-            ? LoaderScreen(authController)
-            : MTPage(
-                appBar: MTAppBar(leading: const SizedBox(), middle: const AppTitle(), color: isBigScreen(context) ? Colors.transparent : null),
-                body: SafeArea(
-                  child: Center(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        // ColorsDemo(),
-                        // TextDemo(),
-                        MTImage(ImageName.hello.name),
-                        H3(
-                          loc.auth_sign_in_with_title,
-                          align: TextAlign.center,
-                          padding: const EdgeInsets.only(top: P2),
-                        ),
-                        _authBtn(
-                          googleIcon,
-                          loc.auth_sign_in_google_title,
-                          MIN_BTN_HEIGHT - 2,
-                          authController.signInGoogle,
-                        ),
-                        // для Андроида не показываем SignInWithApple
-                        if (authController.signInWithAppleIsAvailable && !isAndroid)
-                          _authBtn(
-                            appleIcon,
-                            loc.auth_sign_in_apple_title,
-                            MIN_BTN_HEIGHT - 2,
-                            authController.signInApple,
+    return Observer(
+      builder: (_) => appController.loading
+          ? LoaderScreen(appController)
+          : authController.loading
+              ? LoaderScreen(authController)
+              : MTPage(
+                  appBar: MTAppBar(leading: const SizedBox(), middle: const AppTitle(), color: isBigScreen(context) ? Colors.transparent : null),
+                  body: SafeArea(
+                    child: Center(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          // ColorsDemo(),
+                          // TextDemo(),
+                          MTImage(ImageName.hello.name),
+                          H3(
+                            loc.auth_sign_in_with_title,
+                            align: TextAlign.center,
+                            padding: const EdgeInsets.only(top: P2),
                           ),
-                        MTButton.main(
-                          middle: BaseText.medium(loc.auth_sign_in_extra_title, color: _titleColor),
-                          color: b3Color.color,
-                          // titleColor: _btnColor,
-                          margin: const EdgeInsets.only(top: P2),
-                          onTap: authExtraDialog,
-                        ),
-                        const SizedBox(height: P3),
-                        MTButton(
-                          titleText: '${loc.auth_help_title}? ${loc.contact_us_title}',
-                          onTap: () => mailUs(subject: loc.auth_help_title),
-                        ),
-                        const MTAdaptive.xs(child: MTDivider(indent: P2, endIndent: P2, verticalIndent: P4)),
-                        MTButton(titleText: loc.about_service_title, onTap: showAboutServiceDialog),
-                      ],
+                          _authBtn(
+                            googleIcon,
+                            loc.auth_sign_in_google_title,
+                            MIN_BTN_HEIGHT - 2,
+                            authController.signInGoogle,
+                          ),
+                          // для Андроида не показываем SignInWithApple
+                          if (authController.signInWithAppleIsAvailable && !isAndroid)
+                            _authBtn(
+                              appleIcon,
+                              loc.auth_sign_in_apple_title,
+                              MIN_BTN_HEIGHT - 2,
+                              authController.signInApple,
+                            ),
+                          MTButton.main(
+                            middle: BaseText.medium(loc.auth_sign_in_extra_title, color: _titleColor),
+                            color: b3Color.color,
+                            // titleColor: _btnColor,
+                            margin: const EdgeInsets.only(top: P2),
+                            onTap: authExtraDialog,
+                          ),
+                          const SizedBox(height: P3),
+                          MTButton(
+                            titleText: '${loc.auth_help_title}? ${loc.contact_us_title}',
+                            onTap: () => mailUs(subject: loc.auth_help_title),
+                          ),
+                          const MTAdaptive.xs(child: MTDivider(indent: P2, endIndent: P2, verticalIndent: P4)),
+                          MTButton(titleText: loc.about_service_title, onTap: showAboutServiceDialog),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              );
+    );
   }
 }

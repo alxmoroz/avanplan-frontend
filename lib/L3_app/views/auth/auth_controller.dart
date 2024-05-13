@@ -10,6 +10,10 @@ import '../../views/_base/loadable.dart';
 part 'auth_controller.g.dart';
 
 class AuthController extends _AuthControllerBase with _$AuthController {
+  AuthController() {
+    stopLoading();
+  }
+
   Future<AuthController> init() async {
     signInWithAppleIsAvailable = await authUC.appleIsAvailable();
     await authUC.googleIsAvailable();
@@ -41,26 +45,26 @@ abstract class _AuthControllerBase with Store, Loadable {
       if (authorized) await authUC.signOut();
 
       await load(() async => authorized = await authUC.signInWithRegistration(token));
-      if (authorized) router.goMain();
+      if (authorized) router.goMain(replace: true);
     }
   }
 
   @action
   Future signInWithPassword(String email, String pwd) async {
     await load(() async => authorized = await authUC.signInWithPassword(email, pwd));
-    if (authorized) router.goMain();
+    if (authorized) router.goMain(replace: true);
   }
 
   @action
   Future signInGoogle() async {
     await load(() async => authorized = await authUC.signInGoogle());
-    if (authorized) router.goMain();
+    if (authorized) router.goMain(replace: true);
   }
 
   @action
   Future signInApple() async {
     await load(() async => authorized = await authUC.signInApple());
-    if (authorized) router.goMain();
+    if (authorized) router.goMain(replace: true);
   }
 
   @action
@@ -77,7 +81,7 @@ abstract class _AuthControllerBase with Store, Loadable {
   Future signOut() async {
     await authUC.signOut();
     authorized = false;
-    router.goAuth();
+    router.goAuth(replace: false);
   }
 
   Future startup() async {

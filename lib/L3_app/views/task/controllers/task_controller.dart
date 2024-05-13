@@ -106,12 +106,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     projectStatusesController.reload();
   }
 
-  @override
-  startLoading() {
-    setLoaderScreenLoading();
-    super.startLoading();
-  }
-
   Future taskAction(BuildContext context, TaskAction? actionType) async {
     switch (actionType) {
       case TaskAction.details:

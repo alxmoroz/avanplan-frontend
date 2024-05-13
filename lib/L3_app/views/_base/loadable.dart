@@ -36,7 +36,7 @@ mixin Loadable {
         action: action,
       );
 
-  void setLoaderScreenLoading() => _l.setDefault();
+  void setLoaderScreenLoading() => _l.set(titleText: loc.loader_refreshing_title, imageName: ImageName.loading.name);
   void setLoaderScreenSaving() => _l.set(titleText: loc.loader_saving_title, imageName: ImageName.save.name);
   void setLoaderScreenDeleting() => _l.set(titleText: loc.loader_deleting_title, imageName: ImageName.delete.name);
 
@@ -57,8 +57,6 @@ mixin Loadable {
 }
 
 class LoadableState extends _LoadableBase with _$LoadableState {
-  void setDefault() => set(titleText: loc.loader_refreshing_title, imageName: ImageName.loading.name);
-
   void parseError(Exception e) {
     if (e is MTOAuthError) {
       _setAuthError();

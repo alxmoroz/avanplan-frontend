@@ -55,7 +55,6 @@ extension TaskEditUC on TaskController {
     task.loading = true;
     tasksMainController.refreshTasksUI();
 
-    setLoaderScreenSaving();
     await load(function);
 
     task.loading = false;
@@ -67,6 +66,7 @@ extension TaskEditUC on TaskController {
     task.filled = false;
 
     await editWrapper(() async {
+      setLoaderScreenLoading();
       final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!);
       if (taskNode != null) {
         // удаление дерева подзадач
@@ -105,6 +105,7 @@ extension TaskEditUC on TaskController {
   Future<Task?> save() async {
     Task? et;
     await editWrapper(() async {
+      setLoaderScreenSaving();
       if (await task.ws.checkBalance(loc.edit_action_title)) {
         final changes = await taskUC.save(task);
         if (changes != null) {

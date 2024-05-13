@@ -36,6 +36,7 @@ class LoaderScreen extends StatelessWidget {
   Widget get _child => ListView(
         shrinkWrap: true,
         children: [
+          const SizedBox(height: P6),
           if (_ls.imageName != null) _image,
           if (_ls.titleText != null) _title,
           if (_ls.descriptionText != null) _description,
@@ -46,7 +47,8 @@ class LoaderScreen extends StatelessWidget {
           if (_ls.actionWidget != null) ...[
             const SizedBox(height: P6),
             MTAdaptive.xs(child: _ls.actionWidget),
-          ]
+          ],
+          const SizedBox(height: P6),
         ],
       );
 

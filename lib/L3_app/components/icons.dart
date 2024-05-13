@@ -323,9 +323,9 @@ class QuestionIcon extends MTIcon {
   const QuestionIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.question_circle);
 }
 
-class RefreshIcon extends MTIcon {
-  const RefreshIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.refresh);
-}
+// class RefreshIcon extends MTIcon {
+//   const RefreshIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.refresh);
+// }
 
 class ReleaseNotesIcon extends MTIcon {
   const ReleaseNotesIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.time);

@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L2_data/services/platform.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons.dart';
 import '../../../components/icons_workspace.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
@@ -48,13 +46,13 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
               onTap: router.goProjects,
             ),
             const Spacer(),
-            if (!isWeb)
-              MTListTile(
-                leading: const RefreshIcon(),
-                middle: _compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
-                bottomDivider: false,
-                onTap: mainController.reload,
-              ),
+            // if (isWeb)
+            //   MTListTile(
+            //     leading: const RefreshIcon(),
+            //     middle: _compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
+            //     bottomDivider: false,
+            //     onTap: mainController.reload,
+            //   ),
             if (accountController.me != null)
               MTListTile(
                 leading: accountController.me!.icon(P6 / 2, borderColor: mainColor),

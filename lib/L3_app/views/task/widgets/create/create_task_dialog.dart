@@ -50,7 +50,7 @@ Future<Task?> createTask(Workspace ws, Task? parent, {int? statusId}) async {
     newTask = await tc.save();
     newTask?.creating = true;
     newTask?.filled = true;
-    router.pop();
+    if (!tc.loading) router.pop();
   }
   return newTask;
 }

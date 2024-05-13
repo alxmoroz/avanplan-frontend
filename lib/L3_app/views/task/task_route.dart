@@ -12,6 +12,7 @@ import '../../extra/router.dart';
 import '../../presenters/task_type.dart';
 import 'controllers/task_controller.dart';
 import 'task_view.dart';
+import 'usecases/edit.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
 import 'widgets/feature_sets/feature_sets.dart';
@@ -46,6 +47,13 @@ abstract class BaseTaskRoute extends MTRoute {
         final wsId = state.pathParamInt('wsId')!;
         final taskId = state.pathParamInt('${baseName}Id')!;
         taskController.init(wsId, taskId, type: baseName.toUpperCase());
+
+        if (taskController.taskDescriptor.filled) {
+          taskController.stopLoading();
+        } else {
+          taskController.reload();
+        }
+
         return null;
       };
 

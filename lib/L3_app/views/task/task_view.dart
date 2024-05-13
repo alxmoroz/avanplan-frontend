@@ -61,12 +61,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
-    if (td.filled) {
-      controller.stopLoading();
-    } else {
-      controller.reload();
-    }
-
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
     super.initState();

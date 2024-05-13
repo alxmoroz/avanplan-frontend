@@ -62,7 +62,6 @@ extension TaskEditUC on TaskController {
   }
 
   Future reload() async {
-    // TODO: лишнее? - это чтобы сработал флаг contentLoading
     task.filled = false;
 
     await editWrapper(() async {

@@ -45,27 +45,19 @@ extension MTRouterHelper on GoRouter {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
     Object? extra,
-    bool replace = false,
   }) =>
-      replace
-          ? replaceNamed(
-              name,
-              pathParameters: pathParameters,
-              queryParameters: queryParameters,
-              extra: extra ?? 'local',
-            )
-          : goNamed(
-              name,
-              pathParameters: pathParameters,
-              queryParameters: queryParameters,
-              extra: extra ?? 'local',
-            );
+      goNamed(
+        name,
+        pathParameters: pathParameters,
+        queryParameters: queryParameters,
+        extra: extra ?? 'local',
+      );
 
   bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
 
   // Главная и вход
-  void goAuth({bool replace = true}) => _goNamed(authRoute.name, replace: replace);
-  void goMain({bool replace = false}) => _goNamed(mainRoute.name, replace: replace);
+  void goAuth() => _goNamed(authRoute.name);
+  void goMain() => _goNamed(mainRoute.name);
   void goProjects() => _goNamed('${mainRoute.name}/${ProjectsRoute.staticBaseName}');
   void goAccount() => _goNamed('${mainRoute.name}/${AccountRoute.staticBaseName}');
   void goNotifications() => _goNamed('${mainRoute.name}/${NotificationsRoute.staticBaseName}');

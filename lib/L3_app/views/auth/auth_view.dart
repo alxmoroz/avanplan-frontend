@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
+import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/divider.dart';
@@ -25,6 +26,7 @@ import 'auth_extra_dialog.dart';
 final authRoute = MTRoute(
   baseName: 'auth',
   path: '/auth',
+  noTransition: true,
   builder: (_, __) => const _AuthView(),
 );
 
@@ -93,11 +95,12 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                           // ColorsDemo(),
                           // TextDemo(),
                           MTImage(ImageName.hello.name),
-                          H3(
+                          BaseText(
                             loc.auth_sign_in_with_title,
                             align: TextAlign.center,
                             padding: const EdgeInsets.only(top: P2),
                           ),
+                          const SizedBox(height: P),
                           _authBtn(
                             googleIcon,
                             loc.auth_sign_in_google_title,
@@ -119,13 +122,16 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                             margin: const EdgeInsets.only(top: P2),
                             onTap: authExtraDialog,
                           ),
-                          const SizedBox(height: P3),
+                          const SizedBox(height: P4),
                           MTButton(
-                            titleText: '${loc.auth_help_title}? ${loc.contact_us_title}',
+                            middle: SmallText('${loc.auth_help_title}? ${loc.contact_us_title}', color: mainColor),
                             onTap: () => mailUs(subject: loc.auth_help_title),
                           ),
-                          const MTAdaptive.xs(child: MTDivider(indent: P2, endIndent: P2, verticalIndent: P4)),
-                          MTButton(titleText: loc.about_service_title, onTap: showAboutServiceDialog),
+                          const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3, verticalIndent: P2)),
+                          MTButton(
+                            middle: SmallText(loc.about_service_title, color: mainColor),
+                            onTap: showAboutServiceDialog,
+                          ),
                         ],
                       ),
                     ),

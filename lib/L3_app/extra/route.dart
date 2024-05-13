@@ -19,6 +19,7 @@ class MTRoute extends GoRoute {
     required this.baseName,
     this.parent,
     this.controller,
+    this.noTransition = false,
     super.routes,
     super.redirect,
     String? path,
@@ -31,6 +32,7 @@ class MTRoute extends GoRoute {
   final String baseName;
   final MTRoute? parent;
   final Loadable? controller;
+  final bool noTransition;
 
   bool get parentLoading => parent?.controller?.loading == true;
 
@@ -67,7 +69,7 @@ class MTRoute extends GoRoute {
                 key: state.pageKey,
                 child: child,
               )
-            : isBigScreen(context)
+            : isBigScreen(context) || noTransition
                 ? NoTransitionPage(
                     name: state.name,
                     arguments: state.extra,

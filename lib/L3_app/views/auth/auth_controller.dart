@@ -45,26 +45,26 @@ abstract class _AuthControllerBase with Store, Loadable {
       if (authorized) await authUC.signOut();
 
       await load(() async => authorized = await authUC.signInWithRegistration(token));
-      if (authorized) router.goMain(replace: true);
+      if (authorized) router.goMain();
     }
   }
 
   @action
   Future signInWithPassword(String email, String pwd) async {
     await load(() async => authorized = await authUC.signInWithPassword(email, pwd));
-    if (authorized) router.goMain(replace: true);
+    if (authorized) router.goMain();
   }
 
   @action
   Future signInGoogle() async {
     await load(() async => authorized = await authUC.signInGoogle());
-    if (authorized) router.goMain(replace: true);
+    if (authorized) router.goMain();
   }
 
   @action
   Future signInApple() async {
     await load(() async => authorized = await authUC.signInApple());
-    if (authorized) router.goMain(replace: true);
+    if (authorized) router.goMain();
   }
 
   @action
@@ -81,7 +81,7 @@ abstract class _AuthControllerBase with Store, Loadable {
   Future signOut() async {
     await authUC.signOut();
     authorized = false;
-    router.goAuth(replace: false);
+    router.goAuth();
   }
 
   Future startup() async {

@@ -51,7 +51,7 @@ abstract class BaseTaskRoute extends MTRoute {
 
   @override
   GoRouterWidgetBuilder? get builder =>
-      (context, state) => task.creating && (task.isProject || task.isGoal) ? CreateTaskQuizView(taskController) : TaskView(taskController);
+      (_, __) => task.creating && (task.isProject || task.isGoal) ? CreateTaskQuizView(taskController) : TaskView(taskController);
 }
 
 class TaskRoute extends BaseTaskRoute {

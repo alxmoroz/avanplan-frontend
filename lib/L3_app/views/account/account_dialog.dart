@@ -53,23 +53,21 @@ class _AccountDialog extends StatelessWidget {
                 title: loc.my_account_title,
                 trailing: MTButton.icon(const DeleteIcon(), onTap: () => accountController.delete(context), padding: const EdgeInsets.all(P2)),
               ),
-              body: _me != null
-                  ? ListView(
-                      shrinkWrap: true,
-                      children: [
-                        _me!.icon(P10, borderColor: mainColor),
-                        const SizedBox(height: P3),
-                        H3('$_me', align: TextAlign.center),
-                        BaseText(_me!.email, align: TextAlign.center),
-                        const SizedBox(height: P3),
-                        MTListTile(
-                          middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                          bottomDivider: false,
-                          onTap: authController.signOut,
-                        ),
-                      ],
-                    )
-                  : Container(),
+              body: ListView(
+                shrinkWrap: true,
+                children: [
+                  _me!.icon(P10, borderColor: mainColor),
+                  const SizedBox(height: P3),
+                  H3('$_me', align: TextAlign.center),
+                  BaseText(_me!.email, align: TextAlign.center),
+                  const SizedBox(height: P3),
+                  MTListTile(
+                    middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                    bottomDivider: false,
+                    onTap: authController.signOut,
+                  ),
+                ],
+              ),
             ),
     );
   }

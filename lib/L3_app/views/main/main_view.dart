@@ -45,7 +45,8 @@ class _MainRoute extends MTRoute {
           path: '/',
           redirect: (_, __) => !authController.authorized ? authRoute.path : null,
           controller: mainController,
-          builder: (context, state) => const _MainView(),
+          noTransition: true,
+          builder: (_, __) => const _MainView(),
         );
 
   @override
@@ -121,61 +122,63 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      final big = isBigScreen(context);
-      return appController.loading
-          ? LoaderScreen(appController)
-          : mainController.loading
-              ? LoaderScreen(mainController)
-              : MTPage(
-                  appBar: !_freshStart
-                      ? MTAppBar(
-                          leading: const SizedBox(height: P8),
-                          color: big
-                              ? _hasScrolled
-                                  ? b2Color
-                                  : Colors.transparent
-                              : null,
-                          middle: _hasScrolled
-                              ? big
-                                  ? _bigTitle
-                                  : H3(loc.my_tasks_upcoming_title, maxLines: 1)
-                              : null,
-                          trailing: big
-                              ? null
-                              : const MTButton.icon(
-                                  SettingsIcon(),
-                                  padding: EdgeInsets.only(right: P2),
-                                  onTap: showViewSettingsDialog,
-                                ),
-                        )
-                      : big
-                          ? null
-                          : const MTAppBar(leading: SizedBox(), middle: AppTitle()),
-                  body: SafeArea(
-                    top: false,
-                    bottom: false,
-                    child: MTRefresh(
-                      onRefresh: mainController.reload,
-                      child: _showTasks
-                          ? ListView(
-                              controller: isWeb ? _scrollController : null,
-                              children: [
-                                _bigTitle,
-                                const SizedBox(height: P3),
-                                const NextTasks(),
-                              ],
-                            )
-                          : NoTasks(CreateProjectController()),
+    return Observer(
+      builder: (_) {
+        final big = isBigScreen(context);
+        return appController.loading
+            ? LoaderScreen(appController)
+            : mainController.loading
+                ? LoaderScreen(mainController)
+                : MTPage(
+                    appBar: !_freshStart
+                        ? MTAppBar(
+                            leading: const SizedBox(height: P8),
+                            color: big
+                                ? _hasScrolled
+                                    ? b2Color
+                                    : Colors.transparent
+                                : null,
+                            middle: _hasScrolled
+                                ? big
+                                    ? _bigTitle
+                                    : H3(loc.my_tasks_upcoming_title, maxLines: 1)
+                                : null,
+                            trailing: big
+                                ? null
+                                : const MTButton.icon(
+                                    SettingsIcon(),
+                                    padding: EdgeInsets.only(right: P2),
+                                    onTap: showViewSettingsDialog,
+                                  ),
+                          )
+                        : big
+                            ? null
+                            : const MTAppBar(leading: SizedBox(), middle: AppTitle()),
+                    body: SafeArea(
+                      top: false,
+                      bottom: false,
+                      child: MTRefresh(
+                        onRefresh: mainController.reload,
+                        child: _showTasks
+                            ? ListView(
+                                controller: isWeb ? _scrollController : null,
+                                children: [
+                                  _bigTitle,
+                                  const SizedBox(height: P3),
+                                  const NextTasks(),
+                                ],
+                              )
+                            : NoTasks(CreateProjectController()),
+                      ),
                     ),
-                  ),
-                  leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
-                  rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,
-                  bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),
-                  scrollController: _scrollController,
-                  scrollOffsetTop: P8,
-                  onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-                );
-    });
+                    leftBar: canShowVerticalBars(context) ? LeftMenu(leftMenuController) : null,
+                    rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,
+                    bottomBar: canShowVerticalBars(context) ? null : const BottomMenu(),
+                    scrollController: _scrollController,
+                    scrollOffsetTop: P8,
+                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                  );
+      },
+    );
   }
 }

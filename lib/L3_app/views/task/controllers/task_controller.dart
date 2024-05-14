@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -20,6 +21,7 @@ import '../usecases/link.dart';
 import '../usecases/local_export.dart';
 import '../usecases/status.dart';
 import '../widgets/details/details_dialog.dart';
+import '../widgets/empty_state/not_found_dialog.dart';
 import 'attachments_controller.dart';
 import 'create_goal_quiz_controller.dart';
 import 'feature_sets_controller.dart';
@@ -43,8 +45,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   void initWithTask(Task taskIn) {
     taskDescriptor = taskIn;
 
-    setupFields();
-
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
     subtasksController = SubtasksController(this);
@@ -59,7 +59,13 @@ class TaskController extends _TaskControllerBase with _$TaskController {
                 : null
         : null;
 
-    reloadContentControllers();
+    if (taskDescriptor.filled) {
+      setupFields();
+      reloadContentControllers();
+      stopLoading();
+    }
+
+    setLoaderScreenLoading();
   }
 
   void init(int wsId, int taskId, {String? type}) {
@@ -133,6 +139,16 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         await delete();
         break;
       default:
+    }
+  }
+
+  @override
+  void parseError(Exception e) {
+    if (e is DioException && e.type == DioExceptionType.badResponse && e.response?.statusCode == 404) {
+      showTask404Dialog();
+      stopLoading();
+    } else {
+      super.parseError(e);
     }
   }
 }

@@ -33,6 +33,7 @@ final router = GoRouter(
     mainRoute,
   ],
   navigatorKey: rootKey,
+  onException: (_, __, r) => r.goMain(),
   // debugLogDiagnostics: true,
 );
 

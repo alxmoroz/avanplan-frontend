@@ -62,11 +62,10 @@ class LoadableState extends _LoadableBase with _$LoadableState {
       _setAuthError();
     } else if (e is DioException && e.type == DioExceptionType.badResponse) {
       final code = e.response?.statusCode ?? 666;
-      final path = e.requestOptions.path;
 
       if ([401, 403, 407].contains(code)) {
         // ошибки авторизации
-        if (path.startsWith('/v1/auth/password_token')) {
+        if (e.requestOptions.path.startsWith('/v1/auth/password')) {
           // Показываем диалог, если это именно авторизация
           _setAuthError();
         } else if (e.errCode.startsWith('ERR_PERMISSION_BALANCE')) {
@@ -94,16 +93,12 @@ class LoadableState extends _LoadableBase with _$LoadableState {
         if (e.errCode.startsWith('ERR_IMPORT')) {
           _setImportError(e.detail, e.detail);
         } else {
-          if (kDebugMode) {
-            print(e);
-          }
+          if (kDebugMode) print(e);
           _setHTTPError(errorText, e.detail);
         }
       }
-    } else {
-      if (kDebugMode) {
-        print(e);
-      }
+    } else if (kDebugMode) {
+      print(e);
     }
   }
 

@@ -9,6 +9,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/field_data.dart';
+import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../views/_base/edit_controller.dart';
@@ -145,8 +146,8 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   @override
   void parseError(Exception e) {
     if (e is DioException && e.type == DioExceptionType.badResponse && e.response?.statusCode == 404) {
+      router.pop();
       showTask404Dialog();
-      stopLoading();
     } else {
       super.parseError(e);
     }

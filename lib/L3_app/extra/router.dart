@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../../L2_data/services/platform.dart';
+import '../extra/route.dart';
 import '../views/account/account_dialog.dart';
 import '../views/auth/auth_view.dart';
 import '../views/auth/invitation_token_controller.dart';
@@ -53,6 +54,14 @@ extension MTRouterHelper on GoRouter {
         extra: extra ?? 'local',
       );
 
+  MTRoute get _currentRoute => routerDelegate.currentConfiguration.last.route as MTRoute;
+
+  void popToParent(MTRoute? parent) {
+    while (canPop() && _currentRoute != parent) {
+      pop();
+    }
+  }
+
   bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
 
   // Главная и вход
@@ -75,12 +84,12 @@ extension MTRouterHelper on GoRouter {
     if (subRouteName.isNotEmpty) subRouteName = '/$subRouteName';
 
     final needPush = !isWeb || task.isTask;
-    final currentName = needPush ? routerDelegate.currentConfiguration.last.route.name : mainRoute.name;
+    final currentName = needPush ? _currentRoute.name : mainRoute.name;
     final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
     pathParameters.addAll({'wsId': '${task.wsId}', '${taskRouteName}Id': '${task.id!}'});
 
     _goNamed(
-      '${currentName ?? ''}/$taskRouteName$subRouteName',
+      '$currentName/$taskRouteName$subRouteName',
       pathParameters: pathParameters,
       extra: extra,
     );

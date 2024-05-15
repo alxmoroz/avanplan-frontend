@@ -45,7 +45,7 @@ abstract class BaseTaskRoute extends MTRoute {
   GoRouterRedirect? get redirect => (context, state) {
         final wsId = state.pathParamInt('wsId')!;
         final taskId = state.pathParamInt('${baseName}Id')!;
-        taskController.init(wsId, taskId, type: baseName.toUpperCase());
+        taskController.init(wsId, taskId, type: baseName.toUpperCase(), route: this);
 
         return null;
       };

@@ -9,6 +9,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/field_data.dart';
+import '../../../extra/route.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
@@ -41,6 +42,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     if (taskIn != null) initWithTask(taskIn);
   }
 
+  MTRoute? route;
   final notesWidgetGlobalKey = GlobalKey();
 
   void initWithTask(Task taskIn) {
@@ -69,7 +71,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     setLoaderScreenLoading();
   }
 
-  void init(int wsId, int taskId, {String? type}) {
+  void init(int wsId, int taskId, {String? type, MTRoute? route}) {
     initWithTask(tasksMainController.task(wsId, taskId) ??
         Task(
           wsId: wsId,
@@ -85,6 +87,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
           projectStatuses: [],
           projectFeatureSets: [],
         ));
+    this.route = route;
   }
 
   void setupFields() => initState(fds: [
@@ -146,7 +149,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   @override
   void parseError(Exception e) {
     if (e is DioException && e.type == DioExceptionType.badResponse && e.response?.statusCode == 404) {
-      router.pop();
+      router.popToParent(route?.parent);
       showTask404Dialog();
     } else {
       super.parseError(e);

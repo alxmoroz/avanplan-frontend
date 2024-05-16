@@ -14,6 +14,7 @@ import 'controllers/task_controller.dart';
 import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
+import 'widgets/empty_state/task_404_dialog.dart';
 import 'widgets/feature_sets/feature_sets.dart';
 import 'widgets/team/team_quiz_view.dart';
 
@@ -70,6 +71,7 @@ class GoalRoute extends BaseTaskRoute {
   List<RouteBase> get routes => [
         CreateSubtasksQuizRoute(parent: this),
         TaskRoute(parent: this),
+        Task404Route(parent: this),
       ];
 }
 
@@ -79,7 +81,10 @@ class BacklogRoute extends BaseTaskRoute {
   BacklogRoute({super.parent}) : super(baseName: staticBaseName);
 
   @override
-  List<RouteBase> get routes => [TaskRoute(parent: this)];
+  List<RouteBase> get routes => [
+        TaskRoute(parent: this),
+        Task404Route(parent: this),
+      ];
 }
 
 class InboxRoute extends BaseTaskRoute {
@@ -88,7 +93,10 @@ class InboxRoute extends BaseTaskRoute {
   InboxRoute({super.parent}) : super(baseName: staticBaseName);
 
   @override
-  List<RouteBase> get routes => [TaskRoute(parent: this)];
+  List<RouteBase> get routes => [
+        TaskRoute(parent: this),
+        Task404Route(parent: this),
+      ];
 }
 
 class ProjectRoute extends BaseTaskRoute {
@@ -104,6 +112,7 @@ class ProjectRoute extends BaseTaskRoute {
         GoalRoute(parent: this),
         BacklogRoute(parent: this),
         TaskRoute(parent: this),
+        Task404Route(parent: this),
       ];
 }
 

@@ -8,12 +8,25 @@ import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/route.dart';
 import '../../../../extra/services.dart';
 
-Future showTask404Dialog() async => await showMTDialog<void>(const _TaskNotFoundDialog());
+class Task404Route extends MTRoute {
+  static const staticBaseName = '404';
 
-class _TaskNotFoundDialog extends StatelessWidget {
-  const _TaskNotFoundDialog();
+  Task404Route({super.parent})
+      : super(
+          baseName: staticBaseName,
+          path: staticBaseName,
+          builder: (_, __) => const _Task404Dialog(),
+        );
+
+  @override
+  bool isDialog(BuildContext context) => true;
+}
+
+class _Task404Dialog extends StatelessWidget {
+  const _Task404Dialog();
 
   @override
   Widget build(BuildContext context) {

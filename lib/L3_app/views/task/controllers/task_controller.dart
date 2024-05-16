@@ -23,7 +23,6 @@ import '../usecases/link.dart';
 import '../usecases/local_export.dart';
 import '../usecases/status.dart';
 import '../widgets/details/details_dialog.dart';
-import '../widgets/empty_state/not_found_dialog.dart';
 import 'attachments_controller.dart';
 import 'create_goal_quiz_controller.dart';
 import 'feature_sets_controller.dart';
@@ -148,9 +147,11 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
   @override
   void parseError(Exception e) {
+    // 404
     if (e is DioException && e.type == DioExceptionType.badResponse && e.response?.statusCode == 404) {
-      router.popToParent(route?.parent);
-      showTask404Dialog();
+      tasksMainController.removeTask(task);
+      tasksMainController.refreshTasksUI();
+      router.goTask404(route?.parent);
     } else {
       super.parseError(e);
     }

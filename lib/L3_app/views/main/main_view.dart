@@ -25,6 +25,7 @@ import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
 import '../task/task_route.dart';
+import '../task/widgets/empty_state/task_404_dialog.dart';
 import '../workspace/ws_dialog.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
@@ -60,6 +61,7 @@ class _MainRoute extends MTRoute {
         GoalRoute(parent: this),
         BacklogRoute(parent: this),
         TaskRoute(parent: this),
+        Task404Route(parent: this),
       ];
 }
 

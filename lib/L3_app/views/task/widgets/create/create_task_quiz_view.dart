@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
@@ -26,20 +25,18 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        appBar: QuizHeader(qController),
-        leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: ListView(
-            children: [
-              const SizedBox(height: P),
-              TaskHeader(controller),
-              MTAdaptive(child: TaskQuizDetails(qController)),
-            ],
-          ),
+    return MTPage(
+      appBar: QuizHeader(qController),
+      leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: ListView(
+          children: [
+            const SizedBox(height: P),
+            TaskHeader(controller),
+            MTAdaptive(child: TaskQuizDetails(qController)),
+          ],
         ),
       ),
     );

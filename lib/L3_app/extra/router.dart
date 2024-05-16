@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,25 +18,29 @@ import '../views/projects/projects_view.dart';
 import '../views/source/sources_dialog.dart';
 import '../views/task/controllers/task_controller.dart';
 import '../views/task/widgets/create/create_subtasks_quiz_view.dart';
+import '../views/task/widgets/empty_state/task_404_dialog.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/team/team_quiz_view.dart';
 import '../views/workspace/ws_dialog.dart';
 import '../views/workspace/ws_users_dialog.dart';
 
-final rootKey = GlobalKey<NavigatorState>();
-BuildContext get globalContext => rootKey.currentContext!;
+final _rootKey = GlobalKey<NavigatorState>();
+BuildContext get globalContext => _rootKey.currentContext!;
 
 final router = GoRouter(
-  routes: [
-    authRoute,
-    registrationTokenRoute,
-    invitationTokenRoute,
-    mainRoute,
-  ],
-  navigatorKey: rootKey,
-  onException: (_, __, r) => r.goMain(),
-  // debugLogDiagnostics: true,
-);
+    routes: [
+      authRoute,
+      registrationTokenRoute,
+      invitationTokenRoute,
+      mainRoute,
+    ],
+    navigatorKey: _rootKey,
+    onException: (_, state, r) {
+      if (kDebugMode) print('GoRouter onException -> $state');
+      r.goMain();
+    }
+    // debugLogDiagnostics: true,
+    );
 
 extension MTPathParametersHelper on GoRouterState {
   int? pathParamInt(String param) => int.tryParse(pathParameters[param] ?? '');
@@ -56,12 +61,6 @@ extension MTRouterHelper on GoRouter {
       );
 
   MTRoute get _currentRoute => routerDelegate.currentConfiguration.last.route as MTRoute;
-
-  void popToParent(MTRoute? parent) {
-    while (canPop() && _currentRoute != parent) {
-      pop();
-    }
-  }
 
   bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
 
@@ -96,6 +95,15 @@ extension MTRouterHelper on GoRouter {
     );
   }
 
+  // 404 для задач
+  void goTask404(MTRoute? parent) {
+    RouteMatchList matches = routerDelegate.currentConfiguration;
+    while (matches.matches.length > 1 && matches.last.route != parent) {
+      matches = matches.remove(matches.last);
+    }
+    go('${matches.last.matchedLocation}/${Task404Route.staticBaseName}');
+  }
+
   void goFeatureSetsQuiz(TaskController tc) => goTaskView(
         tc.taskDescriptor,
         subRouteName: FeatureSetsQuizRoute.staticBaseName,
@@ -114,15 +122,3 @@ extension MTRouterHelper on GoRouter {
         extra: tc,
       );
 }
-
-// Future push(BuildContext context, {MTRouter? removeUntil, bool replace = false, Object? args}) async {
-//   final p = path(args: args);
-//   if (removeUntil != null) {
-//     final stopPath = removeUntil.path(args: args);
-//     await n.pushNamedAndRemoveUntil(p, (r) => r.isFirst || r.settings.name == stopPath, arguments: args);
-//   } else if (replace) {
-//     await n.pushReplacementNamed(p, arguments: args);
-//   } else {
-//     await n.pushNamed(p, arguments: args);
-//   }
-// }

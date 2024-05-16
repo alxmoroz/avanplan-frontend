@@ -19,6 +19,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/source.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
@@ -78,7 +79,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Оценки
-          if (_task.hasEstimate || _task.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (_task.hfsEstimates) TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Вложения
           if (!_isTaskDialog(context) && _task.attachments.isNotEmpty)

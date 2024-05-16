@@ -27,7 +27,7 @@ extension TaskStatsExtension on Task {
 
   Duration get beforeStartPeriod => calculatedStartDate.difference(now);
 
-  bool get hasEstimate => openedVolume != null || estimate != null;
+  bool get hasEstimate => estimate != null;
   bool get didImported => taskSource != null;
   bool get isImportingProject => isProject && taskSource?.isRunning == true;
   bool get isLinked => didImported && taskSource!.keepConnection;

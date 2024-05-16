@@ -104,7 +104,8 @@ extension MTRouterHelper on GoRouter {
     while (matches.matches.length > 1 && matches.last.route != parent) {
       matches = matches.remove(matches.last);
     }
-    go('${matches.last.matchedLocation}/${Task404Route.staticBaseName}');
+    final parentLocation = matches.last.matchedLocation;
+    go('${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}');
   }
 
   void goFeatureSetsQuiz(TaskController tc) => goTaskView(

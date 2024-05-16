@@ -19,6 +19,7 @@ class TaskParentTitle extends StatelessWidget {
 
   void _toParent() {
     final parent = _task.parent!;
+    router.pop();
     router.goTaskView(parent);
   }
 

@@ -85,14 +85,17 @@ extension MTRouterHelper on GoRouter {
 
     final needPush = !isWeb || task.isTask;
     final currentName = needPush ? _currentRoute.name : mainRoute.name;
-    final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
-    pathParameters.addAll({'wsId': '${task.wsId}', '${taskRouteName}Id': '${task.id!}'});
 
-    _goNamed(
-      '$currentName/$taskRouteName$subRouteName',
-      pathParameters: pathParameters,
-      extra: extra,
-    );
+    if (_currentRoute.baseName != taskRouteName) {
+      final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
+      pathParameters.addAll({'wsId': '${task.wsId}', '${taskRouteName}Id': '${task.id!}'});
+
+      _goNamed(
+        '$currentName/$taskRouteName$subRouteName',
+        pathParameters: pathParameters,
+        extra: extra,
+      );
+    }
   }
 
   // 404 для задач

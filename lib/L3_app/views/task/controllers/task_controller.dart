@@ -61,8 +61,9 @@ class TaskController extends _TaskControllerBase with _$TaskController {
                 : null
         : null;
 
+    setupFields();
+
     if (taskDescriptor.filled) {
-      setupFields();
       reloadContentControllers();
       stopLoading();
     }

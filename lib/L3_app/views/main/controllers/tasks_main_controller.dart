@@ -98,6 +98,7 @@ abstract class _TasksMainControllerBase with Store {
         allTasks.add(et);
       }
     }
+    allTasks.sort();
   }
 
   void removeTask(Task task) {

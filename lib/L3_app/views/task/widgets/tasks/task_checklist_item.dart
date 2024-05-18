@@ -24,8 +24,8 @@ import '../../usecases/status.dart';
 import '../../usecases/title.dart';
 
 class TaskChecklistItem extends StatefulWidget {
-  const TaskChecklistItem(this._taskIn, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
-  final Task _taskIn;
+  const TaskChecklistItem(this._controller, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
+  final TaskController _controller;
   final bool bottomDivider;
   final Function()? onSubmit;
   final Function()? onDelete;
@@ -35,8 +35,7 @@ class TaskChecklistItem extends StatefulWidget {
 }
 
 class _TaskChecklistItemState extends State<TaskChecklistItem> {
-  late final TaskController controller;
-
+  TaskController get controller => widget._controller;
   Task get task => controller.task;
 
   bool _fieldHover = false;
@@ -49,8 +48,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   @override
   void initState() {
-    controller = TaskController(taskIn: widget._taskIn);
-    if (widget._taskIn.creating) controller.setTitleFocus();
+    if (task.creating) controller.setTitleFocus();
     super.initState();
   }
 
@@ -161,7 +159,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
       value: isWeb
           ? _fieldValue(context)
           : Slidable(
-              key: ObjectKey(widget._taskIn),
+              key: ObjectKey(controller),
               endActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(

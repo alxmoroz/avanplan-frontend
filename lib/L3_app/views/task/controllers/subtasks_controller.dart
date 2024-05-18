@@ -22,20 +22,22 @@ abstract class _SubtasksControllerBase with Store {
   Task get parent => _parentTaskController.task;
 
   @observable
-  ObservableList<Task> subtasks = ObservableList();
+  ObservableList<TaskController> tasksControllers = ObservableList();
 
   @action
-  void reload() => subtasks = ObservableList.of(parent.subtasks);
+  void reload() => tasksControllers = ObservableList.of(parent.subtasks.map((t) => TaskController(taskIn: t)));
 
   @action
   Future add() async {
     final t = await _parentTaskController.addSubtask(noGo: true);
-    if (t != null) subtasks.add(t);
+    if (t != null) tasksControllers.add(TaskController(taskIn: t));
   }
 
   @action
   Future delete(int index) async {
-    final t = subtasks[index];
-    if (await TaskController(taskIn: t).delete() != null) subtasks.remove(t);
+    final tc = tasksControllers[index];
+    if (await tc.delete() != null) {
+      tasksControllers.remove(tc);
+    }
   }
 }

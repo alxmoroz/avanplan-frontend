@@ -56,10 +56,10 @@ class _CreateSubtasksQuizView extends StatelessWidget {
       );
 
   Widget _itemBuilder(BuildContext context, int index) {
-    return index == _subtasksController.subtasks.length
+    return index == _subtasksController.tasksControllers.length
         ? _addButton
         : TaskChecklistItem(
-            _subtasksController.subtasks.elementAt(index),
+            _subtasksController.tasksControllers.elementAt(index),
             bottomDivider: true,
             onSubmit: _subtasksController.add,
             onDelete: () => _subtasksController.delete(index),

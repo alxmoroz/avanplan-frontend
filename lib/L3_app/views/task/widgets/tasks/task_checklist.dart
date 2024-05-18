@@ -31,10 +31,10 @@ class TaskChecklist extends StatelessWidget {
       );
 
   Widget _itemBuilder(BuildContext context, int index) {
-    return index == _controller.subtasks.length
+    return index == _controller.tasksControllers.length
         ? _addButton
         : TaskChecklistItem(
-            _controller.subtasks.elementAt(index),
+            _controller.tasksControllers.elementAt(index),
             bottomDivider: true,
             onSubmit: _controller.add,
             onDelete: () => _controller.delete(index),
@@ -48,7 +48,7 @@ class TaskChecklist extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: _itemBuilder,
-        itemCount: _controller.subtasks.length + (_task.canCreateChecklist ? 1 : 0),
+        itemCount: _controller.tasksControllers.length + (_task.canCreateChecklist ? 1 : 0),
       ),
     );
   }

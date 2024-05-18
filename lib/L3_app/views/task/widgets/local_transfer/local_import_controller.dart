@@ -7,10 +7,10 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_transfer.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
+import '../../usecases/local_transfer.dart';
 import 'task_selector.dart';
 
 part 'local_import_controller.g.dart';
@@ -58,7 +58,7 @@ abstract class _LocalImportControllerBase with Store {
   void checkTask(int index, bool? selected) => checks[index] = selected == true;
 
   Future selectSourceGoal() async {
-    final srcGoal = await selectTask(destinationGoal.goalsForLocalImport.sorted((t1, t2) => t1.compareTo(t2)), loc.task_transfer_source_hint);
+    final srcGoal = await selectTask(_taskController.targetsForLocalImport.sorted((t1, t2) => t1.compareTo(t2)), loc.task_transfer_source_hint);
     if (srcGoal != null) {
       _setSrc(srcGoal);
     }

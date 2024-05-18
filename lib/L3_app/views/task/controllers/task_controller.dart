@@ -20,7 +20,7 @@ import '../../quiz/abstract_task_quiz_controller.dart';
 import '../usecases/delete.dart';
 import '../usecases/duplicate.dart';
 import '../usecases/link.dart';
-import '../usecases/local_export.dart';
+import '../usecases/local_transfer.dart';
 import '../usecases/status.dart';
 import '../widgets/details/details_dialog.dart';
 import 'attachments_controller.dart';

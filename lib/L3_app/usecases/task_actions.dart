@@ -11,7 +11,6 @@ import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/adaptive.dart';
 import '../extra/services.dart';
-import '../presenters/task_transfer.dart';
 import 'task_feature_sets.dart';
 import 'task_tree.dart';
 import 'ws_actions.dart';
@@ -70,8 +69,8 @@ extension TaskActionsUC on Task {
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
-  bool get canLocalExport => canEdit && targetsForLocalExport.isNotEmpty;
-  bool get canLocalImport => !isTask && canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
+  bool get canLocalExport => canEdit;
+  bool get canLocalImport => !isTask && canEdit && hfsGoals;
 
   bool get canComment => isTask && !closed && canEdit;
 

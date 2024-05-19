@@ -33,7 +33,7 @@ extension LocalTransferUC on TaskController {
     final isBacklog = task.isBacklog;
 
     // в текущем проекте можно переносить задачи между целями
-    if (isTask && task.hfsGoals) {
+    if (isTask && project.hfsGoals) {
       targets = project.openedSubtasks.where((g) => g.id != task.parentId).toList();
     }
 

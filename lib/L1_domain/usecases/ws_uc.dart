@@ -19,4 +19,11 @@ class WorkspaceUC {
         closed: closed,
       );
   Future<Iterable<Task>> getMyTasks(int wsId, {int? projectId}) async => await repo.getMyTasks(wsId, projectId: projectId);
+
+  Future<Iterable<Project>> getProjectTemplates(int wsId) async => await repo.projectTemplates(wsId);
+  Future<TasksChanges?> createFromTemplate(int srcWsId, int srcProjectId, int dstWsId) async =>
+      await repo.createFromTemplate(srcWsId, srcProjectId, dstWsId);
+
+  Future<Iterable<Task>> sourcesForMove(int wsId) async => await repo.sourcesForMove(wsId);
+  Future<Iterable<Task>> destinationsForMove(int wsId, String taskType) async => await repo.destinationsForMove(wsId, taskType);
 }

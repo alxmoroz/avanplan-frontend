@@ -19,7 +19,7 @@ import '../../usecases/note_edit.dart';
 import '../../usecases/status.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
-import '../local_transfer/local_import_dialog.dart';
+import '../transfer/local_import_dialog.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskBottomToolbar(this._controller, {super.key});

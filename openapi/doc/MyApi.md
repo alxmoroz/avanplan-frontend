@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Projects
 
-Мои проекты, куда у меня есть доступ
+Мои проекты, куда у меня есть доступ, в том числе Входящие
 
 ### Example
 ```dart

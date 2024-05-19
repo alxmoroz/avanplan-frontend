@@ -99,7 +99,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
         MTFieldData(
           TaskFCode.estimate.index,
-          label: (taskDescriptor.isGroup || taskDescriptor.isBacklog) ? loc.task_estimate_group_label : loc.task_estimate_label,
+          label: taskDescriptor.isGroup ? loc.task_estimate_group_label : loc.task_estimate_label,
           placeholder: loc.task_estimate_placeholder,
         ),
         MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),

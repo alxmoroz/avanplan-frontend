@@ -21,7 +21,7 @@ class MyApi {
   const MyApi(this._dio, this._serializers);
 
   /// Projects
-  /// Мои проекты, куда у меня есть доступ
+  /// Мои проекты, куда у меня есть доступ, в том числе Входящие
   ///
   /// Parameters:
   /// * [wsId] 

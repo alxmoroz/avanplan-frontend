@@ -44,7 +44,6 @@ part 'task_get.g.dart';
 /// * [openedVolume] 
 /// * [closedVolume] 
 /// * [closedSubtasksCount] 
-/// * [tasks] 
 /// * [taskSource] 
 /// * [members] 
 /// * [notes] 
@@ -130,9 +129,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'closed_subtasks_count')
   int? get closedSubtasksCount;
-
-  @BuiltValueField(wireName: r'tasks')
-  BuiltList<TaskGet>? get tasks;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
@@ -349,13 +345,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.closedSubtasksCount,
         specifiedType: const FullType(int),
-      );
-    }
-    if (object.tasks != null) {
-      yield r'tasks';
-      yield serializers.serialize(
-        object.tasks,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
       );
     }
     if (object.taskSource != null) {
@@ -604,13 +593,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.closedSubtasksCount = valueDes;
-          break;
-        case r'tasks':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-          ) as BuiltList<TaskGet>;
-          result.tasks.replace(valueDes);
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

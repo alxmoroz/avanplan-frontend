@@ -6,12 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/dialog.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
-import '../../usecases/local_transfer.dart';
-import 'task_selector.dart';
+import 'transfer_selector.dart';
+import 'transfer_selector_controller.dart';
 
 part 'local_import_controller.g.dart';
 
@@ -24,18 +25,18 @@ class LocalImportController extends _LocalImportControllerBase with _$LocalImpor
 abstract class _LocalImportControllerBase with Store {
   late final TaskController _taskController;
 
-  Task get destinationGoal => _taskController.task;
+  Task get dstGroup => _taskController.task;
 
   @observable
-  Task? sourceGoal;
+  Task? srcGroup;
 
   @computed
-  bool get sourceSelected => sourceGoal != null;
+  bool get srcGroupSelected => srcGroup != null;
 
   @action
   void _setSrc(Task src) {
-    sourceGoal = src;
-    srcTasks = sourceGoal?.openedSubtasks.sorted((t1, t2) => t1.compareTo(t2)) ?? [];
+    srcGroup = src;
+    srcTasks = srcGroup?.openedSubtasks.sorted((t1, t2) => t1.compareTo(t2)) ?? [];
     checks = ObservableList.of([for (var _ in srcTasks) false]);
   }
 
@@ -57,8 +58,10 @@ abstract class _LocalImportControllerBase with Store {
   @action
   void checkTask(int index, bool? selected) => checks[index] = selected == true;
 
-  Future selectSourceGoal() async {
-    final srcGoal = await selectTask(_taskController.targetsForLocalImport.sorted((t1, t2) => t1.compareTo(t2)), loc.task_transfer_source_hint);
+  Future selectSourceForMove() async {
+    final controller = TransferSelectorController();
+    controller.getSourcesForMove();
+    final srcGoal = await showMTDialog<Task>(TransferSelectorDialog(controller, loc.task_transfer_source_hint));
     if (srcGoal != null) {
       _setSrc(srcGoal);
     }
@@ -66,7 +69,7 @@ abstract class _LocalImportControllerBase with Store {
 
   Future moveTasks(BuildContext context) async {
     context.pop();
-    final dstParentId = destinationGoal.id;
+    final dstParentId = dstGroup.id;
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         final t = srcTasks[index];

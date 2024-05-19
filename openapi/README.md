@@ -121,15 +121,19 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**upsertNote**](doc/TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertStatus**](doc/TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertTask**](doc/TasksApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
-[*TransferApi*](doc/TransferApi.md) | [**createFromTemplate**](doc/TransferApi.md#createfromtemplate) | **POST** /v1/transfer | Create From Template
-[*TransferApi*](doc/TransferApi.md) | [**projectTemplates**](doc/TransferApi.md#projecttemplates) | **GET** /v1/transfer/project_templates | Project Templates
+[*TransferApi*](doc/TransferApi.md) | [**createFromTemplate**](doc/TransferApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
+[*TransferApi*](doc/TransferApi.md) | [**destinationsForMove**](doc/TransferApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
+[*TransferApi*](doc/TransferApi.md) | [**projectTemplates**](doc/TransferApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
+[*TransferApi*](doc/TransferApi.md) | [**sourcesForMoveTasks**](doc/TransferApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**assignRole**](doc/WorkspacesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**checkConnection**](doc/WorkspacesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**createFromTemplate**](doc/WorkspacesApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createInvitation**](doc/WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteNote**](doc/WorkspacesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteSource**](doc/WorkspacesApi.md#deletesource) | **DELETE** /v1/workspaces/{ws_id}/sources/{source_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteStatus**](doc/WorkspacesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteTask**](doc/WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**destinationsForMove**](doc/WorkspacesApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**duplicateTask**](doc/WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getAvailableTariffs**](doc/WorkspacesApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getInvitations**](doc/WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
@@ -139,8 +143,10 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**moveTask**](doc/WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myProjects**](doc/WorkspacesApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myTasks**](doc/WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**projectTemplates**](doc/WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**requestType**](doc/WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForMoveTasks**](doc/WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**startImport**](doc/WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**taskNode**](doc/WorkspacesApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Node

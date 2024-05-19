@@ -8,7 +8,7 @@ void main() {
   group(MyApi, () {
     // Projects
     //
-    // Мои проекты, куда у меня есть доступ
+    // Мои проекты, куда у меня есть доступ, в том числе Входящие
     //
     //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
     test('test myProjects', () async {

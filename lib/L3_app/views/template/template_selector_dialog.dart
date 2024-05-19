@@ -27,7 +27,7 @@ Future createFromTemplate(Workspace ws) async {
   if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
     controller.setLoaderScreenSaving();
     controller.load(() async {
-      final changes = await projectTransferUC.createFromTemplate(template.wsId, template.id!, ws.id!);
+      final changes = await wsUC.createFromTemplate(template.wsId, template.id!, ws.id!);
       if (changes != null) {
         final p = changes.updated;
         p.filled = true;

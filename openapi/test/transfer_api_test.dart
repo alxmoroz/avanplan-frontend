@@ -8,8 +8,15 @@ void main() {
   group(TransferApi, () {
     // Create From Template
     //
-    //Future<TasksChanges> createFromTemplate(int srcWsId, int srcProjectId, int wsId) async
+    //Future<TasksChanges> createFromTemplate(int wsId, int srcWsId, int srcProjectId) async
     test('test createFromTemplate', () async {
+      // TODO
+    });
+
+    // Destinations For Move
+    //
+    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType) async
+    test('test destinationsForMove', () async {
       // TODO
     });
 
@@ -17,6 +24,13 @@ void main() {
     //
     //Future<BuiltList<ProjectGet>> projectTemplates(int wsId) async
     test('test projectTemplates', () async {
+      // TODO
+    });
+
+    // Sources For Move
+    //
+    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId) async
+    test('test sourcesForMoveTasks', () async {
       // TODO
     });
   });

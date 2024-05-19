@@ -20,8 +20,8 @@ import 'local_import_controller.dart';
 
 Future localImportDialog(TaskController taskController) async {
   final lic = LocalImportController(taskController);
-  await lic.selectSourceGoal();
-  if (lic.sourceSelected) {
+  await lic.selectSourceForMove();
+  if (lic.srcGroupSelected) {
     await showMTDialog<void>(_LocalImportDialog(lic));
   }
 }
@@ -30,8 +30,8 @@ class _LocalImportDialog extends StatelessWidget {
   const _LocalImportDialog(this.controller);
   final LocalImportController controller;
 
-  Task? get _srcGoal => controller.sourceGoal;
-  Task get _dstGoal => controller.destinationGoal;
+  Task? get _src => controller.srcGroup;
+  Task get _dst => controller.dstGroup;
 
   bool get _showSelectAll => controller.srcTasks.length > 2;
 
@@ -61,7 +61,7 @@ class _LocalImportDialog extends StatelessWidget {
                   height: P3,
                   alignment: Alignment.center,
                   child: BaseText(
-                    '$_dstGoal',
+                    '$_dst',
                     maxLines: 1,
                     align: TextAlign.center,
                     padding: const EdgeInsets.symmetric(horizontal: P2),
@@ -72,14 +72,14 @@ class _LocalImportDialog extends StatelessWidget {
                   constrained: false,
                   padding: const EdgeInsets.symmetric(horizontal: P3),
                   margin: const EdgeInsets.symmetric(horizontal: P2),
-                  titleText: controller.sourceSelected ? '$_srcGoal' : loc.task_transfer_source_hint,
-                  trailing: controller.sourceSelected
+                  titleText: controller.srcGroupSelected ? '$_src' : loc.task_transfer_source_hint,
+                  trailing: controller.srcGroupSelected
                       ? const Padding(
                           padding: EdgeInsets.only(top: P_2),
                           child: CaretIcon(size: Size(P2 * 0.7, P2 * 0.7), color: mainColor),
                         )
                       : null,
-                  onTap: controller.selectSourceGoal,
+                  onTap: controller.selectSourceForMove,
                 ),
                 if (_showSelectAll)
                   MTCheckBoxTile(
@@ -98,14 +98,14 @@ class _LocalImportDialog extends StatelessWidget {
           body: MTShadowed(
             topPaddingIndent: 0,
             shadowColor: b1Color,
-            bottomShadow: controller.sourceSelected,
+            bottomShadow: controller.srcGroupSelected,
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: _taskItem,
               itemCount: controller.checks.length,
             ),
           ),
-          bottomBar: controller.sourceSelected
+          bottomBar: controller.srcGroupSelected
               ? MTAppBar(
                   isBottom: true,
                   color: b2Color,

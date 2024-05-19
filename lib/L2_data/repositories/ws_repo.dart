@@ -48,4 +48,38 @@ class WSRepo extends AbstractWSRepo {
     final response = await _api.myProjects(wsId: wsId, closed: closed, imported: imported);
     return response.data?.map((t) => t.task(wsId)) ?? [];
   }
+
+  @override
+  Future<Iterable<Project>> projectTemplates(int wsId) async {
+    final response = await _api.projectTemplates(wsId: wsId);
+    return response.data?.map((t) => t.project) ?? [];
+  }
+
+  @override
+  Future<TasksChanges?> createFromTemplate(int srcWsId, int srcProjectId, int dstWsId) async {
+    final changes = (await _api.createFromTemplate(
+      srcWsId: srcWsId,
+      srcProjectId: srcProjectId,
+      wsId: dstWsId,
+    ))
+        .data;
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(dstWsId),
+            changes.affectedTasks.map((t) => t.task(dstWsId)),
+          )
+        : null;
+  }
+
+  @override
+  Future<Iterable<Task>> sourcesForMove(int wsId) async {
+    final response = await _api.sourcesForMoveTasks(wsId: wsId);
+    return response.data?.map((t) => t.task(wsId)) ?? [];
+  }
+
+  @override
+  Future<Iterable<Task>> destinationsForMove(int wsId, String taskType) async {
+    final response = await _api.destinationsForMove(wsId: wsId, taskType: taskType);
+    return response.data?.map((t) => t.task(wsId)) ?? [];
+  }
 }

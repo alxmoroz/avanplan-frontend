@@ -1,0 +1,38 @@
+// Copyright (c) 2024. Alexandr Moroz
+
+import 'package:mobx/mobx.dart';
+
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/workspace.dart';
+import '../../../../extra/services.dart';
+import '../../../../views/_base/loadable.dart';
+
+part 'transfer_selector_controller.g.dart';
+
+class TransferSelectorController extends _TransferSelectorControllerBase with _$TransferSelectorController {}
+
+abstract class _TransferSelectorControllerBase with Store, Loadable {
+  List<Task> tasks = [];
+
+  // перенос из других целей, бэклогов, проектов
+  Future getSourcesForMove() async => await load(
+        () async {
+          tasks = [];
+          for (Workspace ws in wsMainController.workspaces) {
+            tasks.addAll(await wsUC.sourcesForMove(ws.id!));
+          }
+          tasks.sort();
+        },
+      );
+
+  // перенос в другую цель, проект
+  Future getDestinationsForMove(String taskType) async => await load(
+        () async {
+          tasks = [];
+          for (Workspace ws in wsMainController.workspaces) {
+            tasks.addAll(await wsUC.destinationsForMove(ws.id!, taskType));
+          }
+          tasks.sort();
+        },
+      );
+}

@@ -22,7 +22,7 @@ import '../../usecases/note_edit.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';
-import '../local_transfer/local_import_dialog.dart';
+import '../transfer/local_import_dialog.dart';
 import 'action_item.dart';
 import 'popup_menu.dart';
 

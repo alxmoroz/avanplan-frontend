@@ -20,6 +20,13 @@ void main() {
       // TODO
     });
 
+    // Create From Template
+    //
+    //Future<TasksChanges> createFromTemplate(int wsId, int srcWsId, int srcProjectId) async
+    test('test createFromTemplate', () async {
+      // TODO
+    });
+
     // Create
     //
     //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async
@@ -52,6 +59,13 @@ void main() {
     //
     //Future<TasksChanges> deleteTask(int wsId, int taskId) async
     test('test deleteTask', () async {
+      // TODO
+    });
+
+    // Destinations For Move
+    //
+    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType) async
+    test('test destinationsForMove', () async {
       // TODO
     });
 
@@ -106,7 +120,7 @@ void main() {
 
     // Projects
     //
-    // Мои проекты, куда у меня есть доступ
+    // Мои проекты, куда у меня есть доступ, в том числе Входящие
     //
     //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
     test('test myProjects', () async {
@@ -122,6 +136,13 @@ void main() {
       // TODO
     });
 
+    // Project Templates
+    //
+    //Future<BuiltList<ProjectGet>> projectTemplates(int wsId) async
+    test('test projectTemplates', () async {
+      // TODO
+    });
+
     // Request Type
     //
     //Future<bool> requestType(int wsId, BodyRequestType bodyRequestType) async
@@ -133,6 +154,13 @@ void main() {
     //
     //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody) async
     test('test setupFeatureSets', () async {
+      // TODO
+    });
+
+    // Sources For Move
+    //
+    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId) async
+    test('test sourcesForMoveTasks', () async {
       // TODO
     });
 

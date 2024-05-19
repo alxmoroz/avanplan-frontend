@@ -26,7 +26,7 @@ abstract class _TemplateControllerBase with Store, Loadable {
   @action
   Future reload() async {
     setLoaderScreenLoading();
-    load(() async => _templates = await projectTransferUC.getProjectTemplates(_wsId));
+    load(() async => _templates = await wsUC.getProjectTemplates(_wsId));
   }
 
   @computed

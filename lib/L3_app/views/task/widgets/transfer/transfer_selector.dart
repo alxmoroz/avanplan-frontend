@@ -3,6 +3,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
@@ -14,18 +15,18 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
+import '../../../../views/_base/loader_screen.dart';
+import 'transfer_selector_controller.dart';
 
-Future<Task?> selectTask(List<Task> taskList, String title) async => await showMTDialog<Task>(_TaskSelectDialog(taskList, title));
-
-class _TaskSelectDialog extends StatelessWidget {
-  const _TaskSelectDialog(this._taskList, this._titleText);
-  final List<Task> _taskList;
+class TransferSelectorDialog extends StatelessWidget {
+  const TransferSelectorDialog(this._controller, this._titleText, {super.key});
+  final TransferSelectorController _controller;
   final String _titleText;
 
   static const _AVANPLAN_KEY_OTHER_PROJECTS = '_AVANPLAN_KEY_OTHER_PROJECTS';
 
   List<MapEntry<String, List<Task>>> get _groups {
-    final gt = groupBy<Task, String>(_taskList, (t) => t.isProject ? _AVANPLAN_KEY_OTHER_PROJECTS : t.project.title);
+    final gt = groupBy<Task, String>(_controller.tasks, (t) => t.isProject ? _AVANPLAN_KEY_OTHER_PROJECTS : t.project.title);
     return gt.entries.sorted((g1, g2) {
       final t1 = g1.key;
       final t2 = g2.key;
@@ -75,17 +76,21 @@ class _TaskSelectDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        color: b2Color,
-        title: _titleText,
-      ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: _groups.length,
-        itemBuilder: _groupBuilder,
-      ),
+    return Observer(
+      builder: (_) => _controller.loading
+          ? LoaderScreen(_controller, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                title: _titleText,
+              ),
+              body: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _groups.length,
+                itemBuilder: _groupBuilder,
+              ),
+            ),
     );
   }
 }

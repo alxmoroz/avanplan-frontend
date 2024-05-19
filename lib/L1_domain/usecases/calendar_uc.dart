@@ -5,11 +5,11 @@ import '../entities/calendar_source.dart';
 import '../repositories/abs_calendar_repo.dart';
 
 class CalendarUC {
-  const CalendarUC({required this.calendarRepo});
+  const CalendarUC(this.repo);
 
-  final AbstractCalendarRepo calendarRepo;
+  final AbstractCalendarRepo repo;
 
-  Future<CalendarSource?> updateSource(CalendarSourceType type) async => await calendarRepo.updateSource(type);
-  Future<Iterable<CalendarSource>> getSources() async => await calendarRepo.getSources();
-  Future<CalendarsEvents> getCalendarsEvents() async => await calendarRepo.getCalendarsEvents();
+  Future<CalendarSource?> updateSource(CalendarSourceType type) async => await repo.updateSource(type);
+  Future<Iterable<CalendarSource>> getSources() async => await repo.getSources();
+  Future<CalendarsEvents> getCalendarsEvents() async => await repo.getCalendarsEvents();
 }

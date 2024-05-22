@@ -428,9 +428,11 @@
   "task_title": "Task",
 
   "task_transfer_destination_hint": "Select where to transfer",
-  "task_transfer_import_action_title": "Transfer tasks",
   "task_transfer_export_action_title": "Transfer",
+  "task_transfer_export_empty_title": "No suitable places to transfer",
+  "task_transfer_import_action_title": "Transfer tasks",
   "task_transfer_import_confirm_action_title": "Transfer",
+  "task_transfer_import_empty_title": "No suitable sources",
   "task_transfer_source_hint": "Select where to transfer from",
   "task_transfer_title": "Transfer tasks to ",
 

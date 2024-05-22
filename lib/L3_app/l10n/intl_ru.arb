@@ -429,8 +429,10 @@
 
   "task_transfer_destination_hint": "Выберите, куда перенести",
   "task_transfer_export_action_title": "Перенести",
+  "task_transfer_export_empty_title": "Нет подходящих мест для переноса",
   "task_transfer_import_action_title": "Перенести задачи",
   "task_transfer_import_confirm_action_title": "Перенести",
+  "task_transfer_import_empty_title": "Нет подходящих источников",
   "task_transfer_source_hint": "Выберите, откуда перенести",
   "task_transfer_title": "Перенос задач в ",
 

@@ -60,8 +60,12 @@ abstract class _LocalImportControllerBase with Store {
 
   Future selectSourceForMove() async {
     final controller = TransferSelectorController();
-    controller.getSourcesForMove();
-    final srcGoal = await showMTDialog<Task>(TransferSelectorDialog(controller, loc.task_transfer_source_hint));
+    controller.getSourcesForMove(dstGroup);
+    final srcGoal = await showMTDialog<Task>(TransferSelectorDialog(
+      controller,
+      loc.task_transfer_source_hint,
+      loc.task_transfer_import_empty_title,
+    ));
     if (srcGoal != null) {
       _setSrc(srcGoal);
     }

@@ -8,6 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -19,9 +20,10 @@ import '../../../../views/_base/loader_screen.dart';
 import 'transfer_selector_controller.dart';
 
 class TransferSelectorDialog extends StatelessWidget {
-  const TransferSelectorDialog(this._controller, this._titleText, {super.key});
+  const TransferSelectorDialog(this._controller, this._titleText, this._emptyText, {super.key});
   final TransferSelectorController _controller;
   final String _titleText;
+  final String _emptyText;
 
   static const _AVANPLAN_KEY_OTHER_PROJECTS = '_AVANPLAN_KEY_OTHER_PROJECTS';
 
@@ -85,11 +87,22 @@ class TransferSelectorDialog extends StatelessWidget {
                 color: b2Color,
                 title: _titleText,
               ),
-              body: ListView.builder(
-                shrinkWrap: true,
-                itemCount: _groups.length,
-                itemBuilder: _groupBuilder,
-              ),
+              body: _controller.tasks.isEmpty
+                  ? ListView(
+                      shrinkWrap: true,
+                      children: [
+                        BaseText(
+                          _emptyText,
+                          align: TextAlign.center,
+                          padding: const EdgeInsets.all(P3),
+                        )
+                      ],
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _groups.length,
+                      itemBuilder: _groupBuilder,
+                    ),
             ),
     );
   }

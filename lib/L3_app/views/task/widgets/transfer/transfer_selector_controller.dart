@@ -15,12 +15,13 @@ abstract class _TransferSelectorControllerBase with Store, Loadable {
   List<Task> tasks = [];
 
   // перенос из других целей, бэклогов, проектов
-  Future getSourcesForMove() async => await load(
+  Future getSourcesForMove(Task dst) async => await load(
         () async {
           tasks = [];
           for (Workspace ws in wsMainController.workspaces) {
             tasks.addAll(await wsUC.sourcesForMove(ws.id!));
           }
+          tasks.removeWhere((t) => t.wsId == dst.wsId && t.id == dst.id);
           tasks.sort();
         },
       );

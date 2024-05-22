@@ -18,9 +18,8 @@ class TaskParentTitle extends StatelessWidget {
   Task get _task => _controller.task;
 
   void _toParent() {
-    final parent = _task.parent!;
     router.pop();
-    router.goTaskView(parent);
+    router.goTaskView(_task.parent!, direct: true);
   }
 
   @override

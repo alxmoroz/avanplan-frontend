@@ -83,7 +83,7 @@ extension MTRouterHelper on GoRouter {
     subRouteName ??= '';
     if (subRouteName.isNotEmpty) subRouteName = '/$subRouteName';
 
-    final needPush = !isWeb || task.isTask;
+    final needPush = !direct && (!isWeb || task.isTask);
     final currentName = needPush ? _currentRoute.name : mainRoute.name;
 
     if (_currentRoute.baseName != taskRouteName) {

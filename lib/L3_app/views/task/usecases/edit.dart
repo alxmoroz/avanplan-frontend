@@ -124,7 +124,7 @@ extension TaskEditUC on TaskController {
           // перенос внутри одного РП - просто меняем родителя
           // перенос между РП - новая задача в новом месте, старая удаляется
 
-          final sameWS = dst.wsId != taskDescriptor.wsId;
+          final sameWS = dst.wsId == taskDescriptor.wsId;
           final oldParentId = task.parentId;
 
           if (sameWS) {

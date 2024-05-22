@@ -78,7 +78,7 @@ extension MTRouterHelper on GoRouter {
   void goWSUsers(int wsId) => _goNamed('$_wsRName/${WSUsersRoute.staticBaseName}', pathParameters: {'wsId': '$wsId'});
 
   // Задачи
-  void goTaskView(Task task, {String? subRouteName, Object? extra}) {
+  void goTaskView(Task task, {String? subRouteName, Object? extra, bool direct = false}) {
     final taskRouteName = task.type.toLowerCase();
     subRouteName ??= '';
     if (subRouteName.isNotEmpty) subRouteName = '/$subRouteName';

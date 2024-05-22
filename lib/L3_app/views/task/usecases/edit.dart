@@ -118,25 +118,28 @@ extension TaskEditUC on TaskController {
   }
 
   Future move(Task dst) async => await editWrapper(() async {
+        setLoaderScreenSaving();
+        // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
         if (await dst.ws.checkBalance(loc.task_transfer_export_action_title)) {
           // перенос внутри одного РП - просто меняем родителя
-          if (dst.wsId == taskDescriptor.wsId) {
-            final srcTaskId = task.parentId;
-            task.parentId = dst.id;
-            if (!await saveField(TaskFCode.parent)) {
-              task.parentId = srcTaskId;
-            }
-          }
           // перенос между РП - новая задача в новом месте, старая удаляется
-          else {
-            final changes = await taskUC.move(taskDescriptor, dst);
-            if (changes != null) {
-              changes.updated.filled = true;
-              tasksMainController.setTasks(changes.affected);
-              tasksMainController.setTasks([changes.updated]);
-              tasksMainController.removeTask(task);
-              taskDescriptor = changes.updated;
-            }
+
+          final sameWS = dst.wsId != taskDescriptor.wsId;
+          final oldParentId = task.parentId;
+
+          if (sameWS) {
+            task.parentId = taskDescriptor.parentId = dst.id;
+          }
+
+          final changes = sameWS ? await taskUC.save(task) : await taskUC.move(taskDescriptor, dst);
+          if (changes != null) {
+            changes.updated.filled = true;
+            tasksMainController.setTasks(changes.affected);
+            tasksMainController.setTasks([changes.updated]);
+            if (!sameWS) tasksMainController.removeTask(task);
+            taskDescriptor = changes.updated;
+          } else if (sameWS) {
+            task.parentId = oldParentId;
           }
         }
       });

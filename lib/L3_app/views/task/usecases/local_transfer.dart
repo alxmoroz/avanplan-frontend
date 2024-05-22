@@ -17,7 +17,7 @@ extension LocalTransferUC on TaskController {
     final srcTaskId = task.parentId;
 
     final controller = TransferSelectorController();
-    controller.getDestinationsForMove(task.type);
+    controller.getDestinationsForMove(task);
     final destination = await showMTDialog<Task>(TransferSelectorDialog(
       controller,
       loc.task_transfer_destination_hint,

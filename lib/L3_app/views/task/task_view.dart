@@ -109,37 +109,41 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       ? TaskDialogDetails(controller)
                       : MTAdaptive(child: TaskDetails(controller))
 
-                  /// Группа задач без подзадач
-                  : !task.hasSubtasks && !task.canShowBoard
-                      ? SizedBox(
-                          // TODO: хардкод ((
-                          height: expandedHeight - _headerHeight - (task.hasAnalytics || task.hasTeam ? 112 : 0),
-                          child: NoTasks(controller),
-                        )
+                  /// Группа
+                  : Observer(
+                      builder: (_) => !task.hasSubtasks && !task.canShowBoard
 
-                      /// Группа задач с задачами
-                      : Observer(
-                          builder: (_) => task.canShowBoard && controller.showBoard
+                          /// Группа без подзадач
+                          ? SizedBox(
+                              // TODO: хардкод ((
+                              height: expandedHeight - _headerHeight - (task.hasAnalytics || task.hasTeam ? 112 : 0),
+                              child: NoTasks(controller),
+                            )
 
-                              /// Доска
-                              ? Container(
-                                  height: expandedHeight + P2,
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: isWeb
-                                      ? Scrollbar(
-                                          controller: _boardScrollController,
-                                          thumbVisibility: true,
-                                          child: _board,
-                                        )
-                                      : _board,
-                                )
+                          /// Группа с задачами
+                          : Observer(
+                              builder: (_) => task.canShowBoard && controller.showBoard
 
-                              /// Список
-                              : Container(
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: TasksListView(task.subtaskGroups, scrollable: false),
-                                ),
-                        ),
+                                  /// Доска
+                                  ? Container(
+                                      height: expandedHeight + P2,
+                                      padding: const EdgeInsets.only(top: P3),
+                                      child: isWeb
+                                          ? Scrollbar(
+                                              controller: _boardScrollController,
+                                              thumbVisibility: true,
+                                              child: _board,
+                                            )
+                                          : _board,
+                                    )
+
+                                  /// Список
+                                  : Container(
+                                      padding: const EdgeInsets.only(top: P3),
+                                      child: TasksListView(task.subtaskGroups),
+                                    ),
+                            ),
+                    ),
             ],
           );
         }),

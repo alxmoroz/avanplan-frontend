@@ -48,15 +48,13 @@ class TransferSelectorDialog extends StatelessWidget {
     });
   }
 
-  bool get _showGroupTitles => _groups.length > 1;
-
   Widget _groupBuilder(BuildContext context, int groupIndex) {
     final group = _groups[groupIndex];
     final tasks = group.value;
     final groupTitle = group.key;
     return Column(
       children: [
-        if (_showGroupTitles) MTListGroupTitle(titleText: groupTitle == _AVANPLAN_KEY_OTHER_PROJECTS ? loc.projects_group_other_title : groupTitle),
+        if (_groups.isNotEmpty) MTListGroupTitle(titleText: groupTitle == _AVANPLAN_KEY_OTHER_PROJECTS ? loc.projects_group_other_title : groupTitle),
         ListView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.zero,

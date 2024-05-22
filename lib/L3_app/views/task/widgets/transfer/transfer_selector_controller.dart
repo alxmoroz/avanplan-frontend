@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../extra/services.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../../views/_base/loadable.dart';
 
 part 'transfer_selector_controller.g.dart';
@@ -27,12 +28,13 @@ abstract class _TransferSelectorControllerBase with Store, Loadable {
       );
 
   // перенос в другую цель, проект
-  Future getDestinationsForMove(String taskType) async => await load(
+  Future getDestinationsForMove(Task src) async => await load(
         () async {
           tasks = [];
           for (Workspace ws in wsMainController.workspaces) {
-            tasks.addAll(await wsUC.destinationsForMove(ws.id!, taskType));
+            tasks.addAll(await wsUC.destinationsForMove(ws.id!, src.type));
           }
+          tasks.removeWhere((t) => t.wsId == src.parent?.wsId && t.id == src.parentId);
           tasks.sort();
         },
       );

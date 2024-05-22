@@ -122,9 +122,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                   ),
                 ],
                 const SizedBox(height: P3),
-                _showProjects
-                    ? TasksListView(tasksMainController.projectsGroups, scrollable: false)
-                    : MTAdaptive(child: NoProjects(_createProjectController)),
+                _showProjects ? TasksListView(tasksMainController.projectsGroups) : MTAdaptive(child: NoProjects(_createProjectController)),
               ],
             ),
           ),

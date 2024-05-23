@@ -32,17 +32,17 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     } else if (step.code == _StepCode.team.name) {
       router.goTeamQuiz(taskController);
     } else if (step.code == _StepCode.goals.name) {
-      // TODO: тут должен быть ShellRoute или что-то такое...
-      // сейчас сбрасывается на независимое создание цели
       await taskController.addSubtask();
     } else if (step.code == _StepCode.tasks.name) {
       router.goSubtasksQuiz(taskController);
     }
   }
 
-  // TODO: достаточно убрать из пути подразделы, если они там есть. Посмотреть в сторону ShellRoute для квиза.
   @override
-  void afterFinish() => router.goTaskView(_project);
+  void afterFinish() {
+    _project.creating = false;
+    router.popToTaskType(TType.PROJECT.toLowerCase());
+  }
 }
 
 abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizController with Store {

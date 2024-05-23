@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../components/field_data.dart';
@@ -74,7 +75,14 @@ abstract class _EditControllerBase with Store {
   @computed
   bool get validated => _fieldsFilled && !_validatableFD.any((fd) => fd.errorText != null);
 
-  MTFieldData fData(int code) => _fdMap[code]!;
+  MTFieldData fData(int code) {
+    try {
+      return _fdMap[code]!;
+    } catch (e) {
+      if (kDebugMode) print('ERROR\n_fdMap = $_fdMap\ncode = $code\n');
+      return MTFieldData(code);
+    }
+  }
 
   final Map<int, Timer> _loadingTimers = {};
 

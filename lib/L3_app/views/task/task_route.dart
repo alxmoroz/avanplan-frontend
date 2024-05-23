@@ -24,8 +24,8 @@ abstract class BaseTaskRoute extends MTRoute {
     super.parent,
   }) : super(controller: TaskController());
 
-  bool get _parentHasWsId => parent is BaseTaskRoute && (parent as BaseTaskRoute).hasWsId == true;
-  bool get hasWsId => path.contains(':wsId') || _parentHasWsId;
+  bool get _parentHasWsId => parent is BaseTaskRoute && (parent as BaseTaskRoute)._hasWsId == true;
+  bool get _hasWsId => path.contains(':wsId') || _parentHasWsId;
 
   @override
   String get path => '${!_parentHasWsId ? 'ws_:wsId/' : ''}${baseName}_:${baseName}Id';
@@ -34,26 +34,25 @@ abstract class BaseTaskRoute extends MTRoute {
   double get dialogMaxWidth => SCR_L_WIDTH;
 
   @override
-  String title(GoRouterState state) => task.viewTitle;
+  String title(GoRouterState state) => _td.viewTitle;
 
   @override
   bool isDialog(BuildContext context) => isBigScreen(context) && baseName == TType.TASK.toLowerCase();
 
-  TaskController get taskController => controller as TaskController;
-  Task get task => taskController.task;
+  TaskController get _tc => controller as TaskController;
+  Task get _td => _tc.taskDescriptor;
 
   @override
   GoRouterRedirect? get redirect => (context, state) {
         final wsId = state.pathParamInt('wsId')!;
         final taskId = state.pathParamInt('${baseName}Id')!;
-        taskController.init(wsId, taskId, type: baseName.toUpperCase(), route: this);
+        _tc.init(wsId, taskId, type: baseName.toUpperCase(), route: this);
 
         return null;
       };
 
   @override
-  GoRouterWidgetBuilder? get builder =>
-      (_, __) => task.creating && (task.isProject || task.isGoal) ? CreateTaskQuizView(taskController) : TaskView(taskController);
+  GoRouterWidgetBuilder? get builder => (_, __) => _td.creating && (_td.isProject || _td.isGoal) ? CreateTaskQuizView(_tc) : TaskView(_tc);
 }
 
 class TaskRoute extends BaseTaskRoute {
@@ -115,24 +114,3 @@ class ProjectRoute extends BaseTaskRoute {
         Task404Route(parent: this),
       ];
 }
-
-// Future navigateBreadcrumbs(BuildContext context, Task parent) async {
-//   final pName = (prevName ?? '');
-//
-//   // переходим один раз назад в любом случае
-//   context.pop();
-//
-//   // если переход был с главной то нужно запушить родителя
-//   final fromRoots = !pName.startsWith('/ws/');
-//   if (fromRoots) {
-//     await push(context, args: TaskController(parent));
-//   } else {
-//     // при переходе наверх в другую цель, меняем старого родителя на нового
-//     if (parent.isGoal) {
-//       final previousGoalId = int.parse(pathRe.firstMatch(pName)?.group(2) ?? '-1');
-//       if (previousGoalId != parent.id) {
-//         await push(context, replace: true, args: TaskController(parent));
-//       }
-//     }
-//   }
-// }

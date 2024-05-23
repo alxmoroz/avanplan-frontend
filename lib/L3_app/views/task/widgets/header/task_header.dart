@@ -26,6 +26,7 @@ class TaskHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleIndex = TaskFCode.title.index;
     return Observer(
       builder: (_) => Column(
         mainAxisSize: MainAxisSize.min,
@@ -35,10 +36,10 @@ class TaskHeader extends StatelessWidget {
 
           /// Название
           MTField(
-            _controller.fData(TaskFCode.title.index),
+            _controller.fData(titleIndex),
             leading: _task.isInbox ? const InboxIcon(color: f2Color) : null,
             value: MTTextField(
-              controller: _controller.teController(TaskFCode.title.index),
+              controller: _controller.teController(titleIndex),
               readOnly: !_task.canEdit,
               autofocus: _task.creating,
               margin: EdgeInsets.zero,

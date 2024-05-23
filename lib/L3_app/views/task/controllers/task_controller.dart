@@ -72,21 +72,23 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   }
 
   void init(int wsId, int taskId, {String? type, MTRoute? route}) {
-    initWithTask(tasksMainController.task(wsId, taskId) ??
-        Task(
-          wsId: wsId,
-          id: taskId,
-          type: type ?? TType.TASK,
-          title: '',
-          startDate: null,
-          closed: false,
-          parentId: null,
-          notes: [],
-          attachments: [],
-          members: [],
-          projectStatuses: [],
-          projectFeatureSets: [],
-        ));
+    initWithTask(
+      tasksMainController.task(wsId, taskId) ??
+          Task(
+            wsId: wsId,
+            id: taskId,
+            type: type ?? TType.TASK,
+            title: '',
+            startDate: null,
+            closed: false,
+            parentId: null,
+            notes: [],
+            attachments: [],
+            members: [],
+            projectStatuses: [],
+            projectFeatureSets: [],
+          ),
+    );
     this.route = route;
   }
 

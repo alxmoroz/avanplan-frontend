@@ -24,9 +24,11 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
     }
   }
 
-  // TODO: показываем экран с целью. Логика истории должна быть в роутере. Он будет анализировать по истории и определять, что именно пушить
   @override
-  void afterFinish() => router.goTaskView(_goal);
+  void afterFinish() {
+    _goal.creating = false;
+    router.popToTaskType(TType.GOAL.toLowerCase());
+  }
 }
 
 abstract class _CreateGoalQuizControllerBase extends AbstractTaskQuizController with Store {

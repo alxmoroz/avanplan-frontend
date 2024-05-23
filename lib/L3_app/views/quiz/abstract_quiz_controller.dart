@@ -31,7 +31,6 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
     } else {
       _next();
       await afterNext();
-      _nextDone();
     }
   }
 
@@ -72,13 +71,6 @@ abstract class _QuizControllerBase with Store {
 
   @action
   void _next() => stepIndex++;
-
-  @action
-  void _nextDone() {
-    if (active) {
-      stepIndex--;
-    }
-  }
 
   @action
   void _finish() {

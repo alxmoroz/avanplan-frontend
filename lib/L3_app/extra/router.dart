@@ -79,19 +79,19 @@ extension MTRouterHelper on GoRouter {
 
   // Задачи
   void goTaskView(Task task, {String? subRouteName, Object? extra, bool direct = false}) {
-    final taskRouteName = task.type.toLowerCase();
-    subRouteName ??= '';
-    if (subRouteName.isNotEmpty) subRouteName = '/$subRouteName';
+    final taskType = task.type.toLowerCase();
+    final taskRouteName = subRouteName ?? taskType;
 
     final needPush = !direct && (!isWeb || task.isTask);
     final currentName = needPush ? _currentRoute.name : mainRoute.name;
 
+    // не переходим по тому же маршруту (из задачи в задачу, из цели в цель, из проекта в проект)
     if (_currentRoute.baseName != taskRouteName) {
       final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
-      pathParameters.addAll({'wsId': '${task.wsId}', '${taskRouteName}Id': '${task.id!}'});
+      pathParameters.addAll({'wsId': '${task.wsId}', '${taskType}Id': '${task.id!}'});
 
       _goNamed(
-        '$currentName/$taskRouteName$subRouteName',
+        '$currentName/$taskRouteName',
         pathParameters: pathParameters,
         extra: extra,
       );
@@ -108,6 +108,7 @@ extension MTRouterHelper on GoRouter {
     go('${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}');
   }
 
+  // Шаги квиза
   void goFeatureSetsQuiz(TaskController tc) => goTaskView(
         tc.taskDescriptor,
         subRouteName: FeatureSetsQuizRoute.staticBaseName,
@@ -125,4 +126,13 @@ extension MTRouterHelper on GoRouter {
         subRouteName: CreateSubtasksQuizRoute.staticBaseName,
         extra: tc,
       );
+
+  // Выход из квиза
+  void popToTaskType(String type) {
+    RouteMatchList matches = routerDelegate.currentConfiguration;
+    while (matches.matches.length > 1 && (matches.last.route as MTRoute).baseName != type) {
+      matches = matches.remove(matches.last);
+    }
+    go(matches.last.matchedLocation);
+  }
 }

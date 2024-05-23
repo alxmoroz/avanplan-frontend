@@ -21,7 +21,7 @@ import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../quiz/abstract_quiz_controller.dart';
+import '../../../quiz/abstract_task_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
@@ -46,7 +46,7 @@ class _CreateSubtasksQuizView extends StatelessWidget {
   Task get _task => _taskController.task;
   SubtasksController get _subtasksController => _taskController.subtasksController;
 
-  AbstractQuizController get qController => _taskController.quizController!;
+  AbstractTaskQuizController get qController => _taskController.quizController!;
 
   Widget get _addButton => MTField(
         const MTFieldData(-1),
@@ -93,6 +93,7 @@ class _CreateSubtasksQuizView extends StatelessWidget {
                           children: [
                             MTImage(ImageName.empty_tasks.name),
                             H2(loc.task_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+                            const SizedBox(height: P3),
                             _addButton,
                           ],
                         ),

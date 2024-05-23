@@ -95,7 +95,7 @@ extension TaskEditUC on TaskController {
     final newTask = await createTask(
       task.ws,
       task,
-      statusId: statusId ?? (task.isProject || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
+      statusId: statusId ?? ((task.isProject && task.hfsGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
     );
     if (newTask != null && !noGo) router.goTaskView(newTask);
     return newTask;

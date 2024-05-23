@@ -207,27 +207,29 @@ class TaskViewState<T extends TaskView> extends State<T> {
               : Builder(builder: (_) {
                   final big = isBigScreen(context);
                   final actions = controller.loading ? <TaskAction>[] : task.actions(context);
-                  return MTPage(
-                    appBar: big && !_hasScrolled
-                        ? null
-                        : MTAppBar(
-                            innerHeight: big ? _headerHeight : null,
-                            color: _isBigGroup ? b2Color : null,
-                            leading: _isBigGroup ? const SizedBox() : null,
-                            middle: _title,
-                            trailing: !_isBigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
-                          ),
-                    leftBar: big ? LeftMenu(leftMenuController) : null,
-                    body: MTRefresh(
-                      onRefresh: controller.reload,
-                      child: _body,
+                  return Observer(
+                    builder: (_) => MTPage(
+                      appBar: big && !_hasScrolled
+                          ? null
+                          : MTAppBar(
+                              innerHeight: big ? _headerHeight : null,
+                              color: _isBigGroup ? b2Color : null,
+                              leading: _isBigGroup ? const SizedBox() : null,
+                              middle: _title,
+                              trailing: !_isBigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
+                            ),
+                      leftBar: big ? LeftMenu(leftMenuController) : null,
+                      body: MTRefresh(
+                        onRefresh: controller.reload,
+                        child: _body,
+                      ),
+                      bottomBar: !_isBigGroup && _hasQuickActions ? TaskBottomToolbar(controller) : null,
+                      // панель справа - для проекта и цели. Для инбокса только если он не пустой
+                      rightBar: _isBigGroup && (!task.isInbox || task.hasSubtasks) ? _rightToolbar : null,
+                      scrollController: _scrollController,
+                      scrollOffsetTop: _headerHeight,
+                      onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                     ),
-                    bottomBar: !_isBigGroup && _hasQuickActions ? TaskBottomToolbar(controller) : null,
-                    // панель справа - для проекта и цели. Для инбокса только если он не пустой
-                    rightBar: _isBigGroup && (!task.isInbox || task.hasSubtasks) ? _rightToolbar : null,
-                    scrollController: _scrollController,
-                    scrollOffsetTop: _headerHeight,
-                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                   );
                 }),
     );

@@ -61,7 +61,7 @@ abstract class BaseTaskRoute extends MTRoute {
         if (qc == null && _td.creating && (_td.isProject || _td.isGoal)) {
           qc = _td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
         }
-        return qc != null ? CreateTaskQuizView(_tc, qc) : TaskView(_tc);
+        return qc != null && qc.taskController.taskDescriptor == _td ? CreateTaskQuizView(_tc, qc) : TaskView(_tc);
       };
 }
 

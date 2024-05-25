@@ -25,7 +25,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   }
 
   @override
-  void afterFinish() {
+  void finish() {
     _goal.creating = false;
     router.popToTaskType(TType.GOAL.toLowerCase());
   }

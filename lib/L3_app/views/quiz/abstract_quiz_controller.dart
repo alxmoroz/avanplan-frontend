@@ -17,11 +17,11 @@ class QuizStep {
 abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
   Future afterNext() async {}
   Future beforeNext() async {}
-  void afterFinish() {}
+  void finish() {}
 
   void back() {
-    _back();
     router.pop();
+    _back();
   }
 
   Future next() async {
@@ -33,19 +33,11 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
       await afterNext();
     }
   }
-
-  void finish() {
-    _finish();
-    afterFinish();
-  }
 }
 
 abstract class _QuizControllerBase with Store {
   Iterable<QuizStep> get steps => [];
   int get stepsCount => steps.length;
-
-  @observable
-  bool active = true;
 
   @observable
   int stepIndex = 0;
@@ -60,21 +52,15 @@ abstract class _QuizControllerBase with Store {
   String get stepTitle => step.title;
 
   @computed
-  String get nextBtnTitle => active ? (_lastStep ? loc.lets_go_action_title : step.nextButtonTitle) : '';
+  String get nextBtnTitle => (_lastStep ? loc.lets_go_action_title : step.nextButtonTitle);
 
   @action
   void _back() {
-    if (stepIndex == 0) {
-      active = false;
+    if (stepIndex > 0) {
+      stepIndex--;
     }
   }
 
   @action
   void _next() => stepIndex++;
-
-  @action
-  void _finish() {
-    active = false;
-    stepIndex = 0;
-  }
 }

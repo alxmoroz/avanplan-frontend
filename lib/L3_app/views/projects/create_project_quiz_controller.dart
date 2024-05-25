@@ -46,14 +46,14 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     } else if (step.code == _StepCode.team.name) {
       router.goTaskQuizStep(TeamQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.goals.name) {
-      await _addGoal();
+      if (_goalController == null) await _addGoal();
     } else if (step.code == _StepCode.tasks.name) {
       router.goTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this, push: _goalController != null);
     }
   }
 
   @override
-  void afterFinish() {
+  void finish() {
     _project.creating = false;
     router.popToTaskType(TType.PROJECT.toLowerCase());
   }

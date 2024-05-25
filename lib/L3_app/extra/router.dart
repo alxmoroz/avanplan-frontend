@@ -25,6 +25,7 @@ final _rootKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => _rootKey.currentContext!;
 
 final router = GoRouter(
+    // debugLogDiagnostics: true,
     routes: [
       authRoute,
       registrationTokenRoute,
@@ -35,9 +36,7 @@ final router = GoRouter(
     onException: (_, state, r) {
       if (kDebugMode) print('GoRouter onException -> $state');
       r.goMain();
-    }
-    // debugLogDiagnostics: true,
-    );
+    });
 
 extension MTPathParametersHelper on GoRouterState {
   int? pathParamInt(String param) => int.tryParse(pathParameters[param] ?? '');

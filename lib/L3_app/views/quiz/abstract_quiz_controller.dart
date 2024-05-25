@@ -2,7 +2,6 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 
 part 'abstract_quiz_controller.g.dart';
@@ -19,11 +18,6 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
   Future beforeNext() async {}
   void finish() {}
 
-  void back() {
-    router.pop();
-    _back();
-  }
-
   Future next() async {
     await beforeNext();
     if (_lastStep) {
@@ -31,6 +25,7 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
     } else {
       _next();
       await afterNext();
+      _back();
     }
   }
 }

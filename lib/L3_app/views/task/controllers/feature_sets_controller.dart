@@ -5,12 +5,10 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/feature_set.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/ws_sources.dart';
-import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
 import '../../../usecases/task_feature_sets.dart';
 import '../../../usecases/task_tree.dart';
-import '../usecases/feature_sets.dart';
 import 'task_controller.dart';
 
 part 'feature_sets_controller.g.dart';
@@ -79,21 +77,17 @@ abstract class _FeatureSetsControllerBase with Store {
   }
 
   Future setup() async {
+    final fIndex = TaskFCode.features.index;
+    _taskController.updateField(fIndex, loading: true);
     final fsIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         fsIds.add(refsController.featureSets.elementAt(index).id!);
       }
     }
-    await _taskController.setupFeatureSets(fsIds);
-  }
-
-  Future save() async {
-    router.pop();
-
-    final fIndex = TaskFCode.features.index;
-    _taskController.updateField(fIndex, loading: true);
-    await setup();
+    _taskController.task.projectFeatureSets = await featureSetUC.setup(_taskController.task, fsIds);
     _taskController.updateField(fIndex, loading: false);
   }
+
+  Future save() async {}
 }

@@ -13,6 +13,7 @@ import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
@@ -130,6 +131,11 @@ class _FeatureSetsDialog extends StatelessWidget {
   const _FeatureSetsDialog(this._controller);
   final TaskController _controller;
 
+  void _save() {
+    router.pop();
+    _controller.featureSetsController.setup();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MTDialog(
@@ -139,7 +145,7 @@ class _FeatureSetsDialog extends StatelessWidget {
         footer: MTButton.main(
           titleText: loc.save_action_title,
           margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
-          onTap: _controller.featureSetsController.save,
+          onTap: _save,
         ),
       ),
     );

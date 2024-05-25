@@ -20,7 +20,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext() async {
     if (step.code == _StepCode.tasks.name) {
-      router.goTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this);
+      await router.pushTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this);
     }
   }
 

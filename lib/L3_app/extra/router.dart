@@ -43,7 +43,10 @@ extension MTPathParametersHelper on GoRouterState {
 }
 
 extension MTRouterHelper on GoRouter {
-  bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
+  RouteMatchList get _currentConfig => routerDelegate.currentConfiguration;
+  MTRoute get _currentRoute => _currentConfig.last.route as MTRoute;
+
+  bool get isDeepLink => _currentConfig.extra == null;
 
   void _goNamed(
     String name, {
@@ -73,15 +76,13 @@ extension MTRouterHelper on GoRouter {
 
   // Задачи
   void goTaskView(Task task, {bool direct = false}) {
-    RouteMatchList routeConfig = routerDelegate.currentConfiguration;
     final taskType = task.type.toLowerCase();
     final needPush = !direct && (!isWeb || task.isTask);
-    final currentRoute = routeConfig.last.route as MTRoute;
-    final currentName = needPush ? currentRoute.name : mainRoute.name;
+    final currentName = needPush ? _currentRoute.name : mainRoute.name;
 
     // не переходим по тому же маршруту (из задачи в задачу, из цели в цель, из проекта в проект)
-    if (currentRoute.baseName != taskType) {
-      final Map<String, String> pathParameters = needPush ? routeConfig.pathParameters : {};
+    if (_currentRoute.baseName != taskType) {
+      final Map<String, String> pathParameters = needPush ? _currentConfig.pathParameters : {};
       pathParameters.addAll({'wsId': '${task.wsId}', '${taskType}Id': '${task.id!}'});
 
       _goNamed('$currentName/$taskType', pathParameters: pathParameters);
@@ -90,32 +91,30 @@ extension MTRouterHelper on GoRouter {
 
   // 404 для задач
   void goTask404(MTRoute? parent) {
-    RouteMatchList matches = routerDelegate.currentConfiguration;
-    while (matches.matches.length > 1 && matches.last.route != parent) {
-      matches = matches.remove(matches.last);
+    RouteMatchList rConfig = _currentConfig;
+    while (rConfig.matches.length > 1 && rConfig.last.route != parent) {
+      rConfig = rConfig.remove(rConfig.last);
     }
-    final parentLocation = matches.last.matchedLocation;
+    final parentLocation = rConfig.last.matchedLocation;
 
     go('${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}');
   }
 
   // шаги квиза
-  void goTaskQuizStep(String quizStepName, AbstractTaskQuizController qc, {bool push = false}) {
-    RouteMatchList matches = routerDelegate.currentConfiguration;
+  Future pushTaskQuizStep(String stepName, AbstractTaskQuizController qc, {bool needAppendPath = false}) async {
     final stepIndex = qc.stepIndex;
-    final needReplacePathPart = !push && stepIndex > 1;
-    if (needReplacePathPart) matches = matches.remove(matches.last);
-
-    go('${matches.last.matchedLocation}/$quizStepName', extra: qc);
+    needAppendPath = needAppendPath || stepIndex < 2;
+    final parentName = needAppendPath ? _currentRoute.name : _currentRoute.parent!.name;
+    await pushNamed('$parentName/$stepName', pathParameters: _currentConfig.pathParameters, extra: qc);
   }
 
   // Выход из квиза
   void popToTaskType(String type) {
-    RouteMatchList matches = routerDelegate.currentConfiguration;
-    while (matches.matches.length > 1 && (matches.last.route as MTRoute).baseName != type) {
-      matches = matches.remove(matches.last);
+    RouteMatchList rConfig = _currentConfig;
+    while (rConfig.matches.length > 1 && (rConfig.last.route as MTRoute).baseName != type) {
+      rConfig = rConfig.remove(rConfig.last);
     }
 
-    go(matches.last.matchedLocation);
+    go(rConfig.last.matchedLocation);
   }
 }

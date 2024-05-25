@@ -21,17 +21,14 @@ class TeamQuizRoute extends AbstractTaskQuizRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _TeamQuizView(
-            state.extra as CreateProjectQuizController,
-            parent?.controller as TaskController,
-          ),
+          builder: (_, state) => _TeamQuizView(state.extra as CreateProjectQuizController),
         );
 }
 
 class _TeamQuizView extends StatelessWidget {
-  const _TeamQuizView(this._qController, this._taskController);
+  const _TeamQuizView(this._qController);
   final CreateProjectQuizController _qController;
-  final TaskController _taskController;
+  TaskController get _taskController => _qController.taskController;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +42,7 @@ class _TeamQuizView extends StatelessWidget {
           child: ListView(
             shrinkWrap: true,
             children: [
+              const SizedBox(height: P3),
               Team(_taskController, standalone: false),
               const SizedBox(height: P3),
               QuizNextButton(_qController, margin: EdgeInsets.zero),

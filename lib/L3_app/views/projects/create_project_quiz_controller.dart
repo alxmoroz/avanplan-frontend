@@ -29,7 +29,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future _addGoal() async {
     _goalController = await taskController.addSubtask(noGo: true);
     if (_goalController != null) {
-      router.goTaskQuizStep('goal_${_goalController!.taskDescriptor.id}', this);
+      await router.pushTaskQuizStep('goal_${_goalController!.taskDescriptor.id}', this);
     }
   }
 
@@ -42,13 +42,13 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext() async {
     if (step.code == _StepCode.featureSets.name) {
       _fsc.reload();
-      router.goTaskQuizStep(FeatureSetsQuizRoute.staticBaseName, this);
+      await router.pushTaskQuizStep(FeatureSetsQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.team.name) {
-      router.goTaskQuizStep(TeamQuizRoute.staticBaseName, this);
+      await router.pushTaskQuizStep(TeamQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) await _addGoal();
     } else if (step.code == _StepCode.tasks.name) {
-      router.goTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this, push: _goalController != null);
+      await router.pushTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this, needAppendPath: _goalController != null);
     }
   }
 

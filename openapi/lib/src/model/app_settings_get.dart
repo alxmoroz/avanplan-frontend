@@ -62,7 +62,8 @@ abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBui
   factory AppSettingsGet([void updates(AppSettingsGetBuilder b)]) = _$AppSettingsGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AppSettingsGetBuilder b) => b;
+  static void _defaults(AppSettingsGetBuilder b) => b
+      ..estimateAvgDefault = 1;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<AppSettingsGet> get serializer => _$AppSettingsGetSerializer();

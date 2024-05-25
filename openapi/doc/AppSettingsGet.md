@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **riskThresholdDays** | **int** |  | [optional] 
 **estimateReliabilityDays** | **int** |  | [optional] 
 **estimateReliabilityClosedRatioThreshold** | **num** |  | [optional] 
-**estimateAvgDefault** | **num** |  | [optional] 
+**estimateAvgDefault** | **num** |  | [optional] [default to 1]
 **frontendVersion** | **String** |  | [optional] 
 **frontendLtsVersion** | **String** |  | [optional] 
 

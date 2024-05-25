@@ -48,7 +48,7 @@ void main() {
       // TODO
     });
 
-    // num estimateAvgDefault
+    // num estimateAvgDefault (default value: 1)
     test('to test the property `estimateAvgDefault`', () async {
       // TODO
     });

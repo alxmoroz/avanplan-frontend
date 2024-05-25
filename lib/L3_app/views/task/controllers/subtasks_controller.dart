@@ -29,8 +29,8 @@ abstract class _SubtasksControllerBase with Store {
 
   @action
   Future add() async {
-    final t = await _parentTaskController.addSubtask(noGo: true);
-    if (t != null) tasksControllers.add(TaskController(taskIn: t));
+    final tc = await _parentTaskController.addSubtask(noGo: true);
+    if (tc != null) tasksControllers.add(tc);
   }
 
   @action

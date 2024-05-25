@@ -51,8 +51,8 @@ abstract class _CreateProjectControllerBase with Store {
   }
 
   Future _create() async {
-    final newP = await createTask(_ws!, null);
-    if (newP != null) router.goTaskView(newP);
+    final newTC = await createTask(_ws!, null);
+    if (newTC != null) router.goTaskView(newTC.taskDescriptor);
   }
 
   Future startCreate(BuildContext context) async {

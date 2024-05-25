@@ -10,6 +10,9 @@ import '../../components/constants.dart';
 import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../presenters/task_type.dart';
+import '../projects/create_project_quiz_controller.dart';
+import '../quiz/abstract_task_quiz_controller.dart';
+import 'controllers/create_goal_quiz_controller.dart';
 import 'controllers/task_controller.dart';
 import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
@@ -52,7 +55,14 @@ abstract class BaseTaskRoute extends MTRoute {
       };
 
   @override
-  GoRouterWidgetBuilder? get builder => (_, __) => _td.creating && (_td.isProject || _td.isGoal) ? CreateTaskQuizView(_tc) : TaskView(_tc);
+  GoRouterWidgetBuilder? get builder => (_, state) {
+        // шаг квиза?
+        AbstractTaskQuizController? qc = (state.extra is AbstractTaskQuizController) ? state.extra as AbstractTaskQuizController : null;
+        if (qc == null && _td.creating && (_td.isProject || _td.isGoal)) {
+          qc = _td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
+        }
+        return qc != null ? CreateTaskQuizView(_tc, qc) : TaskView(_tc);
+      };
 }
 
 class TaskRoute extends BaseTaskRoute {

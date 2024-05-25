@@ -9,6 +9,7 @@ import '../../../usecases/task_feature_sets.dart';
 import '../../../usecases/task_tree.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
+import '../widgets/create/create_subtasks_quiz_view.dart';
 
 part 'create_goal_quiz_controller.g.dart';
 
@@ -20,7 +21,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext() async {
     if (step.code == _StepCode.tasks.name) {
-      router.goSubtasksQuiz(taskController);
+      router.goTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this);
     }
   }
 

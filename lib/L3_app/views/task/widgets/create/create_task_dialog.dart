@@ -12,11 +12,11 @@ import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/task/controllers/task_controller.dart';
 import '../../../../views/task/usecases/edit.dart';
 
-Future<Task?> createTask(Workspace ws, Task? parent, {int? statusId}) async {
-  Task? newTask;
+Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) async {
+  TaskController? tc;
 
   if (await ws.checkBalance(addSubtaskActionTitle(parent))) {
-    final tc = TaskController();
+    tc = TaskController();
     tc.setLoaderScreenSaving();
 
     showMTDialog(LoaderScreen(tc, isDialog: true));
@@ -47,10 +47,15 @@ Future<Task?> createTask(Workspace ws, Task? parent, {int? statusId}) async {
                   : TType.TASK,
     );
     tc.initWithTask(taskData);
-    newTask = await tc.save();
-    newTask?.creating = true;
-    newTask?.filled = true;
+    final savedTask = await tc.save();
     if (!tc.loading) router.pop();
+    if (savedTask != null) {
+      savedTask.creating = true;
+      savedTask.filled = true;
+      tc.taskDescriptor = savedTask;
+    } else {
+      tc = null;
+    }
   }
-  return newTask;
+  return tc;
 }

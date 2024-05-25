@@ -36,17 +36,20 @@ class CreateSubtasksQuizRoute extends AbstractTaskQuizRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _CreateSubtasksQuizView(state.extra as TaskController),
+          builder: (_, state) => _CreateSubtasksQuizView(
+            state.extra as AbstractTaskQuizController,
+            parent?.controller as TaskController,
+          ),
         );
 }
 
 class _CreateSubtasksQuizView extends StatelessWidget {
-  const _CreateSubtasksQuizView(this._taskController);
+  const _CreateSubtasksQuizView(this._qController, this._taskController);
+  final AbstractTaskQuizController _qController;
   final TaskController _taskController;
+
   Task get _task => _taskController.task;
   SubtasksController get _subtasksController => _taskController.subtasksController;
-
-  AbstractTaskQuizController get qController => _taskController.quizController!;
 
   Widget get _addButton => MTField(
         const MTFieldData(-1),
@@ -73,7 +76,7 @@ class _CreateSubtasksQuizView extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-            appBar: QuizHeader(qController),
+            appBar: QuizHeader(_qController),
             leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
             body: SafeArea(
               top: false,
@@ -104,7 +107,7 @@ class _CreateSubtasksQuizView extends StatelessWidget {
               isBottom: true,
               color: b2Color,
               padding: const EdgeInsets.only(top: P2),
-              middle: QuizNextButton(qController, margin: EdgeInsets.zero),
+              middle: QuizNextButton(_qController, margin: EdgeInsets.zero),
             ),
           ),
         ],

@@ -91,14 +91,14 @@ extension TaskEditUC on TaskController {
     });
   }
 
-  Future<Task?> addSubtask({int? statusId, bool noGo = false}) async {
-    final newTask = await createTask(
+  Future<TaskController?> addSubtask({int? statusId, bool noGo = false}) async {
+    final newTC = await createTask(
       task.ws,
       task,
       statusId: statusId ?? ((task.isProject && task.hfsGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
     );
-    if (newTask != null && !noGo) router.goTaskView(newTask);
-    return newTask;
+    if (newTC != null && !noGo) router.goTaskView(newTC.taskDescriptor);
+    return newTC;
   }
 
   Future<Task?> save() async {

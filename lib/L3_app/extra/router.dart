@@ -15,12 +15,9 @@ import '../views/auth/registration_token_controller.dart';
 import '../views/main/main_view.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/projects/projects_view.dart';
+import '../views/quiz/abstract_task_quiz_controller.dart';
 import '../views/source/sources_dialog.dart';
-import '../views/task/controllers/task_controller.dart';
-import '../views/task/widgets/create/create_subtasks_quiz_view.dart';
 import '../views/task/widgets/empty_state/task_404_dialog.dart';
-import '../views/task/widgets/feature_sets/feature_sets.dart';
-import '../views/task/widgets/team/team_quiz_view.dart';
 import '../views/workspace/ws_dialog.dart';
 import '../views/workspace/ws_users_dialog.dart';
 
@@ -47,6 +44,8 @@ extension MTPathParametersHelper on GoRouterState {
 }
 
 extension MTRouterHelper on GoRouter {
+  bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
+
   void _goNamed(
     String name, {
     Map<String, String> pathParameters = const <String, String>{},
@@ -59,10 +58,6 @@ extension MTRouterHelper on GoRouter {
         queryParameters: queryParameters,
         extra: extra ?? 'local',
       );
-
-  MTRoute get _currentRoute => routerDelegate.currentConfiguration.last.route as MTRoute;
-
-  bool get isDeepLink => routerDelegate.currentConfiguration.extra == null;
 
   // Главная и вход
   void goAuth() => _goNamed(authRoute.name);
@@ -78,23 +73,19 @@ extension MTRouterHelper on GoRouter {
   void goWSUsers(int wsId) => _goNamed('$_wsRName/${WSUsersRoute.staticBaseName}', pathParameters: {'wsId': '$wsId'});
 
   // Задачи
-  void goTaskView(Task task, {String? subRouteName, Object? extra, bool direct = false}) {
+  void goTaskView(Task task, {bool direct = false}) {
+    RouteMatchList routeConfig = routerDelegate.currentConfiguration;
     final taskType = task.type.toLowerCase();
-    final taskRouteName = subRouteName ?? taskType;
-
     final needPush = !direct && (!isWeb || task.isTask);
-    final currentName = needPush ? _currentRoute.name : mainRoute.name;
+    final currentRoute = routeConfig.last.route as MTRoute;
+    final currentName = needPush ? currentRoute.name : mainRoute.name;
 
     // не переходим по тому же маршруту (из задачи в задачу, из цели в цель, из проекта в проект)
-    if (_currentRoute.baseName != taskRouteName) {
-      final Map<String, String> pathParameters = needPush ? routerDelegate.currentConfiguration.pathParameters : {};
+    if (currentRoute.baseName != taskType) {
+      final Map<String, String> pathParameters = needPush ? routeConfig.pathParameters : {};
       pathParameters.addAll({'wsId': '${task.wsId}', '${taskType}Id': '${task.id!}'});
 
-      _goNamed(
-        '$currentName/$taskRouteName',
-        pathParameters: pathParameters,
-        extra: extra,
-      );
+      _goNamed('$currentName/$taskType', pathParameters: pathParameters);
     }
   }
 
@@ -105,27 +96,19 @@ extension MTRouterHelper on GoRouter {
       matches = matches.remove(matches.last);
     }
     final parentLocation = matches.last.matchedLocation;
+
     go('${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}');
   }
 
-  // Шаги квиза
-  void goFeatureSetsQuiz(TaskController tc) => goTaskView(
-        tc.taskDescriptor,
-        subRouteName: FeatureSetsQuizRoute.staticBaseName,
-        extra: tc,
-      );
+  // шаги квиза
+  void goTaskQuizStep(String quizStepName, AbstractTaskQuizController qc, {bool push = false}) {
+    RouteMatchList matches = routerDelegate.currentConfiguration;
+    final stepIndex = qc.stepIndex;
+    final needReplacePathPart = !push && stepIndex > 1;
+    if (needReplacePathPart) matches = matches.remove(matches.last);
 
-  void goTeamQuiz(TaskController tc) => goTaskView(
-        tc.taskDescriptor,
-        subRouteName: TeamQuizRoute.staticBaseName,
-        extra: tc,
-      );
-
-  void goSubtasksQuiz(TaskController tc) => goTaskView(
-        tc.taskDescriptor,
-        subRouteName: CreateSubtasksQuizRoute.staticBaseName,
-        extra: tc,
-      );
+    go('${matches.last.matchedLocation}/$quizStepName', extra: qc);
+  }
 
   // Выход из квиза
   void popToTaskType(String type) {
@@ -133,6 +116,7 @@ extension MTRouterHelper on GoRouter {
     while (matches.matches.length > 1 && (matches.last.route as MTRoute).baseName != type) {
       matches = matches.remove(matches.last);
     }
+
     go(matches.last.matchedLocation);
   }
 }

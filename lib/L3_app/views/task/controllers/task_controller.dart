@@ -15,8 +15,6 @@ import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../../_base/loadable.dart';
-import '../../projects/create_project_quiz_controller.dart';
-import '../../quiz/abstract_task_quiz_controller.dart';
 import '../usecases/delete.dart';
 import '../usecases/duplicate.dart';
 import '../usecases/link.dart';
@@ -24,7 +22,6 @@ import '../usecases/status.dart';
 import '../usecases/transfer.dart';
 import '../widgets/details/details_dialog.dart';
 import 'attachments_controller.dart';
-import 'create_goal_quiz_controller.dart';
 import 'feature_sets_controller.dart';
 import 'notes_controller.dart';
 import 'project_statuses_controller.dart';
@@ -52,14 +49,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     subtasksController = SubtasksController(this);
     featureSetsController = FeatureSetsController(this);
     projectStatusesController = ProjectStatusesController(this);
-
-    quizController = taskDescriptor.creating
-        ? taskDescriptor.isProject
-            ? CreateProjectQuizController(this)
-            : taskDescriptor.isGoal
-                ? CreateGoalQuizController(this)
-                : null
-        : null;
 
     setupFields();
 
@@ -169,8 +158,6 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late final SubtasksController subtasksController;
   late final FeatureSetsController featureSetsController;
   late final ProjectStatusesController projectStatusesController;
-
-  AbstractTaskQuizController? quizController;
 
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;
 

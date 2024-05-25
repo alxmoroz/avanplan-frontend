@@ -8,6 +8,6 @@ import 'edit.dart';
 
 extension FeatureSetsUC on TaskController {
   Future setupFeatureSets(Iterable<int> fsIds) async {
-    editWrapper(() async => task.projectFeatureSets = await featureSetUC.setup(task, fsIds));
+    await editWrapper(() async => task.projectFeatureSets = await featureSetUC.setup(task, fsIds));
   }
 }

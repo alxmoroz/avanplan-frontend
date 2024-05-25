@@ -16,7 +16,7 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../quiz/abstract_task_quiz_controller.dart';
+import '../../../projects/create_project_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
@@ -32,7 +32,7 @@ class FeatureSetsQuizRoute extends AbstractTaskQuizRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _FeatureSetsQuizView(state.extra as TaskController),
+          builder: (_, state) => _FeatureSetsQuizView(state.extra as CreateProjectQuizController),
         );
 }
 
@@ -96,11 +96,10 @@ class _FSBody extends StatelessWidget {
 }
 
 class _FeatureSetsQuizView extends StatelessWidget {
-  const _FeatureSetsQuizView(this._controller);
-  final TaskController _controller;
+  const _FeatureSetsQuizView(this._qController);
+  final CreateProjectQuizController _qController;
 
-  AbstractTaskQuizController get _qController => _controller.quizController!;
-  FeatureSetsController get _fsController => _controller.featureSetsController;
+  FeatureSetsController get _fsController => _qController.taskController.featureSetsController;
 
   @override
   Widget build(BuildContext context) {

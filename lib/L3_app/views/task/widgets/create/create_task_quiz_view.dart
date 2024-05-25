@@ -14,14 +14,15 @@ import '../details/task_quiz_details.dart';
 import '../header/task_header.dart';
 
 class CreateTaskQuizView extends TaskView {
-  const CreateTaskQuizView(super.controller, {super.key});
+  const CreateTaskQuizView(super.controller, this.qController, {super.key});
+  final AbstractTaskQuizController qController;
 
   @override
   State<CreateTaskQuizView> createState() => _CreateTaskQuizViewState();
 }
 
 class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
-  AbstractTaskQuizController get qController => controller.quizController!;
+  AbstractTaskQuizController get qController => widget.qController;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
           children: [
             const SizedBox(height: P),
             TaskHeader(controller),
-            MTAdaptive(child: TaskQuizDetails(qController)),
+            MTAdaptive(child: TaskQuizDetails(qController, controller)),
           ],
         ),
       ),

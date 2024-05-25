@@ -6,7 +6,6 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_feature_sets.dart';
-import '../../../usecases/task_tree.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../widgets/create/create_subtasks_quiz_view.dart';
@@ -40,6 +39,6 @@ abstract class _CreateGoalQuizControllerBase extends AbstractTaskQuizController 
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.goalSetup.name, loc.goal_create_quiz_title, loc.next_action_title),
-        if (!_goal.hfsTaskboard) QuizStep(_StepCode.tasks.name, _goal.subtasks.isNotEmpty ? loc.task_multi_create_quiz_title : '$_goal', ''),
+        if (!_goal.hfsTaskboard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),
       ];
 }

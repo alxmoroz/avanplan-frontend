@@ -101,11 +101,19 @@ extension MTRouterHelper on GoRouter {
   }
 
   // шаги квиза
-  Future pushTaskQuizStep(String stepName, AbstractTaskQuizController qc, {bool needAppendPath = false}) async {
+  Future pushTaskQuizStep(
+    String stepName,
+    AbstractTaskQuizController qc, {
+    bool needAppendPath = false,
+    Map<String, String> pathParameters = const <String, String>{},
+  }) async {
     final stepIndex = qc.stepIndex;
     needAppendPath = needAppendPath || stepIndex < 2;
     final parentName = needAppendPath ? _currentRoute.name : _currentRoute.parent!.name;
-    await pushNamed('$parentName/$stepName', pathParameters: _currentConfig.pathParameters, extra: qc);
+    final pp = _currentConfig.pathParameters;
+    pp.addAll(pathParameters);
+
+    await pushNamed('$parentName/$stepName', pathParameters: pp, extra: qc);
   }
 
   // Выход из квиза

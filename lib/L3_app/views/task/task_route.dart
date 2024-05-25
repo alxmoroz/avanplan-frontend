@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/usecases/task_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,7 +62,9 @@ abstract class BaseTaskRoute extends MTRoute {
         if (qc == null && _td.creating && (_td.isProject || _td.isGoal)) {
           qc = _td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
         }
-        return qc != null && qc.taskController.taskDescriptor == _td ? CreateTaskQuizView(_tc, qc) : TaskView(_tc);
+        final qcTask = qc?.taskController.taskDescriptor;
+
+        return qc != null && (qcTask == _td || qcTask == _td.parent) ? CreateTaskQuizView(_tc, qc) : TaskView(_tc);
       };
 }
 

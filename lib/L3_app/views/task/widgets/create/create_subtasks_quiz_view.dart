@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
@@ -15,7 +14,6 @@ import '../../../../components/images.dart';
 import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
@@ -72,45 +70,44 @@ class _CreateSubtasksQuizView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          MTPage(
-            appBar: QuizHeader(_qController),
-            leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
-            body: SafeArea(
-              top: false,
-              bottom: false,
-              child: MTAdaptive(
-                child: _task.hasSubtasks
-                    ? MTShadowed(
-                        bottomShadow: true,
-                        child: ListView.builder(
-                          itemBuilder: _itemBuilder,
-                          itemCount: _task.subtasks.length + 1,
-                        ),
-                      )
-                    : Center(
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            MTImage(ImageName.empty_tasks.name),
-                            H2(loc.task_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-                            const SizedBox(height: P3),
-                            _addButton,
-                          ],
-                        ),
-                      ),
+      builder: (_) => MTPage(
+        appBar: QuizHeader(_qController),
+        leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: MTAdaptive(
+            child: MTShadowed(
+              topShadow: _task.hasSubtasks,
+              child: Align(
+                alignment: _task.hasSubtasks ? Alignment.topCenter : Alignment.center,
+                child: ListView(
+                  shrinkWrap: !_task.hasSubtasks,
+                  children: [
+                    _task.hasSubtasks
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: _itemBuilder,
+                            itemCount: _task.subtasks.length + 1,
+                          )
+                        : ListView(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              MTImage(ImageName.empty_tasks.name),
+                              H2(loc.task_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+                              const SizedBox(height: P3),
+                              _addButton,
+                            ],
+                          ),
+                    QuizNextButton(_qController),
+                  ],
+                ),
               ),
             ),
-            bottomBar: MTAppBar(
-              isBottom: true,
-              color: b2Color,
-              padding: const EdgeInsets.only(top: P2),
-              middle: QuizNextButton(_qController, margin: EdgeInsets.zero),
-            ),
           ),
-        ],
+        ),
       ),
     );
   }

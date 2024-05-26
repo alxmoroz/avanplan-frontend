@@ -10,7 +10,8 @@ import 'constants.dart';
 import 'scrollable.dart';
 
 class MTPage extends StatelessWidget {
-  const MTPage({super.key, 
+  const MTPage({
+    super.key,
     this.appBar,
     required this.body,
     this.bottomBar,
@@ -36,8 +37,9 @@ class MTPage extends StatelessWidget {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
       final mqPadding = mq.padding;
-      final pTop = max(mq.padding.top, P3);
-      final pBottom = max(mq.padding.bottom, P3);
+      final pTop = max(mqPadding.top, P3);
+      final hasKB = mq.viewInsets.bottom > 0;
+      final pBottom = max(mqPadding.bottom, P3);
 
       return MTBackgroundWrapper(
         PrimaryScrollController(
@@ -57,7 +59,7 @@ class MTPage extends StatelessWidget {
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
                       top: pTop + (appBar?.preferredSize ?? Size.zero).height,
-                      bottom: pBottom + (bottomBar?.preferredSize ?? Size.zero).height,
+                      bottom: pBottom + (hasKB ? 0 : (bottomBar?.preferredSize ?? Size.zero).height),
                     ),
                   ),
                   child: scrollOffsetTop != null && scrollController != null

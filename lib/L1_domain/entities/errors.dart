@@ -5,6 +5,9 @@ class MTError implements Exception {
   final String message;
   final String? description;
   final String? detail;
+
+  @override
+  String toString() => 'MTError $message $description $detail';
 }
 
 class MTOAuthError extends MTError {

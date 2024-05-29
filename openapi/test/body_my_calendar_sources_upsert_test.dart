@@ -17,8 +17,8 @@ void main() {
       // TODO
     });
 
-    // String accessToken
-    test('to test the property `accessToken`', () async {
+    // String serverAuthCode
+    test('to test the property `serverAuthCode`', () async {
       // TODO
     });
   });

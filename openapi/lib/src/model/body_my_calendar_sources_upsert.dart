@@ -13,7 +13,7 @@ part 'body_my_calendar_sources_upsert.g.dart';
 /// Properties:
 /// * [email] 
 /// * [sourceType] 
-/// * [accessToken] 
+/// * [serverAuthCode] 
 @BuiltValue()
 abstract class BodyMyCalendarSourcesUpsert implements Built<BodyMyCalendarSourcesUpsert, BodyMyCalendarSourcesUpsertBuilder> {
   @BuiltValueField(wireName: r'email')
@@ -22,8 +22,8 @@ abstract class BodyMyCalendarSourcesUpsert implements Built<BodyMyCalendarSource
   @BuiltValueField(wireName: r'source_type')
   String get sourceType;
 
-  @BuiltValueField(wireName: r'access_token')
-  String get accessToken;
+  @BuiltValueField(wireName: r'server_auth_code')
+  String get serverAuthCode;
 
   BodyMyCalendarSourcesUpsert._();
 
@@ -58,9 +58,9 @@ class _$BodyMyCalendarSourcesUpsertSerializer implements PrimitiveSerializer<Bod
       object.sourceType,
       specifiedType: const FullType(String),
     );
-    yield r'access_token';
+    yield r'server_auth_code';
     yield serializers.serialize(
-      object.accessToken,
+      object.serverAuthCode,
       specifiedType: const FullType(String),
     );
   }
@@ -100,12 +100,12 @@ class _$BodyMyCalendarSourcesUpsertSerializer implements PrimitiveSerializer<Bod
           ) as String;
           result.sourceType = valueDes;
           break;
-        case r'access_token':
+        case r'server_auth_code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.accessToken = valueDes;
+          result.serverAuthCode = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -88,6 +88,4 @@ abstract class _FeatureSetsControllerBase with Store {
     _taskController.task.projectFeatureSets = await featureSetUC.setup(_taskController.task, fsIds);
     _taskController.updateField(fIndex, loading: false);
   }
-
-  Future save() async {}
 }

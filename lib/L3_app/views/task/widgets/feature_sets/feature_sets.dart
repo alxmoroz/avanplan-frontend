@@ -131,9 +131,10 @@ class _FeatureSetsDialog extends StatelessWidget {
   const _FeatureSetsDialog(this._controller);
   final TaskController _controller;
 
-  void _save() {
+  Future _save() async {
     router.pop();
-    _controller.featureSetsController.setup();
+    await _controller.featureSetsController.setup();
+    tasksMainController.reload();
   }
 
   @override

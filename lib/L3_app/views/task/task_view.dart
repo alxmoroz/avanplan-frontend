@@ -53,8 +53,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Task get td => controller.taskDescriptor;
   bool get _hasParent => task.parent != null;
 
-  bool get _isTaskDialog => isBigScreen(context) && task.isTask;
-  bool get _isBigGroup => isBigScreen(context) && task.isGroup;
+  bool get _isTaskDialog => isBigScreen(context) && td.isTask;
+  bool get _isBigGroup => isBigScreen(context) && td.isGroup || td.isInbox;
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   // TODO: определить как и fast / other actions в задаче
   bool get _hasQuickActions => (task.hasSubtasks && (task.canShowBoard || task.canLocalImport || task.canCreate)) || task.canComment;
@@ -165,7 +165,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
             children: [
               if (_hasParent) _parentTitle,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: _isBigGroup ? P3 : P6).copyWith(top: _isBigGroup && _hasParent ? P : 0),
+                padding: EdgeInsets.symmetric(horizontal: _isBigGroup ? P : P6).copyWith(top: _isBigGroup && _hasParent ? P : 0),
                 child: Row(
                   mainAxisAlignment: _isBigGroup ? MainAxisAlignment.start : MainAxisAlignment.center,
                   children: [
@@ -204,34 +204,37 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   scrollOffsetTop: _headerHeight,
                   onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                 )
-              : Builder(builder: (_) {
-                  final big = isBigScreen(context);
-                  final actions = controller.loading ? <TaskAction>[] : task.actions(context);
-                  return Observer(
-                    builder: (_) => MTPage(
-                      appBar: big && !_hasScrolled
-                          ? null
-                          : MTAppBar(
-                              innerHeight: big ? _headerHeight : null,
-                              color: _isBigGroup ? b2Color : null,
-                              leading: _isBigGroup ? const SizedBox() : null,
-                              middle: _title,
-                              trailing: !_isBigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
-                            ),
-                      leftBar: big ? LeftMenu(leftMenuController) : null,
-                      body: MTRefresh(
-                        onRefresh: controller.reload,
-                        child: _body,
+              : Builder(
+                  builder: (_) {
+                    final big = isBigScreen(context);
+                    final actions = controller.loading ? <TaskAction>[] : task.actions(context);
+                    return Observer(
+                      builder: (_) => MTPage(
+                        appBar: big && !_hasScrolled
+                            ? null
+                            : MTAppBar(
+                                innerHeight: big ? _headerHeight : null,
+                                color: _isBigGroup ? b2Color : null,
+                                leading: _isBigGroup ? const SizedBox() : null,
+                                middle: _title,
+                                trailing:
+                                    !_isBigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
+                              ),
+                        leftBar: big ? LeftMenu(leftMenuController) : null,
+                        body: MTRefresh(
+                          onRefresh: controller.reload,
+                          child: _body,
+                        ),
+                        bottomBar: !_isBigGroup && _hasQuickActions ? TaskBottomToolbar(controller) : null,
+                        // панель справа - для проекта и цели. Для инбокса только если он не пустой
+                        rightBar: _isBigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
+                        scrollController: _scrollController,
+                        scrollOffsetTop: _headerHeight,
+                        onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                       ),
-                      bottomBar: !_isBigGroup && _hasQuickActions ? TaskBottomToolbar(controller) : null,
-                      // панель справа - для проекта и цели. Для инбокса только если он не пустой
-                      rightBar: _isBigGroup && (!task.isInbox || task.hasSubtasks) ? _rightToolbar : null,
-                      scrollController: _scrollController,
-                      scrollOffsetTop: _headerHeight,
-                      onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
-                    ),
-                  );
-                }),
+                    );
+                  },
+                ),
     );
   }
 }

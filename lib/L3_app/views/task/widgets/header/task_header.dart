@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
@@ -53,7 +52,7 @@ class TaskHeader extends StatelessWidget {
               style: H1('', color: _task.isInbox ? f2Color : null, maxLines: 5).style(context),
               onChanged: _controller.editTitle,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P : 0),
+            padding: const EdgeInsets.symmetric(horizontal: P3),
             color: Colors.transparent,
           ),
         ],

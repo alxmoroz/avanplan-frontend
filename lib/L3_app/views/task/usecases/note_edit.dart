@@ -35,8 +35,8 @@ extension NoteEditUC on TaskController {
     if (note.text != newValue || note.isNew) {
       updateField(_fNoteIndex, loading: true, text: '');
       note.text = newValue;
-      final en = await _noteEditWrapper(note, () async {
-        Note? en;
+      Note? en;
+      await _noteEditWrapper(note, () async {
         if (await task.ws.checkBalance(loc.task_note_add_action_title)) {
           en = await noteUC.save(note);
           if (en != null) {
@@ -58,23 +58,22 @@ extension NoteEditUC on TaskController {
             // }
 
             if (note.isNew) {
-              task.notes.add(en);
+              task.notes.add(en!);
             } else {
-              final index = task.notes.indexWhere((n) => en!.taskId == task.id && en.id == n.id);
+              final index = task.notes.indexWhere((n) => en!.taskId == task.id && en!.id == n.id);
               if (index > -1) {
-                task.notes[index] = en;
+                task.notes[index] = en!;
               }
             }
           }
         }
-        return en;
       });
 
-      if (en == null) {
-        note.text = oldValue;
-      } else {
+      if (en != null) {
         // если есть вложения
-        await attachmentsController.uploadAttachments(en);
+        await attachmentsController.uploadAttachments(en!);
+      } else {
+        note.text = oldValue;
       }
 
       notesController.reload();

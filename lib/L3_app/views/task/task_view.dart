@@ -54,7 +54,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _hasParent => task.parent != null;
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
-  bool get _isBigGroup => isBigScreen(context) && td.isGroup || td.isInbox;
+  bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
   // TODO: определить как и fast / other actions в задаче
   bool get _hasQuickActions => (task.hasSubtasks && (task.canShowBoard || task.canLocalImport || task.canCreate)) || task.canComment;

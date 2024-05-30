@@ -111,7 +111,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    mainController.clear();
+    // mainController.clear();
     WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
     super.dispose();
@@ -132,7 +132,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
             : mainController.loading
                 ? LoaderScreen(mainController)
                 : MTPage(
-                    appBar: !_freshStart
+                    appBar: _showTasks
                         ? MTAppBar(
                             leading: const SizedBox(height: P8),
                             color: big

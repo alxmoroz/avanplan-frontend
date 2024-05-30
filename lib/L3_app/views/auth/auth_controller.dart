@@ -82,6 +82,7 @@ abstract class _AuthControllerBase with Store, Loadable {
     await authUC.signOut();
     authorized = false;
     router.goAuth();
+    mainController.clear();
   }
 
   Future startup() async {

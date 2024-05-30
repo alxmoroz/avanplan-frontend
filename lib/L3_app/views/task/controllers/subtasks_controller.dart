@@ -37,6 +37,7 @@ abstract class _SubtasksControllerBase with Store {
   Future delete(int index) async {
     final tc = tasksControllers[index];
     if (await tc.delete() != null) {
+      tc.dispose();
       tasksControllers.remove(tc);
     }
   }

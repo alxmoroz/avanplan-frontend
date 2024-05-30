@@ -71,8 +71,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void dispose() {
-    // controller.dispose();
-    // task.creating = false;
+    task.creating = false;
 
     _scrollController.dispose();
     _boardScrollController.dispose();

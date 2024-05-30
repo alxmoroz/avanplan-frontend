@@ -52,12 +52,6 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     super.initState();
   }
 
-  @override
-  dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   Future<bool> _delete() async {
     setState(() => _taskEditing = true);
 

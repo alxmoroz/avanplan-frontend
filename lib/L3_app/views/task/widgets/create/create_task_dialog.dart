@@ -45,7 +45,8 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
               : newCheckItem
                   ? TType.CHECKLIST_ITEM
                   : TType.TASK,
-    );
+    )..creating = true;
+
     tc.initWithTask(taskData);
     final savedTask = await tc.save();
     if (!tc.loading) router.pop();

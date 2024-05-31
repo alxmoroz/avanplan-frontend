@@ -53,8 +53,8 @@ class CalendarRepo extends AbstractCalendarRepo {
       GoogleSignInAccount? googleUser;
       GoogleSignIn gsi = mainGSI;
       // если пользователь уже авторизован в гугле, то запрашиваем доп. права
-      final wasGoogleAuth = await gsi.isSignedIn();
-      if (wasGoogleAuth) {
+      final wasAuth = await gsi.isSignedIn();
+      if (wasAuth) {
         // TODO: тут возможно добавить логику хранения инфы про разрешения на нашем бэке
         // проверка на наличие текущих прав доступна только для веба
         await gsi.requestScopes(_scopes);
@@ -70,7 +70,7 @@ class CalendarRepo extends AbstractCalendarRepo {
         final serverAuthCode = googleUser.serverAuthCode;
         if (serverAuthCode != null) {
           // разлогиниваем из гугла, если не был залогинен в гугле (другой провайдер авторизации и т.п.)
-          if (!wasGoogleAuth) {
+          if (!wasAuth) {
             await gsi.signOut();
           }
           // источник календаря

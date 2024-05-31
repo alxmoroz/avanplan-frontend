@@ -30,12 +30,12 @@ abstract class _CalendarControllerBase with Store, Loadable {
   ObservableList<CalendarEvent> events = ObservableList();
 
   @action
-  void _setSource(CalendarSource es) {
-    final index = _sources.indexWhere((s) => s.id == es.id);
+  void _setSource(CalendarSource cs) {
+    final index = _sources.indexWhere((s) => s.id == cs.id);
     if (index > -1) {
-      _sources[index] = es;
+      _sources[index] = cs;
     } else {
-      _sources.add(es);
+      _sources.add(cs);
     }
   }
 
@@ -43,9 +43,9 @@ abstract class _CalendarControllerBase with Store, Loadable {
   Future authenticateGoogleCalendar() async {
     setLoaderScreenLoading();
     await load(() async {
-      final es = await calendarUC.updateSource(CalendarSourceType.GOOGLE);
-      if (es != null) {
-        _setSource(es);
+      final cs = await calendarUC.updateSource(CalendarSourceType.GOOGLE);
+      if (cs != null) {
+        _setSource(cs);
       }
     });
   }

@@ -26,7 +26,7 @@ GoogleSignIn gSI({Iterable<String> scopes = const []}) => GoogleSignIn(
       forceCodeForRefreshToken: true,
     );
 
-GoogleSignIn get mainGSI => gSI();
+GoogleSignIn mainGSI = gSI();
 
 class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
   @override

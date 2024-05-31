@@ -125,21 +125,35 @@ extension TaskEditUC on TaskController {
           // перенос между РП - новая задача в новом месте, старая удаляется
 
           final sameWS = dst.wsId == taskDescriptor.wsId;
-          final oldParentId = task.parentId;
+
+          TasksChanges? changes;
 
           if (sameWS) {
-            task.parentId = taskDescriptor.parentId = dst.id;
+            // статус в другом проекте
+            final oldStatusId = task.projectStatusId;
+            if (dst.project.id != task.project.id) {
+              final psc = TaskController(taskIn: dst).projectStatusesController;
+              psc.reload();
+              task.projectStatusId = psc.firstOpenedStatusId;
+            }
+            // родитель
+            final oldParentId = task.parentId;
+            task.parentId = dst.id;
+            changes = await taskUC.save(task);
+            // ошибка
+            if (changes == null) {
+              task.parentId = oldParentId;
+              task.projectStatusId = oldStatusId;
+            }
+          } else {
+            changes = await taskUC.move(taskDescriptor, dst);
           }
 
-          final changes = sameWS ? await taskUC.save(task) : await taskUC.move(taskDescriptor, dst);
           if (changes != null) {
-            changes.updated.filled = true;
-            tasksMainController.setTasks(changes.affected);
-            tasksMainController.setTasks([changes.updated]);
+            // changes.updated.filled = true;
+            tasksMainController.setTasks([changes.updated, ...changes.affected]);
             if (!sameWS) tasksMainController.removeTask(task);
             taskDescriptor = changes.updated;
-          } else if (sameWS) {
-            task.parentId = oldParentId;
           }
         }
       });

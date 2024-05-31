@@ -42,11 +42,14 @@ abstract class _ProjectStatusesControllerBase with Store, Loadable {
   ObservableList<ProjectStatus> _statuses = ObservableList();
 
   @computed
-  Iterable<int> get _closedStatusIds => _statuses.where((s) => s.closed == true).map((s) => s.id!);
+  List<ProjectStatus> get sortedStatuses => _statuses.sorted((s1, s2) => s1.position.compareTo(s2.position));
+
+  @computed
+  Iterable<int> get _closedStatusIds => sortedStatuses.where((s) => s.closed == true).map((s) => s.id!);
   @computed
   int? get firstClosedStatusId => _closedStatusIds.firstOrNull;
   @computed
-  Iterable<int> get _openedStatusIds => _statuses.where((s) => s.closed == false).map((s) => s.id!);
+  Iterable<int> get _openedStatusIds => sortedStatuses.where((s) => s.closed == false).map((s) => s.id!);
   @computed
   int? get firstOpenedStatusId => _openedStatusIds.firstOrNull;
 
@@ -57,9 +60,6 @@ abstract class _ProjectStatusesControllerBase with Store, Loadable {
   ProjectStatus? rightStatus(ProjectStatus status) => sortedStatuses.firstWhereOrNull((s) => s.position > status.position);
 
   void reload() => _setStatuses(project.projectStatuses);
-
-  @computed
-  List<ProjectStatus> get sortedStatuses => _statuses.sorted((s1, s2) => s1.position.compareTo(s2.position));
 
   Iterable<String> siblingsTitles(int? sId) => _statuses.where((s) => s.id != sId).map((s) => s.title.trim().toLowerCase());
 

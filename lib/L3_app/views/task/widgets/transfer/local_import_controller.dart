@@ -1,12 +1,11 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/dialog.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
@@ -32,6 +31,9 @@ abstract class _LocalImportControllerBase with Store {
 
   @computed
   bool get srcGroupSelected => srcGroup != null;
+
+  @computed
+  bool get sameProject => dstGroup.project.id == srcGroup?.project.id;
 
   @action
   void _setSrc(Task src) {
@@ -71,14 +73,15 @@ abstract class _LocalImportControllerBase with Store {
     }
   }
 
-  Future moveTasks(BuildContext context) async {
-    context.pop();
+  Future moveTasks() async {
+    router.pop();
     final dstParentId = dstGroup.id;
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
-        final t = srcTasks[index];
-        t.parentId = dstParentId;
-        await TaskController(taskIn: t).save();
+        final src = srcTasks[index];
+        src.parentId = dstParentId;
+        if (!sameProject) src.projectStatusId = _taskController.projectStatusesController.firstOpenedStatusId;
+        await TaskController(taskIn: src).save();
       }
     }
   }

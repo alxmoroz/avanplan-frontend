@@ -25,7 +25,7 @@ final _rootKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => _rootKey.currentContext!;
 
 final router = GoRouter(
-    // debugLogDiagnostics: true,
+    debugLogDiagnostics: true,
     routes: [
       authRoute,
       registrationTokenRoute,
@@ -76,16 +76,16 @@ extension MTRouterHelper on GoRouter {
 
   // Задачи
   void goTaskView(Task task, {bool direct = false}) {
-    final taskType = task.type.toLowerCase();
-    final needPush = !direct && (!isWeb || task.isTask);
-    final currentName = needPush ? _currentRoute.name : mainRoute.name;
+    final tt = task.type.toLowerCase();
+    final currentPP = _currentConfig.pathParameters;
+    final ttIdKey = '${tt}Id';
 
-    // не переходим по тому же маршруту (из задачи в задачу, из цели в цель, из проекта в проект)
-    if (_currentRoute.baseName != taskType) {
-      final Map<String, String> pathParameters = needPush ? _currentConfig.pathParameters : {};
-      pathParameters.addAll({'wsId': '${task.wsId}', '${taskType}Id': '${task.id!}'});
-
-      _goNamed('$currentName/$taskType', pathParameters: pathParameters);
+    if (currentPP['wsId'] != '${task.wsId}' || (!currentPP.containsKey(ttIdKey) || currentPP[ttIdKey] != '${task.id!}')) {
+      final needPush = !direct && (!isWeb || task.isTask);
+      final Map<String, String> pp = needPush ? currentPP : {};
+      pp.addAll({'wsId': '${task.wsId}', ttIdKey: '${task.id!}'});
+      final currentName = needPush ? _currentRoute.name : mainRoute.name;
+      _goNamed('$currentName/$tt', pathParameters: pp);
     }
   }
 

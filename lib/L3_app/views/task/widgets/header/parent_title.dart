@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
@@ -24,13 +25,15 @@ class TaskParentTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTField(
-      _controller.fData(TaskFCode.parent.index),
-      value: BaseText(_task.parent!.title, maxLines: 1, color: mainColor),
-      padding: const EdgeInsets.symmetric(horizontal: P3),
-      color: Colors.transparent,
-      minHeight: P6,
-      onTap: _toParent,
+    return Observer(
+      builder: (_) => MTField(
+        _controller.fData(TaskFCode.parent.index),
+        value: BaseText(_task.parent!.title, maxLines: 1, color: mainColor),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
+        color: Colors.transparent,
+        minHeight: P6,
+        onTap: _toParent,
+      ),
     );
   }
 }

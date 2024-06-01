@@ -145,7 +145,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
                                     ? _bigTitle
                                     : H3(loc.my_tasks_upcoming_title, maxLines: 1)
                                 : null,
-                            trailing: big
+                            trailing: isWeb || big
                                 ? null
                                 : const MTButton.icon(
                                     SettingsIcon(),

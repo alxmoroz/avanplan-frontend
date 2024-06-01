@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../L2_data/services/platform.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
@@ -28,12 +29,14 @@ class MainRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         _controller,
         child: Column(
           children: [
-            MTListTile(
-              leading: const SettingsIcon(),
-              middle: _compact ? null : BaseText(loc.my_tasks_view_settings_title, maxLines: 1),
-              bottomDivider: false,
-              onTap: showViewSettingsDialog,
-            ),
+            // TODO: управление календарем в вебе
+            if (!isWeb)
+              MTListTile(
+                leading: const SettingsIcon(),
+                middle: _compact ? null : BaseText(loc.my_tasks_view_settings_title, maxLines: 1),
+                bottomDivider: false,
+                onTap: showViewSettingsDialog,
+              ),
             const Spacer(),
             InboxAddTaskButton(compact: _compact),
           ],

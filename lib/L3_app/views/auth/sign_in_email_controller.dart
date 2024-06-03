@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/extra/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -51,8 +52,11 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
   @action
   void _toggleShowPassword() => _showPassword = !_showPassword;
 
-  Future signIn() async => await authController.signInWithPassword(
-        fData(SigninFCode.email.index).text,
-        fData(SigninFCode.password.index).text,
-      );
+  Future signIn() async {
+    router.pop();
+    await authController.signInWithPassword(
+      fData(SigninFCode.email.index).text,
+      fData(SigninFCode.password.index).text,
+    );
+  }
 }

@@ -17,6 +17,7 @@ part 'attachment_get.g.dart';
 /// * [type] 
 /// * [bytes] 
 /// * [name] 
+/// * [updatedOn] 
 /// * [noteId] 
 @BuiltValue()
 abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilder> {
@@ -37,6 +38,9 @@ abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilde
 
   @BuiltValueField(wireName: r'name')
   String get name;
+
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime? get updatedOn;
 
   @BuiltValueField(wireName: r'note_id')
   int? get noteId;
@@ -100,6 +104,13 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
       object.name,
       specifiedType: const FullType(String),
     );
+    if (object.updatedOn != null) {
+      yield r'updated_on';
+      yield serializers.serialize(
+        object.updatedOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     if (object.noteId != null) {
       yield r'note_id';
       yield serializers.serialize(
@@ -171,6 +182,13 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.name = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         case r'note_id':
           final valueDes = serializers.deserialize(

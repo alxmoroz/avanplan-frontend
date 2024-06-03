@@ -12,7 +12,7 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import 'registration_form.dart';
-import 'sign_in_email_form.dart';
+import 'sign_in_email_dialog.dart';
 
 Future authExtraDialog() async => await showMTDialog<void>(const _AuthExtraDialog(), maxWidth: SCR_XS_WIDTH);
 

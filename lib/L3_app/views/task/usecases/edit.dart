@@ -58,7 +58,7 @@ extension TaskEditUC on TaskController {
     await load(function);
 
     task.loading = false;
-    tasksMainController.refreshTasksUI(sort: true);
+    tasksMainController.refreshTasksUI();
   }
 
   Future reload() async {
@@ -106,8 +106,7 @@ extension TaskEditUC on TaskController {
       if (await task.ws.checkBalance(loc.edit_action_title)) {
         final changes = await taskUC.save(task);
         if (changes != null) {
-          tasksMainController.setTasks(changes.affected);
-          tasksMainController.setTasks([changes.updated]);
+          tasksMainController.setTasks([changes.updated, ...changes.affected]);
           et = changes.updated;
         }
       }

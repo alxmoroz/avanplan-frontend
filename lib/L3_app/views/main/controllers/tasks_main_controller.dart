@@ -29,13 +29,7 @@ abstract class _TasksMainControllerBase with Store {
   void clear() => allTasks.clear();
 
   @action
-  void refreshTasksUI({bool sort = false}) {
-    if (sort) {
-      allTasks.sort();
-    } else {
-      allTasks = ObservableList.of(allTasks);
-    }
-  }
+  void refreshTasksUI() => allTasks = ObservableList.of(allTasks);
 
   /// Inbox
   @computed
@@ -140,7 +134,7 @@ abstract class _TasksMainControllerBase with Store {
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
       setTasks([p]);
     }
-    refreshTasksUI(sort: true);
+    refreshTasksUI();
 
     _setupImportingProjectsRefreshTimer();
   }

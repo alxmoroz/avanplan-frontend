@@ -17,11 +17,11 @@ extension TitleUC on TaskController {
 
   Future _setTitle(String str) async {
     str = str.trim();
-    if (task.title != str) {
+    final oldValue = task.title;
+    if (oldValue != str) {
       if (str.isEmpty) {
         str = titlePlaceholder;
       }
-      final oldValue = task.title;
       task.title = str;
       if (!(await saveField(TaskFCode.title))) {
         task.title = oldValue;
@@ -33,7 +33,7 @@ extension TitleUC on TaskController {
     if (titleEditTimer != null) {
       titleEditTimer!.cancel();
     }
-    titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
+    titleEditTimer = Timer(TEXT_SAVE_DELAY_DURATION, () async => await _setTitle(str));
   }
 
   void setTitleFocus() => focusNode(TaskFCode.title.index)?.requestFocus();

@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/field_data.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
@@ -106,9 +107,9 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   String get codePlaceholder => loc.status_code_placeholder;
 
   Future _setTitle(String str) async {
-    if (status.title != str) {
+    final oldValue = status.title;
+    if (oldValue != str) {
       str = _processedInput(str);
-      final oldValue = status.title;
       status.title = str;
       if (!(await saveField(StatusFCode.title))) {
         status.title = oldValue;
@@ -125,7 +126,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
     }
     str = _processedInput(str);
     if (_checkDup(str)) {
-      _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
+      _titleEditTimer = Timer(TEXT_SAVE_DELAY_DURATION, () async => await _setTitle(str));
     }
   }
 

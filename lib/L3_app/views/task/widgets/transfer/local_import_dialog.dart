@@ -21,7 +21,7 @@ import 'local_import_controller.dart';
 Future localImportDialog(TaskController taskController) async {
   final lic = LocalImportController(taskController);
   await lic.selectSourceForMove();
-  if (lic.srcGroupSelected) {
+  if (lic.srcSelected) {
     await showMTDialog<void>(_LocalImportDialog(lic));
   }
 }
@@ -72,8 +72,8 @@ class _LocalImportDialog extends StatelessWidget {
                   constrained: false,
                   padding: const EdgeInsets.symmetric(horizontal: P3),
                   margin: const EdgeInsets.symmetric(horizontal: P2),
-                  titleText: controller.srcGroupSelected ? '$_src' : loc.task_transfer_source_hint,
-                  trailing: controller.srcGroupSelected
+                  titleText: controller.srcSelected ? '$_src' : loc.task_transfer_source_hint,
+                  trailing: controller.srcSelected
                       ? const Padding(
                           padding: EdgeInsets.only(top: P_2),
                           child: CaretIcon(size: Size(P2 * 0.7, P2 * 0.7), color: mainColor),
@@ -98,14 +98,14 @@ class _LocalImportDialog extends StatelessWidget {
           body: MTShadowed(
             topPaddingIndent: 0,
             shadowColor: b1Color,
-            bottomShadow: controller.srcGroupSelected,
+            bottomShadow: controller.srcSelected,
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: _taskItem,
               itemCount: controller.checks.length,
             ),
           ),
-          bottomBar: controller.srcGroupSelected
+          bottomBar: controller.srcSelected
               ? MTAppBar(
                   isBottom: true,
                   color: b2Color,

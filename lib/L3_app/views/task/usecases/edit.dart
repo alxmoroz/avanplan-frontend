@@ -80,9 +80,7 @@ extension TaskEditUC on TaskController {
         if (root.isProject && root.hfsGoals) {
           newTasks.addAll(await wsUC.getMyTasks(root.wsId, projectId: root.id!));
         }
-        tasksMainController.setTasks(taskNode.parents);
-        tasksMainController.setTasks(newTasks);
-
+        tasksMainController.setTasks([...newTasks, ...taskNode.parents]);
         taskDescriptor = root;
 
         setupFields();

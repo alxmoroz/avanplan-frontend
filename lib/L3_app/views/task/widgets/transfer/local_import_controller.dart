@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
@@ -8,6 +7,7 @@ import '../../../../components/dialog.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
+import '../../../../views/_base/loadable.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
 import 'transfer_selector.dart';
@@ -21,24 +21,28 @@ class LocalImportController extends _LocalImportControllerBase with _$LocalImpor
   }
 }
 
-abstract class _LocalImportControllerBase with Store {
+abstract class _LocalImportControllerBase with Store, Loadable {
   late final TaskController _taskController;
 
   Task get dstGroup => _taskController.task;
 
   @observable
-  Task? srcGroup;
+  TaskController? srcController;
 
   @computed
-  bool get srcGroupSelected => srcGroup != null;
+  bool get srcSelected => srcController != null;
 
-  @computed
-  bool get sameProject => dstGroup.project.id == srcGroup?.project.id;
+  Task? get srcGroup => srcController?.task;
 
   @action
-  void _setSrc(Task src) {
-    srcGroup = src;
-    srcTasks = srcGroup?.openedSubtasks.sorted((t1, t2) => t1.compareTo(t2)) ?? [];
+  Future _setSrc(Task src) async {
+    srcController = TaskController(taskIn: src);
+
+    if (srcGroup?.filled == false) {
+      await load(() async => await srcController!.reload());
+    }
+
+    srcTasks = srcGroup?.openedSubtasks.toList() ?? [];
     checks = ObservableList.of([for (var _ in srcTasks) false]);
   }
 
@@ -75,13 +79,10 @@ abstract class _LocalImportControllerBase with Store {
 
   Future moveTasks() async {
     router.pop();
-    final dstParentId = dstGroup.id;
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         final src = srcTasks[index];
-        src.parentId = dstParentId;
-        if (!sameProject) src.projectStatusId = _taskController.projectStatusesController.firstOpenedStatusId;
-        await TaskController(taskIn: src).save();
+        await TaskController(taskIn: src).move(dstGroup);
       }
     }
   }

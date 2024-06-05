@@ -14,7 +14,6 @@ import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/attachments.dart';
 import '../attachments/upload_dialog.dart';
@@ -70,7 +69,7 @@ class TextEditDialog extends StatelessWidget {
                       minSize: const Size(P6, P6),
                       middle: const SubmitIcon(color: mainBtnTitleColor),
                       margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                      onTap: _canSubmit ? () => router.pop(true) : null,
+                      onTap: _canSubmit ? () => Navigator.of(context).pop(true) : null,
                     ),
                   ],
                 ),

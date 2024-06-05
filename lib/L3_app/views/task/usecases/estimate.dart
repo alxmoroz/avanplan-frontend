@@ -25,7 +25,8 @@ extension EstimateUC on TaskController {
   }
 
   Future selectEstimate() async {
-    final currentId = task.ws.estimateValueForValue(task.estimate)?.id;
+    final oldValue = task.estimate;
+    final currentId = task.ws.estimateValueForValue(oldValue)?.id;
     final selectedEstimateValue = await showMTSelectDialog<EstimateValue>(
       task.ws.sortedEstimateValues,
       currentId,
@@ -45,8 +46,7 @@ extension EstimateUC on TaskController {
       onReset: _reset,
     );
 
-    if (selectedEstimateValue != null) {
-      final oldValue = task.estimate;
+    if (selectedEstimateValue != null && oldValue != selectedEstimateValue.value) {
       task.estimate = selectedEstimateValue.value;
       if (!(await saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;

@@ -24,11 +24,6 @@ class _SettingsDialog extends StatelessWidget {
 
   List<Workspace> get _wss => wsMainController.workspaces;
 
-  void _toWS(int wsId) {
-    router.pop();
-    router.goWS(wsId);
-  }
-
   Widget _workspaces(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -42,7 +37,10 @@ class _SettingsDialog extends StatelessWidget {
               return WSListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () => _toWS(ws.id!),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  router.goWS(ws.id!);
+                },
               );
             },
           ),

@@ -46,11 +46,11 @@ extension LinkUC on TaskController {
     );
 
     if (confirm == true && await taskDescriptor.ws.checkBalance(loc.task_unlink_action_title)) {
+      router.pop();
       await editWrapper(() async {
         if (await taskUC.unlink(taskDescriptor)) {
           taskDescriptor.unlinkTaskTree();
         }
-        router.pop();
       });
     }
   }

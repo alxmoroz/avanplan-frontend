@@ -79,7 +79,8 @@ class TaskDetails extends StatelessWidget {
           if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Оценки
-          if (_task.hfsEstimates) TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (_task.hfsEstimates && (!_task.closed || _task.hasEstimate))
+            TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Вложения
           if (!_isTaskDialog(context) && _task.attachments.isNotEmpty)

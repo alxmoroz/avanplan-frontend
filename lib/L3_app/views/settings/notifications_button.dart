@@ -12,11 +12,6 @@ import '../../extra/services.dart';
 class NotificationsButton extends StatelessWidget {
   const NotificationsButton({super.key});
 
-  void _toNotifications() {
-    router.pop();
-    router.goNotifications();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MTListTile(
@@ -31,7 +26,10 @@ class NotificationsButton extends StatelessWidget {
         const ChevronIcon(),
       ]),
       bottomDivider: false,
-      onTap: _toNotifications,
+      onTap: () {
+        Navigator.of(context).pop();
+        router.goNotifications();
+      },
     );
   }
 }

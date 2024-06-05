@@ -14,7 +14,6 @@ import '../../../../components/icons_workspace.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/attachments_controller.dart';
 
@@ -40,13 +39,13 @@ Future<List<XFile>> selectFilesDialog() async {
                     leading: MimeTypeIcon('image'),
                     titleText: loc.attachment_source_gallery_title,
                     dividerIndent: P6 + P5,
-                    onTap: () => router.pop(_FileSource.gallery),
+                    onTap: () => Navigator.of(context).pop(_FileSource.gallery),
                   ),
                   MTListTile(
                     leading: const ProjectsIcon(color: mainColor),
                     titleText: loc.attachment_source_files_title,
                     bottomDivider: false,
-                    onTap: () => router.pop(_FileSource.files),
+                    onTap: () => Navigator.of(context).pop(_FileSource.files),
                   ),
                 ],
               ),

@@ -85,7 +85,7 @@ abstract class _FeatureSetsControllerBase with Store {
         fsIds.add(refsController.featureSets.elementAt(index).id!);
       }
     }
-    _taskController.task.projectFeatureSets = await featureSetUC.setup(_taskController.task, fsIds);
+    project.projectFeatureSets = await featureSetUC.setup(project, fsIds);
     _taskController.updateField(fIndex, loading: false);
   }
 }

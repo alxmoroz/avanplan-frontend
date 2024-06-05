@@ -116,7 +116,7 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                 trailing: controller.canEdit
                     ? MTButton.icon(
                         const DeleteIcon(),
-                        onTap: controller.delete,
+                        onTap: () => controller.delete(context),
                         padding: const EdgeInsets.all(P2),
                       )
                     : null,
@@ -142,7 +142,7 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                   const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.save_action_title,
-                    onTap: _canSave ? controller.save : null,
+                    onTap: _canSave ? () => controller.save(context) : null,
                   ),
                   if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],

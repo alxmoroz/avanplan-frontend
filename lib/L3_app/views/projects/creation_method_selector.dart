@@ -9,7 +9,6 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 
 Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<CreationMethod?>(const _CreationMethodSelector());
@@ -32,14 +31,14 @@ class _CreationMethodSelector extends StatelessWidget {
             titleText: loc.create_from_scratch_action_title,
             dividerIndent: _dividerIndent,
             subtitle: SmallText(loc.create_from_scratch_action_description),
-            onTap: () => router.pop(CreationMethod.create),
+            onTap: () => Navigator.of(context).pop(CreationMethod.create),
           ),
           MTListTile(
             leading: const TemplateIcon(),
             titleText: loc.create_from_template_action_title,
             dividerIndent: _dividerIndent,
             subtitle: SmallText(loc.create_from_template_action_description),
-            onTap: () => router.pop(CreationMethod.template),
+            onTap: () => Navigator.of(context).pop(CreationMethod.template),
           ),
           MTListTile(
             leading: const ImportIcon(),
@@ -47,7 +46,7 @@ class _CreationMethodSelector extends StatelessWidget {
             dividerIndent: _dividerIndent,
             subtitle: SmallText(loc.import_action_description),
             bottomDivider: false,
-            onTap: () => router.pop(CreationMethod.import),
+            onTap: () => Navigator.of(context).pop(CreationMethod.import),
           ),
         ],
       ),

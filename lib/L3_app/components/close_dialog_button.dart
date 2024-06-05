@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../extra/router.dart';
 import 'button.dart';
 import 'constants.dart';
 import 'icons.dart';
@@ -14,7 +13,7 @@ class MTCloseDialogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTButton.icon(
         const CloseIcon(),
-        onTap: onTap ?? () => router.pop(),
+        onTap: onTap ?? () => Navigator.of(context).pop(),
         padding: const EdgeInsets.all(P2),
       );
 }

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/iap_product.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
@@ -14,7 +13,6 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 import '../../views/_base/loader_screen.dart';
@@ -38,12 +36,7 @@ class _StoreDialog extends StatelessWidget {
 
   Workspace get ws => wsMainController.ws(wsId);
 
-  Future _pay(IAPProduct p) async {
-    router.pop(true);
-    await controller.pay(wsId, p);
-  }
-
-  Widget _payButton(BuildContext _, int index) {
+  Widget _payButton(BuildContext context, int index) {
     final p = controller.products[index];
     final hasPrice = p.price.isNotEmpty;
     return MTButton.secondary(
@@ -54,7 +47,10 @@ class _StoreDialog extends StatelessWidget {
         ],
       ),
       margin: const EdgeInsets.only(top: P3),
-      onTap: () => _pay(p),
+      onTap: () async {
+        Navigator.of(context).pop(true);
+        await controller.pay(wsId, p);
+      },
     );
   }
 

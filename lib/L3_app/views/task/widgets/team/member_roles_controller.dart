@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/role.dart';
@@ -42,7 +41,7 @@ abstract class _MemberRolesControllerBase with Store {
   }
 
   Future assignRoles(BuildContext context) async {
-    context.pop();
+    Navigator.of(context).pop();
 
     if (await task.ws.checkBalance(loc.member_edit_action_title)) {
       // TODO: вынести в юзкейс. См. как сделано с комментами

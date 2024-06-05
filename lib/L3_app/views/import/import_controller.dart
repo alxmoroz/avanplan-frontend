@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
@@ -10,7 +11,6 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../components/images.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/source.dart';
 import '../../usecases/ws_actions.dart';
@@ -131,22 +131,19 @@ abstract class _ImportControllerBase with Store, Loadable {
   }
 
   @action
-  Future startImport() async {
+  Future startImport(BuildContext context) async {
     if (await ws.checkBalance(loc.import_action_title)) {
       setLoaderScreen(
         titleText: loc.loader_importing_title,
         imageName: ImageName.import.name,
       );
       startLoading();
-      bool importStarted = false;
       try {
-        importStarted = await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
+        await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
+        tasksMainController.updateImportingProjects();
+        if (context.mounted) Navigator.of(context).pop();
       } on Exception catch (e) {
         parseError(e);
-      }
-      if (importStarted) {
-        tasksMainController.updateImportingProjects();
-        router.pop();
       }
     }
   }

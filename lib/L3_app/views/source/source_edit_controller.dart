@@ -13,7 +13,6 @@ import '../../components/alert_dialog.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/text_field.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../usecases/ws_actions.dart';
@@ -73,7 +72,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
 
   /// действия
 
-  Future save() async {
+  Future save(BuildContext context) async {
     if (await ws.checkBalance(loc.source_create_action_title)) {
       setLoaderScreenSaving();
       load(() async {
@@ -89,12 +88,12 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
             wsId: ws.id!,
           ),
         );
-        if (editedSource != null) router.pop(editedSource);
+        if (editedSource != null && context.mounted) Navigator.of(context).pop(editedSource);
       });
     }
   }
 
-  Future delete() async {
+  Future delete(BuildContext context) async {
     if (canEdit) {
       if (await showMTAlertDialog(
             loc.source_delete_dialog_title,
@@ -110,7 +109,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
         load(() async {
           final s = await sourceUC.delete(source!);
           if (s != null) {
-            router.pop(s);
+            if (context.mounted) Navigator.of(context).pop(s);
             // отвязываем задачи
             tasksMainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());
             tasksMainController.refreshTasksUI();

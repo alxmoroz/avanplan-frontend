@@ -13,7 +13,6 @@ import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 
@@ -60,7 +59,7 @@ abstract class _InvitationControllerBase with Store {
       if (isWeb) {
         copy(context);
       } else {
-        router.pop();
+        Navigator.of(context).pop();
         await _share(context);
       }
     }

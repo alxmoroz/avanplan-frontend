@@ -13,7 +13,6 @@ import '../../../../components/dialog.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../../views/_base/loader_screen.dart';
@@ -66,7 +65,7 @@ class TransferSelectorDialog extends StatelessWidget {
               titleText: t.title,
               subtitle: t.description.isNotEmpty ? SmallText(t.description, maxLines: 1) : null,
               bottomDivider: index < tasks.length - 1,
-              onTap: () => router.pop(t),
+              onTap: () => Navigator.of(context).pop(t),
             );
           },
         ),

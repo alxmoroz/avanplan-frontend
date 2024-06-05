@@ -8,7 +8,6 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/text_field.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
@@ -34,8 +33,10 @@ abstract class _WSControllerBase extends EditController with Store, Loadable {
 
   /// действия
 
-  Future save() async {
+  Future save(BuildContext context) async {
     setLoaderScreenSaving();
+    Navigator.of(context).pop();
+
     await load(() async {
       final editedWS = await wsUC.save(WorkspaceUpsert(
         id: _ws.id,
@@ -46,7 +47,6 @@ abstract class _WSControllerBase extends EditController with Store, Loadable {
 
       if (editedWS != null) {
         wsMainController.setWS(editedWS);
-        router.pop();
       }
     });
   }

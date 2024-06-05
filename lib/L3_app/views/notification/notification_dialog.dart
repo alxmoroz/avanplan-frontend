@@ -22,8 +22,8 @@ class _NotificationDialog extends StatelessWidget {
 
   MTNotification get nf => notificationController.selectedNotification!;
 
-  Future _goToLink() async {
-    router.pop();
+  Future _goToLink(BuildContext context) async {
+    Navigator.of(context).pop();
     router.go(nf.url!);
   }
 
@@ -44,7 +44,7 @@ class _NotificationDialog extends StatelessWidget {
                   margin: const EdgeInsets.only(top: P3),
                   titleText: loc.details,
                   trailing: const ChevronIcon(),
-                  onTap: _goToLink,
+                  onTap: () => _goToLink(context),
                 ),
               if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],

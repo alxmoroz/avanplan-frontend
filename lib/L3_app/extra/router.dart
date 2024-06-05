@@ -25,7 +25,7 @@ final _rootKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => _rootKey.currentContext!;
 
 final router = GoRouter(
-    // debugLogDiagnostics: true,
+    debugLogDiagnostics: true,
     routes: [
       authRoute,
       registrationTokenRoute,

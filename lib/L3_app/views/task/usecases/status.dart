@@ -72,6 +72,7 @@ extension StatusUC on TaskController {
     _setTaskTreeStatus(t, stId: stId, closed: closed);
     tasksMainController.refreshTasksUI();
 
+    // тут надо проверять контекст, чтобы понять, что был вызов из диалога, а не внутренний
     if (context != null && context.mounted && t.closed && !t.isCheckItem) {
       context.pop();
     }

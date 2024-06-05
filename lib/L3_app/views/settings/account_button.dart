@@ -17,11 +17,6 @@ class AccountButton extends StatelessWidget {
 
   User? get me => accountController.me;
 
-  void _toUser() {
-    router.pop();
-    router.goAccount();
-  }
-
   @override
   Widget build(BuildContext context) {
     final name = '$me';
@@ -32,7 +27,10 @@ class AccountButton extends StatelessWidget {
       subtitle: mail != name ? BaseText.f2(mail, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: false,
-      onTap: _toUser,
+      onTap: () {
+        Navigator.of(context).pop();
+        router.goAccount();
+      },
     );
   }
 }

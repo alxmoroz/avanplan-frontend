@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
+
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
@@ -49,7 +51,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
 
     tc.initWithTask(taskData);
     final savedTask = await tc.save();
-    if (!tc.loading) router.pop();
+    if (!tc.loading && globalContext.mounted) Navigator.of(globalContext).pop();
     if (savedTask != null) {
       savedTask.creating = true;
       savedTask.filled = true;

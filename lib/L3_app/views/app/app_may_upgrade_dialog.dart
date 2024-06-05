@@ -35,7 +35,7 @@ class _AppMayUpgradeDialog extends StatelessWidget {
               titleText: loc.app_install_action_title,
               onTap: () {
                 go2AppInstall();
-                router.pop();
+                Navigator.of(context).pop();
               },
             ),
             const SizedBox(height: P3),

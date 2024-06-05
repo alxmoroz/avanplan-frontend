@@ -9,7 +9,6 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import 'registration_form.dart';
 import 'sign_in_email_dialog.dart';
@@ -19,13 +18,13 @@ Future authExtraDialog() async => await showMTDialog<void>(const _AuthExtraDialo
 class _AuthExtraDialog extends StatelessWidget {
   const _AuthExtraDialog();
 
-  void _mail() {
-    router.pop();
+  void _mail(BuildContext context) {
+    Navigator.of(context).pop();
     signInEmailDialog();
   }
 
-  void _register() {
-    router.pop();
+  void _register(BuildContext context) {
+    Navigator.of(context).pop();
     registrationDialog();
   }
 
@@ -42,13 +41,13 @@ class _AuthExtraDialog extends StatelessWidget {
             color: b3Color,
             margin: const EdgeInsets.only(top: P3),
             trailing: const SizedBox(width: P2),
-            onTap: _mail,
+            onTap: () => _mail(context),
           ),
           MTButton.main(
             middle: BaseText.medium(loc.register_action_title, color: f1Color),
             color: b3Color,
             margin: const EdgeInsets.only(top: P3),
-            onTap: _register,
+            onTap: () => _register(context),
           ),
           if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P6),
         ],

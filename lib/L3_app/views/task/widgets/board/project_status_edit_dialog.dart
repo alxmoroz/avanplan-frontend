@@ -130,7 +130,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
               leading: DeleteIcon(size: P6, color: _used ? f3Color : dangerColor),
               middle: BaseText.medium(loc.delete_action_title, maxLines: 1, color: _used ? f3Color : dangerColor),
               bottomDivider: false,
-              onTap: _used ? null : _controller.delete,
+              onTap: _used ? null : () => _controller.delete(context),
             ),
           ],
         ),

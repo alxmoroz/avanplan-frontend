@@ -66,7 +66,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
                 subtitle: template.description.isNotEmpty ? SmallText(template.description, maxLines: 2) : null,
                 dividerIndent: _iconSize + P5,
                 bottomDivider: tIndex < templates.length - 1,
-                onTap: () => router.pop(template),
+                onTap: () => Navigator.of(context).pop(template),
               );
             })
       ],

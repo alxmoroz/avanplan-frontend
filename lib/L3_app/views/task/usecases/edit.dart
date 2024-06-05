@@ -15,9 +15,9 @@ extension TaskUC on Task {
   // TODO: Нужна на случай попадания в аффектед таскс родителей (в т.ч. проекта) при редактировании после расчёта статистики
   // TODO: можно будет поправить вместе с задачей про рефакторинг StatsController (см. в техдолге задачу)
   // TODO: Также используется при обновлении инфы о родителях при загрузке taskNode. Хотя можно просто игнорировать в том случае.
+  // вложенности
   Task refill(Task et) {
-    if (filled) {
-      // вложенности
+    if (isProject) {
       if (et.members.isEmpty) {
         et.members = members;
       }
@@ -27,13 +27,15 @@ extension TaskUC on Task {
       if (et.projectFeatureSets.isEmpty) {
         et.projectFeatureSets = projectFeatureSets;
       }
+    }
+
+    if (filled) {
       if (et.notes.isEmpty) {
         et.notes = notes;
       }
       if (et.attachments.isEmpty) {
         et.attachments = attachments;
       }
-
       et.taskSource ??= taskSource;
 
       et.filled = true;

@@ -48,5 +48,5 @@ abstract class Titleable extends RPersistable implements Comparable {
   String toString() => title;
 
   @override
-  int compareTo(t2) => compareNatural(title, t2.title);
+  int compareTo(t2) => compareNatural(title, (t2 as Titleable).title);
 }

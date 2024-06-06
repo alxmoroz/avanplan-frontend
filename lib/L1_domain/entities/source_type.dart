@@ -17,5 +17,7 @@ class SourceType extends Titleable {
   bool get isJira => code == 'jira';
   bool get isTrello => code == 'trello';
   bool get isTrelloJson => code == 'trello_json';
+  bool get isJson => code.endsWith('json');
+  bool get hasApiKey => !isJson;
   bool get custom => code == 'custom';
 }

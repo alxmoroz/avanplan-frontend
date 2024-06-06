@@ -31,13 +31,14 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
     selectType(source?.type ?? sType);
 
     final isTrello = selectedType?.isTrello == true;
-    final isTrelloJson = selectedType?.isTrelloJson == true;
+    final isJson = selectedType?.isJson == true;
+    final hasApiKey = selectedType?.hasApiKey == true;
 
     initState(fds: [
       MTFieldData(SourceFCode.url.index,
-          label: loc.source_url_placeholder, text: source?.url ?? (isTrello ? 'https://api.trello.com' : ''), validate: isTrelloJson),
+          label: loc.source_url_placeholder, text: source?.url ?? (isTrello ? 'https://api.trello.com' : ''), validate: isJson),
       MTFieldData(SourceFCode.username.index, label: loc.source_auth_user_placeholder, text: source?.username ?? '', validate: showUsername),
-      MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? '', validate: !isTrelloJson),
+      if (hasApiKey) MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? '', validate: hasApiKey),
       // MTFieldData(SourceFCode.password.index, label: loc.auth_password_placeholder),
       MTFieldData(SourceFCode.description.index, label: loc.description, text: source?.description ?? (isTrello ? 'Trello' : '')),
     ]);

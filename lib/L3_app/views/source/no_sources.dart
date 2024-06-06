@@ -21,6 +21,7 @@ class NoSources extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
+        const SizedBox(height: P3),
         MTImage(ImageName.empty_sources.name),
         H2(loc.source_list_empty_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
         BaseText(loc.source_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
@@ -29,7 +30,8 @@ class NoSources extends StatelessWidget {
           leading: const PlusIcon(color: mainBtnTitleColor),
           titleText: loc.source_create_action_title,
           onTap: () => startAddSource(_ws),
-        )
+        ),
+        if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
       ],
     );
   }

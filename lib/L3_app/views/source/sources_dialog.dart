@@ -69,7 +69,7 @@ class _SourcesDialog extends StatelessWidget {
               : null,
         ),
         body: _ws.sources.isEmpty
-            ? Center(child: NoSources(_ws))
+            ? NoSources(_ws)
             : ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _sourceBuilder,

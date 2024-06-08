@@ -64,7 +64,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
 
-    if (!td.filled) controller.reload();
+    if (!td.filled) controller.reload(closed: false);
 
     super.initState();
   }
@@ -139,7 +139,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                   /// Список
                                   : Container(
                                       padding: const EdgeInsets.only(top: P3),
-                                      child: TasksListView(task.subtaskGroups),
+                                      child: TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
                                     ),
                             ),
                     ),
@@ -221,7 +221,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               ),
                         leftBar: big ? LeftMenu(leftMenuController) : null,
                         body: MTRefresh(
-                          onRefresh: controller.reload,
+                          onRefresh: () => controller.reload(closed: false),
                           child: _body,
                         ),
                         bottomBar: !_isBigGroup && _hasQuickActions ? TaskBottomToolbar(controller) : null,

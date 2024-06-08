@@ -1,7 +1,14 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
+
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../components/button.dart';
+import '../../../components/colors.dart';
+import '../../../components/constants.dart';
+import '../../../components/list_tile.dart';
+import '../../../components/text.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_feature_sets.dart';
@@ -63,12 +70,12 @@ extension TaskEditUC on TaskController {
     tasksMainController.refreshTasksUI();
   }
 
-  Future reload() async {
+  Future reload({bool? closed}) async {
     task.filled = false;
 
     await editWrapper(() async {
       setLoaderScreenLoading();
-      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!);
+      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed);
       if (taskNode != null) {
         // удаление дерева подзадач
         task.subtasks.toList().forEach((t) => tasksMainController.removeTask(t));
@@ -90,6 +97,23 @@ extension TaskEditUC on TaskController {
       }
     });
   }
+
+  Widget? loadClosedButton({bool board = false}) => (task.closedSubtasksCount ?? 0) > task.closedSubtasks.length
+      ? board
+          ? MTListTile(
+              middle: BaseText.medium(loc.show_closed_action_title, color: mainColor, align: TextAlign.center),
+              padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+              loading: loading,
+              bottomDivider: false,
+              onTap: reload,
+            )
+          : MTButton.secondary(
+              titleText: loc.show_closed_action_title,
+              margin: const EdgeInsets.only(top: P3),
+              loading: loading,
+              onTap: reload,
+            )
+      : null;
 
   Future<TaskController?> addSubtask({int? statusId, bool noGo = false}) async {
     final newTC = await createTask(

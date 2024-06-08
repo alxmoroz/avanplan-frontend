@@ -180,7 +180,7 @@ void main() {
 
     // Node
     //
-    //Future<TaskNode> taskNode(int taskId, int wsId) async
+    //Future<TaskNode> taskNode(int taskId, int wsId, { bool closed }) async
     test('test taskNode', () async {
       // TODO
     });

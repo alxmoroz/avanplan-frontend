@@ -11,10 +11,11 @@ class TaskRepo extends AbstractTaskRepo {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<TaskNode?> taskNode(int wsId, int taskId) async {
+  Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed}) async {
     final node = (await api.taskNode(
       wsId: wsId,
       taskId: taskId,
+      closed: closed,
     ))
         .data;
     return node != null

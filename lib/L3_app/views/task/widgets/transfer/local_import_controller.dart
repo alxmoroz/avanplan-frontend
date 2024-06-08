@@ -39,7 +39,7 @@ abstract class _LocalImportControllerBase with Store, Loadable {
     srcController = TaskController(taskIn: src);
 
     if (srcGroup?.filled == false) {
-      await load(() async => await srcController!.reload());
+      await load(() async => await srcController!.reload(closed: false));
     }
 
     srcTasks = srcGroup?.openedSubtasks.toList() ?? [];

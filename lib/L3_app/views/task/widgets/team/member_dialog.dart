@@ -33,7 +33,7 @@ class _MemberDialog extends StatelessWidget {
 
   Future editRoles(BuildContext context) async {
     await memberRolesDialog(MemberRolesController(_task, _memberId));
-    if (_member == null) Navigator.of(context).pop();
+    if (_member == null && context.mounted) Navigator.of(context).pop();
   }
 
   @override

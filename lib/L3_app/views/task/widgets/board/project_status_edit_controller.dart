@@ -23,6 +23,7 @@ enum StatusFCode { title, description, position, closed }
 class ProjectStatusEditController extends _ProjectStatusEditControllerBase with _$ProjectStatusEditController {
   ProjectStatusEditController(ProjectStatusesController psc) {
     _psController = psc;
+    stopLoading();
   }
 }
 

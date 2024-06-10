@@ -12,6 +12,7 @@ extension TariffOptionMapper on api.TariffOptionGet {
         price: price ?? 0,
         billingQuantity: tariffQuantity ?? 1,
         freeLimit: freeLimit ?? 0,
+        userManageable: userManageable ?? false,
       );
 }
 

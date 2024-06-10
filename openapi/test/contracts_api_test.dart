@@ -6,10 +6,17 @@ void main() {
   final instance = Openapi().getContractsApi();
 
   group(ContractsApi, () {
-    // Sign
+    // Sign Contract
     //
-    //Future<InvoiceGet> signV1ContractsPost(int tariffId, int wsId) async
-    test('test signV1ContractsPost', () async {
+    //Future<InvoiceGet> signContract(int wsId, int tariffId) async
+    test('test signContract', () async {
+      // TODO
+    });
+
+    // Sign Option
+    //
+    //Future<InvoiceGet> signOption(int wsId, int optionId, bool enabled) async
+    test('test signOption', () async {
       // TODO
     });
   });

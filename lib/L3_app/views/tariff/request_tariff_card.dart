@@ -30,7 +30,7 @@ class RequestTariffCard extends StatelessWidget {
             for (var n in [1, 2, 3, 4])
               MTListTile(
                 leading: const StarIcon(),
-                middle: BaseText(Intl.message('tariff_limit_special_conditions_title$n'), maxLines: 2),
+                middle: BaseText(Intl.message('tariff_special_conditions_title$n'), maxLines: 2),
                 bottomDivider: false,
               ),
           const Spacer(),

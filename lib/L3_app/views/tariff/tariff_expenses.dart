@@ -44,34 +44,33 @@ class TariffExpenses extends StatelessWidget {
       children: [
         MTListTile(
           middle: Row(children: [BaseText.f2(loc.tariff_title, maxLines: 1), BaseText(' ${_tariff.title}', maxLines: 1)]),
-          trailing: MTPrice(_tariff.basePrice, size: AdaptiveSize.xs),
+          trailing: MTPrice(_tariff.basePrice, size: AdaptiveSize.s),
           bottomDivider: false,
         ),
-        if (_invoice.hasOverdraft(_tariff)) MTListGroupTitle(titleText: loc.tariff_additional_options_title),
         if (_usersExpenses > 0)
           MTListTile(
             titleText: loc.members_title,
             subtitle: D5('+$_usersOverdraft x ${_usersPrice.currency}₽', color: f2Color, align: TextAlign.left),
-            trailing: MTPrice(_usersExpenses, size: AdaptiveSize.xs),
+            trailing: MTPrice(_usersExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),
         if (_tasksExpenses > 0)
           MTListTile(
             titleText: loc.task_list_title,
             subtitle: D5('+$_tasksOverdraft $_tasksQuantitySuffix x ${_tasksPrice.currency}₽', color: f2Color, align: TextAlign.left),
-            trailing: MTPrice(_tasksExpenses, size: AdaptiveSize.xs),
+            trailing: MTPrice(_tasksExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),
         if (_fsExpenses > 0)
           MTListTile(
             titleText: loc.file_storage_title,
             subtitle: D5('+$_fsOverdraft $_fsQuantitySuffix x ${_fsPrice.currency}₽', color: f2Color, align: TextAlign.left),
-            trailing: MTPrice(_fsExpenses, size: AdaptiveSize.xs),
+            trailing: MTPrice(_fsExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),
         MTListTile(
           middle: BaseText.medium(loc.total_title),
-          trailing: MTPrice(_invoice.overallExpensesPerMonth(_tariff), size: AdaptiveSize.s, color: mainColor),
+          trailing: MTPrice(_invoice.overallExpensesPerMonth(_tariff), size: AdaptiveSize.m, color: mainColor),
           margin: const EdgeInsets.only(top: P3),
           bottomDivider: false,
         ),

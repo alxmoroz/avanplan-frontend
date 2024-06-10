@@ -7,6 +7,9 @@ class TOCode {
   static const USERS_COUNT = 'USERS_COUNT';
   static const TASKS_COUNT = 'TASKS_COUNT';
   static const FS_VOLUME = 'FS_VOLUME';
+
+  static const FEATURE_SET_TEAM = 'FEATURE_SET_TEAM';
+  static const FEATURE_SET_ANALYTICS = 'FEATURE_SET_ANALYTICS';
 }
 
 class TariffOption extends Codable {
@@ -16,11 +19,13 @@ class TariffOption extends Codable {
     required this.price,
     required this.billingQuantity,
     required this.freeLimit,
+    required this.userManageable,
   });
 
   final num price;
   final num billingQuantity;
   final num freeLimit;
+  final bool userManageable;
 }
 
 class Tariff extends Codable {
@@ -39,6 +44,9 @@ class Tariff extends Codable {
   num price(String code) => optionsMap[code]?.price ?? 0;
   num freeLimit(String code) => optionsMap[code]?.freeLimit ?? 0;
   num billingQuantity(String code) => optionsMap[code]?.billingQuantity ?? 1;
+  bool get hasManageableOptions => optionsMap.values.any((o) => o.userManageable);
+
+  bool hasOption(String code) => optionsMap.containsKey(code);
 
   num get basePrice => price(TOCode.BASE_PRICE);
 

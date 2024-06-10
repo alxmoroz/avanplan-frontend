@@ -157,6 +157,20 @@ void main() {
       // TODO
     });
 
+    // Sign Contract
+    //
+    //Future<InvoiceGet> signContract(int wsId, int tariffId) async
+    test('test signContract', () async {
+      // TODO
+    });
+
+    // Sign Option
+    //
+    //Future<InvoiceGet> signOption(int wsId, int optionId, bool enabled) async
+    test('test signOption', () async {
+      // TODO
+    });
+
     // Sources For Move
     //
     //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId) async

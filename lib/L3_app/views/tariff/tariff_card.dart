@@ -1,12 +1,10 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
-import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -50,11 +48,6 @@ class TariffCard extends StatelessWidget {
               : _controller.ws.hpTariffUpdate
                   ? _signButton(context, _tariff)
                   : const MTButton.main(middle: PrivacyIcon(color: f2Color), margin: EdgeInsets.symmetric(horizontal: P3)),
-          const SizedBox(height: P3),
-          MTButton(
-            middle: BaseText(loc.tariff_details_action_title, color: mainColor, maxLines: 1),
-            onTap: () => launchUrlString(_tariff.detailsUri),
-          ),
           const SizedBox(height: P3),
         ],
       ),

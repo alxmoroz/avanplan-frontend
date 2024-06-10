@@ -219,6 +219,10 @@ class ExitIcon extends MTIcon {
       );
 }
 
+class FeaturesIcon extends MTIcon {
+  const FeaturesIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.square_grid_2x2);
+}
+
 class FeedbackIcon extends MTIcon {
   const FeedbackIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.hand_thumbsup);
 }

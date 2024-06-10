@@ -16,6 +16,7 @@ part 'tariff_option_get.g.dart';
 /// * [price] 
 /// * [tariffQuantity] 
 /// * [freeLimit] 
+/// * [userManageable] 
 @BuiltValue()
 abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -33,6 +34,9 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
   @BuiltValueField(wireName: r'free_limit')
   num? get freeLimit;
 
+  @BuiltValueField(wireName: r'user_manageable')
+  bool? get userManageable;
+
   TariffOptionGet._();
 
   factory TariffOptionGet([void updates(TariffOptionGetBuilder b)]) = _$TariffOptionGet;
@@ -41,7 +45,8 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
   static void _defaults(TariffOptionGetBuilder b) => b
       ..price = 0
       ..tariffQuantity = 1
-      ..freeLimit = 0;
+      ..freeLimit = 0
+      ..userManageable = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TariffOptionGet> get serializer => _$TariffOptionGetSerializer();
@@ -88,6 +93,13 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
       yield serializers.serialize(
         object.freeLimit,
         specifiedType: const FullType(num),
+      );
+    }
+    if (object.userManageable != null) {
+      yield r'user_manageable';
+      yield serializers.serialize(
+        object.userManageable,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -147,6 +159,13 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
             specifiedType: const FullType(num),
           ) as num;
           result.freeLimit = valueDes;
+          break;
+        case r'user_manageable':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.userManageable = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -31,5 +31,10 @@ void main() {
     test('to test the property `freeLimit`', () async {
       // TODO
     });
+
+    // bool userManageable (default value: false)
+    test('to test the property `userManageable`', () async {
+      // TODO
+    });
   });
 }

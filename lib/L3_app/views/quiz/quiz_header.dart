@@ -30,7 +30,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
         child: CircleAvatar(
           radius: r2,
           backgroundColor: b2Color.resolve(context),
-          child: isCurrent ? D5Bold('${_controller.stepIndex + 1}', color: mainColor) : null,
+          child: isCurrent ? D5.bold('${_controller.stepIndex + 1}', color: mainColor) : null,
         ),
       ),
     );

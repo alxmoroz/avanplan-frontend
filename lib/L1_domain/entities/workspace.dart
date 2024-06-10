@@ -47,6 +47,7 @@ class Workspace extends WorkspaceUpsert {
   List<EstimateValue> estimateValues;
   List<Source> sources;
 
+  // TODO: похоже на атавизм. Остальных dummy тоже касается
   static Workspace get dummy => Workspace(
         id: -1,
         title: '',

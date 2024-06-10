@@ -70,7 +70,8 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
-[*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts | Sign
+[*ContractsApi*](doc/ContractsApi.md) | [**signContract**](doc/ContractsApi.md#signcontract) | **POST** /v1/workspaces/{ws_id}/contracts | Sign Contract
+[*ContractsApi*](doc/ContractsApi.md) | [**signOption**](doc/ContractsApi.md#signoption) | **POST** /v1/workspaces/{ws_id}/contracts/options/{option_id} | Sign Option
 [*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1RefsFeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1refsfeaturesetsget) | **GET** /v1/refs/feature_sets | Feature Sets
 [*MyApi*](doc/MyApi.md) | [**myProjects**](doc/MyApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*MyApi*](doc/MyApi.md) | [**myTasks**](doc/MyApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
@@ -146,6 +147,8 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**projectTemplates**](doc/WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**requestType**](doc/WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**signContract**](doc/WorkspacesApi.md#signcontract) | **POST** /v1/workspaces/{ws_id}/contracts | Sign Contract
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**signOption**](doc/WorkspacesApi.md#signoption) | **POST** /v1/workspaces/{ws_id}/contracts/options/{option_id} | Sign Option
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForMoveTasks**](doc/WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**startImport**](doc/WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count

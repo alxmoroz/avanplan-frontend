@@ -46,7 +46,7 @@ abstract class _MemberRolesControllerBase with Store {
     if (await task.ws.checkBalance(loc.member_edit_action_title)) {
       // TODO: вынести в юзкейс. См. как сделано с комментами
       task.loading = true;
-      tasksMainController.refreshTasksUI();
+      tasksMainController.refreshUI();
 
       final rolesIds = selectedRoles.map((r) => r.id!);
       task.members = await taskMemberRoleUC.assignRoles(task, memberId, rolesIds);
@@ -61,7 +61,7 @@ abstract class _MemberRolesControllerBase with Store {
       }
 
       task.loading = false;
-      tasksMainController.refreshTasksUI();
+      tasksMainController.refreshUI();
     }
   }
 }

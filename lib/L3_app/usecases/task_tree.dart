@@ -16,7 +16,7 @@ List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
 }
 
 extension TaskTreeUC on Task {
-  Workspace get ws => wsMainController.ws(wsId);
+  Workspace get ws => wsMainController.ws(wsId) ?? Workspace.dummy;
   Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId && t.wsId == wsId);
 
   // TODO: попробовать вынести в computed в один из контроллеров

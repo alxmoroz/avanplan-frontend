@@ -18,7 +18,7 @@ import '../views/projects/projects_view.dart';
 import '../views/quiz/abstract_task_quiz_controller.dart';
 import '../views/source/sources_dialog.dart';
 import '../views/task/widgets/empty_state/task_404_dialog.dart';
-import '../views/workspace/ws_dialog.dart';
+import '../views/workspace/ws_route.dart';
 import '../views/workspace/ws_users_dialog.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();

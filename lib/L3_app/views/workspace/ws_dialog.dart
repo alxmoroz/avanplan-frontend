@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
@@ -19,7 +18,6 @@ import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
@@ -29,48 +27,36 @@ import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
+import '../_base/loader_screen.dart';
 import '../iap/iap_dialog.dart';
-import '../source/sources_dialog.dart';
-import '../tariff/tariff_selector.dart';
+import '../tariff/tariff_details_dialog.dart';
+import 'ws_controller.dart';
 import 'ws_edit_dialog.dart';
-import 'ws_expenses_dialog.dart';
-import 'ws_users_dialog.dart';
 
-class WSRoute extends MTRoute {
-  static const staticBaseName = 'ws';
-
-  WSRoute({super.parent})
-      : super(
-          baseName: staticBaseName,
-          path: 'ws_:wsId',
-          builder: (context, state) => _WSDialog(state.pathParamInt('wsId')!),
-        );
+class WSDialog extends StatefulWidget {
+  const WSDialog(this._controller, {super.key});
+  final WSController _controller;
 
   @override
-  List<RouteBase> get routes => [
-        WSSourcesRoute(parent: this),
-        WSUsersRoute(parent: this),
-      ];
-
-  @override
-  bool isDialog(BuildContext context) => true;
-
-  @override
-  String title(GoRouterState state) => '${loc.workspace_title_short} ${wsMainController.ws(state.pathParamInt('wsId')!).code}';
+  State<WSDialog> createState() => _WSDialogState();
 }
 
-class _WSDialog extends StatelessWidget {
-  const _WSDialog(this._wsId);
-  final int _wsId;
+class _WSDialogState extends State<WSDialog> {
+  WSController get controller => widget._controller;
+  Workspace get ws => controller.ws;
+  Workspace get wsd => controller.wsDescriptor;
 
-  Workspace get _ws => wsMainController.ws(_wsId);
-  Invoice get _invoice => _ws.invoice;
+  Invoice get _invoice => ws.invoice;
 
-  num get _expensesPerDay => _invoice.currentExpensesPerDay;
+  @override
+  void initState() {
+    if (!wsd.filled) controller.reload();
+
+    super.initState();
+  }
+
   num get _consumedTasks => _invoice.consumed(TOCode.TASKS_COUNT);
   num get _consumedFSVolume => _invoice.consumed(TOCode.FS_VOLUME);
-  bool get _hasExpenses => _expensesPerDay > 0;
-  num get _balanceDays => (_ws.balance / _expensesPerDay);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -80,13 +66,13 @@ class _WSDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Flexible(child: H2(_ws.title, maxLines: 1)),
-                if (_ws.codeStr.isNotEmpty) H3(' ${_ws.codeStr}', color: f3Color, maxLines: 1),
+                Flexible(child: H2(ws.title, maxLines: 1)),
+                if (ws.codeStr.isNotEmpty) H3(' ${ws.codeStr}', color: f3Color, maxLines: 1),
               ],
             ),
-            if (_ws.description.isNotEmpty)
+            if (ws.description.isNotEmpty)
               BaseText.f2(
-                _ws.description,
+                ws.description,
                 maxLines: 3,
                 padding: const EdgeInsets.only(top: P),
                 align: TextAlign.center,
@@ -98,12 +84,12 @@ class _WSDialog extends StatelessWidget {
   Widget get _balanceCard => MTAdaptive.xxs(
         child: MTCardButton(
           margin: const EdgeInsets.only(top: P3),
-          onTap: () => replenishBalanceDialog(_wsId),
+          onTap: () => replenishBalanceDialog(controller),
           child: Column(
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
-              MTPrice(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
+              MTPrice(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),
               BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
@@ -119,53 +105,35 @@ class _WSDialog extends StatelessWidget {
           maxLines: 1,
         ),
         trailing: const ChevronIcon(),
-        bottomDivider: _hasExpenses,
-        dividerIndent: P11,
-        onTap: () async => await selectTariff(_wsId),
-      );
-
-  Widget _tariffExpenses(BuildContext context) => MTListTile(
-        leading: const BankCardIcon(),
-        middle: Row(
-          children: [
-            BaseText(loc.tariff_current_expenses_title, maxLines: 1),
-            const Spacer(),
-            MTPrice(_expensesPerDay, size: AdaptiveSize.xxs),
-            const SizedBox(width: P_2),
-            BaseText.f2(loc.per_day_suffix),
-          ],
-        ),
-        subtitle: SmallText(
-          '${loc.workspace_money_remaining_time_prefix} ${loc.days_count(_balanceDays.round())}',
-          maxLines: 1,
-        ),
-        trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () => showWSExpenses(_ws),
+        onTap: () async => await tariffDetails(controller),
       );
 
-  Widget get _wsMembers => MTListTile(
-        leading: const PeopleIcon(),
-        middle: Row(
-          children: [
-            BaseText('${_ws.users.length}', maxLines: 1),
-            BaseText.f2(' ${loc.member_plural(_ws.users.length)}', maxLines: 1),
-          ],
-        ),
-        subtitle: Row(children: [
-          Flexible(child: SmallText(_ws.membersStr, maxLines: 1)),
-          if (_ws.membersCountMoreStr.isNotEmpty)
-            SmallText(
-              _ws.membersCountMoreStr,
-              maxLines: 1,
-              padding: const EdgeInsets.only(left: P),
-            )
-        ]),
-        trailing: const ChevronIcon(),
-        bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || _ws.hpSourceCreate,
-        dividerIndent: P11,
-        onTap: () => router.goWSUsers(_ws.id!),
-      );
+  Widget get _wsMembers {
+    final membersCountMoreStr = ws.membersCountMoreStr;
+    return MTListTile(
+      leading: const PeopleIcon(),
+      middle: Row(
+        children: [
+          BaseText('${ws.users.length}', maxLines: 1),
+          BaseText.f2(' ${loc.member_plural(ws.users.length)}', maxLines: 1),
+        ],
+      ),
+      subtitle: Row(children: [
+        Flexible(child: SmallText(ws.membersStr, maxLines: 1)),
+        if (membersCountMoreStr.isNotEmpty)
+          SmallText(
+            membersCountMoreStr,
+            maxLines: 1,
+            padding: const EdgeInsets.only(left: P),
+          )
+      ]),
+      trailing: const ChevronIcon(),
+      bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || ws.hpSourceCreate,
+      dividerIndent: P11,
+      onTap: () => router.goWSUsers(wsd.id!),
+    );
+  }
 
   Widget get _tasks => MTListTile(
         leading: const TasksIcon(),
@@ -177,7 +145,7 @@ class _WSDialog extends StatelessWidget {
         ),
         trailing: const SizedBox(width: P3),
         dividerIndent: P11,
-        bottomDivider: _consumedFSVolume > 0 || _ws.hpSourceCreate,
+        bottomDivider: _consumedFSVolume > 0 || ws.hpSourceCreate,
       );
 
   Widget get _storage => MTListTile(
@@ -190,50 +158,51 @@ class _WSDialog extends StatelessWidget {
         ),
         trailing: const SizedBox(width: P3),
         dividerIndent: P11,
-        bottomDivider: _ws.hpSourceCreate,
+        bottomDivider: ws.hpSourceCreate,
       );
 
   Widget get _sources => MTListTile(
       leading: const ImportIcon(),
-      titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
+      titleText: '${loc.source_list_title} ${ws.sources.isNotEmpty ? '(${ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
       bottomDivider: false,
       onTap: () {
-        _ws.checkSources();
-        router.goWSSources(_ws.id!);
+        ws.checkSources();
+        router.goWSSources(wsd.id!);
       });
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      return MTDialog(
-        topBar: MTAppBar(
-            showCloseButton: true,
-            color: b2Color,
-            title: loc.workspace_title,
-            trailing: _ws.hpInfoUpdate
-                ? MTButton.icon(
-                    const EditIcon(),
-                    onTap: () => editWS(_ws),
-                    margin: const EdgeInsets.only(right: P2),
-                  )
-                : null),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            _header,
-            _balanceCard,
-            _hasExpenses ? MTListGroupTitle(titleText: loc.tariff_title) : const SizedBox(height: P3),
-            _tariffRow,
-            if (_hasExpenses) _tariffExpenses(context),
-            const SizedBox(height: P3),
-            if (_ws.hpMemberRead) _wsMembers,
-            _tasks,
-            _storage,
-            if (_ws.hpSourceCreate) _sources,
-          ],
-        ),
-      );
+      return controller.loading && !ws.filled
+          ? LoaderScreen(controller, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                  showCloseButton: true,
+                  color: b2Color,
+                  title: loc.workspace_title,
+                  trailing: ws.hpInfoUpdate
+                      ? MTButton.icon(
+                          const EditIcon(),
+                          onTap: () => editWS(controller),
+                          margin: const EdgeInsets.only(right: P2),
+                        )
+                      : null),
+              body: ListView(
+                shrinkWrap: true,
+                children: [
+                  _header,
+                  _balanceCard,
+                  const SizedBox(height: P3),
+                  _tariffRow,
+                  const SizedBox(height: P3),
+                  if (ws.hpMemberRead) _wsMembers,
+                  _tasks,
+                  _storage,
+                  if (ws.hpSourceCreate) _sources,
+                ],
+              ),
+            );
     });
   }
 }

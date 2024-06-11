@@ -70,7 +70,7 @@ extension StatusUC on TaskController {
     }
     //TODO: тут нет await умышленно
     _setTaskTreeStatus(t, stId: stId, closed: closed);
-    tasksMainController.refreshTasksUI();
+    tasksMainController.refreshUI();
 
     // тут надо проверять контекст, чтобы понять, что был вызов из диалога, а не внутренний
     if (context != null && context.mounted && t.closed && !t.isCheckItem) {

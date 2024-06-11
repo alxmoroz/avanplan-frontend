@@ -157,9 +157,10 @@ class H1 extends BaseText {
 }
 
 /// Цифры
-abstract class _DText extends BaseText {
-  const _DText(
+class DText extends BaseText {
+  const DText(
     super.text, {
+    super.key,
     super.color,
     super.sizeScale,
     super.padding,
@@ -167,16 +168,18 @@ abstract class _DText extends BaseText {
     FontWeight? weight,
   }) : super(weight: weight ?? FontWeight.w400, maxLines: 1);
 
-  const _DText.medium(
+  const DText.medium(
     super.text, {
+    super.key,
     super.color,
     super.sizeScale,
     super.padding,
     super.align = TextAlign.center,
   }) : super(weight: FontWeight.w500, maxLines: 1);
 
-  const _DText.bold(
+  const DText.bold(
     super.text, {
+    super.key,
     super.color,
     super.sizeScale,
     super.padding,
@@ -187,21 +190,19 @@ abstract class _DText extends BaseText {
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'MontserratAvanplan');
 }
 
-class D5 extends _DText {
-  const D5(super.text, {super.color, super.padding, super.align, super.weight}) : super(sizeScale: 0.9);
-  const D5.bold(super.text, {super.color, super.padding, super.align}) : super.bold(sizeScale: 0.9);
+class DSmallText extends DText {
+  const DSmallText(super.text, {super.key, super.color, super.padding, super.align, super.weight}) : super(sizeScale: 0.9);
+  const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 0.9);
 }
 
-class D4 extends _DText {
-  const D4(super.text, {super.color, super.padding, super.align, super.weight}) : super(sizeScale: 1.15);
+class D3 extends DText {
+  const D3(super.text, {super.key, super.color, super.padding, super.align, super.weight}) : super(sizeScale: 1.2);
+  const D3.medium(super.text, {super.key, super.color, super.padding, super.align}) : super.medium(sizeScale: 1.2);
+  const D3.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 1.2);
 }
 
-class D3 extends _DText {
-  const D3(super.text, {super.color, super.padding, super.align, super.weight}) : super(sizeScale: 1.65);
-}
-
-class D2 extends _DText {
-  const D2(super.text, {super.color, super.padding, super.align}) : super.medium(sizeScale: 2.6);
+class D2 extends DText {
+  const D2(super.text, {super.key, super.color, super.padding, super.align}) : super.medium(sizeScale: 2.5);
 }
 
 /// Декоративный стиль (для названия приложения)

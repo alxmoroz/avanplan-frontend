@@ -12,7 +12,7 @@ extension SourceUC on Source {
     } catch (_) {}
 
     state = connected ? SrcState.connected : SrcState.error;
-    wsMainController.refreshWorkspaces();
+    wsMainController.refreshUI();
     return connected;
   }
 }

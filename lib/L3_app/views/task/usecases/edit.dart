@@ -62,12 +62,12 @@ extension TaskEditUC on TaskController {
 
   Future editWrapper(Function() function) async {
     task.loading = true;
-    tasksMainController.refreshTasksUI();
+    tasksMainController.refreshUI();
 
     await load(function);
 
     task.loading = false;
-    tasksMainController.refreshTasksUI();
+    tasksMainController.refreshUI();
   }
 
   Future reload({bool? closed}) async {

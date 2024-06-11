@@ -21,8 +21,8 @@ import '../source/source_type_selector.dart';
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {
-  Future<ImportController> init(Workspace ws) async {
-    wsId = ws.id!;
+  Future<ImportController> init(Workspace wsIn) async {
+    ws = wsIn;
     selectedSourceId = ws.sources.isNotEmpty ? ws.sources.first.id : null;
 
     // переходим к созданию источника, если нет источников
@@ -40,8 +40,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 }
 
 abstract class _ImportControllerBase with Store, Loadable {
-  late final int wsId;
-  Workspace get ws => wsMainController.ws(wsId);
+  late final Workspace ws;
 
   bool isImporting(ProjectRemote rp) {
     final rts = rp.taskSource!;
@@ -118,14 +117,14 @@ abstract class _ImportControllerBase with Store, Loadable {
           imageName: ImageName.import.name,
         );
         try {
-          projects = (await importUC.getProjectsList(wsId, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
+          projects = (await importUC.getProjectsList(ws.id!, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
         } on Exception catch (e) {
           parseError(e);
         }
       } else {
         errorCode = 'error_import_connection';
       }
-      wsMainController.refreshWorkspaces();
+      wsMainController.refreshUI();
       stopLoading();
     }
   }

@@ -99,7 +99,7 @@ class TaskHeaderDashboard extends StatelessWidget {
                                   color: Colors.transparent,
                                   border: Border.all(width: 2, color: mainColor.resolve(context)),
                                 ),
-                                D4('+${_task.members.length - 3}', color: mainColor),
+                                D3('+${_task.members.length - 3}', color: mainColor),
                               ],
                             ),
                           ],

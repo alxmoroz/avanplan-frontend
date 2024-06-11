@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/tariff/tariff_base_price.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -12,16 +13,15 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
-import 'tariff_base_price.dart';
-import 'tariff_controller.dart';
 import 'tariff_options.dart';
+import 'tariff_selector_controller.dart';
 
-class TariffCard extends StatelessWidget {
-  const TariffCard(this._tariff, this._controller, this._isCurrent, {super.key});
+class TariffSelectorCard extends StatelessWidget {
+  const TariffSelectorCard(this._tariff, this._controller, this._isCurrent, {super.key});
 
   final Tariff _tariff;
   final bool _isCurrent;
-  final TariffController _controller;
+  final TariffSelectorController _controller;
 
   Widget _signButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_sign_action_title,

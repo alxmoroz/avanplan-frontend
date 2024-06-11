@@ -50,21 +50,21 @@ class TariffExpenses extends StatelessWidget {
         if (_usersExpenses > 0)
           MTListTile(
             titleText: loc.members_title,
-            subtitle: D5('+$_usersOverdraft x ${_usersPrice.currency}₽', color: f2Color, align: TextAlign.left),
+            subtitle: DSmallText('+$_usersOverdraft x ${_usersPrice.currency}₽', color: f2Color, align: TextAlign.left),
             trailing: MTPrice(_usersExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),
         if (_tasksExpenses > 0)
           MTListTile(
             titleText: loc.task_list_title,
-            subtitle: D5('+$_tasksOverdraft $_tasksQuantitySuffix x ${_tasksPrice.currency}₽', color: f2Color, align: TextAlign.left),
+            subtitle: DSmallText('+$_tasksOverdraft $_tasksQuantitySuffix x ${_tasksPrice.currency}₽', color: f2Color, align: TextAlign.left),
             trailing: MTPrice(_tasksExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),
         if (_fsExpenses > 0)
           MTListTile(
             titleText: loc.file_storage_title,
-            subtitle: D5('+$_fsOverdraft $_fsQuantitySuffix x ${_fsPrice.currency}₽', color: f2Color, align: TextAlign.left),
+            subtitle: DSmallText('+$_fsOverdraft $_fsQuantitySuffix x ${_fsPrice.currency}₽', color: f2Color, align: TextAlign.left),
             trailing: MTPrice(_fsExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),

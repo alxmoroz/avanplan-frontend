@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/iap_product.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';
 import '../../views/_base/loadable.dart';
@@ -54,13 +55,13 @@ abstract class _IAPControllerBase with Store, Loadable {
   Future getYMProducts() async => await getProducts(isAppStore: false);
 
   @action
-  Future pay(int wsId, IAPProduct product) async {
+  Future pay(Workspace ws, IAPProduct product) async {
     final userId = accountController.me?.id;
     if (userId != null) {
       startLoading();
       await iapUC.pay(
         product: product,
-        wsId: wsId,
+        wsId: ws.id!,
         userId: userId,
         appStore: _isAppStore == true,
         done: ({String? error, num? purchasedAmount}) {
@@ -73,7 +74,9 @@ abstract class _IAPControllerBase with Store, Loadable {
             );
           } else {
             if (purchasedAmount != null) {
-              wsMainController.ws(wsId).balance += purchasedAmount;
+              ws.balance += purchasedAmount;
+              wsMainController.setWS(ws);
+              wsMainController.refreshUI();
             }
             stopLoading();
           }

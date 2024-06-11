@@ -41,7 +41,7 @@ extension AssigneeUC on TaskController {
     final oldAssigneeId = task.assigneeId;
     if (assignee != null && assignee.id != oldAssigneeId) {
       task.assigneeId = assignee.id;
-      tasksMainController.refreshTasksUI();
+      tasksMainController.refreshUI();
       await _assign(oldAssigneeId);
     }
   }

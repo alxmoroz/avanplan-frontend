@@ -121,7 +121,6 @@ class Task extends Project {
   num? estimate;
 
   bool creating = false;
-  bool filled = false;
 
   @override
   int compareTo(t2) {

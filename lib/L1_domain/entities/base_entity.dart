@@ -16,6 +16,7 @@ abstract class RPersistable {
   int? id;
   // TODO: убрать этот механизм (см. как в задачах сделано)
   bool removed = false;
+  bool filled = false;
 
   MTError? error;
   bool loading = false;

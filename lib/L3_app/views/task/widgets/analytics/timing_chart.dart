@@ -141,9 +141,9 @@ class TimingChart extends StatelessWidget {
   Widget _dateLabel(BuildContext context, {required DateTime date, required String label, Color? color}) {
     return Row(
       children: [
-        D5(label.toLowerCase(), color: color),
+        DSmallText(label.toLowerCase(), color: color),
         const Spacer(),
-        D4(date.strMedium, color: color),
+        D3(date.strMedium, color: color),
       ],
     );
   }

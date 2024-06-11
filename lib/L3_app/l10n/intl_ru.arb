@@ -356,6 +356,7 @@
 
   "tariff_change_action_title": "Сменить тариф",
   "tariff_current_expenses_title": "Текущие затраты",
+  "tariff_current_expenses_zero_title": "Нет затрат",
   "tariff_current_title": "Текущий тариф",
   "tariff_details_action_title": "Подробнее об условиях",
   "tariff_estimated_expenses_title": "Расчётная стоимость",

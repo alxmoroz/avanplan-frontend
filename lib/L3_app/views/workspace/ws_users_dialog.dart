@@ -9,9 +9,9 @@ import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/route.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
+import 'ws_controller.dart';
 import 'ws_user_tile.dart';
 
 class WSUsersRoute extends MTRoute {
@@ -21,21 +21,25 @@ class WSUsersRoute extends MTRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _WSUsersDialog(state.pathParamInt('wsId')!),
         );
 
   @override
   bool isDialog(BuildContext context) => true;
 
   @override
-  String? title(GoRouterState state) => '${wsMainController.ws(state.pathParamInt('wsId')!).code} | ${loc.members_title}';
+  String? title(GoRouterState state) => '${_wsController.ws.code} | ${loc.members_title}';
+
+  WSController get _wsController => parent!.controller as WSController;
+
+  @override
+  GoRouterWidgetBuilder? get builder => (_, __) => _WSUsersDialog(_wsController);
 }
 
 class _WSUsersDialog extends StatelessWidget {
-  const _WSUsersDialog(this._wsId);
-  final int _wsId;
+  const _WSUsersDialog(this._wsController);
+  final WSController _wsController;
 
-  Workspace get _ws => wsMainController.ws(_wsId);
+  Workspace get _ws => _wsController.ws;
 
   Widget _userBuilder(BuildContext context, int index) => WSUserTile(
         _ws.sortedUsers[index],

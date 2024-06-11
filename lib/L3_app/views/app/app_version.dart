@@ -17,7 +17,7 @@ class AppVersion extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        D5(localSettingsController.settings.version, color: f2Color),
+        DSmallText(localSettingsController.settings.version, color: f2Color),
         if (visibleApiHost.isNotEmpty) BaseText.medium(visibleApiHost, color: dangerColor, padding: const EdgeInsets.only(left: P2)),
       ],
     );

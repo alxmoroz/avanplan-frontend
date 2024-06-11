@@ -142,7 +142,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     // 404
     if (e is DioException && e.type == DioExceptionType.badResponse && e.response?.statusCode == 404) {
       tasksMainController.removeTask(task);
-      tasksMainController.refreshTasksUI();
+      tasksMainController.refreshUI();
       router.goTask404(route?.parent);
     } else {
       super.parseError(e);

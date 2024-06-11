@@ -15,12 +15,13 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../views/_base/loader_screen.dart';
+import '../workspace/ws_controller.dart';
 import 'request_tariff_card.dart';
-import 'tariff_card.dart';
-import 'tariff_controller.dart';
+import 'tariff_selector_card.dart';
+import 'tariff_selector_controller.dart';
 
-Future selectTariff(int wsId) async {
-  final controller = TariffController(wsId);
+Future selectTariff(WSController wsController) async {
+  final controller = TariffSelectorController(wsController);
   controller.reload();
   await showMTDialog<Tariff?>(
     _TariffSelectorDialog(controller),
@@ -30,13 +31,13 @@ Future selectTariff(int wsId) async {
 
 class _TariffSelectorDialog extends StatelessWidget {
   const _TariffSelectorDialog(this._controller);
-  final TariffController _controller;
+  final TariffSelectorController _controller;
 
   Widget _tariffCard(BuildContext context, int index) {
     Widget? card;
     if (index < _controller.tariffs.length) {
       final tariff = _controller.tariffs.elementAt(index);
-      card = TariffCard(tariff, _controller, index == _controller.activeTariffIndex);
+      card = TariffSelectorCard(tariff, _controller, index == _controller.activeTariffIndex);
     } else {
       card = const RequestTariffCard();
     }

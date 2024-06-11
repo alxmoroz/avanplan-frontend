@@ -22,14 +22,14 @@ abstract class _WSMainControllerBase with Store {
   @computed
   bool get canSelectWS => multiWS;
 
-  Workspace ws(int wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId) ?? Workspace.dummy;
+  Workspace? ws(int? wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId);
 
   @action
   Future reload() async => workspaces = ObservableList.of((await wsUC.getAll()).sorted((w1, w2) => w1.compareTo(w2)));
 
   @action
   // TODO: после переноса логики источников импорта на подобие статусов и задач — этот метод можно будет убрать
-  void refreshWorkspaces() => workspaces = ObservableList.of(workspaces);
+  void refreshUI() => workspaces = ObservableList.of(workspaces);
 
   @action
   void setWS(Workspace ews) {
@@ -42,16 +42,6 @@ abstract class _WSMainControllerBase with Store {
     workspaces.sort();
   }
 
-  Future<Workspace?> reloadWS(int wsId) async {
-    final ws = await wsUC.getOne(wsId);
-    if (ws != null) {
-      setWS(ws);
-    }
-    return ws;
-  }
-
   @action
-  void clear() {
-    workspaces.clear();
-  }
+  void clear() => workspaces.clear();
 }

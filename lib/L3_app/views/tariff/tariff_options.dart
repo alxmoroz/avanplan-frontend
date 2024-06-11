@@ -15,13 +15,32 @@ import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 
+typedef _TextClass<T extends BaseText> = T Function(dynamic);
+
+class _TOTitle extends StatelessWidget {
+  const _TOTitle(this.value, this.unit, {this.size = AdaptiveSize.m});
+  final String value;
+  final String unit;
+  final AdaptiveSize size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        DText(value, align: TextAlign.left),
+        DText(unit, padding: const EdgeInsets.only(top: P)),
+      ],
+    );
+  }
+}
+
 class _TariffOption extends StatelessWidget {
   const _TariffOption(this._tariff, this._code);
 
   final Tariff _tariff;
   final String _code;
 
-  static const iconSize = P7;
+  static const iconSize = P6;
   static const fsTeamCode = TOCode.FEATURE_SET_TEAM;
 
   @override
@@ -57,20 +76,20 @@ class _TariffOption extends StatelessWidget {
       }
     }
 
-    final freeLimitHuman = (freeLimit / quantity).round();
+    final freeLimitHuman = '${(freeLimit / quantity).round()} ';
 
     return MTListTile(
       leading: icon,
       middle: Row(
         children: [
-          D3('$freeLimitHuman ', align: TextAlign.left),
-          D4('$suffix$unit', padding: const EdgeInsets.only(top: P)),
+          D3.medium(freeLimitHuman, align: TextAlign.left),
+          D3('$suffix$unit'),
         ],
       ),
       subtitle: Row(
         children: [
-          D5('$extraQuantityStr ${loc.for_} ', color: f2Color, align: TextAlign.left),
-          MTPrice(price, color: f2Color, size: AdaptiveSize.xxs),
+          DSmallText('$extraQuantityStr ${loc.for_} ', color: f2Color, align: TextAlign.left),
+          MTPrice(price, color: f2Color, size: AdaptiveSize.xs),
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -88,19 +107,19 @@ class TariffOptions extends StatelessWidget {
     return Column(
       children: [
         _TariffOption(_tariff, TOCode.USERS_COUNT),
-        const SizedBox(height: P3),
+        const SizedBox(height: P4),
         _TariffOption(_tariff, TOCode.TASKS_COUNT),
-        const SizedBox(height: P3),
+        const SizedBox(height: P4),
         _TariffOption(_tariff, TOCode.FS_VOLUME),
-        const SizedBox(height: P3),
+        const SizedBox(height: P4),
         if (_tariff.hasManageableOptions)
           MTListTile(
             leading: const FeaturesIcon(size: _TariffOption.iconSize),
-            middle: D4(loc.tariff_features_title, align: TextAlign.left),
+            middle: D3(loc.tariff_features_title, align: TextAlign.left),
             subtitle: Row(
               children: [
-                D5('${loc.days_count(30)} ${loc.for_} ', color: f2Color, align: TextAlign.left),
-                const MTPrice(0, color: f2Color, size: AdaptiveSize.xxs),
+                DSmallText('${loc.days_count(30)} ${loc.for_} ', color: f2Color, align: TextAlign.left),
+                const MTPrice(0, color: f2Color, size: AdaptiveSize.xs),
               ],
             ),
             padding: const EdgeInsets.symmetric(horizontal: P3),

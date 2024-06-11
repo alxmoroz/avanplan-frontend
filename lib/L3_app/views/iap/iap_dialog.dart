@@ -16,25 +16,26 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 import '../../views/_base/loader_screen.dart';
+import '../workspace/ws_controller.dart';
 import 'iap_controller.dart';
 
-Future<bool?> replenishBalanceDialog(int wsId, {String reason = ''}) async {
+Future<bool?> replenishBalanceDialog(WSController wsController, {String reason = ''}) async {
   final iapController = IAPController();
   if (languageCode != 'ru' || !isIOS) {
     iapController.getProducts(isAppStore: isIOS);
   }
 
-  return await showMTDialog<bool?>(_StoreDialog(wsId, reason, iapController), maxWidth: SCR_XS_WIDTH);
+  return await showMTDialog<bool?>(_StoreDialog(wsController, reason, iapController), maxWidth: SCR_XS_WIDTH);
 }
 
 class _StoreDialog extends StatelessWidget {
-  const _StoreDialog(this.wsId, this.reason, this.controller);
+  const _StoreDialog(this.wsController, this.reason, this.controller);
 
-  final int wsId;
+  final WSController wsController;
   final String reason;
   final IAPController controller;
 
-  Workspace get ws => wsMainController.ws(wsId);
+  Workspace get ws => wsController.ws;
 
   Widget _payButton(BuildContext context, int index) {
     final p = controller.products[index];
@@ -43,13 +44,13 @@ class _StoreDialog extends StatelessWidget {
       middle: Row(
         children: [
           D3('+ ${p.value.currency}${hasPrice ? '' : '₽'}', color: mainColor),
-          if (hasPrice) D4(' ${loc.for_} ${p.price}', color: f2Color),
+          if (hasPrice) D3(' ${loc.for_} ${p.price}', color: f2Color),
         ],
       ),
       margin: const EdgeInsets.only(top: P3),
       onTap: () async {
         Navigator.of(context).pop(true);
-        await controller.pay(wsId, p);
+        await controller.pay(ws, p);
       },
     );
   }

@@ -4,24 +4,28 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../views/_base/loadable.dart';
+import '../workspace/ws_controller.dart';
 import 'tariff_confirm_expenses_dialog.dart';
 
-part 'tariff_controller.g.dart';
+part 'tariff_selector_controller.g.dart';
 
-class TariffController extends _TariffSelectorControllerBase with _$TariffController {
-  TariffController(int wsId) {
-    _wsId = wsId;
+class TariffSelectorController extends _TariffSelectorControllerBase with _$TariffSelectorController {
+  TariffSelectorController(WSController wsController) {
+    _wsController = wsController;
   }
 }
 
 abstract class _TariffSelectorControllerBase with Store, Loadable {
-  late final int _wsId;
-  Workspace get ws => wsMainController.ws(_wsId);
+  late final WSController _wsController;
+  Workspace get wsd => _wsController.wsDescriptor;
+  Workspace get ws => _wsController.ws;
+  Invoice get _invoice => ws.invoice;
 
   @observable
   String reason = '';
@@ -33,7 +37,7 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
   Future reload() async {
     setLoaderScreenLoading();
     await load(() async {
-      tariffs = (await tariffUC.getAll(_wsId)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
+      tariffs = (await tariffUC.getAll(wsd.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
       pageIndex = suggestedTariffIndex;
     });
   }
@@ -57,14 +61,14 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
 
   Future changeTariff(BuildContext context, Tariff tariff) async {
     // проверка на возможное превышение лимитов по выбранному тарифу
-    if (!ws.invoice.hasOverdraft(tariff) || await tariffConfirmExpenses(ws, tariff) == true) {
+    if (!_invoice.hasOverdraft(tariff) || await tariffConfirmExpenses(_invoice, tariff) == true) {
       // проверка, что хватит денег на один день после смены
-      if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.invoice.currentExpensesPerDay)) {
+      if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: _invoice.currentExpensesPerDay)) {
         setLoaderScreenSaving();
         await load(() async {
-          final signedInvoice = await contractUC.sign(tariff.id!, _wsId);
+          final signedInvoice = await contractUC.sign(tariff.id!, wsd.id!);
           if (signedInvoice != null) {
-            await wsMainController.reloadWS(_wsId);
+            await _wsController.reload();
           }
         });
         if (context.mounted) Navigator.of(context).pop();

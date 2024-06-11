@@ -7,6 +7,7 @@ import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
 import '../presenters/number.dart';
 import '../views/iap/iap_dialog.dart';
+import '../views/workspace/ws_controller.dart';
 
 extension WSActionsUC on Workspace {
   User get me => users.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? User.dummy;
@@ -27,16 +28,11 @@ extension WSActionsUC on Workspace {
   bool get hpOwnerUpdate => me.hp('OWNER_UPDATE');
   bool get isMine => hpOwnerUpdate;
 
-  // bool _pl(String code, num value) => invoice.tariff.passLimit(code, value);
-  // bool get plUsers => _pl(TOCode.USERS_COUNT, users.length + 1);
-  // bool get plTasks => _pl(TOCode.TASKS_COUNT, tasksCount + 1);
-  // bool get plStorage => _pl(TOCode.FS_VOLUME, fsVolume + 1);
-
   Future<bool> checkBalance(String operation, {num extraMoney = 0}) async {
     final lack = extraMoney - balance;
     if (lack > 0) {
       final hasSelectPay = await replenishBalanceDialog(
-        id!,
+        WSController(wsIn: this),
         reason: loc.error_insufficient_funds_for_operation(
           '${lack.ceil().currency}₽',
           operation.toLowerCase(),

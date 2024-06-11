@@ -142,7 +142,7 @@ class _FeatureSetsDialog extends StatelessWidget {
           onTap: () async {
             Navigator.of(context).pop();
             await _controller.featureSetsController.setup();
-            tasksMainController.refreshTasksUI();
+            tasksMainController.refreshUI();
           },
         ),
       ),

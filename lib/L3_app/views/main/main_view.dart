@@ -26,7 +26,7 @@ import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
 import '../task/task_route.dart';
 import '../task/widgets/empty_state/task_404_dialog.dart';
-import '../workspace/ws_dialog.dart';
+import '../workspace/ws_route.dart';
 import 'widgets/bottom_menu.dart';
 import 'widgets/left_menu.dart';
 import 'widgets/next_tasks.dart';

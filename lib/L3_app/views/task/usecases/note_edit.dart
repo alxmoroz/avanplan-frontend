@@ -20,13 +20,13 @@ extension NoteEditUC on TaskController {
   Future _noteEditWrapper(Note note, Function() function) async {
     note.loading = true;
 
-    tasksMainController.refreshTasksUI();
+    tasksMainController.refreshUI();
 
     setLoaderScreenSaving();
     await load(function);
 
     note.loading = false;
-    tasksMainController.refreshTasksUI();
+    tasksMainController.refreshUI();
   }
 
   Future saveNote(Note note) async {

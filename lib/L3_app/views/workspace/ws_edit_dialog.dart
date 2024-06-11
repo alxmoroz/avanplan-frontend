@@ -13,48 +13,32 @@ import '../../extra/services.dart';
 import '../../views/_base/loader_screen.dart';
 import 'ws_controller.dart';
 
-Future<Workspace?> editWS(Workspace ws) async => await showMTDialog<Workspace?>(_WSEditDialog(ws));
-
-class _WSEditDialog extends StatefulWidget {
-  const _WSEditDialog(this.ws);
-  final Workspace ws;
-
-  @override
-  State<StatefulWidget> createState() => _WSEditDialogState();
+Future editWS(WSController controller) async {
+  controller.setupFields();
+  await showMTDialog<Workspace?>(_WSEditDialog(controller));
 }
 
-class _WSEditDialogState extends State<_WSEditDialog> {
-  late final WSController controller;
+class _WSEditDialog extends StatelessWidget {
+  const _WSEditDialog(this._controller);
+  final WSController _controller;
 
-  bool get canSave => controller.validated;
-
-  @override
-  void initState() {
-    controller = WSController(widget.ws);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  bool get canSave => _controller.validated;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.loading
-          ? LoaderScreen(controller, isDialog: true)
+      builder: (_) => _controller.loading
+          ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
               topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [
-                  for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
+                  for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) _controller.tf(code),
                   const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.save_action_title,
-                    onTap: canSave ? () => controller.save(context) : null,
+                    onTap: canSave ? () => _controller.save(context) : null,
                   ),
                   if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],

@@ -32,7 +32,7 @@ Future createFromTemplate(Workspace ws) async {
         final p = changes.updated;
         p.filled = true;
         tasksMainController.setTasks([p, ...changes.affected]);
-        tasksMainController.refreshTasksUI();
+        tasksMainController.refreshUI();
 
         router.goTaskView(p);
       }

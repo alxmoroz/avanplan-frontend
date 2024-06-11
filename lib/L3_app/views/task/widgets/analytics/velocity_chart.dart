@@ -58,7 +58,7 @@ class VelocityChart extends StatelessWidget {
         ),
         if (!_task.projectLowStart) ...[
           D2(_displayText),
-          D5(
+          DSmallText(
             loc.chart_velocity_title.toLowerCase(),
             padding: const EdgeInsets.only(top: _R / 2 + P4),
             color: f2Color,

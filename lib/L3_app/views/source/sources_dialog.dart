@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/workspace/ws_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,6 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/toolbar.dart';
 import '../../extra/route.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
@@ -27,21 +27,25 @@ class WSSourcesRoute extends MTRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _SourcesDialog(state.pathParamInt('wsId')!),
         );
 
   @override
   bool isDialog(BuildContext context) => true;
 
   @override
-  String? title(GoRouterState state) => '${wsMainController.ws(state.pathParamInt('wsId')!).code} | ${loc.source_list_title}';
+  String? title(GoRouterState state) => '${_wsController.ws.code} | ${loc.source_list_title}';
+
+  WSController get _wsController => parent!.controller as WSController;
+
+  @override
+  GoRouterWidgetBuilder? get builder => (_, __) => _SourcesDialog(_wsController);
 }
 
 class _SourcesDialog extends StatelessWidget {
-  const _SourcesDialog(this._wsId);
-  final int _wsId;
+  const _SourcesDialog(this._wsController);
+  final WSController _wsController;
 
-  Workspace get _ws => wsMainController.ws(_wsId);
+  Workspace get _ws => _wsController.ws;
 
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];

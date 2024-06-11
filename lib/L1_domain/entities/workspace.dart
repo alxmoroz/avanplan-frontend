@@ -35,13 +35,12 @@ class Workspace extends WorkspaceUpsert {
     required this.sources,
   });
 
-  final Iterable<User> users;
-  final Iterable<WSMember> members;
-  final Iterable<Role> roles;
+  Iterable<User> users;
+  Iterable<WSMember> members;
+  Iterable<Role> roles;
   Invoice invoice;
   num balance;
-
-  final WSSettings? settings;
+  WSSettings? settings;
 
   // редактируемые поля
   List<EstimateValue> estimateValues;

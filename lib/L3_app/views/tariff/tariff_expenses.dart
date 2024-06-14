@@ -23,19 +23,19 @@ class TariffExpenses extends StatelessWidget {
   final Invoice _invoice;
   final Tariff _tariff;
 
-  num get _usersExpenses => _invoice.expensesPerMonth(TOCode.USERS_COUNT, _tariff);
-  num get _usersOverdraft => _invoice.overdraft(TOCode.USERS_COUNT, _tariff);
-  num get _usersPrice => _tariff.price(TOCode.USERS_COUNT);
+  num get _teamExpenses => _invoice.expensesPerMonth(TOCode.TEAM, _tariff);
+  num get _teamOverdraft => _invoice.overdraft(TOCode.TEAM, _tariff);
+  num get _teamPrice => _tariff.price(TOCode.TEAM);
 
-  num get _tasksExpenses => _invoice.expensesPerMonth(TOCode.TASKS_COUNT, _tariff);
-  num get _tasksOverdraft => _invoice.overdraft(TOCode.TASKS_COUNT, _tariff);
-  num get _tasksPrice => _tariff.price(TOCode.TASKS_COUNT);
-  String get _tasksQuantitySuffix => _tariff.billingQuantity(TOCode.TASKS_COUNT).humanSuffix;
+  num get _tasksExpenses => _invoice.expensesPerMonth(TOCode.TASKS, _tariff);
+  num get _tasksOverdraft => _invoice.overdraft(TOCode.TASKS, _tariff);
+  num get _tasksPrice => _tariff.price(TOCode.TASKS);
+  String get _tasksQuantitySuffix => _tariff.billingQuantity(TOCode.TASKS).humanSuffix;
 
-  num get _fsExpenses => _invoice.expensesPerMonth(TOCode.FS_VOLUME, _tariff);
-  num get _fsOverdraft => _invoice.overdraft(TOCode.FS_VOLUME, _tariff);
-  num get _fsPrice => _tariff.price(TOCode.FS_VOLUME);
-  String get _fsQuantitySuffix => _tariff.billingQuantity(TOCode.FS_VOLUME).humanBytesSuffix;
+  num get _fsExpenses => _invoice.expensesPerMonth(TOCode.FILE_STORAGE, _tariff);
+  num get _fsOverdraft => _invoice.overdraft(TOCode.FILE_STORAGE, _tariff);
+  num get _fsPrice => _tariff.price(TOCode.FILE_STORAGE);
+  String get _fsQuantitySuffix => _tariff.billingQuantity(TOCode.FILE_STORAGE).humanBytesSuffix;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +47,11 @@ class TariffExpenses extends StatelessWidget {
           trailing: MTPrice(_tariff.basePrice, size: AdaptiveSize.s),
           bottomDivider: false,
         ),
-        if (_usersExpenses > 0)
+        if (_teamExpenses > 0)
           MTListTile(
             titleText: loc.members_title,
-            subtitle: DSmallText('+$_usersOverdraft x ${_usersPrice.currency}₽', color: f2Color, align: TextAlign.left),
-            trailing: MTPrice(_usersExpenses, size: AdaptiveSize.s),
+            subtitle: DSmallText('+$_teamOverdraft x ${_teamPrice.currency}₽', color: f2Color, align: TextAlign.left),
+            trailing: MTPrice(_teamExpenses, size: AdaptiveSize.s),
             bottomDivider: false,
           ),
         if (_tasksExpenses > 0)

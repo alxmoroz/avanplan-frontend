@@ -362,7 +362,7 @@
   "tariff_estimated_expenses_title": "Estimated Expenses",
   "tariff_features_title": "Features",
   "tariff_list_title": "Tariffs",
-  "tariff_option_fs_volume_suffix": "files",
+  "tariff_option_file_storage_suffix": "files",
   "tariff_price_request_action_hint": "to suit your\nbusiness needs",
   "tariff_price_request_action_title": "Request an offer",
   "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",

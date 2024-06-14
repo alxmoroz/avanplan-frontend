@@ -17,6 +17,7 @@ part 'tariff_option_get.g.dart';
 /// * [tariffQuantity] 
 /// * [freeLimit] 
 /// * [userManageable] 
+/// * [projectRelated] 
 @BuiltValue()
 abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -37,6 +38,9 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
   @BuiltValueField(wireName: r'user_manageable')
   bool? get userManageable;
 
+  @BuiltValueField(wireName: r'project_related')
+  bool? get projectRelated;
+
   TariffOptionGet._();
 
   factory TariffOptionGet([void updates(TariffOptionGetBuilder b)]) = _$TariffOptionGet;
@@ -46,7 +50,8 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
       ..price = 0
       ..tariffQuantity = 1
       ..freeLimit = 0
-      ..userManageable = false;
+      ..userManageable = false
+      ..projectRelated = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TariffOptionGet> get serializer => _$TariffOptionGetSerializer();
@@ -99,6 +104,13 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
       yield r'user_manageable';
       yield serializers.serialize(
         object.userManageable,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.projectRelated != null) {
+      yield r'project_related';
+      yield serializers.serialize(
+        object.projectRelated,
         specifiedType: const FullType(bool),
       );
     }
@@ -166,6 +178,13 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
             specifiedType: const FullType(bool),
           ) as bool;
           result.userManageable = valueDes;
+          break;
+        case r'project_related':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.projectRelated = valueDes;
           break;
         default:
           unhandled.add(key);

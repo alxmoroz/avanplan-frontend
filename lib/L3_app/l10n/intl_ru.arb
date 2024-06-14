@@ -362,7 +362,7 @@
   "tariff_estimated_expenses_title": "Расчётная стоимость",
   "tariff_features_title": "Функции",
   "tariff_list_title": "Тарифы",
-  "tariff_option_fs_volume_suffix": "файлов",
+  "tariff_option_file_storage_suffix": "файлов",
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",
   "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",

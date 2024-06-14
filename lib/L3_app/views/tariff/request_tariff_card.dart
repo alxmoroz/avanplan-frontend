@@ -23,7 +23,7 @@ class RequestTariffCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P),
       child: Column(
         children: [
-          H2(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
+          H2(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3).copyWith(bottom: 0)),
           if (smallHeight)
             const Spacer()
           else
@@ -31,6 +31,7 @@ class RequestTariffCard extends StatelessWidget {
               MTListTile(
                 leading: const StarIcon(),
                 middle: BaseText(Intl.message('tariff_special_conditions_title$n'), maxLines: 2),
+                padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
                 bottomDivider: false,
               ),
           const Spacer(),
@@ -42,10 +43,9 @@ class RequestTariffCard extends StatelessWidget {
           ),
           MTButton.main(
             titleText: loc.tariff_price_request_action_title,
-            margin: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
+            margin: const EdgeInsets.all(P3),
             onTap: () => mailUs(subject: loc.tariff_price_request_mail_subject),
           ),
-          const SizedBox(height: P3),
         ],
       ),
     );

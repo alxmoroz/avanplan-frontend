@@ -36,5 +36,10 @@ void main() {
     test('to test the property `userManageable`', () async {
       // TODO
     });
+
+    // bool projectRelated (default value: false)
+    test('to test the property `projectRelated`', () async {
+      // TODO
+    });
   });
 }

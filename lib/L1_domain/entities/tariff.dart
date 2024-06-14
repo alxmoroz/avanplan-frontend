@@ -4,12 +4,12 @@ import 'base_entity.dart';
 
 class TOCode {
   static const BASE_PRICE = 'BASE_PRICE';
-  static const USERS_COUNT = 'USERS_COUNT';
-  static const TASKS_COUNT = 'TASKS_COUNT';
-  static const FS_VOLUME = 'FS_VOLUME';
-
-  static const FEATURE_SET_TEAM = 'FEATURE_SET_TEAM';
-  static const FEATURE_SET_ANALYTICS = 'FEATURE_SET_ANALYTICS';
+  static const TASKS = 'TASKS';
+  static const FILE_STORAGE = 'FILE_STORAGE';
+  static const TEAM = 'TEAM';
+  static const ANALYTICS = 'ANALYTICS';
+  static const GOALS = 'GOALS';
+  static const TASKBOARD = 'TASKBOARD';
 }
 
 class TariffOption extends Codable {
@@ -20,12 +20,14 @@ class TariffOption extends Codable {
     required this.billingQuantity,
     required this.freeLimit,
     required this.userManageable,
+    required this.projectRelated,
   });
 
   final num price;
   final num billingQuantity;
   final num freeLimit;
   final bool userManageable;
+  final bool projectRelated;
 }
 
 class Tariff extends Codable {
@@ -44,7 +46,10 @@ class Tariff extends Codable {
   num price(String code) => optionsMap[code]?.price ?? 0;
   num freeLimit(String code) => optionsMap[code]?.freeLimit ?? 0;
   num billingQuantity(String code) => optionsMap[code]?.billingQuantity ?? 1;
+
   bool get hasManageableOptions => optionsMap.values.any((o) => o.userManageable);
+  List<TariffOption> get manageableOptions => optionsMap.values.where((o) => o.userManageable).toList();
+  List<TariffOption> get pricedOptions => optionsMap.values.where((o) => o.price > 0 && !o.userManageable).toList();
 
   bool hasOption(String code) => optionsMap.containsKey(code);
 

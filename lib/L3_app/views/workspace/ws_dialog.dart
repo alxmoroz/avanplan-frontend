@@ -29,7 +29,7 @@ import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../_base/loader_screen.dart';
 import '../iap/iap_dialog.dart';
-import '../tariff/tariff_details_dialog.dart';
+import '../tariff/tariff_dialog.dart';
 import 'ws_controller.dart';
 import 'ws_edit_dialog.dart';
 
@@ -55,8 +55,9 @@ class _WSDialogState extends State<WSDialog> {
     super.initState();
   }
 
-  num get _consumedTasks => _invoice.consumed(TOCode.TASKS_COUNT);
-  num get _consumedFSVolume => _invoice.consumed(TOCode.FS_VOLUME);
+  // TODO: deprecated TASKS_COUNT, FS_VOLUME как только не останется старых тарифов
+  num get _consumedTasks => _invoice.consumed(TOCode.TASKS) + _invoice.consumed("TASKS_COUNT");
+  num get _consumedFileStorage => _invoice.consumed(TOCode.FILE_STORAGE) + _invoice.consumed('FS_VOLUME');
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -106,7 +107,7 @@ class _WSDialogState extends State<WSDialog> {
         ),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () async => await tariffDetails(controller),
+        onTap: () async => await showTariff(controller),
       );
 
   Widget get _wsMembers {
@@ -129,7 +130,7 @@ class _WSDialogState extends State<WSDialog> {
           )
       ]),
       trailing: const ChevronIcon(),
-      bottomDivider: _consumedTasks > 0 || _consumedFSVolume > 0 || ws.hpSourceCreate,
+      bottomDivider: _consumedTasks > 0 || _consumedFileStorage > 0 || ws.hpSourceCreate,
       dividerIndent: P11,
       onTap: () => router.goWSUsers(wsd.id!),
     );
@@ -145,15 +146,15 @@ class _WSDialogState extends State<WSDialog> {
         ),
         trailing: const SizedBox(width: P3),
         dividerIndent: P11,
-        bottomDivider: _consumedFSVolume > 0 || ws.hpSourceCreate,
+        bottomDivider: _consumedFileStorage > 0 || ws.hpSourceCreate,
       );
 
   Widget get _storage => MTListTile(
         leading: const FileStorageIcon(),
         middle: Row(
           children: [
-            BaseText(_consumedFSVolume.humanBytesStr, maxLines: 1),
-            BaseText.f2(' ${loc.tariff_option_fs_volume_suffix}', maxLines: 1),
+            BaseText(_consumedFileStorage.humanBytesStr, maxLines: 1),
+            BaseText.f2(' ${loc.tariff_option_file_storage_suffix}', maxLines: 1),
           ],
         ),
         trailing: const SizedBox(width: P3),

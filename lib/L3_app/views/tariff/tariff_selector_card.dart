@@ -36,19 +36,20 @@ class TariffSelectorCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          H2(_tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
+          H2(_tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3).copyWith(bottom: 0)),
           Expanded(child: TariffOptions(_tariff)),
           TariffBasePrice(_tariff),
-          const SizedBox(height: P3),
           _isCurrent
               ? MTButton.main(
                   titleText: loc.tariff_current_title,
-                  margin: const EdgeInsets.symmetric(horizontal: P3),
+                  margin: const EdgeInsets.all(P3),
                 )
               : _controller.ws.hpTariffUpdate
                   ? _signButton(context, _tariff)
-                  : const MTButton.main(middle: PrivacyIcon(color: f2Color), margin: EdgeInsets.symmetric(horizontal: P3)),
-          const SizedBox(height: P3),
+                  : const MTButton.main(
+                      middle: PrivacyIcon(color: f2Color),
+                      margin: EdgeInsets.all(P3),
+                    ),
         ],
       ),
     );

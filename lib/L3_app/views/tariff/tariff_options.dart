@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../components/adaptive.dart';
@@ -15,68 +16,37 @@ import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 
-typedef _TextClass<T extends BaseText> = T Function(dynamic);
-
-class _TOTitle extends StatelessWidget {
-  const _TOTitle(this.value, this.unit, {this.size = AdaptiveSize.m});
-  final String value;
-  final String unit;
-  final AdaptiveSize size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        DText(value, align: TextAlign.left),
-        DText(unit, padding: const EdgeInsets.only(top: P)),
-      ],
-    );
-  }
-}
-
 class _TariffOption extends StatelessWidget {
-  const _TariffOption(this._tariff, this._code);
+  const _TariffOption(this._to);
 
-  final Tariff _tariff;
-  final String _code;
-
+  final TariffOption _to;
   static const iconSize = P6;
-  static const fsTeamCode = TOCode.FEATURE_SET_TEAM;
 
   @override
   Widget build(BuildContext context) {
-    num freeLimit = _tariff.freeLimit(_code);
-    num quantity = _tariff.billingQuantity(_code);
-    num price = _tariff.price(_code);
-
     String unit = '';
     String suffix = '';
     String extraQuantityStr = '';
 
     Widget icon = const SizedBox(height: iconSize);
-    if (_code == TOCode.FS_VOLUME) {
+    if ([TOCode.FILE_STORAGE, 'FS_VOLUME'].contains(_to.code)) {
       icon = const FileStorageIcon(size: iconSize);
-      suffix = '${freeLimit.humanBytesSuffix} ';
-      extraQuantityStr = '+${quantity.humanBytesStr}';
-      unit = loc.tariff_option_fs_volume_suffix;
+      suffix = '${_to.freeLimit.humanBytesSuffix} ';
+      extraQuantityStr = '+${_to.billingQuantity.humanBytesStr}';
+      unit = loc.tariff_option_file_storage_suffix;
     } else {
-      extraQuantityStr = '+${quantity.humanValueStr}';
-      if (_code == TOCode.USERS_COUNT) {
+      extraQuantityStr = '+${_to.billingQuantity.humanValueStr}';
+      if ([TOCode.TEAM, 'USERS_COUNT'].contains(_to.code)) {
         icon = const PeopleIcon(size: iconSize);
-        if (_tariff.hasOption(fsTeamCode)) {
-          freeLimit = 1;
-          price = _tariff.price(fsTeamCode);
-          extraQuantityStr = loc.tariff_unlimited_value_title;
-        }
-        unit = loc.member_plural(freeLimit);
-      } else if (_code == TOCode.TASKS_COUNT) {
+        unit = loc.member_plural(_to.freeLimit);
+      } else if (_to.code.startsWith(TOCode.TASKS)) {
         icon = const TasksIcon(size: iconSize);
-        suffix = '${freeLimit.humanSuffix} ';
-        unit = loc.task_plural(freeLimit);
+        suffix = '${_to.freeLimit.humanSuffix} ';
+        unit = loc.task_plural(_to.freeLimit);
       }
     }
 
-    final freeLimitHuman = '${(freeLimit / quantity).round()} ';
+    final freeLimitHuman = '${(_to.freeLimit / _to.billingQuantity).round()} ';
 
     return MTListTile(
       leading: icon,
@@ -89,10 +59,10 @@ class _TariffOption extends StatelessWidget {
       subtitle: Row(
         children: [
           DSmallText('$extraQuantityStr ${loc.for_} ', color: f2Color, align: TextAlign.left),
-          MTPrice(price, color: f2Color, size: AdaptiveSize.xs),
+          MTPrice(_to.price, color: f2Color, size: AdaptiveSize.xs),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: P3),
+      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
       bottomDivider: false,
     );
   }
@@ -104,25 +74,31 @@ class TariffOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        _TariffOption(_tariff, TOCode.USERS_COUNT),
-        const SizedBox(height: P4),
-        _TariffOption(_tariff, TOCode.TASKS_COUNT),
-        const SizedBox(height: P4),
-        _TariffOption(_tariff, TOCode.FS_VOLUME),
-        const SizedBox(height: P4),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (_, index) => _TariffOption(_tariff.pricedOptions[index]),
+          itemCount: _tariff.pricedOptions.length,
+        ),
         if (_tariff.hasManageableOptions)
           MTListTile(
             leading: const FeaturesIcon(size: _TariffOption.iconSize),
-            middle: D3(loc.tariff_features_title, align: TextAlign.left),
+            middle: D3(
+              _tariff.manageableOptions.map((mo) => Intl.message('feature_set_${mo.code.toLowerCase()}_title')).join(', '),
+              align: TextAlign.left,
+              maxLines: 2,
+            ),
             subtitle: Row(
               children: [
                 DSmallText('${loc.days_count(30)} ${loc.for_} ', color: f2Color, align: TextAlign.left),
                 const MTPrice(0, color: f2Color, size: AdaptiveSize.xs),
               ],
             ),
-            padding: const EdgeInsets.symmetric(horizontal: P3),
+            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
             bottomDivider: false,
           ),
       ],

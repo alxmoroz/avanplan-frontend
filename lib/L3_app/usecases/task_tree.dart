@@ -35,5 +35,5 @@ extension TaskTreeUC on Task {
   List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
 
-  bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hfsTeam;
+  bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hfTeam;
 }

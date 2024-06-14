@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 
+import '../../L1_domain/entities/tariff.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
@@ -10,6 +11,10 @@ import '../views/iap/iap_dialog.dart';
 import '../views/workspace/ws_controller.dart';
 
 extension WSActionsUC on Workspace {
+  bool _hf(String code) => invoice.consumed(code) > 0;
+  bool get hfTeam => _hf(TOCode.TEAM);
+  bool get hfAnalytics => _hf(TOCode.ANALYTICS);
+
   User get me => users.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? User.dummy;
 
   // bool get hpInfoRead => me.hp('INFO_READ');

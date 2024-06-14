@@ -23,7 +23,7 @@ class NoTasks extends StatelessWidget {
   final bool overview;
 
   Task get _parent => _controller.task;
-  bool get _isProjectWGoals => _parent.isProject && _parent.hfsGoals;
+  bool get _isProjectWGoals => _parent.isProject && _parent.hfGoals;
 
   @override
   Widget build(BuildContext context) {

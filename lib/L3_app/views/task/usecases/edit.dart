@@ -86,7 +86,7 @@ extension TaskEditUC on TaskController {
         root.filled = true;
         final newTasks = [root, ...taskNode.subtasks];
         // мои задачи из проекта, если обновляем проект с целями
-        if (root.isProject && root.hfsGoals) {
+        if (root.isProject && root.hfGoals) {
           newTasks.addAll(await wsUC.getMyTasks(root.wsId, projectId: root.id!));
         }
         tasksMainController.setTasks([...newTasks, ...taskNode.parents]);
@@ -119,7 +119,7 @@ extension TaskEditUC on TaskController {
     final newTC = await createTask(
       task.ws,
       task,
-      statusId: statusId ?? ((task.isProject && task.hfsGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
+      statusId: statusId ?? ((task.isProject && task.hfGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
     );
     if (newTC != null && !noGo) router.goTaskView(newTC.taskDescriptor);
     return newTC;

@@ -80,7 +80,7 @@ class TaskCard extends StatelessWidget {
   bool get _showStatus => task.canShowStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
-  bool get _showAssignee => task.hfsTeam && task.hasAssignee && !isMine;
+  bool get _showAssignee => task.hfTeam && task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 2 : 2.7));
 
   bool get _showChecklistMark => !task.closed && task.isCheckList;
@@ -110,7 +110,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  bool get _showEstimate => task.hfsEstimates && task.hasEstimate;
+  bool get _showEstimate => task.hfEstimates && task.hasEstimate;
   Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(

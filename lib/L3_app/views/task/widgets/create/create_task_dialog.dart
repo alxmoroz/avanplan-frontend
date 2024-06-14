@@ -24,7 +24,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
     showMTDialog(LoaderScreen(tc, isDialog: true));
 
     final newProject = parent == null;
-    final newGoal = parent != null && parent.isProject && parent.hfsGoals;
+    final newGoal = parent != null && parent.isProject && parent.hfGoals;
     final newCheckItem = parent != null && parent.isTask;
 
     final taskData = Task(

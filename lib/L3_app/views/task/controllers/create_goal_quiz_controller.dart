@@ -39,6 +39,6 @@ abstract class _CreateGoalQuizControllerBase extends AbstractTaskQuizController 
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.goalSetup.name, loc.goal_create_quiz_title, loc.next_action_title),
-        if (!_goal.hfsTaskboard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),
+        if (!_goal.hfTaskboard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),
       ];
 }

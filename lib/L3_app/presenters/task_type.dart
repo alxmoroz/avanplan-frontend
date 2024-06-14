@@ -16,7 +16,7 @@ String addSubtaskActionTitle(Task? parent) {
   final taskTitle = loc.task_plural_accusative(1);
   final objTitle = {
         'ROOT': loc.project_plural(1),
-        TType.PROJECT: parent?.hfsGoals == true ? loc.goal_plural_accusative(1) : taskTitle,
+        TType.PROJECT: parent?.hfGoals == true ? loc.goal_plural_accusative(1) : taskTitle,
         TType.INBOX: taskTitle,
         TType.GOAL: taskTitle,
         TType.BACKLOG: taskTitle,
@@ -28,7 +28,7 @@ String addSubtaskActionTitle(Task? parent) {
 String newSubtaskTitle(Task? parent) =>
     {
       'ROOT': loc.project_new_title,
-      TType.PROJECT: parent?.hfsGoals == true ? loc.goal_new_title : loc.task_new_title,
+      TType.PROJECT: parent?.hfGoals == true ? loc.goal_new_title : loc.task_new_title,
       TType.INBOX: loc.task_new_title,
       TType.GOAL: loc.task_new_title,
       TType.BACKLOG: loc.task_new_title,
@@ -50,7 +50,7 @@ extension TaskTypePresenter on Task {
 
   String get listTitle =>
       {
-        TType.PROJECT: hfsGoals ? loc.goal_list_title : loc.task_list_title,
+        TType.PROJECT: hfGoals ? loc.goal_list_title : loc.task_list_title,
         TType.GOAL: loc.task_list_title,
         TType.BACKLOG: loc.task_list_title,
         TType.TASK: loc.checklist,
@@ -68,7 +68,7 @@ extension TaskTypePresenter on Task {
 
   String dativeSubtasksCount(int count) =>
       {
-        TType.PROJECT: hfsGoals ? loc.goal_count_dative(count) : loc.task_count_dative(count),
+        TType.PROJECT: hfGoals ? loc.goal_count_dative(count) : loc.task_count_dative(count),
         TType.INBOX: loc.task_count_dative(count),
         TType.GOAL: loc.task_count_dative(count),
         TType.BACKLOG: loc.task_count_dative(count),
@@ -77,7 +77,7 @@ extension TaskTypePresenter on Task {
 
   String subtasksCountStr(int count) =>
       {
-        TType.PROJECT: hfsGoals ? loc.goal_count(count) : loc.task_count(count),
+        TType.PROJECT: hfGoals ? loc.goal_count(count) : loc.task_count(count),
         TType.INBOX: loc.task_count(count),
         TType.GOAL: loc.task_count(count),
         TType.BACKLOG: loc.task_count(count),

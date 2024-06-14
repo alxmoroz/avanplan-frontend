@@ -14,9 +14,9 @@ extension FeatureSetsUC on Task {
 
   bool hfs(String code) => _fsCodes.contains(code);
 
-  bool get hfsAnalytics => hfs(FSCode.ANALYTICS);
-  bool get hfsTeam => hfs(FSCode.TEAM);
-  bool get hfsGoals => hfs(FSCode.GOALS);
-  bool get hfsTaskboard => hfs(FSCode.TASKBOARD);
-  bool get hfsEstimates => hfs(FSCode.ESTIMATES);
+  bool get hfAnalytics => hfs(FSCode.ANALYTICS);
+  bool get hfTeam => hfs(FSCode.TEAM);
+  bool get hfGoals => hfs(FSCode.GOALS);
+  bool get hfTaskboard => hfs(FSCode.TASKBOARD);
+  bool get hfEstimates => hfs(FSCode.ESTIMATES);
 }

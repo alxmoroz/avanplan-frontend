@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/tariff/tariff_base_price.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -13,6 +12,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
+import 'tariff_base_price.dart';
 import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
 

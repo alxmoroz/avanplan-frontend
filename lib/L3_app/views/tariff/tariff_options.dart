@@ -29,6 +29,7 @@ class _TariffOption extends StatelessWidget {
     String extraQuantityStr = '';
 
     Widget icon = const SizedBox(height: iconSize);
+    // TODO: deprecated USERS_COUNT, FS_VOLUME как только не останется старых тарифов
     if ([TOCode.FILE_STORAGE, 'FS_VOLUME'].contains(_to.code)) {
       icon = const FileStorageIcon(size: iconSize);
       suffix = '${_to.freeLimit.humanBytesSuffix} ';
@@ -39,7 +40,9 @@ class _TariffOption extends StatelessWidget {
       if ([TOCode.TEAM, 'USERS_COUNT'].contains(_to.code)) {
         icon = const PeopleIcon(size: iconSize);
         unit = loc.member_plural(_to.freeLimit);
-      } else if (_to.code.startsWith(TOCode.TASKS)) {
+      }
+      // TODO: deprecated TASKS_COUNT, как только не останется старых тарифов
+      else if (_to.code.startsWith(TOCode.TASKS)) {
         icon = const TasksIcon(size: iconSize);
         suffix = '${_to.freeLimit.humanSuffix} ';
         unit = loc.task_plural(_to.freeLimit);

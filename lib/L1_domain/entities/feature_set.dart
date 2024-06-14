@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 
 import 'base_entity.dart';
 
+// TODO: deprecated
+
 class FSCode {
   static const ANALYTICS = 'ANALYTICS';
   static const TEAM = 'TEAM';

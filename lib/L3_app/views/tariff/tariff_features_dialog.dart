@@ -23,10 +23,10 @@ import '../../presenters/tariff_option.dart';
 import '../../views/_base/loader_screen.dart';
 import '../workspace/ws_controller.dart';
 
-Future tariffManageableOptions(WSController controller) async => await showMTDialog<void>(_TManageableOptionsDialog(controller));
+Future tariffFeatures(WSController controller) async => await showMTDialog<void>(_TariffFeaturesDialog(controller));
 
-class _TManageableOptionsDialog extends StatelessWidget {
-  const _TManageableOptionsDialog(this._controller);
+class _TariffFeaturesDialog extends StatelessWidget {
+  const _TariffFeaturesDialog(this._controller);
   final WSController _controller;
   Workspace get _ws => _controller.ws;
   Invoice get _invoice => _ws.invoice;
@@ -45,21 +45,23 @@ class _TManageableOptionsDialog extends StatelessWidget {
               ),
               body: ListView.builder(
                 shrinkWrap: true,
-                itemCount: _tariff.manageableOptions.length,
+                itemCount: _tariff.features.length,
                 itemBuilder: (_, index) {
-                  final feature = _tariff.manageableOptions[index];
+                  final f = _tariff.features[index];
+                  final subscribed = _invoice.subscribed(f.code);
                   return MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
+                    borderSide: subscribed ? const BorderSide(color: greenColor) : null,
                     child: ListView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         MTListTile(
-                          leading: feature.image,
-                          middle: H3(feature.title),
+                          leading: f.image,
+                          middle: H3(f.title),
                           bottomDivider: false,
                         ),
-                        for (String d in feature.description.split('\n'))
+                        for (String d in f.description.split('\n'))
                           Row(
                             children: [
                               const SizedBox(width: P3),
@@ -70,13 +72,14 @@ class _TManageableOptionsDialog extends StatelessWidget {
                             ],
                           ),
                         MTListTile(
-                          middle: MTPrice(feature.price, color: mainColor, align: TextAlign.left),
+                          middle: MTPrice(f.price, color: mainColor, align: TextAlign.left),
                           subtitle: BaseText.f2(loc.per_month_suffix, maxLines: 1),
-                          trailing: MTButton.secondary(
-                            titleText: loc.tariff_sign_action_title,
+                          trailing: MTButton(
+                            type: subscribed ? ButtonType.secondary : ButtonType.main,
+                            titleText: subscribed ? loc.tariff_feature_unsubscribe_action_title : loc.tariff_feature_subscribe_action_title,
                             padding: const EdgeInsets.symmetric(horizontal: P8),
                             constrained: false,
-                            // onTap: () => selectTariff(_controller),
+                            onTap: () => print(subscribed),
                           ),
                           bottomDivider: false,
                         ),

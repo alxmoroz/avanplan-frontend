@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../components/adaptive.dart';
@@ -80,17 +79,18 @@ class TariffOptions extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (_, index) => _TariffOption(_tariff.pricedOptions[index]),
-          itemCount: _tariff.pricedOptions.length,
+          itemBuilder: (_, index) => _TariffOption(_tariff.billedOptions[index]),
+          itemCount: _tariff.billedOptions.length,
         ),
-        if (_tariff.hasManageableOptions)
+        if (_tariff.hasFeatures)
           MTListTile(
             leading: const FeaturesIcon(size: _TariffOption.iconSize),
             middle: D3(
-              _tariff.manageableOptions.map((mo) => Intl.message('tariff_option_${mo.code.toLowerCase()}_title')).join(', '),
+              loc.tariff_features_title,
               align: TextAlign.left,
               maxLines: 2,
             ),
+            // TODO: deprecated - хардкод
             subtitle: Row(
               children: [
                 DSmallText('${loc.days_count(30)} ${loc.for_} ', color: f2Color, align: TextAlign.left),

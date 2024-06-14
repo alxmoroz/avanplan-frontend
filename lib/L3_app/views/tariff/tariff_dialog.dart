@@ -24,7 +24,7 @@ import '../../presenters/tariff.dart';
 import '../../views/_base/loader_screen.dart';
 import '../workspace/ws_controller.dart';
 import 'tariff_expenses_dialog.dart';
-import 'tariff_manageable_options_dialog.dart';
+import 'tariff_features_dialog.dart';
 import 'tariff_options.dart';
 import 'tariff_selector.dart';
 
@@ -41,12 +41,17 @@ class _TariffDialog extends StatelessWidget {
   bool get _hasExpenses => _expensesPerDay != 0;
   num get _balanceDays => (_ws.balance / _expensesPerDay);
 
+  Iterable<TariffOption> get _subscribedFeatures => _tariff.features.where((o) => _invoice.subscribed(o.code));
+
   Widget get _tariffFeatures => MTListTile(
         leading: const FeaturesIcon(),
         titleText: loc.tariff_features_title,
+        subtitle: SmallText(
+          _subscribedFeatures.isNotEmpty ? _subscribedFeatures.map((mo) => mo.title).join(', ') : loc.tariff_features_no_subscriptions,
+        ),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () => tariffManageableOptions(_controller),
+        onTap: () => tariffFeatures(_controller),
       );
 
   Widget get _tariffExpenses => MTListTile(
@@ -68,7 +73,7 @@ class _TariffDialog extends StatelessWidget {
           maxLines: 1,
         ),
         trailing: const ChevronIcon(),
-        bottomDivider: _tariff.hasManageableOptions,
+        bottomDivider: _tariff.hasFeatures,
         dividerIndent: P11,
         onTap: () => showTariffExpenses(_invoice),
       );
@@ -111,7 +116,7 @@ class _TariffDialog extends StatelessWidget {
                     ),
                   ),
                   _tariffExpenses,
-                  if (_tariff.hasManageableOptions) _tariffFeatures,
+                  if (_tariff.hasFeatures) _tariffFeatures,
                 ],
               ),
             ),

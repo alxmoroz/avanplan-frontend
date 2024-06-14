@@ -53,11 +53,9 @@ class Tariff extends Codable {
   num freeLimit(String code) => optionsMap[code]?.freeLimit ?? 0;
   num billingQuantity(String code) => optionsMap[code]?.billingQuantity ?? 1;
 
-  bool get hasManageableOptions => optionsMap.values.any((o) => o.userManageable);
-  List<TariffOption> get manageableOptions => optionsMap.values.where((o) => o.userManageable).toList();
-  List<TariffOption> get pricedOptions => optionsMap.values.where((o) => o.price > 0 && !o.userManageable).toList();
-
-  bool hasOption(String code) => optionsMap.containsKey(code);
+  bool get hasFeatures => optionsMap.values.any((o) => o.userManageable);
+  List<TariffOption> get features => optionsMap.values.where((o) => o.userManageable).toList();
+  List<TariffOption> get billedOptions => optionsMap.values.where((o) => o.price > 0 && !o.userManageable).toList();
 
   num get basePrice => price(TOCode.BASE_PRICE);
 

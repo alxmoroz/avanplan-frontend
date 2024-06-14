@@ -347,7 +347,12 @@
   "tariff_current_title": "Current Tariff",
   "tariff_details_action_title": "More details",
   "tariff_estimated_expenses_title": "Estimated Expenses",
+
+  "tariff_feature_subscribe_action_title": "Subscribe",
+  "tariff_feature_unsubscribe_action_title": "Unsubscribe",
+  "tariff_features_no_subscriptions": "No subscriptions",
   "tariff_features_title": "Features",
+
   "tariff_list_title": "Tariffs",
 
   "tariff_option_analytics_title": "Analytics",

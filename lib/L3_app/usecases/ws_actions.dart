@@ -11,9 +11,9 @@ import '../views/iap/iap_dialog.dart';
 import '../views/workspace/ws_controller.dart';
 
 extension WSActionsUC on Workspace {
-  bool _hf(String code) => invoice.consumed(code) > 0;
-  bool get hfTeam => _hf(TOCode.TEAM);
-  bool get hfAnalytics => _hf(TOCode.ANALYTICS);
+  bool _subscribedFeature(String code) => invoice.subscribed(code);
+  bool get sfTeam => _subscribedFeature(TOCode.TEAM);
+  bool get sfAnalytics => _subscribedFeature(TOCode.ANALYTICS);
 
   User get me => users.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? User.dummy;
 

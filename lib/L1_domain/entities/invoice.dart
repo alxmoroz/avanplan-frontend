@@ -23,6 +23,7 @@ class Invoice extends RPersistable {
   static Invoice get dummy => Invoice(id: -1, tariff: Tariff.dummy, contract: Contract.dummy, details: []);
 
   num consumed(String code) => details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
+  bool subscribed(String code) => consumed(code) > 0;
 
   num overdraft(String code, Tariff tariff) {
     final diff = max(0, consumed(code) - tariff.freeLimit(code));

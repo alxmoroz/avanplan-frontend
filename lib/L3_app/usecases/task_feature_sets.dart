@@ -5,6 +5,8 @@ import '../../L1_domain/entities/task.dart';
 import '../extra/services.dart';
 import 'task_tree.dart';
 
+// TODO: deprecated переделать
+
 extension FeatureSetsUC on Task {
   Set<FeatureSet> get featureSets => project.projectFeatureSets.map((pfs) => refsController.featureSetsMap[pfs.featureSetId]!).toSet();
 

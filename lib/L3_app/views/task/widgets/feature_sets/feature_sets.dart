@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/tariff.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
@@ -42,18 +43,7 @@ class _FSBody extends StatelessWidget {
   final Widget? footer;
 
   static const _iconSize = P8;
-  Widget _icon(int index) => MTImage(
-        [
-          ImageName.fs_analytics,
-          ImageName.fs_team,
-          ImageName.fs_goals,
-          ImageName.fs_task_board,
-          ImageName.fs_estimates,
-        ][index]
-            .name,
-        width: _iconSize,
-        height: _iconSize,
-      );
+  Widget _image(String code) => MTImage('fs_${code.toLowerCase()}', width: _iconSize, height: _iconSize);
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +53,9 @@ class _FSBody extends StatelessWidget {
         children: [
           MTListGroupTitle(titleText: loc.feature_sets_always_on_label),
           MTCheckBoxTile(
-            leading: MTImage(ImageName.fs_task_list.name, width: P8, height: P7),
-            title: loc.feature_set_tasklist_title,
-            description: loc.feature_set_tasklist_description,
+            leading: MTImage('fs_${TOCode.TASKS.toLowerCase()}', width: P8, height: P7),
+            title: loc.tariff_option_tasklist_title,
+            description: loc.tariff_option_tasklist_subtitle,
             value: true,
             bottomDivider: false,
           ),
@@ -78,9 +68,9 @@ class _FSBody extends StatelessWidget {
               final fs = refsController.featureSets.elementAt(index);
               final onChanged = _controller.onChanged(index);
               return MTCheckBoxTile(
-                leading: _icon(index),
+                leading: _image(fs.code),
                 title: fs.title,
-                description: fs.description,
+                description: fs.subtitle,
                 value: _controller.checks[index],
                 bottomDivider: index < _controller.checks.length - 1,
                 dividerIndent: _iconSize + P5,

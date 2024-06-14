@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:intl/intl.dart';
+
 import 'base_entity.dart';
 
 class TOCode {
@@ -28,6 +30,10 @@ class TariffOption extends Codable {
   final num freeLimit;
   final bool userManageable;
   final bool projectRelated;
+
+  String get title => Intl.message('tariff_option_${code.toLowerCase()}_title');
+  String get subtitle => Intl.message('tariff_option_${code.toLowerCase()}_subtitle');
+  String get description => Intl.message('tariff_option_${code.toLowerCase()}_description');
 }
 
 class Tariff extends Codable {

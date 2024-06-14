@@ -129,19 +129,6 @@
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",
 
-  "feature_set_analytics_title": "Аналитика",
-  "feature_set_analytics_description": "Прогнозы и статистика",
-  "feature_set_estimates_title": "Оценки",
-  "feature_set_estimates_description": "Оценка сложности задач",
-  "feature_set_goals_title": "Цели",
-  "feature_set_goals_description": "Задачи добавляются к целям",
-  "feature_set_taskboard_title": "Доска задач",
-  "feature_set_taskboard_description": "Привычный вид как в Trello",
-  "feature_set_tasklist_title": "Список задач",
-  "feature_set_tasklist_description": "Управление задачами",
-  "feature_set_team_title": "Команда",
-  "feature_set_team_description": "Совместная работа над задачами",
-
   "feature_sets_always_on_label": "Подключены всегда",
   "feature_sets_available_label": "Доступны на вашем тарифе",
   "feature_sets_label": "Подключенные модули",
@@ -362,7 +349,29 @@
   "tariff_estimated_expenses_title": "Расчётная стоимость",
   "tariff_features_title": "Функции",
   "tariff_list_title": "Тарифы",
+
+  "tariff_option_analytics_title": "Аналитика",
+  "tariff_option_analytics_subtitle": "Прогнозы и статистика",
+  "tariff_option_analytics_description": "Прогноз срока завершения\nСтатистика\nСтатусы проектов",
+
+  "tariff_option_estimates_title": "Оценки",
+  "tariff_option_estimates_subtitle": "Оценка сложности задач",
+
   "tariff_option_file_storage_suffix": "файлов",
+
+  "tariff_option_goals_title": "Цели",
+  "tariff_option_goals_subtitle": "Задачи добавляются к целям",
+
+  "tariff_option_taskboard_title": "Доска задач",
+  "tariff_option_taskboard_subtitle": "Привычный вид как в Trello",
+
+  "tariff_option_tasklist_title": "Список задач",
+  "tariff_option_tasklist_subtitle": "Управление задачами",
+
+  "tariff_option_team_title": "Команда",
+  "tariff_option_team_subtitle": "Совместная работа над задачами",
+  "tariff_option_team_description": "Неограниченное количество участников\nПриглашения в проекты\nНазначение задач",
+
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",
   "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",

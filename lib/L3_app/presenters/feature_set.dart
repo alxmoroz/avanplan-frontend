@@ -5,5 +5,5 @@ import '../../L1_domain/entities/task.dart';
 import '../usecases/task_feature_sets.dart';
 
 extension ProjectFeatureSetPresenter on Task {
-  String get localizedFeatureSets => [...featureSets, FeatureSet(code: 'TASKLIST', id: null)].map((fs) => fs.title).join(', ');
+  String get localizedFeatureSets => [...featureSets, FeatureSet(code: 'TASKS', id: null)].map((fs) => fs.title).join(', ');
 }

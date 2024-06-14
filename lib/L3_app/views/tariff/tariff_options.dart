@@ -9,12 +9,12 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
 import '../../components/icons.dart';
-import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
+import '../../presenters/tariff_option.dart';
 
 class _TariffOption extends StatelessWidget {
   const _TariffOption(this._to);
@@ -28,22 +28,18 @@ class _TariffOption extends StatelessWidget {
     String suffix = '';
     String extraQuantityStr = '';
 
-    Widget icon = const SizedBox(height: iconSize);
     // TODO: deprecated USERS_COUNT, FS_VOLUME как только не останется старых тарифов
     if ([TOCode.FILE_STORAGE, 'FS_VOLUME'].contains(_to.code)) {
-      icon = const FileStorageIcon(size: iconSize);
       suffix = '${_to.freeLimit.humanBytesSuffix} ';
       extraQuantityStr = '+${_to.billingQuantity.humanBytesStr}';
       unit = loc.tariff_option_file_storage_suffix;
     } else {
       extraQuantityStr = '+${_to.billingQuantity.humanValueStr}';
       if ([TOCode.TEAM, 'USERS_COUNT'].contains(_to.code)) {
-        icon = const PeopleIcon(size: iconSize);
         unit = loc.member_plural(_to.freeLimit);
       }
       // TODO: deprecated TASKS_COUNT, как только не останется старых тарифов
       else if (_to.code.startsWith(TOCode.TASKS)) {
-        icon = const TasksIcon(size: iconSize);
         suffix = '${_to.freeLimit.humanSuffix} ';
         unit = loc.task_plural(_to.freeLimit);
       }
@@ -52,7 +48,7 @@ class _TariffOption extends StatelessWidget {
     final freeLimitHuman = '${(_to.freeLimit / _to.billingQuantity).round()} ';
 
     return MTListTile(
-      leading: icon,
+      leading: _to.icon,
       middle: Row(
         children: [
           D3.medium(freeLimitHuman, align: TextAlign.left),
@@ -91,7 +87,7 @@ class TariffOptions extends StatelessWidget {
           MTListTile(
             leading: const FeaturesIcon(size: _TariffOption.iconSize),
             middle: D3(
-              _tariff.manageableOptions.map((mo) => Intl.message('feature_set_${mo.code.toLowerCase()}_title')).join(', '),
+              _tariff.manageableOptions.map((mo) => Intl.message('tariff_option_${mo.code.toLowerCase()}_title')).join(', '),
               align: TextAlign.left,
               maxLines: 2,
             ),

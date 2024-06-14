@@ -11,6 +11,7 @@ part 'references_controller.g.dart';
 class ReferencesController extends _ReferencesControllerBase with _$ReferencesController {}
 
 abstract class _ReferencesControllerBase with Store {
+  // TODO: deprecated
   /// настройки наборов функций (модулей) проектов
   @observable
   Iterable<FeatureSet> featureSets = [];
@@ -33,6 +34,7 @@ abstract class _ReferencesControllerBase with Store {
       SourceType(id: -1, title: loc.source_type_custom_title, description: loc.source_type_custom_description, code: 'custom', active: false),
     ];
 
+    // TODO: deprecated
     featureSets = await featureSetUC.getAll();
   }
 

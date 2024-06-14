@@ -129,19 +129,6 @@
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
 
-  "feature_set_analytics_title": "Analytics",
-  "feature_set_analytics_description": "Dates prediction and Statistics",
-  "feature_set_estimates_title": "Estimates",
-  "feature_set_estimates_description": "Estimating Task Difficulty",
-  "feature_set_goals_title": "Goals",
-  "feature_set_goals_description": "Grouping tasks by goals",
-  "feature_set_taskboard_title": "Task Board",
-  "feature_set_taskboard_description": "Familiar look like in Trello",
-  "feature_set_tasklist_title": "Task List",
-  "feature_set_tasklist_description": "Task management",
-  "feature_set_team_title": "Team",
-  "feature_set_team_description": "Collaborate on tasks",
-
   "feature_sets_always_on_label": "Always On",
   "feature_sets_available_label": "Available on your tariff plan",
   "feature_sets_label": "Active Modules",
@@ -362,7 +349,29 @@
   "tariff_estimated_expenses_title": "Estimated Expenses",
   "tariff_features_title": "Features",
   "tariff_list_title": "Tariffs",
+
+  "tariff_option_analytics_title": "Analytics",
+  "tariff_option_analytics_subtitle": "Dates prediction and Statistics",
+  "tariff_option_analytics_description": "Dates prediction\nStatistics\nProject statuses",
+
+  "tariff_option_estimates_title": "Estimates",
+  "tariff_option_estimates_subtitle": "Estimating Task Difficulty",
+
   "tariff_option_file_storage_suffix": "files",
+
+  "tariff_option_goals_title": "Goals",
+  "tariff_option_goals_subtitle": "Grouping tasks by goals",
+
+  "tariff_option_taskboard_title": "Task Board",
+  "tariff_option_taskboard_subtitle": "Familiar look like in Trello",
+
+  "tariff_option_tasklist_title": "Task List",
+  "tariff_option_tasklist_subtitle": "Task management",
+
+  "tariff_option_team_title": "Team",
+  "tariff_option_team_subtitle": "Collaborate on tasks",
+  "tariff_option_team_description": "Unlimited number of members\nInvitations to projects\nAssigning tasks",
+
   "tariff_price_request_action_hint": "to suit your\nbusiness needs",
   "tariff_price_request_action_title": "Request an offer",
   "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",

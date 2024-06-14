@@ -7,6 +7,7 @@ import 'base_entity.dart';
 // TODO: deprecated
 
 class FSCode {
+  static const TASKS = 'TASKS';
   static const ANALYTICS = 'ANALYTICS';
   static const TEAM = 'TEAM';
   static const GOALS = 'GOALS';
@@ -20,8 +21,8 @@ class FeatureSet extends Codable {
     required super.code,
   });
 
-  String get title => Intl.message('feature_set_${code.toLowerCase()}_title');
-  String get description => Intl.message('feature_set_${code.toLowerCase()}_description');
+  String get title => Intl.message('tariff_option_${code.toLowerCase()}_title');
+  String get subtitle => Intl.message('tariff_option_${code.toLowerCase()}_subtitle');
 }
 
 class ProjectFeatureSet extends RPersistable {

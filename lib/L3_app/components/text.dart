@@ -207,7 +207,7 @@ class D3 extends DText {
 }
 
 class D2 extends DText {
-  const D2(super.text, {super.key, super.color, super.padding, super.maxLines, super.align}) : super.medium(sizeScale: 2.5);
+  const D2(super.text, {super.key, super.color, super.padding, super.maxLines, super.align}) : super.medium(sizeScale: 2.3);
 }
 
 /// Декоративный стиль (для названия приложения)

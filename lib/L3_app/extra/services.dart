@@ -92,7 +92,7 @@ InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 NoteUC get noteUC => GetIt.I<NoteUC>();
 AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
-ProjectFeatureUC get featureSetUC => GetIt.I<ProjectFeatureUC>();
+ProjectFeatureUC get projectFeatureUC => GetIt.I<ProjectFeatureUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
 CalendarUC get calendarUC => GetIt.I<CalendarUC>();
 

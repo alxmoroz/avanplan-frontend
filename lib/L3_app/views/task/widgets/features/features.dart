@@ -22,7 +22,7 @@ import '../../../projects/create_project_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
-import '../../controllers/project_features_controller.dart';
+import '../../controllers/project_feature_controller.dart';
 import '../../controllers/task_controller.dart';
 
 Future projectFeaturesDialog(TaskController controller) async => await showMTDialog<void>(_ProjectFeaturesDialog(controller));
@@ -40,7 +40,7 @@ class ProjectFeaturesQuizRoute extends AbstractTaskQuizRoute {
 
 class _ProjectFeaturesBody extends StatelessWidget {
   const _ProjectFeaturesBody(this._controller, {this.footer});
-  final ProjectFeaturesController _controller;
+  final ProjectFeatureController _controller;
   final Widget? footer;
 
   static const _iconSize = P8;
@@ -52,7 +52,7 @@ class _ProjectFeaturesBody extends StatelessWidget {
       builder: (_) => ListView(
         shrinkWrap: true,
         children: [
-          MTListGroupTitle(titleText: loc.feature_sets_always_on_label),
+          MTListGroupTitle(titleText: loc.project_features_always_on_label),
           MTCheckBoxTile(
             leading: _image(TOCode.TASKS),
             title: loc.tariff_option_tasks_title,
@@ -60,7 +60,7 @@ class _ProjectFeaturesBody extends StatelessWidget {
             value: true,
             bottomDivider: false,
           ),
-          MTListGroupTitle(titleText: loc.feature_sets_available_label),
+          MTListGroupTitle(titleText: loc.project_features_available_label),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -90,7 +90,7 @@ class _ProjectFeaturesQuizView extends StatelessWidget {
   const _ProjectFeaturesQuizView(this._qController);
   final CreateProjectQuizController _qController;
 
-  ProjectFeaturesController get _pfController => _qController.taskController.projectFeaturesController;
+  ProjectFeatureController get _pfController => _qController.taskController.projectFeaturesController;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class _ProjectFeaturesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.feature_sets_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.project_features_title),
       body: _ProjectFeaturesBody(
         _controller.projectFeaturesController,
         footer: MTButton.main(

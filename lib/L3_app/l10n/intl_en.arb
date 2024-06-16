@@ -129,11 +129,7 @@
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
 
-  "feature_sets_always_on_label": "Always On",
-  "feature_sets_available_label": "Available on your tariff plan",
-  "feature_sets_label": "Active Modules",
-  "feature_sets_quiz_title": "Select project modules",
-  "feature_sets_title": "Project Modules",
+
 
   "file_storage_title": "File Storage",
 
@@ -230,6 +226,13 @@
 
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_delete_dialog_title": "Delete project?",
+
+  "project_features_always_on_label": "Always On",
+  "project_features_available_label": "Available on your tariff plan",
+  "project_features_label": "Active Modules",
+  "project_features_quiz_title": "Select project modules",
+  "project_features_title": "Project Modules",
+
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
   "project_list_title": "Projects",

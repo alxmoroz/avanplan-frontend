@@ -8,7 +8,7 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../quiz/abstract_quiz_controller.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
-import '../task/controllers/project_features_controller.dart';
+import '../task/controllers/project_feature_controller.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/usecases/edit.dart';
 import '../task/widgets/create/create_subtasks_quiz_view.dart';
@@ -60,7 +60,7 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   Task get _project => taskController.task;
 
-  ProjectFeaturesController get _fsc => taskController.projectFeaturesController;
+  ProjectFeatureController get _fsc => taskController.projectFeaturesController;
 
   bool get _wantTeam => _fsc.hasChecked(TOCode.TEAM);
   bool get _wantGoals => _fsc.hasChecked(TOCode.GOALS);
@@ -69,7 +69,7 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.projectSetup.name, '', loc.next_action_title),
-        QuizStep(_StepCode.featureSets.name, loc.feature_sets_quiz_title, loc.next_action_title),
+        QuizStep(_StepCode.featureSets.name, loc.project_features_quiz_title, loc.next_action_title),
         if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title, loc.next_action_title),
         if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title, loc.next_action_title),
         if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),

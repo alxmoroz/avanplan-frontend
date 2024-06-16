@@ -129,12 +129,6 @@
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",
 
-  "feature_sets_always_on_label": "Подключены всегда",
-  "feature_sets_available_label": "Доступны на вашем тарифе",
-  "feature_sets_label": "Подключенные модули",
-  "feature_sets_quiz_title": "Выберите модули проекта",
-  "feature_sets_title": "Модули проекта",
-
   "file_storage_title": "Хранилище файлов",
 
   "for_": "за",
@@ -230,6 +224,13 @@
 
   "project_creation_method_selector_title": "Выберите способ создания проекта",
   "project_delete_dialog_title": "Удалить проект?",
+
+  "project_features_always_on_label": "Подключены всегда",
+  "project_features_available_label": "Доступны на вашем тарифе",
+  "project_features_label": "Подключенные модули",
+  "project_features_quiz_title": "Выберите модули проекта",
+  "project_features_title": "Модули проекта",
+
   "project_list_empty_title": "Добавьте проект",
   "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",
   "project_list_title": "Проекты",

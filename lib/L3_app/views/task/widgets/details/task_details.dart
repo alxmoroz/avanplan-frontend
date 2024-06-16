@@ -16,7 +16,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/feature_set.dart';
+import '../../../../presenters/project_feature.dart';
 import '../../../../presenters/source.dart';
 import '../../../../usecases/project_features.dart';
 import '../../../../usecases/task_actions.dart';
@@ -106,7 +106,7 @@ class TaskDetails extends StatelessWidget {
               _controller.fData(TaskFCode.features.index),
               margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
               leading: SettingsIcon(color: _task.canEditFeatureSets ? mainColor : f3Color),
-              value: BaseText(_task.localizedFeatureSets, maxLines: 1),
+              value: BaseText(_task.localizedFeatures, maxLines: 1),
               compact: compact,
               onTap: _task.canEditFeatureSets ? () => projectFeaturesDialog(_controller) : null,
             ),

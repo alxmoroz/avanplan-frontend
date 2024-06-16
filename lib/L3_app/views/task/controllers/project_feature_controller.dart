@@ -11,15 +11,15 @@ import '../../../usecases/project_features.dart';
 import '../../../usecases/task_tree.dart';
 import 'task_controller.dart';
 
-part 'project_features_controller.g.dart';
+part 'project_feature_controller.g.dart';
 
-class ProjectFeaturesController extends _ProjectFeaturesControllerBase with _$ProjectFeaturesController {
-  ProjectFeaturesController(TaskController taskController) {
+class ProjectFeatureController extends _ProjectFeatureControllerBase with _$ProjectFeatureController {
+  ProjectFeatureController(TaskController taskController) {
     _taskController = taskController;
   }
 }
 
-abstract class _ProjectFeaturesControllerBase with Store {
+abstract class _ProjectFeatureControllerBase with Store {
   late final TaskController _taskController;
 
   Task get project => _taskController.task;
@@ -77,13 +77,13 @@ abstract class _ProjectFeaturesControllerBase with Store {
   Future setup() async {
     final fIndex = TaskFCode.features.index;
     _taskController.updateField(fIndex, loading: true);
-    final fsIds = <int>[];
+    final fIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
-        fsIds.add(_availableFeatures.elementAt(index).id!);
+        fIds.add(_availableFeatures.elementAt(index).id!);
       }
     }
-    project.projectFeatureSets = await featureSetUC.setup(project, fsIds);
+    project.projectFeatureSets = await projectFeatureUC.setup(project.wsId, project.id!, fIds);
     _taskController.updateField(fIndex, loading: false);
   }
 }

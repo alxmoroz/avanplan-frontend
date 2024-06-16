@@ -28,7 +28,6 @@ abstract class _WSMainControllerBase with Store {
   Future reload() async => workspaces = ObservableList.of((await wsUC.getAll()).sorted((w1, w2) => w1.compareTo(w2)));
 
   @action
-  // TODO: после переноса логики источников импорта на подобие статусов и задач — этот метод можно будет убрать
   void refreshUI() => workspaces = ObservableList.of(workspaces);
 
   @action

@@ -11,4 +11,6 @@ class TariffUC {
 
   Future<Invoice?> sign(int tariffId, int wsId) async => await repo.sign(tariffId, wsId);
   Future<Iterable<Tariff>> availableTariffs(int wsId) async => await repo.availableTariffs(wsId);
+  Future<Invoice?> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async =>
+      await repo.upsertOption(wsId, tariffId, optionId, subscribe);
 }

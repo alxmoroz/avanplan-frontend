@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/workspace/usecases/tariff.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -80,7 +81,7 @@ class _WSFeaturesDialog extends StatelessWidget {
                             titleText: subscribed ? loc.tariff_feature_unsubscribe_action_title : loc.tariff_feature_subscribe_action_title,
                             padding: const EdgeInsets.symmetric(horizontal: P8),
                             constrained: false,
-                            onTap: () => print(subscribed),
+                            onTap: () => _controller.toggleFeatureSubscription(context, f),
                           ),
                           bottomDivider: false,
                         ),

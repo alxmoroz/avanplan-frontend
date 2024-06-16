@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/task_feature_sets.dart';
+import '../../../usecases/project_features.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../widgets/create/create_subtasks_quiz_view.dart';

@@ -15,31 +15,32 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../usecases/project_features.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../projects/create_project_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
-import '../../controllers/feature_sets_controller.dart';
+import '../../controllers/project_features_controller.dart';
 import '../../controllers/task_controller.dart';
 
-Future featureSetsDialog(TaskController controller) async => await showMTDialog<void>(_FeatureSetsDialog(controller));
+Future projectFeaturesDialog(TaskController controller) async => await showMTDialog<void>(_ProjectFeaturesDialog(controller));
 
-class FeatureSetsQuizRoute extends AbstractTaskQuizRoute {
-  static String get staticBaseName => 'feature_sets';
+class ProjectFeaturesQuizRoute extends AbstractTaskQuizRoute {
+  static String get staticBaseName => 'features';
 
-  FeatureSetsQuizRoute({required super.parent})
+  ProjectFeaturesQuizRoute({required super.parent})
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _FeatureSetsQuizView(state.extra as CreateProjectQuizController),
+          builder: (_, state) => _ProjectFeaturesQuizView(state.extra as CreateProjectQuizController),
         );
 }
 
-class _FSBody extends StatelessWidget {
-  const _FSBody(this._controller, {this.footer});
-  final FeatureSetsController _controller;
+class _ProjectFeaturesBody extends StatelessWidget {
+  const _ProjectFeaturesBody(this._controller, {this.footer});
+  final ProjectFeaturesController _controller;
   final Widget? footer;
 
   static const _iconSize = P8;
@@ -53,9 +54,9 @@ class _FSBody extends StatelessWidget {
         children: [
           MTListGroupTitle(titleText: loc.feature_sets_always_on_label),
           MTCheckBoxTile(
-            leading: MTImage('fs_${TOCode.TASKS.toLowerCase()}', width: P8, height: P7),
-            title: loc.tariff_option_tasklist_title,
-            description: loc.tariff_option_tasklist_subtitle,
+            leading: _image(TOCode.TASKS),
+            title: loc.tariff_option_tasks_title,
+            description: loc.tariff_option_tasks_subtitle,
             value: true,
             bottomDivider: false,
           ),
@@ -65,7 +66,7 @@ class _FSBody extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _controller.checks.length,
             itemBuilder: (_, index) {
-              final fs = refsController.featureSets.elementAt(index);
+              final fs = _controller.project.availableFeatures.elementAt(index);
               final onChanged = _controller.onChanged(index);
               return MTCheckBoxTile(
                 leading: _image(fs.code),
@@ -85,11 +86,11 @@ class _FSBody extends StatelessWidget {
   }
 }
 
-class _FeatureSetsQuizView extends StatelessWidget {
-  const _FeatureSetsQuizView(this._qController);
+class _ProjectFeaturesQuizView extends StatelessWidget {
+  const _ProjectFeaturesQuizView(this._qController);
   final CreateProjectQuizController _qController;
 
-  FeatureSetsController get _fsController => _qController.taskController.featureSetsController;
+  ProjectFeaturesController get _pfController => _qController.taskController.projectFeaturesController;
 
   @override
   Widget build(BuildContext context) {
@@ -101,11 +102,11 @@ class _FeatureSetsQuizView extends StatelessWidget {
           top: false,
           bottom: false,
           child: MTAdaptive(
-            child: _FSBody(
-              _fsController,
+            child: _ProjectFeaturesBody(
+              _pfController,
               footer: QuizNextButton(
                 _qController,
-                loading: _fsController.project.loading,
+                loading: _pfController.project.loading,
                 margin: const EdgeInsets.symmetric(vertical: P3),
               ),
             ),
@@ -116,22 +117,22 @@ class _FeatureSetsQuizView extends StatelessWidget {
   }
 }
 
-class _FeatureSetsDialog extends StatelessWidget {
-  const _FeatureSetsDialog(this._controller);
+class _ProjectFeaturesDialog extends StatelessWidget {
+  const _ProjectFeaturesDialog(this._controller);
   final TaskController _controller;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.feature_sets_title),
-      body: _FSBody(
-        _controller.featureSetsController,
+      body: _ProjectFeaturesBody(
+        _controller.projectFeaturesController,
         footer: MTButton.main(
           titleText: loc.save_action_title,
           margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: () async {
             Navigator.of(context).pop();
-            await _controller.featureSetsController.setup();
+            await _controller.projectFeaturesController.setup();
             tasksMainController.refreshUI();
           },
         ),

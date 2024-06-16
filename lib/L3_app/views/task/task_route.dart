@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/usecases/task_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +10,7 @@ import '../../components/constants.dart';
 import '../../extra/route.dart';
 import '../../extra/router.dart';
 import '../../presenters/task_type.dart';
+import '../../usecases/task_tree.dart';
 import '../projects/create_project_quiz_controller.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
 import 'controllers/create_goal_quiz_controller.dart';
@@ -19,7 +19,7 @@ import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
 import 'widgets/empty_state/task_404_dialog.dart';
-import 'widgets/feature_sets/feature_sets.dart';
+import 'widgets/features/features.dart';
 import 'widgets/team/team_quiz_view.dart';
 
 abstract class BaseTaskRoute extends MTRoute {
@@ -118,7 +118,7 @@ class ProjectRoute extends BaseTaskRoute {
 
   @override
   List<RouteBase> get routes => [
-        FeatureSetsQuizRoute(parent: this),
+        ProjectFeaturesQuizRoute(parent: this),
         TeamQuizRoute(parent: this),
         CreateSubtasksQuizRoute(parent: this),
         GoalRoute(parent: this),

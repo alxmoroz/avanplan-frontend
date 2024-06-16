@@ -22,8 +22,8 @@ import '../usecases/status.dart';
 import '../usecases/transfer.dart';
 import '../widgets/details/details_dialog.dart';
 import 'attachments_controller.dart';
-import 'feature_sets_controller.dart';
 import 'notes_controller.dart';
+import 'project_features_controller.dart';
 import 'project_statuses_controller.dart';
 import 'subtasks_controller.dart';
 
@@ -47,7 +47,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
     subtasksController = SubtasksController(this);
-    featureSetsController = FeatureSetsController(this);
+    projectFeaturesController = ProjectFeaturesController(this);
     projectStatusesController = ProjectStatusesController(this);
 
     setupFields();
@@ -103,7 +103,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     attachmentsController.reload();
     notesController.reload();
     subtasksController.reload();
-    featureSetsController.reload();
+    projectFeaturesController.reload();
     projectStatusesController.reload();
   }
 
@@ -156,7 +156,7 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late final AttachmentsController attachmentsController;
   late final NotesController notesController;
   late final SubtasksController subtasksController;
-  late final FeatureSetsController featureSetsController;
+  late final ProjectFeaturesController projectFeaturesController;
   late final ProjectStatusesController projectStatusesController;
 
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;

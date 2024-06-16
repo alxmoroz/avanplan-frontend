@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/invoice.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';

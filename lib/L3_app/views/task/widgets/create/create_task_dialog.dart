@@ -8,7 +8,7 @@ import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/dialog.dart';
 import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/task_feature_sets.dart';
+import '../../../../usecases/project_features.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/task/controllers/task_controller.dart';

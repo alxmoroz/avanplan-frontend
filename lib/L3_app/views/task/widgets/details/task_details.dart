@@ -18,13 +18,13 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/source.dart';
+import '../../../../usecases/project_features.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachment_list_dialog.dart';
-import '../feature_sets/feature_sets.dart';
+import '../features/features.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
@@ -108,7 +108,7 @@ class TaskDetails extends StatelessWidget {
               leading: SettingsIcon(color: _task.canEditFeatureSets ? mainColor : f3Color),
               value: BaseText(_task.localizedFeatureSets, maxLines: 1),
               compact: compact,
-              onTap: _task.canEditFeatureSets ? () => featureSetsDialog(_controller) : null,
+              onTap: _task.canEditFeatureSets ? () => projectFeaturesDialog(_controller) : null,
             ),
 
           /// Связь с источником импорта

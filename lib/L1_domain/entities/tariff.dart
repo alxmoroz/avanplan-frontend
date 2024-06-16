@@ -10,6 +10,7 @@ class TOCode {
   static const FILE_STORAGE = 'FILE_STORAGE';
   static const TEAM = 'TEAM';
   static const ANALYTICS = 'ANALYTICS';
+  static const ESTIMATES = 'ESTIMATES';
   static const GOALS = 'GOALS';
   static const TASKBOARD = 'TASKBOARD';
 }
@@ -55,6 +56,7 @@ class Tariff extends Codable {
 
   bool get hasFeatures => optionsMap.values.any((o) => o.userManageable);
   List<TariffOption> get features => optionsMap.values.where((o) => o.userManageable).toList();
+  List<TariffOption> get projectFeatures => optionsMap.values.where((o) => o.projectRelated).toList();
   List<TariffOption> get billedOptions => optionsMap.values.where((o) => o.price > 0 && !o.userManageable).toList();
 
   num get basePrice => price(TOCode.BASE_PRICE);

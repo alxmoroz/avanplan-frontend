@@ -7,21 +7,26 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/feature_set_get.dart';
+import 'package:openapi/src/api_util.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:openapi/src/model/invoice_get.dart';
 
-class FeatureSetsApi {
+class TariffOptionsApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const FeatureSetsApi(this._dio, this._serializers);
+  const TariffOptionsApi(this._dio, this._serializers);
 
-  /// Feature Sets
+  /// Upsert
   /// 
   ///
   /// Parameters:
+  /// * [wsId] 
+  /// * [tariffId] 
+  /// * [optionId] 
+  /// * [enabled] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -29,9 +34,13 @@ class FeatureSetsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<FeatureSetGet>] as data
+  /// Returns a [Future] containing a [Response] with a [InvoiceGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<FeatureSetGet>>> featureSetsV1RefsFeatureSetsGet({ 
+  Future<Response<InvoiceGet>> upsertOption({ 
+    required int wsId,
+    required int tariffId,
+    required int optionId,
+    required bool enabled,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -39,9 +48,9 @@ class FeatureSetsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/refs/feature_sets';
+    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString()).replaceAll('{' r'option_id' '}', encodeQueryParameter(_serializers, optionId, const FullType(int)).toString());
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -52,6 +61,9 @@ class FeatureSetsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
+          },{
+            'type': 'oauth2',
+            'name': 'OAuth2PasswordBearer',
           },
         ],
         ...?extra,
@@ -59,22 +71,27 @@ class FeatureSetsApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'enabled': encodeQueryParameter(_serializers, enabled, const FullType(bool)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<FeatureSetGet>? _responseData;
+    InvoiceGet? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(FeatureSetGet)]),
-      ) as BuiltList<FeatureSetGet>;
+        specifiedType: const FullType(InvoiceGet),
+      ) as InvoiceGet;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -86,7 +103,7 @@ class FeatureSetsApi {
       );
     }
 
-    return Response<BuiltList<FeatureSetGet>>(
+    return Response<InvoiceGet>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

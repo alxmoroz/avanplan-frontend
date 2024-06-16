@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
+import '../../../L1_domain/entities_extensions/invoice.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';

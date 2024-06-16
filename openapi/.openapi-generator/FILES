@@ -24,11 +24,8 @@ doc/CalendarGet.md
 doc/CalendarSourceGet.md
 doc/CalendarsEvents.md
 doc/ContractGet.md
-doc/ContractsApi.md
 doc/EstimateUnitGet.md
 doc/EstimateValueGet.md
-doc/FeatureSetGet.md
-doc/FeatureSetsApi.md
 doc/HTTPValidationError.md
 doc/Invitation.md
 doc/InvitationGet.md
@@ -66,6 +63,7 @@ doc/SourceUpsert.md
 doc/SourcesApi.md
 doc/TariffGet.md
 doc/TariffOptionGet.md
+doc/TariffOptionsApi.md
 doc/TariffsApi.md
 doc/TaskGet.md
 doc/TaskInvitationsApi.md
@@ -89,8 +87,6 @@ doc/WorkspacesApi.md
 lib/openapi.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
-lib/src/api/contracts_api.dart
-lib/src/api/feature_sets_api.dart
 lib/src/api/my_account_api.dart
 lib/src/api/my_activities_api.dart
 lib/src/api/my_api.dart
@@ -104,6 +100,7 @@ lib/src/api/project_statuses_api.dart
 lib/src/api/release_notes_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/sources_api.dart
+lib/src/api/tariff_options_api.dart
 lib/src/api/tariffs_api.dart
 lib/src/api/task_invitations_api.dart
 lib/src/api/task_notes_api.dart
@@ -142,7 +139,6 @@ lib/src/model/contract_get.dart
 lib/src/model/date.dart
 lib/src/model/estimate_unit_get.dart
 lib/src/model/estimate_value_get.dart
-lib/src/model/feature_set_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/invitation.dart
 lib/src/model/invitation_get.dart
@@ -204,11 +200,8 @@ test/calendar_get_test.dart
 test/calendar_source_get_test.dart
 test/calendars_events_test.dart
 test/contract_get_test.dart
-test/contracts_api_test.dart
 test/estimate_unit_get_test.dart
 test/estimate_value_get_test.dart
-test/feature_set_get_test.dart
-test/feature_sets_api_test.dart
 test/http_validation_error_test.dart
 test/invitation_get_test.dart
 test/invitation_test.dart
@@ -246,6 +239,7 @@ test/source_upsert_test.dart
 test/sources_api_test.dart
 test/tariff_get_test.dart
 test/tariff_option_get_test.dart
+test/tariff_options_api_test.dart
 test/tariffs_api_test.dart
 test/task_get_test.dart
 test/task_invitations_api_test.dart

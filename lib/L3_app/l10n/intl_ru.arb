@@ -370,8 +370,8 @@
   "tariff_option_taskboard_title": "Доска задач",
   "tariff_option_taskboard_subtitle": "Привычный вид как в Trello",
 
-  "tariff_option_tasklist_title": "Список задач",
-  "tariff_option_tasklist_subtitle": "Управление задачами",
+  "tariff_option_tasks_title": "Список задач",
+  "tariff_option_tasks_subtitle": "Управление задачами",
 
   "tariff_option_team_title": "Команда",
   "tariff_option_team_subtitle": "Совместная работа над задачами",

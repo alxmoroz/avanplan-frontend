@@ -2,17 +2,25 @@
 
 import 'package:openapi/openapi.dart' as o_api;
 
+import '../../L1_domain/entities/invoice.dart';
 import '../../L1_domain/entities/tariff.dart';
-import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/repositories/abs_tariff_repo.dart';
+import '../mappers/invoice.dart';
 import '../mappers/tariff.dart';
 import '../services/api.dart';
 
-class TariffRepo extends AbstractApiRepo<Tariff, Tariff> {
+class TariffRepo extends AbstractTariffRepo {
   o_api.TariffsApi get api => openAPI.getTariffsApi();
 
   @override
-  Future<Iterable<Tariff>> getAllWithWS(int wsId) async {
-    final response = await api.getAvailableTariffs(wsId: wsId);
+  Future<Iterable<Tariff>> availableTariffs(int wsId) async {
+    final response = await api.availableTariffs(wsId: wsId);
     return response.data?.map((t) => t.tariff) ?? [];
+  }
+
+  @override
+  Future<Invoice?> sign(int tariffId, int wsId) async {
+    final response = await api.sign(tariffId: tariffId, wsId: wsId);
+    return response.data?.invoice;
   }
 }

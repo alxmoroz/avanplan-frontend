@@ -37,7 +37,6 @@ import 'package:openapi/src/model/calendars_events.dart';
 import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
-import 'package:openapi/src/model/feature_set_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
 import 'package:openapi/src/model/invitation_get.dart';
@@ -102,7 +101,6 @@ part 'serializers.g.dart';
   ContractGet,
   EstimateUnitGet,
   EstimateValueGet,
-  FeatureSetGet,
   HTTPValidationError,
   Invitation,
   InvitationGet,
@@ -143,8 +141,20 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskRemote)]),
+        () => ListBuilder<TaskRemote>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
         () => ListBuilder<ProjectFeatureSetGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectGet)]),
+        () => ListBuilder<ProjectGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(int)]),
+        () => ListBuilder<int>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Notification)]),
@@ -159,22 +169,6 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TariffGet>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(InvitationGet)]),
-        () => ListBuilder<InvitationGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TaskRemote)]),
-        () => ListBuilder<TaskRemote>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(ProjectGet)]),
-        () => ListBuilder<ProjectGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(int)]),
-        () => ListBuilder<int>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ReleaseNoteGet)]),
         () => ListBuilder<ReleaseNoteGet>(),
       )
@@ -187,8 +181,8 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<MemberGet>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(FeatureSetGet)]),
-        () => ListBuilder<FeatureSetGet>(),
+        const FullType(BuiltList, [FullType(InvitationGet)]),
+        () => ListBuilder<InvitationGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

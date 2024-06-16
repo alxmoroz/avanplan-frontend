@@ -8,7 +8,7 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/constants.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
-import '../usecases/task_feature_sets.dart';
+import '../usecases/project_features.dart';
 import '../usecases/task_tree.dart';
 import 'workspace.dart';
 

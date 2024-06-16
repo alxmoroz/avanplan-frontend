@@ -13,6 +13,13 @@ void main() {
       // TODO
     });
 
+    // Available Tariffs
+    //
+    //Future<BuiltList<TariffGet>> availableTariffs(int wsId) async
+    test('test availableTariffs', () async {
+      // TODO
+    });
+
     // Check Connection
     //
     //Future<bool> checkConnection(int wsId, int sourceId) async
@@ -73,13 +80,6 @@ void main() {
     //
     //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
     test('test duplicateTask', () async {
-      // TODO
-    });
-
-    // Available Tariffs
-    //
-    //Future<BuiltList<TariffGet>> getAvailableTariffs(int wsId) async
-    test('test getAvailableTariffs', () async {
       // TODO
     });
 
@@ -157,17 +157,10 @@ void main() {
       // TODO
     });
 
-    // Sign Contract
+    // Sign
     //
-    //Future<InvoiceGet> signContract(int wsId, int tariffId) async
-    test('test signContract', () async {
-      // TODO
-    });
-
-    // Sign Option
-    //
-    //Future<InvoiceGet> signOption(int wsId, int optionId, bool enabled) async
-    test('test signOption', () async {
+    //Future<InvoiceGet> sign(int tariffId, int wsId) async
+    test('test sign', () async {
       // TODO
     });
 
@@ -224,6 +217,13 @@ void main() {
     //
     //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert) async
     test('test upsertNote', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool enabled) async
+    test('test upsertOption', () async {
       // TODO
     });
 

@@ -2,17 +2,17 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/feature_set.dart';
+import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../quiz/abstract_quiz_controller.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
-import '../task/controllers/feature_sets_controller.dart';
+import '../task/controllers/project_features_controller.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/usecases/edit.dart';
 import '../task/widgets/create/create_subtasks_quiz_view.dart';
-import '../task/widgets/feature_sets/feature_sets.dart';
+import '../task/widgets/features/features.dart';
 import '../task/widgets/team/team_quiz_view.dart';
 
 part 'create_project_quiz_controller.g.dart';
@@ -37,7 +37,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext() async {
     if (step.code == _StepCode.featureSets.name) {
       _fsc.reload();
-      await router.pushTaskQuizStep(FeatureSetsQuizRoute.staticBaseName, this);
+      await router.pushTaskQuizStep(ProjectFeaturesQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.team.name) {
       await router.pushTaskQuizStep(TeamQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.goals.name) {
@@ -60,11 +60,11 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   Task get _project => taskController.task;
 
-  FeatureSetsController get _fsc => taskController.featureSetsController;
+  ProjectFeaturesController get _fsc => taskController.projectFeaturesController;
 
-  bool get _wantTeam => _fsc.hasChecked(FSCode.TEAM);
-  bool get _wantGoals => _fsc.hasChecked(FSCode.GOALS);
-  bool get _wantBoard => _fsc.hasChecked(FSCode.TASKBOARD);
+  bool get _wantTeam => _fsc.hasChecked(TOCode.TEAM);
+  bool get _wantGoals => _fsc.hasChecked(TOCode.GOALS);
+  bool get _wantBoard => _fsc.hasChecked(TOCode.TASKBOARD);
 
   @override
   Iterable<QuizStep> get steps => [

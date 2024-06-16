@@ -370,8 +370,8 @@
   "tariff_option_taskboard_title": "Task Board",
   "tariff_option_taskboard_subtitle": "Familiar look like in Trello",
 
-  "tariff_option_tasklist_title": "Task List",
-  "tariff_option_tasklist_subtitle": "Task management",
+  "tariff_option_tasks_title": "Task List",
+  "tariff_option_tasks_subtitle": "Task management",
 
   "tariff_option_team_title": "Team",
   "tariff_option_team_subtitle": "Collaborate on tasks",

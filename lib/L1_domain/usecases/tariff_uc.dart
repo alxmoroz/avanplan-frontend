@@ -1,12 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../entities/invoice.dart';
 import '../entities/tariff.dart';
-import '../repositories/abs_api_repo.dart';
+import '../repositories/abs_tariff_repo.dart';
 
 class TariffUC {
   TariffUC(this.repo);
 
-  final AbstractApiRepo<Tariff, Tariff> repo;
+  final AbstractTariffRepo repo;
 
-  Future<Iterable<Tariff>> getAll(int wsId) async => await repo.getAllWithWS(wsId);
+  Future<Invoice?> sign(int tariffId, int wsId) async => await repo.sign(tariffId, wsId);
+  Future<Iterable<Tariff>> availableTariffs(int wsId) async => await repo.availableTariffs(wsId);
 }

@@ -3,8 +3,8 @@
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../usecases/project_features.dart';
 import '../usecases/task_actions.dart';
-import '../usecases/task_feature_sets.dart';
 
 extension TaskViewPresenter on Task {
   bool get hasAnalytics => hfAnalytics && isProjectOrGoal;

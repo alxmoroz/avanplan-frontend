@@ -10,6 +10,7 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assignRole**](WorkspacesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[**availableTariffs**](WorkspacesApi.md#availabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [**checkConnection**](WorkspacesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
 [**createFromTemplate**](WorkspacesApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
 [**createInvitation**](WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
@@ -19,7 +20,6 @@ Method | HTTP request | Description
 [**deleteTask**](WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
 [**destinationsForMove**](WorkspacesApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
 [**duplicateTask**](WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
-[**getAvailableTariffs**](WorkspacesApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [**getInvitations**](WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**getMyWorkspaces**](WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | My Workspaces
 [**getProjects**](WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
@@ -30,8 +30,7 @@ Method | HTTP request | Description
 [**projectTemplates**](WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [**requestType**](WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
 [**setupFeatureSets**](WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
-[**signContract**](WorkspacesApi.md#signcontract) | **POST** /v1/workspaces/{ws_id}/contracts | Sign Contract
-[**signOption**](WorkspacesApi.md#signoption) | **POST** /v1/workspaces/{ws_id}/contracts/options/{option_id} | Sign Option
+[**sign**](WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [**sourcesForMoveTasks**](WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [**startImport**](WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [**statusTasksCount**](WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
@@ -40,6 +39,7 @@ Method | HTTP request | Description
 [**updateWorkspace**](WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Upsert
 [**uploadAttachment**](WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [**upsertNote**](WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[**upsertOption**](WorkspacesApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
 [**upsertSource**](WorkspacesApi.md#upsertsource) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
 [**upsertStatus**](WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [**upsertTask**](WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
@@ -94,6 +94,51 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **availableTariffs**
+> BuiltList<TariffGet> availableTariffs(wsId)
+
+Available Tariffs
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+
+final api = Openapi().getWorkspacesApi();
+final int wsId = 56; // int | 
+
+try {
+    final response = api.availableTariffs(wsId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->availableTariffs: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+
+### Return type
+
+[**BuiltList&lt;TariffGet&gt;**](TariffGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -541,51 +586,6 @@ Name | Type | Description  | Notes
 ### Authorization
 
 [APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAvailableTariffs**
-> BuiltList<TariffGet> getAvailableTariffs(wsId)
-
-Available Tariffs
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-
-final api = Openapi().getWorkspacesApi();
-final int wsId = 56; // int | 
-
-try {
-    final response = api.getAvailableTariffs(wsId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->getAvailableTariffs: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
-
-### Return type
-
-[**BuiltList&lt;TariffGet&gt;**](TariffGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1088,10 +1088,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **signContract**
-> InvoiceGet signContract(wsId, tariffId)
+# **sign**
+> InvoiceGet sign(tariffId, wsId)
 
-Sign Contract
+Sign
 
 ### Example
 ```dart
@@ -1104,64 +1104,14 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getWorkspacesApi();
-final int wsId = 56; // int | 
 final int tariffId = 56; // int | 
-
-try {
-    final response = api.signContract(wsId, tariffId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->signContract: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
- **tariffId** | **int**|  | 
-
-### Return type
-
-[**InvoiceGet**](InvoiceGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **signOption**
-> InvoiceGet signOption(wsId, optionId, enabled)
-
-Sign Option
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
-final int optionId = 56; // int | 
-final bool enabled = true; // bool | 
 
 try {
-    final response = api.signOption(wsId, optionId, enabled);
+    final response = api.sign(tariffId, wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->signOption: $e\n');
+    print('Exception when calling WorkspacesApi->sign: $e\n');
 }
 ```
 
@@ -1169,9 +1119,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tariffId** | **int**|  | 
  **wsId** | **int**|  | 
- **optionId** | **int**|  | 
- **enabled** | **bool**|  | 
 
 ### Return type
 
@@ -1586,6 +1535,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **upsertOption**
+> InvoiceGet upsertOption(wsId, tariffId, optionId, enabled)
+
+Upsert
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWorkspacesApi();
+final int wsId = 56; // int | 
+final int tariffId = 56; // int | 
+final int optionId = 56; // int | 
+final bool enabled = true; // bool | 
+
+try {
+    final response = api.upsertOption(wsId, tariffId, optionId, enabled);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->upsertOption: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **tariffId** | **int**|  | 
+ **optionId** | **int**|  | 
+ **enabled** | **bool**|  | 
+
+### Return type
+
+[**InvoiceGet**](InvoiceGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

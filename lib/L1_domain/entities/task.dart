@@ -3,9 +3,9 @@
 import '../entities_extensions/task_stats.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
-import 'feature_set.dart';
 import 'member.dart';
 import 'note.dart';
+import 'project_feature.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 
@@ -110,7 +110,7 @@ class Task extends Project {
 
   List<Attachment> attachments;
   Iterable<TaskMember> members;
-  Iterable<ProjectFeatureSet> projectFeatureSets;
+  Iterable<ProjectFeature> projectFeatureSets;
   TaskSource? taskSource;
 
   DateTime? dueDate;

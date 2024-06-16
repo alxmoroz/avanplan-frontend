@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/invoice.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../views/_base/loadable.dart';
@@ -37,7 +38,8 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
   Future reload() async {
     setLoaderScreenLoading();
     await load(() async {
-      tariffs = (await tariffUC.getAll(wsd.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
+      tariffs =
+          (await tariffUC.availableTariffs(wsd.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
       pageIndex = suggestedTariffIndex;
     });
   }
@@ -66,7 +68,7 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
       if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: _invoice.currentExpensesPerDay)) {
         setLoaderScreenSaving();
         await load(() async {
-          final signedInvoice = await contractUC.sign(tariff.id!, wsd.id!);
+          final signedInvoice = await tariffUC.sign(tariff.id!, wsd.id!);
           if (signedInvoice != null) {
             await _wsController.reload();
           }

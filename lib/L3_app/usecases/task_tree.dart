@@ -8,7 +8,7 @@ import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_state.dart';
-import 'task_feature_sets.dart';
+import 'project_features.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
   final gt = groupBy<Task, TaskState>(tasks, (t) => t.overallState);

@@ -70,9 +70,6 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
-[*ContractsApi*](doc/ContractsApi.md) | [**signContract**](doc/ContractsApi.md#signcontract) | **POST** /v1/workspaces/{ws_id}/contracts | Sign Contract
-[*ContractsApi*](doc/ContractsApi.md) | [**signOption**](doc/ContractsApi.md#signoption) | **POST** /v1/workspaces/{ws_id}/contracts/options/{option_id} | Sign Option
-[*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1RefsFeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1refsfeaturesetsget) | **GET** /v1/refs/feature_sets | Feature Sets
 [*MyApi*](doc/MyApi.md) | [**myProjects**](doc/MyApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*MyApi*](doc/MyApi.md) | [**myTasks**](doc/MyApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
@@ -99,7 +96,10 @@ Class | Method | HTTP request | Description
 [*SourcesApi*](doc/SourcesApi.md) | [**requestType**](doc/SourcesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
 [*SourcesApi*](doc/SourcesApi.md) | [**startImport**](doc/SourcesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [*SourcesApi*](doc/SourcesApi.md) | [**upsertSource**](doc/SourcesApi.md#upsertsource) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
-[*TariffsApi*](doc/TariffsApi.md) | [**getAvailableTariffs**](doc/TariffsApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
+[*TariffOptionsApi*](doc/TariffOptionsApi.md) | [**upsertOption**](doc/TariffOptionsApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
+[*TariffsApi*](doc/TariffsApi.md) | [**availableTariffs**](doc/TariffsApi.md#availabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
+[*TariffsApi*](doc/TariffsApi.md) | [**sign**](doc/TariffsApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
+[*TariffsApi*](doc/TariffsApi.md) | [**upsertOption**](doc/TariffsApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
 [*TaskInvitationsApi*](doc/TaskInvitationsApi.md) | [**createInvitation**](doc/TaskInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*TaskInvitationsApi*](doc/TaskInvitationsApi.md) | [**getInvitations**](doc/TaskInvitationsApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TaskNotesApi*](doc/TaskNotesApi.md) | [**deleteNote**](doc/TaskNotesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
@@ -127,6 +127,7 @@ Class | Method | HTTP request | Description
 [*TransferApi*](doc/TransferApi.md) | [**projectTemplates**](doc/TransferApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [*TransferApi*](doc/TransferApi.md) | [**sourcesForMoveTasks**](doc/TransferApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**assignRole**](doc/WorkspacesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**availableTariffs**](doc/WorkspacesApi.md#availabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**checkConnection**](doc/WorkspacesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createFromTemplate**](doc/WorkspacesApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createInvitation**](doc/WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
@@ -136,7 +137,6 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteTask**](doc/WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**destinationsForMove**](doc/WorkspacesApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**duplicateTask**](doc/WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**getAvailableTariffs**](doc/WorkspacesApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getInvitations**](doc/WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspaces**](doc/WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | My Workspaces
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getProjects**](doc/WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
@@ -147,8 +147,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**projectTemplates**](doc/WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**requestType**](doc/WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**signContract**](doc/WorkspacesApi.md#signcontract) | **POST** /v1/workspaces/{ws_id}/contracts | Sign Contract
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**signOption**](doc/WorkspacesApi.md#signoption) | **POST** /v1/workspaces/{ws_id}/contracts/options/{option_id} | Sign Option
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**sign**](doc/WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForMoveTasks**](doc/WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**startImport**](doc/WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
@@ -157,6 +156,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**uploadAttachment**](doc/WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertNote**](doc/WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertOption**](doc/WorkspacesApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertSource**](doc/WorkspacesApi.md#upsertsource) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertStatus**](doc/WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertTask**](doc/WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
@@ -187,7 +187,6 @@ Class | Method | HTTP request | Description
  - [ContractGet](doc/ContractGet.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)
- - [FeatureSetGet](doc/FeatureSetGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [Invitation](doc/Invitation.md)
  - [InvitationGet](doc/InvitationGet.md)

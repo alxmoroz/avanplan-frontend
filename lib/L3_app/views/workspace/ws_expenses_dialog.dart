@@ -7,12 +7,12 @@ import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import 'tariff_expenses.dart';
+import '../tariff/tariff_expenses.dart';
 
-Future showTariffExpenses(Invoice invoice) async => await showMTDialog<void>(_TariffExpensesDialog(invoice));
+Future showWSExpenses(Invoice invoice) async => await showMTDialog<void>(_WSExpensesDialog(invoice));
 
-class _TariffExpensesDialog extends StatelessWidget {
-  const _TariffExpensesDialog(this._invoice);
+class _WSExpensesDialog extends StatelessWidget {
+  const _WSExpensesDialog(this._invoice);
   final Invoice _invoice;
 
   @override

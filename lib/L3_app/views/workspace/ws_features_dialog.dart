@@ -21,13 +21,13 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff_option.dart';
-import '../../views/_base/loader_screen.dart';
-import '../workspace/ws_controller.dart';
+import '../_base/loader_screen.dart';
+import 'ws_controller.dart';
 
-Future tariffFeatures(WSController controller) async => await showMTDialog<void>(_TariffFeaturesDialog(controller));
+Future wsFeatures(WSController controller) async => await showMTDialog<void>(_WSFeaturesDialog(controller));
 
-class _TariffFeaturesDialog extends StatelessWidget {
-  const _TariffFeaturesDialog(this._controller);
+class _WSFeaturesDialog extends StatelessWidget {
+  const _WSFeaturesDialog(this._controller);
   final WSController _controller;
   Workspace get _ws => _controller.ws;
   Invoice get _invoice => _ws.invoice;

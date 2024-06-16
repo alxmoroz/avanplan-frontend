@@ -22,17 +22,17 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
-import '../../views/_base/loader_screen.dart';
-import '../workspace/ws_controller.dart';
-import 'tariff_expenses_dialog.dart';
-import 'tariff_features_dialog.dart';
-import 'tariff_options.dart';
-import 'tariff_selector.dart';
+import '../_base/loader_screen.dart';
+import '../tariff/tariff_options.dart';
+import '../tariff/tariff_selector.dart';
+import 'ws_controller.dart';
+import 'ws_expenses_dialog.dart';
+import 'ws_features_dialog.dart';
 
-Future showTariff(WSController controller) async => await showMTDialog<void>(_TariffDialog(controller));
+Future showWSTariff(WSController controller) async => await showMTDialog<void>(_WSTariffDialog(controller));
 
-class _TariffDialog extends StatelessWidget {
-  const _TariffDialog(this._controller);
+class _WSTariffDialog extends StatelessWidget {
+  const _WSTariffDialog(this._controller);
   final WSController _controller;
   Workspace get _ws => _controller.ws;
   Invoice get _invoice => _ws.invoice;
@@ -44,7 +44,7 @@ class _TariffDialog extends StatelessWidget {
 
   Iterable<TariffOption> get _subscribedFeatures => _tariff.features.where((o) => _invoice.subscribed(o.code));
 
-  Widget get _tariffFeatures => MTListTile(
+  Widget get _features => MTListTile(
         leading: const FeaturesIcon(),
         titleText: loc.tariff_features_title,
         subtitle: SmallText(
@@ -52,7 +52,7 @@ class _TariffDialog extends StatelessWidget {
         ),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () => tariffFeatures(_controller),
+        onTap: () => wsFeatures(_controller),
       );
 
   Widget get _tariffExpenses => MTListTile(
@@ -76,7 +76,7 @@ class _TariffDialog extends StatelessWidget {
         trailing: const ChevronIcon(),
         bottomDivider: _tariff.hasFeatures,
         dividerIndent: P11,
-        onTap: () => showTariffExpenses(_invoice),
+        onTap: () => showWSExpenses(_invoice),
       );
 
   @override
@@ -117,7 +117,7 @@ class _TariffDialog extends StatelessWidget {
                     ),
                   ),
                   _tariffExpenses,
-                  if (_tariff.hasFeatures) _tariffFeatures,
+                  if (_tariff.hasFeatures) _features,
                 ],
               ),
             ),

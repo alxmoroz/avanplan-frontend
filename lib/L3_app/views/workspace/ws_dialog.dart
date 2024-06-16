@@ -30,9 +30,9 @@ import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../_base/loader_screen.dart';
 import '../iap/iap_dialog.dart';
-import '../tariff/tariff_dialog.dart';
 import 'ws_controller.dart';
 import 'ws_edit_dialog.dart';
+import 'ws_tariff_dialog.dart';
 
 class WSDialog extends StatefulWidget {
   const WSDialog(this._controller, {super.key});
@@ -108,7 +108,7 @@ class _WSDialogState extends State<WSDialog> {
         ),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () async => await showTariff(controller),
+        onTap: () => showWSTariff(controller),
       );
 
   Widget get _wsMembers {

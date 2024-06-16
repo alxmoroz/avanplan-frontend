@@ -12,7 +12,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
-import '../workspace/usecases/edit.dart';
+import '../workspace/usecases/tariff.dart';
 import 'tariff_base_price.dart';
 import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';

@@ -8,9 +8,11 @@ import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
+import '../../components/text_field.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../views/_base/loader_screen.dart';
+import 'usecases/edit.dart';
 import 'ws_controller.dart';
 
 Future editWS(WSController controller) async {
@@ -24,6 +26,16 @@ class _WSEditDialog extends StatelessWidget {
 
   bool get canSave => _controller.validated;
 
+  Widget _tf(WSFCode code) {
+    final fd = _controller.fData(code.index);
+
+    return MTTextField(
+      controller: _controller.teController(code.index),
+      label: fd.label,
+      margin: tfPadding.copyWith(top: code == WSFCode.code ? P : tfPadding.top),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -34,7 +46,7 @@ class _WSEditDialog extends StatelessWidget {
               body: ListView(
                 shrinkWrap: true,
                 children: [
-                  for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) _controller.tf(code),
+                  for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) _tf(code),
                   const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.save_action_title,

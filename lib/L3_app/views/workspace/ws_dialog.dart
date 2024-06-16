@@ -30,6 +30,7 @@ import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../_base/loader_screen.dart';
 import '../iap/iap_dialog.dart';
+import 'usecases/edit.dart';
 import 'ws_controller.dart';
 import 'ws_edit_dialog.dart';
 import 'ws_tariff_dialog.dart';

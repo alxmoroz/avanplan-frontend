@@ -12,6 +12,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
+import '../workspace/usecases/edit.dart';
 import 'tariff_base_price.dart';
 import 'tariff_options.dart';
 import 'tariff_selector_controller.dart';
@@ -26,7 +27,7 @@ class TariffSelectorCard extends StatelessWidget {
   Widget _signButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_sign_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P3),
-        onTap: () => _controller.changeTariff(context, tariff),
+        onTap: () => _controller.wsController.changeTariff(context, tariff),
       );
 
   @override

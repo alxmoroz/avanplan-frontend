@@ -22,7 +22,7 @@ void main() {
 
     // Upsert
     //
-    //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool enabled) async
+    //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async
     test('test upsertOption', () async {
       // TODO
     });

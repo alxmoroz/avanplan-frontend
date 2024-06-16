@@ -13,7 +13,7 @@ class ProjectFeatureRepo extends AbstractProjectFeatureRepo {
 
   @override
   Future<Iterable<ProjectFeature>> setup(int wsId, int projectId, Iterable<int> fIds) async {
-    final response = await _api.setupFeatureSets(
+    final response = await _api.setupProjectFeatureSets(
       wsId: wsId,
       taskId: projectId,
       requestBody: BuiltList.from(fIds),

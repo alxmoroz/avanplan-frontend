@@ -29,7 +29,7 @@ Method | HTTP request | Description
 [**myTasks**](WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [**projectTemplates**](WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [**requestType**](WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
-[**setupFeatureSets**](WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[**setupProjectFeatureSets**](WorkspacesApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
 [**sign**](WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [**sourcesForMoveTasks**](WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [**startImport**](WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
@@ -1037,10 +1037,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **setupFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody)
+# **setupProjectFeatureSets**
+> BuiltList<ProjectFeatureSetGet> setupProjectFeatureSets(taskId, wsId, requestBody)
 
-Setup Feature Sets
+Setup Project Feature Sets
 
 ### Example
 ```dart
@@ -1058,10 +1058,10 @@ final int wsId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.setupFeatureSets(taskId, wsId, requestBody);
+    final response = api.setupProjectFeatureSets(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->setupFeatureSets: $e\n');
+    print('Exception when calling WorkspacesApi->setupProjectFeatureSets: $e\n');
 }
 ```
 
@@ -1540,7 +1540,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertOption**
-> InvoiceGet upsertOption(wsId, tariffId, optionId, enabled)
+> InvoiceGet upsertOption(wsId, tariffId, optionId, subscribe)
 
 Upsert
 
@@ -1558,10 +1558,10 @@ final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
 final int tariffId = 56; // int | 
 final int optionId = 56; // int | 
-final bool enabled = true; // bool | 
+final bool subscribe = true; // bool | 
 
 try {
-    final response = api.upsertOption(wsId, tariffId, optionId, enabled);
+    final response = api.upsertOption(wsId, tariffId, optionId, subscribe);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->upsertOption: $e\n');
@@ -1575,7 +1575,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **tariffId** | **int**|  | 
  **optionId** | **int**|  | 
- **enabled** | **bool**|  | 
+ **subscribe** | **bool**|  | 
 
 ### Return type
 

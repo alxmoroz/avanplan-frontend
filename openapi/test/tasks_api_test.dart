@@ -62,10 +62,10 @@ void main() {
       // TODO
     });
 
-    // Setup Feature Sets
+    // Setup Project Feature Sets
     //
-    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody) async
-    test('test setupFeatureSets', () async {
+    //Future<BuiltList<ProjectFeatureSetGet>> setupProjectFeatureSets(int taskId, int wsId, BuiltList<int> requestBody) async
+    test('test setupProjectFeatureSets', () async {
       // TODO
     });
 

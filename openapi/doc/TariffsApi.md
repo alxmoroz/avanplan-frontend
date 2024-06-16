@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertOption**
-> InvoiceGet upsertOption(wsId, tariffId, optionId, enabled)
+> InvoiceGet upsertOption(wsId, tariffId, optionId, subscribe)
 
 Upsert
 
@@ -127,10 +127,10 @@ final api = Openapi().getTariffsApi();
 final int wsId = 56; // int | 
 final int tariffId = 56; // int | 
 final int optionId = 56; // int | 
-final bool enabled = true; // bool | 
+final bool subscribe = true; // bool | 
 
 try {
-    final response = api.upsertOption(wsId, tariffId, optionId, enabled);
+    final response = api.upsertOption(wsId, tariffId, optionId, subscribe);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TariffsApi->upsertOption: $e\n');
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **tariffId** | **int**|  | 
  **optionId** | **int**|  | 
- **enabled** | **bool**|  | 
+ **subscribe** | **bool**|  | 
 
 ### Return type
 

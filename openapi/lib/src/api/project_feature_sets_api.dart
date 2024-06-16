@@ -20,7 +20,7 @@ class ProjectFeatureSetsApi {
 
   const ProjectFeatureSetsApi(this._dio, this._serializers);
 
-  /// Setup Feature Sets
+  /// Setup Project Feature Sets
   /// 
   ///
   /// Parameters:
@@ -36,7 +36,7 @@ class ProjectFeatureSetsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<ProjectFeatureSetGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ProjectFeatureSetGet>>> setupFeatureSets({ 
+  Future<Response<BuiltList<ProjectFeatureSetGet>>> setupProjectFeatureSets({ 
     required int taskId,
     required int wsId,
     required BuiltList<int> requestBody,

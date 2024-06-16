@@ -23,4 +23,10 @@ class TariffRepo extends AbstractTariffRepo {
     final response = await api.sign(tariffId: tariffId, wsId: wsId);
     return response.data?.invoice;
   }
+
+  @override
+  Future<Invoice?> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async {
+    final response = await api.upsertOption(wsId: wsId, tariffId: tariffId, optionId: optionId, subscribe: subscribe);
+    return response.data?.invoice;
+  }
 }

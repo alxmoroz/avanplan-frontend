@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **upsertOption**
-> InvoiceGet upsertOption(wsId, tariffId, optionId, enabled)
+> InvoiceGet upsertOption(wsId, tariffId, optionId, subscribe)
 
 Upsert
 
@@ -31,10 +31,10 @@ final api = Openapi().getTariffOptionsApi();
 final int wsId = 56; // int | 
 final int tariffId = 56; // int | 
 final int optionId = 56; // int | 
-final bool enabled = true; // bool | 
+final bool subscribe = true; // bool | 
 
 try {
-    final response = api.upsertOption(wsId, tariffId, optionId, enabled);
+    final response = api.upsertOption(wsId, tariffId, optionId, subscribe);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TariffOptionsApi->upsertOption: $e\n');
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **tariffId** | **int**|  | 
  **optionId** | **int**|  | 
- **enabled** | **bool**|  | 
+ **subscribe** | **bool**|  | 
 
 ### Return type
 

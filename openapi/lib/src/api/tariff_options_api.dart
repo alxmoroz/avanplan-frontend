@@ -26,7 +26,7 @@ class TariffOptionsApi {
   /// * [wsId] 
   /// * [tariffId] 
   /// * [optionId] 
-  /// * [enabled] 
+  /// * [subscribe] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -40,7 +40,7 @@ class TariffOptionsApi {
     required int wsId,
     required int tariffId,
     required int optionId,
-    required bool enabled,
+    required bool subscribe,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -72,7 +72,7 @@ class TariffOptionsApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'enabled': encodeQueryParameter(_serializers, enabled, const FullType(bool)),
+      r'subscribe': encodeQueryParameter(_serializers, subscribe, const FullType(bool)),
     };
 
     final _response = await _dio.request<Object>(

@@ -84,7 +84,7 @@ Class | Method | HTTP request | Description
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
 [*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
-[*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSets**](doc/ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupProjectFeatureSets**](doc/ProjectFeatureSetsApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**deleteStatus**](doc/ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**statusTasksCount**](doc/ProjectStatusesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**upsertStatus**](doc/ProjectStatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
@@ -114,7 +114,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**duplicateTask**](doc/TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**moveTask**](doc/TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
-[*TasksApi*](doc/TasksApi.md) | [**setupFeatureSets**](doc/TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*TasksApi*](doc/TasksApi.md) | [**setupProjectFeatureSets**](doc/TasksApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
 [*TasksApi*](doc/TasksApi.md) | [**statusTasksCount**](doc/TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*TasksApi*](doc/TasksApi.md) | [**taskNode**](doc/TasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Node
 [*TasksApi*](doc/TasksApi.md) | [**unlinkTask**](doc/TasksApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
@@ -146,7 +146,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myTasks**](doc/WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**projectTemplates**](doc/WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**requestType**](doc/WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupProjectFeatureSets**](doc/WorkspacesApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sign**](doc/WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForMoveTasks**](doc/WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**startImport**](doc/WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import

@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**setupFeatureSets**](ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[**setupProjectFeatureSets**](ProjectFeatureSetsApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
 
 
-# **setupFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody)
+# **setupProjectFeatureSets**
+> BuiltList<ProjectFeatureSetGet> setupProjectFeatureSets(taskId, wsId, requestBody)
 
-Setup Feature Sets
+Setup Project Feature Sets
 
 ### Example
 ```dart
@@ -33,10 +33,10 @@ final int wsId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.setupFeatureSets(taskId, wsId, requestBody);
+    final response = api.setupProjectFeatureSets(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectFeatureSetsApi->setupFeatureSets: $e\n');
+    print('Exception when calling ProjectFeatureSetsApi->setupProjectFeatureSets: $e\n');
 }
 ```
 

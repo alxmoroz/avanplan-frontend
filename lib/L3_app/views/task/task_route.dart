@@ -19,7 +19,7 @@ import 'task_view.dart';
 import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
 import 'widgets/empty_state/task_404_dialog.dart';
-import 'widgets/features/features.dart';
+import 'widgets/project_features/project_features.dart';
 import 'widgets/team/team_quiz_view.dart';
 
 abstract class BaseTaskRoute extends MTRoute {

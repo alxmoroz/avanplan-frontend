@@ -12,7 +12,7 @@ import '../task/controllers/project_feature_controller.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/usecases/edit.dart';
 import '../task/widgets/create/create_subtasks_quiz_view.dart';
-import '../task/widgets/features/features.dart';
+import '../task/widgets/project_features/project_features.dart';
 import '../task/widgets/team/team_quiz_view.dart';
 
 part 'create_project_quiz_controller.g.dart';

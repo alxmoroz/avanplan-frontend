@@ -357,11 +357,8 @@
   "tariff_list_title": "Tariffs",
 
   "tariff_option_analytics_title": "Analytics",
-  "tariff_option_analytics_subtitle": "Dates prediction and Statistics",
-  "tariff_option_analytics_description": "Dates prediction\nStatistics\nProject statuses",
-
-  "tariff_option_estimates_title": "Estimates",
-  "tariff_option_estimates_subtitle": "Estimating Task Difficulty",
+  "tariff_option_analytics_subtitle": "Dates prediction, Estimates and Statistics",
+  "tariff_option_analytics_description": "Dates prediction\nStatistics\nProject statuses\nEstimating Task Difficulty",
 
   "tariff_option_file_storage_suffix": "files",
 

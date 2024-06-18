@@ -18,5 +18,4 @@ extension ProjectFeaturesUC on Task {
   bool get hfTeam => hf(TOCode.TEAM);
   bool get hfGoals => hf(TOCode.GOALS);
   bool get hfTaskboard => hf(TOCode.TASKBOARD);
-  bool get hfEstimates => hfAnalytics;
 }

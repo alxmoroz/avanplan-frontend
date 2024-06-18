@@ -110,7 +110,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  bool get _showEstimate => task.hfEstimates && task.hasEstimate;
+  bool get _showEstimate => task.hfAnalytics && task.hasEstimate;
   Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(

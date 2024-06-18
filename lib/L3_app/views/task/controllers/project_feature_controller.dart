@@ -56,19 +56,6 @@ abstract class _ProjectFeatureControllerBase with Store {
         // не можем включить для трелло и не можем выключить, если есть уже цели или задачи в корне проекта
         final isTrello = project.ws.sourceForId(project.taskSource?.sourceId)?.type.isTrello == true;
         disabled = isTrello || project.hasSubtasks;
-      } else if (f.code == TOCode.ESTIMATES) {
-        // TODO: можно проверить наличие оценок в задачах проекта
-        bool hasEstimate(Task task) {
-          if (task.estimate != null) {
-            return true;
-          }
-          for (var t in task.subtasks) {
-            return hasEstimate(t);
-          }
-          return false;
-        }
-
-        disabled = hasEstimate(project);
       }
     }
     return disabled ? null : (bool? value) => selectFeature(index, value);

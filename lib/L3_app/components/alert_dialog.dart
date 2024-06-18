@@ -10,9 +10,9 @@ import 'text.dart';
 
 // TODO: переделать для использования нашего диалога
 
-enum MTActionType {
-  isDanger,
-  isWarning,
+enum MTDialogActionType {
+  danger,
+  warning,
   isDefault,
 }
 
@@ -22,14 +22,14 @@ class MTADialogAction<T> {
     this.title,
     this.child,
     this.icon,
-    this.type,
+    this.type = MTDialogActionType.isDefault,
     this.onTap,
   });
 
   final String? title;
   final T result;
   VoidCallback? onTap;
-  final MTActionType? type;
+  final MTDialogActionType? type;
   final Widget? icon;
   final Widget? child;
 }
@@ -48,9 +48,9 @@ Future<T?> showMTAlertDialog<T>(
 }
 
 const _actionColors = {
-  MTActionType.isDanger: dangerColor,
-  MTActionType.isWarning: warningColor,
-  MTActionType.isDefault: mainColor,
+  MTDialogActionType.danger: dangerColor,
+  MTDialogActionType.warning: warningColor,
+  MTDialogActionType.isDefault: mainColor,
 };
 
 class _MTAlertDialog extends StatelessWidget {
@@ -66,7 +66,7 @@ class _MTAlertDialog extends StatelessWidget {
   final String description;
   final bool simple;
 
-  Widget _actionText(MTADialogAction a) => a.type == MTActionType.isDefault
+  Widget _actionText(MTADialogAction a) => a.type == MTDialogActionType.isDefault
       ? BaseText.medium(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center)
       : BaseText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center);
 
@@ -108,7 +108,7 @@ class _MTAlertDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (description.isNotEmpty) BaseText(description, maxLines: 12),
+          if (description.isNotEmpty) BaseText(description, maxLines: 20),
           if (!simple)
             for (final a in actions) _button(context, a),
         ],

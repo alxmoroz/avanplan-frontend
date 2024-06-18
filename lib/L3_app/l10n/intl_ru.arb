@@ -377,6 +377,8 @@
   "tariff_option_team_title": "Команда",
   "tariff_option_team_subtitle": "Совместная работа над задачами",
   "tariff_option_team_description": "Неограниченное количество участников\nПриглашения в проекты\nНазначение задач",
+  "tariff_option_team_unsubscribe_dialog_title": "Отключение Команды",
+  "tariff_option_team_unsubscribe_dialog_description": "Внимание! Будут удалены все участники рабочего пространства, кроме владельца.\n\nИнформация об участниках проектов, авторах задач, комментариев и назначенных сохранится и будет сопоставлена при повторном приглашении тех же пользователей.\n\nПродолжить отключение?",
 
   "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
   "tariff_price_request_action_title": "Отправить запрос",

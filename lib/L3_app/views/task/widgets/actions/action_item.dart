@@ -49,7 +49,7 @@ class TaskActionItem extends StatelessWidget {
           context,
           leading: LinkBreakIcon(size: iconSize, circled: !inPopup),
           title: loc.task_unlink_action_title,
-          color: warningColor,
+          color: dangerColor,
         );
       case TaskAction.delete:
         return _tile(context, leading: DeleteIcon(size: iconSize, circled: !inPopup), title: loc.delete_action_title, color: dangerColor);

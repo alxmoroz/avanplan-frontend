@@ -30,8 +30,8 @@ extension StatusUC on TaskController {
         loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
         actions: [
-          MTADialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
-          MTADialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
+          MTADialogAction(title: loc.close_w_subtasks, type: MTDialogActionType.danger, result: true),
+          MTADialogAction(title: loc.cancel, type: MTDialogActionType.isDefault, result: false),
         ],
       );
 

@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/workspace/usecases/tariff.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,6 +22,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/tariff_option.dart';
 import '../_base/loader_screen.dart';
+import 'usecases/tariff.dart';
 import 'ws_controller.dart';
 
 Future wsFeatures(WSController controller) async => await showMTDialog<void>(_WSFeaturesDialog(controller));

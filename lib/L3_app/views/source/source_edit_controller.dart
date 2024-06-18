@@ -100,8 +100,8 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
             loc.source_delete_dialog_title,
             description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
             actions: [
-              MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
-              MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
+              MTADialogAction(title: loc.yes, type: MTDialogActionType.danger, result: true),
+              MTADialogAction(title: loc.no, type: MTDialogActionType.isDefault, result: false),
             ],
             simple: true,
           ) ==

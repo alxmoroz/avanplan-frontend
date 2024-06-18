@@ -108,7 +108,7 @@ class _ImportDialog extends StatelessWidget {
             BaseText.medium(
               _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
               align: TextAlign.center,
-              color: _hasError ? warningColor : f2Color,
+              color: _hasError ? dangerColor : f2Color,
             ),
           ],
         )

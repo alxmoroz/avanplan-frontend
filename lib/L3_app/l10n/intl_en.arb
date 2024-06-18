@@ -129,8 +129,6 @@
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
 
-
-
   "file_storage_title": "File Storage",
 
   "for_": "for",
@@ -379,6 +377,8 @@
   "tariff_option_team_title": "Team",
   "tariff_option_team_subtitle": "Collaborate on tasks",
   "tariff_option_team_description": "Unlimited number of members\nInvitations to projects\nAssigning tasks",
+  "tariff_option_team_unsubscribe_dialog_title": "Unsubscribe from Teams",
+  "tariff_option_team_unsubscribe_dialog_description": "Attention! All members of the workspace except the owner will be deleted.\n\nInformation about project members, task authors, comments, and assignees will be saved and matched when the same users are invited again.\n\nContinue canceling your subscription?",
 
   "tariff_price_request_action_hint": "to suit your\nbusiness needs",
   "tariff_price_request_action_title": "Request an offer",

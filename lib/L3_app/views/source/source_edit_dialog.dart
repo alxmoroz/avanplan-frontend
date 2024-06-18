@@ -47,7 +47,7 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
         loc.source_type_unavailable_title('$sType'),
         description: loc.source_type_unavailable_hint,
         simple: true,
-        actions: [MTADialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
+        actions: [MTADialogAction(title: loc.ok, type: MTDialogActionType.isDefault, result: true)],
       );
     }
   }

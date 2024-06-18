@@ -32,12 +32,12 @@ extension LinkUC on TaskController {
       actions: [
         MTADialogAction(
           title: loc.task_unlink_action_title,
-          type: MTActionType.isWarning,
+          type: MTDialogActionType.warning,
           result: true,
           icon: const LinkBreakIcon(),
         ),
         MTADialogAction(
-          type: MTActionType.isDefault,
+          type: MTDialogActionType.isDefault,
           onTap: task.go2source,
           result: false,
           child: task.go2SourceTitle,

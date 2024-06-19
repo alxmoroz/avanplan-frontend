@@ -24,7 +24,7 @@ import '../../../../presenters/task_estimate.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
-import '../../../../usecases/project_features.dart';
+import '../../../../usecases/project_modules.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
@@ -80,7 +80,7 @@ class TaskCard extends StatelessWidget {
   bool get _showStatus => task.canShowStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
-  bool get _showAssignee => task.hfTeam && task.hasAssignee && !isMine;
+  bool get _showAssignee => task.hmTeam && task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 2 : 2.7));
 
   bool get _showChecklistMark => !task.closed && task.isCheckList;
@@ -110,7 +110,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  bool get _showEstimate => task.hfAnalytics && task.hasEstimate;
+  bool get _showEstimate => task.hmAnalytics && task.hasEstimate;
   Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(

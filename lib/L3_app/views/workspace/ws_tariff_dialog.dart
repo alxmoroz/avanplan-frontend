@@ -40,7 +40,6 @@ class _WSTariffDialog extends StatelessWidget {
 
   num get _expensesPerDay => _invoice.currentExpensesPerDay;
   bool get _hasExpenses => _expensesPerDay != 0;
-  num get _balanceDays => (_ws.balance / _expensesPerDay);
 
   Iterable<TariffOption> get _subscribedFeatures => _tariff.features.where((o) => _invoice.subscribed(o.code));
 
@@ -51,31 +50,25 @@ class _WSTariffDialog extends StatelessWidget {
           _subscribedFeatures.isNotEmpty ? _subscribedFeatures.map((mo) => mo.title).join(', ') : loc.tariff_features_no_subscriptions,
         ),
         trailing: const ChevronIcon(),
-        bottomDivider: false,
+        bottomDivider: true,
+        dividerIndent: P11,
         onTap: () => wsFeatures(_controller),
       );
 
   Widget get _tariffExpenses => MTListTile(
         leading: const BankCardIcon(),
-        middle: Row(
-          children: [
-            BaseText(loc.tariff_current_expenses_title, maxLines: 1),
-            const Spacer(),
-            MTPrice(_expensesPerDay, size: AdaptiveSize.xs),
-            const SizedBox(width: P_2),
-            DSmallText(loc.per_day_suffix),
-            const SizedBox(width: P_2),
-          ],
-        ),
-        subtitle: SmallText(
-          _hasExpenses
-              ? '${loc.workspace_money_remaining_time_prefix} ${loc.days_count(_balanceDays.round())}'
-              : loc.tariff_current_expenses_zero_title,
-          maxLines: 1,
-        ),
+        titleText: loc.tariff_current_expenses_title,
+        subtitle: _hasExpenses
+            ? Row(
+                children: [
+                  MTPrice(_expensesPerDay, size: AdaptiveSize.xs),
+                  const SizedBox(width: P_2),
+                  DSmallText(loc.per_day_suffix),
+                ],
+              )
+            : SmallText(loc.tariff_current_expenses_zero_title, maxLines: 1),
         trailing: const ChevronIcon(),
-        bottomDivider: _tariff.hasFeatures,
-        dividerIndent: P11,
+        bottomDivider: false,
         onTap: () => showWSExpenses(_invoice),
       );
 
@@ -116,8 +109,8 @@ class _WSTariffDialog extends StatelessWidget {
                       ],
                     ),
                   ),
-                  _tariffExpenses,
                   if (_tariff.hasFeatures) _features,
+                  _tariffExpenses,
                 ],
               ),
             ),

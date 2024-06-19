@@ -225,15 +225,16 @@
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_delete_dialog_title": "Delete project?",
 
-  "project_features_always_on_label": "Always On",
-  "project_features_available_label": "Available on your tariff plan",
-  "project_features_label": "Active Modules",
-  "project_features_quiz_title": "Select project modules",
-  "project_features_title": "Project Modules",
-
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
   "project_list_title": "Projects",
+
+  "project_modules_always_on_label": "Always On",
+  "project_modules_available_label": "Available on your tariff plan",
+  "project_modules_label": "Active Modules",
+  "project_modules_quiz_title": "Select project modules",
+  "project_modules_title": "Project Modules",
+
   "project_new_title": "New Project",
   "project_plural": "{count, plural, one{project} other{projects}}",
   "project_plural_accusative": "{count, plural, one{project} other{projects}}",
@@ -353,6 +354,7 @@
   "tariff_feature_unsubscribe_action_title": "Unsubscribe",
   "tariff_features_no_subscriptions": "No subscriptions",
   "tariff_features_title": "Features",
+  "tariff_features_promo_subscribe_title": "Subscribe to features",
 
   "tariff_list_title": "Tariffs",
 

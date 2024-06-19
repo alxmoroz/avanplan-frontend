@@ -11,7 +11,7 @@ import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/adaptive.dart';
 import '../extra/services.dart';
-import 'project_features.dart';
+import 'project_modules.dart';
 import 'task_tree.dart';
 import 'ws_actions.dart';
 
@@ -55,31 +55,31 @@ extension TaskActionsUC on Task {
 
   bool canShowDetails(BuildContext context) => !isBigScreen(context) && isProjectOrGoal;
 
-  bool get canShowMembers => isProject && hfTeam && _hpMemberRead;
-  bool get canEditMembers => isProject && hfTeam && _hpMemberUpdate;
+  bool get canShowMembers => isProject && hmTeam && _hpMemberRead;
+  bool get canEditMembers => isProject && hmTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
 
-  bool get canShowStatus => hfTaskboard && hasStatus;
-  bool get canSetStatus => isTask && hfTaskboard && project.projectStatuses.isNotEmpty && canEdit;
+  bool get canShowStatus => hmTaskboard && hasStatus;
+  bool get canSetStatus => isTask && hmTaskboard && project.projectStatuses.isNotEmpty && canEdit;
 
-  bool get canAssign => canEdit && hfTeam && activeMembers.isNotEmpty;
-  bool get canShowAssignee => hfTeam && (hasAssignee || canAssign);
+  bool get canAssign => canEdit && hmTeam && activeMembers.isNotEmpty;
+  bool get canShowAssignee => hmTeam && (hasAssignee || canAssign);
 
   bool get canEstimate => isTask && !closed && canEdit && ws.estimateValues.isNotEmpty;
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
   bool get canLocalExport => canEdit && !isProject && !isInbox;
-  bool get canLocalImport => canEdit && (isGoal || isBacklog || (isProject && !hfGoals));
+  bool get canLocalImport => canEdit && (isGoal || isBacklog || (isProject && !hmGoals));
 
   bool get canComment => isTask && !closed && canEdit;
 
   bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
 
-  bool get canEditProjectStatuses => hfTaskboard && _hpProjectInfoUpdate;
+  bool get canEditProjectStatuses => hmTaskboard && _hpProjectInfoUpdate;
 
-  bool get canShowBoard => (isGoal || (isProject && !hfGoals)) && hfTaskboard;
+  bool get canShowBoard => (isGoal || (isProject && !hmGoals)) && hmTaskboard;
 
   Iterable<TaskAction> actions(BuildContext context) => [
         if (canShowDetails(context)) TaskAction.details,

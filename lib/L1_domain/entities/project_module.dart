@@ -2,8 +2,8 @@
 
 import 'base_entity.dart';
 
-class ProjectFeature extends RPersistable {
-  ProjectFeature({
+class ProjectModule extends RPersistable {
+  ProjectModule({
     required super.id,
     required this.optionId,
   });

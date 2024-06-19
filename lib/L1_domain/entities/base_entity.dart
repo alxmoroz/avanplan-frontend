@@ -14,9 +14,10 @@ abstract class RPersistable {
   RPersistable({this.id});
 
   int? id;
+  bool filled = false;
+
   // TODO: убрать этот механизм (см. как в задачах сделано)
   bool removed = false;
-  bool filled = false;
 
   MTError? error;
   bool loading = false;

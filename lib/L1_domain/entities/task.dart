@@ -5,7 +5,7 @@ import 'attachment.dart';
 import 'base_entity.dart';
 import 'member.dart';
 import 'note.dart';
-import 'project_feature.dart';
+import 'project_module.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 
@@ -66,7 +66,7 @@ class Task extends Project {
     required this.attachments,
     required this.members,
     required this.projectStatuses,
-    required this.projectFeatureSets,
+    required this.projectModule,
     required super.wsId,
     required this.type,
     this.taskSource,
@@ -110,7 +110,7 @@ class Task extends Project {
 
   List<Attachment> attachments;
   Iterable<TaskMember> members;
-  Iterable<ProjectFeature> projectFeatureSets;
+  Iterable<ProjectModule> projectModule;
   TaskSource? taskSource;
 
   DateTime? dueDate;

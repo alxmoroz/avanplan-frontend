@@ -1,47 +1,57 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/tariff.dart';
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
+import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/project_features.dart';
+import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
 import '../../../projects/create_project_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
-import '../../controllers/project_feature_controller.dart';
+import '../../../workspace/ws_controller.dart';
+import '../../../workspace/ws_features_dialog.dart';
+import '../../controllers/project_modules_controller.dart';
 import '../../controllers/task_controller.dart';
 
-Future projectFeaturesDialog(TaskController controller) async => await showMTDialog<void>(_ProjectFeaturesDialog(controller));
+Future projectModulesDialog(TaskController controller) async => await showMTDialog<void>(_ProjectModulesDialog(controller));
 
-class ProjectFeaturesQuizRoute extends AbstractTaskQuizRoute {
-  static String get staticBaseName => 'features';
+class ProjectModulesQuizRoute extends AbstractTaskQuizRoute {
+  static String get staticBaseName => 'modules';
 
-  ProjectFeaturesQuizRoute({required super.parent})
+  ProjectModulesQuizRoute({required super.parent})
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, state) => _ProjectFeaturesQuizView(state.extra as CreateProjectQuizController),
+          builder: (_, state) => _ProjectModulesQuizView(state.extra as CreateProjectQuizController),
         );
 }
 
-class _ProjectFeaturesBody extends StatelessWidget {
-  const _ProjectFeaturesBody(this._controller, {this.footer});
-  final ProjectFeatureController _controller;
+class _ProjectModulesBody extends StatelessWidget {
+  const _ProjectModulesBody(this._controller, {this.footer});
+  final ProjectModulesController _controller;
   final Widget? footer;
+
+  Task get _project => _controller.project;
 
   static const _iconSize = P8;
   Widget _image(String code) => MTImage('fs_${code.toLowerCase()}', width: _iconSize, height: _iconSize);
@@ -52,7 +62,7 @@ class _ProjectFeaturesBody extends StatelessWidget {
       builder: (_) => ListView(
         shrinkWrap: true,
         children: [
-          MTListGroupTitle(titleText: loc.project_features_always_on_label),
+          MTListGroupTitle(titleText: loc.project_modules_always_on_label),
           MTCheckBoxTile(
             leading: _image(TOCode.TASKS),
             title: loc.tariff_option_tasks_title,
@@ -60,13 +70,13 @@ class _ProjectFeaturesBody extends StatelessWidget {
             value: true,
             bottomDivider: false,
           ),
-          MTListGroupTitle(titleText: loc.project_features_available_label),
+          MTListGroupTitle(titleText: loc.project_modules_available_label),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _controller.checks.length,
             itemBuilder: (_, index) {
-              final fs = _controller.project.availableFeatures.elementAt(index);
+              final fs = _controller.project.enabledProjectOptions.elementAt(index);
               final onChanged = _controller.onChanged(index);
               return MTCheckBoxTile(
                 leading: _image(fs.code),
@@ -79,6 +89,15 @@ class _ProjectFeaturesBody extends StatelessWidget {
               );
             },
           ),
+          if (!_project.allProjectOptionsUsed)
+            MTListTile(
+              leading: const FeaturesIcon(size: _iconSize),
+              middle: BaseText.medium(loc.tariff_features_promo_subscribe_title, color: mainColor),
+              trailing: const ChevronIcon(),
+              margin: const EdgeInsets.only(top: P3),
+              bottomDivider: false,
+              onTap: () => wsFeatures(WSController(wsIn: _project.ws)),
+            ),
           if (footer != null) footer!,
         ],
       ),
@@ -86,11 +105,11 @@ class _ProjectFeaturesBody extends StatelessWidget {
   }
 }
 
-class _ProjectFeaturesQuizView extends StatelessWidget {
-  const _ProjectFeaturesQuizView(this._qController);
+class _ProjectModulesQuizView extends StatelessWidget {
+  const _ProjectModulesQuizView(this._qController);
   final CreateProjectQuizController _qController;
 
-  ProjectFeatureController get _pfController => _qController.taskController.projectFeaturesController;
+  ProjectModulesController get _pfController => _qController.taskController.projectFeaturesController;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +121,7 @@ class _ProjectFeaturesQuizView extends StatelessWidget {
           top: false,
           bottom: false,
           child: MTAdaptive(
-            child: _ProjectFeaturesBody(
+            child: _ProjectModulesBody(
               _pfController,
               footer: QuizNextButton(
                 _qController,
@@ -117,15 +136,15 @@ class _ProjectFeaturesQuizView extends StatelessWidget {
   }
 }
 
-class _ProjectFeaturesDialog extends StatelessWidget {
-  const _ProjectFeaturesDialog(this._controller);
+class _ProjectModulesDialog extends StatelessWidget {
+  const _ProjectModulesDialog(this._controller);
   final TaskController _controller;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.project_features_title),
-      body: _ProjectFeaturesBody(
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.project_modules_title),
+      body: _ProjectModulesBody(
         _controller.projectFeaturesController,
         footer: MTButton.main(
           titleText: loc.save_action_title,

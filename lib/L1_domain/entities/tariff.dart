@@ -48,15 +48,16 @@ class Tariff extends Codable {
   final int tier;
   final bool hidden;
   final Map<String, TariffOption> optionsMap;
+  Iterable<TariffOption> get _options => optionsMap.values;
 
   num price(String code) => optionsMap[code]?.price ?? 0;
   num freeLimit(String code) => optionsMap[code]?.freeLimit ?? 0;
   num billingQuantity(String code) => optionsMap[code]?.billingQuantity ?? 1;
 
-  bool get hasFeatures => optionsMap.values.any((o) => o.userManageable);
-  List<TariffOption> get features => optionsMap.values.where((o) => o.userManageable).toList();
-  List<TariffOption> get projectFeatures => optionsMap.values.where((o) => o.projectRelated).toList();
-  List<TariffOption> get billedOptions => optionsMap.values.where((o) => o.price > 0 && !o.userManageable).toList();
+  bool get hasFeatures => _options.any((o) => o.userManageable);
+  List<TariffOption> get features => _options.where((o) => o.userManageable).toList();
+  Iterable<TariffOption> get projectOptions => _options.where((o) => o.projectRelated);
+  List<TariffOption> get billedOptions => _options.where((o) => o.price > 0 && !o.userManageable).toList();
 
   num get basePrice => price(TOCode.BASE_PRICE);
 

@@ -11,7 +11,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/project_features.dart';
+import '../../../../usecases/project_modules.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
@@ -23,7 +23,7 @@ class NoTasks extends StatelessWidget {
   final bool overview;
 
   Task get _parent => _controller.task;
-  bool get _isProjectWGoals => _parent.isProject && _parent.hfGoals;
+  bool get _isProjectWGoals => _parent.isProject && _parent.hmGoals;
 
   @override
   Widget build(BuildContext context) {

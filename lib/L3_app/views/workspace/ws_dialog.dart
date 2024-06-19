@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -22,7 +23,6 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
-import '../../presenters/date.dart';
 import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
@@ -49,6 +49,9 @@ class _WSDialogState extends State<WSDialog> {
   Workspace get wsd => controller.wsDescriptor;
 
   Invoice get _invoice => ws.invoice;
+  num get _expensesPerDay => _invoice.currentExpensesPerDay;
+  bool get _hasExpenses => _expensesPerDay != 0;
+  num get _balanceDays => (ws.balance / _expensesPerDay);
 
   @override
   void initState() {
@@ -100,13 +103,29 @@ class _WSDialogState extends State<WSDialog> {
         ),
       );
 
+  Widget get _moneyRemainingTime => MTAdaptive.xs(
+        child: SmallText(
+          '${loc.workspace_money_remaining_time_prefix} ${loc.days_count(_balanceDays.round())}',
+          maxLines: 1,
+          padding: const EdgeInsets.only(top: P2),
+          align: TextAlign.center,
+        ),
+      );
+
   Widget get _tariffRow => MTListTile(
         leading: const StarIcon(),
-        titleText: _invoice.tariff.title,
-        subtitle: SmallText(
-          '${loc.contract_effective_date_title.toLowerCase()} ${_invoice.contract.createdOn.strMedium}',
-          maxLines: 1,
+        middle: Row(
+          children: [
+            Expanded(child: BaseText(loc.tariff_title)),
+            if (_hasExpenses) ...[
+              MTPrice(_expensesPerDay, size: AdaptiveSize.xs),
+              const SizedBox(width: P_2),
+              DSmallText(loc.per_day_suffix),
+              const SizedBox(width: P_2),
+            ]
+          ],
         ),
+        subtitle: SmallText(_invoice.tariff.title, maxLines: 1),
         trailing: const ChevronIcon(),
         bottomDivider: false,
         onTap: () => showWSTariff(controller),
@@ -196,6 +215,7 @@ class _WSDialogState extends State<WSDialog> {
                 children: [
                   _header,
                   _balanceCard,
+                  if (_hasExpenses) _moneyRemainingTime,
                   const SizedBox(height: P3),
                   _tariffRow,
                   const SizedBox(height: P3),

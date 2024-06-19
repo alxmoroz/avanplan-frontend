@@ -7,33 +7,33 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
-import '../../../usecases/project_features.dart';
+import '../../../usecases/project_modules.dart';
 import '../../../usecases/task_tree.dart';
 import 'task_controller.dart';
 
-part 'project_feature_controller.g.dart';
+part 'project_modules_controller.g.dart';
 
-class ProjectFeatureController extends _ProjectFeatureControllerBase with _$ProjectFeatureController {
-  ProjectFeatureController(TaskController taskController) {
+class ProjectModulesController extends _ProjectModulesControllerBase with _$ProjectModulesController {
+  ProjectModulesController(TaskController taskController) {
     _taskController = taskController;
   }
 }
 
-abstract class _ProjectFeatureControllerBase with Store {
+abstract class _ProjectModulesControllerBase with Store {
   late final TaskController _taskController;
 
   Task get project => _taskController.task;
-  Iterable<TariffOption> get _availableFeatures => project.availableFeatures;
+  Iterable<TariffOption> get _enabledProjectOptions => project.enabledProjectOptions;
 
   @observable
   ObservableList<bool> checks = ObservableList();
 
   @action
-  void reload() => checks = ObservableList.of([for (var to in _availableFeatures) project.hf(to.code)]);
+  void reload() => checks = ObservableList.of([for (var to in _enabledProjectOptions) project.hm(to.code)]);
 
   bool hasChecked(String code) {
     for (int index = 0; index < checks.length; index++) {
-      if (_availableFeatures.elementAt(index).code == code && checks[index]) {
+      if (_enabledProjectOptions.elementAt(index).code == code && checks[index]) {
         return true;
       }
     }
@@ -47,7 +47,7 @@ abstract class _ProjectFeatureControllerBase with Store {
     bool disabled = _taskController.loading == true;
 
     if (!disabled) {
-      final f = _availableFeatures.elementAt(index);
+      final f = _enabledProjectOptions.elementAt(index);
       final checked = checks[index];
 
       if (f.code == TOCode.TEAM) {
@@ -67,10 +67,10 @@ abstract class _ProjectFeatureControllerBase with Store {
     final fIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
-        fIds.add(_availableFeatures.elementAt(index).id!);
+        fIds.add(_enabledProjectOptions.elementAt(index).id!);
       }
     }
-    project.projectFeatureSets = await projectFeatureUC.setup(project.wsId, project.id!, fIds);
+    project.projectModule = await projectFeatureUC.setup(project.wsId, project.id!, fIds);
     _taskController.updateField(fIndex, loading: false);
   }
 }

@@ -8,7 +8,7 @@ import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/dialog.dart';
 import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/project_features.dart';
+import '../../../../usecases/project_modules.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/task/controllers/task_controller.dart';
@@ -24,7 +24,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
     showMTDialog(LoaderScreen(tc, isDialog: true));
 
     final newProject = parent == null;
-    final newGoal = parent != null && parent.isProject && parent.hfGoals;
+    final newGoal = parent != null && parent.isProject && parent.hmGoals;
     final newCheckItem = parent != null && parent.isTask;
 
     final taskData = Task(
@@ -36,7 +36,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
       notes: [],
       attachments: [],
       projectStatuses: [],
-      projectFeatureSets: [],
+      projectModule: [],
       wsId: ws.id!,
       startDate: DateTime.now(),
       createdOn: DateTime.now(),

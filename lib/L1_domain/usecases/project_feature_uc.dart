@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/project_feature.dart';
+import '../entities/project_module.dart';
 import '../repositories/abs_project_feature_repo.dart';
 
 class ProjectFeatureUC {
@@ -8,5 +8,5 @@ class ProjectFeatureUC {
 
   final AbstractProjectFeatureRepo repo;
 
-  Future<Iterable<ProjectFeature>> setup(int wsId, int projectId, Iterable<int> fIds) async => await repo.setup(wsId, projectId, fIds);
+  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<int> fIds) async => await repo.setup(wsId, projectId, fIds);
 }

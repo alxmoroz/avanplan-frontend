@@ -11,7 +11,7 @@ import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/project_features.dart';
+import '../../../usecases/project_modules.dart';
 import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
@@ -31,8 +31,8 @@ extension TaskUC on Task {
       if (et.projectStatuses.isEmpty) {
         et.projectStatuses = projectStatuses;
       }
-      if (et.projectFeatureSets.isEmpty) {
-        et.projectFeatureSets = projectFeatureSets;
+      if (et.projectModule.isEmpty) {
+        et.projectModule = projectModule;
       }
     }
 
@@ -86,7 +86,7 @@ extension TaskEditUC on TaskController {
         root.filled = true;
         final newTasks = [root, ...taskNode.subtasks];
         // мои задачи из проекта, если обновляем проект с целями
-        if (root.isProject && root.hfGoals) {
+        if (root.isProject && root.hmGoals) {
           newTasks.addAll(await wsUC.getMyTasks(root.wsId, projectId: root.id!));
         }
         tasksMainController.setTasks([...newTasks, ...taskNode.parents]);
@@ -119,7 +119,7 @@ extension TaskEditUC on TaskController {
     final newTC = await createTask(
       task.ws,
       task,
-      statusId: statusId ?? ((task.isProject && task.hfGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
+      statusId: statusId ?? ((task.isProject && task.hmGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
     );
     if (newTC != null && !noGo) router.goTaskView(newTC.taskDescriptor);
     return newTC;

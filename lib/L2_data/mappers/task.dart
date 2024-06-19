@@ -35,7 +35,7 @@ extension TaskMapper on api.TaskGet {
       assigneeId: assigneeId,
       members: members?.map((m) => m.taskMember(id)) ?? [],
       projectStatuses: projectStatuses?.map((ps) => ps.projectStatus(wsId)).sorted((s1, s2) => s1.position.compareTo(s2.position)) ?? [],
-      projectFeatureSets: projectFeatureSets?.map((pfs) => pfs.projectFeature) ?? [],
+      projectModule: projectFeatureSets?.map((pfs) => pfs.projectFeature) ?? [],
       taskSource: taskSource?.taskSource,
       parentId: parentId,
       wsId: wsId,

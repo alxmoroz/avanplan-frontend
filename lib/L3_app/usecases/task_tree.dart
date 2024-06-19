@@ -8,7 +8,7 @@ import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_state.dart';
-import 'project_features.dart';
+import 'project_modules.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
   final gt = groupBy<Task, TaskState>(tasks, (t) => t.overallState);
@@ -35,5 +35,5 @@ extension TaskTreeUC on Task {
   List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
 
-  bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hfTeam;
+  bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hmTeam;
 }

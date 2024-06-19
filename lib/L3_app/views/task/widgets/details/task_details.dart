@@ -18,14 +18,14 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/project_feature.dart';
 import '../../../../presenters/source.dart';
-import '../../../../usecases/project_features.dart';
+import '../../../../usecases/project_modules.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachment_list_dialog.dart';
 import '../notes/notes.dart';
-import '../project_features/project_features.dart';
+import '../project_modules/project_modules.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
 import 'description_field.dart';
@@ -79,7 +79,7 @@ class TaskDetails extends StatelessWidget {
           if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Оценки
-          if (_task.hfAnalytics && (!_task.closed || _task.hasEstimate))
+          if (_task.hmAnalytics && (!_task.closed || _task.hasEstimate))
             TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Вложения
@@ -108,7 +108,7 @@ class TaskDetails extends StatelessWidget {
               leading: SettingsIcon(color: _task.canEditFeatureSets ? mainColor : f3Color),
               value: BaseText(_task.localizedFeatures, maxLines: 1),
               compact: compact,
-              onTap: _task.canEditFeatureSets ? () => projectFeaturesDialog(_controller) : null,
+              onTap: _task.canEditFeatureSets ? () => projectModulesDialog(_controller) : null,
             ),
 
           /// Связь с источником импорта

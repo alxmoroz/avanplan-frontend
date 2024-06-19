@@ -1,8 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../extra/services.dart';
 import '../ws_controller.dart';
@@ -34,20 +31,21 @@ extension WSEditUC on WSController {
     });
   }
 
-  Future save(BuildContext context) async {
+  Future save() async {
     setLoaderScreenSaving();
-    Navigator.of(context).pop();
 
     await load(() async {
-      final editedWS = await wsUC.save(WorkspaceUpsert(
+      final eWS = await wsUC.save(WorkspaceUpsert(
         id: wsDescriptor.id,
         code: fData(WSFCode.code.index).text,
         title: fData(WSFCode.title.index).text,
         description: fData(WSFCode.description.index).text,
       ));
 
-      if (editedWS != null) {
-        wsMainController.setWS(editedWS);
+      if (eWS != null) {
+        eWS.filled = true;
+        wsMainController.setWS(eWS);
+        wsDescriptor = eWS;
       }
     });
   }

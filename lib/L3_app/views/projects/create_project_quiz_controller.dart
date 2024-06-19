@@ -8,11 +8,11 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../quiz/abstract_quiz_controller.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
-import '../task/controllers/project_feature_controller.dart';
+import '../task/controllers/project_modules_controller.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/usecases/edit.dart';
 import '../task/widgets/create/create_subtasks_quiz_view.dart';
-import '../task/widgets/project_features/project_features.dart';
+import '../task/widgets/project_modules/project_modules.dart';
 import '../task/widgets/team/team_quiz_view.dart';
 
 part 'create_project_quiz_controller.g.dart';
@@ -37,7 +37,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext() async {
     if (step.code == _StepCode.featureSets.name) {
       _fsc.reload();
-      await router.pushTaskQuizStep(ProjectFeaturesQuizRoute.staticBaseName, this);
+      await router.pushTaskQuizStep(ProjectModulesQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.team.name) {
       await router.pushTaskQuizStep(TeamQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.goals.name) {
@@ -60,7 +60,7 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   Task get _project => taskController.task;
 
-  ProjectFeatureController get _fsc => taskController.projectFeaturesController;
+  ProjectModulesController get _fsc => taskController.projectFeaturesController;
 
   bool get _wantTeam => _fsc.hasChecked(TOCode.TEAM);
   bool get _wantGoals => _fsc.hasChecked(TOCode.GOALS);
@@ -69,7 +69,7 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.projectSetup.name, '', loc.next_action_title),
-        QuizStep(_StepCode.featureSets.name, loc.project_features_quiz_title, loc.next_action_title),
+        QuizStep(_StepCode.featureSets.name, loc.project_modules_quiz_title, loc.next_action_title),
         if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title, loc.next_action_title),
         if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title, loc.next_action_title),
         if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),

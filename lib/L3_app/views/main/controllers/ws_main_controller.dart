@@ -25,7 +25,13 @@ abstract class _WSMainControllerBase with Store {
   Workspace? ws(int? wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId);
 
   @action
-  Future reload() async => workspaces = ObservableList.of((await wsUC.getAll()).sorted((w1, w2) => w1.compareTo(w2)));
+  Future reload() async {
+    final wss = (await wsUC.getAll()).sorted((w1, w2) => w1.compareTo(w2));
+    for (var ws in wss) {
+      ws.filled = true;
+    }
+    workspaces = ObservableList.of(wss);
+  }
 
   @action
   void refreshUI() => workspaces = ObservableList.of(workspaces);

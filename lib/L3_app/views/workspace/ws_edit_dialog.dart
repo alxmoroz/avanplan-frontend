@@ -36,6 +36,11 @@ class _WSEditDialog extends StatelessWidget {
     );
   }
 
+  Future _save(BuildContext context) async {
+    Navigator.of(context).pop();
+    _controller.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -50,7 +55,7 @@ class _WSEditDialog extends StatelessWidget {
                   const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.save_action_title,
-                    onTap: canSave ? () => _controller.save(context) : null,
+                    onTap: canSave ? () => _save(context) : null,
                   ),
                   if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],

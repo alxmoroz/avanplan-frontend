@@ -225,15 +225,16 @@
   "project_creation_method_selector_title": "Выберите способ создания проекта",
   "project_delete_dialog_title": "Удалить проект?",
 
-  "project_features_always_on_label": "Подключены всегда",
-  "project_features_available_label": "Доступны на вашем тарифе",
-  "project_features_label": "Подключенные модули",
-  "project_features_quiz_title": "Выберите модули проекта",
-  "project_features_title": "Модули проекта",
-
   "project_list_empty_title": "Добавьте проект",
   "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",
   "project_list_title": "Проекты",
+
+  "project_modules_always_on_label": "Подключены всегда",
+  "project_modules_available_label": "Доступны на вашем тарифе",
+  "project_modules_label": "Подключенные модули",
+  "project_modules_quiz_title": "Выберите модули проекта",
+  "project_modules_title": "Модули проекта",
+
   "project_new_title": "Новый проект",
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_plural_accusative": "{count, plural, one{проект} few{проекта} other{проектов}}",
@@ -353,6 +354,7 @@
   "tariff_feature_unsubscribe_action_title": "Отключить",
   "tariff_features_no_subscriptions": "Нет подключенных",
   "tariff_features_title": "Функции",
+  "tariff_features_promo_subscribe_title": "Подключить функции",
 
   "tariff_list_title": "Тарифы",
 

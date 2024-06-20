@@ -27,8 +27,6 @@ class WSController extends _WSControllerBase with _$WSController {
 
     setupFields();
 
-    print(wsDescriptor.filled);
-
     if (wsDescriptor.filled) {
       stopLoading();
     }

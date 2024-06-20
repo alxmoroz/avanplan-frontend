@@ -2,20 +2,32 @@
 
 import 'package:mobx/mobx.dart';
 
+import '../../components/button.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 
 part 'abstract_quiz_controller.g.dart';
 
 class QuizStep {
-  QuizStep(this.code, this.title, this.nextButtonTitle);
+  QuizStep(this.code, this.title, {this.nextButtonTitle, this.nextButtonType = ButtonType.main, this.awaiting = true});
   final String code;
   final String title;
-  final String nextButtonTitle;
+  final String? nextButtonTitle;
+  final ButtonType nextButtonType;
+  final bool awaiting;
 }
 
 abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
-  Future afterNext() async {}
+  void back() {
+    if (step.awaiting) {
+      router.pop();
+    } else {
+      _back();
+    }
+  }
+
   Future beforeNext() async {}
+  Future afterNext() async {}
   void finish() {}
 
   Future next() async {
@@ -23,9 +35,10 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
     if (_lastStep) {
       finish();
     } else {
+      final wasAwaiting = step.awaiting;
       _next();
       await afterNext();
-      _back();
+      if (wasAwaiting) _back();
     }
   }
 }
@@ -47,7 +60,7 @@ abstract class _QuizControllerBase with Store {
   String get stepTitle => step.title;
 
   @computed
-  String get nextBtnTitle => (_lastStep ? loc.lets_go_action_title : step.nextButtonTitle);
+  String get nextBtnTitle => step.nextButtonTitle ?? (_lastStep ? loc.lets_go_action_title : loc.next_action_title);
 
   @action
   void _back() {

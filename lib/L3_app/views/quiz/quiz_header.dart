@@ -10,7 +10,6 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
 import 'abstract_quiz_controller.dart';
 
@@ -45,11 +44,13 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
       builder: (_) => MTAppBar(
         innerHeight: preferredSize.height,
         color: isBigScreen(context) ? b2Color : null,
-        leading: MTButton(
-          titleText: loc.back_action_title,
-          padding: const EdgeInsets.only(left: P2),
-          onTap: router.pop,
-        ),
+        leading: _controller.stepIndex > 0 || _controller.step.awaiting
+            ? MTButton(
+                titleText: loc.back_action_title,
+                padding: const EdgeInsets.only(left: P2),
+                onTap: _controller.back,
+              )
+            : const SizedBox(),
         middle: _controller.stepsCount > 1
             ? Row(
                 mainAxisSize: MainAxisSize.min,

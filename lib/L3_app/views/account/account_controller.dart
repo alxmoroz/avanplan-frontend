@@ -29,15 +29,10 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
     stopLoading();
   }
 
-  // @action
-  // Future _registerActivity(String code, {int? wsId}) async {
-  //   user = await myUC.registerActivity(code, wsId: wsId);
-  // }
-  //
-  // bool _hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
-  //
-  // Future setlLimitsExceedInfoViewed(int wsId) async => await _registerActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
-  // bool tariffExcessInfoViewed(int wsId) => _hasActivity(UACode.TARIFF_EXCESS_INFO_VIEWED, wsId: wsId);
+  @action
+  Future registerActivity(String code, {int? wsId}) async => me = await myUC.registerActivity(code, wsId: wsId);
+
+  bool hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
 
   @action
   void clear() => me = null;

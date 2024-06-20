@@ -17,7 +17,9 @@ class QuizNextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTButton.main(
+      builder: (_) => MTButton(
+        type: _controller.step.nextButtonType,
+        constrained: true,
         titleText: _controller.nextBtnTitle,
         margin: margin ?? const EdgeInsets.symmetric(vertical: P3),
         loading: loading,

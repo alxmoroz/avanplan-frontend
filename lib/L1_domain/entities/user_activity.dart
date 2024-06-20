@@ -2,10 +2,6 @@
 
 import 'base_entity.dart';
 
-class UACode {
-  // static const TARIFF_EXCESS_INFO_VIEWED = 'TARIFF_EXCESS_INFO_VIEWED';
-}
-
 class UActivity extends Codable {
   UActivity({
     required super.id,

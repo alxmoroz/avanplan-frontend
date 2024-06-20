@@ -13,6 +13,7 @@ import '../views/auth/auth_view.dart';
 import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/main/main_view.dart';
+import '../views/main/onboarding/onboarding_view.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/projects/projects_view.dart';
 import '../views/quiz/abstract_task_quiz_controller.dart';
@@ -31,6 +32,7 @@ final router = GoRouter(
       registrationTokenRoute,
       invitationTokenRoute,
       mainRoute,
+      onboardingRoute,
     ],
     navigatorKey: _rootKey,
     onException: (_, state, r) {
@@ -100,7 +102,10 @@ extension MTRouterHelper on GoRouter {
     go('${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}');
   }
 
-  // шаги квиза
+  // главный онбординг
+  Future pushOnboarding() async => await pushNamed(onboardingRoute.name, extra: 'local');
+
+  // шаги квиза создания цели / проекта
   Future pushTaskQuizStep(
     String stepName,
     AbstractTaskQuizController qc, {
@@ -116,7 +121,7 @@ extension MTRouterHelper on GoRouter {
     await pushNamed('$parentName/$stepName', pathParameters: pp, extra: qc);
   }
 
-  // Выход из квиза
+  // Выход из квиза создания цели или проекта
   void popToTaskType(String type) {
     RouteMatchList rConfig = _currentConfig;
     while (rConfig.matches.length > 1 && (rConfig.last.route as MTRoute).baseName != type) {

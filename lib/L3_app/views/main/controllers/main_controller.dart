@@ -83,8 +83,10 @@ abstract class _MainControllerBase with Store, Loadable {
 
     await authController.checkLocalAuth();
     if (authController.authorized) {
+      await router.pushOnboarding();
+
       await load(() async {
-        // await _showOnboarding();
+        // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
         await notificationController.setup();
         await _tryUpdate();
       });

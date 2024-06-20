@@ -68,10 +68,10 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   @override
   Iterable<QuizStep> get steps => [
-        QuizStep(_StepCode.projectSetup.name, '', loc.next_action_title),
-        QuizStep(_StepCode.projectModules.name, loc.project_modules_quiz_title, loc.next_action_title),
-        if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title, loc.next_action_title),
-        if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title, loc.next_action_title),
-        if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),
+        QuizStep(_StepCode.projectSetup.name, ''),
+        QuizStep(_StepCode.projectModules.name, loc.project_modules_quiz_title),
+        if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title),
+        if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title),
+        if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title),
       ];
 }

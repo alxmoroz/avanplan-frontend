@@ -248,6 +248,10 @@
   "project_title": "Проект",
   "projects_group_other_title": "Другие проекты",
 
+  "promo_features_subscribe_title": "Подключить функции",
+  "promo_features_title": "Расширяйте возможности с выгодой",
+  "promo_features_text": "Безлимитное добавление участников\nСтатистика и прогнозирование срока проекта\nБесплатно при первом подключении",
+
   "recommendation_add_goals_hint": "Поставьте первую цель",
   "recommendation_add_goals_title": "Добавим цели в проект",
   "recommendation_add_tasks_hint": "Определите шаги для достижения цели",
@@ -361,7 +365,6 @@
   "tariff_feature_unsubscribe_action_title": "Отключить",
   "tariff_features_no_subscriptions": "Нет подключенных",
   "tariff_features_title": "Функции",
-  "tariff_features_promo_subscribe_title": "Подключить функции",
 
   "tariff_list_title": "Тарифы",
 

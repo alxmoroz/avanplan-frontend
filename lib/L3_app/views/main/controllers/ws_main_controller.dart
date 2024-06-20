@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/ws_actions.dart';
 
 part 'ws_main_controller.g.dart';
 
@@ -21,6 +22,9 @@ abstract class _WSMainControllerBase with Store {
 
   @computed
   bool get canSelectWS => multiWS;
+
+  @computed
+  Workspace get myWS => workspaces.firstWhere((ws) => ws.isMine);
 
   Workspace? ws(int? wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId);
 

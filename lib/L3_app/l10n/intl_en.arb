@@ -248,6 +248,10 @@
   "project_title": "Project",
   "projects_group_other_title": "Other Projects",
 
+  "promo_features_subscribe_title": "Subscribe to features",
+  "promo_features_title": "Expand the capabilities of the service with benefits",
+  "promo_features_text": "Unlimited addition of members\nStatistics and project duration forecasting\nFree for the first time",
+
   "recommendation_add_goals_hint": "Set the first goal of the project",
   "recommendation_add_goals_title": "Let's add goals to the project",
   "recommendation_add_tasks_hint": "Determine the steps to achieve this goal",
@@ -361,7 +365,6 @@
   "tariff_feature_unsubscribe_action_title": "Unsubscribe",
   "tariff_features_no_subscriptions": "No subscriptions",
   "tariff_features_title": "Features",
-  "tariff_features_promo_subscribe_title": "Subscribe to features",
 
   "tariff_list_title": "Tariffs",
 

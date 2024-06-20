@@ -30,8 +30,6 @@ class WSController extends _WSControllerBase with _$WSController {
     if (wsDescriptor.filled) {
       stopLoading();
     }
-
-    setLoaderScreenLoading();
   }
 
   void init(int wsId) {

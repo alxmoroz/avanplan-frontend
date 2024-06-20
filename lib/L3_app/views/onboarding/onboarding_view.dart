@@ -10,6 +10,8 @@ import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/route.dart';
+import '../../extra/services.dart';
+import '../promo/promo_features.dart';
 import '../quiz/quiz_header.dart';
 import '../quiz/quiz_next_button.dart';
 import 'onboarding_controller.dart';
@@ -26,8 +28,6 @@ class _OnboardingView extends StatelessWidget {
   const _OnboardingView(this._controller);
   final OnboardingController _controller;
 
-  Widget get _stepImage => MTImage(['done', 'milestone', 'devices_sync'][_controller.stepIndex] ?? '');
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -38,7 +38,7 @@ class _OnboardingView extends StatelessWidget {
             shrinkWrap: true,
             children: [
               if (_controller.stepIndex < 3) ...[
-                _stepImage,
+                MTImage(['done', 'milestone', 'devices_sync'][_controller.stepIndex]),
                 H2(
                   Intl.message('onboarding_step_${_controller.stepIndex + 1}_title'),
                   align: TextAlign.center,
@@ -50,12 +50,12 @@ class _OnboardingView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: P6),
                 ),
                 const SizedBox(height: P3),
+                QuizNextButton(_controller),
               ],
               if (_controller.stepIndex == 3)
-                H2('РЕКЛАМА', align: TextAlign.center)
+                PromoFeatures(wsMainController.myWS, onNext: _controller.next)
               else if (_controller.stepIndex == 4)
                 H2('ПОСЛЕДНИЙ ШАГ', align: TextAlign.center),
-              if (_controller.stepIndex < 4) QuizNextButton(_controller),
             ],
           ),
         ),

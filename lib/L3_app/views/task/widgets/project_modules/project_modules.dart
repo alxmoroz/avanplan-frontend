@@ -92,7 +92,7 @@ class _ProjectModulesBody extends StatelessWidget {
           if (!_project.allProjectOptionsUsed)
             MTListTile(
               leading: const FeaturesIcon(size: _iconSize),
-              middle: BaseText.medium(loc.tariff_features_promo_subscribe_title, color: mainColor),
+              middle: BaseText.medium(loc.promo_features_subscribe_title, color: mainColor),
               trailing: const ChevronIcon(),
               margin: const EdgeInsets.only(top: P3),
               bottomDivider: false,

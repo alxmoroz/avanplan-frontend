@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../components/constants.dart';
-import '../../../components/images.dart';
-import '../../../components/page.dart';
-import '../../../components/text.dart';
-import '../../../extra/route.dart';
-import '../../quiz/quiz_header.dart';
-import '../../quiz/quiz_next_button.dart';
+import '../../components/constants.dart';
+import '../../components/images.dart';
+import '../../components/page.dart';
+import '../../components/text.dart';
+import '../../extra/route.dart';
+import '../quiz/quiz_header.dart';
+import '../quiz/quiz_next_button.dart';
 import 'onboarding_controller.dart';
 
 final onboardingRoute = MTRoute(

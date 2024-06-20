@@ -2,22 +2,22 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/tariff.dart';
-import '../../../L1_domain/entities/task.dart';
-import '../../extra/router.dart';
-import '../../extra/services.dart';
-import '../quiz/abstract_quiz_controller.dart';
-import '../quiz/abstract_task_quiz_controller.dart';
-import '../task/controllers/project_modules_controller.dart';
-import '../task/controllers/task_controller.dart';
-import '../task/usecases/edit.dart';
-import '../task/widgets/create/create_subtasks_quiz_view.dart';
-import '../task/widgets/project_modules/project_modules.dart';
-import '../task/widgets/team/team_quiz_view.dart';
+import '../../../../L1_domain/entities/tariff.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../extra/router.dart';
+import '../../../extra/services.dart';
+import '../../quiz/abstract_quiz_controller.dart';
+import '../../quiz/abstract_task_quiz_controller.dart';
+import '../usecases/edit.dart';
+import '../widgets/create/create_subtasks_quiz_view.dart';
+import '../widgets/project_modules/project_modules.dart';
+import '../widgets/team/team_quiz_view.dart';
+import 'project_modules_controller.dart';
+import 'task_controller.dart';
 
 part 'create_project_quiz_controller.g.dart';
 
-enum _StepCode { projectSetup, featureSets, team, goals, tasks }
+enum _StepCode { projectSetup, projectModules, team, goals, tasks }
 
 class CreateProjectQuizController extends _CreateProjectQuizControllerBase with _$CreateProjectQuizController {
   CreateProjectQuizController(super.taskController);
@@ -30,13 +30,13 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
 
   @override
   Future beforeNext() async {
-    if (step.code == _StepCode.featureSets.name) await _fsc.setup();
+    if (step.code == _StepCode.projectModules.name) await _pmc.setup();
   }
 
   @override
   Future afterNext() async {
-    if (step.code == _StepCode.featureSets.name) {
-      _fsc.reload();
+    if (step.code == _StepCode.projectModules.name) {
+      _pmc.reload();
       await router.pushTaskQuizStep(ProjectModulesQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.team.name) {
       await router.pushTaskQuizStep(TeamQuizRoute.staticBaseName, this);
@@ -60,16 +60,16 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   Task get _project => taskController.task;
 
-  ProjectModulesController get _fsc => taskController.projectFeaturesController;
+  ProjectModulesController get _pmc => taskController.projectModulesController;
 
-  bool get _wantTeam => _fsc.hasChecked(TOCode.TEAM);
-  bool get _wantGoals => _fsc.hasChecked(TOCode.GOALS);
-  bool get _wantBoard => _fsc.hasChecked(TOCode.TASKBOARD);
+  bool get _wantTeam => _pmc.hasChecked(TOCode.TEAM);
+  bool get _wantGoals => _pmc.hasChecked(TOCode.GOALS);
+  bool get _wantBoard => _pmc.hasChecked(TOCode.TASKBOARD);
 
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.projectSetup.name, '', loc.next_action_title),
-        QuizStep(_StepCode.featureSets.name, loc.project_modules_quiz_title, loc.next_action_title),
+        QuizStep(_StepCode.projectModules.name, loc.project_modules_quiz_title, loc.next_action_title),
         if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title, loc.next_action_title),
         if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title, loc.next_action_title),
         if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title, ''),

@@ -29,7 +29,7 @@ import 'subtasks_controller.dart';
 
 part 'task_controller.g.dart';
 
-enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estimate, author, features, note, attachment }
+enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estimate, author, projectModules, note, attachment }
 
 enum TasksFilter { my, projects }
 
@@ -47,7 +47,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
     subtasksController = SubtasksController(this);
-    projectFeaturesController = ProjectModulesController(this);
+    projectModulesController = ProjectModulesController(this);
     projectStatusesController = ProjectStatusesController(this);
 
     setupFields();
@@ -75,7 +75,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
             attachments: [],
             members: [],
             projectStatuses: [],
-            projectModule: [],
+            projectModules: [],
           ),
     );
     this.route = route;
@@ -94,7 +94,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
           placeholder: loc.task_estimate_placeholder,
         ),
         MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
-        MTFieldData(TaskFCode.features.index, label: loc.project_modules_label),
+        MTFieldData(TaskFCode.projectModules.index, label: loc.project_modules_label),
         MTFieldData(TaskFCode.note.index),
         MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
       ]);
@@ -103,7 +103,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     attachmentsController.reload();
     notesController.reload();
     subtasksController.reload();
-    projectFeaturesController.reload();
+    projectModulesController.reload();
     projectStatusesController.reload();
   }
 
@@ -156,7 +156,7 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late final AttachmentsController attachmentsController;
   late final NotesController notesController;
   late final SubtasksController subtasksController;
-  late final ProjectModulesController projectFeaturesController;
+  late final ProjectModulesController projectModulesController;
   late final ProjectStatusesController projectStatusesController;
 
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;

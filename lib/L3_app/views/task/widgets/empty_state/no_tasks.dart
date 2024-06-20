@@ -11,7 +11,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';

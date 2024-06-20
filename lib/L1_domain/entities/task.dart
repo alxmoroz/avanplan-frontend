@@ -66,7 +66,7 @@ class Task extends Project {
     required this.attachments,
     required this.members,
     required this.projectStatuses,
-    required this.projectModule,
+    required this.projectModules,
     required super.wsId,
     required this.type,
     this.taskSource,
@@ -110,7 +110,7 @@ class Task extends Project {
 
   List<Attachment> attachments;
   Iterable<TaskMember> members;
-  Iterable<ProjectModule> projectModule;
+  Iterable<ProjectModule> projectModules;
   TaskSource? taskSource;
 
   DateTime? dueDate;

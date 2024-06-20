@@ -16,9 +16,9 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/project_feature.dart';
+import '../../../../presenters/project_module.dart';
 import '../../../../presenters/source.dart';
-import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
@@ -101,14 +101,14 @@ class TaskDetails extends StatelessWidget {
             ),
 
           /// FeatureSets
-          if (_task.canShowFeatureSets)
+          if (_task.canShowProjectModules)
             MTField(
-              _controller.fData(TaskFCode.features.index),
+              _controller.fData(TaskFCode.projectModules.index),
               margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
-              leading: SettingsIcon(color: _task.canEditFeatureSets ? mainColor : f3Color),
-              value: BaseText(_task.localizedFeatures, maxLines: 1),
+              leading: SettingsIcon(color: _task.canEditProjectModules ? mainColor : f3Color),
+              value: BaseText(_task.localizedModules, maxLines: 1),
               compact: compact,
-              onTap: _task.canEditFeatureSets ? () => projectModulesDialog(_controller) : null,
+              onTap: _task.canEditProjectModules ? () => projectModulesDialog(_controller) : null,
             ),
 
           /// Связь с источником импорта

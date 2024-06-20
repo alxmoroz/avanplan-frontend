@@ -11,7 +11,7 @@ import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/project_modules.dart';
+import '../../../usecases/project_module.dart';
 import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
@@ -31,8 +31,8 @@ extension TaskUC on Task {
       if (et.projectStatuses.isEmpty) {
         et.projectStatuses = projectStatuses;
       }
-      if (et.projectModule.isEmpty) {
-        et.projectModule = projectModule;
+      if (et.projectModules.isEmpty) {
+        et.projectModules = projectModules;
       }
     }
 

@@ -18,7 +18,7 @@ import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
-import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_tree.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';

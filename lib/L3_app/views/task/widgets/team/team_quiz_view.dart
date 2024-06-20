@@ -7,10 +7,10 @@ import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../projects/create_project_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
+import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'team.dart';
 

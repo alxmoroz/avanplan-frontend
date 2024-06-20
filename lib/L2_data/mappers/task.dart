@@ -10,7 +10,7 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import 'attachment.dart';
 import 'member.dart';
 import 'note.dart';
-import 'project_feature.dart';
+import 'project_module.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 
@@ -35,7 +35,7 @@ extension TaskMapper on api.TaskGet {
       assigneeId: assigneeId,
       members: members?.map((m) => m.taskMember(id)) ?? [],
       projectStatuses: projectStatuses?.map((ps) => ps.projectStatus(wsId)).sorted((s1, s2) => s1.position.compareTo(s2.position)) ?? [],
-      projectModule: projectFeatureSets?.map((pfs) => pfs.projectFeature) ?? [],
+      projectModules: projectFeatureSets?.map((pfs) => pfs.projectModule) ?? [],
       taskSource: taskSource?.taskSource,
       parentId: parentId,
       wsId: wsId,

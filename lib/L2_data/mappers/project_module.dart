@@ -4,8 +4,8 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/project_module.dart';
 
-extension ProjectFeatureMapper on ProjectFeatureSetGet {
-  ProjectModule get projectFeature => ProjectModule(
+extension ProjectModuleMapper on ProjectFeatureSetGet {
+  ProjectModule get projectModule => ProjectModule(
         id: id,
         optionId: featureSetId,
       );

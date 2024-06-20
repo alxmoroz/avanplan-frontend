@@ -11,7 +11,7 @@ import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/adaptive.dart';
 import '../extra/services.dart';
-import 'project_modules.dart';
+import 'project_module.dart';
 import 'task_tree.dart';
 import 'ws_actions.dart';
 
@@ -74,8 +74,8 @@ extension TaskActionsUC on Task {
 
   bool get canComment => isTask && !closed && canEdit;
 
-  bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
-  bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
+  bool get canShowProjectModules => isProject && _hpProjectInfoRead;
+  bool get canEditProjectModules => isProject && _hpProjectInfoUpdate;
 
   bool get canEditProjectStatuses => hmTaskboard && _hpProjectInfoUpdate;
 

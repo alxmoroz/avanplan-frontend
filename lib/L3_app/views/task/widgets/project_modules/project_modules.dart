@@ -20,16 +20,16 @@ import '../../../../components/page.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
-import '../../../projects/create_project_quiz_controller.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../../workspace/ws_controller.dart';
 import '../../../workspace/ws_features_dialog.dart';
+import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/project_modules_controller.dart';
 import '../../controllers/task_controller.dart';
 
@@ -109,7 +109,7 @@ class _ProjectModulesQuizView extends StatelessWidget {
   const _ProjectModulesQuizView(this._qController);
   final CreateProjectQuizController _qController;
 
-  ProjectModulesController get _pfController => _qController.taskController.projectFeaturesController;
+  ProjectModulesController get _pmController => _qController.taskController.projectModulesController;
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +122,10 @@ class _ProjectModulesQuizView extends StatelessWidget {
           bottom: false,
           child: MTAdaptive(
             child: _ProjectModulesBody(
-              _pfController,
+              _pmController,
               footer: QuizNextButton(
                 _qController,
-                loading: _pfController.project.loading,
+                loading: _pmController.project.loading,
                 margin: const EdgeInsets.symmetric(vertical: P3),
               ),
             ),
@@ -145,13 +145,13 @@ class _ProjectModulesDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.project_modules_title),
       body: _ProjectModulesBody(
-        _controller.projectFeaturesController,
+        _controller.projectModulesController,
         footer: MTButton.main(
           titleText: loc.save_action_title,
           margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: () async {
             Navigator.of(context).pop();
-            await _controller.projectFeaturesController.setup();
+            await _controller.projectModulesController.setup();
             tasksMainController.refreshUI();
           },
         ),

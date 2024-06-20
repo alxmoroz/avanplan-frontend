@@ -7,7 +7,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
-import '../../../usecases/project_modules.dart';
+import '../../../usecases/project_module.dart';
 import '../../../usecases/task_tree.dart';
 import 'task_controller.dart';
 
@@ -41,7 +41,7 @@ abstract class _ProjectModulesControllerBase with Store {
   }
 
   @action
-  void selectFeature(int index, bool? selected) => checks[index] = selected == true;
+  void selectModule(int index, bool? selected) => checks[index] = selected == true;
 
   Function(bool?)? onChanged(int index) {
     bool disabled = _taskController.loading == true;
@@ -58,11 +58,11 @@ abstract class _ProjectModulesControllerBase with Store {
         disabled = isTrello || project.hasSubtasks;
       }
     }
-    return disabled ? null : (bool? value) => selectFeature(index, value);
+    return disabled ? null : (bool? value) => selectModule(index, value);
   }
 
   Future setup() async {
-    final fIndex = TaskFCode.features.index;
+    final fIndex = TaskFCode.projectModules.index;
     _taskController.updateField(fIndex, loading: true);
     final fIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
@@ -70,7 +70,7 @@ abstract class _ProjectModulesControllerBase with Store {
         fIds.add(_enabledProjectOptions.elementAt(index).id!);
       }
     }
-    project.projectModule = await projectFeatureUC.setup(project.wsId, project.id!, fIds);
+    project.projectModules = await projectModuleUC.setup(project.wsId, project.id!, fIds);
     _taskController.updateField(fIndex, loading: false);
   }
 }

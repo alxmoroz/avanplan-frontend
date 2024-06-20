@@ -24,7 +24,7 @@ import '../../../../presenters/task_estimate.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
-import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';

@@ -84,8 +84,8 @@ abstract class _MainControllerBase with Store, Loadable {
     await authController.checkLocalAuth();
     if (authController.authorized) {
       await load(() async {
-        await notificationController.setup();
         // await _showOnboarding();
+        await notificationController.setup();
         await _tryUpdate();
       });
     } else {

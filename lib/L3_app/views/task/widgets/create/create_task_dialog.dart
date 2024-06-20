@@ -8,7 +8,7 @@ import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/dialog.dart';
 import '../../../../extra/router.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/project_modules.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/task/controllers/task_controller.dart';
@@ -36,7 +36,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
       notes: [],
       attachments: [],
       projectStatuses: [],
-      projectModule: [],
+      projectModules: [],
       wsId: ws.id!,
       startDate: DateTime.now(),
       createdOn: DateTime.now(),

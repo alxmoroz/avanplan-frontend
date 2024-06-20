@@ -14,7 +14,7 @@ import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
-import '../../L1_domain/usecases/project_feature_uc.dart';
+import '../../L1_domain/usecases/project_module_uc.dart';
 import '../../L1_domain/usecases/project_status_uc.dart';
 import '../../L1_domain/usecases/release_note_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
@@ -34,7 +34,7 @@ import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/note_repo.dart';
-import '../../L2_data/repositories/project_feature_repo.dart';
+import '../../L2_data/repositories/project_module_repo.dart';
 import '../../L2_data/repositories/project_status_repo.dart';
 import '../../L2_data/repositories/release_note_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
@@ -92,7 +92,7 @@ InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 NoteUC get noteUC => GetIt.I<NoteUC>();
 AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
-ProjectFeatureUC get projectFeatureUC => GetIt.I<ProjectFeatureUC>();
+ProjectModuleUC get projectModuleUC => GetIt.I<ProjectModuleUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
 CalendarUC get calendarUC => GetIt.I<CalendarUC>();
 
@@ -125,7 +125,7 @@ void setup() {
   getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
   getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
   getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
-  getIt.registerSingleton<ProjectFeatureUC>(ProjectFeatureUC(ProjectFeatureRepo()));
+  getIt.registerSingleton<ProjectModuleUC>(ProjectModuleUC(ProjectModulesRepo()));
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
   getIt.registerSingleton<CalendarUC>(CalendarUC(CalendarRepo()));
 

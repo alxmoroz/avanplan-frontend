@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 
 import '../../components/constants.dart';
 import '../../components/images.dart';
@@ -25,6 +26,8 @@ class _OnboardingView extends StatelessWidget {
   const _OnboardingView(this._controller);
   final OnboardingController _controller;
 
+  Widget get _stepImage => MTImage(['done', 'milestone', 'devices_sync'][_controller.stepIndex] ?? '');
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -35,10 +38,14 @@ class _OnboardingView extends StatelessWidget {
             shrinkWrap: true,
             children: [
               if (_controller.stepIndex < 3) ...[
-                MTImage(_controller.step.code),
-                H2(_controller.step.code, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P3, horizontal: P6)),
+                _stepImage,
+                H2(
+                  Intl.message('onboarding_step_${_controller.stepIndex + 1}_title'),
+                  align: TextAlign.center,
+                  padding: const EdgeInsets.all(P6).copyWith(bottom: P3),
+                ),
                 BaseText(
-                  _controller.step.code,
+                  Intl.message('onboarding_step_${_controller.stepIndex + 1}_text'),
                   align: TextAlign.center,
                   padding: const EdgeInsets.symmetric(horizontal: P6),
                 ),

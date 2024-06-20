@@ -217,6 +217,13 @@
   "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
 
+  "onboarding_step_1_title": "Все дела в одном месте",
+  "onboarding_step_1_text": "Ведите личные и рабочие дела: задачи, проекты, встречи",
+  "onboarding_step_2_title": "Планы на каждый день",
+  "onboarding_step_2_text": "Назначайте сроки и планируйте дела на день, неделю и далее",
+  "onboarding_step_3_title": "Для любого устройства",
+  "onboarding_step_3_text": "Пользуйтесь в мобильном приложении или в веб-версии",
+
   "ok": "Понятно",
 
   "per_day_suffix": "в день",

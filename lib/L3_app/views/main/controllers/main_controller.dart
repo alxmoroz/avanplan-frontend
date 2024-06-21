@@ -55,8 +55,6 @@ abstract class _MainControllerBase with Store, Loadable {
 
   Future reload() async => await load(_reloadData);
 
-  // Future _showOnboarding() async {}
-
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
     if (invitationTokenController.hasToken) {
@@ -76,6 +74,10 @@ abstract class _MainControllerBase with Store, Loadable {
     }
   }
 
+  Future _showOnboarding() async {
+    if (!accountController.onboardingPassed) await router.pushOnboarding();
+  }
+
   // static const _updatePeriod = Duration(hours: 1);
 
   @action
@@ -89,8 +91,7 @@ abstract class _MainControllerBase with Store, Loadable {
         await notificationController.setup();
         await _tryUpdate();
       });
-
-      await router.pushOnboarding();
+      await _showOnboarding();
     } else {
       authController.signOut();
     }

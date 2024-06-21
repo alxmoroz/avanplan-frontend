@@ -63,6 +63,10 @@ abstract class _TasksMainControllerBase with Store {
   @computed
   bool get hasOpenedTasks => openedTasks.isNotEmpty;
 
+  // Для определения необходимости показывать шаг с добавлением задач в онбординге
+  @computed
+  bool get hasAnyTasks => projects.isNotEmpty || tasks.isNotEmpty || (inbox?.closedSubtasksCount ?? 0) > 0;
+
   @computed
   Iterable<Task> get myTasks => openedTasks.where((t) => t.assignedToMe);
 

@@ -32,7 +32,8 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
   @action
   Future registerActivity(String code, {int? wsId}) async => me = await myUC.registerActivity(code, wsId: wsId);
 
-  bool hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
+  @computed
+  bool get onboardingPassed => me?.activities.where((a) => a.code.startsWith(UACode.ONBOARDING_PASSED)).isNotEmpty == true;
 
   @action
   void clear() => me = null;

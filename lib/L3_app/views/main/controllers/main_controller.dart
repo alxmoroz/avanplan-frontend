@@ -36,6 +36,7 @@ abstract class _MainControllerBase with Store, Loadable {
   void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
   Future _reloadData() async {
+    setLoaderScreenLoading();
     await accountController.reload();
     await refsController.reload();
     await notificationController.reload();

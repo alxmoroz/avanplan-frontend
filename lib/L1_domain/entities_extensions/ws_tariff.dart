@@ -2,16 +2,17 @@
 
 import 'dart:math';
 
-import 'package:collection/collection.dart';
-
-import '../entities/invoice.dart';
 import '../entities/tariff.dart';
+import '../entities/workspace.dart';
 import '../utils/dates.dart';
 
-extension InvoiceParameters on Invoice {
-  num consumed(String code) => details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
+extension WSTariff on Workspace {
+  Tariff get tariff => invoice.tariff;
+
+  num consumed(String code) => invoice.details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
   bool subscribed(String code) => consumed(code) > 0;
 
+  // TODO: перенести в computed в контроллер
   Iterable<TariffOption> get availableProjectOptions => tariff.projectOptions;
   Iterable<TariffOption> get enabledProjectOptions => availableProjectOptions.where((o) => !o.userManageable || subscribed(o.code));
 
@@ -40,4 +41,12 @@ extension InvoiceParameters on Invoice {
   }
 
   num get currentExpensesPerDay => overallExpensesPerMonth(tariff) / DAYS_IN_MONTH;
+
+  bool get allProjectOptionsUsed => enabledProjectOptions.length == availableProjectOptions.length;
+
+  Iterable<TariffOption> get subscribedFeatures => tariff.features.where((o) => subscribed(o.code));
+
+  // TODO: deprecated TASKS_COUNT, FS_VOLUME как только не останется старых тарифов
+  num get consumedTasks => consumed(TOCode.TASKS) + consumed("TASKS_COUNT");
+  num get consumedFileStorage => consumed(TOCode.FILE_STORAGE) + consumed('FS_VOLUME');
 }

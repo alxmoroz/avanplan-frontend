@@ -4,28 +4,57 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/button.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../workspace/ws_controller.dart';
 import '../workspace/ws_features_dialog.dart';
 
+// NB! Этот диалог вызывается только из квиза создания проекта
+// NB! Для онбординга проверка наличия включенных функций не нужна, т.к. пользователь в своём РП их ещё точно не включил.
+Future showPromoFeatures(Workspace ws) async {
+  if (!ws.allProjectOptionsUsed && !accountController.promoFeaturesViewed) {
+    await showMTDialog(_PromoFeaturesDialog(ws));
+    accountController.registerPromoFeaturesViewed();
+  }
+}
+
+class _PromoFeaturesDialog extends StatelessWidget {
+  const _PromoFeaturesDialog(this.ws);
+  final Workspace ws;
+
+  @override
+  Widget build(BuildContext context) {
+    return MTDialog(
+      topBar: const MTAppBar(showCloseButton: true, color: b2Color),
+      body: ListView(
+        shrinkWrap: true,
+        children: [PromoFeatures(ws)],
+      ),
+    );
+  }
+}
+
 class PromoFeatures extends StatelessWidget {
-  const PromoFeatures(this.ws, {super.key, this.onNext});
+  const PromoFeatures(this.ws, {super.key, this.onLater});
 
   final Workspace ws;
-  final VoidCallback? onNext;
+  final VoidCallback? onLater;
 
-  Future _next(BuildContext context) async {
-    (onNext ?? () => Navigator.of(context).pop())();
+  Future _later(BuildContext context) async {
+    (onLater ?? () => Navigator.of(context).pop())();
   }
 
   Future _subscribe(BuildContext context) async {
     await wsFeatures(WSController(wsIn: ws));
-    if (context.mounted) _next(context);
+    if (context.mounted) _later(context);
   }
 
   @override
@@ -52,7 +81,7 @@ class PromoFeatures extends StatelessWidget {
             ),
           ),
         const SizedBox(height: P6),
-        MTButton.secondary(titleText: loc.later, onTap: () => _next(context)),
+        MTButton.secondary(titleText: loc.later, onTap: () => _later(context)),
         const SizedBox(height: P3),
         MTButton.main(
           titleText: loc.promo_features_subscribe_title,

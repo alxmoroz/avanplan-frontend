@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../views/_base/loadable.dart';
@@ -40,7 +41,7 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
   }
 
   @computed
-  int get activeTariffIndex => tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
+  int get activeTariffIndex => tariffs.indexWhere((t) => t.id == ws.tariff.id);
 
   @computed
   int get suggestedTariffIndex => activeTariffIndex < tariffs.length && reason.isNotEmpty ? activeTariffIndex + 1 : activeTariffIndex;

@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
-import '../../../L1_domain/entities_extensions/invoice.dart';
+import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -20,21 +20,23 @@ import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
 
 class TariffExpenses extends StatelessWidget {
-  const TariffExpenses(this._tariff, this._invoice, {super.key});
-  final Invoice _invoice;
-  final Tariff _tariff;
+  const TariffExpenses(this._ws, {this.tariff, super.key});
+  final Workspace _ws;
+  final Tariff? tariff;
 
-  num get _teamExpenses => _invoice.expensesPerMonth(TOCode.TEAM, _tariff);
-  num get _teamOverdraft => _invoice.overdraft(TOCode.TEAM, _tariff);
+  Tariff get _tariff => tariff ?? _ws.tariff;
+
+  num get _teamExpenses => _ws.expensesPerMonth(TOCode.TEAM, _tariff);
+  num get _teamOverdraft => _ws.overdraft(TOCode.TEAM, _tariff);
   num get _teamPrice => _tariff.price(TOCode.TEAM);
 
-  num get _tasksExpenses => _invoice.expensesPerMonth(TOCode.TASKS, _tariff);
-  num get _tasksOverdraft => _invoice.overdraft(TOCode.TASKS, _tariff);
+  num get _tasksExpenses => _ws.expensesPerMonth(TOCode.TASKS, _tariff);
+  num get _tasksOverdraft => _ws.overdraft(TOCode.TASKS, _tariff);
   num get _tasksPrice => _tariff.price(TOCode.TASKS);
   String get _tasksQuantitySuffix => _tariff.billingQuantity(TOCode.TASKS).humanSuffix;
 
-  num get _fsExpenses => _invoice.expensesPerMonth(TOCode.FILE_STORAGE, _tariff);
-  num get _fsOverdraft => _invoice.overdraft(TOCode.FILE_STORAGE, _tariff);
+  num get _fsExpenses => _ws.expensesPerMonth(TOCode.FILE_STORAGE, _tariff);
+  num get _fsOverdraft => _ws.overdraft(TOCode.FILE_STORAGE, _tariff);
   num get _fsPrice => _tariff.price(TOCode.FILE_STORAGE);
   String get _fsQuantitySuffix => _tariff.billingQuantity(TOCode.FILE_STORAGE).humanBytesSuffix;
 
@@ -71,7 +73,7 @@ class TariffExpenses extends StatelessWidget {
           ),
         MTListTile(
           middle: BaseText.medium(loc.total_title),
-          trailing: MTPrice(_invoice.overallExpensesPerMonth(_tariff), size: AdaptiveSize.m, color: mainColor),
+          trailing: MTPrice(_ws.overallExpensesPerMonth(_tariff), size: AdaptiveSize.m, color: mainColor),
           margin: const EdgeInsets.only(top: P3),
           bottomDivider: false,
         ),

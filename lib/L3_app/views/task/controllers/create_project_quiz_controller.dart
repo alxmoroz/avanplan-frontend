@@ -6,6 +6,8 @@ import '../../../../L1_domain/entities/tariff.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/task_tree.dart';
+import '../../promo/promo_features.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../usecases/edit.dart';
@@ -36,6 +38,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   @override
   Future afterNext() async {
     if (step.code == _StepCode.projectModules.name) {
+      await showPromoFeatures(_project.ws);
       _pmc.reload();
       await router.pushTaskQuizStep(ProjectModulesQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.team.name) {

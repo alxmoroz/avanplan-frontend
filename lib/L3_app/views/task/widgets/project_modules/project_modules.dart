@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/tariff.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
@@ -20,7 +21,6 @@ import '../../../../components/page.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../main/main_view.dart';
 import '../../../main/widgets/left_menu.dart';
@@ -76,7 +76,7 @@ class _ProjectModulesBody extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _controller.checks.length,
             itemBuilder: (_, index) {
-              final fs = _controller.project.enabledProjectOptions.elementAt(index);
+              final fs = _controller.project.ws.enabledProjectOptions.elementAt(index);
               final onChanged = _controller.onChanged(index);
               return MTCheckBoxTile(
                 leading: _image(fs.code),
@@ -89,7 +89,7 @@ class _ProjectModulesBody extends StatelessWidget {
               );
             },
           ),
-          if (!_project.allProjectOptionsUsed)
+          if (!_project.ws.allProjectOptionsUsed)
             MTListTile(
               leading: const FeaturesIcon(size: _iconSize),
               middle: BaseText.medium(loc.promo_features_subscribe_title, color: mainColor),

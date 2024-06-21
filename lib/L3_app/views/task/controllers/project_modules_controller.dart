@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/tariff.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
 import '../../../usecases/project_module.dart';
@@ -23,7 +24,7 @@ abstract class _ProjectModulesControllerBase with Store {
   late final TaskController _taskController;
 
   Task get project => _taskController.task;
-  Iterable<TariffOption> get _enabledProjectOptions => project.enabledProjectOptions;
+  Iterable<TariffOption> get _enabledProjectOptions => project.ws.enabledProjectOptions;
 
   @observable
   ObservableList<bool> checks = ObservableList();

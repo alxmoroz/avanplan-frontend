@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/invoice.dart';
-import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/invoice.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -47,21 +45,17 @@ class _WSDialogState extends State<WSDialog> {
   Workspace get ws => controller.ws;
   Workspace get wsd => controller.wsDescriptor;
 
-  Invoice get _invoice => ws.invoice;
-  num get _expensesPerDay => _invoice.currentExpensesPerDay;
+  num get _expensesPerDay => ws.currentExpensesPerDay;
   bool get _hasExpenses => _expensesPerDay != 0;
   num get _balanceDays => (ws.balance / _expensesPerDay);
+  num get _consumedTasks => ws.consumedTasks;
+  num get _consumedFileStorage => ws.consumedFileStorage;
 
   @override
   void initState() {
     if (!wsd.filled) controller.reload();
-
     super.initState();
   }
-
-  // TODO: deprecated TASKS_COUNT, FS_VOLUME как только не останется старых тарифов
-  num get _consumedTasks => _invoice.consumed(TOCode.TASKS) + _invoice.consumed("TASKS_COUNT");
-  num get _consumedFileStorage => _invoice.consumed(TOCode.FILE_STORAGE) + _invoice.consumed('FS_VOLUME');
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -124,7 +118,7 @@ class _WSDialogState extends State<WSDialog> {
             ]
           ],
         ),
-        subtitle: SmallText(_invoice.tariff.title, maxLines: 1),
+        subtitle: SmallText(ws.tariff.title, maxLines: 1),
         trailing: const ChevronIcon(),
         bottomDivider: false,
         onTap: () => showWSTariff(controller),

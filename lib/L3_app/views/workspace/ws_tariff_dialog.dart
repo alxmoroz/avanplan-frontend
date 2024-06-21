@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/invoice.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
@@ -34,13 +33,11 @@ class _WSTariffDialog extends StatelessWidget {
   const _WSTariffDialog(this._controller);
   final WSController _controller;
   Workspace get _ws => _controller.ws;
-  Invoice get _invoice => _ws.invoice;
-  Tariff get _tariff => _invoice.tariff;
+  Iterable<TariffOption> get _subscribedFeatures => _ws.subscribedFeatures;
+  Tariff get _tariff => _ws.tariff;
 
-  num get _expensesPerDay => _invoice.currentExpensesPerDay;
+  num get _expensesPerDay => _ws.currentExpensesPerDay;
   bool get _hasExpenses => _expensesPerDay != 0;
-
-  Iterable<TariffOption> get _subscribedFeatures => _tariff.features.where((o) => _invoice.subscribed(o.code));
 
   Widget get _features => MTListTile(
         leading: const FeaturesIcon(),
@@ -68,7 +65,7 @@ class _WSTariffDialog extends StatelessWidget {
             : SmallText(loc.tariff_current_expenses_zero_title, maxLines: 1),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () => showWSExpenses(_invoice),
+        onTap: () => showWSExpenses(_ws),
       );
 
   @override

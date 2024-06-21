@@ -67,7 +67,7 @@ class _OnboardingView extends StatelessWidget {
                 QuizNextButton(_controller),
               ],
               if (_controller.stepIndex == 3)
-                PromoFeatures(wsMainController.myWS, onNext: _controller.next)
+                PromoFeatures(wsMainController.myWS, onLater: _controller.next)
               else if (_controller.stepIndex == 4) ...[
                 H2(
                   loc.onboarding_final_step_title,

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/tariff.dart';
-import '../../../../L1_domain/entities_extensions/invoice.dart';
+import '../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/ws_actions.dart';
@@ -14,13 +14,12 @@ import 'edit.dart';
 
 extension WSTariffUC on WSController {
   Future changeTariff(BuildContext context, Tariff tariff) async {
-    final invoice = ws.invoice;
     // TODO: ПРОВЕРИТЬ логику!
     //  проверка на возможное превышение лимитов по выбранному тарифу
-    if (!invoice.hasOverdraft(tariff) || await tariffConfirmExpenses(invoice, tariff) == true) {
+    if (!ws.hasOverdraft(tariff) || await tariffConfirmExpenses(ws, tariff) == true) {
       // TODO: ПРОВЕРИТЬ логику!
       // проверка, что хватит денег на один день после смены
-      if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: invoice.currentExpensesPerDay)) {
+      if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.currentExpensesPerDay)) {
         setLoaderScreenSaving();
         await load(() async {
           final signedInvoice = await tariffUC.sign(tariff.id!, wsDescriptor.id!);
@@ -37,12 +36,11 @@ extension WSTariffUC on WSController {
   Future toggleFeatureSubscription(BuildContext context, TariffOption f) async {
     bool needDeleteTeam = false;
     bool? deleteTeamGranted = false;
-    final invoice = ws.invoice;
-    final subscribed = invoice.subscribed(f.code);
+    final subscribed = ws.subscribed(f.code);
 
     // Подключение функции
     if (!subscribed) {
-      print('проверка, что хватит денег на один день после подключения');
+      // TODO: проверка, что хватит денег на один день после подключения
     }
     // Отключение функции
     else {
@@ -75,12 +73,11 @@ extension WSTariffUC on WSController {
 
     // не надо удалять команду (отключение опции и др. случаи) либо есть разрешение на это
     if (!needDeleteTeam || deleteTeamGranted == true) {
-      final tariff = invoice.tariff;
       setLoaderScreenSaving();
       await load(() async {
         final signedInvoice = await tariffUC.upsertOption(
           ws.id!,
-          tariff.id!,
+          ws.tariff.id!,
           f.id!,
           !subscribed,
         );

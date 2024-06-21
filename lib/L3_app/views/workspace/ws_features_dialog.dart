@@ -4,10 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/invoice.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/circle.dart';
@@ -31,8 +30,7 @@ class _WSFeaturesDialog extends StatelessWidget {
   const _WSFeaturesDialog(this._controller);
   final WSController _controller;
   Workspace get _ws => _controller.ws;
-  Invoice get _invoice => _ws.invoice;
-  Tariff get _tariff => _invoice.tariff;
+  Tariff get _tariff => _ws.tariff;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +48,7 @@ class _WSFeaturesDialog extends StatelessWidget {
                 itemCount: _tariff.features.length,
                 itemBuilder: (_, index) {
                   final f = _tariff.features[index];
-                  final subscribed = _invoice.subscribed(f.code);
+                  final subscribed = _ws.subscribed(f.code);
                   return MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
                     borderSide: subscribed ? const BorderSide(color: greenColor) : null,

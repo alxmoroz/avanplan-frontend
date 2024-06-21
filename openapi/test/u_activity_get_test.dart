@@ -41,10 +41,5 @@ void main() {
     test('to test the property `wsId`', () async {
       // TODO
     });
-
-    // int objectUserId
-    test('to test the property `objectUserId`', () async {
-      // TODO
-    });
   });
 }

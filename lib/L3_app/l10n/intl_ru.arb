@@ -217,12 +217,19 @@
   "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
 
+  "onboarding_final_step_title": "С чего начнём?",
+
   "onboarding_step_1_title": "Все дела в одном месте",
   "onboarding_step_1_text": "Ведите личные и рабочие дела: задачи, проекты, встречи",
   "onboarding_step_2_title": "Планы на каждый день",
   "onboarding_step_2_text": "Назначайте сроки и планируйте дела на день, неделю и далее",
   "onboarding_step_3_title": "Для любого устройства",
   "onboarding_step_3_text": "Пользуйтесь в мобильном приложении или в веб-версии",
+
+  "onboarding_start_with_project_title": "Начать с проекта",
+  "onboarding_start_with_project_text": "Импортируйте или создайте проект. Подключайте команду и другие модули",
+  "onboarding_start_with_tasks_title": "Начать с задач",
+  "onboarding_start_with_tasks_text": "Просто управляйте списком задач без команды и лишних настроек",
 
   "ok": "Понятно",
 
@@ -250,7 +257,7 @@
 
   "promo_features_subscribe_title": "Подключить функции",
   "promo_features_title": "Расширяйте возможности с выгодой",
-  "promo_features_text": "Безлимитное добавление участников\nСтатистика и прогнозирование срока проекта\nБесплатно при первом подключении",
+  "promo_features_text": "Безлимитное добавление участников\nСтатистика и прогнозирование срока проекта\nПопробуйте бесплатно",
 
   "recommendation_add_goals_hint": "Поставьте первую цель",
   "recommendation_add_goals_title": "Добавим цели в проект",

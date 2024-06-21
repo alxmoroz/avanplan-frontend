@@ -217,12 +217,19 @@
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
 
+  "onboarding_final_step_title": "Where do we start?",
+
   "onboarding_step_1_title": "All your tasks are in one place",
   "onboarding_step_1_text": "Manage your personal and work matters: tasks, projects, meetings",
   "onboarding_step_2_title": "You can make plans for every day",
   "onboarding_step_2_text": "Set deadlines and plan tasks for the day, week, and beyond",
   "onboarding_step_3_title": "Available on any device",
   "onboarding_step_3_text": "Use it in the mobile app or web version",
+
+  "onboarding_start_with_project_title": "Start with a project",
+  "onboarding_start_with_project_text": "Import or create a project. Connect your team and other modules",
+  "onboarding_start_with_tasks_title": "Start with tasks",
+  "onboarding_start_with_tasks_text": "Simply manage your task list without a team or unnecessary settings",
 
   "ok": "Ok",
 
@@ -250,7 +257,7 @@
 
   "promo_features_subscribe_title": "Subscribe to features",
   "promo_features_title": "Expand the capabilities of the service with benefits",
-  "promo_features_text": "Unlimited addition of members\nStatistics and project duration forecasting\nFree for the first time",
+  "promo_features_text": "Unlimited addition of members\nStatistics and project duration forecasting\nTry it free",
 
   "recommendation_add_goals_hint": "Set the first goal of the project",
   "recommendation_add_goals_title": "Let's add goals to the project",

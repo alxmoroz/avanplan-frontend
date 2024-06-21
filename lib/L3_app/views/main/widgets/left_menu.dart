@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons_workspace.dart';
+import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../components/vertical_toolbar.dart';

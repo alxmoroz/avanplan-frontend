@@ -7,7 +7,7 @@ import '../../../components/circle.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons_workspace.dart';
+import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
 import '../../../extra/router.dart';

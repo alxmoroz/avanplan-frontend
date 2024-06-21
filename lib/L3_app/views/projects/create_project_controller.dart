@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
@@ -55,7 +54,7 @@ abstract class _CreateProjectControllerBase with Store {
     if (newTC != null) router.goTaskView(newTC.taskDescriptor);
   }
 
-  Future startCreate(BuildContext context) async {
+  Future startCreate() async {
     final methodCode = await selectCreationMethod();
     if (methodCode != null) {
       await _selectWS();

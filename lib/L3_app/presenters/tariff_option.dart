@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import '../../L1_domain/entities/tariff.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
-import '../components/icons_workspace.dart';
 import '../components/images.dart';
 
 extension TariffOptionPresenter on TariffOption {

@@ -53,6 +53,10 @@ class AttachmentIcon extends MTIcon {
   const AttachmentIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.paperclip);
 }
 
+class BankCardIcon extends MTIcon {
+  const BankCardIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.creditcard);
+}
+
 class BellIcon extends MTIcon {
   const BellIcon({super.key, super.color, super.size = P6, this.hasUnread = false}) : super(CupertinoIcons.bell);
   final bool hasUnread;
@@ -319,8 +323,16 @@ class PlusIcon extends MTIcon {
   const PlusIcon({super.key, super.color, super.size = P4, super.circled}) : super(CupertinoIcons.plus);
 }
 
+class PeopleIcon extends MTIcon {
+  const PeopleIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_2);
+}
+
 class PrivacyIcon extends MTIcon {
   const PrivacyIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.lock_shield);
+}
+
+class ProjectsIcon extends MTIcon {
+  const ProjectsIcon({super.key, super.color = f2Color, super.size = P6}) : super(CupertinoIcons.folder);
 }
 
 class QuestionIcon extends MTIcon {
@@ -357,6 +369,14 @@ class TasksIcon extends MTIcon {
 
 class TemplateIcon extends MTIcon {
   const TemplateIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.collections);
+}
+
+class WSHomeIcon extends MTIcon {
+  const WSHomeIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.house_alt);
+}
+
+class WSPublicIcon extends MTIcon {
+  const WSPublicIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.building_2_fill);
 }
 
 Widget get appleIcon => Image.asset('assets/icons/apple_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);

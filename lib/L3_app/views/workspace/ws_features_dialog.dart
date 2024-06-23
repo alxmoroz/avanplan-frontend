@@ -13,9 +13,9 @@ import '../../components/circle.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
-import '../../components/currency.dart';
 import '../../components/dialog.dart';
 import '../../components/list_tile.dart';
+import '../../components/price.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -72,7 +72,7 @@ class _WSFeaturesDialog extends StatelessWidget {
                             ],
                           ),
                         MTListTile(
-                          middle: MTPrice(f.price, color: mainColor, align: TextAlign.left),
+                          middle: MTPrice(f.price, finalValue: f.finalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
                           subtitle: BaseText.f2(loc.per_month_suffix, maxLines: 1),
                           trailing: MTButton(
                             type: subscribed ? ButtonType.secondary : ButtonType.main,

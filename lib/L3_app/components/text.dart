@@ -15,6 +15,7 @@ class BaseText extends StatelessWidget {
     this.align,
     this.padding,
     this.height,
+    this.decoration,
   });
 
   const BaseText.f2(
@@ -26,6 +27,7 @@ class BaseText extends StatelessWidget {
     this.align,
     this.padding,
     this.height,
+    this.decoration,
   }) : color = f2Color;
 
   const BaseText.f3(
@@ -37,6 +39,7 @@ class BaseText extends StatelessWidget {
     this.align,
     this.padding,
     this.height,
+    this.decoration,
   }) : color = f3Color;
 
   const BaseText.medium(
@@ -48,6 +51,7 @@ class BaseText extends StatelessWidget {
     this.padding,
     this.height,
     this.color,
+    this.decoration,
   }) : weight = FontWeight.w500;
 
   final String text;
@@ -58,6 +62,7 @@ class BaseText extends StatelessWidget {
   final TextAlign? align;
   final EdgeInsets? padding;
   final double? height;
+  final TextDecoration? decoration;
 
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
@@ -65,14 +70,17 @@ class BaseText extends StatelessWidget {
     // Если указано количество строк, то для однострочников - 1, для двух - 1.1, для трех - 1.2, для остального всего - 1.3
     final double h = height ?? {1: 1.0, 2: 1.15, 3: 1.25}[maxLines] ?? 1.3;
     final double fs = 17 * (sizeScale ?? 1);
+    final rColor = CupertinoDynamicColor.maybeResolve(color ?? f1Color, context);
 
     return cupertinoTS.copyWith(
       fontFamily: 'RobotoAvanplan',
-      color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
+      color: rColor,
+      decorationColor: rColor,
       fontWeight: weight ?? FontWeight.w400,
       fontSize: fs,
       height: h,
       inherit: true,
+      decoration: decoration,
     );
   }
 
@@ -164,8 +172,9 @@ class DText extends BaseText {
     super.color,
     super.sizeScale,
     super.padding,
-    super.align = TextAlign.center,
+    super.decoration,
     super.maxLines = 1,
+    super.align = TextAlign.center,
     super.weight = FontWeight.w400,
   });
 
@@ -175,6 +184,7 @@ class DText extends BaseText {
     super.color,
     super.sizeScale,
     super.padding,
+    super.decoration,
     super.maxLines = 1,
     super.align = TextAlign.center,
     super.weight = FontWeight.w500,
@@ -186,6 +196,7 @@ class DText extends BaseText {
     super.color,
     super.sizeScale,
     super.padding,
+    super.decoration,
     super.maxLines = 1,
     super.align = TextAlign.center,
     super.weight = FontWeight.w700,
@@ -196,18 +207,19 @@ class DText extends BaseText {
 }
 
 class DSmallText extends DText {
-  const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight}) : super(sizeScale: 0.9);
+  const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
+      : super(sizeScale: 0.9);
   const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 0.9);
 }
 
 class D3 extends DText {
-  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight}) : super(sizeScale: 1.2);
-  const D3.medium(super.text, {super.key, super.color, super.padding, super.align}) : super.medium(sizeScale: 1.2);
-  const D3.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 1.2);
+  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration}) : super(sizeScale: 1.2);
+  const D3.medium(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.medium(sizeScale: 1.2);
+  const D3.bold(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.bold(sizeScale: 1.2);
 }
 
 class D2 extends DText {
-  const D2(super.text, {super.key, super.color, super.padding, super.maxLines, super.align}) : super.medium(sizeScale: 2.3);
+  const D2(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.decoration}) : super.medium(sizeScale: 2.3);
 }
 
 /// Декоративный стиль (для названия приложения)

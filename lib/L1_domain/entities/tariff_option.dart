@@ -37,4 +37,6 @@ class TariffOption extends Codable {
   String get title => Intl.message('tariff_option_${code.toLowerCase()}_title');
   String get subtitle => Intl.message('tariff_option_${code.toLowerCase()}_subtitle');
   String get description => Intl.message('tariff_option_${code.toLowerCase()}_description');
+
+  num get finalPrice => price * (1 - (promoAction?.discount ?? 0));
 }

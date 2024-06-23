@@ -13,10 +13,10 @@ import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
-import '../../components/currency.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
+import '../../components/price.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -93,7 +93,7 @@ class _WSTariffDialog extends StatelessWidget {
                         TariffOptions(_tariff),
                         const SizedBox(height: P3),
                         MTListTile(
-                          middle: MTPrice(_tariff.basePrice, color: mainColor, align: TextAlign.left),
+                          middle: MTPrice(_tariff.basePrice, color: mainColor, rowAlign: MainAxisAlignment.start),
                           subtitle: BaseText.f2(loc.per_month_suffix, maxLines: 1),
                           trailing: MTButton.secondary(
                             titleText: loc.tariff_change_action_title,

@@ -15,8 +15,8 @@ extension WSTariff on Workspace {
   bool subscribed(String code) => consumed(code) > 0;
 
   // TODO: перенести в computed в контроллер
-  Iterable<TariffOption> get availableProjectOptions => tariff.projectOptions;
-  Iterable<TariffOption> get enabledProjectOptions => availableProjectOptions.where((o) => !o.userManageable || subscribed(o.code));
+  Iterable<TariffOption> get availableProjectModulesOptions => tariff.projectModulesOptions;
+  Iterable<TariffOption> get enabledProjectModulesOptions => availableProjectModulesOptions.where((o) => !o.userManageable || subscribed(o.code));
 
   num overdraft(String code, Tariff tariff) {
     final diff = max(0, consumed(code) - tariff.freeLimit(code));
@@ -44,7 +44,7 @@ extension WSTariff on Workspace {
 
   num get currentExpensesPerDay => overallExpensesPerMonth(tariff) / DAYS_IN_MONTH;
 
-  bool get allProjectOptionsUsed => enabledProjectOptions.length == availableProjectOptions.length;
+  bool get allProjectOptionsUsed => enabledProjectModulesOptions.length == availableProjectModulesOptions.length;
 
   Iterable<TariffOption> get subscribedFeatures => tariff.features.where((o) => subscribed(o.code));
 

@@ -7,7 +7,8 @@ import 'task_tree.dart';
 
 extension ProjectModuleUC on Task {
   // TODO: перенести в computed в контроллер
-  Iterable<TariffOption> get selectedProjectOptions => ws.enabledProjectOptions.where((o) => project.projectModules.any((pm) => pm.optionId == o.id));
+  Iterable<TariffOption> get selectedProjectOptions =>
+      ws.enabledProjectModulesOptions.where((o) => project.projectModules.any((pm) => pm.optionId == o.id));
 
   Iterable<String> get _oCodes => selectedProjectOptions.map((o) => o.code);
 

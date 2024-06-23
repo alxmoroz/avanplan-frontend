@@ -24,7 +24,7 @@ abstract class _ProjectModulesControllerBase with Store {
   late final TaskController _taskController;
 
   Task get project => _taskController.task;
-  Iterable<TariffOption> get _enabledProjectOptions => project.ws.enabledProjectOptions;
+  Iterable<TariffOption> get _enabledProjectOptions => project.ws.enabledProjectModulesOptions;
 
   @observable
   ObservableList<bool> checks = ObservableList();

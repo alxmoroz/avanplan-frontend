@@ -79,8 +79,8 @@ class TariffOptions extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (_, index) => _TariffOption(_tariff.billedOptions[index]),
-          itemCount: _tariff.billedOptions.length,
+          itemBuilder: (_, index) => _TariffOption(_tariff.consumableOptions[index]),
+          itemCount: _tariff.consumableOptions.length,
         ),
         if (_tariff.hasFeatures)
           MTListTile(

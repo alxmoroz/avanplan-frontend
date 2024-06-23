@@ -56,8 +56,8 @@ class Tariff extends Codable {
 
   bool get hasFeatures => _options.any((o) => o.userManageable);
   List<TariffOption> get features => _options.where((o) => o.userManageable).toList();
-  Iterable<TariffOption> get projectOptions => _options.where((o) => o.projectRelated);
-  List<TariffOption> get billedOptions => _options.where((o) => o.price > 0 && !o.userManageable).toList();
+  Iterable<TariffOption> get projectModulesOptions => _options.where((o) => o.projectRelated);
+  List<TariffOption> get consumableOptions => _options.where((o) => o.price > 0 && !o.userManageable && o.code != TOCode.BASE_PRICE).toList();
 
   num get basePrice => price(TOCode.BASE_PRICE);
 

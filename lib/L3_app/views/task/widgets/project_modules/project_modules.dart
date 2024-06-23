@@ -76,7 +76,7 @@ class _ProjectModulesBody extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _controller.checks.length,
             itemBuilder: (_, index) {
-              final fs = _controller.project.ws.enabledProjectOptions.elementAt(index);
+              final fs = _controller.project.ws.enabledProjectModulesOptions.elementAt(index);
               final onChanged = _controller.onChanged(index);
               return MTCheckBoxTile(
                 leading: _image(fs.code),

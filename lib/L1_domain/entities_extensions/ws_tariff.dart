@@ -9,6 +9,8 @@ import '../utils/dates.dart';
 extension WSTariff on Workspace {
   Tariff get tariff => invoice.tariff;
 
+  bool get hasFeatures => tariff.hasFeatures;
+
   num consumed(String code) => invoice.details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
   bool subscribed(String code) => consumed(code) > 0;
 

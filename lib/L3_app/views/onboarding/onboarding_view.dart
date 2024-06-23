@@ -1,16 +1,16 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/button.dart';
-import 'package:avanplan/L3_app/components/colors.dart';
-import 'package:avanplan/L3_app/components/icons.dart';
-import 'package:avanplan/L3_app/components/list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
+import '../../components/button.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/images.dart';
+import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/route.dart';
@@ -66,11 +66,11 @@ class _OnboardingView extends StatelessWidget {
                 const SizedBox(height: P3),
                 QuizNextButton(_controller),
               ],
-              if (_controller.stepIndex == 3)
+              if (_controller.isPromoFeaturesStep)
                 PromoFeatures(wsMainController.myWS, onLater: _controller.next)
-              else if (_controller.stepIndex == 4) ...[
+              else if (_controller.isWhereWeGoStep) ...[
                 H2(
-                  loc.onboarding_final_step_title,
+                  loc.onboarding_where_we_go_step_title,
                   align: TextAlign.center,
                   padding: const EdgeInsets.symmetric(horizontal: P6).copyWith(bottom: P2),
                 ),

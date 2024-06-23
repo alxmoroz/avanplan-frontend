@@ -217,7 +217,7 @@
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
 
-  "onboarding_final_step_title": "Where do we start?",
+  "onboarding_where_we_go_step_title": "Where do we start?",
 
   "onboarding_step_1_title": "All your tasks are in one place",
   "onboarding_step_1_text": "Manage your personal and work matters: tasks, projects, meetings",

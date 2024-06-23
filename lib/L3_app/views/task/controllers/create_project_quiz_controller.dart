@@ -2,7 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/tariff.dart';
+import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';

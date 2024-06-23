@@ -36,5 +36,15 @@ void main() {
     test('to test the property `invoiceId`', () async {
       // TODO
     });
+
+    // String promoActionCode
+    test('to test the property `promoActionCode`', () async {
+      // TODO
+    });
+
+    // num finalPrice
+    test('to test the property `finalPrice`', () async {
+      // TODO
+    });
   });
 }

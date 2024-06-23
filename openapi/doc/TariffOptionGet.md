@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **freeLimit** | **num** |  | [optional] [default to 0]
 **userManageable** | **bool** |  | [optional] [default to false]
 **projectRelated** | **bool** |  | [optional] [default to false]
+**promoAction** | [**PromoActionGet**](PromoActionGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

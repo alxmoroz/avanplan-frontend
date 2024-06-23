@@ -203,6 +203,7 @@ Class | Method | HTTP request | Description
  - [ProjectGet](doc/ProjectGet.md)
  - [ProjectStatusGet](doc/ProjectStatusGet.md)
  - [ProjectStatusUpsert](doc/ProjectStatusUpsert.md)
+ - [PromoActionGet](doc/PromoActionGet.md)
  - [Registration](doc/Registration.md)
  - [ReleaseNoteGet](doc/ReleaseNoteGet.md)
  - [RoleGet](doc/RoleGet.md)

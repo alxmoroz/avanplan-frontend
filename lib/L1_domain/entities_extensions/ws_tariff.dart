@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import '../entities/tariff.dart';
+import '../entities/tariff_option.dart';
 import '../entities/workspace.dart';
 import '../utils/dates.dart';
 

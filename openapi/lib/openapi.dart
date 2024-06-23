@@ -71,6 +71,7 @@ export 'package:openapi/src/model/project_feature_set_get.dart';
 export 'package:openapi/src/model/project_get.dart';
 export 'package:openapi/src/model/project_status_get.dart';
 export 'package:openapi/src/model/project_status_upsert.dart';
+export 'package:openapi/src/model/promo_action_get.dart';
 export 'package:openapi/src/model/registration.dart';
 export 'package:openapi/src/model/release_note_get.dart';
 export 'package:openapi/src/model/role_get.dart';

@@ -17,6 +17,8 @@ part 'invoice_detail_get.g.dart';
 /// * [endDate] 
 /// * [serviceAmount] 
 /// * [invoiceId] 
+/// * [promoActionCode] 
+/// * [finalPrice] 
 @BuiltValue()
 abstract class InvoiceDetailGet implements Built<InvoiceDetailGet, InvoiceDetailGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -36,6 +38,12 @@ abstract class InvoiceDetailGet implements Built<InvoiceDetailGet, InvoiceDetail
 
   @BuiltValueField(wireName: r'invoice_id')
   int get invoiceId;
+
+  @BuiltValueField(wireName: r'promo_action_code')
+  String? get promoActionCode;
+
+  @BuiltValueField(wireName: r'final_price')
+  num? get finalPrice;
 
   InvoiceDetailGet._();
 
@@ -92,6 +100,20 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
       object.invoiceId,
       specifiedType: const FullType(int),
     );
+    if (object.promoActionCode != null) {
+      yield r'promo_action_code';
+      yield serializers.serialize(
+        object.promoActionCode,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.finalPrice != null) {
+      yield r'final_price';
+      yield serializers.serialize(
+        object.finalPrice,
+        specifiedType: const FullType(num),
+      );
+    }
   }
 
   @override
@@ -156,6 +178,20 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
             specifiedType: const FullType(int),
           ) as int;
           result.invoiceId = valueDes;
+          break;
+        case r'promo_action_code':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.promoActionCode = valueDes;
+          break;
+        case r'final_price':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.finalPrice = valueDes;
           break;
         default:
           unhandled.add(key);

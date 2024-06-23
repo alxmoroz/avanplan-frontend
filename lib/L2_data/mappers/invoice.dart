@@ -3,19 +3,9 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/invoice.dart';
-import '../../L1_domain/entities/invoice_detail.dart';
 import 'contract.dart';
+import 'invoice_detail.dart';
 import 'tariff.dart';
-
-extension InvoiceDetailMapper on api.InvoiceDetailGet {
-  InvoiceDetail get invoiceDetail => InvoiceDetail(
-        id: id,
-        code: code,
-        startDate: startDate.toLocal(),
-        endDate: endDate?.toLocal(),
-        serviceAmount: serviceAmount,
-      );
-}
 
 extension InvoiceMapper on api.InvoiceGet {
   Invoice get invoice => Invoice(

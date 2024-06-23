@@ -1,6 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import '../../L1_domain/entities/tariff.dart';
+import '../../L1_domain/entities/tariff_option.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/ws_tariff.dart';
 import 'task_tree.dart';

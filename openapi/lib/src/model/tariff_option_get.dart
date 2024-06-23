@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/promo_action_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -18,6 +19,7 @@ part 'tariff_option_get.g.dart';
 /// * [freeLimit] 
 /// * [userManageable] 
 /// * [projectRelated] 
+/// * [promoAction] 
 @BuiltValue()
 abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -40,6 +42,9 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
 
   @BuiltValueField(wireName: r'project_related')
   bool? get projectRelated;
+
+  @BuiltValueField(wireName: r'promo_action')
+  PromoActionGet? get promoAction;
 
   TariffOptionGet._();
 
@@ -114,6 +119,13 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
         specifiedType: const FullType(bool),
       );
     }
+    if (object.promoAction != null) {
+      yield r'promo_action';
+      yield serializers.serialize(
+        object.promoAction,
+        specifiedType: const FullType(PromoActionGet),
+      );
+    }
   }
 
   @override
@@ -185,6 +197,13 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
             specifiedType: const FullType(bool),
           ) as bool;
           result.projectRelated = valueDes;
+          break;
+        case r'promo_action':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(PromoActionGet),
+          ) as PromoActionGet;
+          result.promoAction.replace(valueDes);
           break;
         default:
           unhandled.add(key);

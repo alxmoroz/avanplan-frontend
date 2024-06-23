@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../L1_domain/entities/tariff.dart';
+import '../../L1_domain/entities/tariff_option.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/images.dart';

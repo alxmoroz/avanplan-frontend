@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/tariff.dart';
+import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../extra/services.dart';

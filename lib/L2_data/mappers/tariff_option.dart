@@ -1,0 +1,19 @@
+// Copyright (c) 2022. Alexandr Moroz
+
+import 'package:openapi/openapi.dart' as api;
+
+import '../../L1_domain/entities/tariff_option.dart';
+import 'promo_action.dart';
+
+extension TariffOptionMapper on api.TariffOptionGet {
+  TariffOption get tariffOption => TariffOption(
+        id: id,
+        code: code,
+        price: price ?? 0,
+        billingQuantity: tariffQuantity ?? 1,
+        freeLimit: freeLimit ?? 0,
+        userManageable: userManageable ?? false,
+        projectRelated: projectRelated ?? false,
+        promoAction: promoAction?.promoAction,
+      );
+}

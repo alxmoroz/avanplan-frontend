@@ -41,5 +41,10 @@ void main() {
     test('to test the property `projectRelated`', () async {
       // TODO
     });
+
+    // PromoActionGet promoAction
+    test('to test the property `promoAction`', () async {
+      // TODO
+    });
   });
 }

@@ -9,9 +9,13 @@ class InvoiceDetail extends Codable {
     required this.startDate,
     this.endDate,
     required this.serviceAmount,
+    required this.promoActionCode,
+    required this.finalPrice,
   });
 
   final DateTime startDate;
   final DateTime? endDate;
   final num serviceAmount;
+  final String? promoActionCode;
+  final num? finalPrice;
 }

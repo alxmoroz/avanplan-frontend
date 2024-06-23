@@ -52,6 +52,7 @@ doc/ProjectGet.md
 doc/ProjectStatusGet.md
 doc/ProjectStatusUpsert.md
 doc/ProjectStatusesApi.md
+doc/PromoActionGet.md
 doc/Registration.md
 doc/ReleaseNoteGet.md
 doc/ReleaseNotesApi.md
@@ -155,6 +156,7 @@ lib/src/model/project_feature_set_get.dart
 lib/src/model/project_get.dart
 lib/src/model/project_status_get.dart
 lib/src/model/project_status_upsert.dart
+lib/src/model/promo_action_get.dart
 lib/src/model/registration.dart
 lib/src/model/release_note_get.dart
 lib/src/model/role_get.dart
@@ -228,6 +230,7 @@ test/project_get_test.dart
 test/project_status_get_test.dart
 test/project_status_upsert_test.dart
 test/project_statuses_api_test.dart
+test/promo_action_get_test.dart
 test/registration_test.dart
 test/release_note_get_test.dart
 test/release_notes_api_test.dart

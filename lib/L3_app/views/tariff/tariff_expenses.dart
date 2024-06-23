@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
+import '../../../L1_domain/entities/tariff_option.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';

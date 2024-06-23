@@ -4,18 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/tariff.dart';
-
-extension TariffOptionMapper on api.TariffOptionGet {
-  TariffOption get tariffOption => TariffOption(
-        id: id,
-        code: code,
-        price: price ?? 0,
-        billingQuantity: tariffQuantity ?? 1,
-        freeLimit: freeLimit ?? 0,
-        userManageable: userManageable ?? false,
-        projectRelated: projectRelated ?? false,
-      );
-}
+import 'tariff_option.dart';
 
 extension TariffMapper on api.TariffGet {
   Tariff get tariff => Tariff(

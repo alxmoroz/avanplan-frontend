@@ -1,4 +1,4 @@
-# openapi.model.InvoiceDetailGet
+# openapi.model.PromoActionGet
 
 ## Load the model package
 ```dart
@@ -10,12 +10,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **code** | **String** |  | 
-**startDate** | [**DateTime**](DateTime.md) |  | 
-**endDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**serviceAmount** | **num** |  | 
-**invoiceId** | **int** |  | 
-**promoActionCode** | **String** |  | [optional] 
-**finalPrice** | **num** |  | [optional] 
+**discount** | **num** |  | 
+**durationDays** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

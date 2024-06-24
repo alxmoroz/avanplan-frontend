@@ -79,9 +79,9 @@ abstract class _AuthControllerBase with Store, Loadable {
 
   @action
   Future signOut() async {
+    router.goAuth();
     await authUC.signOut();
     authorized = false;
-    router.goAuth();
     mainController.clear();
   }
 

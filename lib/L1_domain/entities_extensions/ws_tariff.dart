@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import '../entities/invoice_detail.dart';
 import '../entities/tariff.dart';
 import '../entities/tariff_option.dart';
 import '../entities/workspace.dart';
@@ -12,7 +13,13 @@ extension WSTariff on Workspace {
 
   bool get hasFeatures => tariff.hasFeatures;
 
-  num consumed(String code) => invoice.details.where((d) => d.code == code && d.endDate == null).firstOrNull?.serviceAmount ?? 0;
+  Iterable<InvoiceDetail> get _activeDetails =>
+      invoice.details.where((d) => d.startDate.isBefore(now) && (d.endDate == null || d.endDate!.isAfter(now)));
+  InvoiceDetail? _ad(String code) => _activeDetails.where((d) => d.code == code).firstOrNull;
+
+  num? finalPrice(String code) => _ad(code)?.finalPrice;
+  DateTime? endDate(String code) => _ad(code)?.endDate;
+  num consumed(String code) => _ad(code)?.serviceAmount ?? 0;
   bool subscribed(String code) => consumed(code) > 0;
 
   // TODO: перенести в computed в контроллер

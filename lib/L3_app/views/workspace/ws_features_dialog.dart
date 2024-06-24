@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
+import '../../../L1_domain/utils/dates.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/circle.dart';
@@ -49,6 +50,13 @@ class _WSFeaturesDialog extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final f = _tariff.features[index];
                   final subscribed = _ws.subscribed(f.code);
+                  final finalPrice = _ws.finalPrice(f.code) ?? f.finalPrice;
+                  final endDate = _ws.endDate(f.code);
+                  final term = endDate != null
+                      ? loc.promo_end_duration(loc.days_count(endDate.difference(now).inDays))
+                      : f.promoAction?.durationDays != null
+                          ? loc.promo_duration(loc.days_count(f.promoAction!.durationDays))
+                          : loc.per_month_suffix;
                   return MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
                     borderSide: subscribed ? const BorderSide(color: greenColor) : null,
@@ -56,11 +64,9 @@ class _WSFeaturesDialog extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        MTListTile(
-                          leading: f.image,
-                          middle: H3(f.title),
-                          bottomDivider: false,
-                        ),
+                        // заголовок
+                        MTListTile(leading: f.image, middle: H3(f.title), bottomDivider: false),
+                        // описание функции
                         for (String d in f.description.split('\n'))
                           Row(
                             children: [
@@ -72,8 +78,11 @@ class _WSFeaturesDialog extends StatelessWidget {
                             ],
                           ),
                         MTListTile(
-                          middle: MTPrice(f.price, finalValue: f.finalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
-                          subtitle: BaseText.f2(loc.per_month_suffix, maxLines: 1),
+                          // цена
+                          middle: MTPrice(f.price, finalValue: finalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
+                          // период тарификации, время до конца акции
+                          subtitle: BaseText.f2(term, maxLines: 1),
+                          // кнопка для подключения / отключения функции
                           trailing: MTButton(
                             type: subscribed ? ButtonType.secondary : ButtonType.main,
                             titleText: subscribed ? loc.tariff_feature_unsubscribe_action_title : loc.tariff_feature_subscribe_action_title,

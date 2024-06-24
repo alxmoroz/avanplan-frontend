@@ -255,6 +255,9 @@
   "project_title": "Проект",
   "projects_group_other_title": "Другие проекты",
 
+  "promo_duration": "на {duration}",
+  "promo_end_duration": "ещё {duration}",
+
   "promo_features_subscribe_title": "Подключить функции",
   "promo_features_title": "Расширяйте возможности с выгодой",
   "promo_features_text": "Безлимитное добавление участников\nСтатистика и прогнозирование срока проекта\nПопробуйте бесплатно",

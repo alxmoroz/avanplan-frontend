@@ -255,6 +255,9 @@
   "project_title": "Project",
   "projects_group_other_title": "Other Projects",
 
+  "promo_duration": "for {duration}",
+  "promo_end_duration": "{duration} left",
+
   "promo_features_subscribe_title": "Subscribe to features",
   "promo_features_title": "Expand the capabilities of the service with benefits",
   "promo_features_text": "Unlimited addition of members\nStatistics and project duration forecasting\nTry it free",

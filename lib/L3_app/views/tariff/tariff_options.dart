@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/tariff_option.dart';
+import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
 import '../../components/text.dart';
@@ -18,9 +19,7 @@ import '../../presenters/tariff_option.dart';
 
 class _TariffOption extends StatelessWidget {
   const _TariffOption(this._to);
-
   final TariffOption _to;
-  static const iconSize = P6;
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +67,11 @@ class _TariffOption extends StatelessWidget {
 }
 
 class TariffOptions extends StatelessWidget {
-  const TariffOptions(this._tariff, {super.key});
+  const TariffOptions(this._ws, this._tariff, {super.key});
+  // NB! Тариф и РП совпадают в частном случае только. Поэтому отдельные аргументы
+  final Workspace _ws;
   final Tariff _tariff;
+  bool get _isMyTariff => _tariff.id == _ws.tariff.id;
 
   @override
   Widget build(BuildContext context) {
@@ -83,24 +85,29 @@ class TariffOptions extends StatelessWidget {
           itemBuilder: (_, index) => _TariffOption(_tariff.consumableOptions[index]),
           itemCount: _tariff.consumableOptions.length,
         ),
-        if (_tariff.hasFeatures)
-          MTListTile(
-            leading: const FeaturesIcon(size: _TariffOption.iconSize),
-            middle: D3(
-              loc.tariff_features_title,
-              align: TextAlign.left,
-              maxLines: 2,
-            ),
-            // TODO: deprecated - хардкод
-            subtitle: Row(
-              children: [
-                DSmallText('${loc.days_count(30)} ${loc.for_} ', color: f2Color, align: TextAlign.left),
-                const MTPrice(0, color: f2Color, size: AdaptiveSize.xs),
-              ],
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
-            bottomDivider: false,
-          ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (_, index) {
+            final f = _tariff.features[index];
+            final actualPrice = (_isMyTariff ? _ws.finalPrice(f.code) : null) ?? f.finalPrice;
+            final originalPrice = f.hasDiscount ? f.price : null;
+            final term = f.priceTerm(_isMyTariff ? _ws.consumedEndDate(f.code) : null);
+            return MTListTile(
+              leading: f.icon,
+              middle: D3(f.title, align: TextAlign.left),
+              subtitle: Row(
+                children: [
+                  MTPrice(actualPrice, originalValue: originalPrice, color: f2Color, size: AdaptiveSize.xs),
+                  DSmallText(' $term', color: f2Color, align: TextAlign.left),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
+              bottomDivider: false,
+            );
+          },
+          itemCount: _tariff.features.length,
+        ),
       ],
     );
   }

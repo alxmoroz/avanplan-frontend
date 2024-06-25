@@ -38,7 +38,7 @@ class TariffSelectorCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           H2(_tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3).copyWith(bottom: 0)),
-          Expanded(child: TariffOptions(_tariff)),
+          Expanded(child: TariffOptions(_controller.ws, _tariff)),
           TariffBasePrice(_tariff),
           _isCurrent
               ? MTButton.main(

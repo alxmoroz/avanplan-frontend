@@ -49,6 +49,10 @@ class MTIcon extends StatelessWidget {
   }
 }
 
+class AnalyticsIcon extends MTIcon {
+  const AnalyticsIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.chart_bar);
+}
+
 class AttachmentIcon extends MTIcon {
   const AttachmentIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.paperclip);
 }

@@ -7,7 +7,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
-import '../../../L1_domain/utils/dates.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/circle.dart';
@@ -50,13 +49,10 @@ class _WSFeaturesDialog extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final f = _tariff.features[index];
                   final subscribed = _ws.subscribed(f.code);
-                  final finalPrice = _ws.finalPrice(f.code) ?? f.finalPrice;
-                  final endDate = _ws.endDate(f.code);
-                  final term = endDate != null
-                      ? loc.promo_end_duration(loc.days_count(endDate.difference(now).inDays))
-                      : f.promoAction?.durationDays != null
-                          ? loc.promo_duration(loc.days_count(f.promoAction!.durationDays))
-                          : loc.per_month_suffix;
+                  final actualPrice = _ws.finalPrice(f.code) ?? f.finalPrice;
+                  final originalPrice = f.hasDiscount ? f.price : null;
+                  final term = f.priceTerm(_ws.consumedEndDate(f.code));
+
                   return MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
                     borderSide: subscribed ? const BorderSide(color: greenColor) : null,
@@ -79,7 +75,7 @@ class _WSFeaturesDialog extends StatelessWidget {
                           ),
                         MTListTile(
                           // цена
-                          middle: MTPrice(f.price, finalValue: finalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
+                          middle: MTPrice(actualPrice, originalValue: originalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
                           // период тарификации, время до конца акции
                           subtitle: BaseText.f2(term, maxLines: 1),
                           // кнопка для подключения / отключения функции

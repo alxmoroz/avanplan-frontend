@@ -18,7 +18,7 @@ extension WSTariff on Workspace {
   InvoiceDetail? _ad(String code) => _activeDetails.where((d) => d.code == code).firstOrNull;
 
   num? finalPrice(String code) => _ad(code)?.finalPrice;
-  DateTime? endDate(String code) => _ad(code)?.endDate;
+  DateTime? consumedEndDate(String code) => _ad(code)?.endDate;
   num consumed(String code) => _ad(code)?.serviceAmount ?? 0;
   bool subscribed(String code) => consumed(code) > 0;
 

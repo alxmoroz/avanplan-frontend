@@ -90,7 +90,7 @@ class _WSTariffDialog extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         H3(_tariff.title, padding: const EdgeInsets.all(P3).copyWith(bottom: 0)),
-                        TariffOptions(_tariff),
+                        TariffOptions(_ws, _tariff),
                         const SizedBox(height: P3),
                         MTListTile(
                           middle: MTPrice(_tariff.basePrice, color: mainColor, rowAlign: MainAxisAlignment.start),

@@ -44,7 +44,7 @@ class _AccountDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => accountController.loading
+      builder: (_) => accountController.loading || _me == null
           ? LoaderScreen(accountController, isDialog: true)
           : MTDialog(
               topBar: MTAppBar(

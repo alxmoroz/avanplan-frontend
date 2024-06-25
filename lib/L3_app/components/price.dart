@@ -13,19 +13,19 @@ class MTPrice extends StatelessWidget {
     this.value, {
     super.key,
     this.color,
-    this.finalValue,
+    this.originalValue,
     this.rowAlign = MainAxisAlignment.center,
     this.size = AdaptiveSize.m,
   });
 
   final num value;
-  final num? finalValue;
+  final num? originalValue;
   final Color? color;
   final AdaptiveSize size;
   final MainAxisAlignment rowAlign;
 
-  Widget get _finalPrice {
-    final text = '${(finalValue ?? value).currency}₽';
+  Widget get _actualPrice {
+    final text = '${value.currency}₽';
     return {
           AdaptiveSize.xs: DSmallText(text, color: color),
           AdaptiveSize.s: D3(text, color: color),
@@ -35,7 +35,7 @@ class MTPrice extends StatelessWidget {
   }
 
   Widget get _originalPrice {
-    final text = '${value.currency}₽';
+    final text = '${originalValue!.currency}₽';
     const decoration = TextDecoration.lineThrough;
     return Padding(
       padding: const EdgeInsets.only(left: P, bottom: P_2),
@@ -52,8 +52,8 @@ class MTPrice extends StatelessWidget {
       mainAxisAlignment: rowAlign,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        _finalPrice,
-        if (finalValue != null) _originalPrice,
+        _actualPrice,
+        if (originalValue != null) _originalPrice,
       ],
     );
   }

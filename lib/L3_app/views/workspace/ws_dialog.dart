@@ -48,8 +48,8 @@ class _WSDialogState extends State<WSDialog> {
   num get _expensesPerDay => ws.expectedDailyCharge;
   bool get _hasExpenses => _expensesPerDay != 0;
   num get _balanceDays => (ws.balance / _expensesPerDay);
-  num get _consumedTasks => ws.consumedTasks;
-  num get _consumedFileStorage => ws.consumedFileStorage;
+  num get _tasksCount => ws.tasksCount;
+  num get _fsVolume => ws.fsVolume;
 
   @override
   void initState() {
@@ -144,7 +144,6 @@ class _WSDialogState extends State<WSDialog> {
           )
       ]),
       trailing: const ChevronIcon(),
-      bottomDivider: _consumedTasks > 0 || _consumedFileStorage > 0 || ws.hpSourceCreate,
       dividerIndent: P11,
       onTap: () => router.goWSUsers(wsd.id!),
     );
@@ -154,20 +153,19 @@ class _WSDialogState extends State<WSDialog> {
         leading: const TasksIcon(),
         middle: Row(
           children: [
-            BaseText(_consumedTasks.humanValueStr, maxLines: 1),
-            BaseText.f2(' ${loc.task_plural(_consumedTasks)}', maxLines: 1),
+            BaseText(_tasksCount.humanValueStr, maxLines: 1),
+            BaseText.f2(' ${loc.task_plural(_tasksCount)}', maxLines: 1),
           ],
         ),
         trailing: const SizedBox(width: P3),
         dividerIndent: P11,
-        bottomDivider: _consumedFileStorage > 0 || ws.hpSourceCreate,
       );
 
   Widget get _storage => MTListTile(
         leading: const FileStorageIcon(),
         middle: Row(
           children: [
-            BaseText(_consumedFileStorage.humanBytesStr, maxLines: 1),
+            BaseText(_fsVolume.humanBytesStr, maxLines: 1),
             BaseText.f2(' ${loc.tariff_option_file_storage_suffix}', maxLines: 1),
           ],
         ),

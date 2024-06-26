@@ -26,6 +26,8 @@ extension WorkspaceMapper on api.WorkspaceGet {
       settings: settings?.settings,
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)).toList() ?? [],
       sources: [],
+      fsVolume: fsVolume ?? 0,
+      tasksCount: tasksCount ?? 0,
     );
     ws.sources = sources?.map((s) => s.source(id)).toList() ?? [];
     return ws;

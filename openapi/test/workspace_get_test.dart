@@ -81,5 +81,15 @@ void main() {
     test('to test the property `sources`', () async {
       // TODO
     });
+
+    // num fsVolume (default value: 0)
+    test('to test the property `fsVolume`', () async {
+      // TODO
+    });
+
+    // int tasksCount (default value: 0)
+    test('to test the property `tasksCount`', () async {
+      // TODO
+    });
   });
 }

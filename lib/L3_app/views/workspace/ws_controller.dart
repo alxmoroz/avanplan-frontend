@@ -48,6 +48,8 @@ class WSController extends _WSControllerBase with _$WSController {
             settings: null,
             estimateValues: [],
             sources: [],
+            fsVolume: 0,
+            tasksCount: 0,
           ),
     );
   }

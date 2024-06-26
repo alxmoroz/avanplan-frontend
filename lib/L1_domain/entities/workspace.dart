@@ -33,6 +33,8 @@ class Workspace extends WorkspaceUpsert {
     required this.settings,
     required this.estimateValues,
     required this.sources,
+    required this.fsVolume,
+    required this.tasksCount,
   });
 
   Iterable<User> users;
@@ -45,6 +47,9 @@ class Workspace extends WorkspaceUpsert {
   // редактируемые поля
   List<EstimateValue> estimateValues;
   List<Source> sources;
+
+  final num fsVolume;
+  final int tasksCount;
 
   // TODO: похоже на атавизм. Остальных dummy тоже касается
   static Workspace get dummy => Workspace(
@@ -60,5 +65,7 @@ class Workspace extends WorkspaceUpsert {
         settings: null,
         estimateValues: [],
         sources: [],
+        fsVolume: 0,
+        tasksCount: 0,
       );
 }

@@ -45,7 +45,7 @@ class _WSDialogState extends State<WSDialog> {
   Workspace get ws => controller.ws;
   Workspace get wsd => controller.wsDescriptor;
 
-  num get _expensesPerDay => ws.currentExpensesPerDay;
+  num get _expensesPerDay => ws.expectedDailyCharge;
   bool get _hasExpenses => _expensesPerDay != 0;
   num get _balanceDays => (ws.balance / _expensesPerDay);
   num get _consumedTasks => ws.consumedTasks;

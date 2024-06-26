@@ -20,7 +20,7 @@ class TariffOption extends Codable {
     required super.id,
     required super.code,
     required this.price,
-    required this.billingQuantity,
+    required this.tariffQuantity,
     required this.freeLimit,
     required this.userManageable,
     required this.projectRelated,
@@ -28,7 +28,7 @@ class TariffOption extends Codable {
   });
 
   final num price;
-  final num billingQuantity;
+  final num tariffQuantity;
   final num freeLimit;
   final bool userManageable;
   final bool projectRelated;

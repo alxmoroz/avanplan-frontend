@@ -37,8 +37,8 @@ class _WSTariffDialog extends StatelessWidget {
   Iterable<TariffOption> get _subscribedFeatures => _ws.subscribedFeatures;
   Tariff get _tariff => _ws.tariff;
 
-  num get _expensesPerDay => _ws.currentExpensesPerDay;
-  bool get _hasExpenses => _expensesPerDay != 0;
+  num get _expectedDailyCharge => _ws.expectedDailyCharge;
+  bool get _hasExpenses => _expectedDailyCharge != 0;
 
   Widget get _features => MTListTile(
         leading: const FeaturesIcon(),
@@ -58,7 +58,7 @@ class _WSTariffDialog extends StatelessWidget {
         subtitle: _hasExpenses
             ? Row(
                 children: [
-                  MTPrice(_expensesPerDay, size: AdaptiveSize.xs),
+                  MTPrice(_expectedDailyCharge, size: AdaptiveSize.xs),
                   const SizedBox(width: P_2),
                   DSmallText(loc.per_day_suffix),
                 ],

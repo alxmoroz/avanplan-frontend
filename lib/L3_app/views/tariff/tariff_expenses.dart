@@ -27,19 +27,19 @@ class TariffExpenses extends StatelessWidget {
 
   Tariff get _tariff => tariff ?? _ws.tariff;
 
-  num get _teamExpenses => _ws.expensesPerMonth(TOCode.TEAM, _tariff);
+  num get _teamExpenses => _ws.expectedMonthlyCharge(TOCode.TEAM, _tariff);
   num get _teamOverdraft => _ws.overdraft(TOCode.TEAM, _tariff);
   num get _teamPrice => _tariff.price(TOCode.TEAM);
 
-  num get _tasksExpenses => _ws.expensesPerMonth(TOCode.TASKS, _tariff);
+  num get _tasksExpenses => _ws.expectedMonthlyCharge(TOCode.TASKS, _tariff);
   num get _tasksOverdraft => _ws.overdraft(TOCode.TASKS, _tariff);
   num get _tasksPrice => _tariff.price(TOCode.TASKS);
-  String get _tasksQuantitySuffix => _tariff.billingQuantity(TOCode.TASKS).humanSuffix;
+  String get _tasksQuantitySuffix => _tariff.tariffQuantity(TOCode.TASKS).humanSuffix;
 
-  num get _fsExpenses => _ws.expensesPerMonth(TOCode.FILE_STORAGE, _tariff);
+  num get _fsExpenses => _ws.expectedMonthlyCharge(TOCode.FILE_STORAGE, _tariff);
   num get _fsOverdraft => _ws.overdraft(TOCode.FILE_STORAGE, _tariff);
   num get _fsPrice => _tariff.price(TOCode.FILE_STORAGE);
-  String get _fsQuantitySuffix => _tariff.billingQuantity(TOCode.FILE_STORAGE).humanBytesSuffix;
+  String get _fsQuantitySuffix => _tariff.tariffQuantity(TOCode.FILE_STORAGE).humanBytesSuffix;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class TariffExpenses extends StatelessWidget {
           ),
         MTListTile(
           middle: BaseText.medium(loc.total_title),
-          trailing: MTPrice(_ws.overallExpensesPerMonth(_tariff), size: AdaptiveSize.m, color: mainColor),
+          trailing: MTPrice(_ws.overallExpectedMonthlyCharge(_tariff), size: AdaptiveSize.m, color: mainColor),
           margin: const EdgeInsets.only(top: P3),
           bottomDivider: false,
         ),

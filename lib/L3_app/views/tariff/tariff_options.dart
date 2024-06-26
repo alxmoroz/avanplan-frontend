@@ -30,10 +30,10 @@ class _TariffOption extends StatelessWidget {
     // TODO: deprecated USERS_COUNT, FS_VOLUME как только не останется старых тарифов
     if ([TOCode.FILE_STORAGE, 'FS_VOLUME'].contains(_to.code)) {
       suffix = '${_to.freeLimit.humanBytesSuffix} ';
-      extraQuantityStr = '+${_to.billingQuantity.humanBytesStr}';
+      extraQuantityStr = '+${_to.tariffQuantity.humanBytesStr}';
       unit = loc.tariff_option_file_storage_suffix;
     } else {
-      extraQuantityStr = '+${_to.billingQuantity.humanValueStr}';
+      extraQuantityStr = '+${_to.tariffQuantity.humanValueStr}';
       if ([TOCode.TEAM, 'USERS_COUNT'].contains(_to.code)) {
         unit = loc.member_plural(_to.freeLimit);
       }
@@ -44,7 +44,7 @@ class _TariffOption extends StatelessWidget {
       }
     }
 
-    final freeLimitHuman = '${(_to.freeLimit / _to.billingQuantity).round()} ';
+    final freeLimitHuman = '${(_to.freeLimit / _to.tariffQuantity).round()} ';
 
     return MTListTile(
       leading: _to.icon,
@@ -79,26 +79,27 @@ class TariffOptions extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
+        // тарифицируемые опции
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) => _TariffOption(_tariff.consumableOptions[index]),
           itemCount: _tariff.consumableOptions.length,
         ),
+        // функции
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) {
             final f = _tariff.features[index];
             final actualPrice = (_isMyTariff ? _ws.finalPrice(f.code) : null) ?? f.finalPrice;
-            final originalPrice = f.hasDiscount ? f.price : null;
             final term = f.priceTerm(_isMyTariff ? _ws.consumedEndDate(f.code) : null);
             return MTListTile(
               leading: f.icon,
               middle: D3(f.title, align: TextAlign.left),
               subtitle: Row(
                 children: [
-                  MTPrice(actualPrice, originalValue: originalPrice, color: f2Color, size: AdaptiveSize.xs),
+                  MTPrice(actualPrice, color: f2Color, size: AdaptiveSize.xs),
                   DSmallText(' $term', color: f2Color, align: TextAlign.left),
                 ],
               ),

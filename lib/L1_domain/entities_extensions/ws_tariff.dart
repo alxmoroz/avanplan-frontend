@@ -28,29 +28,21 @@ extension WSTariff on Workspace {
 
   num overdraft(String code, Tariff tariff) {
     final diff = max(0, consumed(code) - tariff.freeLimit(code));
-    return (diff / tariff.billingQuantity(code)).ceil();
+    return (diff / tariff.tariffQuantity(code)).ceil();
   }
 
-  bool hasOverdraft(Tariff tariff) {
-    for (final code in tariff.optionsMap.keys) {
-      if (overdraft(code, tariff) > 0 && code != TOCode.BASE_PRICE) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // TODO: deprecated: fallback нужен для записей без инфы о final_price
+  num expectedMonthlyCharge(String code, Tariff tariff) => overdraft(code, tariff) * (finalPrice(code) ?? tariff.price(code));
 
-  num expensesPerMonth(String code, Tariff tariff) => overdraft(code, tariff) * tariff.price(code);
-
-  num overallExpensesPerMonth(Tariff tariff) {
+  num overallExpectedMonthlyCharge(Tariff tariff) {
     num sum = 0;
     for (String code in tariff.optionsMap.keys) {
-      sum += expensesPerMonth(code, tariff);
+      sum += expectedMonthlyCharge(code, tariff);
     }
     return sum;
   }
 
-  num get currentExpensesPerDay => overallExpensesPerMonth(tariff) / DAYS_IN_MONTH;
+  num get expectedDailyCharge => overallExpectedMonthlyCharge(tariff) / DAYS_IN_MONTH;
 
   bool get allProjectOptionsUsed => enabledProjectModulesOptions.length == availableProjectModulesOptions.length;
 

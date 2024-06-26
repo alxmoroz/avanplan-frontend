@@ -129,8 +129,6 @@
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",
 
-  "file_storage_title": "Хранилище файлов",
-
   "for_": "за",
   "for_dative": "по",
 
@@ -382,6 +380,7 @@
   "tariff_option_analytics_subtitle": "Прогнозы, оценки и статистика",
   "tariff_option_analytics_description": "Прогноз срока завершения\nСтатистика\nСтатусы проектов\nОценка трудоёмкости",
 
+  "tariff_option_file_storage_title": "Хранилище файлов",
   "tariff_option_file_storage_suffix": "файлов",
 
   "tariff_option_goals_title": "Цели",

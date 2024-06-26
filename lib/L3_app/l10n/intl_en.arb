@@ -129,8 +129,6 @@
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
 
-  "file_storage_title": "File Storage",
-
   "for_": "for",
   "for_dative": "for",
 
@@ -382,6 +380,7 @@
   "tariff_option_analytics_subtitle": "Dates prediction, Estimates and Statistics",
   "tariff_option_analytics_description": "Dates prediction\nStatistics\nProject statuses\nEstimating Task Difficulty",
 
+  "tariff_option_file_storage_title": "File Storage",
   "tariff_option_file_storage_suffix": "files",
 
   "tariff_option_goals_title": "Goals",

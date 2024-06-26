@@ -37,7 +37,7 @@ extension WSTariffUC on WSController {
   Future toggleFeatureSubscription(BuildContext context, TariffOption f) async {
     bool needDeleteTeam = false;
     bool? deleteTeamGranted = false;
-    final subscribed = ws.subscribed(f.code);
+    final subscribed = ws.hasExpense(f.code);
 
     // Подключение функции
     if (!subscribed) {

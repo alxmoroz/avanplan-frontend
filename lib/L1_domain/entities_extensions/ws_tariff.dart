@@ -15,19 +15,21 @@ extension WSTariff on Workspace {
 
   Iterable<InvoiceDetail> get _activeDetails =>
       invoice.details.where((d) => d.startDate.isBefore(now) && (d.endDate == null || d.endDate!.isAfter(now)));
-  InvoiceDetail? _ad(String code) => _activeDetails.where((d) => d.code == code).firstOrNull;
+  InvoiceDetail? ad(String code) => _activeDetails.where((d) => d.code == code).firstOrNull;
 
-  num? finalPrice(String code) => _ad(code)?.finalPrice;
-  DateTime? consumedEndDate(String code) => _ad(code)?.endDate;
-  num consumed(String code) => _ad(code)?.serviceAmount ?? 0;
-  bool subscribed(String code) => consumed(code) > 0;
+  num? finalPrice(String code) => ad(code)?.finalPrice;
+  DateTime? consumedEndDate(String code) => ad(code)?.endDate;
+  num serviceAmount(String code) => ad(code)?.serviceAmount ?? 0;
+  bool hasExpense(String code) => serviceAmount(code) > 0;
 
   // TODO: перенести в computed в контроллер
   Iterable<TariffOption> get availableProjectModulesOptions => tariff.projectModulesOptions;
-  Iterable<TariffOption> get enabledProjectModulesOptions => availableProjectModulesOptions.where((o) => !o.userManageable || subscribed(o.code));
+  Iterable<TariffOption> get enabledProjectModulesOptions => availableProjectModulesOptions.where((o) => !o.userManageable || hasExpense(o.code));
+  List<TariffOption> get expensiveOptions => tariff.consumableOptions.where((o) => hasExpense(o.code)).toList();
+  List<TariffOption> get expensiveFeatures => tariff.features.where((o) => hasExpense(o.code)).toList();
 
   num overdraft(String code, Tariff tariff) {
-    final diff = max(0, consumed(code) - tariff.freeLimit(code));
+    final diff = max(0, serviceAmount(code) - tariff.freeLimit(code));
     return (diff / tariff.tariffQuantity(code)).ceil();
   }
 
@@ -46,9 +48,9 @@ extension WSTariff on Workspace {
 
   bool get allProjectOptionsUsed => enabledProjectModulesOptions.length == availableProjectModulesOptions.length;
 
-  Iterable<TariffOption> get subscribedFeatures => tariff.features.where((o) => subscribed(o.code));
+  Iterable<TariffOption> get subscribedFeatures => tariff.features.where((o) => hasExpense(o.code));
 
   // TODO: deprecated TASKS_COUNT, FS_VOLUME как только не останется старых тарифов
-  num get consumedTasks => consumed(TOCode.TASKS) + consumed("TASKS_COUNT");
-  num get consumedFileStorage => consumed(TOCode.FILE_STORAGE) + consumed('FS_VOLUME');
+  num get consumedTasks => serviceAmount(TOCode.TASKS) + serviceAmount("TASKS_COUNT");
+  num get consumedFileStorage => serviceAmount(TOCode.FILE_STORAGE) + serviceAmount('FS_VOLUME');
 }

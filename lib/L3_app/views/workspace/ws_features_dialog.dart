@@ -48,7 +48,7 @@ class _WSFeaturesDialog extends StatelessWidget {
                 itemCount: _tariff.features.length,
                 itemBuilder: (_, index) {
                   final f = _tariff.features[index];
-                  final subscribed = _ws.subscribed(f.code);
+                  final subscribed = _ws.hasExpense(f.code);
                   final actualPrice = _ws.finalPrice(f.code) ?? f.finalPrice;
                   final originalPrice = f.hasDiscount ? f.price : null;
                   final term = f.priceTerm(_ws.consumedEndDate(f.code));

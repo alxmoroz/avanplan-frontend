@@ -8,11 +8,11 @@ import 'task_tree.dart';
 extension ProjectModuleUC on Task {
   // TODO: перенести в computed в контроллер
   Iterable<TariffOption> get selectedProjectOptions =>
-      ws.enabledProjectModulesOptions.where((o) => project.projectModules.any((pm) => pm.optionId == o.id));
+      ws.enabledProjectModulesOptions.where((o) => project.projectModules.any((pm) => pm.toCode == o.code));
 
-  Iterable<String> get _oCodes => selectedProjectOptions.map((o) => o.code);
+  Iterable<String> get _selectedCodes => selectedProjectOptions.map((o) => o.code);
 
-  bool hm(String code) => _oCodes.contains(code);
+  bool hm(String code) => _selectedCodes.contains(code);
 
   bool get hmAnalytics => hm(TOCode.ANALYTICS);
   bool get hmTeam => hm(TOCode.TEAM);

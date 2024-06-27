@@ -39,7 +39,7 @@ Name | Type | Description | Notes
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
 **attachments** | [**BuiltList&lt;AttachmentGet&gt;**](AttachmentGet.md) |  | [optional] 
 **projectStatuses** | [**BuiltList&lt;ProjectStatusGet&gt;**](ProjectStatusGet.md) |  | [optional] 
-**projectFeatureSets** | [**BuiltList&lt;ProjectFeatureSetGet&gt;**](ProjectFeatureSetGet.md) |  | [optional] 
+**projectModules** | [**BuiltList&lt;ProjectModuleGet&gt;**](ProjectModuleGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

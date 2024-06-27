@@ -5,8 +5,8 @@ import 'base_entity.dart';
 class ProjectModule extends RPersistable {
   ProjectModule({
     required super.id,
-    required this.optionId,
+    required this.toCode,
   });
 
-  final int optionId;
+  final String toCode;
 }

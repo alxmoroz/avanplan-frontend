@@ -9,14 +9,14 @@ import '../mappers/project_module.dart';
 import '../services/api.dart';
 
 class ProjectModulesRepo extends AbstractProjectModuleRepo {
-  ProjectFeatureSetsApi get _api => openAPI.getProjectFeatureSetsApi();
+  ProjectModulesApi get _api => openAPI.getProjectModulesApi();
 
   @override
-  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<int> optionsIds) async {
-    final response = await _api.setupProjectFeatureSets(
+  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<String> toCodes) async {
+    final response = await _api.setupProjectModules(
       wsId: wsId,
       taskId: projectId,
-      requestBody: BuiltList.from(optionsIds),
+      requestBody: BuiltList.from(toCodes),
     );
     return response.data?.map((pf) => pf.projectModule) ?? [];
   }

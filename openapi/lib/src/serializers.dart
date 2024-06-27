@@ -49,8 +49,8 @@ import 'package:openapi/src/model/note_upsert.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
-import 'package:openapi/src/model/project_feature_set_get.dart';
 import 'package:openapi/src/model/project_get.dart';
+import 'package:openapi/src/model/project_module_get.dart';
 import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/project_status_upsert.dart';
 import 'package:openapi/src/model/promo_action_get.dart';
@@ -114,8 +114,8 @@ part 'serializers.g.dart';
   Notification,
   PermissionGet,
   PermissionRoleGet,
-  ProjectFeatureSetGet,
   ProjectGet,
+  ProjectModuleGet,
   ProjectStatusGet,
   ProjectStatusUpsert,
   PromoActionGet,
@@ -143,22 +143,6 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TaskRemote)]),
-        () => ListBuilder<TaskRemote>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
-        () => ListBuilder<ProjectFeatureSetGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(ProjectGet)]),
-        () => ListBuilder<ProjectGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(int)]),
-        () => ListBuilder<int>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Notification)]),
         () => ListBuilder<Notification>(),
       )
@@ -171,6 +155,22 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TariffGet>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(InvitationGet)]),
+        () => ListBuilder<InvitationGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskRemote)]),
+        () => ListBuilder<TaskRemote>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectGet)]),
+        () => ListBuilder<ProjectGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(int)]),
+        () => ListBuilder<int>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ReleaseNoteGet)]),
         () => ListBuilder<ReleaseNoteGet>(),
       )
@@ -179,12 +179,16 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<CalendarSourceGet>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectModuleGet)]),
+        () => ListBuilder<ProjectModuleGet>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(MemberGet)]),
         () => ListBuilder<MemberGet>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(InvitationGet)]),
-        () => ListBuilder<InvitationGet>(),
+        const FullType(BuiltList, [FullType(String)]),
+        () => ListBuilder<String>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

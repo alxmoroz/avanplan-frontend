@@ -8,5 +8,5 @@ class ProjectModuleUC {
 
   final AbstractProjectModuleRepo repo;
 
-  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<int> optionsIds) async => await repo.setup(wsId, projectId, optionsIds);
+  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<String> toCodes) async => await repo.setup(wsId, projectId, toCodes);
 }

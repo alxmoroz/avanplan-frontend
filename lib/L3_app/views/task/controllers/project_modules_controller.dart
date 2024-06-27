@@ -65,13 +65,13 @@ abstract class _ProjectModulesControllerBase with Store {
   Future setup() async {
     final fIndex = TaskFCode.projectModules.index;
     _taskController.updateField(fIndex, loading: true);
-    final fIds = <int>[];
+    final toCodes = <String>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
-        fIds.add(_enabledProjectOptions.elementAt(index).id!);
+        toCodes.add(_enabledProjectOptions.elementAt(index).code);
       }
     }
-    project.projectModules = await projectModuleUC.setup(project.wsId, project.id!, fIds);
+    project.projectModules = await projectModuleUC.setup(project.wsId, project.id!, toCodes);
     _taskController.updateField(fIndex, loading: false);
   }
 }

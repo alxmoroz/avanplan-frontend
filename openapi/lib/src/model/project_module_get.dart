@@ -6,42 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'project_feature_set_get.g.dart';
+part 'project_module_get.g.dart';
 
-/// ProjectFeatureSetGet
+/// ProjectModuleGet
 ///
 /// Properties:
 /// * [id] 
-/// * [featureSetId] 
+/// * [tariffOptionCode] 
 @BuiltValue()
-abstract class ProjectFeatureSetGet implements Built<ProjectFeatureSetGet, ProjectFeatureSetGetBuilder> {
+abstract class ProjectModuleGet implements Built<ProjectModuleGet, ProjectModuleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'feature_set_id')
-  int get featureSetId;
+  @BuiltValueField(wireName: r'tariff_option_code')
+  String get tariffOptionCode;
 
-  ProjectFeatureSetGet._();
+  ProjectModuleGet._();
 
-  factory ProjectFeatureSetGet([void updates(ProjectFeatureSetGetBuilder b)]) = _$ProjectFeatureSetGet;
+  factory ProjectModuleGet([void updates(ProjectModuleGetBuilder b)]) = _$ProjectModuleGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ProjectFeatureSetGetBuilder b) => b;
+  static void _defaults(ProjectModuleGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ProjectFeatureSetGet> get serializer => _$ProjectFeatureSetGetSerializer();
+  static Serializer<ProjectModuleGet> get serializer => _$ProjectModuleGetSerializer();
 }
 
-class _$ProjectFeatureSetGetSerializer implements PrimitiveSerializer<ProjectFeatureSetGet> {
+class _$ProjectModuleGetSerializer implements PrimitiveSerializer<ProjectModuleGet> {
   @override
-  final Iterable<Type> types = const [ProjectFeatureSetGet, _$ProjectFeatureSetGet];
+  final Iterable<Type> types = const [ProjectModuleGet, _$ProjectModuleGet];
 
   @override
-  final String wireName = r'ProjectFeatureSetGet';
+  final String wireName = r'ProjectModuleGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ProjectFeatureSetGet object, {
+    ProjectModuleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -49,17 +49,17 @@ class _$ProjectFeatureSetGetSerializer implements PrimitiveSerializer<ProjectFea
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'feature_set_id';
+    yield r'tariff_option_code';
     yield serializers.serialize(
-      object.featureSetId,
-      specifiedType: const FullType(int),
+      object.tariffOptionCode,
+      specifiedType: const FullType(String),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    ProjectFeatureSetGet object, {
+    ProjectModuleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -70,7 +70,7 @@ class _$ProjectFeatureSetGetSerializer implements PrimitiveSerializer<ProjectFea
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ProjectFeatureSetGetBuilder result,
+    required ProjectModuleGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -84,12 +84,12 @@ class _$ProjectFeatureSetGetSerializer implements PrimitiveSerializer<ProjectFea
           ) as int;
           result.id = valueDes;
           break;
-        case r'feature_set_id':
+        case r'tariff_option_code':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.featureSetId = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.tariffOptionCode = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -100,12 +100,12 @@ class _$ProjectFeatureSetGetSerializer implements PrimitiveSerializer<ProjectFea
   }
 
   @override
-  ProjectFeatureSetGet deserialize(
+  ProjectModuleGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ProjectFeatureSetGetBuilder();
+    final result = ProjectModuleGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

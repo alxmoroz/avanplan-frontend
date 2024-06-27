@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**duplicateTask**](TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [**getInvitations**](TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**moveTask**](TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
-[**setupProjectFeatureSets**](TasksApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
+[**setupProjectModules**](TasksApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [**statusTasksCount**](TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [**taskNode**](TasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Node
 [**unlinkTask**](TasksApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
@@ -437,10 +437,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **setupProjectFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupProjectFeatureSets(taskId, wsId, requestBody)
+# **setupProjectModules**
+> BuiltList<ProjectModuleGet> setupProjectModules(taskId, wsId, requestBody)
 
-Setup Project Feature Sets
+Setup Project Modules
 
 ### Example
 ```dart
@@ -455,13 +455,13 @@ import 'package:openapi/api.dart';
 final api = Openapi().getTasksApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
+final BuiltList<String> requestBody = ; // BuiltList<String> | 
 
 try {
-    final response = api.setupProjectFeatureSets(taskId, wsId, requestBody);
+    final response = api.setupProjectModules(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->setupProjectFeatureSets: $e\n');
+    print('Exception when calling TasksApi->setupProjectModules: $e\n');
 }
 ```
 
@@ -471,11 +471,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
+ **requestBody** | [**BuiltList&lt;String&gt;**](String.md)|  | 
 
 ### Return type
 
-[**BuiltList&lt;ProjectFeatureSetGet&gt;**](ProjectFeatureSetGet.md)
+[**BuiltList&lt;ProjectModuleGet&gt;**](ProjectModuleGet.md)
 
 ### Authorization
 

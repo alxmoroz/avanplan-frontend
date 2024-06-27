@@ -29,7 +29,7 @@ Method | HTTP request | Description
 [**myTasks**](WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [**projectTemplates**](WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [**requestType**](WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
-[**setupProjectFeatureSets**](WorkspacesApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
+[**setupProjectModules**](WorkspacesApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [**sign**](WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [**sourcesForMoveTasks**](WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [**startImport**](WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
@@ -1037,10 +1037,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **setupProjectFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupProjectFeatureSets(taskId, wsId, requestBody)
+# **setupProjectModules**
+> BuiltList<ProjectModuleGet> setupProjectModules(taskId, wsId, requestBody)
 
-Setup Project Feature Sets
+Setup Project Modules
 
 ### Example
 ```dart
@@ -1055,13 +1055,13 @@ import 'package:openapi/api.dart';
 final api = Openapi().getWorkspacesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
+final BuiltList<String> requestBody = ; // BuiltList<String> | 
 
 try {
-    final response = api.setupProjectFeatureSets(taskId, wsId, requestBody);
+    final response = api.setupProjectModules(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->setupProjectFeatureSets: $e\n');
+    print('Exception when calling WorkspacesApi->setupProjectModules: $e\n');
 }
 ```
 
@@ -1071,11 +1071,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
+ **requestBody** | [**BuiltList&lt;String&gt;**](String.md)|  | 
 
 ### Return type
 
-[**BuiltList&lt;ProjectFeatureSetGet&gt;**](ProjectFeatureSetGet.md)
+[**BuiltList&lt;ProjectModuleGet&gt;**](ProjectModuleGet.md)
 
 ### Authorization
 

@@ -162,8 +162,8 @@ void main() {
       // TODO
     });
 
-    // BuiltList<ProjectFeatureSetGet> projectFeatureSets
-    test('to test the property `projectFeatureSets`', () async {
+    // BuiltList<ProjectModuleGet> projectModules
+    test('to test the property `projectModules`', () async {
       // TODO
     });
   });

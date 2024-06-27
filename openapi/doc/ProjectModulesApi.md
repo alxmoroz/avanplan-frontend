@@ -1,4 +1,4 @@
-# openapi.api.ProjectFeatureSetsApi
+# openapi.api.ProjectModulesApi
 
 ## Load the API package
 ```dart
@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**setupProjectFeatureSets**](ProjectFeatureSetsApi.md#setupprojectfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Project Feature Sets
+[**setupProjectModules**](ProjectModulesApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 
 
-# **setupProjectFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupProjectFeatureSets(taskId, wsId, requestBody)
+# **setupProjectModules**
+> BuiltList<ProjectModuleGet> setupProjectModules(taskId, wsId, requestBody)
 
-Setup Project Feature Sets
+Setup Project Modules
 
 ### Example
 ```dart
@@ -27,16 +27,16 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getProjectFeatureSetsApi();
+final api = Openapi().getProjectModulesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
+final BuiltList<String> requestBody = ; // BuiltList<String> | 
 
 try {
-    final response = api.setupProjectFeatureSets(taskId, wsId, requestBody);
+    final response = api.setupProjectModules(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectFeatureSetsApi->setupProjectFeatureSets: $e\n');
+    print('Exception when calling ProjectModulesApi->setupProjectModules: $e\n');
 }
 ```
 
@@ -46,11 +46,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
+ **requestBody** | [**BuiltList&lt;String&gt;**](String.md)|  | 
 
 ### Return type
 
-[**BuiltList&lt;ProjectFeatureSetGet&gt;**](ProjectFeatureSetGet.md)
+[**BuiltList&lt;ProjectModuleGet&gt;**](ProjectModuleGet.md)
 
 ### Authorization
 

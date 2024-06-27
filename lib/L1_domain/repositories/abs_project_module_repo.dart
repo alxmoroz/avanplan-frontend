@@ -3,5 +3,5 @@
 import '../entities/project_module.dart';
 
 abstract class AbstractProjectModuleRepo {
-  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<int> optionsIds) async => throw UnimplementedError();
+  Future<Iterable<ProjectModule>> setup(int wsId, int projectId, Iterable<String> toCodes) async => throw UnimplementedError();
 }

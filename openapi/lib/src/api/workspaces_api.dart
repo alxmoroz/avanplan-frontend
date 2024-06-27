@@ -19,8 +19,8 @@ import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/note_get.dart';
 import 'package:openapi/src/model/note_upsert.dart';
-import 'package:openapi/src/model/project_feature_set_get.dart';
 import 'package:openapi/src/model/project_get.dart';
+import 'package:openapi/src/model/project_module_get.dart';
 import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/project_status_upsert.dart';
 import 'package:openapi/src/model/source_get.dart';
@@ -1880,7 +1880,7 @@ class WorkspacesApi {
     );
   }
 
-  /// Setup Project Feature Sets
+  /// Setup Project Modules
   /// 
   ///
   /// Parameters:
@@ -1894,12 +1894,12 @@ class WorkspacesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<ProjectFeatureSetGet>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<ProjectModuleGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ProjectFeatureSetGet>>> setupProjectFeatureSets({ 
+  Future<Response<BuiltList<ProjectModuleGet>>> setupProjectModules({ 
     required int taskId,
     required int wsId,
-    required BuiltList<int> requestBody,
+    required BuiltList<String> requestBody,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1907,7 +1907,7 @@ class WorkspacesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/project_modules'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -1934,7 +1934,7 @@ class WorkspacesApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BuiltList, [FullType(int)]);
+      const _type = FullType(BuiltList, [FullType(String)]);
       _bodyData = _serializers.serialize(requestBody, specifiedType: _type);
 
     } catch(error, stackTrace) {
@@ -1958,14 +1958,14 @@ class WorkspacesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<ProjectFeatureSetGet>? _responseData;
+    BuiltList<ProjectModuleGet>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
-      ) as BuiltList<ProjectFeatureSetGet>;
+        specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
+      ) as BuiltList<ProjectModuleGet>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -1977,7 +1977,7 @@ class WorkspacesApi {
       );
     }
 
-    return Response<BuiltList<ProjectFeatureSetGet>>(
+    return Response<BuiltList<ProjectModuleGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

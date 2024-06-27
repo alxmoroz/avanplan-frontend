@@ -3,12 +3,12 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/project_module_get.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/attachment_get.dart';
-import 'package:openapi/src/model/project_feature_set_get.dart';
 import 'package:openapi/src/model/note_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -49,7 +49,7 @@ part 'task_get.g.dart';
 /// * [notes] 
 /// * [attachments] 
 /// * [projectStatuses] 
-/// * [projectFeatureSets] 
+/// * [projectModules] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -145,8 +145,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'project_statuses')
   BuiltList<ProjectStatusGet>? get projectStatuses;
 
-  @BuiltValueField(wireName: r'project_feature_sets')
-  BuiltList<ProjectFeatureSetGet>? get projectFeatureSets;
+  @BuiltValueField(wireName: r'project_modules')
+  BuiltList<ProjectModuleGet>? get projectModules;
 
   TaskGet._();
 
@@ -382,11 +382,11 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
       );
     }
-    if (object.projectFeatureSets != null) {
-      yield r'project_feature_sets';
+    if (object.projectModules != null) {
+      yield r'project_modules';
       yield serializers.serialize(
-        object.projectFeatureSets,
-        specifiedType: const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
+        object.projectModules,
+        specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
       );
     }
   }
@@ -629,12 +629,12 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<ProjectStatusGet>;
           result.projectStatuses.replace(valueDes);
           break;
-        case r'project_feature_sets':
+        case r'project_modules':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
-          ) as BuiltList<ProjectFeatureSetGet>;
-          result.projectFeatureSets.replace(valueDes);
+            specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
+          ) as BuiltList<ProjectModuleGet>;
+          result.projectModules.replace(valueDes);
           break;
         default:
           unhandled.add(key);

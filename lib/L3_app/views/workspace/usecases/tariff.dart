@@ -15,10 +15,10 @@ import 'edit.dart';
 
 extension WSTariffUC on WSController {
   Future changeTariff(BuildContext context, Tariff tariff) async {
-    // TODO: ПРОВЕРИТЬ логику!
-    //  проверка на возможное превышение лимитов по выбранному тарифу
+    // TODO: неверная логика перехода с тарифа, где были включены функции
+    // TODO: сначала нужно отключить платные функции, потом уже проверять наличие средств для перехода
+    // информация о предстоящих тратах при переходе на тариф, где будут затраты с учётом текущего потребления услуг
     if (ws.expectedDailyCharge == 0 || await tariffConfirmExpenses(ws, tariff) == true) {
-      // TODO: ПРОВЕРИТЬ логику!
       // проверка, что хватит денег на один день после смены
       if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.expectedDailyCharge)) {
         setLoaderScreenSaving();

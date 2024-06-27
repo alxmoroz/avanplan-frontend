@@ -56,6 +56,11 @@ class _ProjectModulesBody extends StatelessWidget {
   static const _iconSize = P8;
   Widget _image(String code) => MTImage('fs_${code.toLowerCase()}', width: _iconSize, height: _iconSize);
 
+  Future _selectFeatures() async {
+    await wsFeatures(WSController(wsIn: _project.ws));
+    _controller.reload();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -76,16 +81,15 @@ class _ProjectModulesBody extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _controller.checks.length,
             itemBuilder: (_, index) {
-              final fs = _controller.project.ws.enabledProjectModulesOptions.elementAt(index);
-              final onChanged = _controller.onChanged(index);
+              final pm = _controller.enabledProjectOptions.elementAt(index);
               return MTCheckBoxTile(
-                leading: _image(fs.code),
-                title: fs.title,
-                description: fs.subtitle,
+                leading: _image(pm.code),
+                title: pm.title,
+                description: pm.subtitle,
                 value: _controller.checks[index],
                 bottomDivider: index < _controller.checks.length - 1,
                 dividerIndent: _iconSize + P5,
-                onChanged: onChanged,
+                onChanged: _controller.onChanged(index),
               );
             },
           ),
@@ -96,7 +100,7 @@ class _ProjectModulesBody extends StatelessWidget {
               trailing: const ChevronIcon(),
               margin: const EdgeInsets.only(top: P3),
               bottomDivider: false,
-              onTap: () => wsFeatures(WSController(wsIn: _project.ws)),
+              onTap: _selectFeatures,
             ),
           if (footer != null) footer!,
         ],

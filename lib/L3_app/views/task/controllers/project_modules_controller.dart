@@ -24,17 +24,22 @@ abstract class _ProjectModulesControllerBase with Store {
   late final TaskController _taskController;
 
   Task get project => _taskController.task;
-  Iterable<TariffOption> get _enabledProjectOptions => project.ws.enabledProjectModulesOptions;
 
   @observable
   ObservableList<bool> checks = ObservableList();
 
+  @observable
+  ObservableList<TariffOption> enabledProjectOptions = ObservableList();
+
   @action
-  void reload() => checks = ObservableList.of([for (var to in _enabledProjectOptions) project.hm(to.code)]);
+  void reload() {
+    enabledProjectOptions = ObservableList.of(project.ws.enabledProjectModulesOptions);
+    checks = ObservableList.of([for (var to in enabledProjectOptions) project.hm(to.code)]);
+  }
 
   bool hasChecked(String code) {
     for (int index = 0; index < checks.length; index++) {
-      if (_enabledProjectOptions.elementAt(index).code == code && checks[index]) {
+      if (enabledProjectOptions.elementAt(index).code == code && checks[index]) {
         return true;
       }
     }
@@ -48,7 +53,7 @@ abstract class _ProjectModulesControllerBase with Store {
     bool disabled = _taskController.loading == true;
 
     if (!disabled) {
-      final f = _enabledProjectOptions.elementAt(index);
+      final f = enabledProjectOptions.elementAt(index);
       final checked = checks[index];
 
       if (f.code == TOCode.TEAM) {
@@ -68,7 +73,7 @@ abstract class _ProjectModulesControllerBase with Store {
     final toCodes = <String>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
-        toCodes.add(_enabledProjectOptions.elementAt(index).code);
+        toCodes.add(enabledProjectOptions.elementAt(index).code);
       }
     }
     project.projectModules = await projectModuleUC.setup(project.wsId, project.id!, toCodes);

@@ -41,7 +41,8 @@ extension WSTariffUC on WSController {
 
     // Подключение функции
     if (!subscribed) {
-      // TODO: проверка, что хватит денег на один день после подключения
+      // проверка, что хватит денег на один день после подключения
+      if (!await ws.checkBalance(loc.promo_features_subscribe_title, extraMoney: ws.expectedDailyCharge)) return;
     }
     // Отключение функции
     else {

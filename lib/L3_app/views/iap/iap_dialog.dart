@@ -67,6 +67,7 @@ class _StoreDialog extends StatelessWidget {
                 children: [
                   if (reason.isNotEmpty) BaseText(reason, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
                   if (!controller.paymentMethodSelected) ...[
+                    const SizedBox(height: P2),
                     MTButton.secondary(titleText: 'AppStore', onTap: controller.getAppStoreProducts),
                     const SizedBox(height: P3),
                     MTButton.secondary(titleText: 'ЮMoney', onTap: controller.getYMProducts),

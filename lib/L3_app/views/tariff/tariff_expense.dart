@@ -19,7 +19,7 @@ class TariffExpenseTile extends StatelessWidget {
   final bool isMyTariff;
 
   num get _price => ((isMyTariff ? _d.finalPrice : null) ?? _to.finalPrice);
-  num get _overdraft => _d.serviceAmount - _to.freeLimit;
+  num get _overdraft => ((_d.serviceAmount - _to.freeLimit) / _to.tariffQuantity).ceil();
   num get _expense => _overdraft * _price;
 
   @override

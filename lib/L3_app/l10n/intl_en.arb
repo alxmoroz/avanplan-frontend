@@ -376,6 +376,12 @@
 
   "tariff_list_title": "Tariffs",
 
+
+  "tariff_option_tasks_count_title": "Tasks",
+  "tariff_option_users_count_title": "Members",
+  "tariff_option_fs_volume_title": "File Storage",
+
+
   "tariff_option_analytics_title": "Analytics",
   "tariff_option_analytics_subtitle": "Dates prediction, Estimates and Statistics",
   "tariff_option_analytics_description": "Dates prediction\nStatistics\nProject statuses\nEstimating Task Difficulty",
@@ -407,13 +413,9 @@
   "tariff_special_conditions_title3": "No Limits",
   "tariff_special_conditions_title4": "On Premise Server",
   "tariff_title": "Tariff",
-  "tariff_unlimited_value_title": "Unlimited",
 
   "tariff_type_base_title": "Base",
-  "tariff_type_business_title": "Business",
   "tariff_type_free_title": "Free",
-  "tariff_type_premium_title": "Premium",
-  "tariff_type_pro_title": "Pro",
   "tariff_type_request_title": "Special",
   "tariff_type_universal_title": "The One",
 

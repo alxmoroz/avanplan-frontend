@@ -21,9 +21,6 @@ abstract class _WSMainControllerBase with Store {
   bool get multiWS => workspaces.length > 1;
 
   @computed
-  bool get canSelectWS => multiWS;
-
-  @computed
   Workspace get myWS => workspaces.firstWhere((ws) => ws.isMine);
 
   Workspace? ws(int? wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId);

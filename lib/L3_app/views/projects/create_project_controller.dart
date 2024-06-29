@@ -2,9 +2,9 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../usecases/ws_actions.dart';
 import '../import/import_dialog.dart';
 import '../task/widgets/create/create_task_dialog.dart';
 import '../template/template_selector_dialog.dart';
@@ -15,63 +15,34 @@ part 'create_project_controller.g.dart';
 
 class CreateProjectController extends _CreateProjectControllerBase with _$CreateProjectController {}
 
-List<Workspace> get _wss => wsMainController.workspaces;
-
 abstract class _CreateProjectControllerBase with Store {
-  @observable
-  int? _selectedWSId = _wss.length == 1 ? _wss.first.id : null;
-  @action
-  void _setWS(int? wsId) => _selectedWSId = wsId;
-
-  @computed
-  Workspace? get _ws => _selectedWSId != null ? wsMainController.ws(_selectedWSId!) : null;
-
-  @computed
-  bool get _mustSelectWS => _selectedWSId == null && wsMainController.canSelectWS;
+  bool get _canSelectWS => wsMainController.workspaces.where((ws) => ws.hpProjectCreate).length > 1;
 
   @observable
-  bool showClosed = false;
+  bool showClosedProjects = false;
+
   @action
-  void setShowClosed() => showClosed = true;
+  void setShowClosedProjects() => showClosedProjects = true;
 
-  Future _selectWS() async {
-    if (_mustSelectWS) {
-      final wsId = await selectWS();
-      if (wsId != null) {
-        _setWS(wsId);
-      }
-    }
-  }
-
-  Future _dispose() async {
-    if (wsMainController.canSelectWS) {
-      _setWS(null);
-    }
-  }
-
-  Future _create() async {
-    final newTC = await createTask(_ws!, null);
-    if (newTC != null) router.goTaskView(newTC.taskDescriptor);
-  }
+  Future _selectWS() async => _canSelectWS ? await selectWS() : wsMainController.myWS;
 
   Future startCreate() async {
     final methodCode = await selectCreationMethod();
     if (methodCode != null) {
-      await _selectWS();
-
-      if (_ws != null) {
+      final ws = await _selectWS();
+      if (ws != null) {
         switch (methodCode) {
           case CreationMethod.create:
-            await _create();
+            final newTC = await createTask(ws!, null);
+            if (newTC != null) router.goTaskView(newTC.taskDescriptor);
             break;
           case CreationMethod.template:
-            await createFromTemplate(_ws!);
+            await createFromTemplate(ws!);
             break;
           case CreationMethod.import:
-            await importTasks(_ws!);
+            await importTasks(ws!);
             break;
         }
-        await _dispose();
       }
     }
   }

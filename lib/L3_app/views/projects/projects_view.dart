@@ -79,7 +79,8 @@ class _ProjectsViewState extends State<ProjectsView> {
       );
 
   Task? get _inbox => tasksMainController.inbox;
-  bool get _showProjects => tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _createProjectController.showClosed);
+  bool get _showProjects =>
+      tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _createProjectController.showClosedProjects);
 
   @override
   Widget build(BuildContext context) {

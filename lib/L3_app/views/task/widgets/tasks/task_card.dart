@@ -134,10 +134,11 @@ class TaskCard extends StatelessWidget {
           else if (task.isImportingProject)
             Container()
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта, вложений и комментариев
-          else if (task.hasAnalytics) ...[
+          else if (task.hasAnalytics || _showAttachmentsMark || _showNotesMark || task.wsCode.isNotEmpty || task.isLinkedProject) ...[
             const SizedBox(height: P_2),
             Row(children: [
-              Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),
+              if (task.hasAnalytics) TaskStateTitle(task, place: StateTitlePlace.card),
+              const Spacer(),
               if (_showAttachmentsMark) ...[_attachmentsMark],
               if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
               if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],

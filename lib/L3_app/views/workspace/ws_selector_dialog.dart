@@ -11,7 +11,7 @@ import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import 'ws_list_tile.dart';
 
-Future<int?> selectWS() async => await showMTDialog<int?>(const _WSSelectDialog());
+Future<Workspace?> selectWS() async => await showMTDialog<Workspace?>(const _WSSelectDialog());
 
 class _WSSelectDialog extends StatelessWidget {
   const _WSSelectDialog();
@@ -31,7 +31,7 @@ class _WSSelectDialog extends StatelessWidget {
             return WSListTile(
               ws,
               bottomDivider: index < _wss.length - 1,
-              onTap: canSelect ? () => Navigator.of(context).pop(ws.id) : null,
+              onTap: canSelect ? () => Navigator.of(context).pop(ws) : null,
             );
           },
         ),

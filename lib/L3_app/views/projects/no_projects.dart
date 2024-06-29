@@ -18,9 +18,7 @@ class NoProjects extends StatelessWidget {
 
   bool get _isAllProjectsClosed => tasksMainController.isAllProjectsClosed;
 
-  Future _tapShowClosed(BuildContext context) async {
-    _controller.setShowClosed();
-  }
+  Future _tapShowClosed(BuildContext context) async => _controller.setShowClosedProjects();
 
   @override
   Widget build(BuildContext context) {

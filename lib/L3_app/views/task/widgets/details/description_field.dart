@@ -18,16 +18,17 @@ import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
 
 class TaskDescriptionField extends StatelessWidget {
-  const TaskDescriptionField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
+  const TaskDescriptionField(this._controller, {super.key, this.compact = false, this.hasMargin = false, this.short = false});
   final TaskController _controller;
   final bool compact;
   final bool hasMargin;
+  final bool short;
 
   Task get _task => _controller.task;
 
   @override
   Widget build(BuildContext context) {
-    final maxLines = _task.isTask ? 20 : 2;
+    final maxLines = _task.isTask || !short ? 20 : 3;
     return MTField(
       _controller.fData(TaskFCode.description.index),
       leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
@@ -43,7 +44,7 @@ class TaskDescriptionField extends StatelessWidget {
           : null,
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-      crossAxisAlignment: _task.isTask && _task.hasDescription ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment: _task.hasDescription ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       onTap: _task.canEdit ? _controller.editDescription : null,
     );
   }

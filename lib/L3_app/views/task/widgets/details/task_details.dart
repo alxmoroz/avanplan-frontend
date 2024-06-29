@@ -63,7 +63,13 @@ class TaskDetails extends StatelessWidget {
           ],
 
           /// Описание
-          if (_showDescription(context)) TaskDescriptionField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (_showDescription(context))
+            TaskDescriptionField(
+              _controller,
+              compact: compact,
+              short: true,
+              hasMargin: _hasMargins(context),
+            ),
 
           /// Чек-лист
           if (!_isTaskDialog(context) && (_task.canCreateChecklist || _task.isCheckList)) ...[

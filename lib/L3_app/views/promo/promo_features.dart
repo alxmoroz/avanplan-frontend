@@ -2,9 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -59,35 +61,39 @@ class PromoFeatures extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        const MTImage('promo_features'),
-        H2(
-          loc.promo_features_title,
-          align: TextAlign.center,
-          padding: const EdgeInsets.all(P6).copyWith(bottom: P3),
-        ),
-        for (String t in loc.promo_features_text.split('\n'))
-          Padding(
-            padding: const EdgeInsets.only(top: P3, left: P3, right: P6),
-            child: Row(
-              children: [
-                const StarIcon(size: P6),
-                const SizedBox(width: P3),
-                Expanded(child: BaseText(t, maxLines: 2)),
-              ],
+    return MTAdaptive.s(
+      force: true,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: P3),
+        child: ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            const MTImage('promo_features'),
+            const SizedBox(height: P6),
+            H2(loc.promo_features_title, align: TextAlign.center),
+            const SizedBox(height: P3),
+            for (String t in loc.promo_features_text.split('\n'))
+              Padding(
+                padding: const EdgeInsets.only(top: P3),
+                child: Row(
+                  children: [
+                    const StarIcon(size: P6),
+                    const SizedBox(width: P2),
+                    Expanded(child: BaseText(t, maxLines: 2)),
+                  ],
+                ),
+              ),
+            const SizedBox(height: P6),
+            MTButton.secondary(titleText: loc.later, onTap: () => _later(context)),
+            const SizedBox(height: P3),
+            MTButton.main(
+              titleText: loc.promo_features_subscribe_title,
+              onTap: () => _subscribe(context),
             ),
-          ),
-        const SizedBox(height: P6),
-        MTButton.secondary(titleText: loc.later, onTap: () => _later(context)),
-        const SizedBox(height: P3),
-        MTButton.main(
-          titleText: loc.promo_features_subscribe_title,
-          onTap: () => _subscribe(context),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

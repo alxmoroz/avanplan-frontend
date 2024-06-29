@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -46,71 +45,69 @@ class _OnboardingView extends StatelessWidget {
     return Observer(builder: (_) {
       return MTPage(
         appBar: QuizHeader(_controller),
-        body: MTAdaptive.s(
-          child: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                if (_controller.stepIndex < 3) ...[
-                  MTImage(['done', 'milestone', 'devices_sync'][_controller.stepIndex]),
-                  H2(
-                    Intl.message('onboarding_step_${_controller.stepIndex + 1}_title'),
-                    align: TextAlign.center,
-                    padding: const EdgeInsets.all(P6).copyWith(bottom: P3),
-                  ),
-                  BaseText(
-                    Intl.message('onboarding_step_${_controller.stepIndex + 1}_text'),
-                    align: TextAlign.center,
-                    padding: const EdgeInsets.symmetric(horizontal: P6),
-                  ),
-                  const SizedBox(height: P3),
-                  QuizNextButton(_controller),
-                ],
-                if (_controller.isPromoFeaturesStep)
-                  PromoFeatures(wsMainController.myWS, onLater: _controller.next)
-                else if (_controller.isWhereWeGoStep) ...[
-                  H2(
-                    loc.onboarding_where_we_go_step_title,
-                    align: TextAlign.center,
-                    padding: const EdgeInsets.symmetric(horizontal: P6).copyWith(bottom: P2),
-                  ),
-                  MTCardButton(
-                    margin: const EdgeInsets.symmetric(horizontal: P4, vertical: P2),
-                    onTap: _startWithProject,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(children: [
-                          const ProjectsIcon(color: mainColor),
-                          const SizedBox(width: P2),
-                          Expanded(child: H3(loc.onboarding_start_with_project_title)),
-                          const ChevronIcon(),
-                        ]),
-                        const SizedBox(height: P2),
-                        BaseText(loc.onboarding_start_with_project_text, align: TextAlign.left, maxLines: 3),
-                      ],
-                    ),
-                  ),
-                  MTCardButton(
-                    margin: const EdgeInsets.symmetric(horizontal: P4, vertical: P2),
-                    onTap: _startWithTasks,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(children: [
-                          const DoneIcon(true, size: P6),
-                          const SizedBox(width: P2),
-                          Expanded(child: H3(loc.onboarding_start_with_tasks_title)),
-                          const ChevronIcon(),
-                        ]),
-                        const SizedBox(height: P2),
-                        BaseText(loc.onboarding_start_with_tasks_text, align: TextAlign.left, maxLines: 3),
-                      ],
-                    ),
-                  ),
-                ],
+        body: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              if (_controller.stepIndex < 3) ...[
+                MTImage(['done', 'milestone', 'devices_sync'][_controller.stepIndex]),
+                H2(
+                  Intl.message('onboarding_step_${_controller.stepIndex + 1}_title'),
+                  align: TextAlign.center,
+                  padding: const EdgeInsets.all(P6).copyWith(bottom: P3),
+                ),
+                BaseText(
+                  Intl.message('onboarding_step_${_controller.stepIndex + 1}_text'),
+                  align: TextAlign.center,
+                  padding: const EdgeInsets.symmetric(horizontal: P6),
+                ),
+                const SizedBox(height: P3),
+                QuizNextButton(_controller),
               ],
-            ),
+              if (_controller.isPromoFeaturesStep)
+                PromoFeatures(wsMainController.myWS, onLater: _controller.next)
+              else if (_controller.isWhereWeGoStep) ...[
+                H2(
+                  loc.onboarding_where_we_go_step_title,
+                  align: TextAlign.center,
+                  padding: const EdgeInsets.symmetric(horizontal: P6).copyWith(bottom: P2),
+                ),
+                MTCardButton(
+                  margin: const EdgeInsets.symmetric(horizontal: P4, vertical: P2),
+                  onTap: _startWithProject,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(children: [
+                        const ProjectsIcon(color: mainColor),
+                        const SizedBox(width: P2),
+                        Expanded(child: H3(loc.onboarding_start_with_project_title)),
+                        const ChevronIcon(),
+                      ]),
+                      const SizedBox(height: P2),
+                      BaseText(loc.onboarding_start_with_project_text, align: TextAlign.left, maxLines: 3),
+                    ],
+                  ),
+                ),
+                MTCardButton(
+                  margin: const EdgeInsets.symmetric(horizontal: P4, vertical: P2),
+                  onTap: _startWithTasks,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(children: [
+                        const DoneIcon(true, size: P6),
+                        const SizedBox(width: P2),
+                        Expanded(child: H3(loc.onboarding_start_with_tasks_title)),
+                        const ChevronIcon(),
+                      ]),
+                      const SizedBox(height: P2),
+                      BaseText(loc.onboarding_start_with_tasks_text, align: TextAlign.left, maxLines: 3),
+                    ],
+                  ),
+                ),
+              ],
+            ],
           ),
         ),
       );

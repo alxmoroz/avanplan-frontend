@@ -35,6 +35,7 @@ doc/MemberGet.md
 doc/MyAccountApi.md
 doc/MyActivitiesApi.md
 doc/MyApi.md
+doc/MyAvatarApi.md
 doc/MyCalendarApi.md
 doc/MyInvitationsApi.md
 doc/MyNotificationsApi.md
@@ -91,6 +92,7 @@ lib/src/api/auth_api.dart
 lib/src/api/my_account_api.dart
 lib/src/api/my_activities_api.dart
 lib/src/api/my_api.dart
+lib/src/api/my_avatar_api.dart
 lib/src/api/my_calendar_api.dart
 lib/src/api/my_invitations_api.dart
 lib/src/api/my_notifications_api.dart
@@ -213,6 +215,7 @@ test/member_get_test.dart
 test/my_account_api_test.dart
 test/my_activities_api_test.dart
 test/my_api_test.dart
+test/my_avatar_api_test.dart
 test/my_calendar_api_test.dart
 test/my_invitations_api_test.dart
 test/my_notifications_api_test.dart

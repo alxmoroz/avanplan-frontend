@@ -13,6 +13,7 @@ export 'package:openapi/src/api/auth_api.dart';
 export 'package:openapi/src/api/my_api.dart';
 export 'package:openapi/src/api/my_account_api.dart';
 export 'package:openapi/src/api/my_activities_api.dart';
+export 'package:openapi/src/api/my_avatar_api.dart';
 export 'package:openapi/src/api/my_calendar_api.dart';
 export 'package:openapi/src/api/my_invitations_api.dart';
 export 'package:openapi/src/api/my_notifications_api.dart';

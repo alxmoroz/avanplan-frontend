@@ -76,6 +76,8 @@ Class | Method | HTTP request | Description
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
+[*MyAvatarApi*](doc/MyAvatarApi.md) | [**deleteAvatarV1MyAvatarDelete**](doc/MyAvatarApi.md#deleteavatarv1myavatardelete) | **DELETE** /v1/my/avatar | Delete Avatar
+[*MyAvatarApi*](doc/MyAvatarApi.md) | [**uploadAvatar**](doc/MyAvatarApi.md#uploadavatar) | **POST** /v1/my/avatar | Upload Avatar
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSources**](doc/MyCalendarApi.md#mycalendarsources) | **GET** /v1/my/calendar/sources | Sources
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSourcesUpsert**](doc/MyCalendarApi.md#mycalendarsourcesupsert) | **POST** /v1/my/calendar/sources | Upsert
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarsEvents**](doc/MyCalendarApi.md#mycalendarsevents) | **GET** /v1/my/calendar/calendars_events | Calendars Events

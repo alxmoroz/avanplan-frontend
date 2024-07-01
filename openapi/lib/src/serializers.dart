@@ -27,7 +27,6 @@ import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
 import 'package:openapi/src/model/body_request_type.dart';
 import 'package:openapi/src/model/body_start_import.dart';
-import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/calendar_event_attendee.dart';
 import 'package:openapi/src/model/calendar_event_get.dart';
@@ -92,7 +91,6 @@ part 'serializers.g.dart';
   BodyRequestRegistration,
   BodyRequestType,
   BodyStartImport,
-  BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokensPost,
   CalendarEventAttendee,
   CalendarEventGet,

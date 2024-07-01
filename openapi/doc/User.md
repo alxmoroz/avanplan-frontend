@@ -8,12 +8,14 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** |  | 
+**createdOn** | [**DateTime**](DateTime.md) |  | 
 **email** | **String** |  | 
 **fullName** | **String** |  | [optional] 
 **nickName** | **String** |  | [optional] 
 **locale** | **String** |  | [optional] [default to 'ru']
-**createdOn** | [**DateTime**](DateTime.md) |  | 
-**id** | **int** |  | 
+**hasAvatar** | **bool** |  | [optional] 
+**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **roleCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
 **permissionCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
 **wsIds** | **BuiltList&lt;int&gt;** |  | [optional] 

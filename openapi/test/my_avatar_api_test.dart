@@ -8,14 +8,14 @@ void main() {
   group(MyAvatarApi, () {
     // Delete Avatar
     //
-    //Future<bool> deleteAvatarV1MyAvatarDelete() async
-    test('test deleteAvatarV1MyAvatarDelete', () async {
+    //Future<MyUser> deleteAvatar() async
+    test('test deleteAvatar', () async {
       // TODO
     });
 
     // Upload Avatar
     //
-    //Future<String> uploadAvatar(MultipartFile file) async
+    //Future<MyUser> uploadAvatar(MultipartFile file) async
     test('test uploadAvatar', () async {
       // TODO
     });

@@ -4,6 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/user.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -15,10 +16,12 @@ part 'member_get.g.dart';
 /// * [id] 
 /// * [email] 
 /// * [fullName] 
+/// * [nickName] 
 /// * [userId] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
 /// * [isActive] 
+/// * [user] 
 @BuiltValue()
 abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -29,6 +32,9 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
 
   @BuiltValueField(wireName: r'full_name')
   String? get fullName;
+
+  @BuiltValueField(wireName: r'nick_name')
+  String? get nickName;
 
   @BuiltValueField(wireName: r'user_id')
   int? get userId;
@@ -41,6 +47,9 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
 
   @BuiltValueField(wireName: r'is_active')
   bool? get isActive;
+
+  @BuiltValueField(wireName: r'user')
+  User? get user;
 
   MemberGet._();
 
@@ -82,6 +91,13 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
         specifiedType: const FullType(String),
       );
     }
+    if (object.nickName != null) {
+      yield r'nick_name';
+      yield serializers.serialize(
+        object.nickName,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.userId != null) {
       yield r'user_id';
       yield serializers.serialize(
@@ -108,6 +124,13 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       yield serializers.serialize(
         object.isActive,
         specifiedType: const FullType(bool),
+      );
+    }
+    if (object.user != null) {
+      yield r'user';
+      yield serializers.serialize(
+        object.user,
+        specifiedType: const FullType(User),
       );
     }
   }
@@ -154,6 +177,13 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
           ) as String;
           result.fullName = valueDes;
           break;
+        case r'nick_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.nickName = valueDes;
+          break;
         case r'user_id':
           final valueDes = serializers.deserialize(
             value,
@@ -181,6 +211,13 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.isActive = valueDes;
+          break;
+        case r'user':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(User),
+          ) as User;
+          result.user.replace(valueDes);
           break;
         default:
           unhandled.add(key);

@@ -23,9 +23,6 @@
   "are_closed_suffix": "закрыты",
 
   "attachment_add_action_title": "Прикрепить файлы",
-  "attachment_source_files_title": "Файлы",
-  "attachment_source_gallery_title": "Галерея",
-  "attachment_source_selector_title": "Источник файлов",
   "attachments_label": "Вложения",
 
   "auth_email_placeholder": "Почта",
@@ -40,6 +37,8 @@
   "auth_sign_in_google_title": "Google",
   "auth_sign_in_with_title": "Войти с помощью",
   "auth_sign_out_btn_title": "Выйти",
+
+  "avatar_edit_action_title": "Изменить фото",
 
   "back_action_title": "Назад",
   "backlog": "Бэклог",
@@ -128,6 +127,10 @@
   "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",
+
+  "file_source_camera_title": "Сделать фото",
+  "file_source_files_title": "Выбрать из файлов",
+  "file_source_gallery_title": "Выбрать из галереи",
 
   "for_": "за",
   "for_dative": "по",

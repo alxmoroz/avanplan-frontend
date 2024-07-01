@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:openapi/src/model/my_user.dart';
 
 class MyAvatarApi {
 
@@ -29,9 +30,9 @@ class MyAvatarApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
+  /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteAvatarV1MyAvatarDelete({ 
+  Future<Response<MyUser>> deleteAvatar({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -70,11 +71,14 @@ class MyAvatarApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool? _responseData;
+    MyUser? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as bool;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(MyUser),
+      ) as MyUser;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -86,7 +90,7 @@ class MyAvatarApi {
       );
     }
 
-    return Response<bool>(
+    return Response<MyUser>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -110,9 +114,9 @@ class MyAvatarApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [String] as data
+  /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<String>> uploadAvatar({ 
+  Future<Response<MyUser>> uploadAvatar({ 
     required MultipartFile file,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -173,11 +177,14 @@ class MyAvatarApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String? _responseData;
+    MyUser? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as String;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(MyUser),
+      ) as MyUser;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -189,7 +196,7 @@ class MyAvatarApi {
       );
     }
 
-    return Response<String>(
+    return Response<MyUser>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

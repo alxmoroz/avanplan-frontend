@@ -14,7 +14,6 @@ part 'calendar_event_attendee.g.dart';
 /// * [email] 
 /// * [fullName] 
 /// * [nickName] 
-/// * [locale] 
 /// * [sourceCode] 
 @BuiltValue()
 abstract class CalendarEventAttendee implements Built<CalendarEventAttendee, CalendarEventAttendeeBuilder> {
@@ -27,9 +26,6 @@ abstract class CalendarEventAttendee implements Built<CalendarEventAttendee, Cal
   @BuiltValueField(wireName: r'nick_name')
   String? get nickName;
 
-  @BuiltValueField(wireName: r'locale')
-  String? get locale;
-
   @BuiltValueField(wireName: r'source_code')
   String? get sourceCode;
 
@@ -38,8 +34,7 @@ abstract class CalendarEventAttendee implements Built<CalendarEventAttendee, Cal
   factory CalendarEventAttendee([void updates(CalendarEventAttendeeBuilder b)]) = _$CalendarEventAttendee;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(CalendarEventAttendeeBuilder b) => b
-      ..locale = 'ru';
+  static void _defaults(CalendarEventAttendeeBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<CalendarEventAttendee> get serializer => _$CalendarEventAttendeeSerializer();
@@ -73,13 +68,6 @@ class _$CalendarEventAttendeeSerializer implements PrimitiveSerializer<CalendarE
       yield r'nick_name';
       yield serializers.serialize(
         object.nickName,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.locale != null) {
-      yield r'locale';
-      yield serializers.serialize(
-        object.locale,
         specifiedType: const FullType(String),
       );
     }
@@ -133,13 +121,6 @@ class _$CalendarEventAttendeeSerializer implements PrimitiveSerializer<CalendarE
             specifiedType: const FullType(String),
           ) as String;
           result.nickName = valueDes;
-          break;
-        case r'locale':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.locale = valueDes;
           break;
         case r'source_code':
           final valueDes = serializers.deserialize(

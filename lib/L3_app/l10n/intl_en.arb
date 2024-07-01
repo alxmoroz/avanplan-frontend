@@ -23,9 +23,6 @@
   "are_closed_suffix": "are closed",
 
   "attachment_add_action_title": "Attach files",
-  "attachment_source_files_title": "Files",
-  "attachment_source_gallery_title": "Gallery",
-  "attachment_source_selector_title": "Select source",
   "attachments_label": "Attachments",
 
   "auth_email_placeholder": "Email",
@@ -40,6 +37,8 @@
   "auth_sign_in_google_title": "Google",
   "auth_sign_in_with_title": "Sign in with",
   "auth_sign_out_btn_title": "Sign out",
+
+  "avatar_edit_action_title": "Change Photo",
 
   "back_action_title": "Back",
   "backlog": "Backlog",
@@ -128,6 +127,10 @@
   "error_tariff_limit_description": "Please contact the workspace administrator",
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",
+
+  "file_source_camera_title": "Take a photo",
+  "file_source_files_title": "Select from Files",
+  "file_source_gallery_title": "Select from Gallery",
 
   "for_": "for",
   "for_dative": "for",

@@ -7,11 +7,12 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/attachment_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
-import '../../L1_domain/usecases/calendar_uc.dart';
 import '../../L1_domain/usecases/iap_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
+import '../../L1_domain/usecases/my_avatar_uc.dart';
+import '../../L1_domain/usecases/my_calendar_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
 import '../../L1_domain/usecases/project_module_uc.dart';
@@ -27,11 +28,12 @@ import '../../L2_data/repositories/attachment_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
-import '../../L2_data/repositories/calendar_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/iap_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
+import '../../L2_data/repositories/my_avatar_repo.dart';
+import '../../L2_data/repositories/my_calendar_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/note_repo.dart';
 import '../../L2_data/repositories/project_module_repo.dart';
@@ -94,7 +96,8 @@ NoteUC get noteUC => GetIt.I<NoteUC>();
 AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 ProjectModuleUC get projectModuleUC => GetIt.I<ProjectModuleUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
-CalendarUC get calendarUC => GetIt.I<CalendarUC>();
+MyCalendarUC get myCalendarUC => GetIt.I<MyCalendarUC>();
+MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
 
 void setup() {
   /// device
@@ -127,7 +130,8 @@ void setup() {
   getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
   getIt.registerSingleton<ProjectModuleUC>(ProjectModuleUC(ProjectModulesRepo()));
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
-  getIt.registerSingleton<CalendarUC>(CalendarUC(CalendarRepo()));
+  getIt.registerSingleton<MyCalendarUC>(MyCalendarUC(MyCalendarRepo()));
+  getIt.registerSingleton<MyAvatarUC>(MyAvatarUC(MyAvatarRepo()));
 
   /// global state controllers
   // первый контроллер

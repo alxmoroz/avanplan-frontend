@@ -10,7 +10,7 @@ import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../presenters/person.dart';
+import '../../presenters/user.dart';
 
 class AccountButton extends StatelessWidget {
   const AccountButton({super.key});

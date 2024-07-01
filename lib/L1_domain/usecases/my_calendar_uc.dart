@@ -2,10 +2,10 @@
 
 import '../entities/calendar.dart';
 import '../entities/calendar_source.dart';
-import '../repositories/abs_calendar_repo.dart';
+import '../repositories/abs_my_calendar_repo.dart';
 
-class CalendarUC {
-  const CalendarUC(this.repo);
+class MyCalendarUC {
+  const MyCalendarUC(this.repo);
 
   final AbstractCalendarRepo repo;
 

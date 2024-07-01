@@ -116,6 +116,10 @@ class CalendarIcon extends MTIcon {
   }
 }
 
+class CameraIcon extends MTIcon {
+  const CameraIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.camera);
+}
+
 class CaretIcon extends StatelessWidget {
   const CaretIcon({super.key, this.up = false, this.color, required this.size});
   final bool up;
@@ -321,6 +325,10 @@ class NoteMarkIcon extends MTIcon {
 
 class PersonIcon extends MTIcon {
   const PersonIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_circle);
+}
+
+class PersonNoAvatarIcon extends MTIcon {
+  const PersonNoAvatarIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person);
 }
 
 class PlusIcon extends MTIcon {

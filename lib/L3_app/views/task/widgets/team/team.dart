@@ -12,6 +12,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../presenters/member.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';

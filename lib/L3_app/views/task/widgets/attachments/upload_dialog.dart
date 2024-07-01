@@ -28,7 +28,7 @@ Future<List<XFile>> selectFilesDialog() async {
             topBar: MTAppBar(
               color: b2Color,
               showCloseButton: true,
-              title: loc.attachment_source_selector_title,
+              title: loc.attachment_add_action_title,
             ),
             body: Builder(
               builder: (context) => ListView(
@@ -36,13 +36,13 @@ Future<List<XFile>> selectFilesDialog() async {
                 children: [
                   MTListTile(
                     leading: MimeTypeIcon('image'),
-                    titleText: loc.attachment_source_gallery_title,
+                    middle: BaseText(loc.file_source_gallery_title, color: mainColor),
                     dividerIndent: P6 + P5,
                     onTap: () => Navigator.of(context).pop(_FileSource.gallery),
                   ),
                   MTListTile(
                     leading: const ProjectsIcon(color: mainColor),
-                    titleText: loc.attachment_source_files_title,
+                    middle: BaseText(loc.file_source_files_title, color: mainColor),
                     bottomDivider: false,
                     onTap: () => Navigator.of(context).pop(_FileSource.files),
                   ),

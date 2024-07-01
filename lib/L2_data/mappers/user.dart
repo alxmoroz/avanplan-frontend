@@ -9,11 +9,13 @@ extension UserMapper on api.User {
   User user(int wsId) => User(
         wsId: wsId,
         id: id,
+        updatedOn: updatedOn?.toLocal(),
         email: email,
         fullName: fullName ?? '',
         roles: roleCodes ?? [],
         permissions: permissionCodes ?? [],
         activities: [],
+        hasAvatar: hasAvatar ?? false,
       );
 }
 
@@ -21,10 +23,12 @@ extension MyUserMapper on api.MyUser {
   User myUser(int wsId) => User(
         wsId: wsId,
         id: id,
+        updatedOn: updatedOn?.toLocal(),
         email: email,
         fullName: fullName ?? '',
         roles: [],
         permissions: [],
         activities: activities.map((a) => a.activity),
+        hasAvatar: hasAvatar ?? false,
       );
 }

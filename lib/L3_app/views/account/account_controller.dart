@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -67,4 +68,27 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
 
   @action
   void clear() => me = null;
+
+  @action
+  Future uploadAvatar(XFile file) async {
+    setLoaderScreenSaving();
+    await load(() async {
+      me = await myAvatarUC.uploadAvatar(
+        file.openRead,
+        await file.length(),
+        file.name,
+        await file.lastModified(),
+      );
+    });
+    wsMainController.reload();
+  }
+
+  @action
+  Future deleteAvatar() async {
+    setLoaderScreenSaving();
+    await load(() async {
+      me = await myAvatarUC.deleteAvatar();
+    });
+    wsMainController.reload();
+  }
 }

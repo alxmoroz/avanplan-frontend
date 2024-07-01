@@ -14,7 +14,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/person.dart';
+import '../../../../presenters/member.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
 import '../../controllers/task_controller.dart';

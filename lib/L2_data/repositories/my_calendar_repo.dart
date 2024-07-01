@@ -7,14 +7,14 @@ import 'package:openapi/openapi.dart' as o_api;
 import '../../L1_domain/entities/calendar.dart';
 import '../../L1_domain/entities/calendar_source.dart';
 import '../../L1_domain/entities/errors.dart';
-import '../../L1_domain/repositories/abs_calendar_repo.dart';
+import '../../L1_domain/repositories/abs_my_calendar_repo.dart';
 import '../mappers/calendar.dart';
 import '../mappers/calendar_event.dart';
 import '../mappers/calendar_source.dart';
 import '../services/api.dart';
 import 'auth_google_repo.dart';
 
-class CalendarRepo extends AbstractCalendarRepo {
+class MyCalendarRepo extends AbstractCalendarRepo {
   o_api.MyCalendarApi get _myCalendarApi => openAPI.getMyCalendarApi();
 
   @override

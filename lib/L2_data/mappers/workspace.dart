@@ -19,7 +19,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
       title: title.trim(),
       description: description?.trim() ?? '',
       users: users?.map((u) => u.user(id)) ?? [],
-      members: members?.map((m) => m.wsMember) ?? [],
+      members: members?.map((m) => m.wsMember(id)) ?? [],
       roles: roles?.map((r) => r.role) ?? [],
       balance: balance ?? 0,
       invoice: invoice!.invoice,

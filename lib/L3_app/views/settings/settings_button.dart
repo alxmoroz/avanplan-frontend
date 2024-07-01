@@ -6,7 +6,7 @@ import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../extra/services.dart';
-import '../../presenters/person.dart';
+import '../../presenters/user.dart';
 import 'settings_menu.dart';
 
 class SettingsButton extends StatelessWidget {

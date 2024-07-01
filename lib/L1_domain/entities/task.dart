@@ -42,6 +42,8 @@ enum TaskState {
 class Project extends Titleable {
   Project({
     super.id,
+    super.createdOn,
+    super.updatedOn,
     required super.title,
     required this.wsId,
     super.description,
@@ -59,6 +61,8 @@ class Task extends Project {
     super.id,
     required super.title,
     super.description,
+    super.createdOn,
+    super.updatedOn,
     required this.startDate,
     required this.closed,
     required this.parentId,
@@ -70,8 +74,6 @@ class Task extends Project {
     required super.wsId,
     required this.type,
     this.taskSource,
-    this.createdOn,
-    this.updatedOn,
     this.dueDate,
     this.closedDate,
     this.projectStatusId,
@@ -87,9 +89,6 @@ class Task extends Project {
     this.closedVolume,
     this.closedSubtasksCount,
   });
-
-  final DateTime? createdOn;
-  final DateTime? updatedOn;
 
   final String type;
   final TaskState state;

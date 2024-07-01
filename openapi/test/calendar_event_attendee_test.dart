@@ -22,11 +22,6 @@ void main() {
       // TODO
     });
 
-    // String locale (default value: 'ru')
-    test('to test the property `locale`', () async {
-      // TODO
-    });
-
     // String sourceCode
     test('to test the property `sourceCode`', () async {
       // TODO

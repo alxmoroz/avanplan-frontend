@@ -9,6 +9,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../presenters/person.dart';
+import '../../presenters/user.dart';
 import 'ws_user_dialog.dart';
 
 class WSUserTile extends StatelessWidget {

@@ -43,7 +43,7 @@ abstract class _CalendarControllerBase with Store, Loadable {
   Future authenticateGoogleCalendar() async {
     setLoaderScreenLoading();
     await load(() async {
-      final cs = await calendarUC.updateSource(CalendarSourceType.GOOGLE);
+      final cs = await myCalendarUC.updateSource(CalendarSourceType.GOOGLE);
       if (cs != null) {
         _setSource(cs);
       }
@@ -53,10 +53,10 @@ abstract class _CalendarControllerBase with Store, Loadable {
   @action
   Future reload() async {
     // список подключенных календарей (учёток гугла, эпла и т.п.)
-    _sources = ObservableList.of(await calendarUC.getSources());
+    _sources = ObservableList.of(await myCalendarUC.getSources());
 
     // календари и события
-    final data = await calendarUC.getCalendarsEvents();
+    final data = await myCalendarUC.getCalendarsEvents();
     _calendars = ObservableList.of(data.calendars);
     events = ObservableList.of(data.events);
 

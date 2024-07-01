@@ -11,6 +11,7 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
+import '../../presenters/user.dart';
 
 Future wsUserDialog(User user) async => await showMTDialog<void>(_WSUserDialog(user));
 

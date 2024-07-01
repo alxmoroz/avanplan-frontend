@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // String nickName
+    test('to test the property `nickName`', () async {
+      // TODO
+    });
+
     // int userId
     test('to test the property `userId`', () async {
       // TODO
@@ -39,6 +44,11 @@ void main() {
 
     // bool isActive
     test('to test the property `isActive`', () async {
+      // TODO
+    });
+
+    // User user
+    test('to test the property `user`', () async {
       // TODO
     });
   });

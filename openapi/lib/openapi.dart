@@ -46,7 +46,6 @@ export 'package:openapi/src/model/body_registration_token.dart';
 export 'package:openapi/src/model/body_request_registration.dart';
 export 'package:openapi/src/model/body_request_type.dart';
 export 'package:openapi/src/model/body_start_import.dart';
-export 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 export 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 export 'package:openapi/src/model/calendar_event_attendee.dart';
 export 'package:openapi/src/model/calendar_event_get.dart';

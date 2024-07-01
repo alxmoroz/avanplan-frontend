@@ -74,9 +74,8 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**myTasks**](doc/MyApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
-[*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
-[*MyAvatarApi*](doc/MyAvatarApi.md) | [**deleteAvatarV1MyAvatarDelete**](doc/MyAvatarApi.md#deleteavatarv1myavatardelete) | **DELETE** /v1/my/avatar | Delete Avatar
+[*MyAvatarApi*](doc/MyAvatarApi.md) | [**deleteAvatar**](doc/MyAvatarApi.md#deleteavatar) | **DELETE** /v1/my/avatar | Delete Avatar
 [*MyAvatarApi*](doc/MyAvatarApi.md) | [**uploadAvatar**](doc/MyAvatarApi.md#uploadavatar) | **POST** /v1/my/avatar | Upload Avatar
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSources**](doc/MyCalendarApi.md#mycalendarsources) | **GET** /v1/my/calendar/sources | Sources
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSourcesUpsert**](doc/MyCalendarApi.md#mycalendarsourcesupsert) | **POST** /v1/my/calendar/sources | Upsert
@@ -179,7 +178,6 @@ Class | Method | HTTP request | Description
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyRequestType](doc/BodyRequestType.md)
  - [BodyStartImport](doc/BodyStartImport.md)
- - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokensPost](doc/BodyUpdatePushTokenV1MyPushTokensPost.md)
  - [CalendarEventAttendee](doc/CalendarEventAttendee.md)
  - [CalendarEventGet](doc/CalendarEventGet.md)

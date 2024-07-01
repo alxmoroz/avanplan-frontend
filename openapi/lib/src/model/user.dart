@@ -12,17 +12,25 @@ part 'user.g.dart';
 /// User
 ///
 /// Properties:
+/// * [id] 
+/// * [createdOn] 
 /// * [email] 
 /// * [fullName] 
 /// * [nickName] 
 /// * [locale] 
-/// * [createdOn] 
-/// * [id] 
+/// * [hasAvatar] 
+/// * [updatedOn] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
 /// * [wsIds] 
 @BuiltValue()
 abstract class User implements Built<User, UserBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int get id;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
+
   @BuiltValueField(wireName: r'email')
   String get email;
 
@@ -35,11 +43,11 @@ abstract class User implements Built<User, UserBuilder> {
   @BuiltValueField(wireName: r'locale')
   String? get locale;
 
-  @BuiltValueField(wireName: r'created_on')
-  DateTime get createdOn;
+  @BuiltValueField(wireName: r'has_avatar')
+  bool? get hasAvatar;
 
-  @BuiltValueField(wireName: r'id')
-  int get id;
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime? get updatedOn;
 
   @BuiltValueField(wireName: r'role_codes')
   BuiltList<String>? get roleCodes;
@@ -74,6 +82,16 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
     User object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
+    );
     yield r'email';
     yield serializers.serialize(
       object.email,
@@ -100,16 +118,20 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'created_on';
-    yield serializers.serialize(
-      object.createdOn,
-      specifiedType: const FullType(DateTime),
-    );
-    yield r'id';
-    yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
+    if (object.hasAvatar != null) {
+      yield r'has_avatar';
+      yield serializers.serialize(
+        object.hasAvatar,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.updatedOn != null) {
+      yield r'updated_on';
+      yield serializers.serialize(
+        object.updatedOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     if (object.roleCodes != null) {
       yield r'role_codes';
       yield serializers.serialize(
@@ -154,6 +176,20 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
+          break;
         case r'email':
           final valueDes = serializers.deserialize(
             value,
@@ -182,19 +218,19 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
           ) as String;
           result.locale = valueDes;
           break;
-        case r'created_on':
+        case r'has_avatar':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hasAvatar = valueDes;
+          break;
+        case r'updated_on':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime;
-          result.createdOn = valueDes;
-          break;
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
+          result.updatedOn = valueDes;
           break;
         case r'role_codes':
           final valueDes = serializers.deserialize(

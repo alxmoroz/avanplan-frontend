@@ -7,6 +7,16 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(MyUser, () {
+    // int id
+    test('to test the property `id`', () async {
+      // TODO
+    });
+
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
+      // TODO
+    });
+
     // String email
     test('to test the property `email`', () async {
       // TODO
@@ -27,13 +37,13 @@ void main() {
       // TODO
     });
 
-    // DateTime createdOn
-    test('to test the property `createdOn`', () async {
+    // bool hasAvatar
+    test('to test the property `hasAvatar`', () async {
       // TODO
     });
 
-    // int id
-    test('to test the property `id`', () async {
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
       // TODO
     });
 

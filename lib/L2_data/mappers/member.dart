@@ -5,24 +5,26 @@ import 'package:openapi/openapi.dart' as api;
 import '../../L1_domain/entities/member.dart';
 
 extension MemberMapper on api.MemberGet {
-  WSMember get wsMember => WSMember(
+  WSMember wsMember(int wsId) => WSMember(
         id: id,
+        wsId: wsId,
+        userId: userId,
         email: email,
         fullName: fullName,
         roles: [],
         permissions: [],
         isActive: isActive == true,
-        userId: userId,
       );
 
-  TaskMember taskMember(int taskId) => TaskMember(
+  TaskMember taskMember(int wsId, int taskId) => TaskMember(
         id: id,
+        wsId: wsId,
+        taskId: taskId,
+        userId: userId,
         email: email,
         fullName: fullName,
         roles: roleCodes ?? [],
         permissions: permissionCodes ?? [],
         isActive: isActive == true,
-        userId: userId,
-        taskId: taskId,
       );
 }

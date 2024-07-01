@@ -12,8 +12,8 @@ class Note extends WSBounded {
     this.authorId,
     this.parent,
     this.type,
-    this.createdOn,
-    this.updatedOn,
+    super.createdOn,
+    super.updatedOn,
   });
 
   String text;
@@ -22,8 +22,6 @@ class Note extends WSBounded {
   final int? authorId;
   final Note? parent;
   String? type;
-  final DateTime? createdOn;
-  final DateTime? updatedOn;
 
   List<Attachment> attachments = [];
 }

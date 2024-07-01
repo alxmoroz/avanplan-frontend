@@ -12,7 +12,7 @@ import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/person.dart';
+import '../../../presenters/user.dart';
 import '../../settings/settings_menu.dart';
 import 'inbox_add_task_button.dart';
 

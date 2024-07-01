@@ -6,10 +6,8 @@ import 'base_entity.dart';
 class Contract extends RPersistable {
   Contract({
     required super.id,
-    required this.createdOn,
+    required super.createdOn,
   });
-
-  final DateTime createdOn;
 
   static Contract get dummy => Contract(id: -1, createdOn: now);
 }

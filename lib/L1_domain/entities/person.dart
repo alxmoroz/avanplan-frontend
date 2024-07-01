@@ -5,6 +5,8 @@ import 'base_entity.dart';
 abstract class Person extends RPersistable {
   Person({
     super.id,
+    super.createdOn,
+    super.updatedOn,
     required this.email,
     required this.fullName,
     required this.roles,

@@ -11,6 +11,8 @@ import '../components/text.dart';
 import '../extra/services.dart';
 
 extension WSPresenter on Workspace {
+  User? userForId(int userId) => users.firstWhereOrNull((u) => u.id == userId);
+
   List<Source> get sortedSources => sources.sorted((s1, s2) => s1.url.compareTo(s2.url));
   List<User> get sortedUsers => users.sorted((u1, u2) => compareNatural('$u1', '$u2'));
   List<EstimateValue> get sortedEstimateValues => estimateValues.sortedBy<num>((e) => e.value);

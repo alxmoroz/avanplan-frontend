@@ -12,11 +12,11 @@ enum TaskSourceState {
 class TaskSource extends RPersistable {
   TaskSource({
     required super.id,
+    required super.updatedOn,
     required this.sourceId,
     required this.code,
     required this.rootCode,
     required this.urlString,
-    required this.updatedOn,
     this.keepConnection = false,
     this.state,
     this.stateDetails,
@@ -26,7 +26,6 @@ class TaskSource extends RPersistable {
   final String code;
   final String rootCode;
   final String urlString;
-  final DateTime? updatedOn;
   bool keepConnection;
 
   final TaskSourceState? state;

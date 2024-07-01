@@ -16,8 +16,9 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/route.dart';
 import '../../extra/services.dart';
-import '../../presenters/person.dart';
+import '../../presenters/user.dart';
 import '../../views/_base/loader_screen.dart';
+import 'edit_avatar_dialog.dart';
 
 class AccountRoute extends MTRoute {
   static const staticBaseName = 'my_account';
@@ -56,8 +57,13 @@ class _AccountDialog extends StatelessWidget {
               body: ListView(
                 shrinkWrap: true,
                 children: [
-                  _me!.icon(P10, borderColor: mainColor),
-                  const SizedBox(height: P3),
+                  MTButton(middle: _me!.icon(P10, borderColor: mainColor), onTap: editAvatarDialog),
+                  MTButton(
+                    titleText: loc.avatar_edit_action_title,
+                    margin: const EdgeInsets.all(P3),
+                    onTap: editAvatarDialog,
+                  ),
+                  const SizedBox(height: P),
                   H3('$_me', align: TextAlign.center),
                   BaseText(_me!.email, align: TextAlign.center),
                   const SizedBox(height: P3),

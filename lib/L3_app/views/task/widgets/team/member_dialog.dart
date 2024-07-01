@@ -14,6 +14,7 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/member.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';

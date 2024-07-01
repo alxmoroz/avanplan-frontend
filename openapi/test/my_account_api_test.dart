@@ -19,12 +19,5 @@ void main() {
     test('test deleteAccountV1MyAccountDelete', () async {
       // TODO
     });
-
-    // Update Account
-    //
-    //Future<MyUser> updateAccountV1MyAccountPost({ BodyUpdateAccountV1MyAccountPost bodyUpdateAccountV1MyAccountPost }) async
-    test('test updateAccountV1MyAccountPost', () async {
-      // TODO
-    });
   });
 }

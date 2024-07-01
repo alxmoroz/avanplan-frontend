@@ -5,6 +5,7 @@ import 'person.dart';
 class WSMember extends Person {
   WSMember({
     required super.id,
+    required this.wsId,
     required super.email,
     required super.fullName,
     required super.roles,
@@ -13,6 +14,7 @@ class WSMember extends Person {
     required this.userId,
   });
 
+  final int wsId;
   final bool isActive;
   final int? userId;
 }
@@ -20,6 +22,7 @@ class WSMember extends Person {
 class TaskMember extends WSMember {
   TaskMember({
     required super.id,
+    required super.wsId,
     required super.email,
     required super.fullName,
     required super.roles,

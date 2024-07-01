@@ -13,7 +13,7 @@ import '../../../components/vertical_toolbar.dart';
 import '../../../components/vertical_toolbar_controller.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/person.dart';
+import '../../../presenters/user.dart';
 import '../../app/app_title.dart';
 import '../../settings/settings_menu.dart';
 

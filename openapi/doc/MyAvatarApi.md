@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteAvatarV1MyAvatarDelete**](MyAvatarApi.md#deleteavatarv1myavatardelete) | **DELETE** /v1/my/avatar | Delete Avatar
+[**deleteAvatar**](MyAvatarApi.md#deleteavatar) | **DELETE** /v1/my/avatar | Delete Avatar
 [**uploadAvatar**](MyAvatarApi.md#uploadavatar) | **POST** /v1/my/avatar | Upload Avatar
 
 
-# **deleteAvatarV1MyAvatarDelete**
-> bool deleteAvatarV1MyAvatarDelete()
+# **deleteAvatar**
+> MyUser deleteAvatar()
 
 Delete Avatar
 
@@ -31,10 +31,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getMyAvatarApi();
 
 try {
-    final response = api.deleteAvatarV1MyAvatarDelete();
+    final response = api.deleteAvatar();
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MyAvatarApi->deleteAvatarV1MyAvatarDelete: $e\n');
+    print('Exception when calling MyAvatarApi->deleteAvatar: $e\n');
 }
 ```
 
@@ -43,7 +43,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**bool**
+[**MyUser**](MyUser.md)
 
 ### Authorization
 
@@ -57,7 +57,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **uploadAvatar**
-> String uploadAvatar(file)
+> MyUser uploadAvatar(file)
 
 Upload Avatar
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**MyUser**](MyUser.md)
 
 ### Authorization
 

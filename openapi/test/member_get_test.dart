@@ -46,10 +46,5 @@ void main() {
     test('to test the property `isActive`', () async {
       // TODO
     });
-
-    // User user
-    test('to test the property `user`', () async {
-      // TODO
-    });
   });
 }

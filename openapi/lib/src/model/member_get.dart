@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/user.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -21,7 +20,6 @@ part 'member_get.g.dart';
 /// * [roleCodes] 
 /// * [permissionCodes] 
 /// * [isActive] 
-/// * [user] 
 @BuiltValue()
 abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -47,9 +45,6 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
 
   @BuiltValueField(wireName: r'is_active')
   bool? get isActive;
-
-  @BuiltValueField(wireName: r'user')
-  User? get user;
 
   MemberGet._();
 
@@ -124,13 +119,6 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       yield serializers.serialize(
         object.isActive,
         specifiedType: const FullType(bool),
-      );
-    }
-    if (object.user != null) {
-      yield r'user';
-      yield serializers.serialize(
-        object.user,
-        specifiedType: const FullType(User),
       );
     }
   }
@@ -211,13 +199,6 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.isActive = valueDes;
-          break;
-        case r'user':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(User),
-          ) as User;
-          result.user.replace(valueDes);
           break;
         default:
           unhandled.add(key);

@@ -6,6 +6,12 @@ class LSDateCode {
   static const APP_UPGRADE_PROPOSAL = 'APP_UPGRADE_PROPOSAL';
 }
 
+class LSStringCode {
+  static const INVITATION_TOKEN = 'INVITATION_TOKEN';
+  static const REGISTRATION_TOKEN = 'REGISTRATION_TOKEN';
+  // static const UTM_VALUES = 'UTM_VALUES';
+}
+
 class LocalSettings extends LocalPersistable {
   LocalSettings({
     super.id = 'settings',
@@ -13,12 +19,14 @@ class LocalSettings extends LocalPersistable {
     this.version = '',
     this.flags,
     this.dates,
+    this.strings,
   });
 
   int launchCount;
   String version;
   Map<String, bool>? flags;
   Map<String, DateTime>? dates;
+  Map<String, String>? strings;
 
   bool getFlag(String code) => flags?[code] ?? false;
   void setFlag(String code, bool value) {
@@ -33,4 +41,12 @@ class LocalSettings extends LocalPersistable {
   }
 
   void removeDate(String code) => dates?.remove(code);
+
+  String? getString(String code) => strings?[code];
+  void setString(String code, String value) {
+    strings ??= {};
+    strings![code] = value;
+  }
+
+  void removeString(String code) => strings?.remove(code);
 }

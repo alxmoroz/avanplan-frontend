@@ -10,8 +10,6 @@ import '../../L2_data/services/platform.dart';
 import '../extra/route.dart';
 import '../views/account/account_dialog.dart';
 import '../views/auth/auth_view.dart';
-import '../views/auth/invitation_token_controller.dart';
-import '../views/auth/registration_token_controller.dart';
 import '../views/main/main_view.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/onboarding/onboarding_view.dart';
@@ -21,6 +19,7 @@ import '../views/source/sources_dialog.dart';
 import '../views/task/widgets/empty_state/task_404_dialog.dart';
 import '../views/workspace/ws_route.dart';
 import '../views/workspace/ws_users_dialog.dart';
+import 'deep_links_routes.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => _rootKey.currentContext!;

@@ -22,12 +22,16 @@ class LocalSettingsHO extends BaseModel<LocalSettings> {
   @HiveField(6)
   Map<String, DateTime>? dates = {};
 
+  @HiveField(7)
+  Map<String, String>? strings = {};
+
   @override
   LocalSettings toEntity() => LocalSettings(
         version: version,
         launchCount: launchCount,
         flags: flags,
         dates: dates,
+        strings: strings,
       );
 
   @override
@@ -37,6 +41,7 @@ class LocalSettingsHO extends BaseModel<LocalSettings> {
     launchCount = entity.launchCount;
     flags = entity.flags;
     dates = entity.dates;
+    strings = entity.strings;
     await save();
   }
 }

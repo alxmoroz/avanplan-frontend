@@ -18,12 +18,24 @@ class LocalSettingsUC {
     return settings;
   }
 
-  Future<LocalSettings> setAppUpgradeProposalDate(DateTime? date) async {
+  Future<LocalSettings> setDate(String code, DateTime? date) async {
     final settings = await repo.getOne() ?? LocalSettings();
     if (date != null) {
-      settings.setDate(LSDateCode.APP_UPGRADE_PROPOSAL, date);
+      settings.setDate(code, date);
     } else {
-      settings.removeDate(LSDateCode.APP_UPGRADE_PROPOSAL);
+      settings.removeDate(code);
+    }
+
+    await repo.update(settings);
+    return settings;
+  }
+
+  Future<LocalSettings> setString(String code, String? string) async {
+    final settings = await repo.getOne() ?? LocalSettings();
+    if (string != null) {
+      settings.setString(code, string);
+    } else {
+      settings.removeString(code);
     }
 
     await repo.update(settings);

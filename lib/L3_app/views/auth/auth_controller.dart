@@ -39,12 +39,14 @@ abstract class _AuthControllerBase with Store, Loadable {
 
   @action
   Future _signInWithRegistration() async {
-    if (registrationTokenController.hasToken) {
-      final token = registrationTokenController.token!;
-      registrationTokenController.clear();
+    if (localSettingsController.hasRegistration) {
       if (authorized) await authUC.signOut();
 
-      await load(() async => authorized = await authUC.signInWithRegistration(token));
+      await load(() async {
+        authorized = await authUC.signInWithRegistration(localSettingsController.registrationToken!);
+        await localSettingsController.deleteRegistrationToken();
+      });
+
       if (authorized) router.goMain();
     }
   }

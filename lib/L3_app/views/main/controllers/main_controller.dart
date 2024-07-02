@@ -57,11 +57,13 @@ abstract class _MainControllerBase with Store, Loadable {
 
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
-    if (invitationTokenController.hasToken) {
+    if (localSettingsController.hasInvitation) {
       setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
-      final token = invitationTokenController.token!;
-      invitationTokenController.clear();
-      invited = await myUC.redeemInvitation(token);
+      // TODO: на бэке предусмотрена логика погашения приглашения, сохраненного при регистрации.
+      //  Т.е. если на фронте токена нет (другое устройство или сеанс), то это не помешает реализовать приглашение в проект после первой авторизации
+      // TODO: в связи с этим вопрос: почему бы сразу не прикрепить человечка к проекту в момент запроса регистрации? Проблема безопасности?
+      invited = await myUC.redeemInvitation(localSettingsController.invitationToken);
+      localSettingsController.deleteInvitationToken();
     }
     return invited;
   }

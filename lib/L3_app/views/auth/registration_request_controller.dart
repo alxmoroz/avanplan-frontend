@@ -65,9 +65,12 @@ abstract class _RegistrationControllerBase extends EditController with Store, Lo
       final regRequest = RegistrationRequest(
         fData(RegistrationFCode.name.index).text,
         fData(RegistrationFCode.email.index).text,
-        invitationToken: invitationTokenController.token,
+        invitationToken: localSettingsController.invitationToken,
       );
       requestCompleted = await authUC.requestRegistration(regRequest, fData(RegistrationFCode.password.index).text);
+      if (requestCompleted && localSettingsController.hasInvitation) {
+        await localSettingsController.deleteInvitationToken();
+      }
     });
   }
 }

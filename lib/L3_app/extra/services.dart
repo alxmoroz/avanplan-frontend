@@ -53,8 +53,6 @@ import '../views/account/account_controller.dart';
 import '../views/app/app_controller.dart';
 import '../views/app/local_settings_controller.dart';
 import '../views/auth/auth_controller.dart';
-import '../views/auth/invitation_token_controller.dart';
-import '../views/auth/registration_token_controller.dart';
 import '../views/calendar/calendar_controller.dart';
 import '../views/main/controllers/main_controller.dart';
 import '../views/main/controllers/tasks_main_controller.dart';
@@ -75,8 +73,6 @@ ReferencesController get refsController => GetIt.I<ReferencesController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
-RegistrationTokenController get registrationTokenController => GetIt.I<RegistrationTokenController>();
-InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
 CalendarController get calendarController => GetIt.I<CalendarController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
@@ -150,7 +146,5 @@ void setup() {
   getIt.registerSingleton<TasksMainController>(TasksMainController());
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
-  getIt.registerSingleton<InvitationTokenController>(InvitationTokenController());
-  getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
   getIt.registerSingleton<CalendarController>(CalendarController());
 }

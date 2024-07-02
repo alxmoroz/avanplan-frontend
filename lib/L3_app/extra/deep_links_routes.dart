@@ -1,0 +1,27 @@
+// Copyright (c) 2024. Alexandr Moroz
+
+import 'package:go_router/go_router.dart';
+
+import '../../L1_domain/entities/local_settings.dart';
+import '../views/auth/auth_view.dart';
+import '../views/main/main_view.dart';
+import 'route.dart';
+import 'services.dart';
+
+final registrationTokenRoute = MTRoute(
+  path: '/register',
+  baseName: 'register',
+  redirect: (_, GoRouterState state) async {
+    await localSettingsController.parseQueryParameter(state.uri, 't', LSStringCode.REGISTRATION_TOKEN);
+    return authRoute.path;
+  },
+);
+
+final invitationTokenRoute = MTRoute(
+  path: '/invite',
+  baseName: 'invite',
+  redirect: (_, GoRouterState state) async {
+    await localSettingsController.parseQueryParameter(state.uri, 't', LSStringCode.INVITATION_TOKEN);
+    return mainRoute.path;
+  },
+);

@@ -55,7 +55,7 @@ abstract class _MainControllerBase with Store, Loadable {
 
   Future reload() async => await load(_reloadData);
 
-  Future<bool> _tryRedeemInvitation() async {
+  Future<bool> _redeemInvitation() async {
     bool invited = false;
     if (localSettingsController.hasInvitation) {
       setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
@@ -66,14 +66,6 @@ abstract class _MainControllerBase with Store, Loadable {
       localSettingsController.deleteInvitationToken();
     }
     return invited;
-  }
-
-  Future _tryUpdate() async {
-    final invited = await _tryRedeemInvitation();
-    final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
-    if (invited || isTimeToUpdate || router.isDeepLink) {
-      await _reloadData();
-    }
   }
 
   Future _showOnboarding() async {
@@ -88,10 +80,15 @@ abstract class _MainControllerBase with Store, Loadable {
 
     await authController.checkLocalAuth();
     if (authController.authorized) {
+      await _redeemInvitation();
       await load(() async {
         // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
         await notificationController.setup();
-        await _tryUpdate();
+        // обновление данных
+        final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
+        if (isTimeToUpdate || router.isDeepLink) {
+          await _reloadData();
+        }
       });
       await _showOnboarding();
     } else {

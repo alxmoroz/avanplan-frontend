@@ -134,7 +134,7 @@ class TaskCard extends StatelessWidget {
           else if (task.isImportingProject)
             Container()
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта, вложений и комментариев
-          else if (task.hasAnalytics || _showAttachmentsMark || _showNotesMark || task.wsCode.isNotEmpty || task.isLinkedProject) ...[
+          else if (task.isGroup) ...[
             const SizedBox(height: P_2),
             Row(children: [
               if (task.hasAnalytics) TaskStateTitle(task, place: StateTitlePlace.card),
@@ -145,37 +145,35 @@ class TaskCard extends StatelessWidget {
               if (task.wsCode.isNotEmpty) SmallText(task.wsCode, color: f3Color, maxLines: 1),
             ]),
             // задачи - срок, метка чек-листа, вложений, комментов, оценка, статус, назначено
-          ] else if (!task.isBacklog) ...[
-            if (_showDate || _showChecklistMark || _showAttachmentsMark || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
-              const SizedBox(height: P_2),
-              Row(
-                children: [
-                  if (_showDate) _date,
-                  Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedBox(width: P2),
-                        if (withDetails) ...[
-                          if (_showChecklistMark) ...[_checklistMark],
-                          if (_showAttachmentsMark) ...[if (_showChecklistMark) _divider, _attachmentsMark],
-                          if (_showNotesMark) ...[if (_showChecklistMark || _showAttachmentsMark) _divider, _notesMark],
-                        ],
-                        if (_showEstimate) ...[
-                          if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark)) _divider,
-                          _estimate,
-                        ],
-                        if (_showStatus) ...[
-                          if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark) || _showEstimate) _divider,
-                          Flexible(child: _status),
-                        ],
-                        if (_showAssignee) ...[const SizedBox(width: P), _assignee],
+          ] else if (_showDate || _showChecklistMark || _showAttachmentsMark || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
+            const SizedBox(height: P_2),
+            Row(
+              children: [
+                if (_showDate) _date,
+                Flexible(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(width: P2),
+                      if (withDetails) ...[
+                        if (_showChecklistMark) ...[_checklistMark],
+                        if (_showAttachmentsMark) ...[if (_showChecklistMark) _divider, _attachmentsMark],
+                        if (_showNotesMark) ...[if (_showChecklistMark || _showAttachmentsMark) _divider, _notesMark],
                       ],
-                    ),
+                      if (_showEstimate) ...[
+                        if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark)) _divider,
+                        _estimate,
+                      ],
+                      if (_showStatus) ...[
+                        if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark) || _showEstimate) _divider,
+                        Flexible(child: _status),
+                      ],
+                      if (_showAssignee) ...[const SizedBox(width: P), _assignee],
+                    ],
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ],
         ],
       );

@@ -227,6 +227,10 @@
   "onboarding_step_3_title": "Available on any device",
   "onboarding_step_3_text": "Use it in the mobile app or web version",
 
+  "onboarding_start_with_host_project_title": "And you also have an invitation",
+  "onboarding_start_with_host_project_action_title": "Go to the project",
+  "onboarding_start_with_host_project_action_description": "{title} awaits you",
+
   "onboarding_start_with_project_title": "Start with a project",
   "onboarding_start_with_project_text": "Import or create a project. Connect your team and other modules",
   "onboarding_start_with_tasks_title": "Start with tasks",

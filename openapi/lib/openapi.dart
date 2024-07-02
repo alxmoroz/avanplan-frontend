@@ -40,7 +40,7 @@ export 'package:openapi/src/model/body_auth_apple_token.dart';
 export 'package:openapi/src/model/body_auth_google_token.dart';
 export 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
 export 'package:openapi/src/model/body_my_calendar_sources_upsert.dart';
-export 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
+export 'package:openapi/src/model/body_redeem_invitation.dart';
 export 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 export 'package:openapi/src/model/body_registration_token.dart';
 export 'package:openapi/src/model/body_request_registration.dart';

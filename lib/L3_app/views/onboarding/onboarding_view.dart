@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -12,6 +13,7 @@ import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/route.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../projects/create_project_controller.dart';
 import '../promo/promo_features.dart';
@@ -24,7 +26,7 @@ final onboardingRoute = MTRoute(
   baseName: 'onboarding',
   noTransition: true,
   redirect: (_, state) => state.extra == null ? '/' : null,
-  builder: (_, __) => _OnboardingView(OnboardingController()),
+  builder: (_, state) => _OnboardingView(OnboardingController(hostProjectIn: state.extra is TaskDescriptor ? state.extra as TaskDescriptor : null)),
 );
 
 class _OnboardingView extends StatelessWidget {
@@ -38,6 +40,11 @@ class _OnboardingView extends StatelessWidget {
 
   Future _startWithTasks() async {
     await _controller.next();
+  }
+
+  Future _goToHostProject() async {
+    await _controller.next();
+    router.goTaskView(_controller.hostProject!);
   }
 
   @override
@@ -106,6 +113,32 @@ class _OnboardingView extends StatelessWidget {
                     ],
                   ),
                 ),
+                if (_controller.hostProject != null) ...[
+                  BaseText(loc.onboarding_start_with_host_project_title,
+                      align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P4, vertical: P2)),
+                  MTCardButton(
+                    borderSide: BorderSide(color: greenColor.resolve(context)),
+                    margin: const EdgeInsets.symmetric(horizontal: P4),
+                    onTap: _goToHostProject,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(children: [
+                          const MemberAddIcon(size: P6),
+                          const SizedBox(width: P2),
+                          Expanded(child: H3(loc.onboarding_start_with_host_project_action_title)),
+                          const ChevronIcon(),
+                        ]),
+                        const SizedBox(height: P2),
+                        BaseText(
+                          loc.onboarding_start_with_host_project_action_description(_controller.hostProject!.title),
+                          align: TextAlign.left,
+                          maxLines: 3,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ],
             ],
           ),

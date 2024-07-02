@@ -76,15 +76,15 @@ extension MTRouterHelper on GoRouter {
   void goWSUsers(int wsId) => _goNamed('$_wsRName/${WSUsersRoute.staticBaseName}', pathParameters: {'wsId': '$wsId'});
 
   // Задачи
-  void goTaskView(Task task, {bool direct = false}) {
-    final tt = task.type.toLowerCase();
+  void goTaskView(TaskDescriptor td, {bool direct = false}) {
+    final tt = td.type.toLowerCase();
     final currentPP = _currentConfig.pathParameters;
     final ttIdKey = '${tt}Id';
 
-    if (currentPP['wsId'] != '${task.wsId}' || (!currentPP.containsKey(ttIdKey) || currentPP[ttIdKey] != '${task.id!}')) {
-      final needPush = !direct && (!isWeb || task.isTask);
+    if (currentPP['wsId'] != '${td.wsId}' || (!currentPP.containsKey(ttIdKey) || currentPP[ttIdKey] != '${td.id!}')) {
+      final needPush = !direct && (!isWeb || td.isTask);
       final Map<String, String> pp = needPush ? currentPP : {};
-      pp.addAll({'wsId': '${task.wsId}', ttIdKey: '${task.id!}'});
+      pp.addAll({'wsId': '${td.wsId}', ttIdKey: '${td.id!}'});
       final currentName = needPush ? _currentRoute.name : mainRoute.name;
       _goNamed('$currentName/$tt', pathParameters: pp);
     }
@@ -102,7 +102,7 @@ extension MTRouterHelper on GoRouter {
   }
 
   // главный онбординг
-  Future pushOnboarding() async => await pushNamed(onboardingRoute.name, extra: 'local');
+  Future pushOnboarding({TaskDescriptor? hostProject}) async => await pushNamed(onboardingRoute.name, extra: hostProject ?? 'local');
 
   // шаги квиза создания цели / проекта
   Future pushTaskQuizStep(

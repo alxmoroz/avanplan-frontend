@@ -6,38 +6,38 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_redeem_v1_my_invitations_redeem_post.g.dart';
+part 'body_redeem_invitation.g.dart';
 
-/// BodyRedeemV1MyInvitationsRedeemPost
+/// BodyRedeemInvitation
 ///
 /// Properties:
 /// * [invitationToken] 
 @BuiltValue()
-abstract class BodyRedeemV1MyInvitationsRedeemPost implements Built<BodyRedeemV1MyInvitationsRedeemPost, BodyRedeemV1MyInvitationsRedeemPostBuilder> {
+abstract class BodyRedeemInvitation implements Built<BodyRedeemInvitation, BodyRedeemInvitationBuilder> {
   @BuiltValueField(wireName: r'invitation_token')
   String get invitationToken;
 
-  BodyRedeemV1MyInvitationsRedeemPost._();
+  BodyRedeemInvitation._();
 
-  factory BodyRedeemV1MyInvitationsRedeemPost([void updates(BodyRedeemV1MyInvitationsRedeemPostBuilder b)]) = _$BodyRedeemV1MyInvitationsRedeemPost;
+  factory BodyRedeemInvitation([void updates(BodyRedeemInvitationBuilder b)]) = _$BodyRedeemInvitation;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyRedeemV1MyInvitationsRedeemPostBuilder b) => b;
+  static void _defaults(BodyRedeemInvitationBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyRedeemV1MyInvitationsRedeemPost> get serializer => _$BodyRedeemV1MyInvitationsRedeemPostSerializer();
+  static Serializer<BodyRedeemInvitation> get serializer => _$BodyRedeemInvitationSerializer();
 }
 
-class _$BodyRedeemV1MyInvitationsRedeemPostSerializer implements PrimitiveSerializer<BodyRedeemV1MyInvitationsRedeemPost> {
+class _$BodyRedeemInvitationSerializer implements PrimitiveSerializer<BodyRedeemInvitation> {
   @override
-  final Iterable<Type> types = const [BodyRedeemV1MyInvitationsRedeemPost, _$BodyRedeemV1MyInvitationsRedeemPost];
+  final Iterable<Type> types = const [BodyRedeemInvitation, _$BodyRedeemInvitation];
 
   @override
-  final String wireName = r'BodyRedeemV1MyInvitationsRedeemPost';
+  final String wireName = r'BodyRedeemInvitation';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyRedeemV1MyInvitationsRedeemPost object, {
+    BodyRedeemInvitation object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'invitation_token';
@@ -50,7 +50,7 @@ class _$BodyRedeemV1MyInvitationsRedeemPostSerializer implements PrimitiveSerial
   @override
   Object serialize(
     Serializers serializers,
-    BodyRedeemV1MyInvitationsRedeemPost object, {
+    BodyRedeemInvitation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -61,7 +61,7 @@ class _$BodyRedeemV1MyInvitationsRedeemPostSerializer implements PrimitiveSerial
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyRedeemV1MyInvitationsRedeemPostBuilder result,
+    required BodyRedeemInvitationBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -84,12 +84,12 @@ class _$BodyRedeemV1MyInvitationsRedeemPostSerializer implements PrimitiveSerial
   }
 
   @override
-  BodyRedeemV1MyInvitationsRedeemPost deserialize(
+  BodyRedeemInvitation deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyRedeemV1MyInvitationsRedeemPostBuilder();
+    final result = BodyRedeemInvitationBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

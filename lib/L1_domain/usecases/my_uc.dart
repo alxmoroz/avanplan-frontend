@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import '../entities/notification.dart';
+import '../entities/task.dart';
 import '../entities/user.dart';
 import '../repositories/abs_my_repo.dart';
 
@@ -19,5 +20,5 @@ class MyUC {
 
   Future updatePushToken(String token, bool hasPermission) async => await repo.updatePushToken(token, hasPermission);
 
-  Future<bool> redeemInvitation(String? token) async => await repo.redeemInvitation(token);
+  Future<TaskDescriptor?> redeemInvitation(String? token) async => await repo.redeemInvitation(token);
 }

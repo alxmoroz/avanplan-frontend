@@ -75,6 +75,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.type = ButtonType.text,
     this.uf = true,
     this.minSize,
+    this.borderSide,
   });
 
   const MTButton.main({
@@ -95,6 +96,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.loading,
     this.uf = true,
     this.minSize,
+    this.borderSide,
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
@@ -115,6 +117,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.loading,
     this.uf = true,
     this.minSize,
+    this.borderSide,
   }) : type = ButtonType.secondary;
 
   const MTButton.icon(
@@ -136,7 +139,8 @@ class MTButton extends StatelessWidget with FocusManaging {
         leading = null,
         trailing = null,
         titleColor = null,
-        constrained = false;
+        constrained = false,
+        borderSide = null;
 
   final ButtonType type;
   final String? titleText;
@@ -152,6 +156,8 @@ class MTButton extends StatelessWidget with FocusManaging {
   final EdgeInsets? margin;
   final bool constrained;
   final double? elevation;
+  final BorderSide? borderSide;
+
   final bool? loading;
   final bool uf;
   final Size? minSize;
@@ -173,7 +179,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       disabledBackgroundColor: btnColor,
       minimumSize: _minSize,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_radius)),
-      side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
+      side: borderSide ?? (type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none),
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
       shadowColor: b1Color.resolve(context),
@@ -277,6 +283,7 @@ class MTCardButton extends StatelessWidget {
     this.loading,
     this.onTap,
     this.onLongPress,
+    this.borderSide,
   });
 
   final Widget child;
@@ -285,6 +292,7 @@ class MTCardButton extends StatelessWidget {
   final double? elevation;
   final double? radius;
   final bool? loading;
+  final BorderSide? borderSide;
 
   final Function()? onTap;
   final Function()? onLongPress;
@@ -292,6 +300,7 @@ class MTCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton(
+      borderSide: borderSide,
       elevation: elevation,
       type: ButtonType.card,
       middle: Expanded(child: child),

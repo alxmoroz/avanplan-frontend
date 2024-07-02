@@ -73,7 +73,8 @@ abstract class _AppControllerBase with Store, Loadable {
           final releaseNotes = (await releaseNoteUC.getReleaseNotes(localSettingsController.oldVersion))
               .sorted((rn1, rn2) => compareNatural(rn2.version, rn1.version));
           if (releaseNotes.isNotEmpty) {
-            showReleaseNotesDialog(releaseNotes);
+            // TODO: без await будет грузиться инфа в фоне. Но если там ошибки, то получается фигня. Особенно, если 403, то этот экран тоже закрывается
+            await showReleaseNotesDialog(releaseNotes);
           }
 
           localSettingsController.resetAppUpgradeProposalDate();

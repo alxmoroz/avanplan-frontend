@@ -10,7 +10,7 @@ doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
 doc/BodyMyCalendarSourcesUpsert.md
-doc/BodyRedeemV1MyInvitationsRedeemPost.md
+doc/BodyRedeemInvitation.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
 doc/BodyRequestRegistration.md
@@ -124,7 +124,7 @@ lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
 lib/src/model/body_my_calendar_sources_upsert.dart
-lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
+lib/src/model/body_redeem_invitation.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
 lib/src/model/body_request_registration.dart
@@ -188,7 +188,7 @@ test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_iap_notification_v1_payments_iap_notification_post_test.dart
 test/body_my_calendar_sources_upsert_test.dart
-test/body_redeem_v1_my_invitations_redeem_post_test.dart
+test/body_redeem_invitation_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
 test/body_request_registration_test.dart

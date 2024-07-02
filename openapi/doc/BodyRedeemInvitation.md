@@ -1,4 +1,4 @@
-# openapi.model.BodyRedeemV1MyInvitationsRedeemPost
+# openapi.model.BodyRedeemInvitation
 
 ## Load the model package
 ```dart

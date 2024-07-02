@@ -55,7 +55,7 @@ class _WSFeaturesDialog extends StatelessWidget {
 
                   return MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
-                    borderSide: subscribed ? const BorderSide(color: greenColor) : null,
+                    borderSide: subscribed ? BorderSide(color: greenColor.resolve(context)) : null,
                     child: ListView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

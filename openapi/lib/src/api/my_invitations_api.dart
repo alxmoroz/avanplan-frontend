@@ -7,8 +7,9 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
+import 'package:openapi/src/model/body_redeem_invitation.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:openapi/src/model/project_get.dart';
 
 class MyInvitationsApi {
 
@@ -18,11 +19,11 @@ class MyInvitationsApi {
 
   const MyInvitationsApi(this._dio, this._serializers);
 
-  /// Redeem
+  /// Redeem Invitation
   /// 
   ///
   /// Parameters:
-  /// * [bodyRedeemV1MyInvitationsRedeemPost] 
+  /// * [bodyRedeemInvitation] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -30,10 +31,10 @@ class MyInvitationsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
+  /// Returns a [Future] containing a [Response] with a [ProjectGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> redeemV1MyInvitationsRedeemPost({ 
-    required BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost,
+  Future<Response<ProjectGet>> redeemInvitation({ 
+    required BodyRedeemInvitation bodyRedeemInvitation,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -68,8 +69,8 @@ class MyInvitationsApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BodyRedeemV1MyInvitationsRedeemPost);
-      _bodyData = _serializers.serialize(bodyRedeemV1MyInvitationsRedeemPost, specifiedType: _type);
+      const _type = FullType(BodyRedeemInvitation);
+      _bodyData = _serializers.serialize(bodyRedeemInvitation, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(
@@ -92,11 +93,14 @@ class MyInvitationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool? _responseData;
+    ProjectGet? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as bool;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(ProjectGet),
+      ) as ProjectGet;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -108,7 +112,7 @@ class MyInvitationsApi {
       );
     }
 
-    return Response<bool>(
+    return Response<ProjectGet>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -2,7 +2,7 @@
 
 import '../entities/task.dart';
 
-extension TaskTreeExt on Task {
+extension TaskTreeExt on TaskDescriptor {
   bool get isProject => type == TType.PROJECT;
   bool get isInbox => type == TType.INBOX;
   bool get isGoal => type == TType.GOAL;

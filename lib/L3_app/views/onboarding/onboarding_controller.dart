@@ -2,6 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/button.dart';
 import '../../extra/router.dart';
@@ -13,6 +14,10 @@ part 'onboarding_controller.g.dart';
 enum _StepCode { done, milestone, devices_sync, promo_features, where_we_go }
 
 class OnboardingController extends _OnboardingControllerBase with _$OnboardingController {
+  OnboardingController({TaskDescriptor? hostProjectIn}) {
+    hostProject = hostProjectIn;
+  }
+
   @override
   Future afterNext() async {
     if (isPromoFeaturesStep) await accountController.registerPromoFeaturesViewed();
@@ -26,6 +31,8 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
 }
 
 abstract class _OnboardingControllerBase extends AbstractQuizController with Store {
+  late final TaskDescriptor? hostProject;
+
   @computed
   bool get isPromoFeaturesStep => step.code == _StepCode.promo_features.name;
 
@@ -46,12 +53,8 @@ abstract class _OnboardingControllerBase extends AbstractQuizController with Sto
             nextButtonType: ButtonType.secondary,
             nextButtonTitle: loc.later,
           ),
-        // показываем шаг с выбором финального действия для создания проекта или задачи, если нет ни одного проекта или задачи
-        if (!tasksMainController.hasAnyTasks)
-          QuizStep(
-            _StepCode.where_we_go.name,
-            '',
-            awaiting: false,
-          ),
+        // показываем шаг с выбором финального действия для создания проекта или задачи
+        // а также для перехода к проекту, куда пригласили
+        QuizStep(_StepCode.where_we_go.name, '', awaiting: false),
       ];
 }

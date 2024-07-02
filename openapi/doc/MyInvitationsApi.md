@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**redeemV1MyInvitationsRedeemPost**](MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
+[**redeemInvitation**](MyInvitationsApi.md#redeeminvitation) | **POST** /v1/my/invitations/redeem | Redeem Invitation
 
 
-# **redeemV1MyInvitationsRedeemPost**
-> bool redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost)
+# **redeemInvitation**
+> ProjectGet redeemInvitation(bodyRedeemInvitation)
 
-Redeem
+Redeem Invitation
 
 ### Example
 ```dart
@@ -28,13 +28,13 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getMyInvitationsApi();
-final BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost = ; // BodyRedeemV1MyInvitationsRedeemPost | 
+final BodyRedeemInvitation bodyRedeemInvitation = ; // BodyRedeemInvitation | 
 
 try {
-    final response = api.redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost);
+    final response = api.redeemInvitation(bodyRedeemInvitation);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MyInvitationsApi->redeemV1MyInvitationsRedeemPost: $e\n');
+    print('Exception when calling MyInvitationsApi->redeemInvitation: $e\n');
 }
 ```
 
@@ -42,11 +42,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bodyRedeemV1MyInvitationsRedeemPost** | [**BodyRedeemV1MyInvitationsRedeemPost**](BodyRedeemV1MyInvitationsRedeemPost.md)|  | 
+ **bodyRedeemInvitation** | [**BodyRedeemInvitation**](BodyRedeemInvitation.md)|  | 
 
 ### Return type
 
-**bool**
+[**ProjectGet**](ProjectGet.md)
 
 ### Authorization
 

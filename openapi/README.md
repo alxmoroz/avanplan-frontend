@@ -80,7 +80,7 @@ Class | Method | HTTP request | Description
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSources**](doc/MyCalendarApi.md#mycalendarsources) | **GET** /v1/my/calendar/sources | Sources
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSourcesUpsert**](doc/MyCalendarApi.md#mycalendarsourcesupsert) | **POST** /v1/my/calendar/sources | Upsert
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarsEvents**](doc/MyCalendarApi.md#mycalendarsevents) | **GET** /v1/my/calendar/calendars_events | Calendars Events
-[*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
+[*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemInvitation**](doc/MyInvitationsApi.md#redeeminvitation) | **POST** /v1/my/invitations/redeem | Redeem Invitation
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
 [*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
@@ -172,7 +172,7 @@ Class | Method | HTTP request | Description
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyIapNotificationV1PaymentsIapNotificationPost](doc/BodyIapNotificationV1PaymentsIapNotificationPost.md)
  - [BodyMyCalendarSourcesUpsert](doc/BodyMyCalendarSourcesUpsert.md)
- - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
+ - [BodyRedeemInvitation](doc/BodyRedeemInvitation.md)
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)

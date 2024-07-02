@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getMyInvitationsApi();
 
   group(MyInvitationsApi, () {
-    // Redeem
+    // Redeem Invitation
     //
-    //Future<bool> redeemV1MyInvitationsRedeemPost(BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost) async
-    test('test redeemV1MyInvitationsRedeemPost', () async {
+    //Future<ProjectGet> redeemInvitation(BodyRedeemInvitation bodyRedeemInvitation) async
+    test('test redeemInvitation', () async {
       // TODO
     });
   });

@@ -39,21 +39,37 @@ enum TaskState {
   CLOSED,
 }
 
-class Project extends Titleable {
-  Project({
+class TaskDescriptor extends Titleable {
+  TaskDescriptor({
     super.id,
+    required this.wsId,
+    required this.type,
     super.createdOn,
     super.updatedOn,
     required super.title,
-    required this.wsId,
     super.description,
     this.category,
     this.icon,
   });
 
+  final String type;
   int wsId;
   final String? category;
   final String? icon;
+}
+
+class Project extends TaskDescriptor {
+  Project({
+    super.id,
+    required super.wsId,
+    super.type = TType.PROJECT,
+    super.createdOn,
+    super.updatedOn,
+    required super.title,
+    super.description,
+    super.category,
+    super.icon,
+  });
 }
 
 class Task extends Project {
@@ -72,7 +88,7 @@ class Task extends Project {
     required this.projectStatuses,
     required this.projectModules,
     required super.wsId,
-    required this.type,
+    required super.type,
     this.taskSource,
     this.dueDate,
     this.closedDate,
@@ -90,7 +106,6 @@ class Task extends Project {
     this.closedSubtasksCount,
   });
 
-  final String type;
   final TaskState state;
   final double velocity;
   final double? requiredVelocity;

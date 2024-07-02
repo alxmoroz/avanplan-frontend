@@ -4,9 +4,11 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
+import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
+import '../mappers/task.dart';
 import '../mappers/user.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
@@ -48,10 +50,10 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
-  Future redeemInvitation(String? token) async {
-    final body = (o_api.BodyRedeemV1MyInvitationsRedeemPostBuilder()..invitationToken = token).build();
-    final response = await _invitationsApi.redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost: body);
-    return response.data == true;
+  Future<TaskDescriptor?> redeemInvitation(String? token) async {
+    final body = (o_api.BodyRedeemInvitationBuilder()..invitationToken = token).build();
+    final response = await _invitationsApi.redeemInvitation(bodyRedeemInvitation: body);
+    return response.data?.project;
   }
 
   @override

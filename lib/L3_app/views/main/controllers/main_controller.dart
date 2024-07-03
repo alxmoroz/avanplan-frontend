@@ -68,6 +68,9 @@ abstract class _MainControllerBase with Store, Loadable {
       await load(() async {
         TaskDescriptor? hostProject;
 
+        // удаляем инфу о переходе по рекламе (передали в хедере)
+        if (localSettingsController.hasUTM) await localSettingsController.deleteUTM();
+
         // определение возможного погашения приглашения для подключения к проекту
         if (localSettingsController.hasInvitation) {
           setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);

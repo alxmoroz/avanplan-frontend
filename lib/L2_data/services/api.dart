@@ -15,6 +15,8 @@ Map<String, dynamic> _headers(LocalSettings settings) {
     'avanplan-client-platform': platformCode,
     'avanplan-client-version': settings.version,
     'avanplan-client-locale': languageCode,
+    'avanplan-client-has-invitation': (settings.getString(LSStringCode.INVITATION_TOKEN) ?? '').isNotEmpty.toString(),
+    'avanplan-client-utm': settings.getString(LSStringCode.UTM_QUERY),
   };
 }
 

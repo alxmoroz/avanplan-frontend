@@ -9,6 +9,7 @@ class LSDateCode {
 class LSStringCode {
   static const INVITATION_TOKEN = 'INVITATION_TOKEN';
   static const REGISTRATION_TOKEN = 'REGISTRATION_TOKEN';
+  static const UTM_QUERY = 'UTM_QUERY';
   // static const UTM_VALUES = 'UTM_VALUES';
 }
 

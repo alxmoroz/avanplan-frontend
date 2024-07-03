@@ -59,6 +59,22 @@ abstract class _LocalSettingsControllerBase with Store {
     }
   }
 
+  @action
+  Future parseMainQuery(Uri uri) async {
+    final params = uri.queryParameters;
+    if (params.keys.any((k) => k.startsWith('utm'))) {
+      settings = await localSettingsUC.setString(LSStringCode.UTM_QUERY, uri.query);
+    }
+  }
+
+  /// Реклама
+  @computed
+  String? get _utmQuery => settings.getString(LSStringCode.UTM_QUERY);
+  @computed
+  bool get hasUTM => _utmQuery != null && _utmQuery!.isNotEmpty;
+  @action
+  Future deleteUTM() async => settings = await localSettingsUC.setString(LSStringCode.UTM_QUERY, null);
+
   /// Токен приглашения в проект
   @computed
   String? get invitationToken => settings.getString(LSStringCode.INVITATION_TOKEN);

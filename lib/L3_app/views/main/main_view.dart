@@ -44,7 +44,10 @@ class _MainRoute extends MTRoute {
       : super(
           baseName: 'main',
           path: '/',
-          redirect: (_, __) => !authController.authorized ? authRoute.path : null,
+          redirect: (_, state) {
+            if (state.uri.hasQuery) localSettingsController.parseMainQuery(state.uri);
+            return !authController.authorized ? authRoute.path : null;
+          },
           controller: mainController,
           noTransition: true,
           builder: (_, __) => const _MainView(),

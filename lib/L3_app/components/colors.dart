@@ -29,16 +29,6 @@ const warningColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 255, 200, 20),
 );
 
-const warningDarkColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 210, 130),
-  darkColor: Color.fromARGB(255, 140, 90, 35),
-);
-
-const warningLightColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 242, 190),
-  darkColor: Color.fromARGB(255, 115, 65, 10),
-);
-
 // цвет текста на основной кнопке
 const mainBtnTitleColor = b2Color;
 

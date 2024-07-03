@@ -327,6 +327,10 @@
   "source_type_selector_title": "Выберите тип источника импорта",
   "source_url_placeholder": "Адрес сервера (URL)",
 
+  "start_with_host_project_dialog_title": "Вас пригласили в проект",
+  "start_with_host_project_dialog_description": "Начните работать с проектом {title} сейчас или позже",
+  "start_with_host_project_action_title": "Перейти к проекту",
+
   "state_ahead_duration": "Можем закончить на {duration} раньше",
   "state_ahead_title": "Можем закончить раньше",
   "state_closed": "Выполнено",

@@ -4,10 +4,9 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/alert_dialog.dart';
-import '../../../components/icons.dart';
+import '../../../components/button.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_source.dart';
 import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
@@ -30,18 +29,8 @@ extension LinkUC on TaskController {
       loc.task_unlink_dialog_title,
       description: loc.task_unlink_dialog_description,
       actions: [
-        MTADialogAction(
-          title: loc.task_unlink_action_title,
-          type: MTDialogActionType.warning,
-          result: true,
-          icon: const LinkBreakIcon(),
-        ),
-        MTADialogAction(
-          type: MTDialogActionType.isDefault,
-          onTap: task.go2source,
-          result: false,
-          child: task.go2SourceTitle,
-        ),
+        MTDialogAction(title: loc.task_unlink_action_title, type: ButtonType.danger, result: true),
+        MTDialogAction(onTap: task.go2source, result: false),
       ],
     );
 

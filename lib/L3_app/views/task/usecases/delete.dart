@@ -4,6 +4,7 @@ import 'dart:async';
 
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/alert_dialog.dart';
+import '../../../components/button.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
@@ -18,10 +19,9 @@ extension DeleteUC on TaskController {
               task.deleteDialogTitle,
               description: '${taskDescriptor.isTask ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
               actions: [
-                MTADialogAction(title: loc.yes, type: MTDialogActionType.danger, result: true),
-                MTADialogAction(title: loc.no, type: MTDialogActionType.isDefault, result: false),
+                MTDialogAction(title: loc.yes, type: ButtonType.danger, result: true),
+                MTDialogAction(title: loc.no, result: false),
               ],
-              simple: true,
             ) ==
             true) {
       if (!task.isCheckItem) router.pop();

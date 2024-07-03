@@ -7,6 +7,7 @@ import '../../../../L1_domain/entities/tariff.dart';
 import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../components/alert_dialog.dart';
+import '../../../components/button.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/ws_actions.dart';
 import '../../tariff/tariff_confirm_expenses_dialog.dart';
@@ -55,10 +56,9 @@ extension WSTariffUC on WSController {
             loc.tariff_option_team_unsubscribe_dialog_title,
             description: loc.tariff_option_team_unsubscribe_dialog_description,
             actions: [
-              MTADialogAction(result: true, title: loc.yes, type: MTDialogActionType.danger),
-              MTADialogAction(result: false, title: loc.no, type: MTDialogActionType.isDefault),
+              MTDialogAction(result: true, title: loc.yes, type: ButtonType.danger),
+              MTDialogAction(result: false, title: loc.no),
             ],
-            simple: true,
           );
         }
         // Есть права на смену тарифа, но нет прав на удаление участников РП
@@ -66,8 +66,7 @@ extension WSTariffUC on WSController {
           await showMTAlertDialog(
             loc.error_permission_title,
             description: loc.error_permission_description,
-            actions: [MTADialogAction(result: true, title: loc.ok)],
-            simple: true,
+            actions: [MTDialogAction(result: true, title: loc.ok)],
           );
         }
       }

@@ -10,7 +10,7 @@ enum ImageName {
   done,
   empty_sources,
   empty_tasks,
-  empty_team,
+  team,
   goal,
   goal_done,
   google_calendar,

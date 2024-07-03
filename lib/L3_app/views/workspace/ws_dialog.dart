@@ -88,7 +88,7 @@ class _WSDialogState extends State<WSDialog> {
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
-              MTPrice(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
+              MTPrice(ws.balance, color: ws.balance < 0 ? dangerColor : mainColor),
               const SizedBox(height: P2),
               BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],

@@ -12,6 +12,7 @@ import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/board/dd_item.dart';
 import '../../../components/board/dd_item_target.dart';
+import '../../../components/button.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -30,8 +31,8 @@ extension StatusUC on TaskController {
         loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
         actions: [
-          MTADialogAction(title: loc.close_w_subtasks, type: MTDialogActionType.danger, result: true),
-          MTADialogAction(title: loc.cancel, type: MTDialogActionType.isDefault, result: false),
+          MTDialogAction(title: loc.close_w_subtasks, type: ButtonType.danger, result: true),
+          MTDialogAction(title: loc.cancel, result: false),
         ],
       );
 

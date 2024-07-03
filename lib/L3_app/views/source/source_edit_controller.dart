@@ -10,6 +10,7 @@ import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../components/alert_dialog.dart';
+import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/text_field.dart';
@@ -100,10 +101,9 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
             loc.source_delete_dialog_title,
             description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
             actions: [
-              MTADialogAction(title: loc.yes, type: MTDialogActionType.danger, result: true),
-              MTADialogAction(title: loc.no, type: MTDialogActionType.isDefault, result: false),
+              MTDialogAction(title: loc.yes, type: ButtonType.danger, result: true),
+              MTDialogAction(title: loc.no, result: false),
             ],
-            simple: true,
           ) ==
           true) {
         setLoaderScreenDeleting();

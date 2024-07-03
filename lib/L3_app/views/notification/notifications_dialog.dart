@@ -80,10 +80,9 @@ class _NotificationsDialog extends StatelessWidget {
       loc.notification_push_ios_denied_dialog_title,
       description: loc.notification_push_ios_denied_dialog_description,
       actions: [
-        MTADialogAction(title: loc.cancel, result: false),
-        MTADialogAction(title: loc.app_settings_action_title, result: true, type: MTDialogActionType.isDefault),
+        MTDialogAction(title: loc.cancel, result: false),
+        MTDialogAction(title: loc.app_settings_action_title, result: true, type: ButtonType.main),
       ],
-      simple: true,
     );
     if (gotoSettings == true) {
       await sys_settings.AppSettings.openAppSettings();

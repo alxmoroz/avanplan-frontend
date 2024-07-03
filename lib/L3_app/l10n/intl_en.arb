@@ -327,6 +327,10 @@
   "source_type_selector_title": "Select the import source type",
   "source_url_placeholder": "URL",
 
+  "start_with_host_project_dialog_title": "You have been invited to join the project",
+  "start_with_host_project_dialog_description": "Start working with {title} project now or later",
+  "start_with_host_project_action_title": "Go to Project",
+
   "state_ahead_duration": "We can finish {duration} early",
   "state_ahead_title": "We can finish early",
   "state_closed": "Closed",

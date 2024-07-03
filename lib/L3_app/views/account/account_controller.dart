@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
 import '../../components/alert_dialog.dart';
+import '../../components/button.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
@@ -20,10 +21,9 @@ class AccountController extends _AccountControllerBase with _$AccountController 
       loc.my_account_delete_dialog_title,
       description: loc.my_account_delete_dialog_description,
       actions: [
-        MTADialogAction(title: loc.yes, type: MTDialogActionType.danger, result: true),
-        MTADialogAction(title: loc.no, type: MTDialogActionType.isDefault, result: false),
+        MTDialogAction(title: loc.yes, type: ButtonType.danger, result: true),
+        MTDialogAction(title: loc.no, result: false),
       ],
-      simple: true,
     );
     if (confirm == true) {
       setLoaderScreenDeleting();

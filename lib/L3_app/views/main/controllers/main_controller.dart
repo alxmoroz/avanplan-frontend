@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:avanplan/L3_app/views/onboarding/onboarding_controller.dart';
+import 'package:avanplan/L3_app/views/task/widgets/team/host_project_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
@@ -63,31 +65,41 @@ abstract class _MainControllerBase with Store, Loadable {
 
     await authController.checkLocalAuth();
     if (authController.authorized) {
-      TaskDescriptor? hostProject;
+      await load(() async {
+        TaskDescriptor? hostProject;
 
-      // определение возможного погашения приглашения для подключения к проекту
-      if (localSettingsController.hasInvitation) {
-        setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
-        // TODO: на бэке предусмотрена логика погашения приглашения, сохраненного при регистрации.
-        //  Т.е. если на фронте токена нет (другое устройство или сеанс), то это не помешает реализовать приглашение в проект после первой авторизации
-        // TODO: в связи с этим вопрос: почему бы сразу не прикрепить человечка к проекту в момент запроса регистрации? Проблема безопасности?
-        await load(() async => hostProject = await myUC.redeemInvitation(localSettingsController.invitationToken));
-        await localSettingsController.deleteInvitationToken();
-      }
+        // определение возможного погашения приглашения для подключения к проекту
+        if (localSettingsController.hasInvitation) {
+          setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
+          // TODO: на бэке предусмотрена логика погашения приглашения, сохраненного при регистрации.
+          //  Т.е. если на фронте токена нет (другое устройство или сеанс), то это не помешает реализовать приглашение в проект после первой авторизации
+          // TODO: в связи с этим вопрос: почему бы сразу не прикрепить человечка к проекту в момент запроса регистрации? Проблема безопасности?
+          try {
+            hostProject = await myUC.redeemInvitation(localSettingsController.invitationToken);
+          } catch (_) {}
 
-      // обновление данных
-      final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
-      if (isTimeToUpdate || router.isDeepLink) {
-        await load(() async => await _reloadData());
-      }
+          await localSettingsController.deleteInvitationToken();
+        }
 
-      // Онбординг
-      if (!accountController.onboardingPassed) await router.pushOnboarding(hostProject: hostProject);
+        // обновление данных
+        final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
+        if (isTimeToUpdate || router.isDeepLink) {
+          await _reloadData();
+        }
 
-      // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
-      // TODO: также тут происходит обработка сообщения из пуш-уведомления. Проверить логику, что это должно происходить в этом месте
-      // Настройка пушей и обработка ссылок из пуша
-      await notificationController.setup();
+        // Онбординг
+        String? onbPassedStepCode;
+        // if (!accountController.onboardingPassed) onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
+        onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
+
+        // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
+        // TODO: также тут происходит обработка сообщения из пуш-уведомления. Проверить логику, что это должно происходить в этом месте
+        // Настройка пушей и обработка ссылок из пуша
+        await notificationController.setup();
+
+        // при наличии приглашения показываем диалог перехода к приглашающему проекту, если не было такого шага в онбординге
+        if (hostProject != null && onbPassedStepCode != OnboardingStepCode.where_we_go.name) await startWithHostProjectDialog(hostProject);
+      });
     } else {
       authController.signOut();
     }

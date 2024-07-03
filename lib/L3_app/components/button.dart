@@ -13,7 +13,7 @@ import 'loader.dart';
 import 'material_wrapper.dart';
 import 'text.dart';
 
-enum ButtonType { text, main, secondary, icon, card }
+enum ButtonType { text, main, secondary, danger, icon, card }
 
 enum FeedbackType { light, medium, heavy, vibrate, selection }
 
@@ -164,12 +164,27 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _custom => [ButtonType.card].contains(type);
-  Color get _titleColor => _enabled || _custom ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : f2Color;
+  Color get _titleColor => _enabled || _custom
+      ? (titleColor ??
+          (type == ButtonType.main
+              ? mainBtnTitleColor
+              : type == ButtonType.danger
+                  ? b3Color
+                  : mainColor))
+      : f2Color;
   Size get _minSize => minSize ?? const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT);
   double get _radius => (type == ButtonType.card ? DEF_BORDER_RADIUS : _minSize.height / 2);
 
   ButtonStyle _style(BuildContext context) {
-    final btnColor = (_enabled || _custom ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
+    final btnColor = (_enabled || _custom
+            ? (color ??
+                (type == ButtonType.main
+                    ? mainColor
+                    : type == ButtonType.danger
+                        ? dangerColor
+                        : b3Color))
+            : b1Color)
+        .resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,
@@ -206,6 +221,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     switch (type) {
       case ButtonType.main:
       case ButtonType.secondary:
+      case ButtonType.danger:
       case ButtonType.card:
         return OutlinedButton(
           onPressed: _onPressed(context),

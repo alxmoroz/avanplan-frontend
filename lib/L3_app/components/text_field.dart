@@ -19,7 +19,7 @@ InputDecoration tfDecoration(
   bool readOnly = false,
 }) {
   final bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
-  final OutlineInputBorder warningBorder = OutlineInputBorder(borderSide: BorderSide(color: warningColor.resolve(context)), borderRadius: bRadius);
+  final OutlineInputBorder dangerBorder = OutlineInputBorder(borderSide: BorderSide(color: dangerColor.resolve(context)), borderRadius: bRadius);
   final OutlineInputBorder border = OutlineInputBorder(borderSide: BorderSide(color: f3Color.resolve(context)), borderRadius: bRadius);
   final OutlineInputBorder focusedBorder =
       OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)), borderRadius: bRadius);
@@ -33,7 +33,7 @@ InputDecoration tfDecoration(
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
     errorText: error,
-    errorStyle: const SmallText('', color: warningColor).style(context),
+    errorStyle: const SmallText('', color: dangerColor).style(context),
     errorMaxLines: 3,
     contentPadding: padding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -42,8 +42,8 @@ InputDecoration tfDecoration(
     focusedBorder: readOnly ? border : focusedBorder,
     enabledBorder: border,
     disabledBorder: border,
-    errorBorder: warningBorder,
-    focusedErrorBorder: warningBorder,
+    errorBorder: dangerBorder,
+    focusedErrorBorder: dangerBorder,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,

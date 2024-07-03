@@ -89,8 +89,7 @@ abstract class _MainControllerBase with Store, Loadable {
 
         // Онбординг
         String? onbPassedStepCode;
-        // if (!accountController.onboardingPassed) onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
-        onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
+        if (!accountController.onboardingPassed) onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
 
         // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
         // TODO: также тут происходит обработка сообщения из пуш-уведомления. Проверить логику, что это должно происходить в этом месте

@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createFromTemplate**
-> TasksChanges createFromTemplate(wsId, srcWsId, srcProjectId)
+> TasksChanges createFromTemplate(wsId, srcProjectId, srcWsId)
 
 Create From Template
 
@@ -209,11 +209,11 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
-final int srcWsId = 56; // int | 
 final int srcProjectId = 56; // int | 
+final int srcWsId = 56; // int | 
 
 try {
-    final response = api.createFromTemplate(wsId, srcWsId, srcProjectId);
+    final response = api.createFromTemplate(wsId, srcProjectId, srcWsId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->createFromTemplate: $e\n');
@@ -225,8 +225,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
- **srcWsId** | **int**|  | 
  **srcProjectId** | **int**|  | 
+ **srcWsId** | **int**|  | 
 
 ### Return type
 

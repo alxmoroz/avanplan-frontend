@@ -27,8 +27,8 @@ class TransferApi {
   ///
   /// Parameters:
   /// * [wsId] 
-  /// * [srcWsId] 
   /// * [srcProjectId] 
+  /// * [srcWsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -40,8 +40,8 @@ class TransferApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<TasksChanges>> createFromTemplate({ 
     required int wsId,
-    required int srcWsId,
     required int srcProjectId,
+    required int srcWsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -73,8 +73,8 @@ class TransferApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
       r'src_project_id': encodeQueryParameter(_serializers, srcProjectId, const FullType(int)),
+      r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

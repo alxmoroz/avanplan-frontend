@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **createFromTemplate**
-> TasksChanges createFromTemplate(wsId, srcWsId, srcProjectId)
+> TasksChanges createFromTemplate(wsId, srcProjectId, srcWsId)
 
 Create From Template
 
@@ -32,11 +32,11 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTransferApi();
 final int wsId = 56; // int | 
-final int srcWsId = 56; // int | 
 final int srcProjectId = 56; // int | 
+final int srcWsId = 56; // int | 
 
 try {
-    final response = api.createFromTemplate(wsId, srcWsId, srcProjectId);
+    final response = api.createFromTemplate(wsId, srcProjectId, srcWsId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TransferApi->createFromTemplate: $e\n');
@@ -48,8 +48,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
- **srcWsId** | **int**|  | 
  **srcProjectId** | **int**|  | 
+ **srcWsId** | **int**|  | 
 
 ### Return type
 

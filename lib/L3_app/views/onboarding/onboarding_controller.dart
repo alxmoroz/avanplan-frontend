@@ -26,7 +26,7 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
   @override
   Future finish() async {
     router.pop(step.code);
-    await accountController.registerOnboardingPassed(stepIndex);
+    await accountController.registerOnboardingPassed(step.code);
   }
 }
 

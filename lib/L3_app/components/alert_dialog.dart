@@ -1,12 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/images.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'button.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'dialog.dart';
+import 'images.dart';
 import 'text.dart';
 import 'toolbar.dart';
 

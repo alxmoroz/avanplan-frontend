@@ -387,11 +387,9 @@
 
   "tariff_list_title": "Tariffs",
 
-
   "tariff_option_tasks_count_title": "Tasks",
   "tariff_option_users_count_title": "Members",
   "tariff_option_fs_volume_title": "File Storage",
-
 
   "tariff_option_analytics_title": "Analytics",
   "tariff_option_analytics_subtitle": "Dates prediction, Estimates and Statistics",

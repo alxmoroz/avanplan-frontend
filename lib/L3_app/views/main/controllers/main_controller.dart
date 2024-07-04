@@ -2,8 +2,6 @@
 
 import 'dart:async';
 
-import 'package:avanplan/L3_app/views/onboarding/onboarding_controller.dart';
-import 'package:avanplan/L3_app/views/task/widgets/team/host_project_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,6 +12,8 @@ import '../../../components/images.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../views/_base/loadable.dart';
+import '../../../views/onboarding/onboarding_controller.dart';
+import '../../../views/task/widgets/team/host_project_dialog.dart';
 
 part 'main_controller.g.dart';
 

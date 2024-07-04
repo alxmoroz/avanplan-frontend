@@ -387,11 +387,9 @@
 
   "tariff_list_title": "Тарифы",
 
-
   "tariff_option_tasks_count_title": "Задачи",
   "tariff_option_users_count_title": "Участники",
   "tariff_option_fs_volume_title": "Хранилище файлов",
-
 
   "tariff_option_analytics_title": "Аналитика",
   "tariff_option_analytics_subtitle": "Прогнозы, оценки и статистика",

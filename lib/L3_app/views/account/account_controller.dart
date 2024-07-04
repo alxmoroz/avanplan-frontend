@@ -38,8 +38,8 @@ class AccountController extends _AccountControllerBase with _$AccountController 
     await registerActivity(UACode.PROMO_FEATURES_VIEWED);
   }
 
-  Future registerOnboardingPassed(int stepIndex) async {
-    await registerActivity('${UACode.ONBOARDING_PASSED}_${stepIndex + 1}');
+  Future registerOnboardingPassed(String stepCode) async {
+    await registerActivity('${UACode.ONBOARDING_PASSED}_$stepCode');
   }
 }
 

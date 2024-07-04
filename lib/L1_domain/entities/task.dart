@@ -123,7 +123,7 @@ class Task extends Project {
   List<ProjectStatus> projectStatuses;
 
   List<Attachment> attachments;
-  Iterable<TaskMember> members;
+  Iterable<WSMember> members;
   Iterable<ProjectModule> projectModules;
   TaskSource? taskSource;
 

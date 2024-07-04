@@ -24,7 +24,7 @@ class _MemberRolesDialog extends StatelessWidget {
   final MemberRolesController _controller;
 
   Task get _task => _controller.task;
-  TaskMember? get _member => _task.memberForId(_controller.memberId);
+  WSMember? get _member => _task.memberForId(_controller.memberId);
 
   Widget _roleItem(BuildContext context, int index) {
     final role = _controller.roles[index];

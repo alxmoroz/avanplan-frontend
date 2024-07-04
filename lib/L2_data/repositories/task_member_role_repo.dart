@@ -13,7 +13,7 @@ class TaskMemberRoleRepo extends AbstractTaskMemberRoleRepo {
   o_api.TaskRolesApi get api => openAPI.getTaskRolesApi();
 
   @override
-  Future<Iterable<TaskMember>> assignRoles(Task task, int memberId, Iterable<int> rolesIds) async {
+  Future<Iterable<WSMember>> assignRoles(Task task, int memberId, Iterable<int> rolesIds) async {
     final taskId = task.id!;
     final response = await api.assignRole(
       taskId: taskId,
@@ -21,6 +21,6 @@ class TaskMemberRoleRepo extends AbstractTaskMemberRoleRepo {
       wsId: task.wsId,
       requestBody: BuiltList.from(rolesIds),
     );
-    return response.data?.map((m) => m.taskMember(task.wsId, taskId)) ?? [];
+    return response.data?.map((m) => m.wsMember(task.wsId)) ?? [];
   }
 }

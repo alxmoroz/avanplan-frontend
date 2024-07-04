@@ -12,11 +12,11 @@ class MTAvatar extends StatelessWidget {
   const MTAvatar(
     this.radius, {
     this.user,
-    this.borderColor,
+    required this.borderColor,
     super.key,
   });
   final double radius;
-  final Color? borderColor;
+  final Color borderColor;
   final User? user;
 
   bool get _hasAvatar => user?.hasAvatar == true;
@@ -28,17 +28,16 @@ class MTAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bColor = borderColor ?? f3Color;
     return CircleAvatar(
       radius: radius,
-      backgroundColor: bColor.resolve(context),
+      backgroundColor: borderColor.resolve(context),
       child: CircleAvatar(
         radius: radius - 2,
         backgroundColor: b3Color.resolve(context),
         child: Stack(
           alignment: Alignment.center,
           children: [
-            PersonNoAvatarIcon(size: radius * 1.3, color: bColor),
+            PersonNoAvatarIcon(size: radius * 1.3, color: user != null ? f1Color : f3Color),
             CircleAvatar(
               radius: radius - 3,
               backgroundColor: Colors.transparent,

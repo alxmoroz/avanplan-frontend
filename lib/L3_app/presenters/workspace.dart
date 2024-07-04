@@ -11,14 +11,12 @@ import '../components/text.dart';
 import '../extra/services.dart';
 
 extension WSPresenter on Workspace {
-  User? userForId(int userId) => users.firstWhereOrNull((u) => u.id == userId);
-
   List<Source> get sortedSources => sources.sorted((s1, s2) => s1.url.compareTo(s2.url));
   List<User> get sortedUsers => users.sorted((u1, u2) => compareNatural('$u1', '$u2'));
   List<EstimateValue> get sortedEstimateValues => estimateValues.sortedBy<num>((e) => e.value);
 
-  String get membersStr => sortedUsers.map((u) => u.fullName).take(1).join(', ');
-  String get membersCountMoreStr => sortedUsers.length > 1 ? loc.more_count(users.length - 1) : '';
+  String get wsUsersStr => sortedUsers.map((u) => u.fullName).take(1).join(', ');
+  String get wsUsersCountMoreStr => sortedUsers.length > 1 ? loc.more_count(users.length - 1) : '';
 
   Widget subPageTitle(String pageTitle) => Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -26,7 +26,7 @@ class _WSUserDialog extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          _user.icon(P10),
+          _user.icon(P10, borderColor: f3Color),
           const SizedBox(height: P3),
           H2('$_user', align: TextAlign.center),
           BaseText(_user.email, align: TextAlign.center),

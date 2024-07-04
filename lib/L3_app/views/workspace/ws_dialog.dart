@@ -125,7 +125,7 @@ class _WSDialogState extends State<WSDialog> {
       );
 
   Widget get _wsMembers {
-    final membersCountMoreStr = ws.membersCountMoreStr;
+    final membersCountMoreStr = ws.wsUsersCountMoreStr;
     return MTListTile(
       leading: const PeopleIcon(),
       middle: Row(
@@ -135,7 +135,7 @@ class _WSDialogState extends State<WSDialog> {
         ],
       ),
       subtitle: Row(children: [
-        Flexible(child: SmallText(ws.membersStr, maxLines: 1)),
+        Flexible(child: SmallText(ws.wsUsersStr, maxLines: 1)),
         if (membersCountMoreStr.isNotEmpty)
           SmallText(
             membersCountMoreStr,

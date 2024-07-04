@@ -2,9 +2,9 @@
 
 import 'package:collection/collection.dart';
 
-import '../entities/member.dart';
+import '../entities/user.dart';
 import '../entities/workspace.dart';
 
 extension WSMembersExtension on Workspace {
-  WSMember? memberForId(int? id) => members.firstWhereOrNull((m) => m.id == id);
+  User? userForId(int userId) => users.firstWhereOrNull((u) => u.id == userId);
 }

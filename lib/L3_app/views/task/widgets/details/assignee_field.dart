@@ -12,7 +12,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../presenters/member.dart';
+import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/assignee.dart';
@@ -31,7 +31,7 @@ class TaskAssigneeField extends StatelessWidget {
       builder: (_) => MTField(
         _controller.fData(TaskFCode.assignee.index),
         leading: _task.hasAssignee
-            ? _task.assignee!.icon(P6 / 2, borderColor: mainColor)
+            ? _task.assignee!.icon(P6 / 2)
             : PersonIcon(
                 color: _task.canAssign ? mainColor : f2Color,
               ),

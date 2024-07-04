@@ -14,9 +14,9 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/member.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'member_roles_controller.dart';
@@ -30,7 +30,7 @@ class _MemberDialog extends StatelessWidget {
   final int _memberId;
 
   Task get _task => _controller.task;
-  TaskMember? get _member => _task.memberForId(_memberId);
+  WSMember? get _member => _task.memberForId(_memberId);
 
   Future editRoles(BuildContext context) async {
     await memberRolesDialog(MemberRolesController(_task, _memberId));

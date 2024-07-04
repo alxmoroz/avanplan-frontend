@@ -30,7 +30,7 @@ extension TaskActionsUC on Task {
   User? get _authUser => accountController.me;
 
   /// разрешения для текущего участника РП, выбранной задачи или проекта
-  TaskMember? get me => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
+  WSMember? get me => activeMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
   bool get _hpMemberUpdate => me?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
   bool get _hpMemberRead => me?.hp('MEMBER_READ') == true || ws.hpProjectContentUpdate;

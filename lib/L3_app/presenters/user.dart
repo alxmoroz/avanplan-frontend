@@ -6,9 +6,9 @@ import '../../L1_domain/entities/user.dart';
 import '../components/avatar.dart';
 
 extension UserPresenter on User {
-  Widget icon(double radius, {Color? borderColor}) => MTAvatar(
+  Widget icon(double radius, {required Color borderColor}) => MTAvatar(
         radius,
-        borderColor: borderColor,
         user: this,
+        borderColor: borderColor,
       );
 }

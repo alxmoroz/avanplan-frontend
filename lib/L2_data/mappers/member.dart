@@ -11,20 +11,7 @@ extension MemberMapper on api.MemberGet {
         userId: userId,
         email: email,
         fullName: fullName,
-        roles: [],
-        permissions: [],
-        isActive: isActive == true,
-      );
-
-  TaskMember taskMember(int wsId, int taskId) => TaskMember(
-        id: id,
-        wsId: wsId,
-        taskId: taskId,
-        userId: userId,
-        email: email,
-        fullName: fullName,
         roles: roleCodes ?? [],
         permissions: permissionCodes ?? [],
-        isActive: isActive == true,
       );
 }

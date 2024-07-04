@@ -2,17 +2,23 @@
 
 import 'package:collection/collection.dart';
 
-import '../../L1_domain/entities_extensions/ws_members.dart';
 import '../../L3_app/usecases/task_tree.dart';
 import '../entities/member.dart';
 import '../entities/task.dart';
+import 'ws_users.dart';
 
 extension TaskMembersExtension on Task {
-  TaskMember? memberForId(int? id) => projectMembers.firstWhereOrNull((m) => m.id == id);
+  List<WSMember> get activeMembers => project.members
+      .where((m) => m.userId != null && ws.userForId(m.userId!) != null)
+      .map((m) {
+        m.isTaskMember = true;
+        return m;
+      })
+      .sorted((m1, m2) => compareNatural('$m1', '$m2'))
+      .toList();
 
-  Iterable<TaskMember> get projectMembers => project.members;
-  List<TaskMember> get sortedMembers => projectMembers.sorted((m1, m2) => compareNatural('$m1', '$m2'));
-  WSMember? get author => ws.memberForId(authorId);
-  WSMember? get assignee => ws.memberForId(assigneeId);
-  List<TaskMember> get activeMembers => sortedMembers.where((m) => m.isActive).toList();
+  // выставляем флаг, что этот участник есть в проекте, либо без этого
+  WSMember? memberForId(int? id) => activeMembers.firstWhereOrNull((m) => m.id == id) ?? ws.members.firstWhereOrNull((m) => m.id == id);
+  WSMember? get author => memberForId(authorId);
+  WSMember? get assignee => memberForId(assigneeId);
 }

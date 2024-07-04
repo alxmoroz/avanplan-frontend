@@ -14,9 +14,9 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/member.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
+import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
@@ -80,13 +80,13 @@ class TaskHeaderDashboard extends StatelessWidget {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               physics: const NeverScrollableScrollPhysics(),
+                              itemCount: min(3, _task.activeMembers.length),
                               itemBuilder: (_, index) {
                                 return Padding(
                                   padding: EdgeInsets.only(left: index > 0 ? P2 : P),
-                                  child: _task.sortedMembers[index].icon(P4, borderColor: mainColor),
+                                  child: _task.activeMembers[index].icon(P4),
                                 );
                               },
-                              itemCount: min(3, _task.members.length),
                             ),
                           ),
                           if (_task.members.length > 3) ...[

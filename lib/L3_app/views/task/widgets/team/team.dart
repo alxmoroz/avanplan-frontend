@@ -6,14 +6,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
-import '../../../../presenters/member.dart';
 import '../../../../presenters/person.dart';
+import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'invitation_button.dart';
@@ -26,19 +24,19 @@ class Team extends StatelessWidget {
   final bool standalone;
 
   Task get _task => _controller.task;
-  List<TaskMember> get _sortedMembers => _task.sortedMembers;
+  List<WSMember> get _activeMembers => _task.activeMembers;
 
   static const _iconSize = P8;
 
   Widget _memberBuilder(BuildContext context, int index) {
-    final member = _sortedMembers[index];
+    final member = _activeMembers[index];
     return MTListTile(
-      leading: member.isActive ? member.icon(_iconSize / 2, borderColor: mainColor) : const PersonIcon(size: _iconSize, color: f3Color),
-      middle: BaseText('$member', color: member.isActive ? null : f2Color, maxLines: 1),
-      subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,
+      leading: member.icon(_iconSize / 2),
+      middle: BaseText('$member', maxLines: 1),
+      subtitle: SmallText(member.rolesStr, maxLines: 1),
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
-      bottomDivider: index < _sortedMembers.length - 1 || _task.canInviteMembers,
+      bottomDivider: index < _activeMembers.length - 1 || _task.canInviteMembers,
       onTap: () async => await taskMemberDialog(_controller, member.id!),
     );
   }
@@ -46,7 +44,7 @@ class Team extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _sortedMembers.isNotEmpty
+      builder: (_) => _activeMembers.isNotEmpty
           ? ListView(
               shrinkWrap: true,
               physics: standalone ? null : const NeverScrollableScrollPhysics(),
@@ -55,7 +53,7 @@ class Team extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: _memberBuilder,
-                  itemCount: _sortedMembers.length,
+                  itemCount: _activeMembers.length,
                 ),
                 if (_task.canInviteMembers) InvitationButton(_task, inList: true),
               ],

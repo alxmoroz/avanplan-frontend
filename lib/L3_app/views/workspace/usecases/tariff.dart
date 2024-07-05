@@ -8,6 +8,7 @@ import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/button.dart';
+import '../../../components/images.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/ws_actions.dart';
 import '../../tariff/tariff_confirm_expenses_dialog.dart';
@@ -64,6 +65,7 @@ extension WSTariffUC on WSController {
         // Есть права на смену тарифа, но нет прав на удаление участников РП
         else if (ws.hpTariffUpdate) {
           await showMTAlertDialog(
+            imageName: ImageName.privacy.name,
             title: loc.error_permission_title,
             description: loc.error_permission_description,
             actions: [MTDialogAction(result: true, title: loc.ok)],

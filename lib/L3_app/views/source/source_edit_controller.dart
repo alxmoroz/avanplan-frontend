@@ -13,6 +13,7 @@ import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
+import '../../components/images.dart';
 import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
@@ -98,6 +99,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
   Future delete(BuildContext context) async {
     if (canEdit) {
       if (await showMTAlertDialog(
+            imageName: ImageName.delete.name,
             title: loc.source_delete_dialog_title,
             description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
             actions: [

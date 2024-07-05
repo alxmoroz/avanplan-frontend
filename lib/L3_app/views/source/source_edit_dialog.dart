@@ -44,7 +44,7 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
       await mailUs(subject: loc.import_custom_request_mail_subject, text: loc.import_custom_request_mail_body_text);
     } else {
       await showMTAlertDialog(
-        loc.source_type_unavailable_title('$sType'),
+        title: loc.source_type_unavailable_title('$sType'),
         description: loc.source_type_unavailable_hint,
         actions: [MTDialogAction(title: loc.ok, result: true)],
       );

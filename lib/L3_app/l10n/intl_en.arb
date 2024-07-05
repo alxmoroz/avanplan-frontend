@@ -4,9 +4,15 @@
   "about_service_title": "About service",
 
   "action_add_title": "Add",
+  "action_back_title": "Back",
+  "action_delete_title": "Delete",
+  "action_clear_title": "Clear",
+  "action_close_title": "Close",
   "action_no_title": "No",
+  "action_no_close_title": "No, don't close",
   "action_no_delete_title": "No, don't delete",
   "action_yes_title": "Yes",
+  "action_yes_close_all": "Yes, close all",
   "action_yes_delete_title": "Yes, delete",
   "action_yes_delete_all_title": "Yes, delete all",
 
@@ -47,7 +53,6 @@
 
   "avatar_edit_action_title": "Change Photo",
 
-  "back_action_title": "Back",
   "backlog": "Backlog",
   "backlog_plural_accusative": "{count, plural, one{backlog} other{backlogs}}",
 
@@ -82,11 +87,8 @@
 
   "checklist": "Checklist",
 
-  "clear_action_title": "Clear",
-  "close_action_title": "Close",
-  "close_dialog_recursive_description": "All subtasks will be marked completed",
-  "close_dialog_recursive_title": "Close with subtasks?",
-  "close_w_subtasks": "Close with subtasks",
+  "close_dialog_recursive_description": "All subtasks will also be marked completed",
+  "close_dialog_recursive_title": "Close {title} with subtasks?",
 
   "code": "Code",
 
@@ -109,7 +111,6 @@
   "create_from_template_action_title": "Create from template",
 
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
-  "delete_action_title": "Delete",
   "delete_dialog_description": "This action cannot be undone and data will be lost",
   "description": "Description",
   "details": "Details",
@@ -443,6 +444,7 @@
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
 
   "task_delete_dialog_group_title": "Delete along with subtasks?",
+
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline Date",
 

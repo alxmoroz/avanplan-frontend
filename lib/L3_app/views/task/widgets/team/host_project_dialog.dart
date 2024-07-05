@@ -9,8 +9,8 @@ import '../../../../extra/services.dart';
 
 Future startWithHostProjectDialog(TaskDescriptor hostProject) async {
   await showMTAlertDialog(
-    loc.start_with_host_project_dialog_title,
     imageName: ImageName.team.name,
+    title: loc.start_with_host_project_dialog_title,
     description: loc.start_with_host_project_dialog_description(hostProject.title),
     actions: [
       MTDialogAction(title: loc.later),

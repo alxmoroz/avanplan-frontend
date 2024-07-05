@@ -77,7 +77,7 @@ class _NotificationsDialog extends StatelessWidget {
 
   Future _showGotoSystemSettingsDialog() async {
     final gotoSettings = await showMTAlertDialog(
-      loc.notification_push_ios_denied_dialog_title,
+      title: loc.notification_push_ios_denied_dialog_title,
       description: loc.notification_push_ios_denied_dialog_description,
       actions: [
         MTDialogAction(title: loc.cancel, result: false),

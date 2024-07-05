@@ -14,6 +14,7 @@ import 'workspace.dart';
 
 String addSubtaskActionTitle(Task? parent) {
   final taskTitle = loc.task_plural_accusative(1);
+
   final objTitle = {
         'ROOT': loc.project_plural(1),
         TType.PROJECT: parent?.hmGoals == true ? loc.goal_plural_accusative(1) : taskTitle,
@@ -46,6 +47,15 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_title;
 
+  String _typeNameAccusative(num count) =>
+      {
+        TType.PROJECT: loc.project_plural_accusative(count),
+        TType.GOAL: loc.goal_plural_accusative(count),
+        TType.BACKLOG: loc.backlog_plural_accusative(count),
+        TType.TASK: loc.task_plural_accusative(count),
+      }[type] ??
+      loc.subtask_plural_accusative(count);
+
   String get viewTitle => '$_typeName ${isNew ? '' : '#$id'}';
 
   String get listTitle =>
@@ -57,16 +67,9 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_list_title;
 
-  String get deleteDialogTitle {
-    final objTitle = {
-          TType.PROJECT: loc.project_plural_accusative(1),
-          TType.GOAL: loc.goal_plural_accusative(1),
-          TType.BACKLOG: loc.backlog_plural_accusative(1),
-          TType.TASK: loc.task_plural_accusative(1),
-        }[type] ??
-        loc.subtask_plural_accusative(1);
-    return '${loc.delete_action_title} $objTitle?';
-  }
+  String get deleteDialogTitle => '${loc.action_delete_title} ${_typeNameAccusative(1)}?';
+
+  String get closeDialogRecursiveTitle => loc.close_dialog_recursive_title(_typeNameAccusative(1));
 
   String dativeSubtasksCount(int count) =>
       {

@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/circle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -63,11 +64,12 @@ class TextEditDialog extends StatelessWidget {
                         maxLines: 20,
                       ),
                     ),
-                    MTButton.main(
-                      elevation: 0,
-                      constrained: false,
-                      minSize: const Size(P6, P6),
-                      middle: const SubmitIcon(color: mainBtnTitleColor),
+                    MTButton.icon(
+                      const MTCircle(
+                        color: mainColor,
+                        size: P6,
+                        child: SubmitIcon(color: mainBtnTitleColor),
+                      ),
                       margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
                       onTap: _canSubmit ? () => Navigator.of(context).pop(true) : null,
                     ),

@@ -13,7 +13,7 @@ import 'loader.dart';
 import 'material_wrapper.dart';
 import 'text.dart';
 
-enum ButtonType { text, main, secondary, danger, icon, card }
+enum ButtonType { text, main, secondary, danger, safe, icon, card }
 
 enum FeedbackType { light, medium, heavy, vibrate, selection }
 
@@ -60,7 +60,6 @@ class MTButton extends StatelessWidget with FocusManaging {
     super.key,
     this.titleText,
     this.onTap,
-    this.onLongPress,
     this.onHover,
     this.leading,
     this.middle,
@@ -78,47 +77,85 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.borderSide,
   });
 
-  const MTButton.main({
+  MTButton.main({
     super.key,
     this.titleText,
     this.onTap,
-    this.onLongPress,
-    this.onHover,
     this.leading,
     this.middle,
     this.trailing,
-    this.color,
-    this.titleColor,
     this.constrained = true,
     this.padding,
     this.margin,
-    this.elevation,
     this.loading,
-    this.uf = true,
     this.minSize,
-    this.borderSide,
-  }) : type = ButtonType.main;
+  })  : type = ButtonType.main,
+        titleColor = null,
+        color = null,
+        elevation = null,
+        borderSide = BorderSide.none,
+        onHover = null,
+        uf = true;
 
-  const MTButton.secondary({
+  MTButton.secondary({
     super.key,
     this.titleText,
     this.onTap,
-    this.onLongPress,
-    this.onHover,
     this.leading,
     this.middle,
     this.trailing,
-    this.color,
-    this.titleColor,
     this.constrained = true,
     this.padding,
     this.margin,
-    this.elevation,
     this.loading,
-    this.uf = true,
     this.minSize,
-    this.borderSide,
-  }) : type = ButtonType.secondary;
+  })  : type = ButtonType.secondary,
+        titleColor = null,
+        color = null,
+        elevation = null,
+        borderSide = null,
+        onHover = null,
+        uf = true;
+
+  MTButton.danger({
+    super.key,
+    this.titleText,
+    this.onTap,
+    this.leading,
+    this.middle,
+    this.trailing,
+    this.constrained = true,
+    this.padding,
+    this.margin,
+    this.loading,
+    this.minSize,
+  })  : type = ButtonType.danger,
+        titleColor = null,
+        color = null,
+        elevation = null,
+        borderSide = BorderSide.none,
+        onHover = null,
+        uf = true;
+
+  MTButton.safe({
+    super.key,
+    this.titleText,
+    this.onTap,
+    this.leading,
+    this.middle,
+    this.trailing,
+    this.constrained = true,
+    this.padding,
+    this.margin,
+    this.loading,
+    this.minSize,
+  })  : type = ButtonType.safe,
+        titleColor = null,
+        color = null,
+        elevation = null,
+        borderSide = BorderSide.none,
+        onHover = null,
+        uf = true;
 
   const MTButton.icon(
     Widget icon, {
@@ -129,7 +166,6 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.elevation,
     this.loading,
     this.onTap,
-    this.onLongPress,
     this.onHover,
     this.uf = true,
     this.minSize,
@@ -145,7 +181,6 @@ class MTButton extends StatelessWidget with FocusManaging {
   final ButtonType type;
   final String? titleText;
   final Function()? onTap;
-  final Function()? onLongPress;
   final Function(bool)? onHover;
   final Widget? leading;
   final Widget? middle;
@@ -162,13 +197,13 @@ class MTButton extends StatelessWidget with FocusManaging {
   final bool uf;
   final Size? minSize;
 
-  bool get _enabled => loading != true && (onTap != null || onLongPress != null);
+  bool get _enabled => loading != true && onTap != null;
   bool get _custom => [ButtonType.card].contains(type);
   Color get _titleColor => _enabled || _custom
       ? (titleColor ??
           (type == ButtonType.main
               ? mainBtnTitleColor
-              : type == ButtonType.danger
+              : [ButtonType.danger, ButtonType.safe].contains(type)
                   ? b3Color
                   : mainColor))
       : f2Color;
@@ -182,7 +217,9 @@ class MTButton extends StatelessWidget with FocusManaging {
                     ? mainColor
                     : type == ButtonType.danger
                         ? dangerColor
-                        : b3Color))
+                        : type == ButtonType.safe
+                            ? greenColor
+                            : b3Color))
             : b1Color)
         .resolve(context);
 
@@ -204,8 +241,6 @@ class MTButton extends StatelessWidget with FocusManaging {
   }
 
   Function()? _onPressed(BuildContext context) => _enabled && onTap != null ? () => tapAction(context, uf, onTap!, fbType: FeedbackType.light) : null;
-  Function()? _onLongPress(BuildContext context) =>
-      _enabled && onLongPress != null ? () => tapAction(context, uf, onLongPress!, fbType: FeedbackType.medium) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(
@@ -218,41 +253,39 @@ class MTButton extends StatelessWidget with FocusManaging {
       ],
     );
 
-    switch (type) {
-      case ButtonType.main:
-      case ButtonType.secondary:
-      case ButtonType.danger:
-      case ButtonType.card:
-        return OutlinedButton(
-          onPressed: _onPressed(context),
-          onLongPress: _onLongPress(context),
-          onHover: onHover,
-          style: _style(context),
-          clipBehavior: Clip.hardEdge,
-          child: child,
-        );
-      default:
-        return material(
-          InkWell(
+    return [
+      ButtonType.main,
+      ButtonType.secondary,
+      ButtonType.danger,
+      ButtonType.safe,
+      ButtonType.card,
+    ].contains(type)
+        ? OutlinedButton(
+            onPressed: _onPressed(context),
             onHover: onHover,
-            onTap: onHover != null ? () {} : null,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            canRequestFocus: false,
-            focusColor: Colors.transparent,
-            onLongPress: _onLongPress(context),
-            child: CupertinoButton(
-              onPressed: _onPressed(context),
-              minSize: 0,
-              padding: padding ?? EdgeInsets.zero,
-              color: color,
-              borderRadius: const BorderRadius.all(Radius.zero),
-              child: child,
+            style: _style(context),
+            clipBehavior: Clip.hardEdge,
+            child: child,
+          )
+        : material(
+            InkWell(
+              onHover: onHover,
+              onTap: onHover != null ? () {} : null,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              canRequestFocus: false,
+              focusColor: Colors.transparent,
+              child: CupertinoButton(
+                onPressed: _onPressed(context),
+                minSize: 0,
+                padding: padding ?? EdgeInsets.zero,
+                color: color,
+                borderRadius: const BorderRadius.all(Radius.zero),
+                child: child,
+              ),
             ),
-          ),
-        );
-    }
+          );
   }
 
   @override
@@ -325,7 +358,6 @@ class MTCardButton extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(P3),
       loading: loading,
       onTap: onTap,
-      onLongPress: onLongPress,
     );
   }
 }

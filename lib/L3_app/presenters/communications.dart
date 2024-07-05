@@ -12,18 +12,14 @@ import '../usecases/communications.dart';
 String get appIdentifier => '${loc.app_title} ${localSettingsController.settings.version}';
 
 class ReportErrorButton extends StatelessWidget {
-  const ReportErrorButton(this.errorText, {super.key, this.color, this.titleColor = mainColor});
+  const ReportErrorButton(this.errorText, {super.key});
   final String errorText;
-  final Color? color;
-  final Color titleColor;
 
   @override
   Widget build(BuildContext context) {
     return MTButton.secondary(
-      leading: MailIcon(color: titleColor, size: P4),
+      leading: const MailIcon(color: mainColor, size: P4),
       titleText: loc.report_bug_action_title,
-      titleColor: titleColor,
-      color: color,
       margin: const EdgeInsets.only(top: P3),
       onTap: () => mailUs(text: errorText),
     );

@@ -26,7 +26,7 @@ extension TaskLinkUC on Task {
 extension LinkUC on TaskController {
   Future unlink() async {
     final confirm = await showMTAlertDialog(
-      loc.task_unlink_dialog_title,
+      title: loc.task_unlink_dialog_title,
       description: loc.task_unlink_dialog_description,
       actions: [
         MTDialogAction(title: loc.task_unlink_action_title, type: ButtonType.danger, result: true),

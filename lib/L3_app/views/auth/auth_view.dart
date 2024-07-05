@@ -68,7 +68,8 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
     VoidCallback? onTap, {
     double? titleLeftPadding,
   }) =>
-      MTButton.main(
+      MTButton(
+        constrained: true,
         leading: leading,
         middle: H3(titleText, color: _titleColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
         trailing: SizedBox(width: iconSize / 2),
@@ -115,10 +116,10 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                               MIN_BTN_HEIGHT - 2,
                               authController.signInApple,
                             ),
-                          MTButton.main(
+                          MTButton(
+                            constrained: true,
                             middle: BaseText.medium(loc.auth_sign_in_extra_title, color: _titleColor),
                             color: b3Color.color,
-                            // titleColor: _btnColor,
                             margin: const EdgeInsets.only(top: P2),
                             onTap: authExtraDialog,
                           ),

@@ -19,8 +19,8 @@ extension DeleteUC on TaskController {
     bool res = false;
     if (task.isCheckItem ||
         await showMTAlertDialog(
-              task.hasSubtasks ? loc.task_delete_dialog_group_title : task.deleteDialogTitle,
               imageName: ImageName.delete.name,
+              title: task.hasSubtasks ? loc.task_delete_dialog_group_title : task.deleteDialogTitle,
               description: loc.delete_dialog_description,
               actions: [
                 MTDialogAction(

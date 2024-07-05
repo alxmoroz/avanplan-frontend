@@ -24,10 +24,10 @@ class MTDialogAction<T> {
   final ButtonType type;
 }
 
-Future<T?> showMTAlertDialog<T>(
-  String title, {
-  String description = '',
+Future<T?> showMTAlertDialog<T>({
   String imageName = '',
+  required String title,
+  String description = '',
   required List<MTDialogAction<T>> actions,
 }) async {
   return await showMTDialog<T?>(

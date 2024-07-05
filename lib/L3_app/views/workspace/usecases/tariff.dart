@@ -53,7 +53,7 @@ extension WSTariffUC on WSController {
         if (ws.hpMemberDelete) {
           needDeleteTeam = true;
           deleteTeamGranted = await showMTAlertDialog<bool>(
-            loc.tariff_option_team_unsubscribe_dialog_title,
+            title: loc.tariff_option_team_unsubscribe_dialog_title,
             description: loc.tariff_option_team_unsubscribe_dialog_description,
             actions: [
               MTDialogAction(result: true, title: loc.action_yes_title, type: ButtonType.danger),
@@ -64,7 +64,7 @@ extension WSTariffUC on WSController {
         // Есть права на смену тарифа, но нет прав на удаление участников РП
         else if (ws.hpTariffUpdate) {
           await showMTAlertDialog(
-            loc.error_permission_title,
+            title: loc.error_permission_title,
             description: loc.error_permission_description,
             actions: [MTDialogAction(result: true, title: loc.ok)],
           );

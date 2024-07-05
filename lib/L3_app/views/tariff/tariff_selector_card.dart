@@ -47,9 +47,9 @@ class TariffSelectorCard extends StatelessWidget {
                 )
               : _controller.ws.hpTariffUpdate
                   ? _signButton(context, _tariff)
-                  : const MTButton.main(
-                      middle: PrivacyIcon(color: f2Color),
-                      margin: EdgeInsets.all(P3),
+                  : MTButton.main(
+                      middle: const PrivacyIcon(color: f2Color),
+                      margin: const EdgeInsets.all(P3),
                     ),
         ],
       ),

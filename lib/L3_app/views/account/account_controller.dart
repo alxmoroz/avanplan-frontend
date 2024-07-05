@@ -18,7 +18,7 @@ part 'account_controller.g.dart';
 class AccountController extends _AccountControllerBase with _$AccountController {
   Future delete(BuildContext context) async {
     final confirm = await showMTAlertDialog(
-      loc.my_account_delete_dialog_title,
+      title: loc.my_account_delete_dialog_title,
       description: loc.my_account_delete_dialog_description,
       actions: [
         MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),

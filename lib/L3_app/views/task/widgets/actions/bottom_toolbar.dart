@@ -42,11 +42,10 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
             const SizedBox(width: P2),
             if (_task.canShowBoard) TaskToggleViewButton(_controller),
             if (_task.isTask && _task.canClose)
-              MTButton.main(
-                titleText: loc.close_action_title,
+              MTButton.safe(
+                titleText: loc.action_close_title,
                 leading: const DoneIcon(true, color: mainBtnTitleColor),
                 constrained: false,
-                color: greenColor,
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 loading: _task.loading,
                 onTap: () => _controller.setClosed(context, true),

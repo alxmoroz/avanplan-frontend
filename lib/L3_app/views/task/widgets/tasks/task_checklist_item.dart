@@ -166,7 +166,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                     backgroundColor: dangerColor.resolve(context),
                     foregroundColor: b3Color.resolve(context),
                     icon: CupertinoIcons.delete,
-                    label: loc.delete_action_title,
+                    label: loc.action_delete_title,
                   ),
                 ],
               ),

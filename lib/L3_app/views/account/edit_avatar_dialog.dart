@@ -75,7 +75,7 @@ class _EditAvatarDialog extends StatelessWidget {
             if (accountController.me!.hasAvatar)
               MTListTile(
                 leading: const DeleteIcon(size: P6),
-                middle: BaseText(loc.delete_action_title, color: dangerColor),
+                middle: BaseText(loc.action_delete_title, color: dangerColor),
                 margin: const EdgeInsets.only(top: P3),
                 bottomDivider: false,
                 onTap: () => _deleteAvatar(context),

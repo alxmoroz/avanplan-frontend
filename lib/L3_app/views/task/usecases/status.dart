@@ -16,9 +16,11 @@ import '../../../components/button.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
+import '../../../components/images.dart';
 import '../../../components/select_dialog.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_type.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_status.dart';
 import '../../../usecases/task_tree.dart';
@@ -28,11 +30,12 @@ import '../widgets/tasks/task_card.dart';
 
 extension StatusUC on TaskController {
   Future<bool?> _closeTreeDialog() async => await showMTAlertDialog(
-        loc.close_dialog_recursive_title,
+        imageName: ImageName.save.name,
+        title: task.closeDialogRecursiveTitle,
         description: loc.close_dialog_recursive_description,
         actions: [
-          MTDialogAction(title: loc.close_w_subtasks, type: ButtonType.danger, result: true),
-          MTDialogAction(title: loc.cancel, result: false),
+          MTDialogAction(title: loc.action_no_close_title, result: false),
+          MTDialogAction(title: loc.action_yes_close_all, type: ButtonType.safe, result: true),
         ],
       );
 

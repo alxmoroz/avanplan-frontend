@@ -46,7 +46,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
         color: isBigScreen(context) ? b2Color : null,
         leading: _controller.stepIndex > 0 || _controller.step.awaiting
             ? MTButton(
-                titleText: loc.back_action_title,
+                titleText: loc.action_back_title,
                 padding: const EdgeInsets.only(left: P2),
                 onTap: _controller.back,
               )

@@ -79,7 +79,7 @@ extension DatesUC on TaskController {
                   left: size.maxWidth / 2 - (isPortrait ? 140 : 60),
                   top: size.maxHeight / 2 + (isPortrait ? 220 : 126),
                   child: MTButton(
-                      middle: SmallText(loc.clear_action_title, color: dangerColor),
+                      middle: SmallText(loc.action_clear_title, color: dangerColor),
                       onTap: () {
                         Navigator.of(ctx).pop();
                         _reset(code);

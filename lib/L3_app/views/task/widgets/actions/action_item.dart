@@ -35,7 +35,7 @@ class TaskActionItem extends StatelessWidget {
       case TaskAction.details:
         return _tile(context, leading: DocumentIcon(size: iconSize), title: loc.details);
       case TaskAction.close:
-        return _tile(context, leading: DoneIcon(true, size: iconSize, color: greenColor), title: loc.close_action_title, color: greenColor);
+        return _tile(context, leading: DoneIcon(true, size: iconSize, color: greenColor), title: loc.action_close_title, color: greenColor);
       case TaskAction.reopen:
         return _tile(context, leading: DoneIcon(false, size: iconSize), title: loc.task_reopen_action_title);
       case TaskAction.localExport:
@@ -52,7 +52,7 @@ class TaskActionItem extends StatelessWidget {
           color: dangerColor,
         );
       case TaskAction.delete:
-        return _tile(context, leading: DeleteIcon(size: iconSize, circled: !inPopup), title: loc.delete_action_title, color: dangerColor);
+        return _tile(context, leading: DeleteIcon(size: iconSize, circled: !inPopup), title: loc.action_delete_title, color: dangerColor);
       default:
         return BaseText('$_ta');
     }

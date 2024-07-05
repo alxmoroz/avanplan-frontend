@@ -55,7 +55,7 @@ class Notes extends StatelessWidget {
                 ),
                 MTListTile(
                   leading: const DeleteIcon(),
-                  middle: BaseText(loc.delete_action_title, color: dangerColor, maxLines: 1),
+                  middle: BaseText(loc.action_delete_title, color: dangerColor, maxLines: 1),
                   bottomDivider: false,
                   onTap: () async {
                     Navigator.of(context).pop();
@@ -104,7 +104,6 @@ class Notes extends StatelessWidget {
                             margin: EdgeInsets.only(left: mine ? P12 : 0, right: mine ? 0 : P8, bottom: P2),
                             padding: EdgeInsets.zero,
                             loading: n.loading,
-                            // onLongPress: !isWeb && _canEditTask && mine ? () => _noteMenu(context, n) : null,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [

@@ -182,7 +182,7 @@ abstract class _LoadableBase with Store {
   @observable
   Widget? actionWidget;
 
-  Widget _stopAction(String actionText) => MTButton.main(
+  Widget _stopAction(String actionText) => MTButton.secondary(
         titleText: actionText,
         onTap: stop,
       );

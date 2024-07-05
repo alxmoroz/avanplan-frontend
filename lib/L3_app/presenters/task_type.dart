@@ -65,7 +65,7 @@ extension TaskTypePresenter on Task {
           TType.TASK: loc.task_plural_accusative(1),
         }[type] ??
         loc.subtask_plural_accusative(1);
-    return '${loc.delete_action_title} $objTitle';
+    return '${loc.delete_action_title} $objTitle?';
   }
 
   String dativeSubtasksCount(int count) =>

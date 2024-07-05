@@ -320,7 +320,6 @@
   "source_auth_user_placeholder": "Пользователь",
   "source_delete_dialog_title": "Удалить источник импорта?",
   "source_create_action_title": "Добавить источник",
-  "source_delete_dialog_description": "Импортированные задачи этого источника потеряют с ним связь",
   "source_get_token_action": "Получить токен",
   "source_get_token_help_action": "Как получить токен",
   "source_import_placeholder": "Источник импорта задач",

@@ -320,7 +320,6 @@
   "source_auth_user_placeholder": "User",
   "source_create_action_title": "Add source",
   "source_delete_dialog_title": "Delete import source connection?",
-  "source_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
   "source_get_token_action": "Get token",
   "source_get_token_help_action": "How to get a token",
   "source_import_placeholder": "Source for importing tasks",

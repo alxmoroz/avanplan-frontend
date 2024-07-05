@@ -101,7 +101,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
       if (await showMTAlertDialog(
             imageName: ImageName.delete.name,
             title: loc.source_delete_dialog_title,
-            description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
+            description: loc.delete_dialog_description,
             actions: [
               MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
               MTDialogAction(title: loc.action_no_delete_title, result: false),

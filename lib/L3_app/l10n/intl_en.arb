@@ -224,7 +224,7 @@
   "notification_list_empty_title": "No Notifications",
   "notification_list_hint_title": "Shows notifications from the last 30 days",
   "notification_list_title": "Notifications",
-  "notification_push_ios_denied_btn_title": "To receive Push notifications,\nturn them on in settings",
+  "notification_push_ios_denied_btn_title": "To receive Push notifications, turn them on in Settings",
   "notification_push_ios_denied_dialog_description": "In app settings:\nNotifications ->\nAllow Notifications",
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",

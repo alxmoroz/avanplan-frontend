@@ -99,25 +99,21 @@ class _NotificationsDialog extends StatelessWidget {
             : ListView(
                 shrinkWrap: true,
                 children: [
+                  if (!isWeb && !_controller.pushAuthorized)
+                    MTListTile(
+                      margin: const EdgeInsets.only(bottom: P3),
+                      leading: const BellIcon(),
+                      middle: BaseText(loc.notification_push_ios_denied_btn_title, maxLines: 2),
+                      trailing: const ChevronIcon(),
+                      bottomDivider: false,
+                      onTap: _showGotoSystemSettingsDialog,
+                    ),
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (_, index) => _itemBuilder(context, index),
                     itemCount: _controller.notifications.length + 1,
                   ),
-                  if (!isWeb && !_controller.pushAuthorized) ...[
-                    MTButton(
-                      margin: const EdgeInsets.all(P3).copyWith(bottom: 0),
-                      leading: const PrivacyIcon(),
-                      middle: SmallText(
-                        loc.notification_push_ios_denied_btn_title,
-                        align: TextAlign.center,
-                        maxLines: 2,
-                      ),
-                      onTap: _showGotoSystemSettingsDialog,
-                    ),
-                    if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-                  ],
                 ],
               ),
       );

@@ -2,7 +2,14 @@
   "@@locale": "en",
 
   "about_service_title": "About service",
+
   "action_add_title": "Add",
+  "action_no_title": "No",
+  "action_no_delete_title": "No, don't delete",
+  "action_yes_title": "Yes",
+  "action_yes_delete_title": "Yes, delete",
+  "action_yes_delete_all_title": "Yes, delete all",
+
   "analytics_title": "Analytics",
 
   "app_about_title": "About the App",
@@ -42,6 +49,8 @@
 
   "back_action_title": "Back",
   "backlog": "Backlog",
+  "backlog_plural_accusative": "{count, plural, one{backlog} other{backlogs}}",
+
   "balance_amount_title": "Account Balance",
   "balance_replenish_action_title": "Replenish",
   "balance_replenish_store_title": "Replenish balance",
@@ -101,7 +110,7 @@
 
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_action_title": "Delete",
-  "delete_dialog_description": "This action cannot be undone!",
+  "delete_dialog_description": "This action cannot be undone and data will be lost",
   "description": "Description",
   "details": "Details",
 
@@ -138,7 +147,6 @@
   "goal_create_quiz_title": "Set a goal",
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
   "goal_count_dative": "{count, plural, one{{count} goal} other{{count} goals}}",
-  "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_empty_hint": "Time to relax or set new goals",
   "goal_list_empty_title": "Taking a break from goals",
@@ -208,7 +216,6 @@
 
   "next_action_title": "Next",
   "new_title": "New",
-  "no": "No",
 
   "notification_list_empty_title": "No Notifications",
   "notification_list_hint_title": "Shows notifications from the last 30 days",
@@ -242,8 +249,6 @@
   "per_month_suffix": "per month",
 
   "project_creation_method_selector_title": "Choose how to create a project",
-  "project_delete_dialog_title": "Delete project?",
-
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
   "project_list_title": "Projects",
@@ -366,7 +371,6 @@
   "subtask_count": "{count, plural, zero{No subtasks} one{{count} subtask} other{{count} subtasks}}",
   "subtask_count_dative": "{count, plural, one{{count} subtask} other{{count} subtasks}}",
 
-  "subtask_delete_dialog_title": "Delete subtask?",
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New Subtask",
   "subtask_plural": "{count, plural, one{subtask} other{subtasks}}",
@@ -438,8 +442,7 @@
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
 
-  "task_delete_dialog_title": "Delete task?",
-  "task_delete_dialog_description": "All subtasks will be deleted",
+  "task_delete_dialog_group_title": "Delete along with subtasks?",
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline Date",
 
@@ -518,7 +521,5 @@
   "workspace_title_short": "WS",
 
   "years_count": "{count, plural, one{{count} year} other{{count} years}}",
-  "yes": "Yes",
-
   "yesterday_date_title": "yesterday"
 }

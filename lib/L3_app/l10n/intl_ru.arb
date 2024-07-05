@@ -2,7 +2,14 @@
   "@@locale": "ru",
 
   "about_service_title": "О сервисе",
+
   "action_add_title": "Добавить",
+  "action_no_title": "Нет",
+  "action_no_delete_title": "Не удалять",
+  "action_yes_title": "Да",
+  "action_yes_delete_title": "Да, удалить",
+  "action_yes_delete_all_title": "Да, удалить все",
+
   "analytics_title": "Аналитика",
 
   "app_about_title": "О приложении",
@@ -41,7 +48,10 @@
   "avatar_edit_action_title": "Изменить фото",
 
   "back_action_title": "Назад",
+
   "backlog": "Бэклог",
+  "backlog_plural_accusative": "{count, plural, one{бэклог} few{бэклога} other{бэклогов}}",
+
   "balance_amount_title": "Баланс",
   "balance_replenish_action_title": "Пополнить",
   "balance_replenish_store_title": "Пополнить баланс",
@@ -101,7 +111,7 @@
 
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
-  "delete_dialog_description": "Это действие нельзя будет отменить!",
+  "delete_dialog_description": "Это действие нельзя будет отменить, данные будут потеряны",
   "description": "Описание",
   "details": "Детали",
 
@@ -138,7 +148,6 @@
   "goal_create_quiz_title": "Поставьте цель",
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
   "goal_count_dative": "{count, plural, one{{count} цели} other{{count} целям}}",
-  "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
   "goal_list_empty_hint": "Время отдохнуть или поставить новые цели",
   "goal_list_empty_title": "Отдыхаем от целей",
@@ -208,7 +217,6 @@
 
   "next_action_title": "Продолжить",
   "new_title": "Новый",
-  "no": "Нет",
 
   "notification_list_empty_title": "Уведомлений нет",
   "notification_list_hint_title": "Отображаются уведомления за последние 30 дней",
@@ -242,8 +250,6 @@
   "per_month_suffix": "в месяц",
 
   "project_creation_method_selector_title": "Выберите способ создания проекта",
-  "project_delete_dialog_title": "Удалить проект?",
-
   "project_list_empty_title": "Добавьте проект",
   "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",
   "project_list_title": "Проекты",
@@ -366,7 +372,6 @@
   "subtask_count": "{count, plural, zero{Нет подзадач} one{{count} подзадача} few{{count} подзадачи} other{{count} подзадач}}",
   "subtask_count_dative": "{count, plural, one{{count} подзадаче} other{{count} подзадачам}}",
 
-  "subtask_delete_dialog_title": "Удалить подзадачу?",
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
   "subtask_plural": "{count, plural, one{подзадача} few{подзадачи} other{подзадач}}",
@@ -438,8 +443,8 @@
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
 
-  "task_delete_dialog_title": "Удалить задачу?",
-  "task_delete_dialog_description": "Все подзадачи также будут удалены",
+  "task_delete_dialog_group_title": "Удалить вместе с подзадачами?",
+
   "task_due_date_label": "Срок",
   "task_due_date_placeholder": "Срок завершения",
 
@@ -518,7 +523,5 @@
   "workspaces_title": "Рабочие пространства",
 
   "years_count": "{count, plural, one{{count} год} few{{count} года} other{{count} лет}}",
-  "yes": "Да",
-
   "yesterday_date_title": "вчера"
 }

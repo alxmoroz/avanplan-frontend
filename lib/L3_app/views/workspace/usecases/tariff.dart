@@ -56,8 +56,8 @@ extension WSTariffUC on WSController {
             loc.tariff_option_team_unsubscribe_dialog_title,
             description: loc.tariff_option_team_unsubscribe_dialog_description,
             actions: [
-              MTDialogAction(result: true, title: loc.yes, type: ButtonType.danger),
-              MTDialogAction(result: false, title: loc.no),
+              MTDialogAction(result: true, title: loc.action_yes_title, type: ButtonType.danger),
+              MTDialogAction(result: false, title: loc.action_no_title),
             ],
           );
         }

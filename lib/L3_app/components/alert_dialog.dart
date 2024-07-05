@@ -37,6 +37,7 @@ Future<T?> showMTAlertDialog<T>(
       imageName: imageName,
       actions: actions,
     ),
+    maxWidth: SCR_XS_WIDTH,
   );
 }
 

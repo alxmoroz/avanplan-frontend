@@ -57,14 +57,16 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_list_title;
 
-  String get deleteDialogTitle =>
-      {
-        TType.PROJECT: loc.project_delete_dialog_title,
-        TType.GOAL: loc.goal_delete_dialog_title,
-        TType.TASK: loc.task_delete_dialog_title,
-        TType.BACKLOG: loc.task_delete_dialog_title,
-      }[type] ??
-      loc.subtask_delete_dialog_title;
+  String get deleteDialogTitle {
+    final objTitle = {
+          TType.PROJECT: loc.project_plural_accusative(1),
+          TType.GOAL: loc.goal_plural_accusative(1),
+          TType.BACKLOG: loc.backlog_plural_accusative(1),
+          TType.TASK: loc.task_plural_accusative(1),
+        }[type] ??
+        loc.subtask_plural_accusative(1);
+    return '${loc.delete_action_title} $objTitle';
+  }
 
   String dativeSubtasksCount(int count) =>
       {

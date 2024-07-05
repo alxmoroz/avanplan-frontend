@@ -127,7 +127,7 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                           ),
                           const SizedBox(height: P4),
                           MTButton(
-                            middle: SmallText('${loc.auth_help_title}? ${loc.contact_us_title}', color: mainColor),
+                            middle: SmallText('${loc.auth_help_title}? ${loc.action_email_us_title}', color: mainColor),
                             onTap: () => mailUs(subject: loc.auth_help_title),
                           ),
                           const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3, verticalIndent: P2)),

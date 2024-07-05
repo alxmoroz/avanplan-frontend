@@ -6,6 +6,7 @@
   "action_add_title": "Add",
   "action_back_title": "Back",
   "action_delete_title": "Delete",
+  "action_email_us_title": "Email us",
   "action_clear_title": "Clear",
   "action_close_title": "Close",
   "action_no_title": "No",
@@ -95,11 +96,8 @@
 
   "code": "Code",
 
-  "contact_us_title": "Contact us",
   "contact_us_mail_subject": "Avanplan - feedback",
-
   "contract_effective_date_title": "Effective",
-
   "copied_notification_title": "Copied to clipboard",
 
   "gigabytes_short": "Gb",
@@ -327,11 +325,11 @@
   "source_list_empty_title": "Sources are waiting to be connected",
   "source_list_title": "Remote import sources",
   "source_title_new": "New source",
-  "source_type_unavailable_title": "{type} is not available for adding",
-  "source_type_unavailable_hint": "We will notify you as soon as it becomes available",
-  "source_type_placeholder": "Import sources type",
   "source_type_custom_description": "We will help import anything",
   "source_type_custom_title": "Custom Import",
+  "source_type_placeholder": "Import sources type",
+  "source_type_request_dialog_title": "Want to import projects from {type}? Email us",
+  "source_type_request_dialog_description": "Send us files with tasks in JSON format. We will upload them to the Avanplan",
   "source_type_selector_title": "Select the import source type",
   "source_url_placeholder": "URL",
 

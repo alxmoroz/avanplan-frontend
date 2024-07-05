@@ -8,6 +8,7 @@
   "action_clear_title": "Сбросить",
   "action_close_title": "Завершить",
   "action_delete_title": "Удалить",
+  "action_email_us_title": "Написать на почту",
   "action_no_title": "Нет",
   "action_no_close_title": "Не завершать",
   "action_no_delete_title": "Не удалять",
@@ -95,11 +96,8 @@
 
   "code": "Код",
 
-  "contact_us_title": "Напишите нам",
   "contact_us_mail_subject": "Аванплан - обратная связь",
-
   "contract_effective_date_title": "Действует с",
-
   "copied_notification_title": "Скопировано",
 
   "gigabytes_short": "Гб",
@@ -327,11 +325,11 @@
   "source_list_empty_title": "Источники ждут, когда их подключат",
   "source_list_title": "Источники импорта задач",
   "source_title_new": "Новый источник",
-  "source_type_unavailable_title": "{type} не доступен для добавления",
-  "source_type_unavailable_hint": "Мы сразу же сообщим вам, как только появится такая возможность",
-  "source_type_placeholder": "Тип источника",
   "source_type_custom_description": "Поможем импортировать всё что угодно",
   "source_type_custom_title": "Особый способ импорта",
+  "source_type_placeholder": "Тип источника",
+  "source_type_request_dialog_title": "Хотите импортировать проекты из {type}?\nНапишите нам",
+  "source_type_request_dialog_description": "Пришлите файлы с задачами в формате JSON. Мы загрузим их в Аванплан",
   "source_type_selector_title": "Выберите тип источника импорта",
   "source_url_placeholder": "Адрес сервера (URL)",
 

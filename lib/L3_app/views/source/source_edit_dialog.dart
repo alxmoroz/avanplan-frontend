@@ -15,6 +15,7 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
+import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -33,6 +34,8 @@ Future startAddSource(Workspace ws) async {
   }
 }
 
+Future _emailUsCustomImport() async => await mailUs(subject: loc.import_custom_request_mail_subject, text: loc.import_custom_request_mail_body_text);
+
 Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
   Source? s;
   if (sType.active) {
@@ -41,12 +44,16 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
     sourceUC.requestType(sType, ws.id!);
 
     if (sType.custom) {
-      await mailUs(subject: loc.import_custom_request_mail_subject, text: loc.import_custom_request_mail_body_text);
+      await _emailUsCustomImport();
     } else {
       await showMTAlertDialog(
-        title: loc.source_type_unavailable_title('$sType'),
-        description: loc.source_type_unavailable_hint,
-        actions: [MTDialogAction(title: loc.ok, result: true)],
+        imageName: ImageName.empty_sources.name,
+        title: loc.source_type_request_dialog_title('$sType'),
+        description: loc.source_type_request_dialog_description,
+        actions: [
+          MTDialogAction(title: loc.later),
+          MTDialogAction(title: loc.action_email_us_title, type: ButtonType.main, onTap: _emailUsCustomImport),
+        ],
       );
     }
   }

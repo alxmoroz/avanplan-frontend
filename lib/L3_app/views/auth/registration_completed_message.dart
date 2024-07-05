@@ -49,7 +49,7 @@ class RegistrationCompletedMessage extends StatelessWidget {
         const SizedBox(height: P6),
         SmallText(loc.register_troubleshooting_hint, align: TextAlign.center),
         MTButton(
-          middle: SmallText(loc.contact_us_title.toLowerCase(), color: mainColor),
+          middle: SmallText(loc.action_email_us_title.toLowerCase(), color: mainColor),
           onTap: mailUs,
         ),
         if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),

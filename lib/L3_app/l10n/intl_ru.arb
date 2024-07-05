@@ -204,8 +204,8 @@
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
   "more_count": "и ещё {count}",
 
-  "my_account_delete_dialog_title": "Удалить вашу учётную запись?",
-  "my_account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
+  "my_account_delete_dialog_title": "Удалить учётную запись?",
+  "my_account_delete_dialog_description": "Ваше рабочее пространство также будет удалено вместе с задачами, если в нём нет других пользователей",
   "my_account_title": "Моя учётная запись",
 
   "my_tasks_add_action_hint": "Или просто добавьте задачи",

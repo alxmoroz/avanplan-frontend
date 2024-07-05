@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
+import '../../components/images.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
@@ -18,6 +19,7 @@ part 'account_controller.g.dart';
 class AccountController extends _AccountControllerBase with _$AccountController {
   Future delete(BuildContext context) async {
     final confirm = await showMTAlertDialog(
+      imageName: ImageName.delete.name,
       title: loc.my_account_delete_dialog_title,
       description: loc.my_account_delete_dialog_description,
       actions: [

@@ -71,8 +71,6 @@
   "calendar_event_location_title": "Location",
   "calendar_event_title": "Event",
 
-  "cancel": "Cancel",
-
   "chart_delta_ahead_label": "Ahead",
   "chart_delta_lag_label": "Lag",
 
@@ -417,13 +415,15 @@
   "tariff_option_team_description": "Unlimited number of members\nInvitations to projects\nAssigning tasks",
   "tariff_option_team_unsubscribe_dialog_title": "Unsubscribe from the Team feature and delete all members?",
   "tariff_option_team_unsubscribe_dialog_description": "All members except the workspace owner will be deleted.\nTheir information will be restored if you invite them again,",
-  "tariff_price_request_action_hint": "to suit your\nbusiness needs",
-  "tariff_price_request_action_title": "Request an offer",
-  "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",
+
+  "tariff_special_request_action_hint": "to suit your\nbusiness needs",
+  "tariff_special_request_action_title": "Request an offer",
+  "tariff_special_request_mail_subject": "Avanplan - Request an offer for special conditions",
   "tariff_special_conditions_title1": "Unique Solution",
   "tariff_special_conditions_title2": "New features",
   "tariff_special_conditions_title3": "No Limits",
   "tariff_special_conditions_title4": "On Premise Server",
+
   "tariff_title": "Tariff",
 
   "tariff_type_base_title": "Base",

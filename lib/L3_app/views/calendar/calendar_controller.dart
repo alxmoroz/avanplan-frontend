@@ -11,11 +11,7 @@ import '../../views/_base/loadable.dart';
 
 part 'calendar_controller.g.dart';
 
-class CalendarController extends _CalendarControllerBase with _$CalendarController {
-  CalendarController() {
-    setLoaderScreenLoading();
-  }
-}
+class CalendarController extends _CalendarControllerBase with _$CalendarController {}
 
 abstract class _CalendarControllerBase with Store, Loadable {
   @observable
@@ -45,6 +41,7 @@ abstract class _CalendarControllerBase with Store, Loadable {
 
   @action
   Future authenticateGoogleCalendar() async {
+    setLoaderScreenLoading();
     await load(() async {
       final cs = await myCalendarUC.updateSource(CalendarSourceType.GOOGLE);
       if (cs != null) {

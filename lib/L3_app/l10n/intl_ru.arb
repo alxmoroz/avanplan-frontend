@@ -71,8 +71,6 @@
   "calendar_event_location_title": "Место проведения",
   "calendar_event_title": "Событие",
 
-  "cancel": "Отмена",
-
   "chart_delta_ahead_label": "Опережение",
   "chart_delta_lag_label": "Отставание",
 
@@ -418,13 +416,14 @@
   "tariff_option_team_unsubscribe_dialog_title": "Отключить Команду и удалить всех участников?",
   "tariff_option_team_unsubscribe_dialog_description": "Будут удалены все участники, кроме владельца рабочего пространства.\nИнформация о них восстановится, если пригласить их снова",
 
-  "tariff_price_request_action_hint": "под потребности\nвашего бизнеса",
-  "tariff_price_request_action_title": "Отправить запрос",
-  "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",
+  "tariff_special_request_action_hint": "под потребности\nвашего бизнеса",
+  "tariff_special_request_action_title": "Отправить запрос",
+  "tariff_special_request_mail_subject": "Аванплан - Заявка на особые условия",
   "tariff_special_conditions_title1": "Уникальное решение",
   "tariff_special_conditions_title2": "Новые функции",
   "tariff_special_conditions_title3": "Без ограничений",
   "tariff_special_conditions_title4": "На ваши сервера",
+
   "tariff_title": "Тариф",
 
   "tariff_type_base_title": "Базовый",

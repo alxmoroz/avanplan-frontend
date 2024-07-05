@@ -12,7 +12,6 @@ part 'auth_controller.g.dart';
 class AuthController extends _AuthControllerBase with _$AuthController {
   AuthController() {
     stopLoading();
-    setLoaderScreen(imageName: ImageName.privacy.name, titleText: loc.loader_auth_title);
   }
 
   Future<AuthController> init() async {
@@ -31,6 +30,12 @@ abstract class _AuthControllerBase with Store, Loadable {
 
   @observable
   bool authorized = false;
+
+  @override
+  void startLoading() {
+    setLoaderScreen(imageName: ImageName.privacy.name, titleText: loc.loader_auth_title);
+    super.startLoading();
+  }
 
   @action
   Future _signInWithRegistration() async {

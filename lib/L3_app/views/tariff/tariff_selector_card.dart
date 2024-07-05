@@ -25,7 +25,7 @@ class TariffSelectorCard extends StatelessWidget {
   final TariffSelectorController _controller;
 
   Widget _signButton(BuildContext context, Tariff tariff) => MTButton.main(
-        titleText: loc.tariff_sign_action_title,
+        titleText: loc.action_subscribe_title,
         margin: const EdgeInsets.all(P3),
         onTap: () => _controller.wsController.changeTariff(context, tariff),
       );

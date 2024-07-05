@@ -32,7 +32,7 @@ class _TariffConfirmExpensesDialog extends StatelessWidget {
         children: [
           TariffExpenses(_ws, tariff: _tariff),
           MTButton.main(
-            titleText: loc.tariff_sign_action_title,
+            titleText: loc.action_subscribe_title,
             onTap: () => Navigator.of(context).pop(true),
           ),
         ],

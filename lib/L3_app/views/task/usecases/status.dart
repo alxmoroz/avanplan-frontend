@@ -35,7 +35,7 @@ extension StatusUC on TaskController {
         description: loc.close_dialog_recursive_description,
         actions: [
           MTDialogAction(title: loc.action_no_close_title, result: false),
-          MTDialogAction(title: loc.action_yes_close_all, type: ButtonType.safe, result: true),
+          MTDialogAction(title: loc.action_yes_close_all_title, type: ButtonType.safe, result: true),
         ],
       );
 

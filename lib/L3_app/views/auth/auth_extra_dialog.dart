@@ -36,6 +36,7 @@ class _AuthExtraDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MTButton(
+            type: ButtonType.main,
             constrained: true,
             leading: const MailIcon(color: f1Color, size: P4),
             middle: BaseText.medium(loc.auth_sign_in_email_title, color: f1Color),
@@ -45,6 +46,7 @@ class _AuthExtraDialog extends StatelessWidget {
             onTap: () => _mail(context),
           ),
           MTButton(
+            type: ButtonType.main,
             constrained: true,
             middle: BaseText.medium(loc.register_action_title, color: f1Color),
             color: b3Color,

@@ -26,6 +26,7 @@ class RegistrationRequestController extends _RegistrationControllerBase with _$R
       MTFieldData(RegistrationFCode.password.index, label: loc.auth_password_placeholder, validate: true),
     ]);
     stopLoading();
+    setLoaderScreenSaving();
   }
 }
 
@@ -60,7 +61,6 @@ abstract class _RegistrationControllerBase extends EditController with Store, Lo
 
   @action
   Future createRequest(BuildContext context) async {
-    setLoaderScreenSaving();
     await load(() async {
       final regRequest = RegistrationRequest(
         fData(RegistrationFCode.name.index).text,

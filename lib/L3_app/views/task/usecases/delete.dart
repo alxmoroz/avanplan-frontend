@@ -28,7 +28,7 @@ extension DeleteUC on TaskController {
                   type: ButtonType.danger,
                   result: true,
                 ),
-                MTDialogAction(title: loc.action_no_delete_title, result: false),
+                MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
               ],
             ) ==
             true) {

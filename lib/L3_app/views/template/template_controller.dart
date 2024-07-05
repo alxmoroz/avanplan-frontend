@@ -13,6 +13,7 @@ part 'template_controller.g.dart';
 
 class TemplateController extends _TemplateControllerBase with _$TemplateController {
   TemplateController(int wsId) {
+    setLoaderScreenLoading();
     _wsId = wsId;
   }
 }
@@ -24,10 +25,7 @@ abstract class _TemplateControllerBase with Store, Loadable {
   Iterable<Project> _templates = [];
 
   @action
-  Future reload() async {
-    setLoaderScreenLoading();
-    load(() async => _templates = await wsUC.getProjectTemplates(_wsId));
-  }
+  Future reload() async => load(() async => _templates = await wsUC.getProjectTemplates(_wsId));
 
   @computed
   List<MapEntry<String, List<Project>>> get templatesGroups {

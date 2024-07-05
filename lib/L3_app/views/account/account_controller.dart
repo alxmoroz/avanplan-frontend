@@ -18,16 +18,16 @@ part 'account_controller.g.dart';
 
 class AccountController extends _AccountControllerBase with _$AccountController {
   Future delete(BuildContext context) async {
-    final confirm = await showMTAlertDialog(
-      imageName: ImageName.delete.name,
-      title: loc.my_account_delete_dialog_title,
-      description: loc.my_account_delete_dialog_description,
-      actions: [
-        MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
-        MTDialogAction(title: loc.action_no_delete_title, result: false),
-      ],
-    );
-    if (confirm == true) {
+    if ((await showMTAlertDialog(
+          imageName: ImageName.delete.name,
+          title: loc.my_account_delete_dialog_title,
+          description: loc.my_account_delete_dialog_description,
+          actions: [
+            MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
+            MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
+          ],
+        )) ==
+        true) {
       setLoaderScreenDeleting();
       await load(() async {
         await myUC.deleteAccount();

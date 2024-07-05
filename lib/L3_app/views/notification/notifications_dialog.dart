@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:app_settings/app_settings.dart' as sys_settings;
+import 'package:avanplan/L3_app/components/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -77,11 +78,12 @@ class _NotificationsDialog extends StatelessWidget {
 
   Future _showGotoSystemSettingsDialog() async {
     final gotoSettings = await showMTAlertDialog(
+      imageName: ImageName.notifications.name,
       title: loc.notification_push_ios_denied_dialog_title,
       description: loc.notification_push_ios_denied_dialog_description,
       actions: [
-        MTDialogAction(title: loc.cancel, result: false),
-        MTDialogAction(title: loc.app_settings_action_title, result: true, type: ButtonType.main),
+        MTDialogAction(title: loc.action_no_dont_allow),
+        MTDialogAction(title: loc.action_goto_app_settings_title, type: ButtonType.main),
       ],
     );
     if (gotoSettings == true) {

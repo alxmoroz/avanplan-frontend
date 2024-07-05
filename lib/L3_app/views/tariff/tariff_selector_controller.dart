@@ -16,6 +16,7 @@ part 'tariff_selector_controller.g.dart';
 class TariffSelectorController extends _TariffSelectorControllerBase with _$TariffSelectorController {
   TariffSelectorController(WSController wsControllerIn) {
     wsController = wsControllerIn;
+    setLoaderScreenLoading();
   }
 }
 
@@ -32,7 +33,6 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
 
   @action
   Future reload() async {
-    setLoaderScreenLoading();
     await load(() async {
       tariffs =
           (await tariffUC.availableTariffs(wsd.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));

@@ -69,9 +69,9 @@ abstract class _LocalSettingsControllerBase with Store {
 
   /// Реклама
   @computed
-  String? get _utmQuery => settings.getString(LSStringCode.UTM_QUERY);
+  String? get utmQuery => settings.getString(LSStringCode.UTM_QUERY);
   @computed
-  bool get hasUTM => _utmQuery != null && _utmQuery!.isNotEmpty;
+  bool get hasUTM => utmQuery != null && utmQuery!.isNotEmpty;
   @action
   Future deleteUTM() async => settings = await localSettingsUC.setString(LSStringCode.UTM_QUERY, null);
 

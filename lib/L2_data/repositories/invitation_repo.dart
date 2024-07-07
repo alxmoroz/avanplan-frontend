@@ -15,7 +15,6 @@ class InvitationRepo extends AbstractInvitationRepo {
     final data = (o_api.InvitationBuilder()
           ..roleId = invitation.roleId
           ..taskId = invitation.taskId
-          ..activationsCount = invitation.activationsCount
           ..expiresOn = invitation.expiresOn.toUtc())
         .build();
     final response = await api.createInvitation(

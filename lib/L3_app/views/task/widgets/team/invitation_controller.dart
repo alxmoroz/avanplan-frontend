@@ -50,7 +50,6 @@ abstract class _InvitationControllerBase with Store {
             Invitation(
               task.id!,
               role!.id!,
-              10,
               nextWeek,
             ),
             task.wsId);

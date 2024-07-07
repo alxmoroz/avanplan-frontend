@@ -8,7 +8,6 @@ extension TaskInvitationMapper on api.InvitationGet {
   Invitation get invitation => Invitation(
         taskId,
         roleId,
-        activationsCount,
         expiresOn.toLocal(),
         url: url,
       );

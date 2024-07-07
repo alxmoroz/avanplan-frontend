@@ -22,13 +22,13 @@ void main() {
       // TODO
     });
 
-    // int activationsCount
-    test('to test the property `activationsCount`', () async {
+    // String url
+    test('to test the property `url`', () async {
       // TODO
     });
 
-    // String url
-    test('to test the property `url`', () async {
+    // int activationsCount (default value: 0)
+    test('to test the property `activationsCount`', () async {
       // TODO
     });
   });

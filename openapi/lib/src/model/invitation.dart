@@ -14,8 +14,8 @@ part 'invitation.g.dart';
 /// * [expiresOn] 
 /// * [taskId] 
 /// * [roleId] 
-/// * [activationsCount] 
 /// * [url] 
+/// * [activationsCount] 
 @BuiltValue()
 abstract class Invitation implements Built<Invitation, InvitationBuilder> {
   @BuiltValueField(wireName: r'expires_on')
@@ -27,18 +27,19 @@ abstract class Invitation implements Built<Invitation, InvitationBuilder> {
   @BuiltValueField(wireName: r'role_id')
   int get roleId;
 
-  @BuiltValueField(wireName: r'activations_count')
-  int get activationsCount;
-
   @BuiltValueField(wireName: r'url')
   String? get url;
+
+  @BuiltValueField(wireName: r'activations_count')
+  int? get activationsCount;
 
   Invitation._();
 
   factory Invitation([void updates(InvitationBuilder b)]) = _$Invitation;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(InvitationBuilder b) => b;
+  static void _defaults(InvitationBuilder b) => b
+      ..activationsCount = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<Invitation> get serializer => _$InvitationSerializer();
@@ -71,16 +72,18 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
       object.roleId,
       specifiedType: const FullType(int),
     );
-    yield r'activations_count';
-    yield serializers.serialize(
-      object.activationsCount,
-      specifiedType: const FullType(int),
-    );
     if (object.url != null) {
       yield r'url';
       yield serializers.serialize(
         object.url,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.activationsCount != null) {
+      yield r'activations_count';
+      yield serializers.serialize(
+        object.activationsCount,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -127,19 +130,19 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
           ) as int;
           result.roleId = valueDes;
           break;
-        case r'activations_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.activationsCount = valueDes;
-          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.url = valueDes;
+          break;
+        case r'activations_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.activationsCount = valueDes;
           break;
         default:
           unhandled.add(key);

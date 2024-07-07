@@ -15,8 +15,8 @@ part 'invitation_get.g.dart';
 /// * [expiresOn] 
 /// * [taskId] 
 /// * [roleId] 
-/// * [activationsCount] 
 /// * [url] 
+/// * [activationsCount] 
 /// * [userId] 
 @BuiltValue()
 abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilder> {
@@ -32,11 +32,11 @@ abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilde
   @BuiltValueField(wireName: r'role_id')
   int get roleId;
 
-  @BuiltValueField(wireName: r'activations_count')
-  int get activationsCount;
-
   @BuiltValueField(wireName: r'url')
   String? get url;
+
+  @BuiltValueField(wireName: r'activations_count')
+  int? get activationsCount;
 
   @BuiltValueField(wireName: r'user_id')
   int get userId;
@@ -46,7 +46,8 @@ abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilde
   factory InvitationGet([void updates(InvitationGetBuilder b)]) = _$InvitationGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(InvitationGetBuilder b) => b;
+  static void _defaults(InvitationGetBuilder b) => b
+      ..activationsCount = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<InvitationGet> get serializer => _$InvitationGetSerializer();
@@ -84,16 +85,18 @@ class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
       object.roleId,
       specifiedType: const FullType(int),
     );
-    yield r'activations_count';
-    yield serializers.serialize(
-      object.activationsCount,
-      specifiedType: const FullType(int),
-    );
     if (object.url != null) {
       yield r'url';
       yield serializers.serialize(
         object.url,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.activationsCount != null) {
+      yield r'activations_count';
+      yield serializers.serialize(
+        object.activationsCount,
+        specifiedType: const FullType(int),
       );
     }
     yield r'user_id';
@@ -152,19 +155,19 @@ class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
           ) as int;
           result.roleId = valueDes;
           break;
-        case r'activations_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.activationsCount = valueDes;
-          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.url = valueDes;
+          break;
+        case r'activations_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.activationsCount = valueDes;
           break;
         case r'user_id':
           final valueDes = serializers.deserialize(

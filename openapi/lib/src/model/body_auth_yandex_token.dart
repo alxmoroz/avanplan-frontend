@@ -1,5 +1,3 @@
-// Copyright (c) 2024. Alexandr Moroz
-
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //

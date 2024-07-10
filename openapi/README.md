@@ -66,6 +66,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
 [*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
+[*AuthApi*](doc/AuthApi.md) | [**authYandexToken**](doc/AuthApi.md#authyandextoken) | **POST** /v1/auth/yandex_token | Yandex Token
 [*AuthApi*](doc/AuthApi.md) | [**passwordToken**](doc/AuthApi.md#passwordtoken) | **POST** /v1/auth/password_token | Password Token
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
@@ -170,6 +171,7 @@ Class | Method | HTTP request | Description
  - [AuthToken](doc/AuthToken.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
+ - [BodyAuthYandexToken](doc/BodyAuthYandexToken.md)
  - [BodyIapNotificationV1PaymentsIapNotificationPost](doc/BodyIapNotificationV1PaymentsIapNotificationPost.md)
  - [BodyMyCalendarSourcesUpsert](doc/BodyMyCalendarSourcesUpsert.md)
  - [BodyRedeemInvitation](doc/BodyRedeemInvitation.md)

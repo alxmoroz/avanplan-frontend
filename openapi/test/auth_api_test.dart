@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -17,6 +19,13 @@ void main() {
     //
     //Future<AuthToken> authGoogleToken(BodyAuthGoogleToken bodyAuthGoogleToken) async
     test('test authGoogleToken', () async {
+      // TODO
+    });
+
+    // Yandex Token
+    //
+    //Future<AuthToken> authYandexToken(BodyAuthYandexToken bodyAuthYandexToken) async
+    test('test authYandexToken', () async {
       // TODO
     });
 

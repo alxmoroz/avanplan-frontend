@@ -1,6 +1,5 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:openapi/openapi.dart' as o_api;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -15,7 +14,7 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
   Future<bool> signInIsAvailable() async => await SignInWithApple.isAvailable();
 
   @override
-  Future<String> signIn() async {
+  Future<String> signIn({String? serverAuthCode}) async {
     String appleToken = '';
     String? appleEmail;
     String name = '';
@@ -26,7 +25,7 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          redirectUri: Uri.parse(appleAuthRedirectPath),
+          redirectUri: Uri.parse(appleOauthRedirectUri),
           clientId: 'team.moroz.avanplan.services',
         ),
       );
@@ -53,7 +52,7 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
     }
 
     if (appleToken.isNotEmpty) {
-      final Response<o_api.AuthToken> response = await authApi.authAppleToken(
+      final response = await authApi.authAppleToken(
         bodyAuthAppleToken: (o_api.BodyAuthAppleTokenBuilder()
               ..token = appleToken
               ..email = appleEmail

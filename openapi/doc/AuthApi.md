@@ -11,6 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
 [**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
+[**authYandexToken**](AuthApi.md#authyandextoken) | **POST** /v1/auth/yandex_token | Yandex Token
 [**passwordToken**](AuthApi.md#passwordtoken) | **POST** /v1/auth/password_token | Password Token
 [**refreshToken**](AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [**registrationToken**](AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
@@ -91,6 +92,51 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **bodyAuthGoogleToken** | [**BodyAuthGoogleToken**](BodyAuthGoogleToken.md)|  | 
+
+### Return type
+
+[**AuthToken**](AuthToken.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authYandexToken**
+> AuthToken authYandexToken(bodyAuthYandexToken)
+
+Yandex Token
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+
+final api = Openapi().getAuthApi();
+final BodyAuthYandexToken bodyAuthYandexToken = ; // BodyAuthYandexToken | 
+
+try {
+    final response = api.authYandexToken(bodyAuthYandexToken);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AuthApi->authYandexToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bodyAuthYandexToken** | [**BodyAuthYandexToken**](BodyAuthYandexToken.md)|  | 
 
 ### Return type
 

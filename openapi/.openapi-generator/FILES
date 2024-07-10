@@ -8,6 +8,7 @@ doc/AuthApi.md
 doc/AuthToken.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
+doc/BodyAuthYandexToken.md
 doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
 doc/BodyMyCalendarSourcesUpsert.md
 doc/BodyRedeemInvitation.md
@@ -122,6 +123,7 @@ lib/src/model/attachment_get.dart
 lib/src/model/auth_token.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
+lib/src/model/body_auth_yandex_token.dart
 lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
 lib/src/model/body_my_calendar_sources_upsert.dart
 lib/src/model/body_redeem_invitation.dart
@@ -186,6 +188,7 @@ test/auth_api_test.dart
 test/auth_token_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
+test/body_auth_yandex_token_test.dart
 test/body_iap_notification_v1_payments_iap_notification_post_test.dart
 test/body_my_calendar_sources_upsert_test.dart
 test/body_redeem_invitation_test.dart

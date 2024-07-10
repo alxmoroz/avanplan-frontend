@@ -47,41 +47,39 @@ class _EditAvatarDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(color: b2Color, showCloseButton: true, title: loc.avatar_edit_action_title),
-      body: Builder(
-        builder: (context) => ListView(
-          shrinkWrap: true,
-          children: [
-            if (!isWeb)
-              MTListTile(
-                leading: MimeTypeIcon('image'),
-                middle: BaseText(loc.file_source_gallery_title, color: mainColor),
-                dividerIndent: P11,
-                onTap: () => _upload(context, _FileSource.gallery),
-              ),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          if (!isWeb)
             MTListTile(
-              leading: const ProjectsIcon(color: mainColor),
-              middle: BaseText(loc.file_source_files_title, color: mainColor),
+              leading: MimeTypeIcon('image'),
+              middle: BaseText(loc.file_source_gallery_title, color: mainColor),
               dividerIndent: P11,
-              bottomDivider: !isWeb,
-              onTap: () => _upload(context, _FileSource.files),
+              onTap: () => _upload(context, _FileSource.gallery),
             ),
-            if (!isWeb)
-              MTListTile(
-                leading: const CameraIcon(),
-                middle: BaseText(loc.file_source_camera_title, color: mainColor),
-                bottomDivider: false,
-                onTap: () => _upload(context, _FileSource.camera),
-              ),
-            if (accountController.me!.hasAvatar)
-              MTListTile(
-                leading: const DeleteIcon(size: P6),
-                middle: BaseText(loc.action_delete_title, color: dangerColor),
-                margin: const EdgeInsets.only(top: P3),
-                bottomDivider: false,
-                onTap: () => _deleteAvatar(context),
-              ),
-          ],
-        ),
+          MTListTile(
+            leading: const ProjectsIcon(color: mainColor),
+            middle: BaseText(loc.file_source_files_title, color: mainColor),
+            dividerIndent: P11,
+            bottomDivider: !isWeb,
+            onTap: () => _upload(context, _FileSource.files),
+          ),
+          if (!isWeb)
+            MTListTile(
+              leading: const CameraIcon(),
+              middle: BaseText(loc.file_source_camera_title, color: mainColor),
+              bottomDivider: false,
+              onTap: () => _upload(context, _FileSource.camera),
+            ),
+          if (accountController.me!.hasAvatar)
+            MTListTile(
+              leading: const DeleteIcon(size: P6),
+              middle: BaseText(loc.action_delete_title, color: dangerColor),
+              margin: const EdgeInsets.only(top: P3),
+              bottomDivider: false,
+              onTap: () => _deleteAvatar(context),
+            ),
+        ],
       ),
     );
   }

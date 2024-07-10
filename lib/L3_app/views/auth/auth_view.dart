@@ -117,6 +117,12 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                               MIN_BTN_HEIGHT - 2,
                               authController.signInApple,
                             ),
+                          _authBtn(
+                            yandexIcon,
+                            'Яндекс ID',
+                            MIN_BTN_HEIGHT - 2,
+                            authController.signInYandex,
+                          ),
                           MTButton(
                             type: ButtonType.main,
                             constrained: true,

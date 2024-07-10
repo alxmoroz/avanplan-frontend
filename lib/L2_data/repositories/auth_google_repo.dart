@@ -1,6 +1,5 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
-import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
@@ -40,12 +39,12 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
   }
 
   @override
-  Future<String> signIn() async {
+  Future<String> signIn({String? serverAuthCode}) async {
     try {
       final user = await mainGSI.signInSilently() ?? await mainGSI.signIn();
       final idToken = (await user?.authentication)?.idToken;
       if (idToken != null) {
-        final Response<AuthToken> response = await authApi.authGoogleToken(
+        final response = await authApi.authGoogleToken(
           bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()..token = idToken).build(),
         );
         return parseTokenResponse(response) ?? '';

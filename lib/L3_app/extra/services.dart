@@ -28,6 +28,7 @@ import '../../L2_data/repositories/attachment_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
+import '../../L2_data/repositories/auth_yandex_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/iap_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
@@ -108,6 +109,7 @@ void setup() {
     authAvanplanRepo: AuthAvanplanRepo(),
     googleRepo: AuthGoogleRepo(),
     appleRepo: AuthAppleRepo(),
+    yandexRepo: AuthYandexRepo(),
     localDBAuthRepo: LocalAuthRepo(),
   ));
   getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));

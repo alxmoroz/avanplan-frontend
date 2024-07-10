@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
@@ -44,6 +46,11 @@ void main() {
 
     // num finalPrice
     test('to test the property `finalPrice`', () async {
+      // TODO
+    });
+
+    // num nextFinalPrice
+    test('to test the property `nextFinalPrice`', () async {
       // TODO
     });
   });

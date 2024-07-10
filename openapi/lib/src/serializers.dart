@@ -1,3 +1,5 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -19,6 +21,7 @@ import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
+import 'package:openapi/src/model/body_auth_yandex_token.dart';
 import 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
 import 'package:openapi/src/model/body_my_calendar_sources_upsert.dart';
 import 'package:openapi/src/model/body_redeem_invitation.dart';
@@ -83,6 +86,7 @@ part 'serializers.g.dart';
   AuthToken,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
+  BodyAuthYandexToken,
   BodyIapNotificationV1PaymentsIapNotificationPost,
   BodyMyCalendarSourcesUpsert,
   BodyRedeemInvitation,

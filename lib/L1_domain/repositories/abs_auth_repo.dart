@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import '../entities/registration.dart';
 
@@ -9,7 +9,8 @@ abstract class AbstractAuthRepo {
 }
 
 abstract class AbstractOAuthRepo extends AbstractAuthRepo {
-  Future<String> signIn() async => throw UnimplementedError();
+  Uri get serverAuthCodeUri => throw UnimplementedError();
+  Future<String> signIn({String? serverAuthCode}) async => throw UnimplementedError();
 }
 
 abstract class AbstractAuthAvanplanRepo extends AbstractAuthRepo {

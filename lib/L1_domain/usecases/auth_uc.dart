@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import '../../L2_data/services/api.dart';
 import '../entities/local_auth.dart';
@@ -7,11 +7,17 @@ import '../repositories/abs_auth_repo.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AuthUC {
-  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.authAvanplanRepo})
-      : _currentRepo = authAvanplanRepo;
+  AuthUC({
+    required this.localDBAuthRepo,
+    required this.googleRepo,
+    required this.appleRepo,
+    required this.yandexRepo,
+    required this.authAvanplanRepo,
+  }) : _currentRepo = authAvanplanRepo;
 
   final AbstractOAuthRepo googleRepo;
   final AbstractOAuthRepo appleRepo;
+  final AbstractOAuthRepo yandexRepo;
   final AbstractAuthAvanplanRepo authAvanplanRepo;
   final AbstractDBRepo<AbstractDBModel, LocalAuth> localDBAuthRepo;
 
@@ -51,9 +57,9 @@ class AuthUC {
     return await _setToken(await authAvanplanRepo.signInWithRegistration(token));
   }
 
-  Future<bool> _signInOAuth(AbstractOAuthRepo repo) async {
+  Future<bool> _signInOAuth(AbstractOAuthRepo repo, {String? serverAuthCode}) async {
     _currentRepo = repo;
-    return await _setToken(await repo.signIn());
+    return await _setToken(await repo.signIn(serverAuthCode: serverAuthCode));
   }
 
   Future<bool> googleIsAvailable() async => await googleRepo.signInIsAvailable();
@@ -61,6 +67,9 @@ class AuthUC {
 
   Future<bool> appleIsAvailable() async => await appleRepo.signInIsAvailable();
   Future<bool> signInApple() async => await _signInOAuth(appleRepo);
+
+  Uri get yandexServerAuthCodeUri => yandexRepo.serverAuthCodeUri;
+  Future<bool> signInYandex(String serverAuthCode) async => await _signInOAuth(yandexRepo, serverAuthCode: serverAuthCode);
 
   Future signOut() async {
     await _currentRepo.signOut();

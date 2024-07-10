@@ -2,7 +2,9 @@
 
 import 'package:mobx/mobx.dart';
 
+import '../../../L2_data/services/environment.dart';
 import '../../components/images.dart';
+import '../../components/webview_dialog.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../views/_base/loadable.dart';
@@ -66,6 +68,23 @@ abstract class _AuthControllerBase with Store, Loadable {
   @action
   Future signInApple() async {
     await load(() async => authorized = await authUC.signInApple());
+    if (authorized) router.goMain();
+  }
+
+  @action
+  Future signInYandex() async {
+    await load(
+      () async {
+        final exitUri = await showWebViewDialog(
+          authUC.yandexServerAuthCodeUri,
+          onPageStartedExit: (url) => url.startsWith(yandexOauthRedirectUri),
+        );
+        if (exitUri != null) {
+          final serverAuthCode = exitUri.queryParameters['code'] ?? '';
+          authorized = await authUC.signInYandex(serverAuthCode);
+        }
+      },
+    );
     if (authorized) router.goMain();
   }
 

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **invoiceId** | **int** |  | 
 **promoActionCode** | **String** |  | [optional] 
 **finalPrice** | **num** |  | [optional] 
+**nextFinalPrice** | **num** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

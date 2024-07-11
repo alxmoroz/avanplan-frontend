@@ -18,7 +18,7 @@ class AuthYandexRepo extends AbstractOAuthRepo with AuthMixin {
         {
           'client_id': 'e8acb1168464432fa7ff626fdf3106aa',
           'response_type': 'code',
-          'redirect_uri': yandexOauthRedirectUri,
+          'redirect_uri': '$yandexOauthRedirectUri',
           'force_confirm': 'true',
         },
       );

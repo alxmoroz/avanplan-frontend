@@ -25,7 +25,7 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          redirectUri: Uri.parse(appleOauthRedirectUri),
+          redirectUri: appleOauthRedirectUri,
           clientId: 'team.moroz.avanplan.services',
         ),
       );

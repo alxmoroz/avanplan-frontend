@@ -1,8 +1,10 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/services/environment.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/images.dart';
 import '../../components/webview_dialog.dart';
 import '../../extra/router.dart';
@@ -33,6 +35,12 @@ abstract class _AuthControllerBase with Store, Loadable {
   @observable
   bool authorized = false;
 
+  @observable
+  Uri? _yandexRedirectUri;
+
+  @action
+  void setYandexRedirectUri(Uri? uri) => _yandexRedirectUri = uri;
+
   @override
   void startLoading() {
     setLoaderScreen(imageName: ImageName.privacy.name, titleText: loc.loader_auth_title);
@@ -41,16 +49,14 @@ abstract class _AuthControllerBase with Store, Loadable {
 
   @action
   Future _signInWithRegistration() async {
-    if (localSettingsController.hasRegistration) {
-      if (authorized) await authUC.signOut();
+    if (authorized) await authUC.signOut();
 
-      await load(() async {
-        authorized = await authUC.signInWithRegistration(localSettingsController.registrationToken!);
-        await localSettingsController.deleteRegistrationToken();
-      });
+    await load(() async {
+      authorized = await authUC.signInWithRegistration(localSettingsController.registrationToken!);
+      await localSettingsController.deleteRegistrationToken();
+    });
 
-      if (authorized) router.goMain();
-    }
+    if (authorized) router.goMain();
   }
 
   @action
@@ -75,13 +81,22 @@ abstract class _AuthControllerBase with Store, Loadable {
   Future signInYandex() async {
     await load(
       () async {
-        final exitUri = await showWebViewDialog(
-          authUC.yandexServerAuthCodeUri,
-          onPageStartedExit: (url) => url.startsWith(yandexOauthRedirectUri),
-        );
-        if (exitUri != null) {
-          final serverAuthCode = exitUri.queryParameters['code'] ?? '';
+        if (_yandexRedirectUri == null) {
+          final requestUri = authUC.yandexServerAuthCodeUri;
+          if (isWeb) {
+            await launchUrlString(requestUri.toString(), webOnlyWindowName: '_self');
+          } else {
+            _yandexRedirectUri = await showWebViewDialog(
+              requestUri,
+              onPageStartedExit: (url) => url.startsWith('$yandexOauthRedirectUri'),
+            );
+          }
+        }
+
+        if (_yandexRedirectUri != null) {
+          final serverAuthCode = _yandexRedirectUri!.queryParameters['code'] ?? '';
           authorized = await authUC.signInYandex(serverAuthCode);
+          _yandexRedirectUri = null;
         }
       },
     );
@@ -108,6 +123,10 @@ abstract class _AuthControllerBase with Store, Loadable {
 
   Future startup() async {
     await appController.startup();
-    await _signInWithRegistration();
+    if (localSettingsController.hasRegistration) {
+      await _signInWithRegistration();
+    } else if (_yandexRedirectUri != null) {
+      await signInYandex();
+    }
   }
 }

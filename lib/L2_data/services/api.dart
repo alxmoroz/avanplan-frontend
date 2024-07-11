@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -19,7 +19,7 @@ Map<String, dynamic> _headers(LocalSettings settings) {
 }
 
 Future<Openapi> setupApi(Iterable<Interceptor>? interceptors, LocalSettings settings) async {
-  return Openapi(basePathOverride: apiPath)
+  return Openapi(basePathOverride: apiUri.toString())
     ..dio.options.connectTimeout = const Duration(minutes: 1)
     ..dio.options.receiveTimeout = const Duration(minutes: 10)
     ..dio.options.headers.addAll(_headers(settings))

@@ -30,6 +30,7 @@ final router = GoRouter(
       authRoute,
       registrationTokenRoute,
       invitationTokenRoute,
+      yandexOauthWebRedirectRoute,
       mainRoute,
       onboardingRoute,
     ],

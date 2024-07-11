@@ -1,60 +1,58 @@
-// Copyright (c) 2024. Alexandr Moroz
-
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:openapi/src/model/attachment_get.dart';
-import 'package:openapi/src/model/member_get.dart';
-import 'package:openapi/src/model/note_get.dart';
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/project_module_get.dart';
-import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/attachment_get.dart';
+import 'package:openapi/src/model/note_get.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'task_get.g.dart';
 
 /// TaskGet
 ///
 /// Properties:
-/// * [id]
-/// * [title]
-/// * [description]
-/// * [type]
-/// * [category]
-/// * [icon]
-/// * [closed]
-/// * [startDate]
-/// * [dueDate]
-/// * [closedDate]
-/// * [estimate]
-/// * [createdOn]
-/// * [updatedOn]
-/// * [parentId]
-/// * [assigneeId]
-/// * [authorId]
-/// * [projectStatusId]
-/// * [taskSourceId]
-/// * [state]
-/// * [velocity]
-/// * [requiredVelocity]
-/// * [progress]
-/// * [etaDate]
-/// * [openedVolume]
-/// * [closedVolume]
-/// * [closedSubtasksCount]
-/// * [taskSource]
-/// * [members]
-/// * [notes]
-/// * [attachments]
-/// * [projectStatuses]
-/// * [projectModules]
-/// * [notesCount]
-/// * [attachmentsCount]
-/// * [subtasksCount]
+/// * [id] 
+/// * [title] 
+/// * [description] 
+/// * [type] 
+/// * [category] 
+/// * [icon] 
+/// * [closed] 
+/// * [startDate] 
+/// * [dueDate] 
+/// * [closedDate] 
+/// * [estimate] 
+/// * [createdOn] 
+/// * [updatedOn] 
+/// * [parentId] 
+/// * [assigneeId] 
+/// * [authorId] 
+/// * [projectStatusId] 
+/// * [taskSourceId] 
+/// * [state] 
+/// * [velocity] 
+/// * [requiredVelocity] 
+/// * [progress] 
+/// * [etaDate] 
+/// * [openedVolume] 
+/// * [closedVolume] 
+/// * [closedSubtasksCount] 
+/// * [taskSource] 
+/// * [members] 
+/// * [notes] 
+/// * [attachments] 
+/// * [projectStatuses] 
+/// * [projectModules] 
+/// * [notesCount] 
+/// * [attachmentsCount] 
+/// * [subtasksCount] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -168,8 +166,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskGetBuilder b) => b
-    ..type = 'TASK'
-    ..closed = false;
+      ..type = 'TASK'
+      ..closed = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();
@@ -720,3 +718,4 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
     return result.build();
   }
 }
+

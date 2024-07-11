@@ -22,8 +22,9 @@ extension TaskTreeUC on Task {
   // TODO: попробовать вынести в computed в один из контроллеров
   Task get project => (isProject || isInbox) ? this : parent!.project;
   Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
+  int get subtasksCount => subtasksCountIn ?? subtasks.length;
 
-  bool get isCheckList => isTask && subtasks.isNotEmpty;
+  bool get isCheckList => isTask && subtasksCount > 0;
   bool get isInboxTask => isTask && project.isInbox;
 
   Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);

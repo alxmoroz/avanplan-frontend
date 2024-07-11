@@ -47,6 +47,9 @@ extension TaskMapper on api.TaskGet {
       openedVolume: openedVolume,
       closedVolume: closedVolume,
       closedSubtasksCount: closedSubtasksCount,
+      notesCountIn: notesCount,
+      attachmentsCountIn: attachmentsCount,
+      subtasksCountIn: subtasksCount,
     );
 
     if (mappedTask.isBacklog || mappedTask.isInbox) {

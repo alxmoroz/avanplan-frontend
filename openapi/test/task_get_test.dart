@@ -1,5 +1,7 @@
-import 'package:test/test.dart';
+// Copyright (c) 2024. Alexandr Moroz
+
 import 'package:openapi/openapi.dart';
+import 'package:test/test.dart';
 
 // tests for TaskGet
 void main() {
@@ -164,6 +166,21 @@ void main() {
 
     // BuiltList<ProjectModuleGet> projectModules
     test('to test the property `projectModules`', () async {
+      // TODO
+    });
+
+    // int notesCount
+    test('to test the property `notesCount`', () async {
+      // TODO
+    });
+
+    // int attachmentsCount
+    test('to test the property `attachmentsCount`', () async {
+      // TODO
+    });
+
+    // int subtasksCount
+    test('to test the property `subtasksCount`', () async {
       // TODO
     });
   });

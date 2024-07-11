@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -86,23 +86,23 @@ class TaskCard extends StatelessWidget {
   bool get _showChecklistMark => !task.closed && task.isCheckList;
   Widget get _checklistMark => Row(
         children: [
-          SmallText('${task.closedSubtasks.length}/${task.subtasks.length} ', color: f2Color, maxLines: 1),
+          SmallText('${task.closedSubtasks.length}/${task.subtasksCount} ', color: f2Color, maxLines: 1),
           const CheckboxIcon(true, size: P3, color: f2Color),
         ],
       );
 
-  bool get _showAttachmentsMark => !task.closed && task.attachments.isNotEmpty;
+  bool get _showAttachmentsMark => !task.closed && task.attachmentsCount > 0;
   Widget get _attachmentsMark => Row(
         children: [
-          SmallText('${task.attachments.length} ', color: f2Color, maxLines: 1),
+          SmallText('${task.attachmentsCount} ', color: f2Color, maxLines: 1),
           const AttachmentIcon(size: P3, color: f2Color),
         ],
       );
 
-  bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
+  bool get _showNotesMark => !task.closed && task.notesCount > 0;
   Widget get _notesMark => Row(
         children: [
-          SmallText('${task.notes.length} ', color: f2Color, maxLines: 1),
+          SmallText('${task.notesCount} ', color: f2Color, maxLines: 1),
           NoteMarkIcon(
             mine: task.notes.any((n) => n.isMine(task)),
             theirs: task.notes.any((n) => !n.isMine(task)),

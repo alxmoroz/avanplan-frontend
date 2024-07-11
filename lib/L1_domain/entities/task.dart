@@ -104,6 +104,9 @@ class Task extends Project {
     this.openedVolume,
     this.closedVolume,
     this.closedSubtasksCount,
+    this.notesCountIn,
+    this.attachmentsCountIn,
+    this.subtasksCountIn,
   });
 
   final TaskState state;
@@ -126,6 +129,14 @@ class Task extends Project {
   Iterable<WSMember> members;
   Iterable<ProjectModule> projectModules;
   TaskSource? taskSource;
+
+  final int? notesCountIn;
+  int get notesCount => notesCountIn ?? notes.length;
+
+  final int? attachmentsCountIn;
+  int get attachmentsCount => attachmentsCountIn ?? attachments.length;
+
+  final int? subtasksCountIn;
 
   DateTime? dueDate;
   DateTime? closedDate;

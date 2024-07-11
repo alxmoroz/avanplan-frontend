@@ -1,55 +1,60 @@
+// Copyright (c) 2024. Alexandr Moroz
+
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-// ignore_for_file: unused_element
-import 'package:openapi/src/model/project_module_get.dart';
-import 'package:openapi/src/model/member_get.dart';
-import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/project_status_get.dart';
-import 'package:openapi/src/model/attachment_get.dart';
-import 'package:openapi/src/model/note_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:openapi/src/model/attachment_get.dart';
+import 'package:openapi/src/model/member_get.dart';
+import 'package:openapi/src/model/note_get.dart';
+// ignore_for_file: unused_element
+import 'package:openapi/src/model/project_module_get.dart';
+import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/task_source_get.dart';
 
 part 'task_get.g.dart';
 
 /// TaskGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [type] 
-/// * [category] 
-/// * [icon] 
-/// * [closed] 
-/// * [startDate] 
-/// * [dueDate] 
-/// * [closedDate] 
-/// * [estimate] 
-/// * [createdOn] 
-/// * [updatedOn] 
-/// * [parentId] 
-/// * [assigneeId] 
-/// * [authorId] 
-/// * [projectStatusId] 
-/// * [taskSourceId] 
-/// * [state] 
-/// * [velocity] 
-/// * [requiredVelocity] 
-/// * [progress] 
-/// * [etaDate] 
-/// * [openedVolume] 
-/// * [closedVolume] 
-/// * [closedSubtasksCount] 
-/// * [taskSource] 
-/// * [members] 
-/// * [notes] 
-/// * [attachments] 
-/// * [projectStatuses] 
-/// * [projectModules] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [type]
+/// * [category]
+/// * [icon]
+/// * [closed]
+/// * [startDate]
+/// * [dueDate]
+/// * [closedDate]
+/// * [estimate]
+/// * [createdOn]
+/// * [updatedOn]
+/// * [parentId]
+/// * [assigneeId]
+/// * [authorId]
+/// * [projectStatusId]
+/// * [taskSourceId]
+/// * [state]
+/// * [velocity]
+/// * [requiredVelocity]
+/// * [progress]
+/// * [etaDate]
+/// * [openedVolume]
+/// * [closedVolume]
+/// * [closedSubtasksCount]
+/// * [taskSource]
+/// * [members]
+/// * [notes]
+/// * [attachments]
+/// * [projectStatuses]
+/// * [projectModules]
+/// * [notesCount]
+/// * [attachmentsCount]
+/// * [subtasksCount]
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -148,14 +153,23 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'project_modules')
   BuiltList<ProjectModuleGet>? get projectModules;
 
+  @BuiltValueField(wireName: r'notes_count')
+  int? get notesCount;
+
+  @BuiltValueField(wireName: r'attachments_count')
+  int? get attachmentsCount;
+
+  @BuiltValueField(wireName: r'subtasks_count')
+  int? get subtasksCount;
+
   TaskGet._();
 
   factory TaskGet([void updates(TaskGetBuilder b)]) = _$TaskGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskGetBuilder b) => b
-      ..type = 'TASK'
-      ..closed = false;
+    ..type = 'TASK'
+    ..closed = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();
@@ -387,6 +401,27 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.projectModules,
         specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
+      );
+    }
+    if (object.notesCount != null) {
+      yield r'notes_count';
+      yield serializers.serialize(
+        object.notesCount,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.attachmentsCount != null) {
+      yield r'attachments_count';
+      yield serializers.serialize(
+        object.attachmentsCount,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.subtasksCount != null) {
+      yield r'subtasks_count';
+      yield serializers.serialize(
+        object.subtasksCount,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -636,6 +671,27 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<ProjectModuleGet>;
           result.projectModules.replace(valueDes);
           break;
+        case r'notes_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.notesCount = valueDes;
+          break;
+        case r'attachments_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.attachmentsCount = valueDes;
+          break;
+        case r'subtasks_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.subtasksCount = valueDes;
+          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -664,4 +720,3 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
     return result.build();
   }
 }
-

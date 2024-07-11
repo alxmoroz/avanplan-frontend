@@ -16,8 +16,8 @@ part 'invitation_get.g.dart';
 /// * [taskId] 
 /// * [roleId] 
 /// * [url] 
-/// * [activationsCount] 
 /// * [userId] 
+/// * [activationsCount] 
 @BuiltValue()
 abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -35,11 +35,11 @@ abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilde
   @BuiltValueField(wireName: r'url')
   String? get url;
 
-  @BuiltValueField(wireName: r'activations_count')
-  int? get activationsCount;
-
   @BuiltValueField(wireName: r'user_id')
   int get userId;
+
+  @BuiltValueField(wireName: r'activations_count')
+  int? get activationsCount;
 
   InvitationGet._();
 
@@ -92,6 +92,11 @@ class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'user_id';
+    yield serializers.serialize(
+      object.userId,
+      specifiedType: const FullType(int),
+    );
     if (object.activationsCount != null) {
       yield r'activations_count';
       yield serializers.serialize(
@@ -99,11 +104,6 @@ class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'user_id';
-    yield serializers.serialize(
-      object.userId,
-      specifiedType: const FullType(int),
-    );
   }
 
   @override
@@ -162,19 +162,19 @@ class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
           ) as String;
           result.url = valueDes;
           break;
-        case r'activations_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.activationsCount = valueDes;
-          break;
         case r'user_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
           result.userId = valueDes;
+          break;
+        case r'activations_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.activationsCount = valueDes;
           break;
         default:
           unhandled.add(key);

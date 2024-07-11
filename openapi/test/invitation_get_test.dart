@@ -32,13 +32,13 @@ void main() {
       // TODO
     });
 
-    // int activationsCount (default value: 0)
-    test('to test the property `activationsCount`', () async {
+    // int userId
+    test('to test the property `userId`', () async {
       // TODO
     });
 
-    // int userId
-    test('to test the property `userId`', () async {
+    // int activationsCount (default value: 0)
+    test('to test the property `activationsCount`', () async {
       // TODO
     });
   });

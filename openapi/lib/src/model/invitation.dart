@@ -15,7 +15,6 @@ part 'invitation.g.dart';
 /// * [taskId] 
 /// * [roleId] 
 /// * [url] 
-/// * [activationsCount] 
 @BuiltValue()
 abstract class Invitation implements Built<Invitation, InvitationBuilder> {
   @BuiltValueField(wireName: r'expires_on')
@@ -30,16 +29,12 @@ abstract class Invitation implements Built<Invitation, InvitationBuilder> {
   @BuiltValueField(wireName: r'url')
   String? get url;
 
-  @BuiltValueField(wireName: r'activations_count')
-  int? get activationsCount;
-
   Invitation._();
 
   factory Invitation([void updates(InvitationBuilder b)]) = _$Invitation;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(InvitationBuilder b) => b
-      ..activationsCount = 0;
+  static void _defaults(InvitationBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<Invitation> get serializer => _$InvitationSerializer();
@@ -77,13 +72,6 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
       yield serializers.serialize(
         object.url,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.activationsCount != null) {
-      yield r'activations_count';
-      yield serializers.serialize(
-        object.activationsCount,
-        specifiedType: const FullType(int),
       );
     }
   }
@@ -136,13 +124,6 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
             specifiedType: const FullType(String),
           ) as String;
           result.url = valueDes;
-          break;
-        case r'activations_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.activationsCount = valueDes;
           break;
         default:
           unhandled.add(key);

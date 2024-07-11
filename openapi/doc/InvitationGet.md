@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **taskId** | **int** |  | 
 **roleId** | **int** |  | 
 **url** | **String** |  | [optional] 
-**activationsCount** | **int** |  | [optional] [default to 0]
 **userId** | **int** |  | 
+**activationsCount** | **int** |  | [optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

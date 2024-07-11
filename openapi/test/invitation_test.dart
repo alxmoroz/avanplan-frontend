@@ -26,10 +26,5 @@ void main() {
     test('to test the property `url`', () async {
       // TODO
     });
-
-    // int activationsCount (default value: 0)
-    test('to test the property `activationsCount`', () async {
-      // TODO
-    });
   });
 }

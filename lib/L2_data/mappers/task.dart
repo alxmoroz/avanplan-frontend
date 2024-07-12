@@ -46,7 +46,7 @@ extension TaskMapper on api.TaskGet {
       etaDate: etaDate?.toLocal(),
       openedVolume: openedVolume,
       closedVolume: closedVolume,
-      closedSubtasksCount: closedSubtasksCount,
+      closedSubtasksCountIn: closedSubtasksCount,
       notesCountIn: notesCount,
       attachmentsCountIn: attachmentsCount,
       subtasksCountIn: subtasksCount,

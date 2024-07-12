@@ -98,7 +98,7 @@ extension TaskEditUC on TaskController {
     });
   }
 
-  Widget? loadClosedButton({bool board = false}) => (task.closedSubtasksCount ?? 0) > task.closedSubtasks.length
+  Widget? loadClosedButton({bool board = false}) => task.closedSubtasksCount > task.closedSubtasks.length
       ? board
           ? MTListTile(
               middle: BaseText.medium(loc.show_closed_action_title, color: mainColor, align: TextAlign.center),

@@ -86,7 +86,7 @@ class TaskCard extends StatelessWidget {
   bool get _showChecklistMark => !task.closed && task.isCheckList;
   Widget get _checklistMark => Row(
         children: [
-          SmallText('${task.closedSubtasks.length}/${task.subtasksCount} ', color: f2Color, maxLines: 1),
+          SmallText('${task.closedSubtasksCount}/${task.subtasksCount} ', color: f2Color, maxLines: 1),
           const CheckboxIcon(true, size: P3, color: f2Color),
         ],
       );

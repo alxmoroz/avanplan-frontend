@@ -11,8 +11,8 @@ import 'task_controller.dart';
 part 'notes_controller.g.dart';
 
 class NotesController extends _NotesControllerBase with _$NotesController {
-  NotesController(TaskController taskControllerIn) {
-    taskController = taskControllerIn;
+  NotesController(TaskController tcIn) {
+    taskController = tcIn;
   }
 }
 

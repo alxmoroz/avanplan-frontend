@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/invoice.dart';
@@ -19,8 +17,6 @@ class WSController extends _WSControllerBase with _$WSController {
   WSController({Workspace? wsIn}) {
     if (wsIn != null) initWithWS(wsIn);
   }
-
-  final notesWidgetGlobalKey = GlobalKey();
 
   void initWithWS(Workspace wsIn) {
     wsDescriptor = wsIn;

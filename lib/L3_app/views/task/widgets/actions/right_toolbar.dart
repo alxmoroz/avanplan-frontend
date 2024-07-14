@@ -18,7 +18,7 @@ import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/attachments.dart';
-import '../../usecases/note_edit.dart';
+import '../../usecases/note.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';

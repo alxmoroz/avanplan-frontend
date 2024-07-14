@@ -6,19 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/bytes.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
@@ -27,7 +23,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/notes_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/attachments.dart';
-import '../../usecases/note_edit.dart';
+import 'note_menu_dialog.dart';
 
 class Notes extends StatelessWidget {
   Notes(this._taskController) : super(key: _taskController.notesWidgetGlobalKey);
@@ -36,37 +32,6 @@ class Notes extends StatelessWidget {
   NotesController get _notesController => _taskController.notesController;
 
   Task get _task => _taskController.task;
-
-  void _noteMenuDialog(Note note) => showMTDialog<void>(
-        Builder(
-          builder: (context) => MTDialog(
-            topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.task_note_title),
-            body: ListView(
-              shrinkWrap: true,
-              children: [
-                MTListTile(
-                  leading: const EditIcon(),
-                  middle: BaseText(loc.edit_action_title, color: mainColor, maxLines: 1),
-                  dividerIndent: P4 + P5,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    _taskController.editNote(note);
-                  },
-                ),
-                MTListTile(
-                  leading: const DeleteIcon(),
-                  middle: BaseText(loc.action_delete_title, color: dangerColor, maxLines: 1),
-                  bottomDivider: false,
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    _taskController.deleteNote(note);
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +80,7 @@ class Notes extends StatelessWidget {
                                       ? MTButton.icon(
                                           const MenuIcon(size: P4),
                                           padding: const EdgeInsets.only(left: P3, right: P_2, top: P, bottom: P),
-                                          onTap: () => _noteMenuDialog(n),
+                                          onTap: () => noteMenuDialog(_taskController, n),
                                         )
                                       : null,
                                 ),

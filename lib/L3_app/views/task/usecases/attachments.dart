@@ -9,7 +9,7 @@ import '../../../../L1_domain/entities/note.dart';
 import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
 import '../controllers/attachments_controller.dart';
-import '../usecases/note_edit.dart';
+import '../usecases/note.dart';
 import '../widgets/attachments/upload_dialog.dart';
 
 extension AttachmentsUC on AttachmentsController {

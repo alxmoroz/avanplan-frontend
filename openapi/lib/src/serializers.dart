@@ -67,6 +67,8 @@ import 'package:openapi/src/model/task_node.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
+import 'package:openapi/src/model/task_transaction_get.dart';
+import 'package:openapi/src/model/task_transaction_upsert.dart';
 import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/tasks_changes.dart';
 import 'package:openapi/src/model/u_activity_get.dart';
@@ -132,6 +134,8 @@ part 'serializers.g.dart';
   TaskRemote,
   TaskSource,
   TaskSourceGet,
+  TaskTransactionGet,
+  TaskTransactionUpsert,
   TaskUpsert,
   TasksChanges,
   UActivityGet,

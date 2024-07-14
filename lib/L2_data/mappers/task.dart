@@ -13,6 +13,7 @@ import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
 import 'task_source.dart';
+import 'task_transaction.dart';
 
 extension TaskMapper on api.TaskGet {
   Task task(int wsId) {
@@ -31,6 +32,7 @@ extension TaskMapper on api.TaskGet {
       estimate: estimate,
       notes: notes?.map((n) => n.note(wsId)).toList() ?? [],
       attachments: attachments?.map((a) => a.attachment(wsId)).toList() ?? [],
+      transactions: transactions?.map((tr) => tr.transaction(wsId)).toList() ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.wsMember(wsId)) ?? [],

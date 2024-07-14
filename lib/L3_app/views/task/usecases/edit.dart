@@ -25,24 +25,16 @@ extension TaskUC on Task {
   // вложенности
   Task refill(Task et) {
     if (isProject) {
-      if (et.members.isEmpty) {
-        et.members = members;
-      }
-      if (et.projectStatuses.isEmpty) {
-        et.projectStatuses = projectStatuses;
-      }
-      if (et.projectModules.isEmpty) {
-        et.projectModules = projectModules;
-      }
+      if (et.members.isEmpty) et.members = members;
+      if (et.projectStatuses.isEmpty) et.projectStatuses = projectStatuses;
+      if (et.projectModules.isEmpty) et.projectModules = projectModules;
     }
 
     if (filled) {
-      if (et.notes.isEmpty) {
-        et.notes = notes;
-      }
-      if (et.attachments.isEmpty) {
-        et.attachments = attachments;
-      }
+      if (et.notes.isEmpty) et.notes = notes;
+      if (et.attachments.isEmpty) et.attachments = attachments;
+      if (et.transactions.isEmpty) et.transactions = transactions;
+
       et.taskSource ??= taskSource;
 
       et.filled = true;

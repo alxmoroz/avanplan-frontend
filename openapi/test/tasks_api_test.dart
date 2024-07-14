@@ -41,6 +41,13 @@ void main() {
       // TODO
     });
 
+    // Delete
+    //
+    //Future<TasksChanges> deleteTransaction(int wsId, int taskId, int transactionId) async
+    test('test deleteTransaction', () async {
+      // TODO
+    });
+
     // Duplicate
     //
     //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
@@ -115,6 +122,13 @@ void main() {
     //
     //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int taskId }) async
     test('test upsertTask', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<TasksChanges> upsertTransaction(int wsId, int taskId, TaskTransactionUpsert taskTransactionUpsert) async
+    test('test upsertTransaction', () async {
       // TODO
     });
   });

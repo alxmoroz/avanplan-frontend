@@ -243,6 +243,10 @@ class FileStorageIcon extends MTIcon {
   const FileStorageIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cube);
 }
 
+class FinanceIcon extends MTIcon {
+  const FinanceIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.money_dollar, circled: true);
+}
+
 class ImportIcon extends MTIcon {
   const ImportIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cloud_download);
 }

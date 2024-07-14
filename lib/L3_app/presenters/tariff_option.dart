@@ -19,7 +19,9 @@ extension TariffOptionPresenter on TariffOption {
                 ? const PeopleIcon()
                 : code == TOCode.ANALYTICS
                     ? const AnalyticsIcon()
-                    : const FeaturesIcon();
+                    : code == TOCode.FINANCE
+                        ? const FinanceIcon()
+                        : const FeaturesIcon();
   }
 
   Widget get image => MTImage('fs_${code.toLowerCase()}', width: P8, height: P8);

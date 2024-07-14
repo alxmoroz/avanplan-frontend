@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**deleteSource**](WorkspacesApi.md#deletesource) | **DELETE** /v1/workspaces/{ws_id}/sources/{source_id} | Delete
 [**deleteStatus**](WorkspacesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [**deleteTask**](WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
+[**deleteTransaction**](WorkspacesApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
 [**destinationsForMove**](WorkspacesApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
 [**duplicateTask**](WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [**getInvitations**](WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
@@ -43,6 +44,7 @@ Method | HTTP request | Description
 [**upsertSource**](WorkspacesApi.md#upsertsource) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
 [**upsertStatus**](WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [**upsertTask**](WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
+[**upsertTransaction**](WorkspacesApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
 # **assignRole**
@@ -478,6 +480,57 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
+
+### Return type
+
+[**TasksChanges**](TasksChanges.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteTransaction**
+> TasksChanges deleteTransaction(wsId, taskId, transactionId)
+
+Delete
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWorkspacesApi();
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+final int transactionId = 56; // int | 
+
+try {
+    final response = api.deleteTransaction(wsId, taskId, transactionId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->deleteTransaction: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+ **transactionId** | **int**|  | 
 
 ### Return type
 
@@ -1727,6 +1780,57 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
  **taskId** | **int**|  | [optional] 
+
+### Return type
+
+[**TasksChanges**](TasksChanges.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **upsertTransaction**
+> TasksChanges upsertTransaction(wsId, taskId, taskTransactionUpsert)
+
+Upsert
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWorkspacesApi();
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+final TaskTransactionUpsert taskTransactionUpsert = ; // TaskTransactionUpsert | 
+
+try {
+    final response = api.upsertTransaction(wsId, taskId, taskTransactionUpsert);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->upsertTransaction: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+ **taskTransactionUpsert** | [**TaskTransactionUpsert**](TaskTransactionUpsert.md)|  | 
 
 ### Return type
 

@@ -40,9 +40,11 @@ Name | Type | Description | Notes
 **attachments** | [**BuiltList&lt;AttachmentGet&gt;**](AttachmentGet.md) |  | [optional] 
 **projectStatuses** | [**BuiltList&lt;ProjectStatusGet&gt;**](ProjectStatusGet.md) |  | [optional] 
 **projectModules** | [**BuiltList&lt;ProjectModuleGet&gt;**](ProjectModuleGet.md) |  | [optional] 
+**transactions** | [**BuiltList&lt;TaskTransactionGet&gt;**](TaskTransactionGet.md) |  | [optional] 
 **notesCount** | **int** |  | [optional] 
 **attachmentsCount** | **int** |  | [optional] 
 **subtasksCount** | **int** |  | [optional] 
+**balance** | **num** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

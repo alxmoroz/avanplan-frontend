@@ -69,6 +69,13 @@ void main() {
       // TODO
     });
 
+    // Delete
+    //
+    //Future<TasksChanges> deleteTransaction(int wsId, int taskId, int transactionId) async
+    test('test deleteTransaction', () async {
+      // TODO
+    });
+
     // Destinations For Move
     //
     //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType) async
@@ -245,6 +252,13 @@ void main() {
     //
     //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int taskId }) async
     test('test upsertTask', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<TasksChanges> upsertTransaction(int wsId, int taskId, TaskTransactionUpsert taskTransactionUpsert) async
+    test('test upsertTransaction', () async {
       // TODO
     });
   });

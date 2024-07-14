@@ -73,6 +73,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
             parentId: null,
             notes: [],
             attachments: [],
+            transactions: [],
             members: [],
             projectStatuses: [],
             projectModules: [],

@@ -11,6 +11,7 @@ class TOCode {
   static const FILE_STORAGE = 'FILE_STORAGE';
   static const TEAM = 'TEAM';
   static const ANALYTICS = 'ANALYTICS';
+  static const FINANCE = 'FINANCE';
   static const GOALS = 'GOALS';
   static const TASKBOARD = 'TASKBOARD';
 }

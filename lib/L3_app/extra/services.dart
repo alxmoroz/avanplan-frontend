@@ -23,6 +23,7 @@ import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
+import '../../L1_domain/usecases/transaction_uc.dart';
 import '../../L1_domain/usecases/ws_uc.dart';
 import '../../L2_data/repositories/attachment_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
@@ -45,6 +46,7 @@ import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
 import '../../L2_data/repositories/task_member_role_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
+import '../../L2_data/repositories/task_transaction_repo.dart';
 import '../../L2_data/repositories/ws_repo.dart';
 import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
@@ -95,6 +97,7 @@ ProjectModuleUC get projectModuleUC => GetIt.I<ProjectModuleUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
 MyCalendarUC get myCalendarUC => GetIt.I<MyCalendarUC>();
 MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
+TaskTransactionUC get taskTransactionUC => GetIt.I<TaskTransactionUC>();
 
 void setup() {
   /// device
@@ -130,6 +133,7 @@ void setup() {
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
   getIt.registerSingleton<MyCalendarUC>(MyCalendarUC(MyCalendarRepo()));
   getIt.registerSingleton<MyAvatarUC>(MyAvatarUC(MyAvatarRepo()));
+  getIt.registerSingleton<TaskTransactionUC>(TaskTransactionUC(TaskTransactionRepo()));
 
   /// global state controllers
   // первый контроллер

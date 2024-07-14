@@ -401,6 +401,10 @@
   "tariff_option_file_storage_title": "File Storage",
   "tariff_option_file_storage_suffix": "files",
 
+  "tariff_option_finance_title": "Finance",
+  "tariff_option_finance_subtitle": "Income and Expense Accounting",
+  "tariff_option_finance_description": "Income and Expense Accounting\nControl of balance in projects and goals\nAnalysis by categories",
+
   "tariff_option_goals_title": "Goals",
   "tariff_option_goals_subtitle": "Grouping tasks by goals",
 

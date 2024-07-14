@@ -167,6 +167,11 @@ void main() {
       // TODO
     });
 
+    // BuiltList<TaskTransactionGet> transactions
+    test('to test the property `transactions`', () async {
+      // TODO
+    });
+
     // int notesCount
     test('to test the property `notesCount`', () async {
       // TODO
@@ -179,6 +184,11 @@ void main() {
 
     // int subtasksCount
     test('to test the property `subtasksCount`', () async {
+      // TODO
+    });
+
+    // num balance
+    test('to test the property `balance`', () async {
       // TODO
     });
   });

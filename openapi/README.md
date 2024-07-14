@@ -108,11 +108,14 @@ Class | Method | HTTP request | Description
 [*TaskNotesApi*](doc/TaskNotesApi.md) | [**uploadAttachment**](doc/TaskNotesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*TaskNotesApi*](doc/TaskNotesApi.md) | [**upsertNote**](doc/TaskNotesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TaskRolesApi*](doc/TaskRolesApi.md) | [**assignRole**](doc/TaskRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[*TaskTransactionsApi*](doc/TaskTransactionsApi.md) | [**deleteTransaction**](doc/TaskTransactionsApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
+[*TaskTransactionsApi*](doc/TaskTransactionsApi.md) | [**upsertTransaction**](doc/TaskTransactionsApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**assignRole**](doc/TasksApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 [*TasksApi*](doc/TasksApi.md) | [**createInvitation**](doc/TasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*TasksApi*](doc/TasksApi.md) | [**deleteNote**](doc/TasksApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**deleteStatus**](doc/TasksApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**deleteTask**](doc/TasksApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
+[*TasksApi*](doc/TasksApi.md) | [**deleteTransaction**](doc/TasksApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**duplicateTask**](doc/TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**moveTask**](doc/TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
@@ -124,6 +127,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**upsertNote**](doc/TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertStatus**](doc/TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertTask**](doc/TasksApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
+[*TasksApi*](doc/TasksApi.md) | [**upsertTransaction**](doc/TasksApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 [*TransferApi*](doc/TransferApi.md) | [**createFromTemplate**](doc/TransferApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
 [*TransferApi*](doc/TransferApi.md) | [**destinationsForMove**](doc/TransferApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
 [*TransferApi*](doc/TransferApi.md) | [**projectTemplates**](doc/TransferApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
@@ -137,6 +141,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteSource**](doc/WorkspacesApi.md#deletesource) | **DELETE** /v1/workspaces/{ws_id}/sources/{source_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteStatus**](doc/WorkspacesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteTask**](doc/WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteTransaction**](doc/WorkspacesApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**destinationsForMove**](doc/WorkspacesApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**duplicateTask**](doc/WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getInvitations**](doc/WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
@@ -162,6 +167,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertSource**](doc/WorkspacesApi.md#upsertsource) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertStatus**](doc/WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertTask**](doc/WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertTransaction**](doc/WorkspacesApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
 ## Documentation For Models
@@ -219,6 +225,8 @@ Class | Method | HTTP request | Description
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)
+ - [TaskTransactionGet](doc/TaskTransactionGet.md)
+ - [TaskTransactionUpsert](doc/TaskTransactionUpsert.md)
  - [TaskUpsert](doc/TaskUpsert.md)
  - [TasksChanges](doc/TasksChanges.md)
  - [UActivityGet](doc/UActivityGet.md)

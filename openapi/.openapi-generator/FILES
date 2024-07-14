@@ -75,6 +75,9 @@ doc/TaskRemote.md
 doc/TaskRolesApi.md
 doc/TaskSource.md
 doc/TaskSourceGet.md
+doc/TaskTransactionGet.md
+doc/TaskTransactionUpsert.md
+doc/TaskTransactionsApi.md
 doc/TaskUpsert.md
 doc/TasksApi.md
 doc/TasksChanges.md
@@ -108,6 +111,7 @@ lib/src/api/tariffs_api.dart
 lib/src/api/task_invitations_api.dart
 lib/src/api/task_notes_api.dart
 lib/src/api/task_roles_api.dart
+lib/src/api/task_transactions_api.dart
 lib/src/api/tasks_api.dart
 lib/src/api/transfer_api.dart
 lib/src/api/workspaces_api.dart
@@ -172,6 +176,8 @@ lib/src/model/task_node.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
+lib/src/model/task_transaction_get.dart
+lib/src/model/task_transaction_upsert.dart
 lib/src/model/task_upsert.dart
 lib/src/model/tasks_changes.dart
 lib/src/model/u_activity_get.dart
@@ -255,6 +261,9 @@ test/task_remote_test.dart
 test/task_roles_api_test.dart
 test/task_source_get_test.dart
 test/task_source_test.dart
+test/task_transaction_get_test.dart
+test/task_transaction_upsert_test.dart
+test/task_transactions_api_test.dart
 test/task_upsert_test.dart
 test/tasks_api_test.dart
 test/tasks_changes_test.dart

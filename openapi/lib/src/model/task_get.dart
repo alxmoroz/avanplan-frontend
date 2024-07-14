@@ -8,6 +8,7 @@ import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/task_transaction_get.dart';
 import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/note_get.dart';
 import 'package:built_value/built_value.dart';
@@ -50,9 +51,11 @@ part 'task_get.g.dart';
 /// * [attachments] 
 /// * [projectStatuses] 
 /// * [projectModules] 
+/// * [transactions] 
 /// * [notesCount] 
 /// * [attachmentsCount] 
 /// * [subtasksCount] 
+/// * [balance] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -151,6 +154,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'project_modules')
   BuiltList<ProjectModuleGet>? get projectModules;
 
+  @BuiltValueField(wireName: r'transactions')
+  BuiltList<TaskTransactionGet>? get transactions;
+
   @BuiltValueField(wireName: r'notes_count')
   int? get notesCount;
 
@@ -159,6 +165,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'subtasks_count')
   int? get subtasksCount;
+
+  @BuiltValueField(wireName: r'balance')
+  num? get balance;
 
   TaskGet._();
 
@@ -401,6 +410,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
       );
     }
+    if (object.transactions != null) {
+      yield r'transactions';
+      yield serializers.serialize(
+        object.transactions,
+        specifiedType: const FullType(BuiltList, [FullType(TaskTransactionGet)]),
+      );
+    }
     if (object.notesCount != null) {
       yield r'notes_count';
       yield serializers.serialize(
@@ -420,6 +436,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.subtasksCount,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.balance != null) {
+      yield r'balance';
+      yield serializers.serialize(
+        object.balance,
+        specifiedType: const FullType(num),
       );
     }
   }
@@ -669,6 +692,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<ProjectModuleGet>;
           result.projectModules.replace(valueDes);
           break;
+        case r'transactions':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TaskTransactionGet)]),
+          ) as BuiltList<TaskTransactionGet>;
+          result.transactions.replace(valueDes);
+          break;
         case r'notes_count':
           final valueDes = serializers.deserialize(
             value,
@@ -689,6 +719,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.subtasksCount = valueDes;
+          break;
+        case r'balance':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.balance = valueDes;
           break;
         default:
           unhandled.add(key);

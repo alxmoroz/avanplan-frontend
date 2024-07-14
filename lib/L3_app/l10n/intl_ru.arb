@@ -401,6 +401,10 @@
   "tariff_option_file_storage_title": "Хранилище файлов",
   "tariff_option_file_storage_suffix": "файлов",
 
+  "tariff_option_finance_title": "Финансы",
+  "tariff_option_finance_subtitle": "Учёт доходов и расходов",
+  "tariff_option_finance_description": "Учёт доходов и расходов\nКонтроль баланса в проектах и целях\nАнализ по категориям",
+
   "tariff_option_goals_title": "Цели",
   "tariff_option_goals_subtitle": "Задачи добавляются к целям",
 

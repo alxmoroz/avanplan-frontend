@@ -29,6 +29,7 @@ import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/task_invitations_api.dart';
 import 'package:openapi/src/api/task_notes_api.dart';
 import 'package:openapi/src/api/task_roles_api.dart';
+import 'package:openapi/src/api/task_transactions_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 import 'package:openapi/src/api/transfer_api.dart';
 import 'package:openapi/src/api/workspaces_api.dart';
@@ -205,6 +206,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   TaskRolesApi getTaskRolesApi() {
     return TaskRolesApi(dio, serializers);
+  }
+
+  /// Get TaskTransactionsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TaskTransactionsApi getTaskTransactionsApi() {
+    return TaskTransactionsApi(dio, serializers);
   }
 
   /// Get TasksApi instance, base route and serializer can be overridden by a given but be careful,

@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities/task_transaction.dart';
+
 import '../entities_extensions/task_stats.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
@@ -84,6 +86,7 @@ class Task extends Project {
     required this.parentId,
     required this.notes,
     required this.attachments,
+    required this.transactions,
     required this.members,
     required this.projectStatuses,
     required this.projectModules,
@@ -122,10 +125,12 @@ class Task extends Project {
   DateTime? startDate;
   bool closed;
   int? parentId;
-  List<Note> notes;
   List<ProjectStatus> projectStatuses;
 
+  List<Note> notes;
   List<Attachment> attachments;
+  List<TaskTransaction> transactions;
+
   Iterable<WSMember> members;
   Iterable<ProjectModule> projectModules;
   TaskSource? taskSource;

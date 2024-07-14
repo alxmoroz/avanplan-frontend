@@ -515,6 +515,8 @@
   "tomorrow_title": "Tomorrow",
   "total_title": "Total",
 
+  "transaction_count": "{count, plural, one{{count} transaction} other{{count} transactions}}",
+
   "validation_empty_text": "Should not be empty",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",

@@ -23,16 +23,17 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/attachment_list_dialog.dart';
 import '../notes/notes.dart';
 import '../project_modules/project_modules.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
+import 'attachments_field.dart';
 import 'description_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
 import 'start_date_field.dart';
 import 'task_status_field.dart';
+import 'transactions_field.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails(this._controller, {super.key, this.standalone = false, this.compact = false});
@@ -88,23 +89,11 @@ class TaskDetails extends StatelessWidget {
           if (_task.hmAnalytics && (!_task.closed || _task.hasEstimate))
             TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
+          /// Финансы
+          if (_task.isTask && !_isTaskDialog(context) && _task.hmFinance) TaskTransactionsField(_controller, hasMargin: _hasMargins(context)),
+
           /// Вложения
-          if (!_isTaskDialog(context) && _task.attachments.isNotEmpty)
-            MTField(
-              _controller.fData(TaskFCode.attachment.index),
-              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
-              leading: const AttachmentIcon(),
-              value: Row(children: [
-                Flexible(child: BaseText(_controller.attachmentsController.attachmentsStr, maxLines: 1)),
-                if (_controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
-                  BaseText.f2(
-                    _controller.attachmentsController.attachmentsCountMoreStr,
-                    maxLines: 1,
-                    padding: const EdgeInsets.only(left: P),
-                  )
-              ]),
-              onTap: () => attachmentsDialog(_controller.attachmentsController),
-            ),
+          if (!_isTaskDialog(context) && _task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: _hasMargins(context)),
 
           /// FeatureSets
           if (_task.canShowProjectModules)

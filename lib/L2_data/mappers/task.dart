@@ -33,6 +33,7 @@ extension TaskMapper on api.TaskGet {
       notes: notes?.map((n) => n.note(wsId)).toList() ?? [],
       attachments: attachments?.map((a) => a.attachment(wsId)).toList() ?? [],
       transactions: transactions?.map((tr) => tr.transaction(wsId)).toList() ?? [],
+      balance: balance ?? 0,
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.wsMember(wsId)) ?? [],

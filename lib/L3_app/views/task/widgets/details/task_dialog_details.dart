@@ -7,15 +7,12 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/field.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/attachment_list_dialog.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
+import 'attachments_field.dart';
 import 'description_field.dart';
 import 'task_status_field.dart';
 
@@ -50,22 +47,7 @@ class TaskDialogDetails extends StatelessWidget {
           ],
 
           /// Вложения
-          if (_task.attachments.isNotEmpty)
-            MTField(
-              _controller.fData(TaskFCode.attachment.index),
-              margin: const EdgeInsets.only(top: P3),
-              leading: const AttachmentIcon(),
-              value: Row(children: [
-                Flexible(child: BaseText(_controller.attachmentsController.attachmentsStr, maxLines: 1)),
-                if (_controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
-                  BaseText.f2(
-                    _controller.attachmentsController.attachmentsCountMoreStr,
-                    maxLines: 1,
-                    padding: const EdgeInsets.only(left: P),
-                  )
-              ]),
-              onTap: () => attachmentsDialog(_controller.attachmentsController),
-            ),
+          if (_task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: true),
 
           if (_controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),
         ],

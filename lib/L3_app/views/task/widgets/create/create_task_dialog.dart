@@ -36,6 +36,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
       notes: [],
       attachments: [],
       transactions: [],
+      balance: 0,
       projectStatuses: [],
       projectModules: [],
       wsId: ws.id!,

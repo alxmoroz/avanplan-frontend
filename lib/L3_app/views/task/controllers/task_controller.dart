@@ -26,10 +26,11 @@ import 'notes_controller.dart';
 import 'project_modules_controller.dart';
 import 'project_statuses_controller.dart';
 import 'subtasks_controller.dart';
+import 'task_transactions_controller.dart';
 
 part 'task_controller.g.dart';
 
-enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estimate, author, projectModules, note, attachment }
+enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estimate, author, projectModules, note, attachment, finance }
 
 enum TasksFilter { my, projects }
 
@@ -46,6 +47,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
+    transactionsController = TaskTransactionsController(this);
     subtasksController = SubtasksController(this);
     projectModulesController = ProjectModulesController(this);
     projectStatusesController = ProjectStatusesController(this);
@@ -74,6 +76,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
             notes: [],
             attachments: [],
             transactions: [],
+            balance: 0,
             members: [],
             projectStatuses: [],
             projectModules: [],
@@ -98,11 +101,13 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.projectModules.index, label: loc.project_modules_label),
         MTFieldData(TaskFCode.note.index),
         MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
+        MTFieldData(TaskFCode.finance.index, label: loc.tariff_option_finance_title, placeholder: loc.tariff_option_finance_title),
       ]);
 
   void reloadContentControllers() {
     attachmentsController.reload();
     notesController.reload();
+    transactionsController.reload();
     subtasksController.reload();
     projectModulesController.reload();
     projectStatusesController.reload();
@@ -156,6 +161,7 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
 
   late final AttachmentsController attachmentsController;
   late final NotesController notesController;
+  late final TaskTransactionsController transactionsController;
   late final SubtasksController subtasksController;
   late final ProjectModulesController projectModulesController;
   late final ProjectStatusesController projectStatusesController;

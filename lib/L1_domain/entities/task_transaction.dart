@@ -2,7 +2,7 @@
 
 import 'base_entity.dart';
 
-class TaskTransaction extends WSBounded {
+class TaskTransaction extends WSBounded implements Comparable {
   TaskTransaction({
     super.id,
     required super.wsId,
@@ -20,4 +20,7 @@ class TaskTransaction extends WSBounded {
   final String description;
 
   final int? authorId;
+
+  @override
+  int compareTo(other) => createdOn!.compareTo(other.createdOn!);
 }

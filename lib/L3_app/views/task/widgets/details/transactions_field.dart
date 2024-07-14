@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/price.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/number.dart';
 import '../../controllers/task_controller.dart';
 import '../../controllers/task_transactions_controller.dart';
 import '../finance/transactions_dialog.dart';
@@ -32,7 +32,7 @@ class TaskTransactionsField extends StatelessWidget {
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       leading: const FinanceIcon(),
       value: _trCount > 0 ? BaseText(loc.transaction_count(_trCount), maxLines: 1) : null,
-      trailing: MTPrice(_task.balance, size: AdaptiveSize.s),
+      trailing: D3.medium('${_task.balance.currency}₽', color: _task.balance >= 0 ? greenColor : dangerColor),
       compact: compact,
       onTap: () => transactionsDialog(_trController),
     );

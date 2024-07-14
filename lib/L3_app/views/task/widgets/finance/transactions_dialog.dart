@@ -5,9 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task_transaction.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
@@ -41,10 +43,13 @@ class _TransactionsDialog extends StatelessWidget {
             itemBuilder: (_, index) {
               final tr = _controller.sortedTransactions[index];
               return MTListTile(
-                // leading: MimeTypeIcon(a.type),
                 titleText: tr.description,
                 subtitle: SmallText(tr.category, maxLines: 1),
-                trailing: D3('${tr.amount.currencySharp}₽'),
+                trailing: Row(children: [
+                  D3('${tr.amount.currencySharp}₽', color: tr.amount > 0 ? greenColor : dangerColor),
+                  const SizedBox(width: P),
+                  const ChevronIcon(),
+                ]),
                 // dividerIndent: P6 + P5,
                 bottomDivider: index < _controller.sortedTransactions.length - 1,
                 onTap: () => _editTransaction(tr: tr),
@@ -56,7 +61,7 @@ class _TransactionsDialog extends StatelessWidget {
           isBottom: true,
           color: b2Color,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
-          middle: MTButton.main(titleText: '+', onTap: () => _editTransaction()),
+          middle: MTButton.main(titleText: '+', onTap: _editTransaction),
         ),
       ),
     );

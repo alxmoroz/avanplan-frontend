@@ -51,7 +51,7 @@ extension SourcePresenter on Source {
               color: connected
                   ? Colors.green
                   : error
-                      ? warningColor
+                      ? dangerColor
                       : f2Color,
               size: _connectionIndicatorSize),
       dividerIndent: (iconSize ?? P6) + P5,

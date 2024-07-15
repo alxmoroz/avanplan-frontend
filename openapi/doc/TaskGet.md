@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **openedVolume** | **num** |  | [optional] 
 **closedVolume** | **num** |  | [optional] 
 **closedSubtasksCount** | **int** |  | [optional] 
+**balance** | **num** |  | [optional] [default to 0]
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
@@ -44,7 +45,6 @@ Name | Type | Description | Notes
 **notesCount** | **int** |  | [optional] 
 **attachmentsCount** | **int** |  | [optional] 
 **subtasksCount** | **int** |  | [optional] 
-**balance** | **num** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -45,6 +45,7 @@ part 'task_get.g.dart';
 /// * [openedVolume] 
 /// * [closedVolume] 
 /// * [closedSubtasksCount] 
+/// * [balance] 
 /// * [taskSource] 
 /// * [members] 
 /// * [notes] 
@@ -55,7 +56,6 @@ part 'task_get.g.dart';
 /// * [notesCount] 
 /// * [attachmentsCount] 
 /// * [subtasksCount] 
-/// * [balance] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -136,6 +136,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'closed_subtasks_count')
   int? get closedSubtasksCount;
 
+  @BuiltValueField(wireName: r'balance')
+  num? get balance;
+
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
 
@@ -166,9 +169,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'subtasks_count')
   int? get subtasksCount;
 
-  @BuiltValueField(wireName: r'balance')
-  num? get balance;
-
   TaskGet._();
 
   factory TaskGet([void updates(TaskGetBuilder b)]) = _$TaskGet;
@@ -176,7 +176,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskGetBuilder b) => b
       ..type = 'TASK'
-      ..closed = false;
+      ..closed = false
+      ..balance = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();
@@ -368,6 +369,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
+    if (object.balance != null) {
+      yield r'balance';
+      yield serializers.serialize(
+        object.balance,
+        specifiedType: const FullType(num),
+      );
+    }
     if (object.taskSource != null) {
       yield r'task_source';
       yield serializers.serialize(
@@ -436,13 +444,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.subtasksCount,
         specifiedType: const FullType(int),
-      );
-    }
-    if (object.balance != null) {
-      yield r'balance';
-      yield serializers.serialize(
-        object.balance,
-        specifiedType: const FullType(num),
       );
     }
   }
@@ -650,6 +651,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.closedSubtasksCount = valueDes;
           break;
+        case r'balance':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.balance = valueDes;
+          break;
         case r'task_source':
           final valueDes = serializers.deserialize(
             value,
@@ -719,13 +727,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.subtasksCount = valueDes;
-          break;
-        case r'balance':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.balance = valueDes;
           break;
         default:
           unhandled.add(key);

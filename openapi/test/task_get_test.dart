@@ -137,6 +137,11 @@ void main() {
       // TODO
     });
 
+    // num balance (default value: 0)
+    test('to test the property `balance`', () async {
+      // TODO
+    });
+
     // TaskSourceGet taskSource
     test('to test the property `taskSource`', () async {
       // TODO
@@ -184,11 +189,6 @@ void main() {
 
     // int subtasksCount
     test('to test the property `subtasksCount`', () async {
-      // TODO
-    });
-
-    // num balance
-    test('to test the property `balance`', () async {
       // TODO
     });
   });

@@ -31,7 +31,7 @@ class TaskTransactionsField extends StatelessWidget {
       _controller.fData(TaskFCode.finance.index),
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       leading: const FinanceIcon(),
-      value: _trCount > 0 ? BaseText(loc.transaction_count(_trCount), maxLines: 1) : null,
+      value: _trCount > 0 ? BaseText(loc.transactions_count(_trCount), maxLines: 1) : null,
       trailing: D3.medium('${_task.balance.currency}₽', color: _task.balance >= 0 ? greenColor : dangerColor),
       compact: compact,
       onTap: () => transactionsDialog(_trController),

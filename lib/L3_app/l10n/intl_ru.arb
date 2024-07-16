@@ -515,7 +515,9 @@
   "tomorrow_title": "Завтра",
   "total_title": "Итого",
 
-  "transaction_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
+  "transactions_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
+  "transactions_expense_title": "расход",
+  "transactions_income_title": "доход",
 
   "validation_empty_text": "Нужно заполнить",
 

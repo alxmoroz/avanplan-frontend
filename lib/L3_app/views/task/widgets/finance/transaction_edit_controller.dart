@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
@@ -34,7 +33,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
 
   void setupFields() {
     initState(fds: [
-      MTFieldData(TransactionFCode.amount.index, text: taskTransaction.amount.abs().currency, validate: true),
+      MTFieldData(TransactionFCode.amount.index, text: taskTransaction.amount.abs().currencySharp, validate: true),
       MTFieldData(TransactionFCode.description.index, label: loc.transactions_description_title, text: taskTransaction.description),
       MTFieldData(TransactionFCode.category.index, label: loc.transactions_category_title, text: taskTransaction.category),
     ]);

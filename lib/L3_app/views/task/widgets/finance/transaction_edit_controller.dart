@@ -1,20 +1,22 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_transaction.dart';
 import '../../../../components/field_data.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/number.dart';
 import '../../../_base/edit_controller.dart';
 import '../../../_base/loadable.dart';
 
 part 'transaction_edit_controller.g.dart';
 
-enum TransactionFCode { description, category, amount }
+enum TransactionFCode { amount, description, category }
 
 class TransactionEditController extends _Base with _$TransactionEditController {
-  TransactionEditController(Task task, {TaskTransaction? transaction}) {
+  TransactionEditController(Task task, {TaskTransaction? transaction, String? trSign}) {
     taskTransaction = transaction ??
         TaskTransaction(
           wsId: task.wsId,
@@ -23,23 +25,25 @@ class TransactionEditController extends _Base with _$TransactionEditController {
           category: '',
           description: '',
         );
+
+    sign = trSign ?? (taskTransaction.amount < 0 ? '-' : '');
+
     setupFields();
     stopLoading();
-
-    print('loc.transaction_description');
-    print('loc.transaction_category');
-    print('loc.transaction_amount');
   }
 
-  void setupFields() => initState(fds: [
-        MTFieldData(TransactionFCode.description.index, label: 'loc.transaction_description', text: taskTransaction.description),
-        MTFieldData(TransactionFCode.category.index, label: "loc.transaction_category", text: taskTransaction.category),
-        MTFieldData(TransactionFCode.amount.index, label: 'loc.transaction_amount', text: taskTransaction.amount.toString(), validate: true),
-      ]);
+  void setupFields() {
+    initState(fds: [
+      MTFieldData(TransactionFCode.amount.index, text: taskTransaction.amount.abs().currency, validate: true),
+      MTFieldData(TransactionFCode.description.index, label: loc.transactions_description_title, text: taskTransaction.description),
+      MTFieldData(TransactionFCode.category.index, label: loc.transactions_category_title, text: taskTransaction.category),
+    ]);
+  }
 }
 
 abstract class _Base extends EditController with Store, Loadable {
   late TaskTransaction taskTransaction;
+  late String sign;
 
   Future _editWrapper(Function() function) async {
     taskTransaction.loading = true;
@@ -57,12 +61,13 @@ abstract class _Base extends EditController with Store, Loadable {
     await _editWrapper(() async {
       final changes = await taskTransactionUC.save(
         TaskTransaction(
-            id: taskTransaction.id,
-            wsId: taskTransaction.wsId,
-            taskId: taskTransaction.taskId,
-            description: fData(TransactionFCode.description.index).text,
-            category: fData(TransactionFCode.category.index).text,
-            amount: num.tryParse(fData(TransactionFCode.amount.index).text) ?? 0),
+          id: taskTransaction.id,
+          wsId: taskTransaction.wsId,
+          taskId: taskTransaction.taskId,
+          amount: num.tryParse('$sign${fData(TransactionFCode.amount.index).text}') ?? 0,
+          description: fData(TransactionFCode.description.index).text,
+          category: fData(TransactionFCode.category.index).text,
+        ),
       );
 
       if (changes != null) {

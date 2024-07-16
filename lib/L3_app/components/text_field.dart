@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'colors.dart';
 import 'colors_base.dart';
@@ -16,6 +17,7 @@ InputDecoration tfDecoration(
   Widget? prefixIcon,
   Widget? suffixIcon,
   EdgeInsets? padding,
+  TextStyle? hintStyle,
   bool readOnly = false,
 }) {
   final bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
@@ -28,7 +30,7 @@ InputDecoration tfDecoration(
     labelText: label,
     labelStyle: const BaseText.f2('').style(context),
     hintText: hint,
-    hintStyle: const BaseText.f3('').style(context),
+    hintStyle: hintStyle ?? const BaseText.f3('').style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
@@ -77,8 +79,11 @@ class MTTextField extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.style,
+    this.hintStyle,
+    this.textAlign,
     this.decoration,
     this.focusNode,
+    this.inputFormatters,
   });
 
   const MTTextField.noText({
@@ -95,6 +100,7 @@ class MTTextField extends StatelessWidget {
     this.onTap,
     this.decoration,
     this.maxLines = 1,
+    this.textAlign,
     this.focusNode,
   })  : autofocus = false,
         obscureText = false,
@@ -105,6 +111,8 @@ class MTTextField extends StatelessWidget {
         onChanged = null,
         onSubmitted = null,
         style = null,
+        inputFormatters = null,
+        hintStyle = null,
         readOnly = true;
 
   final TextEditingController? controller;
@@ -126,10 +134,13 @@ class MTTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final InputDecoration? decoration;
   final TextStyle? style;
+  final TextStyle? hintStyle;
   final VoidCallback? onTap;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final FocusNode? focusNode;
+  final TextAlign? textAlign;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -154,6 +165,7 @@ class MTTextField extends StatelessWidget {
                 suffixIcon: suffixIcon,
                 readOnly: readOnly,
                 padding: padding,
+                hintStyle: hintStyle,
               ),
           cursorColor: mainColor.resolve(context),
           autofocus: autofocus,
@@ -170,6 +182,8 @@ class MTTextField extends StatelessWidget {
           onChanged: onChanged,
           onSubmitted: onSubmitted,
           focusNode: focusNode,
+          textAlign: textAlign ?? TextAlign.start,
+          inputFormatters: inputFormatters,
         ),
       ),
     );

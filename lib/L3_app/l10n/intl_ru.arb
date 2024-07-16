@@ -516,6 +516,8 @@
   "total_title": "Итого",
 
   "transactions_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
+  "transactions_category_title": "Категория",
+  "transactions_description_title": "Описание",
   "transactions_expense_title": "расход",
   "transactions_income_title": "доход",
 

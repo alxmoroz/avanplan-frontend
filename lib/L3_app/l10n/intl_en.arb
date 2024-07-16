@@ -516,6 +516,8 @@
   "total_title": "Total",
 
   "transactions_count": "{count, plural, one{{count} transaction} other{{count} transactions}}",
+  "transactions_category_title": "Category",
+  "transactions_description_title": "Description",
   "transactions_expense_title": "expense",
   "transactions_income_title": "income",
 

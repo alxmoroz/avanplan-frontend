@@ -87,7 +87,8 @@ class Task extends Project {
     required this.notes,
     required this.attachments,
     required this.transactions,
-    required this.balance,
+    required this.income,
+    required this.expenses,
     required this.members,
     required this.projectStatuses,
     required this.projectModules,
@@ -131,7 +132,9 @@ class Task extends Project {
   List<Note> notes;
   List<Attachment> attachments;
   List<TaskTransaction> transactions;
-  final num balance;
+
+  final num income;
+  final num expenses;
 
   Iterable<WSMember> members;
   Iterable<ProjectModule> projectModules;

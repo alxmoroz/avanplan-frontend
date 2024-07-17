@@ -3,19 +3,19 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/number.dart';
+import '../../../../presenters/task_finance.dart';
 import '../../controllers/task_controller.dart';
 import '../../controllers/task_transactions_controller.dart';
-import '../finance/transactions_dialog.dart';
+import '../finance/task_finance_dialog.dart';
 
-class TaskTransactionsField extends StatelessWidget {
-  const TaskTransactionsField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
+class FinanceField extends StatelessWidget {
+  const FinanceField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
 
   final TaskController _controller;
   final bool compact;
@@ -31,8 +31,8 @@ class TaskTransactionsField extends StatelessWidget {
       _controller.fData(TaskFCode.finance.index),
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       leading: const FinanceIcon(),
-      value: _trCount > 0 ? BaseText(loc.transactions_count(_trCount), maxLines: 1) : null,
-      trailing: D3.medium('${_task.balance.currency}₽', color: _task.balance >= 0 ? greenColor : dangerColor),
+      value: _trCount > 0 ? BaseText(loc.finance_transactions_count(_trCount), maxLines: 1) : null,
+      trailing: D3('${_task.balance.currencySharp}$ROUBLE_CURRENCY_SYMBOL', color: _task.balanceColor),
       compact: compact,
       onTap: () => transactionsDialog(_trController),
     );

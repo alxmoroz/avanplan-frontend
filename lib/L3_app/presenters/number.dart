@@ -1,8 +1,20 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:intl/intl.dart';
+import 'package:intl/number_symbols.dart';
+import 'package:intl/number_symbols_data.dart';
 
+import '../../L2_data/services/platform.dart';
 import '../extra/services.dart';
+
+const ROUBLE_CURRENCY_SYMBOL = '₽';
+
+class NumberSeparators {
+  final NumberSymbols? _numberFormatSymbols = numberFormatSymbols[languageCode];
+
+  String get decimalSep => RegExp.escape(_numberFormatSymbols?.DECIMAL_SEP ?? ',');
+  String get groupSep => RegExp.escape(_numberFormatSymbols?.GROUP_SEP ?? ' ');
+}
 
 extension NumberFormatterPresenter on num {
   String get percents => '${NumberFormat("#").format(this * 100)}%';

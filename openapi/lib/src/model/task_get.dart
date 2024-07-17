@@ -45,7 +45,8 @@ part 'task_get.g.dart';
 /// * [openedVolume] 
 /// * [closedVolume] 
 /// * [closedSubtasksCount] 
-/// * [balance] 
+/// * [income] 
+/// * [expenses] 
 /// * [taskSource] 
 /// * [members] 
 /// * [notes] 
@@ -136,8 +137,11 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'closed_subtasks_count')
   int? get closedSubtasksCount;
 
-  @BuiltValueField(wireName: r'balance')
-  num? get balance;
+  @BuiltValueField(wireName: r'income')
+  num? get income;
+
+  @BuiltValueField(wireName: r'expenses')
+  num? get expenses;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
@@ -177,7 +181,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   static void _defaults(TaskGetBuilder b) => b
       ..type = 'TASK'
       ..closed = false
-      ..balance = 0;
+      ..income = 0.0
+      ..expenses = 0.0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();
@@ -369,10 +374,17 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.balance != null) {
-      yield r'balance';
+    if (object.income != null) {
+      yield r'income';
       yield serializers.serialize(
-        object.balance,
+        object.income,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.expenses != null) {
+      yield r'expenses';
+      yield serializers.serialize(
+        object.expenses,
         specifiedType: const FullType(num),
       );
     }
@@ -651,12 +663,19 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.closedSubtasksCount = valueDes;
           break;
-        case r'balance':
+        case r'income':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(num),
           ) as num;
-          result.balance = valueDes;
+          result.income = valueDes;
+          break;
+        case r'expenses':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.expenses = valueDes;
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

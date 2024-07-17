@@ -35,7 +35,7 @@ extension WSActionsUC on Workspace {
       final hasSelectPay = await replenishBalanceDialog(
         WSController(wsIn: this),
         reason: loc.error_insufficient_funds_for_operation(
-          '${lack.ceil().currency}₽',
+          '${lack.ceil().currency}$ROUBLE_CURRENCY_SYMBOL',
           operation.toLowerCase(),
         ),
       );

@@ -141,6 +141,16 @@
   "file_source_files_title": "Выбрать из файлов",
   "file_source_gallery_title": "Выбрать из галереи",
 
+  "finance_loss_title": "Убыток",
+  "finance_profit_title": "Прибыль",
+  "finance_transactions_empty_group_title": "Добавьте доходы и расходы в задачах",
+  "finance_transactions_empty_task_title": "Добавьте доходы и расходы",
+  "finance_transactions_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
+  "finance_transactions_category_title": "Категория",
+  "finance_transactions_description_title": "Описание",
+  "finance_transactions_expense_title": "расход",
+  "finance_transactions_income_title": "доход",
+
   "for_": "за",
   "for_dative": "по",
 
@@ -514,12 +524,6 @@
   "today_title": "Сегодня",
   "tomorrow_title": "Завтра",
   "total_title": "Итого",
-
-  "transactions_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
-  "transactions_category_title": "Категория",
-  "transactions_description_title": "Описание",
-  "transactions_expense_title": "расход",
-  "transactions_income_title": "доход",
 
   "validation_empty_text": "Нужно заполнить",
 

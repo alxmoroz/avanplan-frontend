@@ -137,8 +137,13 @@ void main() {
       // TODO
     });
 
-    // num balance (default value: 0)
-    test('to test the property `balance`', () async {
+    // num income (default value: 0.0)
+    test('to test the property `income`', () async {
+      // TODO
+    });
+
+    // num expenses (default value: 0.0)
+    test('to test the property `expenses`', () async {
       // TODO
     });
 

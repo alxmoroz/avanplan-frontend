@@ -10,11 +10,11 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_transactions_controller.dart';
+import 'finance_summary_card.dart';
 import 'transaction_edit_dialog.dart';
 import 'transaction_tile.dart';
 
@@ -24,8 +24,8 @@ class _TransactionsDialog extends StatelessWidget {
   const _TransactionsDialog(this._controller);
   final TaskTransactionsController _controller;
 
-  Future _editTransaction({TaskTransaction? tr}) async {
-    await transactionEditDialog(_controller.task, transaction: tr);
+  Future _editTransaction({TaskTransaction? tr, num? trSign}) async {
+    await transactionEditDialog(_controller.task, transaction: tr, trSign: trSign);
     _controller.reload();
   }
 
@@ -34,20 +34,25 @@ class _TransactionsDialog extends StatelessWidget {
     return Observer(
       builder: (_) => MTDialog(
         topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _controller.task.subPageTitle(loc.tariff_option_finance_title)),
-        body: MTShadowed(
-          topPaddingIndent: 0,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: _controller.sortedTransactions.length,
-            itemBuilder: (_, index) {
-              final tr = _controller.sortedTransactions[index];
-              return TaskTransactionTile(
-                tr,
-                bottomDivider: index < _controller.sortedTransactions.length - 1,
-                onTap: () => _editTransaction(tr: tr),
-              );
-            },
-          ),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            FinanceSummaryCard(_controller.task),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _controller.sortedTransactions.length,
+              itemBuilder: (_, index) {
+                final tr = _controller.sortedTransactions[index];
+                return TaskTransactionTile(
+                  tr,
+                  bottomDivider: index < _controller.sortedTransactions.length - 1,
+                  onTap: () => _editTransaction(tr: tr),
+                );
+              },
+            ),
+            const SizedBox(height: P3),
+          ],
         ),
         bottomBar: MTAppBar(
           isBottom: true,
@@ -58,20 +63,20 @@ class _TransactionsDialog extends StatelessWidget {
               const SizedBox(width: P3),
               MTButton(
                 leading: const PlusIcon(color: dangerColor),
-                titleText: loc.transactions_expense_title,
+                titleText: loc.finance_transactions_expense_title,
                 type: ButtonType.secondary,
                 titleColor: dangerColor,
                 padding: const EdgeInsets.symmetric(horizontal: P7),
-                onTap: _editTransaction,
+                onTap: () => _editTransaction(trSign: -1),
               ),
               const Spacer(),
               MTButton(
                 leading: const PlusIcon(color: greenColor),
-                titleText: loc.transactions_income_title,
+                titleText: loc.finance_transactions_income_title,
                 type: ButtonType.secondary,
                 titleColor: greenColor,
                 padding: const EdgeInsets.symmetric(horizontal: P7),
-                onTap: _editTransaction,
+                onTap: () => _editTransaction(trSign: 1),
               ),
               const SizedBox(width: P3),
             ],

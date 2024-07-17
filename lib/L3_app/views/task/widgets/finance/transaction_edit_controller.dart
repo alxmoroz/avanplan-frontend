@@ -15,7 +15,7 @@ part 'transaction_edit_controller.g.dart';
 enum TransactionFCode { amount, description, category }
 
 class TransactionEditController extends _Base with _$TransactionEditController {
-  TransactionEditController(Task task, {TaskTransaction? transaction, String? trSign}) {
+  TransactionEditController(Task task, {TaskTransaction? transaction, num? trSign}) {
     taskTransaction = transaction ??
         TaskTransaction(
           wsId: task.wsId,
@@ -25,7 +25,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
           description: '',
         );
 
-    sign = trSign ?? (taskTransaction.amount < 0 ? '-' : '');
+    sign = trSign ?? taskTransaction.amount.sign;
 
     setupFields();
     stopLoading();
@@ -33,16 +33,27 @@ class TransactionEditController extends _Base with _$TransactionEditController {
 
   void setupFields() {
     initState(fds: [
-      MTFieldData(TransactionFCode.amount.index, text: taskTransaction.amount.abs().currencySharp, validate: true),
-      MTFieldData(TransactionFCode.description.index, label: loc.transactions_description_title, text: taskTransaction.description),
-      MTFieldData(TransactionFCode.category.index, label: loc.transactions_category_title, text: taskTransaction.category),
+      MTFieldData(
+        TransactionFCode.amount.index,
+        text: taskTransaction.amount.abs().currencySharp,
+        validate: true,
+        validator: (text) => valueFromText(text) > 0 ? null : loc.validation_empty_text,
+      ),
+      MTFieldData(TransactionFCode.description.index, label: loc.finance_transactions_description_title, text: taskTransaction.description),
+      MTFieldData(TransactionFCode.category.index, label: loc.finance_transactions_category_title, text: taskTransaction.category),
     ]);
   }
 }
 
 abstract class _Base extends EditController with Store, Loadable {
   late TaskTransaction taskTransaction;
-  late String sign;
+  late num sign;
+
+  num valueFromText(String text) {
+    final seps = NumberSeparators();
+    final numString = text.replaceAll(seps.groupSep, '').replaceAll(seps.decimalSep, '.');
+    return num.tryParse(numString) ?? 0;
+  }
 
   Future _editWrapper(Function() function) async {
     taskTransaction.loading = true;
@@ -58,12 +69,13 @@ abstract class _Base extends EditController with Store, Loadable {
     setLoaderScreenSaving();
 
     await _editWrapper(() async {
+      final amount = sign * valueFromText(fData(TransactionFCode.amount.index).text);
       final changes = await taskTransactionUC.save(
         TaskTransaction(
           id: taskTransaction.id,
           wsId: taskTransaction.wsId,
           taskId: taskTransaction.taskId,
-          amount: num.tryParse('$sign${fData(TransactionFCode.amount.index).text}') ?? 0,
+          amount: amount,
           description: fData(TransactionFCode.description.index).text,
           category: fData(TransactionFCode.category.index).text,
         ),

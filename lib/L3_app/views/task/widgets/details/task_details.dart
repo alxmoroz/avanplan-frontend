@@ -31,9 +31,9 @@ import 'attachments_field.dart';
 import 'description_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
+import 'finance_field.dart';
 import 'start_date_field.dart';
 import 'task_status_field.dart';
-import 'transactions_field.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails(this._controller, {super.key, this.standalone = false, this.compact = false});
@@ -90,7 +90,7 @@ class TaskDetails extends StatelessWidget {
             TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
 
           /// Финансы
-          if (_task.isTask && !_isTaskDialog(context) && _task.hmFinance) TaskTransactionsField(_controller, hasMargin: _hasMargins(context)),
+          if (_task.isTask && !_isTaskDialog(context) && _task.hmFinance) FinanceField(_controller, hasMargin: _hasMargins(context)),
 
           /// Вложения
           if (!_isTaskDialog(context) && _task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: _hasMargins(context)),

@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:intl/number_symbols_data.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_transaction.dart';
-import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -20,8 +18,8 @@ import '../../../../presenters/number.dart';
 import '../../../../views/_base/loader_screen.dart';
 import 'transaction_edit_controller.dart';
 
-Future transactionEditDialog(Task task, {TaskTransaction? transaction}) async {
-  final controller = TransactionEditController(task, transaction: transaction);
+Future transactionEditDialog(Task task, {TaskTransaction? transaction, num? trSign}) async {
+  final controller = TransactionEditController(task, transaction: transaction, trSign: trSign);
   await showMTDialog<void>(_TransactionEditDialog(controller));
 }
 
@@ -43,8 +41,9 @@ class _TransactionEditDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final decimalSep = RegExp.escape(numberFormatSymbols[languageCode]?.DECIMAL_SEP ?? '.');
-    final groupSep = RegExp.escape(numberFormatSymbols[languageCode]?.GROUP_SEP ?? '.');
+    final seps = NumberSeparators();
+    final groupSep = seps.groupSep;
+    final decimalSep = seps.decimalSep;
 
     return Observer(
       builder: (_) => _controller.loading
@@ -77,11 +76,10 @@ class _TransactionEditDialog extends StatelessWidget {
                       }),
                       TextInputFormatter.withFunction((oldValue, newValue) {
                         if (newValue.text.isNotEmpty) {
-                          final numString = newValue.text.replaceAll(groupSep, '').replaceAll(decimalSep, '.');
-                          final value = num.tryParse(numString) ?? 0;
-                          String formattedValue = value.currency;
-                          if (newValue.text.contains(decimalSep)) {
-                            formattedValue += decimalSep + newValue.text.split(',').last;
+                          String formattedValue = _controller.valueFromText(newValue.text).currencySharp;
+                          final formattedIsFloat = formattedValue.lastIndexOf(decimalSep) > -1;
+                          if (newValue.text.contains(decimalSep) && !formattedIsFloat) {
+                            formattedValue += decimalSep + newValue.text.split(decimalSep).last;
                           }
                           final selectionOffset = newValue.selection.baseOffset + (formattedValue.length - newValue.text.length);
                           newValue = newValue.copyWith(

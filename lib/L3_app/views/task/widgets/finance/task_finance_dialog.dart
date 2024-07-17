@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task_transaction.dart';
 import '../../../../components/button.dart';
@@ -10,8 +11,10 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/date.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_transactions_controller.dart';
 import 'finance_summary_card.dart';
@@ -41,17 +44,34 @@ class _TransactionsDialog extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _controller.sortedTransactions.length,
+              itemCount: _controller.sortedTransactionsDates.length,
               itemBuilder: (_, index) {
-                final tr = _controller.sortedTransactions[index];
-                return TaskTransactionTile(
-                  tr,
-                  bottomDivider: index < _controller.sortedTransactions.length - 1,
-                  onTap: () => _editTransaction(tr: tr),
+                final trDate = _controller.sortedTransactionsDates[index];
+                final trG = _controller.transactionsGroups[trDate]!;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SmallText('${trDate.strMedium}, ${DateFormat.EEEE().format(trDate)}', color: f2Color, align: TextAlign.center),
+                    const SizedBox(height: P2),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: trG.length,
+                      itemBuilder: (_, index) {
+                        final tr = trG[index];
+                        return TaskTransactionTile(
+                          tr,
+                          bottomDivider: index < trG.length - 1,
+                          onTap: () => _editTransaction(tr: tr),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: P3),
+                  ],
                 );
               },
             ),
-            const SizedBox(height: P3),
           ],
         ),
         bottomBar: MTAppBar(

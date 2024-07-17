@@ -43,7 +43,7 @@ class _StoreDialog extends StatelessWidget {
     return MTButton.secondary(
       middle: Row(
         children: [
-          D3('+ ${p.value.currency}${hasPrice ? '' : ROUBLE_CURRENCY_SYMBOL}', color: mainColor),
+          D3('+ ${p.value.currency}${hasPrice ? '' : CURRENCY_SYMBOL_ROUBLE}', color: mainColor),
           if (hasPrice) D3(' ${loc.for_} ${p.price}', color: f2Color),
         ],
       ),

@@ -7,7 +7,7 @@ import 'package:intl/number_symbols_data.dart';
 import '../../L2_data/services/platform.dart';
 import '../extra/services.dart';
 
-const ROUBLE_CURRENCY_SYMBOL = '₽';
+const CURRENCY_SYMBOL_ROUBLE = '₽';
 
 class NumberSeparators {
   final NumberSymbols? _numberFormatSymbols = numberFormatSymbols[languageCode];

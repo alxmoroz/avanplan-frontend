@@ -143,13 +143,14 @@
 
   "finance_loss_title": "Loss",
   "finance_profit_title": "Profit",
-  "finance_transactions_empty_group_title": "Please add income and expenses in tasks",
-  "finance_transactions_empty_task_title": "Please add income and expenses",
   "finance_transactions_count": "{count, plural, one{{count} transaction} other{{count} transactions}}",
   "finance_transactions_category_title": "Category",
+  "finance_transactions_delete_dialog_title": "Delete operation?",
   "finance_transactions_description_title": "Description",
-  "finance_transactions_expense_title": "expense",
-  "finance_transactions_income_title": "income",
+  "finance_transactions_empty_group_title": "Please add income and expenses in tasks",
+  "finance_transactions_empty_task_title": "Please add income and expenses",
+  "finance_transactions_expense_title": "Expense",
+  "finance_transactions_income_title": "Income",
 
   "for_": "for",
   "for_dative": "for",

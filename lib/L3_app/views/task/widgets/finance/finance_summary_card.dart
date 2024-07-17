@@ -25,7 +25,7 @@ class FinanceSummaryCard extends StatelessWidget {
             BaseText.f2(task.profitLossTitle),
             if (hasTransactions) ...[
               const SizedBox(height: P2),
-              D2('${task.balance.currencySharp}$ROUBLE_CURRENCY_SYMBOL', color: task.balanceColor),
+              D2('${task.balance.currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: task.balanceColor),
               const SizedBox(height: P2),
             ],
           ],

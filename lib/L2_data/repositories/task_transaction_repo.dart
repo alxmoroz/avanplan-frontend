@@ -15,6 +15,8 @@ class TaskTransactionRepo extends AbstractApiRepo<TasksChanges, TaskTransaction>
   Future<TasksChanges?> save(TaskTransaction data) async {
     final b = o_api.TaskTransactionUpsertBuilder()
       ..id = data.id
+      // костыль для логики копирования при переносе задач
+      ..createdOn = data.createdOn?.toUtc()
       ..taskId = data.taskId
       ..amount = data.amount
       ..category = data.category

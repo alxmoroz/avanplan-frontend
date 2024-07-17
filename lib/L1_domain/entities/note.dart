@@ -3,7 +3,7 @@
 import 'attachment.dart';
 import 'base_entity.dart';
 
-class Note extends WSBounded {
+class Note extends WSBounded implements Comparable {
   Note({
     required super.wsId,
     super.id,
@@ -24,4 +24,7 @@ class Note extends WSBounded {
   String? type;
 
   List<Attachment> attachments = [];
+
+  @override
+  int compareTo(other) => other.createdOn!.compareTo(createdOn!);
 }

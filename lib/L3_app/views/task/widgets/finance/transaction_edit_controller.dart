@@ -12,10 +12,11 @@ import '../../../_base/loadable.dart';
 
 part 'transaction_edit_controller.g.dart';
 
-enum TransactionFCode { amount, description, category }
+enum TransactionFCode { amount, category, description }
 
 class TransactionEditController extends _Base with _$TransactionEditController {
-  TransactionEditController(Task task, {TaskTransaction? transaction, num? trSign}) {
+  TransactionEditController(Task taskIn, {TaskTransaction? transaction, num? trSign}) {
+    task = taskIn;
     taskTransaction = transaction ??
         TaskTransaction(
           wsId: task.wsId,
@@ -46,8 +47,9 @@ class TransactionEditController extends _Base with _$TransactionEditController {
 }
 
 abstract class _Base extends EditController with Store, Loadable {
-  late TaskTransaction taskTransaction;
-  late num sign;
+  late final Task task;
+  late final TaskTransaction taskTransaction;
+  late final num sign;
 
   num valueFromText(String text) {
     final seps = NumberSeparators();
@@ -69,18 +71,11 @@ abstract class _Base extends EditController with Store, Loadable {
     setLoaderScreenSaving();
 
     await _editWrapper(() async {
-      final amount = sign * valueFromText(fData(TransactionFCode.amount.index).text);
-      final changes = await taskTransactionUC.save(
-        TaskTransaction(
-          id: taskTransaction.id,
-          wsId: taskTransaction.wsId,
-          taskId: taskTransaction.taskId,
-          amount: amount,
-          description: fData(TransactionFCode.description.index).text,
-          category: fData(TransactionFCode.category.index).text,
-        ),
-      );
+      taskTransaction.amount = sign * valueFromText(fData(TransactionFCode.amount.index).text);
+      taskTransaction.category = fData(TransactionFCode.category.index).text;
+      taskTransaction.description = fData(TransactionFCode.description.index).text;
 
+      final changes = await taskTransactionUC.save(taskTransaction);
       if (changes != null) {
         tasksMainController.setTasks([changes.updated, ...changes.affected]);
       }

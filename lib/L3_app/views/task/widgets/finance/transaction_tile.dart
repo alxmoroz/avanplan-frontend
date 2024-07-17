@@ -23,7 +23,7 @@ class TaskTransactionTile extends StatelessWidget {
       subtitle: hasDescription && _transaction.category.isNotEmpty ? SmallText(_transaction.category, maxLines: 1) : null,
       trailing: Row(children: [
         const SizedBox(width: P),
-        D3('${_transaction.amount.currencySharp}$ROUBLE_CURRENCY_SYMBOL', color: _transaction.amount > 0 ? greenColor : dangerColor),
+        D3('${_transaction.amount.currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: _transaction.amount > 0 ? greenColor : dangerColor),
       ]),
       bottomDivider: bottomDivider,
       onTap: onTap,

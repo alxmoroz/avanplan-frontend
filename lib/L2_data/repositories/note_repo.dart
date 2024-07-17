@@ -14,6 +14,7 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
   Future<Note?> save(Note data) async {
     final b = o_api.NoteUpsertBuilder()
       ..id = data.id
+      // костыль для логики копирования при переносе задач
       ..createdOn = data.createdOn?.toUtc()
       ..authorId = data.authorId
       ..taskId = data.taskId

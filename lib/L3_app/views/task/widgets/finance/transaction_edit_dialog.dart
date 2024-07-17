@@ -6,15 +6,19 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_transaction.dart';
+import '../../../../components/alert_dialog.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/date.dart';
 import '../../../../presenters/number.dart';
+import '../../../../presenters/task_type.dart';
 import '../../../../views/_base/loader_screen.dart';
 import 'transaction_edit_controller.dart';
 
@@ -36,7 +40,22 @@ class _TransactionEditDialog extends StatelessWidget {
 
   Future _save(BuildContext context) async {
     Navigator.of(context).pop();
-    _controller.save();
+    await _controller.save();
+  }
+
+  Future _delete(BuildContext context) async {
+    if (await showMTAlertDialog(
+          title: loc.finance_transactions_delete_dialog_title,
+          description: loc.delete_dialog_description,
+          actions: [
+            MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
+            MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
+          ],
+        ) ==
+        true) {
+      if (context.mounted) Navigator.of(context).pop();
+      await _controller.delete();
+    }
   }
 
   @override
@@ -49,19 +68,30 @@ class _TransactionEditDialog extends StatelessWidget {
       builder: (_) => _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
-              topBar: const MTAppBar(showCloseButton: true, color: b2Color),
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                middle: _controller.task.subPageTitle(
+                  '${_controller.sign > 0 ? loc.finance_transactions_income_title : loc.finance_transactions_expense_title} ${_controller.taskTransaction.createdOn?.strMedium}',
+                ),
+                trailing: MTButton.icon(const DeleteIcon(), onTap: () => _delete(context), padding: const EdgeInsets.all(P2)),
+              ),
               body: ListView(
                 shrinkWrap: true,
                 children: [
                   MTTextField(
                     controller: _controller.teController(TransactionFCode.amount.index),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.center,
                     style: const D2('').style(context),
                     hint: '0',
                     hintStyle: const D2('', color: f3Color).style(context),
+                    suffixIcon: const D2(CURRENCY_SYMBOL_ROUBLE, color: f3Color),
+                    // для компенсации выравнивания по центру из-за suffixIcon
+                    prefixIcon: const D2(' ', color: f3Color),
                     inputFormatters: [
                       // TODO: можно сделать в одной withFunction или даже вытащить в отдельный класс
+                      LengthLimitingTextInputFormatter(19),
                       FilteringTextInputFormatter.deny(RegExp(groupSep)),
                       FilteringTextInputFormatter.deny(RegExp('^$decimalSep'), replacementString: '0$decimalSep'),
                       FilteringTextInputFormatter.allow(RegExp('^\\d{0,}$decimalSep?\\d{0,2}')),
@@ -92,7 +122,7 @@ class _TransactionEditDialog extends StatelessWidget {
                       }),
                     ],
                   ),
-                  for (final code in [TransactionFCode.description, TransactionFCode.category]) _tf(code),
+                  for (final code in [TransactionFCode.category, TransactionFCode.description]) _tf(code),
                   const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.save_action_title,

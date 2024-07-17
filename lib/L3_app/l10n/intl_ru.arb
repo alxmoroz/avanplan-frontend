@@ -143,13 +143,14 @@
 
   "finance_loss_title": "Убыток",
   "finance_profit_title": "Прибыль",
-  "finance_transactions_empty_group_title": "Добавьте доходы и расходы в задачах",
-  "finance_transactions_empty_task_title": "Добавьте доходы и расходы",
   "finance_transactions_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
   "finance_transactions_category_title": "Категория",
+  "finance_transactions_delete_dialog_title": "Удалить операцию?",
   "finance_transactions_description_title": "Описание",
-  "finance_transactions_expense_title": "расход",
-  "finance_transactions_income_title": "доход",
+  "finance_transactions_empty_group_title": "Добавьте доходы и расходы в задачах",
+  "finance_transactions_empty_task_title": "Добавьте доходы и расходы",
+  "finance_transactions_expense_title": "Расход",
+  "finance_transactions_income_title": "Доход",
 
   "for_": "за",
   "for_dative": "по",

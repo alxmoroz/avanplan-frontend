@@ -7,20 +7,20 @@ class TaskTransaction extends WSBounded implements Comparable {
     super.id,
     required super.wsId,
     required this.taskId,
+    super.createdOn,
+    this.authorId,
     required this.amount,
     required this.category,
     required this.description,
-    this.authorId,
-    super.createdOn,
   });
 
   final int taskId;
-  final num amount;
-  final String category;
-  final String description;
-
   final int? authorId;
 
+  num amount;
+  String category;
+  String description;
+
   @override
-  int compareTo(other) => createdOn!.compareTo(other.createdOn!);
+  int compareTo(other) => other.createdOn!.compareTo(createdOn!);
 }

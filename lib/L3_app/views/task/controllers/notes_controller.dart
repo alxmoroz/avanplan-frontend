@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/note.dart';
 import '../../../../L1_domain/utils/dates.dart';
-import '../../../views/_base/loadable.dart';
 import 'task_controller.dart';
 
 part 'notes_controller.g.dart';
@@ -16,7 +15,7 @@ class NotesController extends _NotesControllerBase with _$NotesController {
   }
 }
 
-abstract class _NotesControllerBase with Store, Loadable {
+abstract class _NotesControllerBase with Store {
   late final TaskController taskController;
 
   /// комменты
@@ -33,7 +32,7 @@ abstract class _NotesControllerBase with Store, Loadable {
   }
 
   @computed
-  List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
+  List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n1.compareTo(n2));
   @computed
   Map<DateTime, List<Note>> get notesGroups => _sortedNotes.groupListsBy((n) => n.createdOn!.date);
   @computed

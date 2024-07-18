@@ -57,12 +57,13 @@ class _FinanceSummaryDialog extends StatelessWidget {
               trailing: D3('${task.expenses.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: dangerColor),
               bottomDivider: false,
             ),
-          MTListTile(
-            middle: BaseText.medium(task.profitLossTitle),
-            trailing: D2('${task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: task.balanceColor),
-            margin: const EdgeInsets.only(top: P3),
-            bottomDivider: false,
-          ),
+          if (task.hasProfitOrLoss)
+            MTListTile(
+              middle: BaseText.medium(task.summaryTitle),
+              trailing: D2('${task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: task.balanceColor),
+              margin: const EdgeInsets.only(top: P3),
+              bottomDivider: false,
+            ),
         ],
       ),
     );

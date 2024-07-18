@@ -10,7 +10,11 @@ import '../presenters/number.dart';
 
 extension TaskFinancePresenter on Task {
   num get balance => income + expenses;
-  bool get hasTransactions => income > 0 || expenses < 0;
+
+  bool get _hasExpenses => expenses < 0;
+  bool get _hasIncome => income > 0;
+  bool get hasTransactions => _hasIncome || _hasExpenses;
+  bool get hasProfitOrLoss => _hasExpenses && _hasIncome;
 
   Color get balanceColor => balance == 0
       ? mainColor
@@ -20,9 +24,13 @@ extension TaskFinancePresenter on Task {
 
   num get _profitLossRatio => expenses != 0 ? (balance / expenses).abs() : 0;
 
-  String get profitLossTitle => !hasTransactions
+  String get _incomeExpensesText => _hasIncome ? loc.finance_transactions_income_title(2) : loc.finance_transactions_expenses_title(2);
+  String get _profitOrLossText => '${balance >= 0 ? loc.finance_profit_title : loc.finance_loss_title} ${_profitLossRatio.percents}';
+  String get summaryTitle => !hasTransactions
       ? isGroup
           ? loc.finance_transactions_empty_group_title
           : loc.finance_transactions_empty_task_title
-      : '${balance >= 0 ? loc.finance_profit_title : loc.finance_loss_title} ${_profitLossRatio.percents}';
+      : hasProfitOrLoss
+          ? _profitOrLossText
+          : _incomeExpensesText;
 }

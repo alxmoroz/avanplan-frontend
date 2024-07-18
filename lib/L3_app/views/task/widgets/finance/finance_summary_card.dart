@@ -25,7 +25,7 @@ class FinanceSummaryCard extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 250),
         child: Column(
           children: [
-            BaseText.f2(task.profitLossTitle),
+            BaseText.f2(task.summaryTitle),
             if (hasTransactions) ...[
               const SizedBox(height: P2),
               D2('${task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: task.balanceColor),

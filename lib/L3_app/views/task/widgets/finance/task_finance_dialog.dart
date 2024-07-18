@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../L1_domain/entities/task_transaction.dart';
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -19,7 +19,6 @@ import '../../../../presenters/date.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_transactions_controller.dart';
 import 'finance_summary_card.dart';
-import 'transaction_edit_dialog.dart';
 import 'transaction_tile.dart';
 
 Future transactionsDialog(TaskTransactionsController controller) async => await showMTDialog<void>(_TransactionsDialog(controller));
@@ -28,21 +27,18 @@ class _TransactionsDialog extends StatelessWidget {
   const _TransactionsDialog(this._controller);
   final TaskTransactionsController _controller;
 
-  Future _editTransaction({TaskTransaction? tr, num? trSign}) async {
-    await transactionEditDialog(_controller.task, transaction: tr, trSign: trSign);
-    _controller.reload();
-  }
+  Task get _task => _controller.task;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _controller.task.subPageTitle(loc.tariff_option_finance_title)),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _task.subPageTitle(loc.tariff_option_finance_title)),
         body: ListView(
           shrinkWrap: true,
           children: [
             const SizedBox(height: P3),
-            MTAdaptive.xxs(child: FinanceSummaryCard(_controller.task)),
+            MTAdaptive.xxs(child: FinanceSummaryCard(_task)),
             const SizedBox(height: P3),
             ListView.builder(
               shrinkWrap: true,
@@ -66,7 +62,7 @@ class _TransactionsDialog extends StatelessWidget {
                         return TaskTransactionTile(
                           tr,
                           bottomDivider: index < trG.length - 1,
-                          onTap: () => _editTransaction(tr: tr),
+                          onTap: () => _controller.editTransaction(tr),
                         );
                       },
                     ),
@@ -90,7 +86,7 @@ class _TransactionsDialog extends StatelessWidget {
                 type: ButtonType.secondary,
                 titleColor: dangerColor,
                 padding: const EdgeInsets.symmetric(horizontal: P7),
-                onTap: () => _editTransaction(trSign: -1),
+                onTap: _controller.addExpense,
               ),
               const Spacer(),
               MTButton(
@@ -99,7 +95,7 @@ class _TransactionsDialog extends StatelessWidget {
                 type: ButtonType.secondary,
                 titleColor: greenColor,
                 padding: const EdgeInsets.symmetric(horizontal: P7),
-                onTap: () => _editTransaction(trSign: 1),
+                onTap: _controller.addIncome,
               ),
               const SizedBox(width: P3),
             ],

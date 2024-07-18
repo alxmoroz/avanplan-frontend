@@ -1,9 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/utils/dates.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_transaction.dart';
 import '../../../../components/field_data.dart';
 import '../../../../extra/services.dart';
@@ -16,42 +14,26 @@ part 'transaction_edit_controller.g.dart';
 enum TransactionFCode { amount, category, description }
 
 class TransactionEditController extends _Base with _$TransactionEditController {
-  TransactionEditController(Task taskIn, {TaskTransaction? transaction, num? trSign}) {
-    task = taskIn;
-    taskTransaction = transaction ??
-        TaskTransaction(
-          wsId: task.wsId,
-          taskId: task.id!,
-          createdOn: now,
-          amount: 0,
-          category: '',
-          description: '',
-        );
-
-    sign = trSign ?? taskTransaction.amount.sign;
-
-    setupFields();
+  TransactionEditController(this.transaction, this.sign) {
+    _setupFields();
     stopLoading();
   }
 
-  void setupFields() {
+  final TaskTransaction transaction;
+  final num sign;
+
+  void _setupFields() {
     initState(fds: [
       MTFieldData(
         TransactionFCode.amount.index,
-        text: taskTransaction.amount.abs().currencySharp,
+        text: transaction.amount.abs().currencySharp,
         validate: true,
         validator: (text) => valueFromText(text) > 0 ? null : loc.validation_empty_text,
       ),
-      MTFieldData(TransactionFCode.description.index, label: loc.finance_transactions_description_title, text: taskTransaction.description),
-      MTFieldData(TransactionFCode.category.index, label: loc.finance_transactions_category_title, text: taskTransaction.category),
+      MTFieldData(TransactionFCode.description.index, label: loc.finance_transactions_description_title, text: transaction.description),
+      MTFieldData(TransactionFCode.category.index, label: loc.finance_transactions_category_title, text: transaction.category),
     ]);
   }
-}
-
-abstract class _Base extends EditController with Store, Loadable {
-  late final Task task;
-  late final TaskTransaction taskTransaction;
-  late final num sign;
 
   num valueFromText(String text) {
     final seps = NumberSeparators();
@@ -60,12 +42,12 @@ abstract class _Base extends EditController with Store, Loadable {
   }
 
   Future _editWrapper(Function() function) async {
-    taskTransaction.loading = true;
+    transaction.loading = true;
     tasksMainController.refreshUI();
 
     await load(function);
 
-    taskTransaction.loading = false;
+    transaction.loading = false;
     tasksMainController.refreshUI();
   }
 
@@ -73,11 +55,11 @@ abstract class _Base extends EditController with Store, Loadable {
     setLoaderScreenSaving();
 
     await _editWrapper(() async {
-      taskTransaction.amount = sign * valueFromText(fData(TransactionFCode.amount.index).text);
-      taskTransaction.category = fData(TransactionFCode.category.index).text;
-      taskTransaction.description = fData(TransactionFCode.description.index).text;
+      transaction.amount = sign * valueFromText(fData(TransactionFCode.amount.index).text);
+      transaction.category = fData(TransactionFCode.category.index).text;
+      transaction.description = fData(TransactionFCode.description.index).text;
 
-      final changes = await taskTransactionUC.save(taskTransaction);
+      final changes = await taskTransactionUC.save(transaction);
       if (changes != null) {
         tasksMainController.setTasks([changes.updated, ...changes.affected]);
       }
@@ -89,11 +71,15 @@ abstract class _Base extends EditController with Store, Loadable {
   }
 
   Future delete() async {
+    setLoaderScreenDeleting();
+
     await _editWrapper(() async {
-      final changes = await taskTransactionUC.delete(taskTransaction);
+      final changes = await taskTransactionUC.delete(transaction);
       if (changes != null) {
         tasksMainController.setTasks([changes.updated, ...changes.affected]);
       }
     });
   }
 }
+
+abstract class _Base extends EditController with Store, Loadable {}

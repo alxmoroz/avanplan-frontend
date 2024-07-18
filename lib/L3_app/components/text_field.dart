@@ -84,6 +84,7 @@ class MTTextField extends StatelessWidget {
     this.decoration,
     this.focusNode,
     this.inputFormatters,
+    this.cursorColor,
   });
 
   const MTTextField.noText({
@@ -113,6 +114,7 @@ class MTTextField extends StatelessWidget {
         style = null,
         inputFormatters = null,
         hintStyle = null,
+        cursorColor = null,
         readOnly = true;
 
   final TextEditingController? controller;
@@ -141,6 +143,7 @@ class MTTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextAlign? textAlign;
   final List<TextInputFormatter>? inputFormatters;
+  final Color? cursorColor;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +170,7 @@ class MTTextField extends StatelessWidget {
                 padding: padding,
                 hintStyle: hintStyle,
               ),
-          cursorColor: mainColor.resolve(context),
+          cursorColor: (cursorColor ?? mainColor).resolve(context),
           autofocus: autofocus,
           minLines: 1,
           maxLines: maxLines,

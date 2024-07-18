@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities/task_transaction.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -22,16 +22,17 @@ import '../../../../presenters/task_type.dart';
 import '../../../../views/_base/loader_screen.dart';
 import 'transaction_edit_controller.dart';
 
-Future transactionEditDialog(Task task, {TaskTransaction? transaction, num? trSign}) async {
-  final controller = TransactionEditController(task, transaction: transaction, trSign: trSign);
-  await showMTDialog<void>(_TransactionEditDialog(controller));
+Future transactionEditDialog(Task task, TransactionEditController trEditController) async {
+  await showMTDialog<void>(_TransactionEditDialog(task, trEditController));
 }
 
 class _TransactionEditDialog extends StatelessWidget {
-  const _TransactionEditDialog(this._controller);
+  const _TransactionEditDialog(this._task, this._controller);
+  final Task _task;
   final TransactionEditController _controller;
 
   bool get canSave => _controller.validated;
+  bool get canDelete => !_controller.transaction.isNew;
 
   Widget _tf(TransactionFCode code) {
     final fd = _controller.fData(code.index);
@@ -39,8 +40,8 @@ class _TransactionEditDialog extends StatelessWidget {
   }
 
   Future _save(BuildContext context) async {
-    Navigator.of(context).pop();
     await _controller.save();
+    if (context.mounted) Navigator.of(context).pop();
   }
 
   Future _delete(BuildContext context) async {
@@ -53,85 +54,92 @@ class _TransactionEditDialog extends StatelessWidget {
           ],
         ) ==
         true) {
-      if (context.mounted) Navigator.of(context).pop();
       await _controller.delete();
+      if (context.mounted) Navigator.of(context).pop();
     }
+  }
+
+  Widget _dialog(BuildContext context) {
+    final seps = NumberSeparators();
+    final groupSep = seps.groupSep;
+    final decimalSep = seps.decimalSep;
+    final textColor = _controller.sign > 0 ? greenColor : dangerColor;
+    return MTDialog(
+      topBar: MTAppBar(
+        showCloseButton: true,
+        color: b2Color,
+        middle: _task.subPageTitle(
+          '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.transaction.createdOn?.strMedium}',
+        ),
+        trailing: canDelete ? MTButton.icon(const DeleteIcon(), onTap: () => _delete(context), padding: const EdgeInsets.all(P2)) : null,
+      ),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          MTTextField(
+            controller: _controller.teController(TransactionFCode.amount.index),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: '0',
+              hintStyle: const D2('', color: f3Color).style(context),
+              suffixIcon: const D2(CURRENCY_SYMBOL_ROUBLE, color: f3Color),
+              // для компенсации выравнивания по центру из-за suffixIcon
+              prefixIcon: const D2(' ', color: f3Color),
+              contentPadding: EdgeInsets.zero,
+            ),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            textAlign: TextAlign.center,
+            style: D2('', color: textColor).style(context),
+            cursorColor: textColor,
+            inputFormatters: [
+              // TODO: можно сделать в одной withFunction или даже вытащить в отдельный класс
+              LengthLimitingTextInputFormatter(19),
+              FilteringTextInputFormatter.deny(RegExp(groupSep)),
+              FilteringTextInputFormatter.deny(RegExp('^$decimalSep'), replacementString: '0$decimalSep'),
+              FilteringTextInputFormatter.allow(RegExp('^\\d{0,}$decimalSep?\\d{0,2}')),
+              TextInputFormatter.withFunction((oldValue, newValue) {
+                if (newValue.text.startsWith(RegExp(r'^0+\d+'))) {
+                  newValue = newValue.copyWith(
+                    text: newValue.text.replaceFirst(RegExp(r'0*'), ''),
+                    selection: const TextSelection.collapsed(offset: -1),
+                  );
+                }
+                return newValue;
+              }),
+              TextInputFormatter.withFunction((oldValue, newValue) {
+                if (newValue.text.isNotEmpty) {
+                  String formattedValue = _controller.valueFromText(newValue.text).currencySharp;
+                  final formattedIsFloat = formattedValue.lastIndexOf(decimalSep) > -1;
+                  if (newValue.text.contains(decimalSep) && !formattedIsFloat) {
+                    formattedValue += decimalSep + newValue.text.split(decimalSep).last;
+                  }
+                  final selectionOffset = newValue.selection.baseOffset + (formattedValue.length - newValue.text.length);
+                  newValue = newValue.copyWith(
+                    text: formattedValue,
+                    selection: TextSelection.collapsed(offset: selectionOffset),
+                  );
+                }
+
+                return newValue;
+              }),
+            ],
+          ),
+          for (final code in [TransactionFCode.category, TransactionFCode.description]) _tf(code),
+          const SizedBox(height: P3),
+          MTButton.main(
+            titleText: loc.save_action_title,
+            onTap: canSave ? () => _save(context) : null,
+          ),
+          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final seps = NumberSeparators();
-    final groupSep = seps.groupSep;
-    final decimalSep = seps.decimalSep;
-
     return Observer(
-      builder: (_) => _controller.loading
-          ? LoaderScreen(_controller, isDialog: true)
-          : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
-                middle: _controller.task.subPageTitle(
-                  '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.taskTransaction.createdOn?.strMedium}',
-                ),
-                trailing: MTButton.icon(const DeleteIcon(), onTap: () => _delete(context), padding: const EdgeInsets.all(P2)),
-              ),
-              body: ListView(
-                shrinkWrap: true,
-                children: [
-                  MTTextField(
-                    controller: _controller.teController(TransactionFCode.amount.index),
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    textAlign: TextAlign.center,
-                    style: const D2('').style(context),
-                    hint: '0',
-                    hintStyle: const D2('', color: f3Color).style(context),
-                    suffixIcon: const D2(CURRENCY_SYMBOL_ROUBLE, color: f3Color),
-                    // для компенсации выравнивания по центру из-за suffixIcon
-                    prefixIcon: const D2(' ', color: f3Color),
-                    inputFormatters: [
-                      // TODO: можно сделать в одной withFunction или даже вытащить в отдельный класс
-                      LengthLimitingTextInputFormatter(19),
-                      FilteringTextInputFormatter.deny(RegExp(groupSep)),
-                      FilteringTextInputFormatter.deny(RegExp('^$decimalSep'), replacementString: '0$decimalSep'),
-                      FilteringTextInputFormatter.allow(RegExp('^\\d{0,}$decimalSep?\\d{0,2}')),
-                      TextInputFormatter.withFunction((oldValue, newValue) {
-                        if (newValue.text.startsWith(RegExp(r'^0+\d+'))) {
-                          newValue = newValue.copyWith(
-                            text: newValue.text.replaceFirst(RegExp(r'0*'), ''),
-                            selection: const TextSelection.collapsed(offset: -1),
-                          );
-                        }
-                        return newValue;
-                      }),
-                      TextInputFormatter.withFunction((oldValue, newValue) {
-                        if (newValue.text.isNotEmpty) {
-                          String formattedValue = _controller.valueFromText(newValue.text).currencySharp;
-                          final formattedIsFloat = formattedValue.lastIndexOf(decimalSep) > -1;
-                          if (newValue.text.contains(decimalSep) && !formattedIsFloat) {
-                            formattedValue += decimalSep + newValue.text.split(decimalSep).last;
-                          }
-                          final selectionOffset = newValue.selection.baseOffset + (formattedValue.length - newValue.text.length);
-                          newValue = newValue.copyWith(
-                            text: formattedValue,
-                            selection: TextSelection.collapsed(offset: selectionOffset),
-                          );
-                        }
-
-                        return newValue;
-                      }),
-                    ],
-                  ),
-                  for (final code in [TransactionFCode.category, TransactionFCode.description]) _tf(code),
-                  const SizedBox(height: P3),
-                  MTButton.main(
-                    titleText: loc.save_action_title,
-                    onTap: canSave ? () => _save(context) : null,
-                  ),
-                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-                ],
-              ),
-            ),
+      builder: (_) => _controller.loading ? LoaderScreen(_controller, isDialog: true) : _dialog(context),
     );
   }
 }

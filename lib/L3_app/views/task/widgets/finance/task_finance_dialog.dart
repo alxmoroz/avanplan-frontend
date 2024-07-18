@@ -83,7 +83,7 @@ class _TransactionsDialog extends StatelessWidget {
               const SizedBox(width: P3),
               MTButton(
                 leading: const PlusIcon(color: dangerColor),
-                titleText: loc.finance_transactions_expense_title,
+                titleText: loc.finance_transactions_expenses_title(1),
                 type: ButtonType.secondary,
                 titleColor: dangerColor,
                 padding: const EdgeInsets.symmetric(horizontal: P7),
@@ -92,7 +92,7 @@ class _TransactionsDialog extends StatelessWidget {
               const Spacer(),
               MTButton(
                 leading: const PlusIcon(color: greenColor),
-                titleText: loc.finance_transactions_income_title,
+                titleText: loc.finance_transactions_income_title(1),
                 type: ButtonType.secondary,
                 titleColor: greenColor,
                 padding: const EdgeInsets.symmetric(horizontal: P7),

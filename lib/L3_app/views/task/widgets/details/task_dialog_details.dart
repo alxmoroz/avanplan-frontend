@@ -10,9 +10,9 @@ import '../../../../components/constants.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../attachments/attachments_field.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
-import 'attachments_field.dart';
 import 'description_field.dart';
 import 'task_status_field.dart';
 

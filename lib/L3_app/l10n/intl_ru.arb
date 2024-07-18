@@ -109,6 +109,7 @@
   "create_from_template_action_description": "Выбрать готовый из библиотеки",
   "create_from_template_action_title": "Создать по шаблону",
 
+  "dates_period": "с {date1} по {date2}",
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_dialog_description": "Это действие нельзя будет отменить, данные будут потеряны",
   "description": "Описание",
@@ -149,8 +150,8 @@
   "finance_transactions_description_title": "Описание",
   "finance_transactions_empty_group_title": "Добавьте доходы и расходы в задачах",
   "finance_transactions_empty_task_title": "Добавьте доходы и расходы",
-  "finance_transactions_expense_title": "Расход",
-  "finance_transactions_income_title": "Доход",
+  "finance_transactions_expenses_title": "{count, plural, one{Расход} other{Расходы}}",
+  "finance_transactions_income_title": "{count, plural, one{Доход} other{Доходы}}",
 
   "for_": "за",
   "for_dative": "по",

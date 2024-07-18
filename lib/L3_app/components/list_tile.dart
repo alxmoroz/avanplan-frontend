@@ -144,7 +144,8 @@ class MTListGroupTitle extends StatelessWidget {
     this.trailing,
     this.color,
     this.padding,
-    this.topPadding,
+    this.margin,
+    this.topMargin,
     this.onTap,
   });
 
@@ -154,7 +155,8 @@ class MTListGroupTitle extends StatelessWidget {
   final Widget? trailing;
   final Color? color;
   final EdgeInsets? padding;
-  final double? topPadding;
+  final EdgeInsets? margin;
+  final double? topMargin;
   final Function()? onTap;
 
   @override
@@ -164,7 +166,8 @@ class MTListGroupTitle extends StatelessWidget {
       leading: leading,
       middle: middle ?? BaseText.f2(titleText ?? ''),
       trailing: trailing,
-      padding: padding ?? const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topPadding ?? P3, bottom: P),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: P3, vertical: P),
+      margin: margin ?? EdgeInsets.only(top: topMargin ?? P2),
       color: color ?? Colors.transparent,
       bottomDivider: false,
       onTap: onTap,

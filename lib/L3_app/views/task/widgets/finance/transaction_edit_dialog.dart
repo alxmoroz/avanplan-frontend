@@ -72,7 +72,7 @@ class _TransactionEditDialog extends StatelessWidget {
                 showCloseButton: true,
                 color: b2Color,
                 middle: _controller.task.subPageTitle(
-                  '${_controller.sign > 0 ? loc.finance_transactions_income_title : loc.finance_transactions_expense_title} ${_controller.taskTransaction.createdOn?.strMedium}',
+                  '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.taskTransaction.createdOn?.strMedium}',
                 ),
                 trailing: MTButton.icon(const DeleteIcon(), onTap: () => _delete(context), padding: const EdgeInsets.all(P2)),
               ),

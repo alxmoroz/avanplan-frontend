@@ -247,6 +247,14 @@ class FinanceIcon extends MTIcon {
   const FinanceIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.money_rubl, circled: true);
 }
 
+class FinanceExpensesIcon extends MTIcon {
+  const FinanceExpensesIcon({super.key, super.color, super.size = P4}) : super(CupertinoIcons.arrow_down_right);
+}
+
+class FinanceIncomeIcon extends MTIcon {
+  const FinanceIncomeIcon({super.key, super.color, super.size = P4}) : super(CupertinoIcons.arrow_up_right);
+}
+
 class ImportIcon extends MTIcon {
   const ImportIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cloud_download);
 }

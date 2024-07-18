@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/utils/dates.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
@@ -21,6 +22,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
         TaskTransaction(
           wsId: task.wsId,
           taskId: task.id!,
+          createdOn: now,
           amount: 0,
           category: '',
           description: '',

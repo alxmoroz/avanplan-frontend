@@ -17,9 +17,10 @@ class NumberSeparators {
 }
 
 extension NumberFormatterPresenter on num {
-  String get percents => '${NumberFormat("#").format(this * 100)}%';
+  String get percents => NumberFormat("#%").format(this);
   String get currency => NumberFormat('#,###').format(this);
   String get currencySharp => NumberFormat('#,###.##').format(this);
+  String get financeTransaction => NumberFormat('+#,###.##;-#,###.##').format(this);
 
   num get _thousands => this / 1000;
   num get _millions => this / 1000000;

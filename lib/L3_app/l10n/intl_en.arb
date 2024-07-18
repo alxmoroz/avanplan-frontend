@@ -109,6 +109,7 @@
   "create_from_template_action_description": "Select a ready one from the library",
   "create_from_template_action_title": "Create from template",
 
+  "dates_period": "from {date1} to {date2}",
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_dialog_description": "This action cannot be undone and data will be lost",
   "description": "Description",
@@ -149,8 +150,8 @@
   "finance_transactions_description_title": "Description",
   "finance_transactions_empty_group_title": "Please add income and expenses in tasks",
   "finance_transactions_empty_task_title": "Please add income and expenses",
-  "finance_transactions_expense_title": "Expense",
-  "finance_transactions_income_title": "Income",
+  "finance_transactions_expenses_title": "{count, plural, one{Expense} other{Expenses}}",
+  "finance_transactions_income_title": "{count, plural, one{Income} other{Income}}",
 
   "for_": "for",
   "for_dative": "for",

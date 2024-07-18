@@ -7,7 +7,7 @@ import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../controllers/task_controller.dart';
-import '../attachments/attachments_dialog.dart';
+import 'attachments_dialog.dart';
 
 class TaskAttachmentsField extends StatelessWidget {
   const TaskAttachmentsField(this._controller, {super.key, this.compact = false, this.hasMargin = false});

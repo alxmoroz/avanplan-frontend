@@ -23,15 +23,15 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../attachments/attachments_field.dart';
+import '../finance/finance_field.dart';
 import '../notes/notes.dart';
 import '../project_modules/project_modules.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
-import 'attachments_field.dart';
 import 'description_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
-import 'finance_field.dart';
 import 'start_date_field.dart';
 import 'task_status_field.dart';
 

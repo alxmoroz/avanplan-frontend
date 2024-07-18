@@ -37,4 +37,6 @@ abstract class _NotesControllerBase with Store {
   Map<DateTime, List<Note>> get notesGroups => _sortedNotes.groupListsBy((n) => n.createdOn!.date);
   @computed
   List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
+  @computed
+  bool get hasNotes => _notes.isNotEmpty;
 }

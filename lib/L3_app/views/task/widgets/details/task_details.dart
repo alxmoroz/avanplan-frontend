@@ -95,7 +95,7 @@ class TaskDetails extends StatelessWidget {
           /// Вложения
           if (!_isTaskDialog(context) && _task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: _hasMargins(context)),
 
-          /// FeatureSets
+          /// Модули проекта
           if (_task.canShowProjectModules)
             MTField(
               _controller.fData(TaskFCode.projectModules.index),
@@ -118,7 +118,7 @@ class TaskDetails extends StatelessWidget {
             ),
 
           /// Комментарии
-          if (_isTaskMobileView(context) && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),
+          if (_isTaskMobileView(context) && _controller.notesController.hasNotes) Notes(_controller),
         ],
       ),
     );

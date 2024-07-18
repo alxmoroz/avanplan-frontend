@@ -7,10 +7,12 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/constants.dart';
+import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
+import '../finance/finance_field.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
 import 'description_field.dart';
@@ -45,6 +47,9 @@ class TaskDialogDetails extends StatelessWidget {
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],
+
+          /// Финансы
+          if (_task.hmFinance) FinanceField(_controller, hasMargin: true),
 
           /// Вложения
           if (_task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: true),

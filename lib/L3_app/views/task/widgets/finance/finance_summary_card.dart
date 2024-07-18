@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/text.dart';
@@ -18,10 +17,12 @@ class FinanceSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasTransactions = task.hasTransactions;
-    return MTAdaptive.xxs(
-      child: MTCardButton(
-        margin: const EdgeInsets.symmetric(vertical: P3),
-        onTap: hasTransactions ? () => financeSummaryDialog(task) : null,
+    return MTButton(
+      type: ButtonType.card,
+      padding: const EdgeInsets.all(P2),
+      onTap: hasTransactions ? () => financeSummaryDialog(task) : null,
+      middle: Container(
+        constraints: const BoxConstraints(maxWidth: 250),
         child: Column(
           children: [
             BaseText.f2(task.profitLossTitle),

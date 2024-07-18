@@ -99,8 +99,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
               /// Заголовок
               Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
 
-              /// Дашборд (аналитика, команда)
-              if (task.hasAnalytics || task.hasTeam) TaskHeaderDashboard(controller),
+              /// Дашборд (аналитика, финансы, команда)
+              if (task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
 
               /// Задача (лист)
               td.isTask

@@ -20,6 +20,7 @@ import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
+import '../finance/finance_summary_card.dart';
 import '../team/invitation_dialog.dart';
 import '../team/team_dialog.dart';
 
@@ -54,6 +55,7 @@ class TaskHeaderDashboard extends StatelessWidget {
         margin: const EdgeInsets.only(top: P2),
         child: ListView(
           scrollDirection: Axis.horizontal,
+          clipBehavior: Clip.none,
           children: [
             const SizedBox(width: P3),
 
@@ -65,9 +67,15 @@ class TaskHeaderDashboard extends StatelessWidget {
                 onTap: () => analyticsDialog(_task),
               ),
 
+            /// Финансы
+            if (_task.hasFinance) ...[
+              if (_task.hasAnalytics) const SizedBox(width: P2),
+              FinanceSummaryCard(_task),
+            ],
+
             /// Команда
             if (_task.hasTeam) ...[
-              if (_task.hasAnalytics) const SizedBox(width: P2),
+              if (_task.hasAnalytics || _task.hasFinance) const SizedBox(width: P2),
               _card(
                 loc.team_title,
                 body: _task.members.isNotEmpty

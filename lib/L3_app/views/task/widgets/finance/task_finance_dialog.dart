@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task_transaction.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -40,7 +41,9 @@ class _TransactionsDialog extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: [
-            FinanceSummaryCard(_controller.task),
+            const SizedBox(height: P3),
+            MTAdaptive.xxs(child: FinanceSummaryCard(_controller.task)),
+            const SizedBox(height: P3),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

@@ -8,6 +8,7 @@ import '../usecases/task_actions.dart';
 
 extension TaskViewPresenter on Task {
   bool get hasAnalytics => hmAnalytics && isProjectOrGoal;
+  bool get hasFinance => hmFinance && isProjectOrGoal;
   bool get hasTeam => canShowMembers && (members.isNotEmpty || canEditMembers);
 
   bool get canShowTimeChart => hasAnalytics && (hasDueDate || hasEtaDate);

@@ -143,7 +143,7 @@ class TimingChart extends StatelessWidget {
       children: [
         DSmallText(label.toLowerCase(), color: color),
         const Spacer(),
-        D3(date.strMedium, color: color),
+        DSmallText(date.strMedium, color: color),
       ],
     );
   }

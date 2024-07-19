@@ -50,10 +50,10 @@ extension TaskMapper on api.TaskGet {
       etaDate: etaDate?.toLocal(),
       openedVolume: openedVolume,
       closedVolume: closedVolume,
-      closedSubtasksCountIn: closedSubtasksCount,
       notesCountIn: notesCount,
       attachmentsCountIn: attachmentsCount,
       subtasksCountIn: subtasksCount,
+      closedSubtasksCountIn: closedSubtasksCount,
     );
 
     if (mappedTask.isBacklog || mappedTask.isInbox) {

@@ -25,6 +25,7 @@ enum ImageName {
   ok_blue,
   overdue,
   privacy,
+  promo_features,
   purchase,
   risk,
   save,

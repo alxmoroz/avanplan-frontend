@@ -69,7 +69,7 @@ class PromoFeatures extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            const MTImage('promo_features'),
+            MTImage(ImageName.promo_features.name),
             const SizedBox(height: P6),
             H2(loc.promo_features_title, align: TextAlign.center),
             const SizedBox(height: P3),

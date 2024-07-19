@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/colors.dart';
 import '../extra/services.dart';
 import '../presenters/number.dart';
@@ -27,9 +26,7 @@ extension TaskFinancePresenter on Task {
   String get _incomeExpensesText => _hasIncome ? loc.finance_transactions_income_title(2) : loc.finance_transactions_expenses_title(2);
   String get _profitOrLossText => '${balance >= 0 ? loc.finance_profit_title : loc.finance_loss_title} ${_profitLossRatio.percents}';
   String get summaryTitle => !hasTransactions
-      ? isGroup
-          ? loc.finance_transactions_empty_group_title
-          : loc.finance_transactions_empty_task_title
+      ? loc.finance_summary_empty_title
       : hasProfitOrLoss
           ? _profitOrLossText
           : _incomeExpensesText;

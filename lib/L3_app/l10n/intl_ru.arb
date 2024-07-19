@@ -144,12 +144,14 @@
 
   "finance_loss_title": "Убыток",
   "finance_profit_title": "Прибыль",
+  "finance_summary_empty_title": "Добавьте доходы\nи расходы в задачах",
   "finance_transactions_count": "{count, plural, one{{count} операция} few{{count} операции} other{{count} операций}}",
   "finance_transactions_category_title": "Категория",
   "finance_transactions_delete_dialog_title": "Удалить операцию?",
   "finance_transactions_description_title": "Описание",
-  "finance_transactions_empty_group_title": "Добавьте доходы и расходы в задачах",
-  "finance_transactions_empty_task_title": "Добавьте доходы и расходы",
+  "finance_transactions_empty_title": "Нет доходов и расходов",
+  "finance_transactions_empty_hint": "Добавьте их, чтобы следить за прибылью",
+  "finance_transactions_empty_group_hint": "Укажите их в задачах, чтобы следить за прибылью и видеть общую статистику",
   "finance_transactions_expenses_title": "{count, plural, one{Расход} other{Расходы}}",
   "finance_transactions_income_title": "{count, plural, one{Доход} other{Доходы}}",
 
@@ -415,7 +417,7 @@
 
   "tariff_option_finance_title": "Финансы",
   "tariff_option_finance_subtitle": "Учёт доходов и расходов",
-  "tariff_option_finance_description": "Учёт доходов и расходов\nКонтроль баланса в проектах и целях\nАнализ по категориям",
+  "tariff_option_finance_description": "Учёт доходов и расходов\nРасчёт прибыли и убытков\nСтатистика по категориям",
 
   "tariff_option_goals_title": "Цели",
   "tariff_option_goals_subtitle": "Задачи добавляются к целям",

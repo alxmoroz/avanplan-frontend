@@ -62,8 +62,10 @@ class TaskHeaderDashboard extends StatelessWidget {
             /// Аналитика
             if (_task.hasAnalytics)
               _card(
-                _task.overallStateTitle,
-                body: _task.canShowTimeChart ? TimingChart(_task, showDueLabel: false) : null,
+                _task.canShowTimeChart ? _task.overallStateTitle : loc.tariff_option_analytics_title,
+                body: _task.canShowTimeChart
+                    ? TimingChart(_task, showDueLabel: false)
+                    : BaseText.f3(_task.overallStateTitle, maxLines: 2, align: TextAlign.center),
                 onTap: () => analyticsDialog(_task),
               ),
 

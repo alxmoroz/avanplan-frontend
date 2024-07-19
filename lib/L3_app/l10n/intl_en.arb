@@ -144,12 +144,14 @@
 
   "finance_loss_title": "Loss",
   "finance_profit_title": "Profit",
+  "finance_summary_empty_title": "Please add income\nand expenses in tasks",
   "finance_transactions_count": "{count, plural, one{{count} transaction} other{{count} transactions}}",
   "finance_transactions_category_title": "Category",
   "finance_transactions_delete_dialog_title": "Delete operation?",
   "finance_transactions_description_title": "Description",
-  "finance_transactions_empty_group_title": "Please add income and expenses in tasks",
-  "finance_transactions_empty_task_title": "Please add income and expenses",
+  "finance_transactions_empty_title": "No income or expenses",
+  "finance_transactions_empty_hint": "Add them to keep track of your profits",
+  "finance_transactions_empty_group_hint": "Add them in tasks to track profits and see overall statistics",
   "finance_transactions_expenses_title": "{count, plural, one{Expense} other{Expenses}}",
   "finance_transactions_income_title": "{count, plural, one{Income} other{Income}}",
 
@@ -415,7 +417,7 @@
 
   "tariff_option_finance_title": "Finance",
   "tariff_option_finance_subtitle": "Income and Expense Accounting",
-  "tariff_option_finance_description": "Income and Expense Accounting\nControl of balance in projects and goals\nAnalysis by categories",
+  "tariff_option_finance_description": "Income and Expense Accounting\nProfit and loss calculation\nAnalysis by categories",
 
   "tariff_option_goals_title": "Goals",
   "tariff_option_goals_subtitle": "Grouping tasks by goals",

@@ -16,10 +16,12 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
+import '../../../../presenters/task_finance.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_transactions_controller.dart';
 import 'finance_summary_card.dart';
 import 'transaction_tile.dart';
+import 'transactions_empty_info.dart';
 
 Future transactionsDialog(TaskTransactionsController controller) async => await showMTDialog<void>(_TransactionsDialog(controller));
 
@@ -38,39 +40,42 @@ class _TransactionsDialog extends StatelessWidget {
           shrinkWrap: true,
           children: [
             const SizedBox(height: P3),
-            MTAdaptive.xxs(child: FinanceSummaryCard(_task)),
-            const SizedBox(height: P3),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _controller.sortedTransactionsDates.length,
-              itemBuilder: (_, index) {
-                final trDate = _controller.sortedTransactionsDates[index];
-                final trG = _controller.transactionsGroups[trDate]!;
+            if (_task.hasTransactions) ...[
+              MTAdaptive.xxs(child: FinanceSummaryCard(_task)),
+              const SizedBox(height: P3),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _controller.sortedTransactionsDates.length,
+                itemBuilder: (_, index) {
+                  final trDate = _controller.sortedTransactionsDates[index];
+                  final trG = _controller.transactionsGroups[trDate]!;
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SmallText('${trDate.strMedium}, ${DateFormat.EEEE().format(trDate)}', color: f2Color, align: TextAlign.center),
-                    const SizedBox(height: P2),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: trG.length,
-                      itemBuilder: (_, index) {
-                        final tr = trG[index];
-                        return TaskTransactionTile(
-                          tr,
-                          bottomDivider: index < trG.length - 1,
-                          onTap: () => _controller.editTransaction(tr),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: P3),
-                  ],
-                );
-              },
-            ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SmallText('${trDate.strMedium}, ${DateFormat.EEEE().format(trDate)}', color: f2Color, align: TextAlign.center),
+                      const SizedBox(height: P2),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: trG.length,
+                        itemBuilder: (_, index) {
+                          final tr = trG[index];
+                          return TaskTransactionTile(
+                            tr,
+                            bottomDivider: index < trG.length - 1,
+                            onTap: () => _controller.editTransaction(tr),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: P3),
+                    ],
+                  );
+                },
+              ),
+            ] else
+              TransactionsEmptyInfo(_task),
           ],
         ),
         bottomBar: MTAppBar(

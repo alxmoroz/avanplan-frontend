@@ -30,16 +30,15 @@ class FinanceSummaryCard extends StatelessWidget {
             ? Column(
                 children: [
                   title,
-                  const SizedBox(height: P2),
-                  D2('${_task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: _task.balanceColor),
+                  const SizedBox(height: P3),
+                  D3.medium('$CURRENCY_SYMBOL_ROUBLE ${_task.balance.abs().humanValueStr}', color: _task.balanceColor),
                   const SizedBox(height: P2),
                 ],
               )
             : Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BaseText.f2(loc.tariff_option_finance_title, maxLines: 1),
-                  const SizedBox(height: P2),
+                  const SizedBox(height: P3),
                   title,
                 ],
               ),

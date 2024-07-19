@@ -46,9 +46,10 @@ class TariffOptionTile extends StatelessWidget {
     return MTListTile(
       leading: _to.icon,
       middle: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          D3.medium(freeLimitHuman, align: TextAlign.left),
-          D3('$suffix$unit'),
+          DText.medium(freeLimitHuman, align: TextAlign.left),
+          BaseText('$suffix$unit', maxLines: 1),
         ],
       ),
       subtitle: Row(

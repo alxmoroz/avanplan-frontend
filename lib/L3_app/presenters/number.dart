@@ -20,7 +20,7 @@ extension NumberFormatterPresenter on num {
   String get percents => NumberFormat("#%").format(this);
   String get currency => NumberFormat('#,###').format(this);
   String get currencySharp => NumberFormat('#,###.##').format(this);
-  String get financeTransaction => NumberFormat('+#,###.##;-#,###.##').format(this);
+  String get financeTransaction => NumberFormat('+#,###.00;-#,###.00').format(this);
 
   num get _thousands => this / 1000;
   num get _millions => this / 1000000;
@@ -33,7 +33,7 @@ extension NumberFormatterPresenter on num {
             : '';
   }
 
-  String _hNumberFormat(num n) => NumberFormat('#.#').format(n);
+  String _hNumberFormat(num n) => NumberFormat('#,###.#').format(n);
   String get humanValueStr => this != 0
       ? _millions >= 1
           ? '${_hNumberFormat(_millions)} ${loc.millions_short}'

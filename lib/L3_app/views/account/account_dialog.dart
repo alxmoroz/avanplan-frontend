@@ -65,7 +65,7 @@ class _AccountDialog extends StatelessWidget {
                   ),
                   const SizedBox(height: P),
                   H3('$_me', align: TextAlign.center),
-                  BaseText(_me!.email, align: TextAlign.center),
+                  BaseText(_me!.email, align: TextAlign.center, maxLines: 1),
                   const SizedBox(height: P3),
                   MTListTile(
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),

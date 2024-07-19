@@ -18,7 +18,7 @@ extension TaskSourcePresenter on Task {
           source!.type.icon(),
           const SizedBox(width: P),
         ],
-        BaseText(loc.task_go2source_title, color: mainColor),
+        BaseText(loc.task_go2source_title, color: mainColor, maxLines: 1),
       ],
     );
   }

@@ -109,7 +109,7 @@ class _WSDialogState extends State<WSDialog> {
         leading: const StarIcon(),
         middle: Row(
           children: [
-            Expanded(child: BaseText(loc.tariff_title)),
+            Expanded(child: BaseText(loc.tariff_title, maxLines: 1)),
             if (_hasExpenses) ...[
               MTPrice(_expensesPerDay, size: AdaptiveSize.xs),
               const SizedBox(width: P_2),

@@ -6,14 +6,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
-import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/list_tile.dart';
-import '../../components/price.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
+import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
 import 'tariff_expense.dart';
 
@@ -34,8 +33,7 @@ class TariffExpenses extends StatelessWidget {
         /// базовая цена
         MTListTile(
           middle: Row(children: [BaseText.f2(loc.tariff_title, maxLines: 1), BaseText(' ${_tariff.title}', maxLines: 1)]),
-          trailing: MTPrice(_tariff.basePrice, size: AdaptiveSize.s),
-          bottomDivider: false,
+          trailing: DText('${_tariff.basePrice.currency} $CURRENCY_SYMBOL_ROUBLE'),
         ),
 
         /// опции с затратами
@@ -54,18 +52,18 @@ class TariffExpenses extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          itemCount: _ws.expensiveFeatures.length,
           itemBuilder: (_, index) {
             final to = _ws.expensiveFeatures[index];
             final ad = _ws.ad(to.code)!;
-            return TariffExpenseTile(to, ad, isMyTariff: _isMyTariff);
+            return TariffExpenseTile(to, ad, isMyTariff: _isMyTariff, bottomDivider: index < _ws.expensiveFeatures.length - 1);
           },
-          itemCount: _ws.expensiveFeatures.length,
         ),
 
         /// всего
         MTListTile(
           middle: BaseText.medium(loc.total_title),
-          trailing: MTPrice(_ws.overallExpectedMonthlyCharge(_tariff), size: AdaptiveSize.m, color: mainColor),
+          trailing: D3.medium('${_ws.overallExpectedMonthlyCharge(_tariff).currency} $CURRENCY_SYMBOL_ROUBLE'),
           margin: const EdgeInsets.only(top: P3),
           bottomDivider: false,
         ),

@@ -37,7 +37,7 @@ class FinanceField extends StatelessWidget {
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       leading: const FinanceIcon(),
       value: _trCount > 0 ? BaseText(loc.finance_transactions_count(_trCount), maxLines: 1) : null,
-      trailing: _trCount > 0 ? D3('${_task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: _task.balanceColor) : null,
+      trailing: _trCount > 0 ? DText('$CURRENCY_SYMBOL_ROUBLE ${_task.balance.abs().humanValueStr}', color: _task.balanceColor) : null,
       compact: compact,
       onTap: () => transactionsDialog(_trController),
     );

@@ -13,10 +13,11 @@ import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 
 class TariffExpenseTile extends StatelessWidget {
-  const TariffExpenseTile(this._to, this._d, {required this.isMyTariff, super.key});
+  const TariffExpenseTile(this._to, this._d, {required this.isMyTariff, this.bottomDivider = true, super.key});
   final InvoiceDetail _d;
   final TariffOption _to;
   final bool isMyTariff;
+  final bool bottomDivider;
 
   num get _price => ((isMyTariff ? _d.finalPrice : null) ?? _to.finalPrice);
   num get _overdraft => ((_d.serviceAmount - _to.freeLimit) / _to.tariffQuantity).ceil();
@@ -44,8 +45,8 @@ class TariffExpenseTile extends StatelessWidget {
           MTPrice(_price, color: f2Color, size: AdaptiveSize.xs),
         ],
       ),
-      trailing: MTPrice(_expense, size: AdaptiveSize.s),
-      bottomDivider: false,
+      trailing: DText('${_expense.currency} $CURRENCY_SYMBOL_ROUBLE'),
+      bottomDivider: bottomDivider,
     );
   }
 }

@@ -53,13 +53,13 @@ class _EditAvatarDialog extends StatelessWidget {
           if (!isWeb)
             MTListTile(
               leading: MimeTypeIcon('image'),
-              middle: BaseText(loc.file_source_gallery_title, color: mainColor),
+              middle: BaseText(loc.file_source_gallery_title, color: mainColor, maxLines: 1),
               dividerIndent: P11,
               onTap: () => _upload(context, _FileSource.gallery),
             ),
           MTListTile(
             leading: const ProjectsIcon(color: mainColor),
-            middle: BaseText(loc.file_source_files_title, color: mainColor),
+            middle: BaseText(loc.file_source_files_title, color: mainColor, maxLines: 1),
             dividerIndent: P11,
             bottomDivider: !isWeb,
             onTap: () => _upload(context, _FileSource.files),

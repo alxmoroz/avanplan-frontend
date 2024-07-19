@@ -36,13 +36,13 @@ Future<List<XFile>> selectFilesDialog() async {
                 children: [
                   MTListTile(
                     leading: MimeTypeIcon('image'),
-                    middle: BaseText(loc.file_source_gallery_title, color: mainColor),
+                    middle: BaseText(loc.file_source_gallery_title, color: mainColor, maxLines: 1),
                     dividerIndent: P6 + P5,
                     onTap: () => Navigator.of(context).pop(_FileSource.gallery),
                   ),
                   MTListTile(
                     leading: const ProjectsIcon(color: mainColor),
-                    middle: BaseText(loc.file_source_files_title, color: mainColor),
+                    middle: BaseText(loc.file_source_files_title, color: mainColor, maxLines: 1),
                     bottomDivider: false,
                     onTap: () => Navigator.of(context).pop(_FileSource.files),
                   ),

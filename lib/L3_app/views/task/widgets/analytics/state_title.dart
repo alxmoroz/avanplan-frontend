@@ -21,7 +21,7 @@ class _StateTitle extends StatelessWidget {
     return place == StateTitlePlace.groupHeader
         ? MTListGroupTitle(
             leading: Padding(padding: const EdgeInsets.only(top: P2), child: stateIconGroup(context, state)),
-            middle: BaseText(text),
+            middle: BaseText(text, maxLines: 1),
             padding: EdgeInsets.zero,
           )
         : SmallText(text);

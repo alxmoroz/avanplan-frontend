@@ -170,7 +170,7 @@ class DText extends BaseText {
     super.text, {
     super.key,
     super.color,
-    super.sizeScale,
+    super.sizeScale = 1.15,
     super.padding,
     super.decoration,
     super.maxLines = 1,
@@ -182,7 +182,7 @@ class DText extends BaseText {
     super.text, {
     super.key,
     super.color,
-    super.sizeScale,
+    super.sizeScale = 1.15,
     super.padding,
     super.decoration,
     super.maxLines = 1,
@@ -194,7 +194,7 @@ class DText extends BaseText {
     super.text, {
     super.key,
     super.color,
-    super.sizeScale,
+    super.sizeScale = 1.15,
     super.padding,
     super.decoration,
     super.maxLines = 1,
@@ -208,14 +208,14 @@ class DText extends BaseText {
 
 class DSmallText extends DText {
   const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
-      : super(sizeScale: 0.9);
-  const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 0.9);
+      : super(sizeScale: 0.95);
+  const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 0.95);
 }
 
 class D3 extends DText {
-  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration}) : super(sizeScale: 1.2);
-  const D3.medium(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.medium(sizeScale: 1.2);
-  const D3.bold(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.bold(sizeScale: 1.2);
+  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration}) : super(sizeScale: 1.5);
+  const D3.medium(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.medium(sizeScale: 1.5);
+  const D3.bold(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.bold(sizeScale: 1.5);
 }
 
 class D2 extends DText {

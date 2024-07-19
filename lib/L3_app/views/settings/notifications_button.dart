@@ -22,6 +22,7 @@ class NotificationsButton extends StatelessWidget {
           BaseText(
             '${notificationController.notifications.length}',
             padding: const EdgeInsets.only(right: P),
+            maxLines: 1,
           ),
         const ChevronIcon(),
       ]),

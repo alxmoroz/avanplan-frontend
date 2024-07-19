@@ -16,7 +16,7 @@ import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
   Widget icon({double? size}) => custom ? MailIcon(size: size ?? P4) : Image.asset('assets/icons/${code}_icon.png', height: size ?? P4);
-  Widget iconTitle({double? size}) => Row(children: [icon(size: size), const SizedBox(width: P), BaseText('$this')]);
+  Widget iconTitle({double? size}) => Row(children: [icon(size: size), const SizedBox(width: P), BaseText('$this', maxLines: 1)]);
 }
 
 extension SourcePresenter on Source {

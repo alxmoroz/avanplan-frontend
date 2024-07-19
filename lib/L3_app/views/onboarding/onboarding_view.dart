@@ -62,6 +62,7 @@ class _OnboardingViewState extends State<_OnboardingView> {
                   Intl.message('onboarding_step_${_controller.stepIndex + 1}_text'),
                   align: TextAlign.center,
                   padding: const EdgeInsets.symmetric(horizontal: P6),
+                  maxLines: 2,
                 ),
                 const SizedBox(height: P3),
                 QuizNextButton(_controller),

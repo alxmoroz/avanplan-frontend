@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/number.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -7,7 +8,6 @@ import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/tariff_option.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
-import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/colors.dart';
@@ -56,13 +56,7 @@ class _WSTariffDialog extends StatelessWidget {
         leading: const BankCardIcon(),
         titleText: loc.tariff_current_expenses_title,
         subtitle: _hasExpenses
-            ? Row(
-                children: [
-                  MTPrice(_expectedDailyCharge, size: AdaptiveSize.xs),
-                  const SizedBox(width: P_2),
-                  DSmallText(loc.per_day_suffix),
-                ],
-              )
+            ? DSmallText('${_expectedDailyCharge.currency} $CURRENCY_SYMBOL_ROUBLE ${loc.per_day_suffix}', align: TextAlign.left, color: f2Color)
             : SmallText(loc.tariff_current_expenses_zero_title, maxLines: 1),
         trailing: const ChevronIcon(),
         bottomDivider: false,

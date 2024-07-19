@@ -45,7 +45,7 @@ class TariffOptions extends StatelessWidget {
             final term = f.priceTerm(_isMyTariff ? _ws.consumedEndDate(f.code) : null);
             return MTListTile(
               leading: f.icon,
-              middle: D3(f.title, align: TextAlign.left),
+              middle: BaseText(f.title, align: TextAlign.left),
               subtitle: Row(
                 children: [
                   MTPrice(actualPrice, color: f2Color, size: AdaptiveSize.xs),

@@ -50,7 +50,7 @@ class _MemberDialog extends StatelessWidget {
                   _member!.icon(P10),
                   const SizedBox(height: P3),
                   H3('$_member', align: TextAlign.center),
-                  BaseText(_member!.email, align: TextAlign.center),
+                  BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
                   if (_member!.roles.isNotEmpty) ...[
                     MTListGroupTitle(titleText: loc.role_list_title),
                     MTListTile(

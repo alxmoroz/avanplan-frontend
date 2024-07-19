@@ -23,7 +23,7 @@ class InvitationButton extends StatelessWidget {
     return inList
         ? MTListTile(
             leading: const MemberAddIcon(size: P8),
-            middle: BaseText(loc.invitation_create_title, color: mainColor),
+            middle: BaseText(loc.invitation_create_title, color: mainColor, maxLines: 1),
             bottomDivider: false,
             onTap: () => invite(task),
           )

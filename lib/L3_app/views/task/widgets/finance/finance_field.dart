@@ -26,9 +26,9 @@ class FinanceField extends StatelessWidget {
   num get _trCount => _trController.transactionsCount;
 
   static const trIconSize = P3;
-  Widget get _trIcon => _task.balance < 0
-      ? FinanceExpensesIcon(size: trIconSize, color: _task.balanceColor)
-      : FinanceIncomeIcon(size: trIconSize, color: _task.balanceColor);
+  // Widget get _trIcon => _task.balance < 0
+  //     ? FinanceExpensesIcon(size: trIconSize, color: _task.balanceColor)
+  //     : FinanceIncomeIcon(size: trIconSize, color: _task.balanceColor);
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +37,7 @@ class FinanceField extends StatelessWidget {
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       leading: const FinanceIcon(),
       value: _trCount > 0 ? BaseText(loc.finance_transactions_count(_trCount), maxLines: 1) : null,
-      trailing: _trCount > 0
-          ? Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                _trIcon,
-                const SizedBox(width: P_2),
-                D3('${_task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: _task.balanceColor),
-              ],
-            )
-          : null,
+      trailing: _trCount > 0 ? D3('${_task.balance.abs().currencySharp}$CURRENCY_SYMBOL_ROUBLE', color: _task.balanceColor) : null,
       compact: compact,
       onTap: () => transactionsDialog(_trController),
     );

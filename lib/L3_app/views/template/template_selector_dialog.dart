@@ -44,7 +44,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
   const _TemplateSelectorDialog(this._controller);
   final TemplateController _controller;
 
-  static const _iconSize = P8;
+  static const _iconSize = 50.0;
 
   Widget _groupBuilder(BuildContext context, int gIndex) {
     final group = _controller.templatesGroups[gIndex];

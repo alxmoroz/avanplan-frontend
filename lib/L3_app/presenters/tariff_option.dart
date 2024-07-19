@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/tariff_option.dart';
 import '../../L1_domain/utils/dates.dart';
-import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/images.dart';
 import '../extra/services.dart';
@@ -24,7 +23,7 @@ extension TariffOptionPresenter on TariffOption {
                         : const FeaturesIcon();
   }
 
-  Widget get image => MTImage('fs_${code.toLowerCase()}', width: P8, height: P8);
+  Widget get image => MTImage('fs_${code.toLowerCase()}', width: 50, height: 50);
 
   String priceTerm(DateTime? endDate) => endDate != null
       ? loc.promo_end_duration(loc.days_count(endDate.difference(now).inDays))

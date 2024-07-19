@@ -53,7 +53,7 @@ class _ProjectModulesBody extends StatelessWidget {
 
   Task get _project => _controller.project;
 
-  static const _iconSize = P8;
+  static const _iconSize = 50.0;
   Widget _image(String code) => MTImage('fs_${code.toLowerCase()}', width: _iconSize, height: _iconSize);
 
   Future _selectFeatures() async {

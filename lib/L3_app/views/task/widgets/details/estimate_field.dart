@@ -25,13 +25,14 @@ class TaskEstimateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canEstimate = _task.canEstimate;
     return MTField(
       _controller.fData(TaskFCode.estimate.index),
-      leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
-      value: _task.hasEstimate || !_task.canEstimate ? BaseText(_task.estimateStr, maxLines: 1) : null,
+      leading: EstimateIcon(color: canEstimate ? mainColor : f3Color),
+      value: _task.hasEstimate ? BaseText(_task.estimateStr, maxLines: 1) : null,
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-      onTap: _task.canEstimate ? _controller.selectEstimate : null,
+      onTap: canEstimate ? _controller.selectEstimate : null,
     );
   }
 }

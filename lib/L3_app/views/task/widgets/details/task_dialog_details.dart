@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/constants.dart';
-import '../../../../usecases/project_module.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
@@ -22,41 +20,41 @@ class TaskDialogDetails extends StatelessWidget {
   const TaskDialogDetails(this._controller, {super.key});
   final TaskController _controller;
 
-  Task get _task => _controller.task;
-  bool get _showStatusRow => _task.canShowStatus || _task.closed;
-  bool get _showDescription => _task.hasDescription || _task.canEdit;
-
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => ListView(
+    return Observer(builder: (_) {
+      final t = _controller.task;
+      final showStatusRow = t.canShowStatus || t.closed;
+      final showDescription = t.hasDescription || t.canEdit;
+
+      return ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
-          if (_showStatusRow) ...[
+          if (showStatusRow) ...[
             SizedBox(height: isWeb ? P2 : P),
             TaskStatusField(_controller),
           ],
 
           /// Описание
-          if (_showDescription) TaskDescriptionField(_controller, hasMargin: true),
+          if (showDescription) TaskDescriptionField(_controller, hasMargin: true),
 
           /// Чек-лист
-          if (_task.canCreateChecklist || _task.isCheckList) ...[
+          if (t.canCreateChecklist || t.isCheckList) ...[
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],
 
           /// Финансы
-          if (_task.hmFinance) FinanceField(_controller, hasMargin: true),
+          if (t.canShowFinanceField) FinanceField(_controller, hasMargin: true),
 
           /// Вложения
-          if (_task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: true),
+          if (t.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: true),
 
           if (_controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),
         ],
-      ),
-    );
+      );
+    });
   }
 }

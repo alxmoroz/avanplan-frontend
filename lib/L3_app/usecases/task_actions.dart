@@ -65,7 +65,10 @@ extension TaskActionsUC on Task {
   bool get canAssign => canEdit && hmTeam && activeMembers.isNotEmpty;
   bool get canShowAssignee => hmTeam && (hasAssignee || canAssign);
 
-  bool get canEstimate => isTask && !closed && canEdit && ws.estimateValues.isNotEmpty;
+  bool get canShowEstimate => hmAnalytics && isTask && hasEstimate;
+  bool get canEstimate => hmAnalytics && isTask && canEdit && ws.estimateValues.isNotEmpty;
+
+  bool get canShowFinanceField => hmFinance && isTask;
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 

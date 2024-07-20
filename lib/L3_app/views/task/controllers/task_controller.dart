@@ -20,7 +20,7 @@ import '../usecases/duplicate.dart';
 import '../usecases/link.dart';
 import '../usecases/status.dart';
 import '../usecases/transfer.dart';
-import '../widgets/details/details_dialog.dart';
+import '../widgets/details/task_details.dart';
 import 'attachments_controller.dart';
 import 'notes_controller.dart';
 import 'project_modules_controller.dart';

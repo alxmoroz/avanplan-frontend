@@ -11,14 +11,16 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/dialog.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/project_module.dart';
 import '../../../../presenters/source.dart';
-import '../../../../usecases/project_module.dart';
+import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
@@ -35,6 +37,13 @@ import 'estimate_field.dart';
 import 'start_date_field.dart';
 import 'task_status_field.dart';
 
+Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
+      MTDialog(
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: controller.task.subPageTitle(loc.details)),
+        body: TaskDetails(controller, standalone: true),
+      ),
+    );
+
 class TaskDetails extends StatelessWidget {
   const TaskDetails(this._controller, {super.key, this.standalone = false, this.compact = false});
   final TaskController _controller;
@@ -43,84 +52,83 @@ class TaskDetails extends StatelessWidget {
 
   Task get _task => _controller.task;
 
-  bool _isTaskDialog(BuildContext context) => isBigScreen(context) && _task.isTask;
-  bool _isTaskMobileView(BuildContext context) => !isBigScreen(context) && _task.isTask;
-  bool _showStatusRow(BuildContext context) => _isTaskMobileView(context) && (_task.canShowStatus || _task.closed);
-  bool _showDescription(BuildContext context) => !_isTaskDialog(context) && (_task.hasDescription || _task.canEdit);
-
-  bool _hasMargins(BuildContext context) => standalone || _isTaskMobileView(context);
-
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => ListView(
+    return Observer(builder: (_) {
+      final t = _task;
+      final isTaskDialog = isBigScreen(context) && t.isTask;
+      final isTaskMobileView = !isBigScreen(context) && t.isTask;
+      final showStatusRow = isTaskMobileView && (t.canShowStatus || t.closed);
+      final showDescription = !isTaskDialog && (t.hasDescription || t.canEdit);
+      final hasMargins = standalone || isTaskMobileView;
+
+      return ListView(
         shrinkWrap: true,
         physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Статус
-          if (_showStatusRow(context)) ...[
+          if (showStatusRow) ...[
             const SizedBox(height: P),
             TaskStatusField(_controller),
           ],
 
           /// Описание
-          if (_showDescription(context))
+          if (showDescription)
             TaskDescriptionField(
               _controller,
               compact: compact,
               short: true,
-              hasMargin: _hasMargins(context),
+              hasMargin: hasMargins,
             ),
 
           /// Чек-лист
-          if (!_isTaskDialog(context) && (_task.canCreateChecklist || _task.isCheckList)) ...[
+          if (!isTaskDialog && (t.canCreateChecklist || t.isCheckList)) ...[
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],
 
           /// Назначенный
-          if (_task.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (t.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Даты
-          if (!_task.isInbox) TaskStartDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
-          if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (!t.isInbox) TaskStartDateField(_controller, compact: compact, hasMargin: hasMargins),
+          if (t.hasDueDate || t.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Оценки
-          if (_task.hmAnalytics && (!_task.closed || _task.hasEstimate))
-            TaskEstimateField(_controller, compact: compact, hasMargin: _hasMargins(context)),
+          if (t.canShowEstimate || t.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Финансы
-          if (_task.isTask && !_isTaskDialog(context) && _task.hmFinance) FinanceField(_controller, hasMargin: _hasMargins(context)),
+          if (t.canShowFinanceField && !isTaskDialog) FinanceField(_controller, hasMargin: hasMargins),
 
           /// Вложения
-          if (!_isTaskDialog(context) && _task.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: _hasMargins(context)),
+          if (!isTaskDialog && t.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: hasMargins),
 
           /// Модули проекта
-          if (_task.canShowProjectModules)
+          if (t.canShowProjectModules)
             MTField(
               _controller.fData(TaskFCode.projectModules.index),
-              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
-              leading: SettingsIcon(color: _task.canEditProjectModules ? mainColor : f3Color),
-              value: BaseText(_task.localizedModules, maxLines: 1),
+              margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
+              leading: SettingsIcon(color: t.canEditProjectModules ? mainColor : f3Color),
+              value: BaseText(t.localizedModules, maxLines: 1),
               compact: compact,
-              onTap: _task.canEditProjectModules ? () => projectModulesDialog(_controller) : null,
+              onTap: t.canEditProjectModules ? () => projectModulesDialog(_controller) : null,
             ),
 
           /// Связь с источником импорта
-          if (_task.didImported)
+          if (t.didImported)
             MTListTile(
-              margin: EdgeInsets.only(top: _hasMargins(context) ? P3 : 0),
-              leading: _task.source?.type.icon(size: P6),
+              margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
+              leading: t.source?.type.icon(size: P6),
               titleText: !compact ? loc.task_go2source_title : null,
               trailing: !compact ? const LinkOutIcon() : null,
               bottomDivider: false,
-              onTap: () => launchUrlString(_task.taskSource!.urlString),
+              onTap: () => launchUrlString(t.taskSource!.urlString),
             ),
 
           /// Комментарии
-          if (_isTaskMobileView(context) && _controller.notesController.hasNotes) Notes(_controller),
+          if (isTaskMobileView && _controller.notesController.hasNotes) Notes(_controller),
         ],
-      ),
-    );
+      );
+    });
   }
 }

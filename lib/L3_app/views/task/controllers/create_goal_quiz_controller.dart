@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/project_module.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../widgets/create/create_subtasks_quiz_view.dart';
@@ -39,6 +38,7 @@ abstract class _CreateGoalQuizControllerBase extends AbstractTaskQuizController 
   @override
   Iterable<QuizStep> get steps => [
         QuizStep(_StepCode.goalSetup.name, loc.goal_create_quiz_title),
-        if (!_goal.hmTaskboard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title),
+        // TODO: deprecated Пока что решили убрать из квиза. Убрать отсюда полностью когда будет решен вопрос с массовым добавлением задач
+        // if (!_goal.hmTaskboard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title),
       ];
 }

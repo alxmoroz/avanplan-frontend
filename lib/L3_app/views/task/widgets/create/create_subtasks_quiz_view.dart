@@ -27,6 +27,7 @@ import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../tasks/task_checklist_item.dart';
 
+// TODO: deprecated Пока что решили убрать из квиза. Убрать отсюда полностью когда будет решен вопрос с массовым добавлением задач
 class CreateSubtasksQuizRoute extends AbstractTaskQuizRoute {
   static const staticBaseName = 'subtasks';
 

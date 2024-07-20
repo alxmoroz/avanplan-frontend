@@ -67,7 +67,7 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   bool get _wantTeam => _pmc.hasChecked(TOCode.TEAM);
   bool get _wantGoals => _pmc.hasChecked(TOCode.GOALS);
-  bool get _wantBoard => _pmc.hasChecked(TOCode.TASKBOARD);
+  // bool get _wantBoard => _pmc.hasChecked(TOCode.TASKBOARD);
 
   @override
   Iterable<QuizStep> get steps => [
@@ -75,6 +75,7 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
         QuizStep(_StepCode.projectModules.name, loc.project_modules_quiz_title),
         if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title),
         if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title),
-        if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title),
+        // TODO: deprecated Пока что решили убрать из квиза. Убрать отсюда полностью когда будет решен вопрос с массовым добавлением задач
+        // if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title),
       ];
 }

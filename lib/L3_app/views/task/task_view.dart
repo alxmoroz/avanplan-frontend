@@ -64,6 +64,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
     _scrollController = ScrollController();
     _boardScrollController = ScrollController();
 
+    if (td.isGroup && task.creating) taskGroupToolbarController.setCompact(false);
+
     if (!td.filled) controller.reload(closed: false);
 
     super.initState();

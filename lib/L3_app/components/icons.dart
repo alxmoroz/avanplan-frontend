@@ -156,6 +156,22 @@ class ChevronCircleIcon extends MTIcon {
   final bool left;
 }
 
+class ChevronCaretIcon extends StatelessWidget {
+  const ChevronCaretIcon({super.key, this.left = false, this.color = mainColor, required this.size});
+  final bool left;
+  final Size size;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => RotatedBox(
+        quarterTurns: left ? 3 : 1,
+        child: CustomPaint(
+          painter: TrianglePainter(color: (color ?? f2Color).resolve(context)),
+          child: SizedBox(height: size.height, width: size.width),
+        ),
+      );
+}
+
 class CloseIcon extends MTIcon {
   const CloseIcon({super.key, super.color, super.size = P4}) : super(CupertinoIcons.clear);
 }

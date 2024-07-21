@@ -474,7 +474,7 @@
   "task_go2source_title": "Go to Source",
 
   "task_list_empty_hint": "Add tasks to get started",
-  "task_list_empty_local_import_hint": "Add tasks or transfer from another goal",
+  "task_list_empty_local_import_hint": "Add tasks or transfer them from another goal or project",
   "task_list_empty_overview_title": "Let's start achieving the goal",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_schedule_action_title": "Schedule",
@@ -503,7 +503,7 @@
   "task_transfer_export_empty_title": "No suitable places to transfer",
   "task_transfer_import_action_title": "Transfer tasks",
   "task_transfer_import_confirm_action_title": "Transfer",
-  "task_transfer_import_empty_title": "No suitable sources",
+  "task_transfer_import_empty_title": "There are no tasks to transfer",
   "task_transfer_source_hint": "Select where to transfer from",
   "task_transfer_title": "Transfer tasks to ",
 

@@ -474,7 +474,7 @@
   "task_go2source_title": "Перейти к источнику",
 
   "task_list_empty_hint": "Добавьте задачи, чтобы начать работу",
-  "task_list_empty_local_import_hint": "Добавьте или перенесите задачи из другой цели",
+  "task_list_empty_local_import_hint": "Добавьте или перенесите задачи из другой цели или проекта",
   "task_list_empty_overview_title": "Приступим к достижению цели",
   "task_list_empty_title": "Отдыхаем от дел",
   "task_list_schedule_action_title": "Запланировать",
@@ -503,7 +503,7 @@
   "task_transfer_export_empty_title": "Нет подходящих мест для переноса",
   "task_transfer_import_action_title": "Перенести задачи",
   "task_transfer_import_confirm_action_title": "Перенести",
-  "task_transfer_import_empty_title": "Нет подходящих источников",
+  "task_transfer_import_empty_title": "Нечего переносить",
   "task_transfer_source_hint": "Выберите, откуда перенести",
   "task_transfer_title": "Перенос задач в ",
 

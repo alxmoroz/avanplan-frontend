@@ -7,9 +7,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -75,24 +77,24 @@ class TransferSelectorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => _controller.loading
+    return Observer(builder: (_) {
+      final empty = _controller.tasks.isEmpty;
+      return _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                title: _titleText,
+                title: empty ? '' : _titleText,
               ),
-              body: _controller.tasks.isEmpty
+              body: empty
                   ? ListView(
                       shrinkWrap: true,
                       children: [
-                        BaseText(
-                          _emptyText,
-                          align: TextAlign.center,
-                          padding: const EdgeInsets.all(P3),
-                        )
+                        MTImage(ImageName.no_info.name),
+                        H3(_emptyText, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
+                        MTButton.secondary(titleText: loc.ok, onTap: () => Navigator.of(context).pop()),
+                        if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                       ],
                     )
                   : ListView.builder(
@@ -100,7 +102,7 @@ class TransferSelectorDialog extends StatelessWidget {
                       itemCount: _groups.length,
                       itemBuilder: _groupBuilder,
                     ),
-            ),
-    );
+            );
+    });
   }
 }

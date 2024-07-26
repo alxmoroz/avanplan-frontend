@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_copy.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
@@ -145,21 +146,13 @@ extension TaskEditUC on TaskController {
 
           if (sameWS) {
             // статус в другом проекте
-            final oldStatusId = task.projectStatusId;
+            int? dstProjectStatusId = task.projectStatusId;
             if (dst.project.id != task.project.id) {
               final psc = TaskController(taskIn: dst).projectStatusesController;
               psc.reload();
-              task.projectStatusId = psc.firstOpenedStatusId;
+              dstProjectStatusId = psc.firstOpenedStatusId;
             }
-            // родитель
-            final oldParentId = task.parentId;
-            task.parentId = dst.id;
-            changes = await taskUC.save(task);
-            // ошибка
-            if (changes == null) {
-              task.parentId = oldParentId;
-              task.projectStatusId = oldStatusId;
-            }
+            changes = await taskUC.save(task.copyWith(parentId: dst.id, projectStatusId: dstProjectStatusId));
           } else {
             changes = await taskUC.move(taskDescriptor, dst);
           }

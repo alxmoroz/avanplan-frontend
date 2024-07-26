@@ -91,6 +91,7 @@ class PromoFeatures extends StatelessWidget {
               titleText: loc.promo_features_subscribe_title,
               onTap: () => _subscribe(context),
             ),
+            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
       ),

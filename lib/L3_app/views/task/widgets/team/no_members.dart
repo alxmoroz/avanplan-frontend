@@ -18,6 +18,7 @@ class NoMembers extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
         MTImage(ImageName.team.name),
         const SizedBox(height: P2),

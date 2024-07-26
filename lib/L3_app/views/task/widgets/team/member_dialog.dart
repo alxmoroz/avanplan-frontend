@@ -60,7 +60,8 @@ class _MemberDialog extends StatelessWidget {
                       loading: _task.loading,
                       onTap: _task.canEditMembers ? () => editRoles(context) : null,
                     )
-                  ]
+                  ] else if (MediaQuery.paddingOf(context).bottom == 0)
+                    const SizedBox(height: P3),
                 ],
               )
             : Container(),

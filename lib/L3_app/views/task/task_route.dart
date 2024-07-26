@@ -64,7 +64,12 @@ abstract class BaseTaskRoute extends MTRoute {
         }
         final qcTask = qc?.taskController.taskDescriptor;
 
-        return qc != null && (qcTask == _td || qcTask == _td.parent) ? CreateTaskQuizView(_tc, qc) : TaskView(_tc);
+        return qc != null && (qcTask == _td || qcTask == _td.parent)
+            ? CreateTaskQuizView(_tc, qc)
+            : TaskView(
+                _tc,
+                key: ValueKey('${_td.wsId}_${_td.id}'),
+              );
       };
 }
 

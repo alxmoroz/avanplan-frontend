@@ -56,8 +56,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
   bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
   double get _headerHeight => P8 + (_hasParent ? P8 : 0);
-  // TODO: определить как и fast / other actions в задаче
-  bool get _hasQuickActions => (task.hasSubtasks && (task.canShowBoard || task.canLocalImport || task.canCreate)) || task.canComment;
 
   @override
   void initState() {
@@ -160,19 +158,20 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget? get _title {
     final textColor = td.isInbox ? f2Color : null;
+    final bigGroup = _isBigGroup;
     return _hasScrolled
         ? Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (_hasParent) _parentTitle,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: _isBigGroup ? P : P6).copyWith(top: _isBigGroup && _hasParent ? P : 0),
+                padding: EdgeInsets.symmetric(horizontal: bigGroup ? P : P6).copyWith(top: bigGroup && _hasParent ? P : 0),
                 child: Row(
-                  mainAxisAlignment: _isBigGroup ? MainAxisAlignment.start : MainAxisAlignment.center,
+                  mainAxisAlignment: bigGroup ? MainAxisAlignment.start : MainAxisAlignment.center,
                   children: [
-                    if (td.isInbox) InboxIcon(color: f2Color, size: _isBigGroup ? P6 : P4),
-                    SizedBox(width: _isBigGroup ? P2 : P),
-                    Flexible(child: _isBigGroup ? H1(task.title, maxLines: 1, color: textColor) : H3(task.title, maxLines: 1, color: textColor)),
+                    if (td.isInbox) InboxIcon(color: f2Color, size: bigGroup ? P6 : P4),
+                    SizedBox(width: bigGroup ? P2 : P),
+                    Flexible(child: bigGroup ? H1(task.title, maxLines: 1, color: textColor) : H3(task.title, maxLines: 1, color: textColor)),
                   ],
                 ),
               ),
@@ -208,25 +207,28 @@ class TaskViewState<T extends TaskView> extends State<T> {
               : Observer(
                   builder: (_) {
                     final big = isBigScreen(context);
+                    final bigGroup = _isBigGroup;
                     final actions = controller.loading ? <TaskAction>[] : task.actions(context);
+                    // TODO: определить как и fast / other actions в задаче
+                    final showBottomToolbar = !bigGroup && (task.canShowBoard || task.canLocalImport || task.canCreateSubtask || task.canComment);
                     return MTPage(
                       appBar: big && !_hasScrolled
                           ? null
                           : MTAppBar(
                               innerHeight: big ? _headerHeight : null,
-                              color: _isBigGroup ? b2Color : null,
-                              leading: _isBigGroup ? const SizedBox() : null,
+                              color: bigGroup ? b2Color : null,
+                              leading: bigGroup ? const SizedBox() : null,
                               middle: _title,
-                              trailing: !_isBigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
+                              trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
                       body: MTRefresh(
                         onRefresh: () => controller.reload(closed: false),
                         child: _body,
                       ),
-                      bottomBar: !_isBigGroup && _hasQuickActions ? TaskBottomToolbar(controller) : null,
+                      bottomBar: showBottomToolbar ? TaskBottomToolbar(controller) : null,
                       // панель справа - для проекта и цели. Для инбокса только если он не пустой
-                      rightBar: _isBigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
+                      rightBar: bigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
                       scrollController: _scrollController,
                       scrollOffsetTop: _headerHeight,
                       onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

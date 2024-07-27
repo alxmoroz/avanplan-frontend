@@ -68,7 +68,7 @@ abstract class BaseTaskRoute extends MTRoute {
             ? CreateTaskQuizView(_tc, qc)
             : TaskView(
                 _tc,
-                key: ValueKey('${_td.wsId}_${_td.id}'),
+                key: state.pageKey,
               );
       };
 }

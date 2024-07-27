@@ -47,6 +47,8 @@ class MTRoute extends GoRoute {
 
   @override
   GoRouterPageBuilder? get pageBuilder => (BuildContext context, GoRouterState state) {
+        mainController.setRoute(this);
+
         if (isWeb) {
           final pageTitle = title(state) ?? '';
           SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(

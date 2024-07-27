@@ -30,7 +30,7 @@ class TaskParentTitle extends StatelessWidget {
       builder: (_) => MTField(
         _controller.fData(TaskFCode.parent.index),
         value: BaseText(_task.parent!.title, maxLines: 1, color: mainColor),
-        padding: const EdgeInsets.symmetric(horizontal: P3),
+        padding: const EdgeInsets.only(left: P3 + 1, right: P3),
         margin: EdgeInsets.only(bottom: isWeb ? P2 : 0),
         color: Colors.transparent,
         minHeight: P6,

@@ -28,7 +28,7 @@ class WSListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: ws.isMine ? const WSHomeIcon() : WSPublicIcon(color: _disabled ? f2Color : mainColor),
+      leading: ws.isMine ? const HomeIcon() : WSPublicIcon(color: _disabled ? f2Color : mainColor),
       dividerIndent: P11,
       middle: Row(children: [
         Expanded(child: BaseText(ws.title, maxLines: 1)),

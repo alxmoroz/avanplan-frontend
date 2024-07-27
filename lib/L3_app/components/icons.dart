@@ -271,6 +271,10 @@ class FinanceIncomeIcon extends MTIcon {
   const FinanceIncomeIcon({super.key, super.color, super.size = P4}) : super(CupertinoIcons.arrow_up_right);
 }
 
+class HomeIcon extends MTIcon {
+  const HomeIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.house_alt);
+}
+
 class ImportIcon extends MTIcon {
   const ImportIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cloud_download);
 }
@@ -409,10 +413,6 @@ class TasksIcon extends MTIcon {
 
 class TemplateIcon extends MTIcon {
   const TemplateIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.collections);
-}
-
-class WSHomeIcon extends MTIcon {
-  const WSHomeIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.house_alt);
 }
 
 class WSPublicIcon extends MTIcon {

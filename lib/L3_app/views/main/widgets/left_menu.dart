@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../components/adaptive.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
@@ -15,7 +16,10 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/user.dart';
 import '../../app/app_title.dart';
+import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
+import '../../task/task_route.dart';
+import '../main_view.dart';
 
 class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   const LeftMenu(this._controller, {super.key});
@@ -25,38 +29,93 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromWidth(_controller.width);
 
+  BoxDecoration _selectedDecoration(BuildContext context) {
+    final topShadowColor = b1Color.resolve(context);
+    final selectedColor = b2Color.resolve(context);
+    return BoxDecoration(
+      color: b2Color.resolve(context),
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [topShadowColor, selectedColor.withAlpha(42), selectedColor],
+        stops: const [0, 0.1, 1],
+      ),
+    );
+  }
+
+  static const _selectedSize = P5;
+  static const _unselectedSize = P4;
+
+  Widget _menuButton(BuildContext context, Widget icon, String title, bool selected, Function()? onTap) => MTListTile(
+        middle: Row(
+          mainAxisAlignment: _compact ? MainAxisAlignment.center : MainAxisAlignment.start,
+          children: [
+            if (!_compact && !selected) const SizedBox(width: (_selectedSize - _unselectedSize) / 2),
+            icon,
+            if (!_compact)
+              BaseText(
+                title,
+                weight: selected ? null : FontWeight.w300,
+                color: f2Color,
+                maxLines: 1,
+                padding: const EdgeInsets.only(left: P2),
+              ),
+          ],
+        ),
+        decoration: selected ? _selectedDecoration(context) : null,
+        bottomDivider: false,
+        onTap: onTap,
+      );
+
+  Widget _homeButton(BuildContext context, bool selected) => _menuButton(
+        context,
+        HomeIcon(size: selected ? _selectedSize : _unselectedSize),
+        loc.my_tasks_upcoming_title,
+        selected,
+        router.goMain,
+      );
+
+  Widget _projectsButton(BuildContext context, bool selected) => _menuButton(
+        context,
+        ProjectsIcon(color: mainColor, size: selected ? _selectedSize : _unselectedSize),
+        loc.project_list_title,
+        selected,
+        router.goProjects,
+      );
+
+  Widget _inboxButton(BuildContext context, bool selected) => _menuButton(
+        context,
+        InboxIcon(size: selected ? _selectedSize : _unselectedSize),
+        loc.inbox,
+        selected,
+        () => router.goTaskView(tasksMainController.inbox!, direct: true),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
+      final route = mainController.currentRoute;
       return VerticalToolbar(
         _controller,
         rightSide: false,
         child: Column(
           children: [
-            if (isBigScreen(context))
+            if (isBigScreen(context)) ...[
               MTListTile(
                 middle: AppTitle(compact: _compact),
                 bottomDivider: false,
                 onTap: router.goMain,
               ),
-            MTListTile(
-              leading: const ProjectsIcon(color: mainColor, size: P6),
-              middle: _compact ? null : BaseText(loc.project_list_title, maxLines: 1),
-              bottomDivider: false,
-              onTap: router.goProjects,
-            ),
+              const SizedBox(height: P3),
+              _homeButton(context, route is MainRoute),
+            ],
+            _projectsButton(context, route is ProjectsRoute),
+            _inboxButton(context, route is InboxRoute),
             const Spacer(),
-            // if (isWeb)
-            //   MTListTile(
-            //     leading: const RefreshIcon(),
-            //     middle: _compact ? null : BaseText(loc.refresh_action_title, color: mainColor, maxLines: 1),
-            //     bottomDivider: false,
-            //     onTap: mainController.reload,
-            //   ),
             if (accountController.me != null)
               MTListTile(
                 leading: accountController.me!.icon(P6 / 2, borderColor: mainColor),
-                middle: _compact ? null : BaseText('${accountController.me!}', maxLines: 1),
+                middle: _compact ? null : BaseText('${accountController.me!}', maxLines: 1, color: f2Color),
                 bottomDivider: false,
                 onTap: settingsMenu,
               )

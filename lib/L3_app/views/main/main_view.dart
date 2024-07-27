@@ -39,8 +39,8 @@ late VerticalToolbarController rightToolbarController;
 late VerticalToolbarController taskGroupToolbarController;
 late VerticalToolbarController taskToolbarController;
 
-class _MainRoute extends MTRoute {
-  _MainRoute()
+class MainRoute extends MTRoute {
+  MainRoute()
       : super(
           baseName: 'main',
           path: '/',
@@ -68,7 +68,7 @@ class _MainRoute extends MTRoute {
       ];
 }
 
-final mainRoute = _MainRoute();
+final mainRoute = MainRoute();
 
 class _MainView extends StatefulWidget {
   const _MainView();

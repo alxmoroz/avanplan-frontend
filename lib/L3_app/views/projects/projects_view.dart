@@ -118,7 +118,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                       titleText: _inbox!.title,
                       trailing: const ChevronIcon(),
                       bottomDivider: false,
-                      onTap: () => router.goTaskView(_inbox!),
+                      onTap: () => router.goTaskView(_inbox!, direct: true),
                     ),
                   ),
                 ],

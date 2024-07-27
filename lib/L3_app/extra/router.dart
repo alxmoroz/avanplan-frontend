@@ -46,7 +46,7 @@ extension MTPathParametersHelper on GoRouterState {
 
 extension MTRouterHelper on GoRouter {
   RouteMatchList get _currentConfig => routerDelegate.currentConfiguration;
-  MTRoute get _currentRoute => _currentConfig.last.route as MTRoute;
+  MTRoute get currentRoute => _currentConfig.last.route as MTRoute;
 
   bool get isDeepLink => _currentConfig.extra == null;
 
@@ -86,7 +86,7 @@ extension MTRouterHelper on GoRouter {
       final needPush = !direct && (!isWeb || td.isTask);
       final Map<String, String> pp = needPush ? currentPP : {};
       pp.addAll({'wsId': '${td.wsId}', ttIdKey: '${td.id!}'});
-      final currentName = needPush ? _currentRoute.name : mainRoute.name;
+      final currentName = needPush ? currentRoute.name : mainRoute.name;
       _goNamed('$currentName/$tt', pathParameters: pp);
     }
   }
@@ -114,7 +114,7 @@ extension MTRouterHelper on GoRouter {
   }) async {
     final stepIndex = qc.stepIndex;
     needAppendPath = needAppendPath || stepIndex < 2;
-    final parentName = needAppendPath ? _currentRoute.name : _currentRoute.parent!.name;
+    final parentName = needAppendPath ? currentRoute.name : currentRoute.parent!.name;
     final pp = _currentConfig.pathParameters;
     pp.addAll(pathParameters);
 

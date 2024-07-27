@@ -110,7 +110,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                   /// Группа
                   : Observer(
-                      builder: (_) => !task.hasSubtasks && !task.canShowBoard
+                      builder: (_) => !task.hasSubtasks && (!task.canShowBoard || !controller.showBoard)
 
                           /// Группа без подзадач
                           ? SizedBox(

@@ -53,8 +53,8 @@ extension DatesUC on TaskController {
     final pastDate = today.subtract(YEAR * 100);
     final futureDate = today.add(YEAR * 100);
 
-    final initialDate = selectedDate ?? (hasFutureStart ? startDate : today);
-    final firstDate = isStart ? pastDate : startDate ?? today;
+    final initialDate = selectedDate ?? (hasFutureStart ? startDate : (dueDate?.isBefore(today) == true ? dueDate : today));
+    final firstDate = isStart ? pastDate : startDate ?? (initialDate?.isBefore(today) == true ? initialDate! : today);
     final lastDate = (isStart ? dueDate : null) ?? futureDate;
 
     // !! Нельзя давать менять способ ввода - поплывёт кнопка "Сбросить".

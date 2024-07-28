@@ -12,8 +12,6 @@ import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/user.dart';
-import '../../settings/settings_menu.dart';
 import 'inbox_add_task_button.dart';
 
 class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
@@ -28,7 +26,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => Stack(
-        alignment: Alignment.topCenter,
+        alignment: Alignment.bottomCenter,
         clipBehavior: Clip.none,
         children: [
           MTAppBar(
@@ -38,6 +36,16 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Flexible(
                   child: MTListTile(
+                    middle: const InboxIcon(color: mainColor, size: P6),
+                    color: Colors.transparent,
+                    padding: _btnPadding,
+                    bottomDivider: false,
+                    onTap: () => router.goTaskView(tasksMainController.inbox!, direct: true),
+                  ),
+                ),
+                const Spacer(),
+                Flexible(
+                  child: MTListTile(
                     middle: const ProjectsIcon(color: mainColor, size: P6),
                     color: Colors.transparent,
                     padding: _btnPadding,
@@ -45,24 +53,11 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                     onTap: router.goProjects,
                   ),
                 ),
-                const Spacer(),
-                const SizedBox(width: P11 + P4),
-                Flexible(
-                  child: accountController.me != null
-                      ? MTListTile(
-                          middle: accountController.me!.icon(P6 / 2, borderColor: mainColor),
-                          color: Colors.transparent,
-                          padding: _btnPadding,
-                          bottomDivider: false,
-                          onTap: settingsMenu,
-                        )
-                      : const Spacer(),
-                ),
               ],
             ),
           ),
-          const Positioned(
-            top: -P3,
+          const SizedBox(
+            height: P12 + P7,
             child: MTCircle(
               size: P12 + P,
               color: b2Color,

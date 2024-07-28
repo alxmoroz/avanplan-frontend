@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
+import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -17,6 +18,7 @@ import '../../components/toolbar.dart';
 import '../../components/vertical_toolbar_controller.dart';
 import '../../extra/route.dart';
 import '../../extra/services.dart';
+import '../../presenters/user.dart';
 import '../_base/loader_screen.dart';
 import '../account/account_dialog.dart';
 import '../app/app_title.dart';
@@ -24,6 +26,7 @@ import '../auth/auth_view.dart';
 import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
+import '../settings/settings_menu.dart';
 import '../task/task_route.dart';
 import '../task/widgets/empty_state/task_404_dialog.dart';
 import '../workspace/ws_route.dart';
@@ -125,6 +128,14 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
         child: H1(loc.my_tasks_upcoming_title, padding: const EdgeInsets.symmetric(horizontal: P3), maxLines: 1),
       );
 
+  Widget get _myAccountButton => accountController.me != null
+      ? MTButton.icon(
+          accountController.me!.icon(P6 / 2, borderColor: mainColor),
+          padding: const EdgeInsets.symmetric(horizontal: P2),
+          onTap: settingsMenu,
+        )
+      : const SizedBox(height: P8);
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -137,7 +148,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
                 : MTPage(
                     appBar: _showTasks
                         ? MTAppBar(
-                            leading: const SizedBox(height: P8),
+                            leading: _myAccountButton,
                             color: big
                                 ? _hasScrolled
                                     ? b2Color
@@ -152,13 +163,13 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
                                 ? null
                                 : const MTButton.icon(
                                     SettingsIcon(),
-                                    padding: EdgeInsets.only(right: P2),
+                                    padding: EdgeInsets.symmetric(horizontal: P2),
                                     onTap: showViewSettingsDialog,
                                   ),
                           )
                         : big
                             ? null
-                            : const MTAppBar(leading: SizedBox(), middle: AppTitle()),
+                            : MTAppBar(leading: _myAccountButton, middle: const AppTitle()),
                     body: SafeArea(
                       top: false,
                       bottom: false,

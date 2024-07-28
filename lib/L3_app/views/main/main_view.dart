@@ -128,7 +128,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
         child: H1(loc.my_tasks_upcoming_title, padding: const EdgeInsets.symmetric(horizontal: P3), maxLines: 1),
       );
 
-  Widget get _myAccountButton => accountController.me != null
+  Widget _myAccountButton(BuildContext context) => accountController.me != null && !isBigScreen(context)
       ? MTButton.icon(
           accountController.me!.icon(P6 / 2, borderColor: mainColor),
           padding: const EdgeInsets.symmetric(horizontal: P2),
@@ -148,7 +148,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
                 : MTPage(
                     appBar: _showTasks
                         ? MTAppBar(
-                            leading: _myAccountButton,
+                            leading: _myAccountButton(context),
                             color: big
                                 ? _hasScrolled
                                     ? b2Color
@@ -169,7 +169,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
                           )
                         : big
                             ? null
-                            : MTAppBar(leading: _myAccountButton, middle: const AppTitle()),
+                            : MTAppBar(leading: _myAccountButton(context), middle: const AppTitle()),
                     body: SafeArea(
                       top: false,
                       bottom: false,

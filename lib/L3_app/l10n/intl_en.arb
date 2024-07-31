@@ -269,7 +269,7 @@
 
   "project_modules_always_on_label": "Always On",
   "project_modules_available_label": "Available on your tariff plan",
-  "project_modules_label": "Active Modules",
+  "project_modules_label": "Modules",
   "project_modules_quiz_title": "Select project modules",
   "project_modules_title": "Project Modules",
 
@@ -451,9 +451,9 @@
 
   "task_actions_menu_title": "More Actions",
   "task_assignee_nobody": "Nobody",
-  "task_assignee_label": "Assigned",
-  "task_assignee_placeholder": "Assign",
-  "task_attachment_placeholder": "Add attachment",
+  "task_assignee_label": "Assignee",
+  "task_assignee_placeholder": "Assignee",
+  "task_attachment_placeholder": "Attachment",
   "task_author_title": "Creator",
 
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
@@ -494,7 +494,7 @@
 
   "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start Date",
-  "task_status_select_placeholder": "Select status",
+  "task_status_select_placeholder": "Status",
 
   "task_title": "Task",
 

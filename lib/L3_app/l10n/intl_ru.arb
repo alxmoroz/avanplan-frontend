@@ -269,7 +269,7 @@
 
   "project_modules_always_on_label": "Подключены всегда",
   "project_modules_available_label": "Доступны на вашем тарифе",
-  "project_modules_label": "Подключенные модули",
+  "project_modules_label": "Модули",
   "project_modules_quiz_title": "Выберите модули проекта",
   "project_modules_title": "Модули проекта",
 
@@ -451,9 +451,9 @@
 
   "task_actions_menu_title": "Другие действия",
   "task_assignee_nobody": "Никому",
-  "task_assignee_label": "Назначено",
-  "task_assignee_placeholder": "Назначить ответственного",
-  "task_attachment_placeholder": "Добавить вложение",
+  "task_assignee_label": "Ответственный",
+  "task_assignee_placeholder": "Ответственный",
+  "task_attachment_placeholder": "Вложение",
   "task_author_title": "Владелец",
 
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
@@ -468,7 +468,7 @@
 
   "task_estimate_group_label": "Общая оценка по подзадачам",
   "task_estimate_label": "Оценка",
-  "task_estimate_placeholder": "Выбрать оценку",
+  "task_estimate_placeholder": "Оценка",
   "task_eta_date_label": "Прогноз",
 
   "task_go2source_title": "Перейти к источнику",
@@ -494,7 +494,7 @@
 
   "task_start_date_label": "Начало",
   "task_start_date_placeholder": "Дата начала",
-  "task_status_select_placeholder": "Выберите статус",
+  "task_status_select_placeholder": "Статус",
 
   "task_title": "Задача",
 

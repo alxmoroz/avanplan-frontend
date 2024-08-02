@@ -41,10 +41,9 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   bool _fieldHover = false;
   bool _doneBtnHover = false;
   bool _delBtnHover = false;
-
-  double get _minHeight => P10;
-
   bool _taskEditing = false;
+
+  static const _minHeight = P10;
 
   @override
   void initState() {
@@ -72,7 +71,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     final hasFocus = fNode?.hasFocus == true;
     final tfMaxLines = hasFocus ? 1 : 5;
 
-    final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: _fieldHover ? 0 : P3);
+    final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: isWeb ? 0 : P3);
     const doneIconSize = P6;
     const deleteIconSize = P4;
     return Row(
@@ -85,7 +84,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : mainColor),
               solid: task.closed,
             ),
-            padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
+            padding: const EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
             margin: const EdgeInsets.only(right: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
             onTap: (task.parent?.closed == true && task.closed) ? null : _toggleDone,
@@ -100,7 +99,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   keyboardType: TextInputType.multiline,
                   controller: teController,
                   autofocus: false,
-                  margin: tfPadding,
+                  margin: tfPadding.copyWith(top: 1),
                   maxLines: tfMaxLines,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -117,8 +116,8 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               if (!hasFocus)
                 Container(
                   color: Colors.transparent,
-                  padding: tfPadding,
-                  constraints: BoxConstraints(minHeight: _minHeight),
+                  padding: tfPadding.add(const EdgeInsets.symmetric(vertical: P)),
+                  constraints: const BoxConstraints(minHeight: _minHeight),
                   alignment: Alignment.centerLeft,
                   child: Linkify(
                     text: roText,
@@ -131,13 +130,16 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             ],
           ),
         ),
-        if (_fieldHover)
-          MTButton.icon(
-            DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: deleteIconSize),
-            padding: EdgeInsets.symmetric(vertical: (_minHeight - deleteIconSize) / 2).copyWith(left: 0, right: P3),
-            margin: const EdgeInsets.only(left: P2),
-            onHover: (hover) => setState(() => _delBtnHover = hover),
-            onTap: _delete,
+        if (isWeb)
+          Opacity(
+            opacity: _fieldHover ? 1 : 0,
+            child: MTButton.icon(
+              DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: deleteIconSize),
+              padding: const EdgeInsets.symmetric(vertical: (_minHeight - deleteIconSize) / 2).copyWith(left: 0, right: P3),
+              margin: const EdgeInsets.only(left: P2),
+              onHover: (hover) => setState(() => _delBtnHover = hover),
+              onTap: _delete,
+            ),
           ),
       ],
     );

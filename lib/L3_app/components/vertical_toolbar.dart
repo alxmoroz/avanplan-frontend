@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -9,6 +8,7 @@ import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
+import 'list_tile.dart';
 import 'vertical_toolbar_controller.dart';
 
 class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {

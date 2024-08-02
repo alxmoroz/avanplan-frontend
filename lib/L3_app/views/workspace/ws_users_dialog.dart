@@ -41,11 +41,6 @@ class _WSUsersDialog extends StatelessWidget {
 
   Workspace get _ws => _wsController.ws;
 
-  Widget _userBuilder(BuildContext context, int index) => WSUserTile(
-        _ws.sortedUsers[index],
-        bottomBorder: index < _ws.sortedUsers.length - 1,
-      );
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -53,7 +48,10 @@ class _WSUsersDialog extends StatelessWidget {
         topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _ws.subPageTitle(loc.members_title)),
         body: ListView.builder(
           shrinkWrap: true,
-          itemBuilder: _userBuilder,
+          itemBuilder: (_, int index) => WSUserTile(
+            _ws.sortedUsers[index],
+            bottomBorder: index < _ws.sortedUsers.length - 1,
+          ),
           itemCount: _ws.users.length,
         ),
       );

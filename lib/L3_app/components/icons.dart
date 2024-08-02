@@ -362,7 +362,7 @@ class PersonIcon extends MTIcon {
 }
 
 class PersonNoAvatarIcon extends MTIcon {
-  const PersonNoAvatarIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person);
+  const PersonNoAvatarIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.person);
 }
 
 class PlusIcon extends MTIcon {

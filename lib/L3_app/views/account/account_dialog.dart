@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/avatar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
@@ -57,7 +58,7 @@ class _AccountDialog extends StatelessWidget {
               body: ListView(
                 shrinkWrap: true,
                 children: [
-                  MTButton(middle: _me!.icon(P10, borderColor: mainColor), onTap: editAvatarDialog),
+                  MTButton(middle: _me!.icon(MAX_AVATAR_RADIUS, borderColor: mainColor), onTap: editAvatarDialog),
                   MTButton(
                     titleText: loc.avatar_edit_action_title,
                     margin: const EdgeInsets.all(P3),

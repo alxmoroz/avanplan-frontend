@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../components/avatar.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -47,7 +48,7 @@ class _MemberDialog extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   const SizedBox(height: P3),
-                  _member!.icon(P10),
+                  _member!.icon(MAX_AVATAR_RADIUS),
                   const SizedBox(height: P3),
                   H3('$_member', align: TextAlign.center),
                   BaseText(_member!.email, align: TextAlign.center, maxLines: 1),

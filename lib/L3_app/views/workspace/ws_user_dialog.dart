@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/avatar.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -26,7 +27,7 @@ class _WSUserDialog extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          _user.icon(P10, borderColor: f3Color),
+          _user.icon(MAX_AVATAR_RADIUS),
           const SizedBox(height: P3),
           H2('$_user', align: TextAlign.center),
           BaseText(_user.email, align: TextAlign.center, maxLines: 1),

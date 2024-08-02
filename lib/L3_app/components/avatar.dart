@@ -7,16 +7,19 @@ import '../../L2_data/services/api.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
 import '../components/icons.dart';
+import 'constants.dart';
+
+const double MAX_AVATAR_RADIUS = SCR_S_WIDTH / 4;
 
 class MTAvatar extends StatelessWidget {
   const MTAvatar(
     this.radius, {
     this.user,
-    required this.borderColor,
+    this.borderColor,
     super.key,
   });
   final double radius;
-  final Color borderColor;
+  final Color? borderColor;
   final User? user;
 
   bool get _hasAvatar => user?.hasAvatar == true;
@@ -28,25 +31,25 @@ class MTAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: borderColor.resolve(context),
-      child: CircleAvatar(
-        radius: radius - 2,
-        backgroundColor: b3Color.resolve(context),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            PersonNoAvatarIcon(size: radius * 1.3, color: user != null ? f1Color : f3Color),
-            CircleAvatar(
-              radius: radius - 3,
-              backgroundColor: Colors.transparent,
-              backgroundImage: !_hasAvatar && user != null ? NetworkImage(_gravatarUrl) : null,
-              foregroundImage: _hasAvatar ? NetworkImage(_avatarUrl) : null,
-            ),
-          ],
+    bool hasBorder = borderColor != null;
+    final avatar = Stack(
+      alignment: Alignment.center,
+      children: [
+        PersonNoAvatarIcon(size: radius * 2 - (hasBorder ? 4 : 2), color: user != null ? f3Color : f3Color, circled: true),
+        CircleAvatar(
+          radius: radius - (hasBorder ? 2 : 0),
+          backgroundColor: Colors.transparent,
+          backgroundImage: !_hasAvatar && user != null ? NetworkImage(_gravatarUrl) : null,
+          foregroundImage: _hasAvatar ? NetworkImage(_avatarUrl) : null,
         ),
-      ),
+      ],
     );
+    return hasBorder
+        ? CircleAvatar(
+            radius: radius,
+            backgroundColor: borderColor!.resolve(context),
+            child: avatar,
+          )
+        : avatar;
   }
 }

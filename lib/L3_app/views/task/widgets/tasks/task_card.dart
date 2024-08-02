@@ -81,7 +81,7 @@ class TaskCard extends StatelessWidget {
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
   bool get _showAssignee => task.hmTeam && task.hasAssignee && !isMine;
-  Widget get _assignee => task.assignee!.icon(P * (board ? 2 : 2.7));
+  Widget get _assignee => task.assignee!.icon(P3);
 
   bool get _showChecklistMark => !task.closed && task.isCheckList;
   Widget get _checklistMark => Row(

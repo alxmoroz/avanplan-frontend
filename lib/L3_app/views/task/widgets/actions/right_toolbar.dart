@@ -96,12 +96,9 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         child: _task.isTask
             ? MediaQuery(
                 data: MediaQuery.of(context).copyWith(
-                  padding: MediaQuery.paddingOf(context).add(const EdgeInsets.symmetric(vertical: P2)) as EdgeInsets,
+                  padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P2)) as EdgeInsets,
                 ),
-                child: SafeArea(
-                  top: false,
-                  child: _actions(context),
-                ),
+                child: SafeArea(child: _actions(context)),
               )
             : _actions(context),
       ),

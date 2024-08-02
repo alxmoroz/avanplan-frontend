@@ -145,7 +145,9 @@ class CheckboxIcon extends MTIcon {
 }
 
 class ChevronIcon extends MTIcon {
-  const ChevronIcon({super.key, super.color, super.size = P3}) : super(CupertinoIcons.chevron_right);
+  const ChevronIcon({super.key, super.color, super.size = P3, this.left = false})
+      : super(left ? CupertinoIcons.chevron_left : CupertinoIcons.chevron_right);
+  final bool left;
 }
 
 class ChevronCircleIcon extends MTIcon {

@@ -15,7 +15,6 @@ import '../../../components/vertical_toolbar_controller.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/user.dart';
-import '../../app/app_title.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_menu.dart';
 import '../../task/task_route.dart';
@@ -100,15 +99,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
         rightSide: false,
         child: Column(
           children: [
-            if (isBigScreen(context)) ...[
-              MTListTile(
-                middle: AppTitle(compact: _compact),
-                bottomDivider: false,
-                onTap: router.goMain,
-              ),
-              const SizedBox(height: P3),
-              _homeButton(context, route is MainRoute),
-            ],
+            if (isBigScreen(context)) _homeButton(context, route is MainRoute),
             _projectsButton(context, route is ProjectsRoute),
             _inboxButton(context, route is InboxRoute),
             const Spacer(),

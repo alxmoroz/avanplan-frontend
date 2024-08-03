@@ -233,7 +233,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     );
   }
 
-  Function()? _onPressed() => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? get _onPressed => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(

@@ -210,8 +210,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     final bigGroup = _isBigGroup;
                     final actions = controller.loading ? <TaskAction>[] : task.actions(context);
                     // TODO: определить как и fast / other actions в задаче
-                    final showBottomToolbar =
-                        !bigGroup && (task.hasSubtasks || task.canShowBoard) && (task.canLocalImport || task.canCreateSubtask || task.canComment);
+                    final showBottomToolbar = !bigGroup &&
+                        (task.isTask || task.hasSubtasks || task.canShowBoard) &&
+                        (task.canLocalImport || task.canCreateSubtask || task.canComment);
                     return MTPage(
                       appBar: big && !_hasScrolled
                           ? null

@@ -14,7 +14,7 @@ class MTRefresh extends StatelessWidget with FocusManaging {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => tapAction(context, true, onRefresh, fbType: FeedbackType.light),
+      onRefresh: () => tapAction(true, onRefresh, fbType: FeedbackType.light),
       edgeOffset: MediaQuery.of(context).padding.top,
       displacement: P2,
       child: child,

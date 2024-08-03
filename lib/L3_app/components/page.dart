@@ -91,7 +91,7 @@ class MTPage extends StatelessWidget {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;
     return GestureDetector(
-      onTap: FocusScope.of(context).unfocus,
+      onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Stack(
         children: [
           _hasLeftBar || _hasRightBar

@@ -86,7 +86,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
               ),
           child: material(
             InkWell(
-              onTap: onTap != null ? () => tapAction(context, uf, onTap!) : null,
+              onTap: onTap != null ? () => tapAction(uf, onTap!) : null,
               onHover: onHover,
               hoverColor: mainColor.withAlpha(10).resolve(context),
               highlightColor: splashColor,

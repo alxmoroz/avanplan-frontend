@@ -55,7 +55,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
             },
           )
       ],
-      onOpen: () => unfocus(context),
+      onOpen: FocusManager.instance.primaryFocus?.unfocus,
       builder: (_, MenuController menuController, Widget? child) => big
           ? MTListTile(
               leading: const MenuIcon(circled: true, size: P6),

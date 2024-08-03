@@ -81,7 +81,7 @@ class TaskCard extends StatelessWidget {
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
   bool get _showAssignee => task.hmTeam && task.hasAssignee && !isMine;
-  Widget get _assignee => task.assignee!.icon(P3);
+  Widget get _assignee => task.assignee!.icon(P2 + P_2);
 
   bool get _showChecklistMark => !task.closed && task.isCheckList;
   Widget get _checklistMark => Row(
@@ -130,10 +130,7 @@ class TaskCard extends StatelessWidget {
           // ошибки
           if (task.error != null)
             _error(task.error!.message)
-          // импортирующийся проект
-          else if (task.isImportingProject)
-            Container()
-          // проекты, цели или группы задач - интегральная оценка, метка связанного проекта, вложений и комментариев
+          // проекты, цели или группы задач: интегральная оценка, метка связанного проекта, вложений и комментариев
           else if (task.isGroup) ...[
             const SizedBox(height: P_2),
             Row(children: [
@@ -144,9 +141,9 @@ class TaskCard extends StatelessWidget {
               if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],
               if (task.wsCode.isNotEmpty) SmallText(task.wsCode, color: f3Color, maxLines: 1),
             ]),
-            // задачи - срок, метка чек-листа, вложений, комментов, оценка, статус, назначено
+            // задачи: срок, метка чек-листа, вложений, комментов, оценка, статус, назначено
           ] else if (_showDate || _showChecklistMark || _showAttachmentsMark || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
-            const SizedBox(height: P_2),
+            SizedBox(height: board ? P_2 : P),
             Row(
               children: [
                 if (_showDate) _date,

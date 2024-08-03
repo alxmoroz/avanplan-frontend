@@ -141,7 +141,7 @@ class MTDialog extends StatelessWidget {
     final big = isBigScreen(context);
 
     return GestureDetector(
-      onTap: FocusScope.of(context).unfocus,
+      onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Padding(
         padding: EdgeInsets.only(bottom: mq.viewInsets.bottom),
         child: Container(

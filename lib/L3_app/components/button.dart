@@ -18,16 +18,9 @@ enum ButtonType { text, main, secondary, danger, safe, icon, card }
 enum FeedbackType { light, medium, heavy, vibrate, selection }
 
 mixin FocusManaging {
-  void unfocus(BuildContext context) {
-    final fs = FocusScope.of(context);
-    if (fs.hasFocus) {
-      fs.unfocus();
-    }
-  }
-
-  Future tapAction(BuildContext context, bool uf, Function action, {FeedbackType? fbType}) async {
+  Future tapAction(bool uf, Function action, {FeedbackType? fbType}) async {
     if (uf) {
-      unfocus(context);
+      FocusManager.instance.primaryFocus?.unfocus();
     }
 
     if (fbType != null) {
@@ -240,7 +233,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     );
   }
 
-  Function()? _onPressed(BuildContext context) => _enabled && onTap != null ? () => tapAction(context, uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? _onPressed() => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(
@@ -261,7 +254,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       ButtonType.card,
     ].contains(type)
         ? OutlinedButton(
-            onPressed: _onPressed(context),
+            onPressed: _onPressed,
             onHover: onHover,
             style: _style(context),
             clipBehavior: Clip.hardEdge,
@@ -277,7 +270,7 @@ class MTButton extends StatelessWidget with FocusManaging {
               canRequestFocus: false,
               focusColor: Colors.transparent,
               child: CupertinoButton(
-                onPressed: _onPressed(context),
+                onPressed: _onPressed,
                 minSize: 0,
                 padding: padding ?? EdgeInsets.zero,
                 color: color,

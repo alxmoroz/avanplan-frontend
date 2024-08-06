@@ -15,6 +15,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
+import '../actions/done_button.dart';
 import 'parent_title.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -36,22 +37,26 @@ class TaskHeader extends StatelessWidget {
           /// Название
           MTField(
             _controller.fData(titleIndex),
-            leading: _task.isInbox ? const InboxIcon(color: f2Color) : null,
+            leading: _task.isInbox
+                ? const Padding(padding: EdgeInsets.symmetric(vertical: P), child: InboxIcon(color: f2Color))
+                : _task.isTask
+                    ? TaskDoneButton(_controller)
+                    : null,
             value: MTTextField(
               controller: _controller.teController(titleIndex),
               readOnly: !_task.canEdit,
               autofocus: _task.creating,
               margin: EdgeInsets.zero,
-              maxLines: 5,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
                 hintText: _controller.titlePlaceholder,
-                hintStyle: const H1('', color: f3Color, maxLines: 5).style(context),
+                hintStyle: const H1('', color: f3Color).style(context),
               ),
-              style: H1('', color: _task.isInbox ? f2Color : null, maxLines: 5).style(context),
+              style: H1('', color: _task.isInbox ? f2Color : null).style(context),
               onChanged: _controller.setTitle,
             ),
+            crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.symmetric(horizontal: P3),
             color: Colors.transparent,
           ),

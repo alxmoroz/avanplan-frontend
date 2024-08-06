@@ -13,6 +13,7 @@ import '../../../extra/route.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
+import '../../../usecases/task_status.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../../_base/loadable.dart';
 import '../usecases/delete.dart';
@@ -30,7 +31,7 @@ import 'task_transactions_controller.dart';
 
 part 'task_controller.g.dart';
 
-enum TaskFCode { parent, title, assignee, description, startDate, dueDate, estimate, author, projectModules, note, attachment, finance }
+enum TaskFCode { parent, title, assignee, description, status, startDate, dueDate, estimate, author, projectModules, note, attachment, finance }
 
 enum TasksFilter { my, projects }
 
@@ -91,6 +92,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.title.index, text: taskDescriptor.creating ? '' : taskDescriptor.title),
         MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
         MTFieldData(TaskFCode.description.index, text: taskDescriptor.description, placeholder: loc.description),
+        MTFieldData(TaskFCode.status.index, text: '${taskDescriptor.status}', label: loc.status_title, placeholder: loc.status_title),
         MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
         MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
         MTFieldData(

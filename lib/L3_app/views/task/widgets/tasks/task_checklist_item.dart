@@ -15,10 +15,9 @@ import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field_inline.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
-import '../../usecases/status.dart';
 import '../../usecases/title.dart';
+import '../actions/done_button.dart';
 
 class TaskChecklistItem extends StatefulWidget {
   const TaskChecklistItem(this._controller, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
@@ -36,13 +35,11 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   Task get task => controller.task;
 
   bool fieldHover = false;
-  bool doneBtnHover = false;
   bool delBtnHover = false;
-  bool taskEditing = false;
+  bool deleting = false;
 
   final tfIndex = TaskFCode.title.index;
 
-  static const doneIconSize = P6;
   static const deleteIconSize = P4;
 
   @override
@@ -52,15 +49,9 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   }
 
   Future<bool> delete() async {
-    setState(() => taskEditing = true);
-
+    setState(() => deleting = true);
     if (widget.onDelete != null) await widget.onDelete!();
     return false;
-  }
-
-  Future toggleDone() async {
-    setState(() => taskEditing = true);
-    await controller.setClosed(context, !task.closed);
   }
 
   Widget get tf {
@@ -82,21 +73,11 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   Widget get item {
     return Row(
       children: [
-        if (task.isCheckItem)
-          MTButton.icon(
-            DoneIcon(
-              task.closed,
-              size: doneIconSize,
-              color: task.closed ? (doneBtnHover ? mainColor : greenLightColor) : (doneBtnHover ? greenColor : mainColor),
-              solid: task.closed,
-            ),
-            padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P3),
-            margin: const EdgeInsets.only(right: P2),
-            onHover: (hover) => setState(() => doneBtnHover = hover),
-            onTap: (task.parent?.closed == true && task.closed) ? null : toggleDone,
-          )
-        else
-          const SizedBox(width: P3),
+        const SizedBox(width: P3),
+        if (task.isCheckItem) ...[
+          TaskDoneButton(controller),
+          const SizedBox(width: P2),
+        ],
 
         /// поле ввода
         Expanded(
@@ -124,9 +105,10 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   @override
   Widget build(BuildContext context) {
+    final fd = controller.fData(tfIndex);
     return MTField(
-      controller.fData(tfIndex),
-      loading: taskEditing && task.loading == true,
+      fd,
+      loading: deleting,
       value: isWeb
           ? item
           : Slidable(

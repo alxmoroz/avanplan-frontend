@@ -58,7 +58,6 @@ class TaskDetails extends StatelessWidget {
       final t = _task;
       final isTaskDialog = isBigScreen(context) && t.isTask;
       final isTaskMobileView = !isBigScreen(context) && t.isTask;
-      final showStatusRow = isTaskMobileView && (t.canShowStatus || t.closed);
       final showDescription = !isTaskDialog && (t.hasDescription || t.canEdit);
       final hasMargins = standalone || isTaskMobileView;
 
@@ -66,20 +65,17 @@ class TaskDetails extends StatelessWidget {
         shrinkWrap: true,
         physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
-          /// Статус
-          if (showStatusRow) ...[
-            const SizedBox(height: P),
-            TaskStatusField(_controller),
-          ],
-
           /// Описание
-          if (showDescription) TaskDescriptionField(_controller),
+          if (showDescription) ...[if (hasMargins) const SizedBox(height: P), TaskDescriptionField(_controller)],
 
           /// Чек-лист
           if (!isTaskDialog && (t.canCreateChecklist || t.isCheckList)) ...[
             const SizedBox(height: P3),
             TaskChecklist(_controller),
           ],
+
+          /// Статус
+          if (t.canShowStatus) TaskStatusField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Назначенный
           if (t.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: hasMargins),

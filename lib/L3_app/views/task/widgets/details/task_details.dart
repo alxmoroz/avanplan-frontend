@@ -34,7 +34,6 @@ import 'assignee_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
 import 'start_date_field.dart';
-import 'task_description_field.dart';
 import 'task_status_field.dart';
 
 Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
@@ -58,16 +57,12 @@ class TaskDetails extends StatelessWidget {
       final t = _task;
       final isTaskDialog = isBigScreen(context) && t.isTask;
       final isTaskMobileView = !isBigScreen(context) && t.isTask;
-      final showDescription = !isTaskDialog && (t.hasDescription || t.canEdit);
       final hasMargins = standalone || isTaskMobileView;
 
       return ListView(
         shrinkWrap: true,
         physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
-          /// Описание
-          if (showDescription) ...[if (hasMargins) const SizedBox(height: P), TaskDescriptionField(_controller)],
-
           /// Чек-лист
           if (!isTaskDialog && (t.canCreateChecklist || t.isCheckList)) ...[
             const SizedBox(height: P3),

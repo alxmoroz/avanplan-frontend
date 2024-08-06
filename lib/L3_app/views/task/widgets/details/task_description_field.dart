@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -70,10 +71,17 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      final exceedReadOnlyMaxLines = _exceedROMaxLines(context);
-      fNode?.addListener(() => setState(() {}));
+      bool exceedReadOnlyMaxLines = false;
+      int? maxLines;
+
       final hasFocus = fNode?.hasFocus == true;
-      final maxLines = hasFocus || expanded ? null : readOnlyShortLines;
+      fNode?.addListener(() => setState(() {}));
+      final needCheckToggle = !hasFocus && task.isTask;
+      if (needCheckToggle) {
+        exceedReadOnlyMaxLines = _exceedROMaxLines(context);
+        maxLines = hasFocus || expanded ? null : readOnlyShortLines;
+      }
+
       return Stack(
         alignment: Alignment.bottomCenter,
         children: [

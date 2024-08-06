@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -22,30 +21,30 @@ class TaskHeader extends StatelessWidget {
   const TaskHeader(this._controller, {super.key});
   final TaskController _controller;
 
-  Task get _task => _controller.task;
-
   @override
   Widget build(BuildContext context) {
     final titleIndex = TaskFCode.title.index;
-    return Observer(
-      builder: (_) => Column(
+
+    return Observer(builder: (_) {
+      final t = _controller.task;
+      return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           /// Хлебная крошка - Название родителя
-          if (_task.parent != null) TaskParentTitle(_controller),
+          if (t.parent != null) TaskParentTitle(_controller),
 
           /// Название
           MTField(
             _controller.fData(titleIndex),
-            leading: _task.isInbox
+            leading: t.isInbox
                 ? const Padding(padding: EdgeInsets.symmetric(vertical: P), child: InboxIcon(color: f2Color))
-                : _task.isTask
+                : t.isTask
                     ? TaskDoneButton(_controller)
                     : null,
             value: MTTextField(
               controller: _controller.teController(titleIndex),
-              readOnly: !_task.canEdit,
-              autofocus: _task.creating,
+              readOnly: !t.canEdit,
+              autofocus: t.creating,
               margin: EdgeInsets.zero,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -53,7 +52,7 @@ class TaskHeader extends StatelessWidget {
                 hintText: _controller.titlePlaceholder,
                 hintStyle: const H1('', color: f3Color).style(context),
               ),
-              style: H1('', color: _task.isInbox ? f2Color : null).style(context),
+              style: H1('', color: t.isInbox ? f2Color : null).style(context),
               onChanged: _controller.setTitle,
             ),
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +60,7 @@ class TaskHeader extends StatelessWidget {
             color: Colors.transparent,
           ),
         ],
-      ),
-    );
+      );
+    });
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/constants.dart';
 import '../../../quiz/abstract_task_quiz_controller.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/task_controller.dart';
@@ -23,7 +24,7 @@ class TaskQuizDetails extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          // const SizedBox(height: P3),
+          const SizedBox(height: P),
           TaskDescriptionField(_taskController),
           QuizNextButton(_qController, disabled: _task.loading),
         ],

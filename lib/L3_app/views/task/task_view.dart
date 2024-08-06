@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
@@ -27,6 +28,7 @@ import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
 import 'widgets/actions/right_toolbar.dart';
 import 'widgets/board/board.dart';
+import 'widgets/details/task_description_field.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
@@ -98,6 +100,12 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
               /// Заголовок
               Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
+
+              /// Описание
+              if (task.hasDescription || task.canEdit) ...[
+                const SizedBox(height: P),
+                TaskDescriptionField(controller),
+              ],
 
               /// Дашборд (аналитика, финансы, команда)
               if (task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),

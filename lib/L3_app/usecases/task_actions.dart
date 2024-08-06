@@ -96,8 +96,6 @@ extension TaskActionsUC on Task {
       ];
 
   Iterable<TaskAction> get quickActions => [
-        if (isTask && canClose) TaskAction.close,
-        if (isTask && canReopen) TaskAction.reopen,
         if (isInboxTask && canLocalExport) TaskAction.localExport,
       ];
 

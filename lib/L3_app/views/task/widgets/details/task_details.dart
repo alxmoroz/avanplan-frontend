@@ -31,10 +31,10 @@ import '../notes/notes.dart';
 import '../project_modules/project_modules.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
-import 'description_field.dart';
 import 'due_date_field.dart';
 import 'estimate_field.dart';
 import 'start_date_field.dart';
+import 'task_description_field.dart';
 import 'task_status_field.dart';
 
 Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
@@ -73,13 +73,7 @@ class TaskDetails extends StatelessWidget {
           ],
 
           /// Описание
-          if (showDescription)
-            TaskDescriptionField(
-              _controller,
-              compact: compact,
-              short: true,
-              hasMargin: hasMargins,
-            ),
+          if (showDescription) TaskDescriptionField(_controller),
 
           /// Чек-лист
           if (!isTaskDialog && (t.canCreateChecklist || t.isCheckList)) ...[

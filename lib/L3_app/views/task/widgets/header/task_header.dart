@@ -50,7 +50,7 @@ class TaskHeader extends StatelessWidget {
                 hintStyle: const H1('', color: f3Color, maxLines: 5).style(context),
               ),
               style: H1('', color: _task.isInbox ? f2Color : null, maxLines: 5).style(context),
-              onChanged: _controller.editTitle,
+              onChanged: _controller.setTitle,
             ),
             padding: const EdgeInsets.symmetric(horizontal: P3),
             color: Colors.transparent,

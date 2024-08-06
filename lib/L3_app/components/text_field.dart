@@ -64,6 +64,7 @@ class MTTextField extends StatelessWidget {
     this.helper,
     this.error,
     this.keyboardType,
+    this.textInputAction,
     this.maxLines,
     this.autofocus = true,
     this.margin,
@@ -115,6 +116,7 @@ class MTTextField extends StatelessWidget {
         inputFormatters = null,
         hintStyle = null,
         cursorColor = null,
+        textInputAction = null,
         readOnly = true;
 
   final TextEditingController? controller;
@@ -123,6 +125,7 @@ class MTTextField extends StatelessWidget {
   final String? helper;
   final String? error;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final int? maxLines;
   final bool autofocus;
   final EdgeInsets? margin;
@@ -172,10 +175,11 @@ class MTTextField extends StatelessWidget {
               ),
           cursorColor: (cursorColor ?? mainColor).resolve(context),
           autofocus: autofocus,
-          minLines: 1,
+          minLines: maxLines != null ? 1 : null,
           maxLines: maxLines,
           controller: controller,
           keyboardType: keyboardType,
+          textInputAction: textInputAction,
           textCapitalization: capitalization ?? TextCapitalization.sentences,
           obscureText: obscureText,
           autocorrect: autocorrect,

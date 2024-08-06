@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -11,13 +10,13 @@ import '../../../L1_domain/entities/calendar.dart';
 import '../../../L1_domain/entities/calendar_event.dart';
 import '../../../L1_domain/entities_extensions/calendar_event.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/field.dart';
 import '../../components/field_data.dart';
 import '../../components/icons.dart';
+import '../../components/linkify.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
@@ -42,13 +41,10 @@ class _EventDialog extends StatelessWidget {
           children: [
             if (_calendar != null) BaseText(_calendar!.title),
             const SizedBox(height: P),
-            SelectableLinkify(
-              text: event.title,
-              style: const H1('', maxLines: _titleMaxLines).style(context),
-              linkStyle: const H1('', maxLines: _titleMaxLines, color: mainColor).style(context),
-              onOpen: (link) async => await launchUrlString(link.url),
-              minLines: 1,
+            MTLinkify(
+              event.title,
               maxLines: _titleMaxLines,
+              style: const H1('', maxLines: _titleMaxLines).style(context),
             ),
           ],
         ),
@@ -56,14 +52,7 @@ class _EventDialog extends StatelessWidget {
 
   Widget _description(BuildContext context) => MTListTile(
         leading: const DescriptionIcon(color: f2Color),
-        middle: SelectableLinkify(
-          text: event.description,
-          style: const BaseText('', maxLines: _descriptionMaxLines).style(context),
-          linkStyle: const BaseText('', maxLines: _descriptionMaxLines, color: mainColor).style(context),
-          onOpen: (link) async => await launchUrlString(link.url),
-          minLines: 1,
-          maxLines: _descriptionMaxLines,
-        ),
+        middle: MTLinkify(event.description, maxLines: _descriptionMaxLines),
         margin: const EdgeInsets.only(top: P3),
         crossAxisAlignment: CrossAxisAlignment.start,
         bottomDivider: false,

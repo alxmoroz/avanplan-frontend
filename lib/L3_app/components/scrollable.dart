@@ -6,10 +6,18 @@ import 'constants.dart';
 import 'shadowed.dart';
 
 class MTScrollable extends StatefulWidget {
-  const MTScrollable({super.key, required this.scrollController, required this.child, required this.scrollOffsetTop, this.onScrolled});
+  const MTScrollable({
+    super.key,
+    required this.scrollController,
+    required this.child,
+    required this.scrollOffsetTop,
+    this.onScrolled,
+    this.bottomShadow = false,
+  });
   final ScrollController scrollController;
   final double scrollOffsetTop;
   final Widget child;
+  final bool bottomShadow;
   final Function(bool)? onScrolled;
 
   @override
@@ -51,6 +59,7 @@ class _MTScrollableState extends State<MTScrollable> {
       data: mq.copyWith(padding: mqPadding.copyWith(top: mq.padding.top)),
       child: MTShadowed(
         topShadow: _hasScrolled,
+        bottomShadow: widget.bottomShadow,
         topPaddingIndent: P,
         child: PrimaryScrollController(
           controller: widget.scrollController,

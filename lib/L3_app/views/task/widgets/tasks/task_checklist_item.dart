@@ -1,10 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
@@ -16,7 +13,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../components/text_field.dart';
+import '../../../../components/text_field_inline.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
@@ -38,42 +35,51 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   TaskController get controller => widget._controller;
   Task get task => controller.task;
 
-  bool _fieldHover = false;
-  bool _doneBtnHover = false;
-  bool _delBtnHover = false;
-  bool _taskEditing = false;
+  bool fieldHover = false;
+  bool doneBtnHover = false;
+  bool delBtnHover = false;
+  bool taskEditing = false;
 
-  static const _minHeight = P10;
+  final tfIndex = TaskFCode.title.index;
+
+  static const doneIconSize = P6;
+  static const deleteIconSize = P4;
 
   @override
   void initState() {
-    if (task.creating) controller.setTitleFocus();
+    if (task.creating) controller.setFocus(tfIndex);
     super.initState();
   }
 
-  Future<bool> _delete() async {
-    setState(() => _taskEditing = true);
+  Future<bool> delete() async {
+    setState(() => taskEditing = true);
 
     if (widget.onDelete != null) await widget.onDelete!();
     return false;
   }
 
-  Future _toggleDone() async {
-    setState(() => _taskEditing = true);
+  Future toggleDone() async {
+    setState(() => taskEditing = true);
     await controller.setClosed(context, !task.closed);
   }
 
-  Widget _fieldValue(BuildContext context) {
-    final teController = controller.teController(TaskFCode.title.index);
-    final roText = teController?.text.isNotEmpty == true ? teController!.text : controller.titlePlaceholder;
-    final fNode = controller.focusNode(TaskFCode.title.index);
+  Widget get tf {
+    final teController = controller.teController(tfIndex)!;
+    final fNode = controller.focusNode(tfIndex);
     fNode?.addListener(() => setState(() {}));
-    final hasFocus = fNode?.hasFocus == true;
-    final tfMaxLines = hasFocus ? 1 : 5;
+    return MTTextFieldInline(
+      teController,
+      style: BaseText('', color: task.closed ? f3Color : null).style(context),
+      hintText: controller.titlePlaceholder,
+      fNode: fNode,
+      textInputAction: TextInputAction.next,
+      onTap: () => controller.setFocus(tfIndex),
+      onChanged: controller.setTitle,
+      onSubmit: widget.onSubmit,
+    );
+  }
 
-    final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: isWeb ? 0 : P3);
-    const doneIconSize = P6;
-    const deleteIconSize = P4;
+  Widget get item {
     return Row(
       children: [
         if (task.isCheckItem)
@@ -81,90 +87,59 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             DoneIcon(
               task.closed,
               size: doneIconSize,
-              color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : mainColor),
+              color: task.closed ? (doneBtnHover ? mainColor : greenLightColor) : (doneBtnHover ? greenColor : mainColor),
               solid: task.closed,
             ),
-            padding: const EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
+            padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P3),
             margin: const EdgeInsets.only(right: P2),
-            onHover: (hover) => setState(() => _doneBtnHover = hover),
-            onTap: (task.parent?.closed == true && task.closed) ? null : _toggleDone,
-          ),
+            onHover: (hover) => setState(() => doneBtnHover = hover),
+            onTap: (task.parent?.closed == true && task.closed) ? null : toggleDone,
+          )
+        else
+          const SizedBox(width: P3),
+
+        /// поле ввода
         Expanded(
-          child: Stack(
-            alignment: Alignment.centerLeft,
-            children: [
-              Opacity(
-                opacity: hasFocus ? 1 : 0,
-                child: MTTextField(
-                  keyboardType: TextInputType.multiline,
-                  controller: teController,
-                  autofocus: false,
-                  margin: tfPadding.copyWith(top: 1),
-                  maxLines: tfMaxLines,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.zero,
-                    hintText: controller.titlePlaceholder,
-                    hintStyle: const BaseText('', maxLines: 1, color: f3Color).style(context),
-                  ),
-                  style: BaseText('', maxLines: tfMaxLines, color: task.closed && !hasFocus ? f3Color : null).style(context),
-                  onChanged: (str) => controller.editTitle(str),
-                  onSubmitted: widget.onSubmit != null ? (_) => widget.onSubmit!() : null,
-                  focusNode: fNode,
-                ),
-              ),
-              if (!hasFocus)
-                Container(
-                  color: Colors.transparent,
-                  padding: tfPadding.add(const EdgeInsets.symmetric(vertical: P)),
-                  constraints: const BoxConstraints(minHeight: _minHeight),
-                  alignment: Alignment.centerLeft,
-                  child: Linkify(
-                    text: roText,
-                    maxLines: tfMaxLines,
-                    style: BaseText('', maxLines: tfMaxLines, color: task.closed ? f3Color : null).style(context),
-                    linkStyle: const BaseText('', color: mainColor).style(context),
-                    onOpen: (link) async => await launchUrlString(link.url),
-                  ),
-                ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: P),
+            child: tf,
           ),
         ),
         if (isWeb)
           Opacity(
-            opacity: _fieldHover ? 1 : 0,
+            opacity: fieldHover ? 1 : 0,
             child: MTButton.icon(
-              DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: deleteIconSize),
-              padding: const EdgeInsets.symmetric(vertical: (_minHeight - deleteIconSize) / 2).copyWith(left: 0, right: P3),
+              DeleteIcon(color: delBtnHover ? dangerColor : f2Color, size: deleteIconSize),
+              padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
               margin: const EdgeInsets.only(left: P2),
-              onHover: (hover) => setState(() => _delBtnHover = hover),
-              onTap: _delete,
+              onHover: (hover) => setState(() => delBtnHover = hover),
+              onTap: delete,
             ),
-          ),
+          )
+        else
+          const SizedBox(width: P6),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final fData = controller.fData(TaskFCode.title.index);
     return MTField(
-      fData,
-      loading: _taskEditing && task.loading == true,
-      minHeight: _minHeight,
+      controller.fData(tfIndex),
+      loading: taskEditing && task.loading == true,
       value: isWeb
-          ? _fieldValue(context)
+          ? item
           : Slidable(
               key: ObjectKey(controller),
               endActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(
                   onDismissed: () {},
-                  confirmDismiss: _delete,
+                  confirmDismiss: delete,
                 ),
                 children: [
                   SlidableAction(
-                    onPressed: (_) async => await _delete(),
+                    onPressed: (_) async => await delete(),
                     backgroundColor: dangerColor.resolve(context),
                     foregroundColor: b3Color.resolve(context),
                     icon: CupertinoIcons.delete,
@@ -172,14 +147,14 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   ),
                 ],
               ),
-              child: _fieldValue(context),
+              child: item,
             ),
       padding: EdgeInsets.zero,
       dividerIndent: task.isCheckItem ? P11 : P3,
       dividerEndIndent: P3,
       bottomDivider: widget.bottomDivider,
-      onHover: isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
-      onTap: controller.setTitleFocus,
+      onHover: isWeb ? (hover) => setState(() => fieldHover = hover) : null,
+      onTap: () => controller.setFocus(tfIndex),
     );
   }
 }

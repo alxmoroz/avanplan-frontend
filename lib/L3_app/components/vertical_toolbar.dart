@@ -31,6 +31,8 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
   Widget _btnContainer(BuildContext context, double paneWidth, {Widget? child, bool withShadow = false}) {
     final radius = Radius.circular(_tgBtnSize * 0.5);
     return SafeArea(
+      left: false,
+      right: false,
       child: Container(
         width: paneWidth + _btnDx,
         height: _tgBtnSize,
@@ -51,13 +53,12 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
+    final paneWidth = (rightSide ? mqPadding.right : mqPadding.left) + preferredSize.width;
+
+    /// Тень для кнопки сворачивания / разворачивания
+    final tgBtnShadow = _btnContainer(context, paneWidth, withShadow: true);
 
     return Observer(builder: (_) {
-      final paneWidth = (rightSide ? mqPadding.right : mqPadding.left) + preferredSize.width;
-
-      /// Тень для кнопки сворачивания / разворачивания
-      final tgBtnShadow = _btnContainer(context, paneWidth, withShadow: true);
-
       /// Панель инструментов с тенью
       final panel = Container(
         padding: EdgeInsets.only(top: _tgBtnSize),
@@ -81,7 +82,6 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
       final icon = ChevronCaretIcon(
         size: Size(_tgBtnSize / 5, _tgBtnSize / 9),
         left: rightSide ? _controller.compact : !_controller.compact,
-        // color: mainColor.resolve(context).withAlpha(220),
       );
       final tgBtn = _btnContainer(
         context,

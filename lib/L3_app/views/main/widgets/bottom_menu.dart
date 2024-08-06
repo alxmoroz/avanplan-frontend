@@ -29,7 +29,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
       children: [
         MTAppBar(
           isBottom: true,
-          color: b2Color,
+          color: b3Color,
           middle: Row(
             children: [
               Flexible(
@@ -58,7 +58,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
           height: P12 + P7,
           child: MTCircle(
             size: P12 + P,
-            color: b2Color,
+            color: b3Color,
             child: UnconstrainedBox(child: InboxAddTaskButton()),
           ),
         ),

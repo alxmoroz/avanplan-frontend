@@ -1,18 +1,16 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/linkify.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/bytes.dart';
@@ -87,12 +85,7 @@ class Notes extends StatelessWidget {
                                 if (n.text.isNotEmpty)
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P_2),
-                                    child: SelectableLinkify(
-                                      text: n.text,
-                                      style: const BaseText('', maxLines: 42).style(context),
-                                      linkStyle: const BaseText('', color: mainColor).style(context),
-                                      onOpen: (link) async => await launchUrlString(link.url),
-                                    ),
+                                    child: MTLinkify(n.text, maxLines: 42),
                                   ),
                                 if (n.attachments.isNotEmpty)
                                   ListView.builder(

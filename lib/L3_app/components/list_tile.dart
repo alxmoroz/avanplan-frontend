@@ -79,10 +79,11 @@ class MTListTile extends StatelessWidget with FocusManaging {
           margin: margin ?? EdgeInsets.zero,
           decoration: decoration ??
               BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [bgColor, bgColor.withAlpha(0)],
-                  stops: const [0.5, 1],
-                ),
+                color: bgColor,
+                // gradient: LinearGradient(
+                //   colors: [bgColor, bgColor],
+                //   stops: const [0.5, 1],
+                // ),
               ),
           child: material(
             InkWell(

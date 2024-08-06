@@ -10,10 +10,9 @@ import '../../controllers/task_controller.dart';
 import 'attachments_dialog.dart';
 
 class TaskAttachmentsField extends StatelessWidget {
-  const TaskAttachmentsField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
+  const TaskAttachmentsField(this._controller, {super.key, this.hasMargin = false});
 
   final TaskController _controller;
-  final bool compact;
   final bool hasMargin;
 
   @override
@@ -31,7 +30,6 @@ class TaskAttachmentsField extends StatelessWidget {
             padding: const EdgeInsets.only(left: P),
           )
       ]),
-      compact: compact,
       onTap: () => attachmentsDialog(_controller.attachmentsController),
     );
   }

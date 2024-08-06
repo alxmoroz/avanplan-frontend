@@ -174,5 +174,5 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   @action
   void toggleBoardMode() => showBoard = !showBoard;
 
-  Timer? titleEditTimer;
+  Timer? textEditTimer;
 }

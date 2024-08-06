@@ -15,6 +15,8 @@ extension TitleUC on TaskController {
   /// название
   String get titlePlaceholder => newSubtaskTitle(task.parent);
 
+  void setFocus(int index) => focusNode(index)?.requestFocus();
+
   Future _setTitle(String str) async {
     str = str.trim();
     final oldValue = task.title;
@@ -29,32 +31,37 @@ extension TitleUC on TaskController {
     }
   }
 
-  Future editTitle(String str) async {
-    if (titleEditTimer != null) {
-      titleEditTimer!.cancel();
+  Future _setDescription(String str) async {
+    final newValue = str.trim();
+    final oldValue = task.description;
+
+    if (task.description != newValue) {
+      task.description = newValue;
+      if (!(await saveField(TaskFCode.description))) {
+        task.description = oldValue;
+      }
     }
-    titleEditTimer = Timer(TEXT_SAVE_DELAY_DURATION, () async => await _setTitle(str));
   }
 
-  void setTitleFocus() => focusNode(TaskFCode.title.index)?.requestFocus();
+  void _editTextWrapper(String str, Function(String str) setTextCallback) {
+    if (textEditTimer != null) {
+      textEditTimer!.cancel();
+    }
+    textEditTimer = Timer(TEXT_SAVE_DELAY_DURATION, () => setTextCallback(str));
+  }
 
+  void setTitle(String str) => _editTextWrapper(str, _setTitle);
+
+  void setDescription(String str) => _editTextWrapper(str, _setDescription);
+
+  // TODO: deprecated как только не останется редактора описаний для групп
   Future editDescription() async {
     final fIndex = TaskFCode.description.index;
     final tc = teController(fIndex)!;
     final fdText = fData(fIndex).text;
     tc.text = fdText.isNotEmpty ? fdText : task.description;
     if (await showMTDialog<bool?>(TextEditDialog(this, TaskFCode.description, loc.description), maxWidth: SCR_M_WIDTH) == true) {
-      final newValue = tc.text.trim();
-      final oldValue = task.description;
-
-      if (task.description != newValue) {
-        updateField(fIndex, loading: true, text: '');
-        task.description = newValue;
-        if (!(await saveField(TaskFCode.description))) {
-          task.description = oldValue;
-        }
-        updateField(fIndex, loading: false);
-      }
+      await _setDescription(tc.text);
     }
   }
 }

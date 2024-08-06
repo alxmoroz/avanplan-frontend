@@ -47,7 +47,7 @@ class MTShadowed extends StatelessWidget {
   }
 
   double get _topIndent => topShadow ? topPaddingIndent ?? P3 : topPaddingIndent ?? 0;
-  double get _bottomIndent => bottomShadow ? bottomPaddingIndent ?? P4 : bottomPaddingIndent ?? 0;
+  double get _bottomIndent => bottomShadow ? bottomPaddingIndent ?? P3 : bottomPaddingIndent ?? 0;
 
   @override
   Widget build(BuildContext context) {

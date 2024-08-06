@@ -30,7 +30,7 @@ class TaskChecklist extends StatelessWidget {
         onTap: _controller.add,
       );
 
-  Widget _itemBuilder(BuildContext context, int index) {
+  Widget _itemBuilder(BuildContext _, int index) {
     return index == _controller.tasksControllers.length
         ? _addButton
         : TaskChecklistItem(

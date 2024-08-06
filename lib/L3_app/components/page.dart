@@ -67,6 +67,7 @@ class MTPage extends StatelessWidget {
                           scrollController: scrollController!,
                           scrollOffsetTop: scrollOffsetTop!,
                           onScrolled: onScrolled,
+                          bottomShadow: bottomBar != null,
                           child: body,
                         )
                       : body),

@@ -13,7 +13,7 @@ import '../attachments/attachments_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
 import '../tasks/task_checklist.dart';
-import 'description_field.dart';
+import 'group_description_field.dart';
 import 'task_status_field.dart';
 
 class TaskDialogDetails extends StatelessWidget {
@@ -38,7 +38,7 @@ class TaskDialogDetails extends StatelessWidget {
           ],
 
           /// Описание
-          if (showDescription) TaskDescriptionField(_controller, hasMargin: true),
+          if (showDescription) GroupDescriptionField(_controller, hasMargin: true),
 
           /// Чек-лист
           if (t.canCreateChecklist || t.isCheckList) ...[

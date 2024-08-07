@@ -25,42 +25,44 @@ class TaskHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleIndex = TaskFCode.title.index;
 
-    return Observer(builder: (_) {
-      final t = _controller.task;
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          /// Хлебная крошка - Название родителя
-          if (t.parent != null) TaskParentTitle(_controller),
+    return Observer(
+      builder: (_) {
+        final t = _controller.task;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            /// Хлебная крошка - Название родителя
+            if (t.parent != null) TaskParentTitle(_controller),
 
-          /// Название
-          MTField(
-            _controller.fData(titleIndex),
-            leading: t.isInbox
-                ? const Padding(padding: EdgeInsets.symmetric(vertical: P), child: InboxIcon(color: f2Color))
-                : t.isTask
-                    ? TaskDoneButton(_controller)
-                    : null,
-            value: MTTextField(
-              controller: _controller.teController(titleIndex),
-              readOnly: !t.canEdit,
-              autofocus: t.creating,
-              margin: EdgeInsets.zero,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-                hintText: _controller.titlePlaceholder,
-                hintStyle: const H1('', color: f3Color).style(context),
+            /// Название
+            MTField(
+              _controller.fData(titleIndex),
+              leading: t.isInbox
+                  ? const Padding(padding: EdgeInsets.symmetric(vertical: P), child: InboxIcon(color: f2Color))
+                  : t.isTask
+                      ? TaskDoneButton(_controller)
+                      : null,
+              value: MTTextField(
+                controller: _controller.teController(titleIndex),
+                readOnly: !t.canEdit,
+                autofocus: t.creating,
+                margin: EdgeInsets.zero,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.zero,
+                  hintText: _controller.titlePlaceholder,
+                  hintStyle: const H1('', color: f3Color).style(context),
+                ),
+                style: H1('', color: t.isInbox ? f2Color : null).style(context),
+                onChanged: _controller.setTitle,
               ),
-              style: H1('', color: t.isInbox ? f2Color : null).style(context),
-              onChanged: _controller.setTitle,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: P3),
+              color: Colors.transparent,
             ),
-            crossAxisAlignment: CrossAxisAlignment.start,
-            padding: const EdgeInsets.symmetric(horizontal: P3),
-            color: Colors.transparent,
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

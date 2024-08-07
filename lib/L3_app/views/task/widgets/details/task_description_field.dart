@@ -29,7 +29,6 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
   TaskController get controller => widget._controller;
   Task get task => controller.task;
   TextEditingController get teController => controller.teController(fIndex)!;
-  FocusNode? get fNode => controller.focusNode(fIndex);
 
   final hintText = loc.description;
   final fIndex = TaskFCode.description.index;
@@ -73,9 +72,9 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
     return Observer(builder: (_) {
       bool exceedReadOnlyMaxLines = false;
       int? maxLines;
-
+      final fNode = controller.focusNode(fIndex);
       final hasFocus = fNode?.hasFocus == true;
-      fNode?.addListener(() => setState(() {}));
+      // fNode?.addListener(() => setState(() {}));
       final needCheckToggle = !hasFocus && task.isTask;
       if (needCheckToggle) {
         exceedReadOnlyMaxLines = _exceedROMaxLines(context);

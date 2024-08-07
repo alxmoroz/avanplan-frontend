@@ -21,16 +21,17 @@ bool canShowVerticalBars(BuildContext context) => isBigScreen(context) || _small
 enum AdaptiveSize { xxs, xs, s, m, l }
 
 class MTAdaptive extends StatelessWidget {
-  const MTAdaptive({super.key, required this.child, this.force = false, this.size = AdaptiveSize.m});
+  const MTAdaptive({super.key, required this.child, this.force = false, this.size = AdaptiveSize.m, this.padding});
 
-  const MTAdaptive.xxs({super.key, required this.child, this.force = true}) : size = AdaptiveSize.xxs;
-  const MTAdaptive.xs({super.key, required this.child, this.force = true}) : size = AdaptiveSize.xs;
-  const MTAdaptive.s({super.key, required this.child, this.force = false}) : size = AdaptiveSize.s;
-  const MTAdaptive.l({super.key, required this.child, this.force = false}) : size = AdaptiveSize.l;
+  const MTAdaptive.xxs({super.key, required this.child, this.force = true, this.padding}) : size = AdaptiveSize.xxs;
+  const MTAdaptive.xs({super.key, required this.child, this.force = true, this.padding}) : size = AdaptiveSize.xs;
+  const MTAdaptive.s({super.key, required this.child, this.force = false, this.padding}) : size = AdaptiveSize.s;
+  const MTAdaptive.l({super.key, required this.child, this.force = false, this.padding}) : size = AdaptiveSize.l;
 
   final Widget? child;
   final bool force;
   final AdaptiveSize size;
+  final EdgeInsets? padding;
 
   Widget _constrained(BuildContext context) {
     double W = SCR_XXS_WIDTH;
@@ -54,7 +55,8 @@ class MTAdaptive extends StatelessWidget {
 
     final mqW = MediaQuery.sizeOf(context).width;
     return Container(
-      alignment: isBigScreen(context) ? Alignment.topLeft : Alignment.topCenter,
+      alignment: Alignment.topCenter,
+      padding: padding,
       child: SizedBox(
         width: min(W, mqW),
         child: child,

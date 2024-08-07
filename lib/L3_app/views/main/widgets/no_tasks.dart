@@ -30,51 +30,49 @@ class NoTasks extends StatelessWidget {
     return Observer(
       builder: (_) {
         final big = isBigScreen(context);
-        return Align(
-          alignment: _freshStart && !big ? Alignment.bottomCenter : Alignment.center,
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              const SizedBox(height: P3),
-              MTImage((_freshStart
-                      ? ImageName.ok_blue
-                      : _isAllProjectsClosed
-                          ? ImageName.ok
-                          : ImageName.empty_tasks)
-                  .name),
-              const SizedBox(height: P3),
-              H2(_freshStart ? loc.lets_get_started : loc.task_list_empty_title, align: TextAlign.center),
-              const SizedBox(height: P3),
-              BaseText(
-                _freshStart ? loc.project_list_empty_hint : loc.task_list_schedule_hint,
-                align: TextAlign.center,
-                padding: const EdgeInsets.symmetric(horizontal: P6),
-                maxLines: 5,
+        return ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            const SizedBox(height: P12),
+            MTImage((_freshStart
+                    ? ImageName.ok_blue
+                    : _isAllProjectsClosed
+                        ? ImageName.ok
+                        : ImageName.empty_tasks)
+                .name),
+            const SizedBox(height: P3),
+            H2(_freshStart ? loc.lets_get_started : loc.task_list_empty_title, align: TextAlign.center),
+            const SizedBox(height: P3),
+            BaseText(
+              _freshStart ? loc.project_list_empty_hint : loc.task_list_schedule_hint,
+              align: TextAlign.center,
+              padding: const EdgeInsets.symmetric(horizontal: P6),
+              maxLines: 5,
+            ),
+            if (_canPlan)
+              MTButton.secondary(
+                titleText: loc.task_list_schedule_action_title,
+                margin: const EdgeInsets.only(top: P3),
+                onTap: router.goProjects,
               ),
-              if (_canPlan)
-                MTButton.secondary(
-                  titleText: loc.task_list_schedule_action_title,
-                  margin: const EdgeInsets.only(top: P3),
-                  onTap: router.goProjects,
-                ),
-              if (!_hasOpenedProjects) ...[
-                const SizedBox(height: P3),
-                CreateProjectButton(_controller, type: ButtonType.main),
-              ],
-              if (_freshStart) ...[
-                const SizedBox(height: P7),
-                BaseText(
-                  loc.my_tasks_add_action_hint,
-                  align: TextAlign.center,
-                  maxLines: 2,
-                ),
-                const SizedBox(height: P2),
-                const LocalImportIcon(size: P6, color: f2Color),
-                const SizedBox(height: P3),
-                if (big) const Align(child: InboxAddTaskButton(standalone: true)),
-              ]
+            if (!_hasOpenedProjects) ...[
+              const SizedBox(height: P3),
+              CreateProjectButton(_controller, type: ButtonType.main),
             ],
-          ),
+            if (_freshStart) ...[
+              const SizedBox(height: P7),
+              BaseText(
+                loc.my_tasks_add_action_hint,
+                align: TextAlign.center,
+                maxLines: 2,
+              ),
+              const SizedBox(height: P2),
+              const LocalImportIcon(size: P6, color: f2Color),
+              const SizedBox(height: P3),
+              if (big) const Align(child: InboxAddTaskButton(standalone: true)),
+            ]
+          ],
         );
       },
     );

@@ -23,7 +23,7 @@ class NextTasks extends StatelessWidget {
     final items = group.value;
     return Column(
       children: [
-        if (groupIndex != 0) const SizedBox(height: P3),
+        const SizedBox(height: P3),
         GroupStateTitle(
           group.key,
           place: StateTitlePlace.groupHeader,
@@ -62,7 +62,6 @@ class NextTasks extends StatelessWidget {
         builder: (_) => ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P3)),
           itemBuilder: (_, index) => _groupedItemBuilder(index),
           itemCount: _groups.length,
         ),

@@ -69,9 +69,9 @@ class _ProjectsViewState extends State<ProjectsView> {
     super.dispose();
   }
 
-  Widget get _bigTitle => Align(
-        alignment: Alignment.centerLeft,
-        child: H1(loc.project_list_title, padding: const EdgeInsets.symmetric(horizontal: P3), maxLines: 1),
+  Widget get _bigTitle => MTAdaptive(
+        padding: const EdgeInsets.symmetric(horizontal: P3),
+        child: H1(loc.project_list_title, maxLines: 1, color: f2Color),
       );
 
   bool get _showProjects =>
@@ -105,8 +105,7 @@ class _ProjectsViewState extends State<ProjectsView> {
               controller: isWeb ? _scrollController : null,
               children: [
                 _bigTitle,
-                const SizedBox(height: P3),
-                _showProjects ? TasksListView(tasksMainController.projectsGroups) : MTAdaptive(child: NoProjects(_createProjectController)),
+                _showProjects ? TasksListView(tasksMainController.projectsGroups) : NoProjects(_createProjectController),
               ],
             ),
           ),

@@ -23,33 +23,31 @@ class NoProjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Center(
-        child: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const SizedBox(height: P3),
-            MTImage((_isAllProjectsClosed ? ImageName.ok : ImageName.empty_tasks).name),
-            const SizedBox(height: P3),
-            if (_isAllProjectsClosed)
-              MTButton(
-                leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
-                middle: H2(loc.are_closed_suffix, maxLines: 1),
-                onTap: () => _tapShowClosed(context),
-              )
-            else
-              H2(loc.project_list_empty_title, align: TextAlign.center),
-            const SizedBox(height: P3),
-            BaseText(
-              loc.project_list_empty_hint,
-              align: TextAlign.center,
-              padding: const EdgeInsets.symmetric(horizontal: P6),
-              maxLines: 5,
-            ),
-            const SizedBox(height: P3),
-            CreateProjectButton(_controller, type: ButtonType.main),
-          ],
-        ),
+      builder: (_) => ListView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: P12),
+          MTImage((_isAllProjectsClosed ? ImageName.ok : ImageName.empty_tasks).name),
+          const SizedBox(height: P3),
+          if (_isAllProjectsClosed)
+            MTButton(
+              leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
+              middle: H2(loc.are_closed_suffix, maxLines: 1),
+              onTap: () => _tapShowClosed(context),
+            )
+          else
+            H2(loc.project_list_empty_title, align: TextAlign.center),
+          const SizedBox(height: P3),
+          BaseText(
+            loc.project_list_empty_hint,
+            align: TextAlign.center,
+            padding: const EdgeInsets.symmetric(horizontal: P6),
+            maxLines: 5,
+          ),
+          const SizedBox(height: P3),
+          CreateProjectButton(_controller, type: ButtonType.main),
+        ],
       ),
     );
   }

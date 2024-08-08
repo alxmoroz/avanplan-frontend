@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/user.dart';
 import '../../L2_data/services/api.dart';
+import '../components/circle.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
 import '../components/icons.dart';
@@ -29,27 +30,29 @@ class MTAvatar extends StatelessWidget {
   String get _gravatarUrl => 'https://www.gravatar.com/avatar/$_fileName?s=${radius * 6}&d=blank';
   String get _avatarUrl => '${openAPI.dio.options.baseUrl}/v1/avatars/download/$_fileName?$_salt';
 
+  static const _borderWidth = 2.0;
+
   @override
   Widget build(BuildContext context) {
     bool hasBorder = borderColor != null;
+    Color noAvatarColor = user != null ? f2Color : f3Color;
     final avatar = Stack(
       alignment: Alignment.center,
       children: [
-        PersonNoAvatarIcon(size: radius * 2 - (hasBorder ? 4 : 2), color: user != null ? f3Color : f3Color, circled: true),
+        PersonNoAvatarIcon(size: radius * (hasBorder ? 1.3 : 2), color: noAvatarColor, circled: !hasBorder),
         CircleAvatar(
-          radius: radius - (hasBorder ? 2 : 0),
+          radius: radius - (hasBorder ? _borderWidth : 0),
           backgroundColor: Colors.transparent,
           backgroundImage: !_hasAvatar && user != null ? NetworkImage(_gravatarUrl) : null,
           foregroundImage: _hasAvatar ? NetworkImage(_avatarUrl) : null,
         ),
       ],
     );
-    return hasBorder
-        ? CircleAvatar(
-            radius: radius,
-            backgroundColor: borderColor!.resolve(context),
-            child: avatar,
-          )
-        : avatar;
+    return MTCircle(
+      size: radius * 2,
+      color: b3Color.resolve(context),
+      border: hasBorder ? Border.all(width: _borderWidth, color: borderColor!.resolve(context)) : null,
+      child: avatar,
+    );
   }
 }

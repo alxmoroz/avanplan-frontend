@@ -37,13 +37,15 @@ class NoProjects extends StatelessWidget {
               onTap: () => _tapShowClosed(context),
             )
           else
-            H2(loc.project_list_empty_title, align: TextAlign.center),
-          const SizedBox(height: P3),
+            H2(
+              loc.project_list_empty_title,
+              align: TextAlign.center,
+              padding: const EdgeInsets.all(P3),
+            ),
           BaseText(
             loc.project_list_empty_hint,
             align: TextAlign.center,
             padding: const EdgeInsets.symmetric(horizontal: P6),
-            maxLines: 5,
           ),
           const SizedBox(height: P3),
           CreateProjectButton(_controller, type: ButtonType.main),

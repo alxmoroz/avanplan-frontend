@@ -36,7 +36,10 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
           children: [
             const SizedBox(height: P),
             TaskHeader(controller),
-            MTAdaptive(child: TaskQuizDetails(qController, controller)),
+            MTAdaptive(
+              padding: const EdgeInsets.symmetric(horizontal: P3),
+              child: TaskQuizDetails(qController, controller),
+            ),
           ],
         ),
       ),

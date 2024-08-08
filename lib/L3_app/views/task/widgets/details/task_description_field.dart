@@ -87,9 +87,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
           MTField(
             controller.fData(fIndex),
             color: Colors.transparent,
-            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(
-              bottom: exceedReadOnlyMaxLines && expanded && !hasFocus ? expandButtonHeight : 0,
-            ),
+            padding: EdgeInsets.only(bottom: exceedReadOnlyMaxLines && expanded && !hasFocus ? expandButtonHeight : 0),
             value: MTTextFieldInline(
               teController,
               maxLines: maxLines,

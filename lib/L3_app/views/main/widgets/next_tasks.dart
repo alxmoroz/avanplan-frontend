@@ -7,7 +7,6 @@ import '../../../../L1_domain/entities/calendar_event.dart';
 import '../../../../L1_domain/entities/next_task_or_event.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
-import '../../../components/constants.dart';
 import '../../../extra/services.dart';
 import '../../../views/task/widgets/tasks/task_card.dart';
 import '../../calendar/event_card.dart';
@@ -23,7 +22,6 @@ class NextTasks extends StatelessWidget {
     final items = group.value;
     return Column(
       children: [
-        const SizedBox(height: P3),
         GroupStateTitle(
           group.key,
           place: StateTitlePlace.groupHeader,

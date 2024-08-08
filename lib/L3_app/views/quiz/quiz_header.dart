@@ -44,34 +44,39 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
       builder: (_) => MTAppBar(
         innerHeight: preferredSize.height,
         color: isBigScreen(context) ? b2Color : null,
-        leading: _controller.stepIndex > 0 || _controller.step.awaiting
-            ? MTButton(
-                titleText: loc.action_back_title,
-                padding: const EdgeInsets.only(left: P2),
-                onTap: _controller.back,
-              )
-            : const SizedBox(),
-        middle: _controller.stepsCount > 1
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (var index = 0; index < _controller.stepsCount; index++) _stepMark(context, index),
-                ],
-              )
-            : null,
+        leading: const SizedBox(),
+        middle: MTAdaptive(
+            padding: const EdgeInsets.symmetric(horizontal: P2),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                if (_controller.stepsCount > 1)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (var index = 0; index < _controller.stepsCount; index++) _stepMark(context, index),
+                    ],
+                  ),
+                Row(
+                  children: [
+                    if (_controller.stepIndex > 0 || _controller.step.awaiting) MTButton(titleText: loc.action_back_title, onTap: _controller.back),
+                    const Spacer(),
+                    if (_controller.stepIndex < _controller.stepsCount - 1)
+                      MTButton(
+                        titleText: loc.skip_action_title,
+                        padding: const EdgeInsets.only(right: P2),
+                        onTap: _controller.finish,
+                      )
+                  ],
+                ),
+              ],
+            )),
         bottom: _controller.stepTitle.trim().isNotEmpty
             ? BaseText.medium(
                 _controller.stepTitle,
                 align: TextAlign.center,
                 maxLines: 1,
                 padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
-              )
-            : null,
-        trailing: _controller.stepIndex < _controller.stepsCount - 1
-            ? MTButton(
-                titleText: loc.skip_action_title,
-                padding: const EdgeInsets.only(right: P2),
-                onTap: _controller.finish,
               )
             : null,
       ),

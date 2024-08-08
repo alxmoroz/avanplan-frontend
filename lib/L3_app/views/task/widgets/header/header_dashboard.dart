@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
@@ -50,79 +51,78 @@ class TaskHeaderDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Container(
-        height: _dashboardHeight,
-        margin: const EdgeInsets.only(top: P2),
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          clipBehavior: Clip.none,
-          children: [
-            const SizedBox(width: P3),
+      builder: (_) => MTAdaptive(
+        padding: const EdgeInsets.symmetric(horizontal: P3),
+        child: Container(
+          height: _dashboardHeight,
+          margin: const EdgeInsets.only(top: P2),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            clipBehavior: Clip.none,
+            children: [
+              /// Аналитика
+              if (_task.hasAnalytics)
+                _card(
+                  _task.canShowTimeChart ? _task.overallStateTitle : loc.tariff_option_analytics_title,
+                  body: _task.canShowTimeChart
+                      ? TimingChart(_task, showDueLabel: false)
+                      : BaseText.f3(_task.overallStateTitle, maxLines: 2, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),
+                  onTap: () => analyticsDialog(_task),
+                ),
 
-            /// Аналитика
-            if (_task.hasAnalytics)
-              _card(
-                _task.canShowTimeChart ? _task.overallStateTitle : loc.tariff_option_analytics_title,
-                body: _task.canShowTimeChart
-                    ? TimingChart(_task, showDueLabel: false)
-                    : BaseText.f3(_task.overallStateTitle, maxLines: 2, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),
-                onTap: () => analyticsDialog(_task),
-              ),
+              /// Финансы
+              if (_task.hasFinance) ...[
+                if (_task.hasAnalytics) const SizedBox(width: P2),
+                FinanceSummaryCard(_task),
+              ],
 
-            /// Финансы
-            if (_task.hasFinance) ...[
-              if (_task.hasAnalytics) const SizedBox(width: P2),
-              FinanceSummaryCard(_task),
-            ],
-
-            /// Команда
-            if (_task.hasTeam) ...[
-              if (_task.hasAnalytics || _task.hasFinance) const SizedBox(width: P2),
-              _card(
-                loc.team_title,
-                body: _task.members.isNotEmpty
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            height: P8,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: min(3, _task.activeMembers.length),
-                              itemBuilder: (_, index) {
-                                return Padding(
-                                  padding: EdgeInsets.only(left: index > 0 ? P2 : P),
-                                  child: _task.activeMembers[index].icon(P4),
-                                );
-                              },
+              /// Команда
+              if (_task.hasTeam) ...[
+                if (_task.hasAnalytics || _task.hasFinance) const SizedBox(width: P2),
+                _card(
+                  loc.team_title,
+                  body: _task.members.isNotEmpty
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: P8,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: min(3, _task.activeMembers.length),
+                                itemBuilder: (_, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(left: index > 0 ? P2 : P),
+                                    child: _task.activeMembers[index].icon(P4),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                          if (_task.members.length > 3) ...[
-                            const SizedBox(width: P3),
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                MTCircle(
-                                  size: P8,
-                                  color: Colors.transparent,
-                                  border: Border.all(width: 2, color: mainColor.resolve(context)),
-                                ),
-                                D3('+${_task.members.length - 3}', color: mainColor),
-                              ],
-                            ),
+                            if (_task.members.length > 3) ...[
+                              const SizedBox(width: P3),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  MTCircle(
+                                    size: P8,
+                                    color: Colors.transparent,
+                                    border: Border.all(width: 2, color: mainColor.resolve(context)),
+                                  ),
+                                  D3('+${_task.members.length - 3}', color: mainColor),
+                                ],
+                              ),
+                            ],
+                            const SizedBox(width: P),
                           ],
-                          const SizedBox(width: P),
-                        ],
-                      )
-                    : const MemberAddIcon(size: P8),
-                onTap: _task.members.isEmpty ? () => invite(_task) : () => showTeamDialog(_controller),
-              ),
+                        )
+                      : const MemberAddIcon(size: P8),
+                  onTap: _task.members.isEmpty ? () => invite(_task) : () => showTeamDialog(_controller),
+                ),
+              ],
             ],
-
-            const SizedBox(width: P3),
-          ],
+          ),
         ),
       ),
     );

@@ -123,7 +123,11 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
 
   Widget get _bigTitle => MTAdaptive(
         padding: const EdgeInsets.symmetric(horizontal: P3),
-        child: H1(loc.my_tasks_upcoming_title, maxLines: 1, color: f2Color),
+        child: Container(
+          height: P8,
+          alignment: Alignment.centerLeft,
+          child: H1(loc.my_tasks_upcoming_title, color: f2Color),
+        ),
       );
 
   Widget get _settingsButton => MTButton.icon(
@@ -132,51 +136,51 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
         onTap: settingsMenu,
       );
 
+  Widget get _appBarTrailing => const MTButton.icon(
+        SettingsIcon(),
+        padding: EdgeInsets.symmetric(horizontal: P2),
+        onTap: showViewSettingsDialog,
+      );
+
   Widget _page(BuildContext context) {
     final big = isBigScreen(context);
     final canShowVertBars = canShowVerticalBars(context);
-    final appBarLeading = accountController.me != null && !big && !canShowVertBars ? _settingsButton : const SizedBox(height: P8);
-    return MTPage(
-      appBar: MTAppBar(
-        leading: appBarLeading,
-        color: big
-            ? _hasScrolled
-                ? b2Color
-                : Colors.transparent
-            : null,
-        middle: _hasScrolled
-            ? big
-                ? _bigTitle
-                : H3(loc.my_tasks_upcoming_title, maxLines: 1)
-            : null,
-        trailing: isWeb || big
-            ? null
-            : const MTButton.icon(
-                SettingsIcon(),
-                padding: EdgeInsets.symmetric(horizontal: P2),
-                onTap: showViewSettingsDialog,
-              ),
+    final bodyContent = MTRefresh(
+      onRefresh: mainController.reload,
+      child: ListView(
+        controller: isWeb ? _scrollController : null,
+        shrinkWrap: _freshStart,
+        children: [
+          _bigTitle,
+          _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
+        ],
       ),
+    );
+    return MTPage(
+      appBar: big
+          ? _hasScrolled
+              ? MTAppBar(leading: const SizedBox(height: P8), color: b2Color, middle: _bigTitle)
+              : null
+          : MTAppBar(
+              leading: accountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P8),
+              middle: _hasScrolled ? H3(loc.my_tasks_upcoming_title, maxLines: 1) : null,
+              trailing: isWeb ? null : _appBarTrailing,
+            ),
       body: SafeArea(
         top: false,
         bottom: false,
-        child: MTRefresh(
-          onRefresh: mainController.reload,
-          child: ListView(
-            controller: isWeb ? _scrollController : null,
-            shrinkWrap: _freshStart,
-            children: [
-              _bigTitle,
-              _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
-            ],
-          ),
-        ),
+        child: big
+            ? MediaQuery.removePadding(
+                context: context,
+                child: bodyContent,
+              )
+            : bodyContent,
       ),
       leftBar: canShowVertBars ? LeftMenu(leftMenuController) : null,
       rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,
       bottomBar: canShowVertBars ? null : const BottomMenu(),
       scrollController: _scrollController,
-      scrollOffsetTop: P8,
+      scrollOffsetTop: big ? P4 : P8,
       onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
     );
   }

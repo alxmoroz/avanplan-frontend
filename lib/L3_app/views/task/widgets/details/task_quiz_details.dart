@@ -20,9 +20,7 @@ class TaskQuizDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+      builder: (_) => Column(
         children: [
           const SizedBox(height: P),
           TaskDescriptionField(_taskController),

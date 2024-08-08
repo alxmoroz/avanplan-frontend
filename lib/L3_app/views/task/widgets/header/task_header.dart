@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
-import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../usecases/task_actions.dart';
@@ -21,6 +21,8 @@ class TaskHeader extends StatelessWidget {
   const TaskHeader(this._controller, {super.key});
   final TaskController _controller;
 
+  static const _minHeight = P8;
+
   @override
   Widget build(BuildContext context) {
     final titleIndex = TaskFCode.title.index;
@@ -28,7 +30,8 @@ class TaskHeader extends StatelessWidget {
     return Observer(
       builder: (_) {
         final t = _controller.task;
-        return Column(
+        final roText = H1(t.title, color: t.isInbox ? f2Color : null);
+        final header = Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             /// Хлебная крошка - Название родителя
@@ -37,31 +40,35 @@ class TaskHeader extends StatelessWidget {
             /// Название
             MTField(
               _controller.fData(titleIndex),
-              leading: t.isInbox
-                  ? const Padding(padding: EdgeInsets.symmetric(vertical: P), child: InboxIcon(color: f2Color))
-                  : t.isTask
-                      ? TaskDoneButton(_controller)
-                      : null,
-              value: MTTextField(
-                controller: _controller.teController(titleIndex),
-                readOnly: !t.canEdit,
-                autofocus: t.creating,
-                margin: EdgeInsets.zero,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.zero,
-                  hintText: _controller.titlePlaceholder,
-                  hintStyle: const H1('', color: f3Color).style(context),
-                ),
-                style: H1('', color: t.isInbox ? f2Color : null).style(context),
-                onChanged: _controller.setTitle,
-              ),
+              leading: t.isTask ? TaskDoneButton(_controller) : null,
+              value: t.canEdit
+                  ? MTTextField(
+                      controller: _controller.teController(titleIndex),
+                      autofocus: t.creating,
+                      margin: EdgeInsets.zero,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                        hintText: _controller.titlePlaceholder,
+                        hintStyle: const H1('', color: f3Color).style(context),
+                      ),
+                      style: roText.style(context),
+                      onChanged: _controller.setTitle,
+                    )
+                  : Container(height: _minHeight, alignment: Alignment.centerLeft, child: roText),
+              padding: EdgeInsets.zero,
               crossAxisAlignment: CrossAxisAlignment.start,
-              padding: const EdgeInsets.symmetric(horizontal: P3),
               color: Colors.transparent,
+              minHeight: _minHeight,
             ),
           ],
         );
+        return t.isTask
+            ? Padding(padding: const EdgeInsets.symmetric(horizontal: P3), child: header)
+            : MTAdaptive(
+                padding: const EdgeInsets.symmetric(horizontal: P3),
+                child: header,
+              );
       },
     );
   }

@@ -25,12 +25,13 @@ class TasksListView extends StatelessWidget {
       final state = group.key;
       return Column(
         children: [
-          const SizedBox(height: P3),
           if (_showGroupTitles || state == TaskState.IMPORTING)
             GroupStateTitle(
               state,
               place: StateTitlePlace.groupHeader,
-            ),
+            )
+          else
+            const SizedBox(height: P3),
           ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,

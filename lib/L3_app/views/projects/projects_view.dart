@@ -71,7 +71,11 @@ class _ProjectsViewState extends State<ProjectsView> {
 
   Widget get _bigTitle => MTAdaptive(
         padding: const EdgeInsets.symmetric(horizontal: P3),
-        child: H1(loc.project_list_title, maxLines: 1, color: f2Color),
+        child: Container(
+          height: P8,
+          alignment: Alignment.centerLeft,
+          child: H1(loc.project_list_title, color: f2Color),
+        ),
       );
 
   bool get _showProjects =>
@@ -81,34 +85,36 @@ class _ProjectsViewState extends State<ProjectsView> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final big = isBigScreen(context);
-      return MTPage(
-        appBar: MTAppBar(
-          color: big
-              ? _hasScrolled
-                  ? b2Color
-                  : Colors.transparent
-              : null,
-          leading: big ? const SizedBox() : null,
-          middle: _hasScrolled
-              ? big
-                  ? _bigTitle
-                  : H3(loc.project_list_title, maxLines: 1)
-              : null,
+      final bodyContent = MTRefresh(
+        onRefresh: tasksMainController.reload,
+        child: ListView(
+          controller: isWeb ? _scrollController : null,
+          children: [
+            _bigTitle,
+            _showProjects ? TasksListView(tasksMainController.projectsGroups) : NoProjects(_createProjectController),
+          ],
         ),
+      );
+      return MTPage(
+        appBar: big
+            ? _hasScrolled
+                ? MTAppBar(
+                    color: b2Color,
+                    leading: const SizedBox(),
+                    middle: _bigTitle,
+                  )
+                : null
+            : MTAppBar(middle: _hasScrolled ? H3(loc.project_list_title, maxLines: 1) : null),
         leftBar: big ? LeftMenu(leftMenuController) : null,
         body: SafeArea(
           top: false,
           bottom: false,
-          child: MTRefresh(
-            onRefresh: tasksMainController.reload,
-            child: ListView(
-              controller: isWeb ? _scrollController : null,
-              children: [
-                _bigTitle,
-                _showProjects ? TasksListView(tasksMainController.projectsGroups) : NoProjects(_createProjectController),
-              ],
-            ),
-          ),
+          child: big
+              ? MediaQuery.removePadding(
+                  context: context,
+                  child: bodyContent,
+                )
+              : bodyContent,
         ),
         bottomBar: _showProjects
             ? canShowVerticalBars(context)
@@ -126,7 +132,7 @@ class _ProjectsViewState extends State<ProjectsView> {
                 : null
             : null,
         scrollController: _scrollController,
-        scrollOffsetTop: P8,
+        scrollOffsetTop: big ? P4 : P8,
         onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
       );
     });

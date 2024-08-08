@@ -11,7 +11,6 @@ import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
-import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/refresh.dart';
 import '../../components/text.dart';
@@ -57,7 +56,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
   bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
-  double get _headerHeight => P8 + (_hasParent ? P8 : 0);
+  double get _headerHeight => P8 + (_hasParent ? P6 : 0);
+
+  double get _scrollOffsetTop => _isTaskDialog || !isBigScreen(context) ? _headerHeight : P4;
 
   @override
   void initState() {
@@ -88,24 +89,23 @@ class TaskViewState<T extends TaskView> extends State<T> {
         scrollController: _boardScrollController,
       );
 
-  Widget get _body => SafeArea(
-        top: false,
-        bottom: false,
-        child: LayoutBuilder(builder: (ctx, size) {
-          final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
-          return ListView(
+  Widget get _bodyContent => MTRefresh(
+        onRefresh: () => controller.reload(closed: false),
+        child: LayoutBuilder(
+          builder: (ctx, size) => ListView(
             controller: isWeb ? _scrollController : null,
             children: [
-              if (_isBigGroup && !_hasScrolled) SizedBox(height: _headerHeight),
+              if (_isTaskDialog) const SizedBox(height: P8),
 
               /// Заголовок
-              Opacity(opacity: _hasScrolled ? 0 : 1, child: TaskHeader(controller)),
+              TaskHeader(controller),
 
               /// Описание
-              if (task.hasDescription || task.canEdit) ...[
-                const SizedBox(height: P),
-                TaskDescriptionField(controller),
-              ],
+              if (task.isTask && (task.hasDescription || task.canEdit))
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
+                  child: TaskDescriptionField(controller),
+                ),
 
               /// Дашборд (аналитика, финансы, команда)
               if (task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
@@ -121,11 +121,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       builder: (_) => !task.hasSubtasks && (!task.canShowBoard || !controller.showBoard)
 
                           /// Группа без подзадач
-                          ? SizedBox(
-                              // TODO: хардкод ((
-                              height: expandedHeight - _headerHeight - (task.hasAnalytics || task.hasTeam ? 112 : 0),
-                              child: NoTasks(controller),
-                            )
+                          ? NoTasks(controller)
 
                           /// Группа с задачами
                           : Observer(
@@ -133,7 +129,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                                   /// Доска
                                   ? Container(
-                                      height: expandedHeight + P2,
+                                      height: size.maxHeight - MediaQuery.paddingOf(ctx).vertical - (isBigScreen(context) ? _scrollOffsetTop : -P2),
                                       padding: const EdgeInsets.only(top: P3),
                                       child: isWeb
                                           ? Scrollbar(
@@ -145,47 +141,46 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                     )
 
                                   /// Список
-                                  : Container(
-                                      padding: const EdgeInsets.only(top: P3),
-                                      child: TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
-                                    ),
+                                  : TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
                             ),
                     ),
             ],
-          );
-        }),
+          ),
+        ),
       );
 
-  Widget get _parentTitle => _isBigGroup
-      ? TaskParentTitle(controller)
-      : SmallText(
-          task.parent!.title,
-          maxLines: 1,
-          padding: const EdgeInsets.symmetric(horizontal: P6),
-        );
-
   Widget? get _title {
-    final textColor = td.isInbox ? f2Color : null;
-    final bigGroup = _isBigGroup;
-    return _hasScrolled
-        ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (_hasParent) _parentTitle,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: bigGroup ? P : P6).copyWith(top: bigGroup && _hasParent ? P : 0),
-                child: Row(
-                  mainAxisAlignment: bigGroup ? MainAxisAlignment.start : MainAxisAlignment.center,
-                  children: [
-                    if (td.isInbox) InboxIcon(color: f2Color, size: bigGroup ? P6 : P4),
-                    SizedBox(width: bigGroup ? P2 : P),
-                    Flexible(child: bigGroup ? H1(task.title, maxLines: 1, color: textColor) : H3(task.title, maxLines: 1, color: textColor)),
-                  ],
+    return _isBigGroup
+        ? MTAdaptive(
+            padding: const EdgeInsets.symmetric(horizontal: P3),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (_hasParent) TaskParentTitle(controller),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  height: P8,
+                  child: H1(task.title, maxLines: 1, height: 1.1, color: f2Color),
                 ),
-              ),
-            ],
+              ],
+            ),
           )
-        : null;
+        : Opacity(
+            opacity: _hasScrolled ? 1 : 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_hasParent)
+                  SmallText(
+                    task.parent!.title,
+                    maxLines: 1,
+                    padding: const EdgeInsets.symmetric(horizontal: P6),
+                  ),
+                H3(task.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P8)),
+              ],
+            ),
+          );
   }
 
   TaskRightToolbar? get _rightToolbar => TaskRightToolbar(
@@ -200,21 +195,31 @@ class TaskViewState<T extends TaskView> extends State<T> {
   @override
   Widget build(BuildContext context) {
     final dialog = _isTaskDialog;
+    final big = isBigScreen(context);
+    final body = SafeArea(
+      top: false,
+      bottom: false,
+      child: big
+          ? MediaQuery.removePadding(
+              context: context,
+              child: _bodyContent,
+            )
+          : _bodyContent,
+    );
     return Observer(
       builder: (_) => controller.loading && !task.filled
           ? LoaderScreen(controller, isDialog: dialog)
           : dialog
               ? MTDialog(
                   topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-                  body: _body,
+                  body: body,
                   rightBar: _rightToolbar,
                   scrollController: _scrollController,
-                  scrollOffsetTop: _headerHeight,
+                  scrollOffsetTop: _scrollOffsetTop,
                   onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                 )
               : Observer(
                   builder: (_) {
-                    final big = isBigScreen(context);
                     final bigGroup = _isBigGroup;
                     final actions = controller.loading ? <TaskAction>[] : task.actions(context);
                     // TODO: определить как и fast / other actions в задаче
@@ -232,15 +237,12 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
-                      body: MTRefresh(
-                        onRefresh: () => controller.reload(closed: false),
-                        child: _body,
-                      ),
+                      body: body,
                       bottomBar: showBottomToolbar ? TaskBottomToolbar(controller) : null,
                       // панель справа - для проекта и цели. Для инбокса только если он не пустой
                       rightBar: bigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
                       scrollController: _scrollController,
-                      scrollOffsetTop: _headerHeight,
+                      scrollOffsetTop: _scrollOffsetTop,
                       onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                     );
                   },

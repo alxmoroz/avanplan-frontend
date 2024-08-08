@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import 'adaptive.dart';
 import 'background.dart';
 import 'constants.dart';
 import 'scrollable.dart';
@@ -68,7 +69,7 @@ class MTPage extends StatelessWidget {
                           scrollOffsetTop: scrollOffsetTop!,
                           onScrolled: onScrolled,
                           bottomShadow: bottomBar != null,
-                          child: body,
+                          child: isBigScreen(context) ? Padding(padding: EdgeInsets.only(top: scrollOffsetTop!), child: body) : body,
                         )
                       : body),
               extendBody: true,

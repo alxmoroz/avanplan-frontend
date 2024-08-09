@@ -35,6 +35,7 @@ class TaskChecklist extends StatelessWidget {
         ? _addButton
         : TaskChecklistItem(
             _controller.tasksControllers.elementAt(index),
+            key: ObjectKey(_controller.tasksControllers.elementAt(index)),
             bottomDivider: index < _controller.tasksControllers.length - 1 || _task.canCreateChecklist,
             onSubmit: _controller.add,
             onDelete: () => _controller.delete(index),

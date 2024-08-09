@@ -17,6 +17,7 @@ class MTTextFieldInline extends StatelessWidget {
     this.hintStyle,
     this.hintText,
     required this.fNode,
+    this.autofocus = false,
     this.textInputAction,
     required this.onTap,
     this.onChanged,
@@ -29,6 +30,7 @@ class MTTextFieldInline extends StatelessWidget {
   final TextStyle? hintStyle;
   final String? hintText;
   final FocusNode? fNode;
+  final bool autofocus;
   final Function()? onTap;
   final Function(String str)? onChanged;
   final Function()? onSubmit;
@@ -49,7 +51,7 @@ class MTTextFieldInline extends StatelessWidget {
           child: MTTextField(
             textInputAction: textInputAction,
             controller: controller,
-            autofocus: false,
+            autofocus: autofocus,
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
             maxLines: maxLines,

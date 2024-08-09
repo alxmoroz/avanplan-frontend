@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:math';
 
@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
@@ -18,12 +19,14 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_member.dart';
+import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
 import '../finance/finance_summary_card.dart';
 import '../team/invitation_dialog.dart';
 import '../team/team_dialog.dart';
+import '../wiki/wiki_main_page.dart';
 
 class TaskHeaderDashboard extends StatelessWidget {
   const TaskHeaderDashboard(this._controller, {super.key});
@@ -33,14 +36,15 @@ class TaskHeaderDashboard extends StatelessWidget {
 
   static const _dashboardHeight = 112.0;
 
-  Widget _card(String title, {Widget? body, Function()? onTap}) => MTButton(
+  Widget _card(String title, {Widget? body, bool hasLeftMargin = false, Function()? onTap}) => MTButton(
+        margin: EdgeInsets.only(left: hasLeftMargin ? P2 : 0),
         padding: const EdgeInsets.all(P2),
         type: ButtonType.card,
         middle: Container(
           constraints: const BoxConstraints(maxWidth: 250),
           child: Column(
             children: [
-              BaseText.f2(title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
+              if (title.isNotEmpty) BaseText.f2(title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
               if (body != null) body,
             ],
           ),
@@ -77,10 +81,10 @@ class TaskHeaderDashboard extends StatelessWidget {
               ],
 
               /// Команда
-              if (_task.hasTeam) ...[
-                if (_task.hasAnalytics || _task.hasFinance) const SizedBox(width: P2),
+              if (_task.hasTeam)
                 _card(
                   loc.team_title,
+                  hasLeftMargin: _task.hasAnalytics || _task.hasFinance,
                   body: _task.members.isNotEmpty
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
@@ -120,7 +124,16 @@ class TaskHeaderDashboard extends StatelessWidget {
                       : const MemberAddIcon(size: P8),
                   onTap: _task.members.isEmpty ? () => invite(_task) : () => showTeamDialog(_controller),
                 ),
-              ],
+
+              if (_task.hasDescription || _task.canEdit)
+                _card(
+                  _task.hasDescription ? '' : loc.description,
+                  hasLeftMargin: _task.hasAnalytics || _task.hasFinance || _task.hasTeam,
+                  body: _task.hasDescription
+                      ? Container(constraints: const BoxConstraints(minWidth: 200), child: BaseText.f2(_task.description, maxLines: 4))
+                      : const DescriptionIcon(),
+                  onTap: () => showWikiMainPageDialog(_controller),
+                ),
             ],
           ),
         ),

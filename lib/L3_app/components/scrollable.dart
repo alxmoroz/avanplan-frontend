@@ -59,7 +59,7 @@ class _MTScrollableState extends State<MTScrollable> {
       data: mq.copyWith(padding: mqPadding.copyWith(top: mq.padding.top)),
       child: MTShadowed(
         topShadow: _hasScrolled,
-        bottomShadow: widget.bottomShadow,
+        bottomShadow: widget.bottomShadow && mq.viewInsets.bottom == 0,
         topPaddingIndent: P,
         child: PrimaryScrollController(
           controller: widget.scrollController,

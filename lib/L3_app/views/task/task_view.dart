@@ -108,7 +108,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                 ),
 
               /// Дашборд (аналитика, финансы, команда)
-              if (task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
+              if (task.isGroup || task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
 
               /// Задача (лист)
               td.isTask

@@ -42,10 +42,21 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   static const deleteIconSize = P4;
 
+  FocusNode? fNode;
+
+  void _fNodeListener() => setState(() {});
+
   @override
   void initState() {
-    if (task.creating) controller.setFocus(tfIndex);
+    fNode = controller.focusNode(tfIndex);
+    fNode?.addListener(_fNodeListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    fNode?.removeListener(_fNodeListener);
+    super.dispose();
   }
 
   Future<bool> delete() async {
@@ -54,21 +65,18 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     return false;
   }
 
-  Widget get tf {
-    final teController = controller.teController(tfIndex)!;
-    final fNode = controller.focusNode(tfIndex);
-    fNode?.addListener(() => setState(() {}));
-    return MTTextFieldInline(
-      teController,
-      style: BaseText('', color: task.closed ? f3Color : null).style(context),
-      hintText: controller.titlePlaceholder,
-      fNode: fNode,
-      textInputAction: TextInputAction.next,
-      onTap: () => controller.setFocus(tfIndex),
-      onChanged: controller.setTitle,
-      onSubmit: widget.onSubmit,
-    );
-  }
+  Widget get tf => MTTextFieldInline(
+        controller.teController(tfIndex)!,
+        key: widget.key,
+        style: BaseText('', color: task.closed ? f3Color : null).style(context),
+        hintText: controller.titlePlaceholder,
+        fNode: fNode,
+        autofocus: task.creating,
+        textInputAction: TextInputAction.next,
+        onTap: () => controller.setFocus(tfIndex),
+        onChanged: controller.setTitle,
+        onSubmit: widget.onSubmit,
+      );
 
   Widget get item {
     return Row(

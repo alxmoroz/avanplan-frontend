@@ -10,7 +10,7 @@ import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../usecases/attachments.dart';
-import '../widgets/notes/text_edit_dialog.dart';
+import '../widgets/notes/note_edit_dialog.dart';
 
 final _fNoteIndex = TaskFCode.note.index;
 

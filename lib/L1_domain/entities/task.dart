@@ -1,7 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities/task_transaction.dart';
-
 import '../entities_extensions/task_stats.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
@@ -10,6 +8,7 @@ import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
 import 'task_source.dart';
+import 'task_transaction.dart';
 
 class TType {
   static const PROJECT = 'PROJECT';

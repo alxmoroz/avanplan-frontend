@@ -1,12 +1,12 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/circle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
+import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -15,19 +15,20 @@ import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/attachments.dart';
 import '../attachments/upload_dialog.dart';
 
-class TextEditDialog extends StatelessWidget {
-  const TextEditDialog(this._controller, this._fCode, this._title, {super.key, this.note});
+class NoteEditDialog extends StatelessWidget {
+  const NoteEditDialog(this._controller, {super.key, this.note});
   final TaskController _controller;
-  final TaskFCode _fCode;
-  final String _title;
   final Note? note;
 
-  MTFieldData get _fd => _controller.fData(_fCode.index);
-  TextEditingController get _tc => _controller.teController(_fCode.index)!;
+  int get fIndex => TaskFCode.note.index;
+  MTFieldData get _fd => _controller.fData(fIndex);
+  TextEditingController get _tc => _controller.teController(fIndex)!;
 
   bool get _isNewNote => note?.isNew == true;
   bool get _hasFiles => _isNewNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
@@ -36,7 +37,7 @@ class TextEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: _title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _controller.task.subPageTitle(loc.task_note_title)),
       body: Observer(
         builder: (ctx) {
           final mqPadding = MediaQuery.paddingOf(ctx);

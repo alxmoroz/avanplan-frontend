@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/workspace/ws_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +16,7 @@ import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
+import '../workspace/ws_controller.dart';
 import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 

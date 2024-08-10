@@ -10,7 +10,7 @@ import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../usecases/attachments.dart';
-import '../widgets/text_fields/text_edit_dialog.dart';
+import '../widgets/notes/text_edit_dialog.dart';
 
 final _fNoteIndex = TaskFCode.note.index;
 
@@ -87,15 +87,7 @@ extension NoteEditUC on TaskController {
 
   Future editNote(Note note) async {
     _te.text = note.text;
-    if (await showMTDialog<bool?>(
-            TextEditDialog(
-              this,
-              TaskFCode.note,
-              loc.task_note_title,
-              note: note,
-            ),
-            maxWidth: SCR_M_WIDTH) ==
-        true) {
+    if (await showMTDialog<bool?>(NoteEditDialog(this, note: note), maxWidth: SCR_M_WIDTH) == true) {
       // добавление или редактирование
       await saveNote(note);
       _te.text = '';

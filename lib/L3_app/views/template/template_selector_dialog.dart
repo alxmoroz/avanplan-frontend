@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/_base/loader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +16,7 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
+import '../_base/loader_screen.dart';
 import 'template_controller.dart';
 
 Future createFromTemplate(Workspace ws) async {

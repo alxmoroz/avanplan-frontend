@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/number.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -20,6 +19,7 @@ import '../../components/price.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
+import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
 import '../_base/loader_screen.dart';
 import '../tariff/tariff_options.dart';

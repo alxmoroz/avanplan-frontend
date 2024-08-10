@@ -1,87 +1,26 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
-import '../../../../../L2_data/services/platform.dart';
-import '../../../../components/button.dart';
-import '../../../../components/circle.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
-import '../../../../components/field_data.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
-import '../../usecases/attachments.dart';
-import '../attachments/upload_dialog.dart';
+import 'note_field.dart';
 
 class NoteEditDialog extends StatelessWidget {
   const NoteEditDialog(this._controller, {super.key, this.note});
   final TaskController _controller;
   final Note? note;
 
-  int get fIndex => TaskFCode.note.index;
-  MTFieldData get _fd => _controller.fData(fIndex);
-  TextEditingController get _tc => _controller.teController(fIndex)!;
-
-  bool get _isNewNote => note?.isNew == true;
-  bool get _hasFiles => _isNewNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
-  bool get _canSubmit => _fd.text.trim().isNotEmpty || _hasFiles;
-
   @override
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _controller.task.subPageTitle(loc.task_note_title)),
-      body: Observer(
-        builder: (ctx) {
-          final mqPadding = MediaQuery.paddingOf(ctx);
-          return Padding(
-            padding: mqPadding.add(EdgeInsets.only(bottom: mqPadding.bottom == 0 ? P3 : 0)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    if (_isNewNote)
-                      MTButton.icon(
-                        const AttachmentIcon(),
-                        padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
-                        onTap: () => _controller.attachmentsController.startUpload(instant: false),
-                      )
-                    else
-                      const SizedBox(width: P2),
-                    Expanded(
-                      child: MTTextField(
-                        controller: _tc,
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
-                        maxLines: 20,
-                      ),
-                    ),
-                    MTButton.icon(
-                      const MTCircle(
-                        color: mainColor,
-                        size: P6,
-                        child: SubmitIcon(color: mainBtnTitleColor),
-                      ),
-                      margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                      onTap: _canSubmit ? () => Navigator.of(context).pop(true) : null,
-                    ),
-                  ],
-                ),
-                if (_hasFiles) UploadDetails(_controller.attachmentsController),
-              ],
-            ),
-          );
-        },
-      ),
+      body: NoteField(_controller, note: note),
     );
   }
 }

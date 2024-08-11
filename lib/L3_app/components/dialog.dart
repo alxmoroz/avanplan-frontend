@@ -109,24 +109,24 @@ class MTDialog extends StatelessWidget {
       return Stack(
         children: [
           MediaQuery(
-              data: mq.copyWith(
-                padding: mqPadding.copyWith(
-                  top: (topBar?.preferredSize.height ?? 0),
-                  bottom: (bottomBar?.preferredSize.height ?? 0),
-                ),
+            data: mq.copyWith(
+              padding: mqPadding.copyWith(
+                top: (topBar?.preferredSize.height ?? 0),
+                bottom: (bottomBar?.preferredSize.height ?? 0),
               ),
-              child: SafeArea(
-                top: false,
-                child: scrollOffsetTop != null && scrollController != null
-                    ? MTScrollable(
-                        scrollController: scrollController!,
-                        scrollOffsetTop: scrollOffsetTop!,
-                        onScrolled: onScrolled,
-                        bottomShadow: bottomBar != null,
-                        child: body,
-                      )
-                    : body,
-              )),
+            ),
+            child: SafeArea(
+              child: scrollOffsetTop != null && scrollController != null
+                  ? MTScrollable(
+                      scrollController: scrollController!,
+                      scrollOffsetTop: scrollOffsetTop!,
+                      onScrolled: onScrolled,
+                      bottomShadow: bottomBar != null,
+                      child: body,
+                    )
+                  : body,
+            ),
+          ),
           if (topBar != null) topBar!,
           if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
         ],

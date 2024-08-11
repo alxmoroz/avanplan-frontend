@@ -130,6 +130,7 @@ class _ImportDialog extends StatelessWidget {
   PreferredSizeWidget? _bottomBar(BuildContext context) => _hasProjects
       ? MTAppBar(
           isBottom: true,
+          inDialog: true,
           color: b2Color,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: MTButton.main(

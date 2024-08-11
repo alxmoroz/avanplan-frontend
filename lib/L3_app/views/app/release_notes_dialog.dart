@@ -46,6 +46,7 @@ class _ReleaseNotesDialog extends StatelessWidget {
       bottomBar: MTAppBar(
         isBottom: true,
         color: b2Color,
+        inDialog: true,
         padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
         middle: MTButton.main(titleText: loc.ok, onTap: router.pop),
       ),

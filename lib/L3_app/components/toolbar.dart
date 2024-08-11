@@ -110,8 +110,9 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
+    final bottomInsets = isBottom ? MediaQuery.viewInsetsOf(context).bottom : 0;
     return Container(
-      height: (isBottom ? mqPadding.bottom : mqPadding.top) + preferredSize.height,
+      height: (isBottom ? mqPadding.bottom : mqPadding.top) + preferredSize.height + bottomInsets,
       color: color?.resolve(context),
       child: big || isBottom
           ? SafeArea(
@@ -119,7 +120,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
               bottom: isBottom,
               child: Container(
                 alignment: big ? Alignment.centerLeft : Alignment.center,
-                padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
+                padding: EdgeInsets.only(top: _pTop, bottom: _pBottom + bottomInsets),
                 color: (color ?? b2Color).resolve(context),
                 child: _toolbar,
               ),

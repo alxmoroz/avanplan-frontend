@@ -102,10 +102,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
               /// Описание
               if (task.isTask && (task.hasDescription || task.canEdit))
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
-                  child: TaskDescriptionField(controller),
-                ),
+                TaskDescriptionField(controller, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P)),
 
               /// Дашборд (аналитика, финансы, команда)
               if (task.isGroup || task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
@@ -226,6 +223,23 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     final showBottomToolbar = !bigGroup &&
                         (task.isTask || task.hasSubtasks || task.canShowBoard) &&
                         (task.canLocalImport || task.canCreateSubtask || task.canComment);
+
+                    double bottomToolbarExtraHeight = 0.0;
+                    if (showBottomToolbar && task.canComment) {
+                      final style = const BaseText('', maxLines: 12).style(context);
+                      final tp = TextPainter(
+                        text: TextSpan(text: controller.fData(TaskFCode.note.index).text, style: style),
+                        maxLines: 12,
+                        textDirection: TextDirection.ltr,
+                      );
+                      tp.layout(maxWidth: MediaQuery.sizeOf(context).width - 141);
+                      bottomToolbarExtraHeight = tp.height -
+                          (style.fontSize ?? 0) +
+                          (controller.attachmentsController.selectedFiles.isNotEmpty
+                              ? P + (const SmallText('', maxLines: 1).style(context).fontSize ?? 0)
+                              : 0);
+                    }
+
                     return MTPage(
                       appBar: big && !_hasScrolled
                           ? null
@@ -238,7 +252,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
                       body: body,
-                      bottomBar: showBottomToolbar ? TaskBottomToolbar(controller) : null,
+                      bottomBar: showBottomToolbar ? TaskBottomToolbar(controller, extraHeight: bottomToolbarExtraHeight) : null,
                       // панель справа - для проекта и цели. Для инбокса только если он не пустой
                       rightBar: bigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
                       scrollController: _scrollController,

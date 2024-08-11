@@ -25,10 +25,9 @@ class _WikiMainPageDialog extends StatelessWidget {
         bottom: false,
         minimum: const EdgeInsets.only(bottom: P3),
         child: ListView(
-          padding: MediaQuery.paddingOf(context).add(const EdgeInsets.symmetric(horizontal: P3)),
           shrinkWrap: true,
           children: [
-            TaskDescriptionField(_controller, standalone: true),
+            TaskDescriptionField(_controller, standalone: true, padding: const EdgeInsets.symmetric(horizontal: P3)),
           ],
         ),
       ),

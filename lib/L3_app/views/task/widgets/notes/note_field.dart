@@ -8,31 +8,42 @@ import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/attachments.dart';
+import '../../usecases/note.dart';
 import '../attachments/upload_dialog.dart';
 
 class NoteField extends StatelessWidget {
-  const NoteField(this._controller, {super.key, this.note});
+  const NoteField(this._controller, {super.key, this.note, this.standalone = false});
   final TaskController _controller;
   final Note? note;
+  final bool standalone;
 
   int get fIndex => TaskFCode.note.index;
   MTFieldData get _fd => _controller.fData(fIndex);
   TextEditingController get _tc => _controller.teController(fIndex)!;
 
-  bool get _isNewNote => note?.isNew == true;
+  bool get _isNewNote => note == null || note!.isNew;
   bool get _hasFiles => _isNewNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
   bool get _canSubmit => _fd.text.trim().isNotEmpty || _hasFiles;
+
+  Future _submit(BuildContext context) async {
+    if (standalone) {
+      await _controller.createNote();
+    } else {
+      Navigator.of(context).pop(true);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (ctx) {
+      builder: (_) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -43,7 +54,7 @@ class NoteField extends StatelessWidget {
                   MTButton.icon(
                     const AttachmentIcon(),
                     padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
-                    onTap: () => _controller.attachmentsController.startUpload(instant: false),
+                    onTap: () => _controller.attachmentsController.startUpload(),
                   )
                 else
                   const SizedBox(width: P2),
@@ -52,22 +63,21 @@ class NoteField extends StatelessWidget {
                     controller: _tc,
                     margin: EdgeInsets.zero,
                     padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
-                    maxLines: 20,
+                    maxLines: 12,
                   ),
                 ),
                 MTButton.icon(
-                  const MTCircle(
-                    color: mainColor,
+                  MTCircle(
+                    color: _canSubmit ? mainColor : b1Color,
                     size: P6,
-                    child: SubmitIcon(color: mainBtnTitleColor),
+                    child: const SubmitIcon(color: mainBtnTitleColor),
                   ),
                   margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                  onTap: _canSubmit ? () => Navigator.of(context).pop(true) : null,
+                  onTap: _canSubmit ? () => _submit(context) : null,
                 ),
               ],
             ),
             if (_hasFiles) UploadDetails(_controller.attachmentsController),
-            if (MediaQuery.paddingOf(ctx).bottom == 0) SizedBox(height: P3),
           ],
         );
       },

@@ -9,7 +9,6 @@ import '../../../../L1_domain/entities/note.dart';
 import '../../../../L2_data/services/api.dart';
 import '../../../extra/services.dart';
 import '../controllers/attachments_controller.dart';
-import '../usecases/note.dart';
 import '../widgets/attachments/upload_dialog.dart';
 
 extension AttachmentsUC on AttachmentsController {
@@ -41,15 +40,8 @@ extension AttachmentsUC on AttachmentsController {
     }
   }
 
-  Future startUpload({bool instant = true}) async {
+  Future startUpload() async {
     final files = await selectFilesDialog();
     setFiles(files);
-    if (instant && selectedFiles.isNotEmpty) {
-      await taskController.saveNote(Note(
-        text: '',
-        taskId: task.id!,
-        wsId: task.wsId,
-      ));
-    }
   }
 }

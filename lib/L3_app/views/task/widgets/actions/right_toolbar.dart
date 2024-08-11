@@ -17,8 +17,6 @@ import '../../../../components/vertical_toolbar_controller.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../../usecases/attachments.dart';
-import '../../usecases/note.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';
@@ -54,21 +52,6 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
             bottomDivider: false,
             onTap: () => localImportDialog(_taskController),
           ),
-
-        if (_task.canComment) ...[
-          MTListTile(
-            leading: const NoteAddIcon(circled: true, size: P6),
-            middle: _compact ? null : BaseText(loc.task_note_add_action_title, color: mainColor, maxLines: 1),
-            bottomDivider: false,
-            onTap: _taskController.createNote,
-          ),
-          MTListTile(
-            leading: const AttachmentIcon(circled: true),
-            middle: _compact ? null : BaseText(loc.attachment_add_action_title, color: mainColor, maxLines: 1),
-            bottomDivider: false,
-            onTap: _taskController.attachmentsController.startUpload,
-          ),
-        ],
 
         /// быстрые действия с задачей
         if (_task.quickActions.isNotEmpty) ...[

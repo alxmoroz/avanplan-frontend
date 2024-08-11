@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
 import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
@@ -20,7 +21,10 @@ class NoteEditDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _controller.task.subPageTitle(loc.task_note_title)),
-      body: NoteField(_controller, note: note),
+      body: SafeArea(
+        minimum: const EdgeInsets.only(bottom: P3),
+        child: NoteField(_controller, note: note),
+      ),
     );
   }
 }

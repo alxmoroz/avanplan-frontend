@@ -31,6 +31,7 @@ extension NoteEditUC on TaskController {
 
   Future saveNote(Note note) async {
     final newValue = _te.text.trim();
+    _te.text = '';
     final oldValue = note.text;
     if (note.text != newValue || note.isNew) {
       updateField(_fNoteIndex, loading: true, text: '');
@@ -90,18 +91,18 @@ extension NoteEditUC on TaskController {
     if (await showMTDialog<bool?>(NoteEditDialog(this, note: note), maxWidth: SCR_M_WIDTH) == true) {
       // добавление или редактирование
       await saveNote(note);
-      _te.text = '';
     } else if (!note.isNew) {
       _te.text = '';
     }
   }
 
   Future createNote() async {
-    await editNote(Note(
+    final newNote = Note(
       text: _te.text,
       taskId: task.id!,
       wsId: task.wsId,
-    ));
+    );
+    await saveNote(newNote);
   }
 
   Future deleteNote(Note note) async {

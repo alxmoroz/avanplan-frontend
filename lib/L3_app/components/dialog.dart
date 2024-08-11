@@ -112,7 +112,7 @@ class MTDialog extends StatelessWidget {
             data: mq.copyWith(
               padding: mqPadding.copyWith(
                 top: (topBar?.preferredSize.height ?? 0),
-                bottom: (bottomBar?.preferredSize.height ?? 0),
+                bottom: mqPadding.bottom + (bottomBar?.preferredSize.height ?? 0),
               ),
             ),
             child: SafeArea(
@@ -128,7 +128,7 @@ class MTDialog extends StatelessWidget {
             ),
           ),
           if (topBar != null) topBar!,
-          if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+          if (bottomBar != null) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
         ],
       );
     });

@@ -22,11 +22,12 @@ class _ReleaseNotesDialog extends StatelessWidget {
   Widget _rnBuilder(BuildContext _, int index) {
     final rn = _releaseNotes[index];
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      MTListGroupTitle(middle: H3(rn.title)),
+      MTListGroupTitle(middle: H3(rn.title), topMargin: 0),
       MTListTile(
         middle: BaseText(rn.description),
         bottomDivider: false,
-      )
+      ),
+      const SizedBox(height: P2),
     ]);
   }
 

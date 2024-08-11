@@ -72,7 +72,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         hintText: controller.titlePlaceholder,
         fNode: fNode,
         autofocus: task.creating,
-        textInputAction: TextInputAction.next,
+        textInputAction: TextInputAction.done,
         onTap: () => controller.setFocus(tfIndex),
         onChanged: controller.setTitle,
         onSubmit: widget.onSubmit,

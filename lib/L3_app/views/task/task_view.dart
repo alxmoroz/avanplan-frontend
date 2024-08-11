@@ -96,8 +96,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
           builder: (ctx, size) => ListView(
             controller: isWeb ? _scrollController : null,
             children: [
-              if (_isTaskDialog) const SizedBox(height: P8),
-
               /// Заголовок
               TaskHeader(controller),
 
@@ -142,7 +140,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                   : TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
                             ),
                     ),
-              const SizedBox(height: P4),
             ],
           ),
         ),

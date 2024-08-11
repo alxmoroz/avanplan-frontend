@@ -73,6 +73,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.padding,
     this.isBottom = false,
     this.showCloseButton = false,
+    this.inDialog = false,
     this.onClose,
   });
 
@@ -85,6 +86,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   final EdgeInsets? padding;
   final Widget? bottom;
   final bool isBottom;
+  final bool inDialog;
   final bool showCloseButton;
   final VoidCallback? onClose;
 
@@ -110,7 +112,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
-    final bottomInsets = isBottom ? MediaQuery.viewInsetsOf(context).bottom : 0;
+    final bottomInsets = isBottom && !inDialog ? MediaQuery.viewInsetsOf(context).bottom : 0;
     return Container(
       height: (isBottom ? mqPadding.bottom : mqPadding.top) + preferredSize.height + bottomInsets,
       color: color?.resolve(context),

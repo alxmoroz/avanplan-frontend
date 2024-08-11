@@ -19,10 +19,11 @@ import '../../usecases/note.dart';
 import '../attachments/upload_dialog.dart';
 
 class NoteField extends StatelessWidget {
-  const NoteField(this._controller, {super.key, this.note, this.standalone = false});
+  const NoteField(this._controller, {super.key, this.note, this.standalone = false, this.maxLines});
   final TaskController _controller;
   final Note? note;
   final bool standalone;
+  final int? maxLines;
 
   int get fIndex => TaskFCode.note.index;
   MTFieldData get _fd => _controller.fData(fIndex);
@@ -62,8 +63,9 @@ class NoteField extends StatelessWidget {
                   child: MTTextField(
                     controller: _tc,
                     margin: EdgeInsets.zero,
+                    autofocus: !standalone,
                     padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
-                    maxLines: 12,
+                    maxLines: maxLines,
                   ),
                 ),
                 MTButton.icon(

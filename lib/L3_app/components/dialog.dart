@@ -120,6 +120,7 @@ class MTDialog extends StatelessWidget {
                     scrollController: scrollController!,
                     scrollOffsetTop: scrollOffsetTop!,
                     onScrolled: onScrolled,
+                    bottomShadow: bottomBar != null,
                     child: body,
                   )
                 : body,
@@ -140,6 +141,11 @@ class MTDialog extends StatelessWidget {
 
     final big = isBigScreen(context);
 
+    // final hasKB = mq.viewInsets.bottom != 0;
+    final showRightBar = rightBar != null; // && !hasKB;
+
+    final center = _center;
+
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Padding(
@@ -157,7 +163,7 @@ class MTDialog extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              rightBar != null
+              showRightBar
                   ? Observer(builder: (_) {
                       return MediaQuery(
                         data: mq.copyWith(
@@ -165,11 +171,11 @@ class MTDialog extends StatelessWidget {
                             right: mqPadding.right + (rightBar?.preferredSize ?? Size.zero).width,
                           ),
                         ),
-                        child: _center,
+                        child: center,
                       );
                     })
-                  : _center,
-              if (rightBar != null) Align(alignment: Alignment.centerRight, child: rightBar!),
+                  : center,
+              if (showRightBar) Align(alignment: Alignment.centerRight, child: rightBar!),
             ],
           ),
         ),

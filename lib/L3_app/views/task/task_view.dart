@@ -34,6 +34,7 @@ import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/header/parent_title.dart';
 import 'widgets/header/task_header.dart';
+import 'widgets/notes/note_field_toolbar.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 
 class TaskView extends StatefulWidget {
@@ -211,6 +212,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
                   body: body,
                   rightBar: _rightToolbar,
+                  bottomBar: NoteFieldToolbar(controller, inDialog: true, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller)),
                   scrollController: _scrollController,
                   scrollOffsetTop: _scrollOffsetTop,
                   onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
@@ -224,21 +226,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
                         (task.isTask || task.hasSubtasks || task.canShowBoard) &&
                         (task.canLocalImport || task.canCreateSubtask || task.canComment);
 
-                    double bottomToolbarExtraHeight = 0.0;
-                    if (showBottomToolbar && task.canComment) {
-                      final style = const BaseText('', maxLines: 12).style(context);
-                      final tp = TextPainter(
-                        text: TextSpan(text: controller.fData(TaskFCode.note.index).text, style: style),
-                        maxLines: 12,
-                        textDirection: TextDirection.ltr,
-                      );
-                      tp.layout(maxWidth: MediaQuery.sizeOf(context).width - 141);
-                      bottomToolbarExtraHeight = tp.height -
-                          (style.fontSize ?? 0) +
-                          (controller.attachmentsController.selectedFiles.isNotEmpty
-                              ? P + (const SmallText('', maxLines: 1).style(context).fontSize ?? 0)
-                              : 0);
-                    }
+                    final bottomToolBar = (showBottomToolbar
+                        ? task.canComment
+                            ? NoteFieldToolbar(controller, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller))
+                            : TaskBottomToolbar(controller)
+                        : null) as PreferredSizeWidget?;
 
                     return MTPage(
                       appBar: big && !_hasScrolled
@@ -252,7 +244,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
                       body: body,
-                      bottomBar: showBottomToolbar ? TaskBottomToolbar(controller, extraHeight: bottomToolbarExtraHeight) : null,
+                      bottomBar: bottomToolBar,
                       // панель справа - для проекта и цели. Для инбокса только если он не пустой
                       rightBar: bigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
                       scrollController: _scrollController,

@@ -10,6 +10,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
+import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -33,6 +34,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
   TaskController get controller => widget._controller;
   Task get task => controller.task;
   TextEditingController get teController => controller.teController(fIndex)!;
+  MTFieldData get fd => controller.fData(fIndex);
 
   final hintText = loc.description;
   final fIndex = TaskFCode.description.index;
@@ -58,39 +60,34 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
     super.dispose();
   }
 
-  void editText(String str) {
-    controller.setDescription(str);
-    setState(() {});
-  }
-
   void tap() {
     if (task.canEdit) fNode?.requestFocus();
   }
 
   bool _exceedROMaxLines(double maxWidth) {
-    final tp = TextPainter(text: TextSpan(text: teController.text), maxLines: readOnlyMaxLines, textDirection: TextDirection.ltr);
+    final tp = TextPainter(text: TextSpan(text: fd.text), maxLines: readOnlyMaxLines, textDirection: TextDirection.ltr);
     tp.layout(maxWidth: maxWidth - (widget.padding?.horizontal ?? 0));
     return tp.didExceedMaxLines;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => LayoutBuilder(builder: (_, size) {
+    return LayoutBuilder(builder: (_, size) {
+      return Observer(builder: (_) {
+        final hasFocus = fNode?.hasFocus == true;
         bool exceedReadOnlyMaxLines = false;
         int? maxLines;
-        final hasFocus = fNode?.hasFocus == true;
+
         final needCheckToggle = !hasFocus && task.isTask;
         if (needCheckToggle) {
           exceedReadOnlyMaxLines = _exceedROMaxLines(size.maxWidth);
           maxLines = hasFocus || expanded ? null : readOnlyShortLines;
         }
-
         return Stack(
           alignment: Alignment.bottomCenter,
           children: [
             MTField(
-              controller.fData(fIndex),
+              fd,
               color: Colors.transparent,
               padding: (widget.padding ?? EdgeInsets.zero)
                   .add(EdgeInsets.only(bottom: exceedReadOnlyMaxLines && expanded && !hasFocus ? expandButtonHeight : 0)) as EdgeInsets,
@@ -102,7 +99,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
                 autofocus: widget.standalone && !task.hasDescription,
                 hintText: hintText,
                 style: const BaseText('', color: f2Color).style(context),
-                onChanged: editText,
+                onChanged: controller.setDescription,
                 onTap: tap,
               ),
               onTap: tap,
@@ -131,7 +128,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
               ),
           ],
         );
-      }),
-    );
+      });
+    });
   }
 }

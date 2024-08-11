@@ -204,6 +204,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
             )
           : _bodyContent,
     );
+
+    final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
+    final hasKB = MediaQuery.viewInsetsOf(context).bottom != 0;
+    final showNoteField = task.canComment && (!hasKB || noteFieldFocused);
+
     return Observer(
       builder: (_) => controller.loading && !task.filled
           ? LoaderScreen(controller, isDialog: dialog)
@@ -212,7 +217,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
                   body: body,
                   rightBar: _rightToolbar,
-                  bottomBar: NoteFieldToolbar(controller, inDialog: true, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller)),
+                  bottomBar: showNoteField
+                      ? NoteFieldToolbar(controller, inDialog: true, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller))
+                      : null,
                   scrollController: _scrollController,
                   scrollOffsetTop: _scrollOffsetTop,
                   onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
@@ -221,16 +228,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   builder: (_) {
                     final bigGroup = _isBigGroup;
                     final actions = controller.loading ? <TaskAction>[] : task.actions(context);
-                    // TODO: определить как и fast / other actions в задаче
-                    final showBottomToolbar = !bigGroup &&
-                        (task.isTask || task.hasSubtasks || task.canShowBoard) &&
-                        (task.canLocalImport || task.canCreateSubtask || task.canComment);
 
-                    final bottomToolBar = (showBottomToolbar
-                        ? task.canComment
-                            ? NoteFieldToolbar(controller, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller))
-                            : TaskBottomToolbar(controller)
-                        : null) as PreferredSizeWidget?;
+                    PreferredSizeWidget? bottomToolBar;
+                    if (showNoteField) {
+                      bottomToolBar = NoteFieldToolbar(controller, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller));
+                    } else if (!hasKB && !bigGroup && ((task.hasSubtasks && (task.canLocalImport || task.canCreateSubtask)) || task.canShowBoard)) {
+                      bottomToolBar = TaskBottomToolbar(controller);
+                    }
 
                     return MTPage(
                       appBar: big && !_hasScrolled

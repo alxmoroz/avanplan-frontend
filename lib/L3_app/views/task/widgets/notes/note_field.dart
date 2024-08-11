@@ -27,6 +27,7 @@ class NoteField extends StatelessWidget {
 
   int get fIndex => TaskFCode.note.index;
   MTFieldData get _fd => _controller.fData(fIndex);
+  FocusNode? get _fn => _controller.focusNode(fIndex);
   TextEditingController get _tc => _controller.teController(fIndex)!;
 
   bool get _isNewNote => note == null || note!.isNew;
@@ -61,6 +62,7 @@ class NoteField extends StatelessWidget {
                   const SizedBox(width: P2),
                 Expanded(
                   child: MTTextField(
+                    focusNode: _fn,
                     controller: _tc,
                     margin: EdgeInsets.zero,
                     autofocus: !standalone,

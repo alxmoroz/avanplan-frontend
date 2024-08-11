@@ -149,7 +149,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
       onRefresh: mainController.reload,
       child: ListView(
         controller: isWeb ? _scrollController : null,
-        shrinkWrap: _freshStart,
+        // shrinkWrap: _freshStart,
         children: [
           _bigTitle,
           _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),

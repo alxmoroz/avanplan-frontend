@@ -68,7 +68,7 @@ class MTPage extends StatelessWidget {
                           scrollController: scrollController!,
                           scrollOffsetTop: scrollOffsetTop!,
                           onScrolled: onScrolled,
-                          bottomShadow: bottomBar != null && !hasKB,
+                          bottomShadow: bottomBar != null,
                           child: isBigScreen(context) ? Padding(padding: EdgeInsets.only(top: scrollOffsetTop!), child: body) : body,
                         )
                       : body),

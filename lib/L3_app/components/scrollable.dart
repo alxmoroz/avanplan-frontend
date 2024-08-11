@@ -29,7 +29,8 @@ class _MTScrollableState extends State<MTScrollable> {
 
   void _listener() {
     final offset = widget.scrollOffsetTop;
-    if ((!_hasScrolled && widget.scrollController.offset > offset) || (_hasScrolled && widget.scrollController.offset < offset)) {
+    final scrolledOffset = widget.scrollController.offset;
+    if ((!_hasScrolled && scrolledOffset > offset) || (_hasScrolled && scrolledOffset < offset)) {
       setState(() {
         _hasScrolled = !_hasScrolled;
         if (widget.onScrolled != null) {
@@ -53,18 +54,13 @@ class _MTScrollableState extends State<MTScrollable> {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    final mqPadding = mq.padding;
-    return MediaQuery(
-      data: mq.copyWith(padding: mqPadding.copyWith(top: mq.padding.top)),
-      child: MTShadowed(
-        topShadow: _hasScrolled,
-        bottomShadow: widget.bottomShadow,
-        topPaddingIndent: P,
-        child: PrimaryScrollController(
-          controller: widget.scrollController,
-          child: widget.child,
-        ),
+    return MTShadowed(
+      topShadow: _hasScrolled,
+      bottomShadow: widget.bottomShadow,
+      topPaddingIndent: P,
+      child: PrimaryScrollController(
+        controller: widget.scrollController,
+        child: widget.child,
       ),
     );
   }

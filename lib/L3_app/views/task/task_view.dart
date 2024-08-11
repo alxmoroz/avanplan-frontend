@@ -142,6 +142,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                   : TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
                             ),
                     ),
+              const SizedBox(height: P4),
             ],
           ),
         ),

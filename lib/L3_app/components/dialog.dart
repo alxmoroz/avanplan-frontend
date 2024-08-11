@@ -109,24 +109,26 @@ class MTDialog extends StatelessWidget {
       return Stack(
         children: [
           MediaQuery(
-            data: mq.copyWith(
-              padding: mqPadding.copyWith(
-                top: (topBar?.preferredSize ?? Size.zero).height,
-                bottom: (bottomBar?.preferredSize.height ?? 0) + mq.padding.bottom,
+              data: mq.copyWith(
+                padding: mqPadding.copyWith(
+                  top: (topBar?.preferredSize.height ?? 0),
+                  bottom: (bottomBar?.preferredSize.height ?? 0),
+                ),
               ),
-            ),
-            child: scrollOffsetTop != null && scrollController != null
-                ? MTScrollable(
-                    scrollController: scrollController!,
-                    scrollOffsetTop: scrollOffsetTop!,
-                    onScrolled: onScrolled,
-                    bottomShadow: bottomBar != null,
-                    child: body,
-                  )
-                : body,
-          ),
+              child: SafeArea(
+                top: false,
+                child: scrollOffsetTop != null && scrollController != null
+                    ? MTScrollable(
+                        scrollController: scrollController!,
+                        scrollOffsetTop: scrollOffsetTop!,
+                        onScrolled: onScrolled,
+                        bottomShadow: bottomBar != null,
+                        child: body,
+                      )
+                    : body,
+              )),
           if (topBar != null) topBar!,
-          if (bottomBar != null) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
+          if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
         ],
       );
     });
@@ -143,8 +145,6 @@ class MTDialog extends StatelessWidget {
 
     // final hasKB = mq.viewInsets.bottom != 0;
     final showRightBar = rightBar != null; // && !hasKB;
-
-    final center = _center;
 
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
@@ -171,10 +171,10 @@ class MTDialog extends StatelessWidget {
                             right: mqPadding.right + (rightBar?.preferredSize ?? Size.zero).width,
                           ),
                         ),
-                        child: center,
+                        child: _center,
                       );
                     })
-                  : center,
+                  : _center,
               if (showRightBar) Align(alignment: Alignment.centerRight, child: rightBar!),
             ],
           ),

@@ -8,7 +8,7 @@ import '../../L1_domain/utils/dates.dart';
 import 'task_tree.dart';
 
 extension TaskStatus on Task {
-  ProjectStatus? statusForId(int? id) => project.projectStatuses.firstWhereOrNull((s) => s.id == id);
+  ProjectStatus? statusForId(int? id) => id != null ? project.projectStatuses.firstWhereOrNull((s) => s.id == id) : null;
 
   ProjectStatus? get status => statusForId(projectStatusId);
 

@@ -13,6 +13,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
+import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/attachments.dart';
 import '../../usecases/note.dart';
@@ -62,6 +63,7 @@ class NoteField extends StatelessWidget {
                   const SizedBox(width: P2),
                 Expanded(
                   child: MTTextField(
+                    hint: loc.task_note_title,
                     focusNode: _fn,
                     controller: _tc,
                     margin: EdgeInsets.zero,

@@ -31,7 +31,7 @@ class ProjectsRoute extends MTRoute {
       : super(
           path: staticBaseName,
           baseName: staticBaseName,
-          builder: (_, __) => const ProjectsView(),
+          builder: (_, state) => ProjectsView(key: state.pageKey),
         );
 
   @override
@@ -85,7 +85,7 @@ class _ProjectsViewState extends State<ProjectsView> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final big = isBigScreen(context);
-      final bodyContent = MTRefresh(
+      final body = MTRefresh(
         onRefresh: tasksMainController.reload,
         child: ListView(
           controller: isWeb ? _scrollController : null,
@@ -96,26 +96,14 @@ class _ProjectsViewState extends State<ProjectsView> {
         ),
       );
       return MTPage(
-        appBar: big
+        key: widget.key,
+        topBar: big
             ? _hasScrolled
-                ? MTAppBar(
-                    color: b2Color,
-                    leading: const SizedBox(),
-                    middle: _bigTitle,
-                  )
+                ? MTAppBar(color: b2Color, leading: const SizedBox(), middle: _bigTitle)
                 : null
             : MTAppBar(middle: _hasScrolled ? H3(loc.project_list_title, maxLines: 1) : null),
         leftBar: big ? LeftMenu(leftMenuController) : null,
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: big
-              ? MediaQuery.removePadding(
-                  context: context,
-                  child: bodyContent,
-                )
-              : bodyContent,
-        ),
+        body: body,
         bottomBar: _showProjects
             ? canShowVerticalBars(context)
                 ? null

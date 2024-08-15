@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
-import '../../../main/main_view.dart';
-import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_task_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../task_view.dart';
@@ -26,23 +24,21 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
 
   @override
   Widget build(BuildContext context) {
+    final qHeader = QuizHeader(qController);
     return MTPage(
-      appBar: QuizHeader(qController),
-      leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: ListView(
-          children: [
-            const SizedBox(height: P),
-            TaskHeader(controller),
-            MTAdaptive(
-              padding: const EdgeInsets.symmetric(horizontal: P3),
-              child: TaskQuizDetails(qController, controller),
-            ),
-          ],
-        ),
+      key: widget.key,
+      topBar: qHeader,
+      body: ListView(
+        children: [
+          TaskHeader(controller),
+          MTAdaptive(
+            padding: const EdgeInsets.symmetric(horizontal: P3),
+            child: TaskQuizDetails(qController, controller),
+          ),
+        ],
       ),
+      scrollController: scrollController,
+      scrollOffsetTop: qHeader.preferredSize.height,
     );
   }
 }

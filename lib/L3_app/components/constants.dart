@@ -10,6 +10,7 @@ const double P5 = P * 5; // 30
 const double P6 = P * 6; // 36
 const double P7 = P * 7; // 42
 const double P8 = P * 8; // 48
+const double P9 = P * 9; // 54
 const double P10 = P * 10; // 60
 const double P11 = P * 11; // 66
 const double P12 = P * 12; // 72

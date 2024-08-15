@@ -112,20 +112,26 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
-    final bottomInsets = isBottom && !inDialog ? MediaQuery.viewInsetsOf(context).bottom : 0;
+
+    final bottomInsets = isBottom && !inDialog ? MediaQuery.viewInsetsOf(context).bottom : 0.0;
+    final rColor = (color ?? b2Color).resolve(context);
+
+    final h = (isBottom
+            ? bottomInsets > 0
+                ? bottomInsets
+                : mqPadding.bottom
+            : mqPadding.top) +
+        preferredSize.height;
+
     return Container(
-      height: (isBottom ? mqPadding.bottom : mqPadding.top) + preferredSize.height + bottomInsets,
-      color: color?.resolve(context),
+      height: h,
+      color: rColor,
+      padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
       child: big || isBottom
           ? SafeArea(
               top: !isBottom,
               bottom: isBottom,
-              child: Container(
-                alignment: big ? Alignment.centerLeft : Alignment.center,
-                padding: EdgeInsets.only(top: _pTop, bottom: _pBottom + bottomInsets),
-                color: (color ?? b2Color).resolve(context),
-                child: _toolbar,
-              ),
+              child: _toolbar,
             )
           : CupertinoNavigationBar(
               automaticallyImplyLeading: false,

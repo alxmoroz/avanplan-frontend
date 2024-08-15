@@ -46,7 +46,7 @@ class TaskView extends StatefulWidget {
 }
 
 class TaskViewState<T extends TaskView> extends State<T> {
-  late final ScrollController _scrollController;
+  late final ScrollController scrollController;
   late final ScrollController _boardScrollController;
 
   TaskController get controller => widget._controller;
@@ -63,7 +63,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
-    _scrollController = ScrollController();
+    scrollController = ScrollController();
     _boardScrollController = ScrollController();
 
     if (td.isGroup && task.creating) taskGroupToolbarController.setCompact(false);
@@ -77,10 +77,12 @@ class TaskViewState<T extends TaskView> extends State<T> {
   void dispose() {
     task.creating = false;
 
-    _scrollController.dispose();
+    scrollController.dispose();
     _boardScrollController.dispose();
     super.dispose();
   }
+
+  void onScrolled(bool scrolled) => setState(() => _hasScrolled = scrolled);
 
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
@@ -94,7 +96,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         onRefresh: () => controller.reload(closed: false),
         child: LayoutBuilder(
           builder: (ctx, size) => ListView(
-            controller: isWeb ? _scrollController : null,
+            controller: isWeb ? scrollController : null,
             children: [
               /// Заголовок
               TaskHeader(controller),
@@ -140,7 +142,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                   : TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
                             ),
                     ),
-              if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+              // if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],
           ),
         ),
@@ -180,32 +182,26 @@ class TaskViewState<T extends TaskView> extends State<T> {
           );
   }
 
-  TaskRightToolbar? get _rightToolbar => TaskRightToolbar(
-        controller,
-        td.isTask
-            ? taskToolbarController
-            : td.isInbox
-                ? rightToolbarController
-                : taskGroupToolbarController,
-      );
+  PreferredSizeWidget _rightToolbar(bool hasKB) {
+    final tbController = td.isTask
+        ? taskToolbarController
+        : td.isInbox
+            ? rightToolbarController
+            : taskGroupToolbarController;
+    tbController.setHidden(hasKB);
+
+    return TaskRightToolbar(controller, tbController);
+  }
+
+  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller);
 
   @override
   Widget build(BuildContext context) {
     final dialog = _isTaskDialog;
     final big = isBigScreen(context);
-    final body = SafeArea(
-      top: false,
-      bottom: false,
-      child: big
-          ? MediaQuery.removePadding(
-              context: context,
-              child: _bodyContent,
-            )
-          : _bodyContent,
-    );
 
     final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
-    final hasKB = MediaQuery.viewInsetsOf(context).bottom != 0;
+    final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
     final showNoteField = task.canComment && (!hasKB || noteFieldFocused);
 
     return Observer(
@@ -214,12 +210,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
           : dialog
               ? MTDialog(
                   topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-                  body: body,
-                  rightBar: _rightToolbar,
-                  bottomBar: showNoteField
-                      ? NoteFieldToolbar(controller, inDialog: true, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller))
-                      : null,
-                  scrollController: _scrollController,
+                  body: _bodyContent,
+                  rightBar: _rightToolbar(hasKB),
+                  bottomBar: showNoteField ? NoteFieldToolbar(controller, inDialog: true, extraHeight: _extraHeight(context)) : null,
+                  scrollController: scrollController,
                   scrollOffsetTop: _scrollOffsetTop,
                   onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
                 )
@@ -230,13 +224,16 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                     PreferredSizeWidget? bottomToolBar;
                     if (showNoteField) {
-                      bottomToolBar = NoteFieldToolbar(controller, extraHeight: NoteFieldToolbar.calculateExtraHeight(context, controller));
+                      bottomToolBar = NoteFieldToolbar(controller, extraHeight: _extraHeight(context));
                     } else if (!hasKB && !bigGroup && ((task.hasSubtasks && (task.canLocalImport || task.canCreateSubtask)) || task.canShowBoard)) {
                       bottomToolBar = TaskBottomToolbar(controller);
                     }
 
+                    leftMenuController.setHidden(hasKB);
+
                     return MTPage(
-                      appBar: big && !_hasScrolled
+                      key: widget.key,
+                      topBar: big && !_hasScrolled
                           ? null
                           : MTAppBar(
                               innerHeight: big ? _headerHeight : null,
@@ -246,13 +243,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
-                      body: body,
+                      body: _bodyContent,
                       bottomBar: bottomToolBar,
                       // панель справа - для проекта и цели. Для инбокса только если он не пустой
-                      rightBar: bigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar : null,
-                      scrollController: _scrollController,
+                      rightBar: bigGroup && (!td.isInbox || task.hasSubtasks) ? _rightToolbar(hasKB) : null,
+                      scrollController: scrollController,
                       scrollOffsetTop: _scrollOffsetTop,
-                      onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                      onScrolled: onScrolled,
                     );
                   },
                 ),

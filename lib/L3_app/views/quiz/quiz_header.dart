@@ -36,7 +36,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(P8 + P);
+  Size get preferredSize => const Size.fromHeight(P9);
 
   @override
   Widget build(BuildContext context) {

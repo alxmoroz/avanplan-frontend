@@ -7,13 +7,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'adaptive.dart';
 import 'background.dart';
+import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
+import 'material_wrapper.dart';
 import 'scrollable.dart';
 
 class MTPage extends StatelessWidget {
   const MTPage({
     super.key,
-    this.appBar,
+    this.topBar,
     required this.body,
     this.bottomBar,
     this.leftBar,
@@ -25,8 +28,7 @@ class MTPage extends StatelessWidget {
 
   final PreferredSizeWidget? leftBar;
   final PreferredSizeWidget? rightBar;
-
-  final PreferredSizeWidget? appBar;
+  final PreferredSizeWidget? topBar;
   final Widget body;
   final PreferredSizeWidget? bottomBar;
 
@@ -34,84 +36,92 @@ class MTPage extends StatelessWidget {
   final double? scrollOffsetTop;
   final Function(bool)? onScrolled;
 
-  Widget get _scaffold {
-    return Builder(builder: (context) {
-      final mq = MediaQuery.of(context);
-      final mqPadding = mq.padding;
-      final pTop = max(mqPadding.top, P3);
+  Widget get _center {
+    return material(Builder(builder: (ctx) {
+      final mq = MediaQuery.of(ctx);
+      final mqPadding = mq.padding.copyWith(
+        top: max(mq.padding.top, P3),
+        bottom: max(mq.padding.bottom, P4),
+      );
+
       final hasKB = mq.viewInsets.bottom > 0;
-      final pBottom = max(mqPadding.bottom, P3);
+
+      final big = isBigScreen(ctx);
+
+      final scrollable = scrollOffsetTop != null && scrollController != null;
 
       return MTBackgroundWrapper(
         PrimaryScrollController(
           controller: scrollController ?? ScrollController(),
           child: MediaQuery(
-            data: mq.copyWith(
-              padding: mqPadding.copyWith(
-                top: pTop,
-                bottom: pBottom,
-              ),
-            ),
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              key: key,
-              appBar: appBar,
-              body: MediaQuery(
+            data: mq.copyWith(padding: mqPadding),
+            child: Stack(
+              children: [
+                MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
-                      top: pTop + (appBar?.preferredSize ?? Size.zero).height,
-                      bottom: pBottom + (hasKB ? 0 : (bottomBar?.preferredSize ?? Size.zero).height),
+                      top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (topBar?.preferredSize.height ?? 0)),
+                      bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + (bottomBar?.preferredSize.height ?? 0),
                     ),
                   ),
-                  child: scrollOffsetTop != null && scrollController != null
-                      ? MTScrollable(
-                          scrollController: scrollController!,
-                          scrollOffsetTop: scrollOffsetTop!,
-                          onScrolled: onScrolled,
-                          bottomShadow: bottomBar != null,
-                          child: isBigScreen(context) ? Padding(padding: EdgeInsets.only(top: scrollOffsetTop!), child: body) : body,
-                        )
-                      : body),
-              extendBody: true,
-              extendBodyBehindAppBar: true,
-              bottomNavigationBar: bottomBar,
+                  child: SafeArea(
+                    top: false,
+                    bottom: false,
+                    child: scrollable
+                        ? MTScrollable(
+                            scrollController: scrollController!,
+                            scrollOffsetTop: scrollOffsetTop!,
+                            onScrolled: onScrolled,
+                            bottomShadow: bottomBar != null,
+                            topShadowPadding: mqPadding.top + (topBar?.preferredSize.height ?? 0),
+                            child: body,
+                          )
+                        : body,
+                  ),
+                ),
+                if (topBar != null) topBar!,
+                if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+              ],
             ),
           ),
         ),
       );
-    });
+    }));
   }
-
-  double get _leftBarWidth => (leftBar?.preferredSize ?? Size.zero).width;
-  double get _rightBarWidth => (rightBar?.preferredSize ?? Size.zero).width;
-
-  bool get _hasLeftBar => leftBar != null;
-  bool get _hasRightBar => rightBar != null;
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;
+
+    final hasLeftBar = leftBar != null;
+    final hasRightBar = rightBar != null;
+
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
-      child: Stack(
-        children: [
-          _hasLeftBar || _hasRightBar
-              ? Observer(
-                  builder: (_) => MediaQuery(
-                    data: mq.copyWith(
-                      padding: mqPadding.copyWith(
-                        left: mqPadding.left + _leftBarWidth,
-                        right: mqPadding.right + _rightBarWidth,
+      child: Container(
+        decoration: BoxDecoration(
+          color: b2Color.resolve(context),
+        ),
+        child: Stack(
+          children: [
+            hasLeftBar || hasRightBar
+                ? Observer(
+                    builder: (_) => MediaQuery(
+                      data: mq.copyWith(
+                        padding: mqPadding.copyWith(
+                          left: mqPadding.left + (leftBar?.preferredSize.width ?? 0),
+                          right: mqPadding.right + (rightBar?.preferredSize.width ?? 0),
+                        ),
                       ),
+                      child: _center,
                     ),
-                    child: _scaffold,
-                  ),
-                )
-              : _scaffold,
-          if (_hasLeftBar) leftBar!,
-          if (_hasRightBar) Align(alignment: Alignment.centerRight, child: rightBar!)
-        ],
+                  )
+                : _center,
+            if (hasLeftBar) leftBar!,
+            if (hasRightBar) Align(alignment: Alignment.centerRight, child: rightBar!)
+          ],
+        ),
       ),
     );
   }

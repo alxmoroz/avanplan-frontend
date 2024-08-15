@@ -28,6 +28,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
       clipBehavior: Clip.none,
       children: [
         MTAppBar(
+          key: const ValueKey('BottomMenu'),
           isBottom: true,
           color: b3Color,
           middle: Row(

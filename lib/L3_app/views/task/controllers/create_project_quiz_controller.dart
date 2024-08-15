@@ -11,7 +11,6 @@ import '../../promo/promo_features.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../usecases/edit.dart';
-import '../widgets/create/create_subtasks_quiz_view.dart';
 import '../widgets/project_modules/project_modules.dart';
 import '../widgets/team/team_quiz_view.dart';
 import 'project_modules_controller.dart';
@@ -19,7 +18,7 @@ import 'task_controller.dart';
 
 part 'create_project_quiz_controller.g.dart';
 
-enum _StepCode { projectSetup, projectModules, team, goals, tasks }
+enum _StepCode { projectSetup, projectModules, team, goals }
 
 class CreateProjectQuizController extends _CreateProjectQuizControllerBase with _$CreateProjectQuizController {
   CreateProjectQuizController(super.taskController);
@@ -46,8 +45,6 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) await _addGoal();
       if (_goalController != null) await router.pushTaskQuizStep('goal', this, pathParameters: {'goalId': '${_goalController!.taskDescriptor.id}'});
-    } else if (step.code == _StepCode.tasks.name) {
-      await router.pushTaskQuizStep(CreateSubtasksQuizRoute.staticBaseName, this, needAppendPath: _goalController != null);
     }
   }
 
@@ -75,7 +72,5 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
         QuizStep(_StepCode.projectModules.name, loc.project_modules_quiz_title),
         if (_wantTeam) QuizStep(_StepCode.team.name, loc.team_quiz_title),
         if (_wantGoals) QuizStep(_StepCode.goals.name, loc.goal_create_quiz_title),
-        // TODO: deprecated Пока что решили убрать из квиза. Убрать отсюда полностью когда будет решен вопрос с массовым добавлением задач
-        // if (!_wantBoard) QuizStep(_StepCode.tasks.name, loc.task_multi_create_quiz_title),
       ];
 }

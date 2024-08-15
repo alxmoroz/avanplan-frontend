@@ -27,11 +27,11 @@ final authRoute = MTRoute(
   baseName: 'auth',
   path: '/auth',
   noTransition: true,
-  builder: (_, __) => const _AuthView(),
+  builder: (_, state) => _AuthView(key: state.pageKey),
 );
 
 class _AuthView extends StatefulWidget {
-  const _AuthView();
+  const _AuthView({super.key});
 
   @override
   State<StatefulWidget> createState() => _AuthViewState();
@@ -88,7 +88,8 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
           : authController.loading
               ? LoaderScreen(authController)
               : MTPage(
-                  appBar: MTAppBar(leading: const SizedBox(), middle: const AppTitle(), color: isBigScreen(context) ? Colors.transparent : null),
+                  key: widget.key,
+                  topBar: MTAppBar(leading: const SizedBox(), middle: const AppTitle(), color: isBigScreen(context) ? Colors.transparent : null),
                   body: SafeArea(
                     child: Center(
                       child: ListView(

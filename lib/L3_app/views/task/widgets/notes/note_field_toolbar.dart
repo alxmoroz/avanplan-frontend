@@ -31,14 +31,14 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
     );
     tp.layout(maxWidth: MediaQuery.sizeOf(context).width - 141);
 
-    final oneLineHeight = (style.fontSize ?? 0);
-    final footerHeight =
-        (controller.attachmentsController.selectedFiles.isNotEmpty ? P + (const SmallText('', maxLines: 1).style(context).fontSize ?? 0) : 0);
-
-    return tp.height - oneLineHeight + footerHeight;
+    final oneLineHeight = style.fontSize ?? 0;
+    final hasAttachments = controller.attachmentsController.selectedFiles.isNotEmpty;
+    final footerHeight = (hasAttachments ? P + (const SmallText('', maxLines: 1).style(context).fontSize ?? 0.0) : 0.0);
+    final extra = tp.height - oneLineHeight;
+    return (extra >= oneLineHeight ? extra : 0.0) + footerHeight;
   }
 
-  double get _bottomPadding => inDialog ? P3 - P_2 : 0;
+  double get _bottomPadding => P2;
   double get _topPadding => P2;
   double get _verticalPadding => _topPadding + _bottomPadding;
 
@@ -48,6 +48,7 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return MTAppBar(
+      key: const ValueKey('NoteFieldToolbar'),
       isBottom: true,
       color: b2Color,
       inDialog: inDialog,

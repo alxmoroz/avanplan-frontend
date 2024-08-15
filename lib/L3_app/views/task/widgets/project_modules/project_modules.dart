@@ -22,8 +22,6 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../../main/main_view.dart';
-import '../../../main/widgets/left_menu.dart';
 import '../../../quiz/abstract_task_quiz_route.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
@@ -109,32 +107,50 @@ class _ProjectModulesBody extends StatelessWidget {
   }
 }
 
-class _ProjectModulesQuizView extends StatelessWidget {
+class _ProjectModulesQuizView extends StatefulWidget {
   const _ProjectModulesQuizView(this._qController);
   final CreateProjectQuizController _qController;
 
+  @override
+  State<StatefulWidget> createState() => _ProjectModulesQuizViewState();
+}
+
+class _ProjectModulesQuizViewState extends State<_ProjectModulesQuizView> {
+  late final ScrollController scrollController;
+
+  CreateProjectQuizController get _qController => widget._qController;
   ProjectModulesController get _pmController => _qController.taskController.projectModulesController;
 
   @override
+  void initState() {
+    scrollController = ScrollController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final qHeader = QuizHeader(_qController);
     return Observer(
       builder: (_) => MTPage(
-        appBar: QuizHeader(_qController),
-        leftBar: isBigScreen(context) ? LeftMenu(leftMenuController) : null,
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: MTAdaptive(
-            child: _ProjectModulesBody(
-              _pmController,
-              footer: QuizNextButton(
-                _qController,
-                loading: _pmController.project.loading,
-                margin: const EdgeInsets.symmetric(vertical: P3),
-              ),
+        topBar: qHeader,
+        body: MTAdaptive(
+          child: _ProjectModulesBody(
+            _pmController,
+            footer: QuizNextButton(
+              _qController,
+              loading: _pmController.project.loading,
+              margin: const EdgeInsets.symmetric(vertical: P3),
             ),
           ),
         ),
+        scrollController: scrollController,
+        scrollOffsetTop: qHeader.preferredSize.height,
       ),
     );
   }

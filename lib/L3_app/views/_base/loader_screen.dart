@@ -54,6 +54,8 @@ class LoaderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Observer(
-        builder: (_) => isDialog ? MTDialog(body: _child) : MTPage(body: SafeArea(top: false, bottom: false, child: Center(child: _child))),
+        builder: (_) => isDialog
+            ? MTDialog(body: _child)
+            : MTPage(key: const ValueKey('LoaderScreen'), body: SafeArea(top: false, bottom: false, child: Center(child: _child))),
       );
 }

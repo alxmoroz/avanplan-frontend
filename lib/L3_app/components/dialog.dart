@@ -144,7 +144,6 @@ class MTDialog extends StatelessWidget {
     final big = isBigScreen(context);
 
     // final hasKB = mq.viewInsets.bottom != 0;
-    final showRightBar = rightBar != null; // && !hasKB;
 
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
@@ -163,19 +162,19 @@ class MTDialog extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              showRightBar
-                  ? Observer(builder: (_) {
-                      return MediaQuery(
+              rightBar != null
+                  ? Observer(
+                      builder: (_) => MediaQuery(
                         data: mq.copyWith(
                           padding: mq.padding.copyWith(
-                            right: mqPadding.right + (rightBar?.preferredSize ?? Size.zero).width,
+                            right: mqPadding.right + (rightBar?.preferredSize.width ?? 0),
                           ),
                         ),
                         child: _center,
-                      );
-                    })
+                      ),
+                    )
                   : _center,
-              if (showRightBar) Align(alignment: Alignment.centerRight, child: rightBar!),
+              if (rightBar != null) Align(alignment: Alignment.centerRight, child: rightBar!),
             ],
           ),
         ),

@@ -57,7 +57,7 @@ class NoteField extends StatelessWidget {
                   MTButton.icon(
                     const AttachmentIcon(),
                     padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
-                    onTap: () => _controller.attachmentsController.startUpload(),
+                    onTap: _controller.attachmentsController.startUpload,
                   )
                 else
                   const SizedBox(width: P2),

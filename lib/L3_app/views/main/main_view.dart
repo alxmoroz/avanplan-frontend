@@ -52,7 +52,7 @@ class MainRoute extends MTRoute {
           },
           controller: mainController,
           noTransition: true,
-          builder: (_, __) => const _MainView(),
+          builder: (_, state) => _MainView(key: state.pageKey),
         );
 
   @override
@@ -73,7 +73,7 @@ class MainRoute extends MTRoute {
 final mainRoute = MainRoute();
 
 class _MainView extends StatefulWidget {
-  const _MainView();
+  const _MainView({super.key});
 
   @override
   State<StatefulWidget> createState() => _MainViewState();
@@ -145,11 +145,10 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
   Widget _page(BuildContext context) {
     final big = isBigScreen(context);
     final canShowVertBars = canShowVerticalBars(context);
-    final bodyContent = MTRefresh(
+    final body = MTRefresh(
       onRefresh: mainController.reload,
       child: ListView(
         controller: isWeb ? _scrollController : null,
-        // shrinkWrap: _freshStart,
         children: [
           _bigTitle,
           _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
@@ -157,25 +156,17 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
       ),
     );
     return MTPage(
-      appBar: big
+      key: widget.key,
+      topBar: big
           ? _hasScrolled
-              ? MTAppBar(leading: const SizedBox(height: P8), color: b2Color, middle: _bigTitle)
+              ? MTAppBar(leading: const SizedBox(), color: b2Color, middle: _bigTitle)
               : null
           : MTAppBar(
               leading: accountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P8),
               middle: _hasScrolled ? H3(loc.my_tasks_upcoming_title, maxLines: 1) : null,
               trailing: isWeb ? null : _appBarTrailing,
             ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: big
-            ? MediaQuery.removePadding(
-                context: context,
-                child: bodyContent,
-              )
-            : bodyContent,
-      ),
+      body: body,
       leftBar: canShowVertBars ? LeftMenu(leftMenuController) : null,
       rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,
       bottomBar: canShowVertBars ? null : const BottomMenu(),

@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'constants.dart';
 import 'shadowed.dart';
 
 class MTScrollable extends StatefulWidget {
@@ -11,12 +10,16 @@ class MTScrollable extends StatefulWidget {
     required this.scrollController,
     required this.child,
     required this.scrollOffsetTop,
-    this.onScrolled,
+    this.topShadowPadding,
+    this.topIndent,
     this.bottomShadow = false,
+    this.onScrolled,
   });
   final ScrollController scrollController;
   final double scrollOffsetTop;
   final Widget child;
+  final double? topShadowPadding;
+  final double? topIndent;
   final bool bottomShadow;
   final Function(bool)? onScrolled;
 
@@ -28,9 +31,10 @@ class _MTScrollableState extends State<MTScrollable> {
   bool _hasScrolled = false;
 
   void _listener() {
-    final offset = widget.scrollOffsetTop;
-    final scrolledOffset = widget.scrollController.offset;
-    if ((!_hasScrolled && scrolledOffset > offset) || (_hasScrolled && scrolledOffset < offset)) {
+    final triggerOffset = widget.scrollOffsetTop;
+    final offset = widget.scrollController.offset;
+
+    if ((!_hasScrolled && offset >= triggerOffset) || (_hasScrolled && offset <= triggerOffset)) {
       setState(() {
         _hasScrolled = !_hasScrolled;
         if (widget.onScrolled != null) {
@@ -57,7 +61,8 @@ class _MTScrollableState extends State<MTScrollable> {
     return MTShadowed(
       topShadow: _hasScrolled,
       bottomShadow: widget.bottomShadow,
-      topPaddingIndent: P,
+      topShadowPadding: widget.topShadowPadding,
+      topIndent: widget.topIndent,
       child: PrimaryScrollController(
         controller: widget.scrollController,
         child: widget.child,

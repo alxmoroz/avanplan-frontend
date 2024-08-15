@@ -28,7 +28,6 @@ class _AttachmentsDialog extends StatelessWidget {
       topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.attachments_label),
       body: Observer(
         builder: (_) => MTShadowed(
-          topPaddingIndent: 0,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: _controller.sortedAttachments.length,

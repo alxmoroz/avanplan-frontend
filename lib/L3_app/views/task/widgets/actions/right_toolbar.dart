@@ -74,17 +74,19 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => VerticalToolbar(
-        _controller,
-        child: _task.isTask
-            ? MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P2)) as EdgeInsets,
-                ),
-                child: SafeArea(child: _actions(context)),
-              )
-            : _actions(context),
-      ),
+      builder: (_) => _controller.hidden
+          ? const SizedBox()
+          : VerticalToolbar(
+              _controller,
+              child: _task.isTask
+                  ? MediaQuery(
+                      data: MediaQuery.of(context).copyWith(
+                        padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P2)) as EdgeInsets,
+                      ),
+                      child: SafeArea(child: _actions(context)),
+                    )
+                  : _actions(context),
+            ),
     );
   }
 }

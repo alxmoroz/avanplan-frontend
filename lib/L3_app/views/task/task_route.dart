@@ -16,7 +16,6 @@ import 'controllers/create_goal_quiz_controller.dart';
 import 'controllers/create_project_quiz_controller.dart';
 import 'controllers/task_controller.dart';
 import 'task_view.dart';
-import 'widgets/create/create_subtasks_quiz_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
 import 'widgets/empty_state/task_404_dialog.dart';
 import 'widgets/project_modules/project_modules.dart';
@@ -58,18 +57,16 @@ abstract class BaseTaskRoute extends MTRoute {
   @override
   GoRouterWidgetBuilder? get builder => (_, state) {
         // шаг квиза?
-        AbstractTaskQuizController? qc = (state.extra is AbstractTaskQuizController) ? state.extra as AbstractTaskQuizController : null;
-        if (qc == null && _td.creating && (_td.isProject || _td.isGoal)) {
-          qc = _td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
+        AbstractTaskQuizController? quizController = (state.extra is AbstractTaskQuizController) ? state.extra as AbstractTaskQuizController : null;
+        if (quizController == null && _td.creating && (_td.isProject || _td.isGoal)) {
+          quizController = _td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
         }
-        final qcTask = qc?.taskController.taskDescriptor;
+        final qcTD = quizController?.taskController.taskDescriptor;
 
-        return qc != null && (qcTask == _td || qcTask == _td.parent)
-            ? CreateTaskQuizView(_tc, qc)
-            : TaskView(
-                _tc,
-                key: ValueKey('${_td.wsId}_${_td.id}'),
-              );
+        final key = ValueKey('${_td.wsId}_${_td.id}');
+        return quizController != null && (qcTD == _td || qcTD == _td.parent)
+            ? CreateTaskQuizView(_tc, quizController, key: key)
+            : TaskView(_tc, key: key);
       };
 }
 
@@ -86,7 +83,6 @@ class GoalRoute extends BaseTaskRoute {
 
   @override
   List<RouteBase> get routes => [
-        CreateSubtasksQuizRoute(parent: this),
         TaskRoute(parent: this),
         Task404Route(parent: this),
       ];
@@ -125,7 +121,6 @@ class ProjectRoute extends BaseTaskRoute {
   List<RouteBase> get routes => [
         ProjectModulesQuizRoute(parent: this),
         TeamQuizRoute(parent: this),
-        CreateSubtasksQuizRoute(parent: this),
         GoalRoute(parent: this),
         BacklogRoute(parent: this),
         TaskRoute(parent: this),

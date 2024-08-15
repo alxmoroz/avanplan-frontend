@@ -115,7 +115,6 @@ class _ImportDialog extends StatelessWidget {
       : _hasSources
           ? MTShadowed(
               shadowColor: b1Color,
-              topPaddingIndent: 0,
               bottomShadow: true,
               child: ListView.builder(
                 shrinkWrap: true,

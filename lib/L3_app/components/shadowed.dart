@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'colors_base.dart';
-import 'constants.dart';
 
 class MTShadowed extends StatelessWidget {
   const MTShadowed({
@@ -13,33 +12,29 @@ class MTShadowed extends StatelessWidget {
     this.shadowColor,
     this.topShadow = true,
     this.bottomShadow = false,
-    this.topPaddingIndent,
-    this.bottomPaddingIndent,
+    this.topIndent,
+    this.topShadowPadding,
+    this.bottomIndent,
   });
 
   final Widget child;
   final Color? shadowColor;
   final bool topShadow;
   final bool bottomShadow;
-  final double? topPaddingIndent;
-  final double? bottomPaddingIndent;
+  final double? topIndent;
+  final double? topShadowPadding;
+  final double? bottomIndent;
 
   Widget _shadow(BuildContext context, bool top) {
-    final padding = MediaQuery.paddingOf(context);
+    final mqPadding = MediaQuery.paddingOf(context);
     final startColor = (shadowColor ?? b1Color).resolve(context).withOpacity(0.5);
     final endColor = startColor.resolve(context).withAlpha(0);
-
-    final hasKB = MediaQuery.viewInsetsOf(context).bottom != 0;
 
     return Positioned(
       left: 0,
       right: 0,
-      top: top ? padding.top : null,
-      bottom: top
-          ? null
-          : hasKB
-              ? 0
-              : padding.bottom,
+      top: top ? (topShadowPadding ?? mqPadding.top) : null,
+      bottom: top ? null : mqPadding.bottom,
       height: 8,
       child: Container(
         decoration: BoxDecoration(
@@ -53,9 +48,6 @@ class MTShadowed extends StatelessWidget {
     );
   }
 
-  double get _topIndent => topShadow ? topPaddingIndent ?? P3 : topPaddingIndent ?? 0;
-  double get _bottomIndent => bottomShadow ? bottomPaddingIndent ?? P3 : bottomPaddingIndent ?? 0;
-
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
@@ -65,8 +57,8 @@ class MTShadowed extends StatelessWidget {
         MediaQuery(
           data: mq.copyWith(
             padding: mqPadding.copyWith(
-              top: mqPadding.top + _topIndent,
-              bottom: mqPadding.bottom + _bottomIndent,
+              top: mqPadding.top + (topIndent ?? 0),
+              bottom: mqPadding.bottom + (bottomIndent ?? 0),
             ),
           ),
           child: child,

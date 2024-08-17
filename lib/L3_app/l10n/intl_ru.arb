@@ -459,6 +459,7 @@
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
 
+  "task_dates": "Даты и повтор",
   "task_delete_dialog_group_title": "Удалить вместе с подзадачами?",
 
   "task_due_date_label": "Срок",
@@ -493,7 +494,7 @@
   "task_reopen_action_title": "Переоткрыть",
 
   "task_start_date_label": "Начало",
-  "task_start_date_placeholder": "Дата начала",
+  "task_start_date_placeholder": "Начало",
   "task_status_select_placeholder": "Статус",
 
   "task_title": "Задача",

@@ -26,14 +26,13 @@ import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
+import '../dates/dates_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
 import '../project_modules/project_modules.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
-import 'due_date_field.dart';
 import 'estimate_field.dart';
-import 'start_date_field.dart';
 import 'task_status_field.dart';
 
 Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
@@ -76,8 +75,7 @@ class TaskDetails extends StatelessWidget {
           if (t.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Даты
-          if (!t.isInbox) TaskStartDateField(_controller, compact: compact, hasMargin: hasMargins),
-          if (t.hasDueDate || t.canEdit) TaskDueDateField(_controller, compact: compact, hasMargin: hasMargins),
+          if (t.hasDueDate || t.hasDueDate || t.canEdit) TaskDatesField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Оценки
           if (t.canShowEstimate || t.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: hasMargins),

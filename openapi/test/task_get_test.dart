@@ -147,6 +147,11 @@ void main() {
       // TODO
     });
 
+    // TaskRepeatGet repeat
+    test('to test the property `repeat`', () async {
+      // TODO
+    });
+
     // TaskSourceGet taskSource
     test('to test the property `taskSource`', () async {
       // TODO

@@ -50,6 +50,13 @@ void main() {
 
     // Delete
     //
+    //Future<bool> deleteRepeat(int wsId, int taskId, int repeatId) async
+    test('test deleteRepeat', () async {
+      // TODO
+    });
+
+    // Delete
+    //
     //Future<bool> deleteSource(int sourceId, int wsId) async
     test('test deleteSource', () async {
       // TODO
@@ -231,6 +238,13 @@ void main() {
     //
     //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async
     test('test upsertOption', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<TaskRepeatGet> upsertRepeat(int wsId, int taskId, TaskRepeatUpsert taskRepeatUpsert) async
+    test('test upsertRepeat', () async {
       // TODO
     });
 

@@ -6,6 +6,7 @@
 import 'package:openapi/src/model/project_module_get.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
+import 'package:openapi/src/model/task_repeat_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/task_transaction_get.dart';
@@ -47,6 +48,7 @@ part 'task_get.g.dart';
 /// * [closedSubtasksCount] 
 /// * [income] 
 /// * [expenses] 
+/// * [repeat] 
 /// * [taskSource] 
 /// * [members] 
 /// * [notes] 
@@ -142,6 +144,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'expenses')
   num? get expenses;
+
+  @BuiltValueField(wireName: r'repeat')
+  TaskRepeatGet? get repeat;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
@@ -386,6 +391,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.expenses,
         specifiedType: const FullType(num),
+      );
+    }
+    if (object.repeat != null) {
+      yield r'repeat';
+      yield serializers.serialize(
+        object.repeat,
+        specifiedType: const FullType(TaskRepeatGet),
       );
     }
     if (object.taskSource != null) {
@@ -676,6 +688,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(num),
           ) as num;
           result.expenses = valueDes;
+          break;
+        case r'repeat':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(TaskRepeatGet),
+          ) as TaskRepeatGet;
+          result.repeat.replace(valueDes);
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

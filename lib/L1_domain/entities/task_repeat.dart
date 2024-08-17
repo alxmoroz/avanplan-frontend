@@ -2,6 +2,12 @@
 
 import 'base_entity.dart';
 
+class TRCode {
+  static const DAILY = 'DAILY';
+  static const WEEKLY = 'WEEKLY';
+  static const MONTHLY = 'MONTHLY';
+}
+
 class TaskRepeat extends WSBounded {
   TaskRepeat({
     super.id,

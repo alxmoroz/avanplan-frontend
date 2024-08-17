@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **closedSubtasksCount** | **int** |  | [optional] 
 **income** | **num** |  | [optional] [default to 0.0]
 **expenses** | **num** |  | [optional] [default to 0.0]
+**repeat** | [**TaskRepeatGet**](TaskRepeatGet.md) |  | [optional] 
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 

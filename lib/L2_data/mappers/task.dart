@@ -12,6 +12,7 @@ import 'member.dart';
 import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
+import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
 
@@ -27,6 +28,7 @@ extension TaskMapper on api.TaskGet {
       startDate: startDate?.toLocal(),
       closedDate: closedDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
+      repeat: repeat?.repeat(wsId),
       closed: closed ?? false,
       projectStatusId: projectStatusId,
       estimate: estimate,

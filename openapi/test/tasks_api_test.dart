@@ -29,6 +29,13 @@ void main() {
 
     // Delete
     //
+    //Future<bool> deleteRepeat(int wsId, int taskId, int repeatId) async
+    test('test deleteRepeat', () async {
+      // TODO
+    });
+
+    // Delete
+    //
     //Future<bool> deleteStatus(int statusId, int wsId, int taskId) async
     test('test deleteStatus', () async {
       // TODO
@@ -108,6 +115,13 @@ void main() {
     //
     //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert) async
     test('test upsertNote', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<TaskRepeatGet> upsertRepeat(int wsId, int taskId, TaskRepeatUpsert taskRepeatUpsert) async
+    test('test upsertRepeat', () async {
       // TODO
     });
 

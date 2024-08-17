@@ -3,7 +3,7 @@
 import '../../L3_app/usecases/task_tree.dart';
 import '../entities/task.dart';
 
-extension TaskMembersExtension on Task {
+extension TaskCopyExtension on Task {
   Task copyWith({required int? parentId, required int? projectStatusId}) => Task(
         id: id,
         parentId: parentId ?? this.parentId,
@@ -15,6 +15,7 @@ extension TaskMembersExtension on Task {
         startDate: startDate,
         closedDate: closedDate,
         dueDate: dueDate,
+        repeat: repeat,
         closed: closed,
         projectStatusId: projectStatusId ?? this.projectStatusId,
         estimate: estimate,

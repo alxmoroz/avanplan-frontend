@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../../L1_domain/entities_extensions/task_type.dart';
 import '../../L2_data/services/platform.dart';
 import '../extra/route.dart';
 import '../views/account/account_dialog.dart';

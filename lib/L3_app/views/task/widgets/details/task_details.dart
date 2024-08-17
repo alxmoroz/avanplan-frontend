@@ -5,8 +5,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../../L1_domain/entities_extensions/task_dates.dart';
+import '../../../../../L1_domain/entities_extensions/task_params.dart';
+import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -75,7 +76,7 @@ class TaskDetails extends StatelessWidget {
           if (t.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Даты
-          if (t.hasDueDate || t.hasDueDate || t.canEdit) TaskDatesField(_controller, compact: compact, hasMargin: hasMargins),
+          if (t.hasDueDate || t.hasRepeat || t.canEdit) TaskDatesField(_controller, compact: compact, hasMargin: hasMargins),
 
           /// Оценки
           if (t.canShowEstimate || t.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: hasMargins),

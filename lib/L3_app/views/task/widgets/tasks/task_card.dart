@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../../L1_domain/entities_extensions/task_dates.dart';
+import '../../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../../../L1_domain/entities_extensions/task_state.dart';
-import '../../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/button.dart';

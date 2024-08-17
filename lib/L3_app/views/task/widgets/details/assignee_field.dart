@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';

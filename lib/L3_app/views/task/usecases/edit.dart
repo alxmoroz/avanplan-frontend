@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_copy.dart';
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';

@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../../L1_domain/entities_extensions/task_type.dart';
 import '../extra/services.dart';
 import '../presenters/task_state.dart';
 import 'project_module.dart';

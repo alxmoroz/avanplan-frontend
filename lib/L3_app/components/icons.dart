@@ -381,6 +381,12 @@ class ProjectsIcon extends MTIcon {
   const ProjectsIcon({super.key, super.color = f2Color, super.size = P6}) : super(CupertinoIcons.folder);
 }
 
+class RepeatIcon extends MTIcon {
+  const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.repeat);
+  // const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_2_squarepath);
+  // const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_2_circlepath);
+}
+
 class QuestionIcon extends MTIcon {
   const QuestionIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.question_circle);
 }

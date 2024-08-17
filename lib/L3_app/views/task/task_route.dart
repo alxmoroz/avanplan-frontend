@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../L1_domain/entities_extensions/task_type.dart';
 import '../../components/adaptive.dart';
 import '../../components/constants.dart';
 import '../../extra/route.dart';

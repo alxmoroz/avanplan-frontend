@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/board/dd_item.dart';
 import '../../../components/board/dd_item_target.dart';

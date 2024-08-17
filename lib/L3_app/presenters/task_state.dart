@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_dates.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../../L1_domain/entities_extensions/task_type.dart';
 import '../components/circle.dart';
 import '../components/circular_progress.dart';
 import '../components/colors.dart';

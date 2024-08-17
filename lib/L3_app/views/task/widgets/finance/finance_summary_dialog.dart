@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';

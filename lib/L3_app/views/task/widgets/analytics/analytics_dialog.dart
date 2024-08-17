@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_dates.dart';
+import '../../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/card.dart';
 import '../../../../components/colors.dart';

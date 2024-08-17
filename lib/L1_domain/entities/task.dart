@@ -1,12 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import '../entities_extensions/task_stats.dart';
+import '../entities_extensions/task_dates.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
 import 'member.dart';
 import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
+import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
 
@@ -95,6 +96,7 @@ class Task extends Project {
     required super.type,
     this.taskSource,
     this.dueDate,
+    this.repeat,
     this.closedDate,
     this.projectStatusId,
     this.authorId,
@@ -122,6 +124,7 @@ class Task extends Project {
   final num? openedVolume;
   final num? closedVolume;
   final int? closedSubtasksCountIn;
+  num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
 
   DateTime? startDate;
   bool closed;
@@ -131,6 +134,7 @@ class Task extends Project {
   List<Note> notes;
   List<Attachment> attachments;
   List<TaskTransaction> transactions;
+  TaskRepeat? repeat;
 
   final num income;
   final num expenses;

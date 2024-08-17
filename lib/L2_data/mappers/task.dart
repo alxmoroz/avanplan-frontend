@@ -6,7 +6,7 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../../L1_domain/entities_extensions/task_type.dart';
 import 'attachment.dart';
 import 'member.dart';
 import 'note.dart';

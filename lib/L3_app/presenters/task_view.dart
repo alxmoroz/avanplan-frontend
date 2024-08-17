@@ -1,8 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../../L1_domain/entities_extensions/task_dates.dart';
+import '../../L1_domain/entities_extensions/task_type.dart';
 import '../usecases/project_module.dart';
 import '../usecases/task_actions.dart';
 

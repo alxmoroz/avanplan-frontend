@@ -4,11 +4,17 @@ import 'package:collection/collection.dart';
 
 import '../entities/task.dart';
 import '../utils/dates.dart';
-import 'task_stats.dart';
+import 'task_dates.dart';
 
 TaskState tStateFromStr(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
 
 extension TaskStateExtension on Task {
+  bool get hasOverdue => hasDueDate && dueDate!.isBefore(today);
+  bool get hasRisk => state == TaskState.RISK;
+  bool get isFuture => state == TaskState.FUTURE_START;
+  bool get isOk => state == TaskState.OK;
+  bool get isAhead => state == TaskState.AHEAD;
+
   TaskState get leafState {
     TaskState st = TaskState.NO_DUE;
     if (closed) {

@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/button.dart';
 import '../../../components/images.dart';

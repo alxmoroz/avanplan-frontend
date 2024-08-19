@@ -68,6 +68,7 @@ class TaskCard extends StatelessWidget {
         SmallText(errText, color: _textColor, maxLines: 1),
       ]);
 
+  bool get _showRepeat => task.hasRepeat;
   bool get _showDate => task.leafState != TaskState.TODAY && task.hasDueDate && !task.closed && task.isTask;
   Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
   Widget get _date => Row(
@@ -146,11 +147,19 @@ class TaskCard extends StatelessWidget {
               ],
             ),
             // задачи: срок, метка чек-листа, вложений, комментов, оценка, статус, назначено
-          ] else if (_showDate || _showChecklistMark || _showAttachmentsMark || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
+          ] else if (_showRepeat ||
+              _showDate ||
+              _showChecklistMark ||
+              _showAttachmentsMark ||
+              _showNotesMark ||
+              _showStatus ||
+              _showAssignee ||
+              _showEstimate) ...[
             SizedBox(height: board ? P_2 : P),
             Row(
               children: [
                 if (_showDate) _date,
+                if (_showRepeat) const RepeatIcon(size: P, color: f2Color),
                 Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

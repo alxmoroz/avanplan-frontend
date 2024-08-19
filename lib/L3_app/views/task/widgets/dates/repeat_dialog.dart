@@ -1,0 +1,112 @@
+// Copyright (c) 2024. Alexandr Moroz
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../../L1_domain/entities/task_repeat.dart';
+import '../../../../components/button.dart';
+import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/dialog.dart';
+import '../../../../components/segmented_button.dart';
+import '../../../../components/text.dart';
+import '../../../../components/text_field.dart';
+import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/date_repeat.dart';
+import '../../../../presenters/task_type.dart';
+import '../../../_base/loader_screen.dart';
+import '../../controllers/task_controller.dart';
+import '../../usecases/dates.dart';
+import 'repeat_controller.dart';
+
+Future showTaskRepeatDialog(TaskController taskController) async {
+  await showMTDialog<void>(_RepeatDialog(taskController, RepeatController(taskController.task)), maxWidth: SCR_XS_WIDTH);
+}
+
+class _RepeatDialog extends StatelessWidget {
+  const _RepeatDialog(this._taskController, this._repeatController);
+  final TaskController _taskController;
+  final RepeatController _repeatController;
+
+  Future _save(BuildContext context) async {
+    Navigator.of(context).pop();
+    await _taskController.saveRepeat(_repeatController.repeat);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (_) => _taskController.loading
+          ? LoaderScreen(_taskController, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                middle: _taskController.task.subPageTitle(loc.task_repeat_dialog_title),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: P3),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    const SizedBox(height: P3),
+                    MTSegmentedButton(
+                      [
+                        for (TRPeriodType v in TRPeriodType.values)
+                          MTSegmentedButtonItem(v.name, Intl.message('task_repeat_period_${v.name.toLowerCase()}'))
+                      ],
+                      value: _repeatController.repeat.periodType,
+                      onChanged: _repeatController.setPeriodType,
+                    ),
+                    const SizedBox(height: P3),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            const SizedBox(width: P2),
+                            DText(_repeatController.repeat.prefix, color: f2Color),
+                            const Spacer(),
+                            DText(_repeatController.repeat.suffix, color: f2Color),
+                            const SizedBox(width: P2),
+                          ],
+                        ),
+                        MTTextField(
+                          controller: _repeatController.teController,
+                          margin: EdgeInsets.zero,
+                          style: const D2('').style(context),
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.zero),
+                          keyboardType: const TextInputType.numberWithOptions(),
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(3),
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
+                            TextInputFormatter.withFunction((oldValue, newValue) {
+                              if (newValue.text.startsWith(RegExp(r'^0+\d+'))) {
+                                newValue = newValue.copyWith(
+                                  text: newValue.text.replaceFirst(RegExp(r'0*'), ''),
+                                  selection: const TextSelection.collapsed(offset: -1),
+                                );
+                              }
+                              return newValue;
+                            }),
+                          ],
+                          onChanged: _repeatController.setPeriodLength,
+                        ),
+                      ],
+                    ),
+                    MTButton.main(
+                      titleText: loc.save_action_title,
+                      onTap: _repeatController.canSave ? () => _save(context) : null,
+                      margin: const EdgeInsets.symmetric(vertical: P3),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+    );
+  }
+}

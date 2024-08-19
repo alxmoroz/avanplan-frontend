@@ -22,6 +22,7 @@ import '../../L1_domain/usecases/service_settings_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
+import '../../L1_domain/usecases/task_repeat_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/transaction_uc.dart';
 import '../../L1_domain/usecases/ws_uc.dart';
@@ -45,6 +46,7 @@ import '../../L2_data/repositories/service_settings_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
 import '../../L2_data/repositories/task_member_role_repo.dart';
+import '../../L2_data/repositories/task_repeat_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
 import '../../L2_data/repositories/task_transaction_repo.dart';
 import '../../L2_data/repositories/ws_repo.dart';
@@ -98,6 +100,7 @@ ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
 MyCalendarUC get myCalendarUC => GetIt.I<MyCalendarUC>();
 MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
 TaskTransactionUC get taskTransactionUC => GetIt.I<TaskTransactionUC>();
+TaskRepeatUC get taskRepeatUC => GetIt.I<TaskRepeatUC>();
 
 void setup() {
   /// device
@@ -134,6 +137,7 @@ void setup() {
   getIt.registerSingleton<MyCalendarUC>(MyCalendarUC(MyCalendarRepo()));
   getIt.registerSingleton<MyAvatarUC>(MyAvatarUC(MyAvatarRepo()));
   getIt.registerSingleton<TaskTransactionUC>(TaskTransactionUC(TaskTransactionRepo()));
+  getIt.registerSingleton<TaskRepeatUC>(TaskRepeatUC(TaskRepeatRepo()));
 
   /// global state controllers
   // первый контроллер

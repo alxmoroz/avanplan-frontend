@@ -31,7 +31,22 @@ import 'task_transactions_controller.dart';
 
 part 'task_controller.g.dart';
 
-enum TaskFCode { parent, title, assignee, description, status, startDate, dueDate, estimate, author, projectModules, note, attachment, finance }
+enum TaskFCode {
+  parent,
+  title,
+  assignee,
+  description,
+  status,
+  startDate,
+  dueDate,
+  repeat,
+  estimate,
+  author,
+  projectModules,
+  note,
+  attachment,
+  finance,
+}
 
 enum TasksFilter { my, projects }
 
@@ -95,6 +110,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.status.index, text: '${taskDescriptor.status}', label: loc.status_title, placeholder: loc.status_title),
         MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
         MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
+        MTFieldData(TaskFCode.repeat.index, placeholder: loc.task_repeat_placeholder),
         MTFieldData(
           TaskFCode.estimate.index,
           label: taskDescriptor.isGroup ? loc.task_estimate_group_label : loc.task_estimate_label,

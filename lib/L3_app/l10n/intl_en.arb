@@ -493,6 +493,18 @@
 
   "task_reopen_action_title": "Reopen",
 
+  "task_repeat_dialog_title": "Repeat settings",
+  "task_repeat_placeholder": "Repeat",
+  "task_repeat_period_daily": "Days",
+  "task_repeat_period_daily_prefix": "{count, plural, one{every} other{every}}",
+  "task_repeat_period_daily_suffix": "{count, plural, one{day} other{days}}",
+  "task_repeat_period_weekly": "Weeks",
+  "task_repeat_period_weekly_prefix": "{count, plural, one{every} other{every}}",
+  "task_repeat_period_weekly_suffix": "{count, plural, one{week} other{weeks}}",
+  "task_repeat_period_monthly": "Months",
+  "task_repeat_period_monthly_prefix": "{count, plural, one{every} other{every}}",
+  "task_repeat_period_monthly_suffix": "{count, plural, one{month} other{months}}",
+
   "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start Date",
   "task_status_select_placeholder": "Status",

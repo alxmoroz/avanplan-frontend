@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
@@ -12,6 +13,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
+import '../../../../presenters/date_repeat.dart';
 import '../../controllers/task_controller.dart';
 import 'dates_dialog.dart';
 
@@ -58,12 +60,16 @@ class TaskDatesField extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 dates,
-                if (repeat != null)
+                if (repeat != null) ...[
+                  const SizedBox(height: P),
                   Row(
                     children: [
-                      const RepeatIcon(size: P3),
+                      const RepeatIcon(size: P3, color: f2Color),
+                      const SizedBox(width: P),
+                      Expanded(child: SmallText(repeat.localizedString, maxLines: 1)),
                     ],
                   ),
+                ]
               ],
             )
           : null,

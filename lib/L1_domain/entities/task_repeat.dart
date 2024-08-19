@@ -2,11 +2,7 @@
 
 import 'base_entity.dart';
 
-class TRCode {
-  static const DAILY = 'DAILY';
-  static const WEEKLY = 'WEEKLY';
-  static const MONTHLY = 'MONTHLY';
-}
+enum TRPeriodType { DAILY, WEEKLY, MONTHLY }
 
 class TaskRepeat extends WSBounded {
   TaskRepeat({
@@ -23,4 +19,12 @@ class TaskRepeat extends WSBounded {
   String periodType;
   int periodLength;
   String daysList;
+
+  TaskRepeat copyWith({int? wsId, int? taskId, String? periodType, int? periodLength, String? daysList}) => TaskRepeat(
+        wsId: wsId ?? this.wsId,
+        taskId: taskId ?? this.taskId,
+        periodType: periodType ?? this.periodType,
+        periodLength: periodLength ?? this.periodLength,
+        daysList: daysList ?? this.daysList,
+      );
 }

@@ -4,11 +4,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../../L1_domain/entities/task_repeat.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/task_tree.dart';
+import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import 'edit.dart';
 
@@ -98,5 +101,29 @@ extension DatesUC on TaskController {
         _setDueDate(date);
       }
     }
+  }
+
+  Future saveRepeat(TaskRepeat repeat) async {
+    await editWrapper(() async {
+      setLoaderScreenSaving();
+      if (await task.ws.checkBalance(loc.edit_action_title)) {
+        final etr = await taskRepeatUC.save(repeat);
+        if (etr != null) {
+          task.repeat = etr;
+        }
+      }
+    });
+  }
+
+  Future deleteRepeat(TaskRepeat repeat) async {
+    await editWrapper(() async {
+      setLoaderScreenSaving();
+      if (await task.ws.checkBalance(loc.edit_action_title)) {
+        final deletedRepeat = await taskRepeatUC.delete(repeat);
+        if (deletedRepeat != null) {
+          task.repeat = null;
+        }
+      }
+    });
   }
 }

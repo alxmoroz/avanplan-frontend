@@ -493,6 +493,18 @@
 
   "task_reopen_action_title": "Переоткрыть",
 
+  "task_repeat_dialog_title": "Настройки повтора",
+  "task_repeat_placeholder": "Повтор",
+  "task_repeat_period_daily": "Дни",
+  "task_repeat_period_daily_prefix": "{count, plural, one{каждый} other{каждые}}",
+  "task_repeat_period_daily_suffix": "{count, plural, one{день} few{дня} other{дней}}",
+  "task_repeat_period_weekly": "Недели",
+  "task_repeat_period_weekly_prefix": "{count, plural, one{каждую} other{каждые}}",
+  "task_repeat_period_weekly_suffix": "{count, plural, one{неделю} few{недели} other{недель}}",
+  "task_repeat_period_monthly": "Месяцы",
+  "task_repeat_period_monthly_prefix": "{count, plural, one{каждый} other{каждые}}",
+  "task_repeat_period_monthly_suffix": "{count, plural, one{месяц} few{месяца} other{месяцев}}",
+
   "task_start_date_label": "Начало",
   "task_start_date_placeholder": "Начало",
   "task_status_select_placeholder": "Статус",

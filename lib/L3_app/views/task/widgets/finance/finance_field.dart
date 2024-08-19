@@ -12,7 +12,7 @@ import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
 import '../../controllers/task_controller.dart';
 import '../../controllers/task_transactions_controller.dart';
-import 'task_finance_dialog.dart';
+import 'transactions_dialog.dart';
 
 class FinanceField extends StatelessWidget {
   const FinanceField(this._controller, {super.key, this.compact = false, this.hasMargin = false});

@@ -15,6 +15,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
 import 'due_date_field.dart';
+import 'repeat_field.dart';
 import 'start_date_field.dart';
 
 Future showTaskDatesDialog(TaskController controller) async => await showMTDialog<void>(_DatesDialog(controller));
@@ -41,7 +42,7 @@ class _DatesDialog extends StatelessWidget {
                 children: [
                   if (!t.isInbox) TaskStartDateField(_controller),
                   if (t.hasDueDate || t.canEdit) TaskDueDateField(_controller),
-                  // if (t.hasRepeat || t.canEdit) TaskRepeatField(_controller),
+                  if (t.hasRepeat || t.canEdit) TaskRepeatField(_controller),
                 ],
               ),
             ),

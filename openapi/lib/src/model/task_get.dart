@@ -59,6 +59,7 @@ part 'task_get.g.dart';
 /// * [notesCount] 
 /// * [attachmentsCount] 
 /// * [subtasksCount] 
+/// * [repeatsCount] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -177,6 +178,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'subtasks_count')
   int? get subtasksCount;
+
+  @BuiltValueField(wireName: r'repeats_count')
+  int? get repeatsCount;
 
   TaskGet._();
 
@@ -467,6 +471,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield r'subtasks_count';
       yield serializers.serialize(
         object.subtasksCount,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.repeatsCount != null) {
+      yield r'repeats_count';
+      yield serializers.serialize(
+        object.repeatsCount,
         specifiedType: const FullType(int),
       );
     }
@@ -765,6 +776,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.subtasksCount = valueDes;
+          break;
+        case r'repeats_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.repeatsCount = valueDes;
           break;
         default:
           unhandled.add(key);

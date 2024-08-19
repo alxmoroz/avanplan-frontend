@@ -5,7 +5,7 @@ import '../utils/dates.dart';
 import 'task_state.dart';
 
 extension TaskDatesExt on Task {
-  bool get hasRepeat => repeat != null;
+  bool get hasRepeat => (repeatsCount ?? 0) > 0 || repeat != null;
   bool get hasDueDate => dueDate != null;
   bool get hasEtaDate => etaDate != null;
   bool get hasClosedDate => closedDate != null;

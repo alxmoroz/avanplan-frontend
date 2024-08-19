@@ -113,6 +113,7 @@ class Task extends Project {
     this.notesCountIn,
     this.attachmentsCountIn,
     this.subtasksCountIn,
+    this.repeatsCount,
   });
 
   final TaskState state;
@@ -150,6 +151,8 @@ class Task extends Project {
   int get attachmentsCount => attachmentsCountIn ?? attachments.length;
 
   final int? subtasksCountIn;
+
+  final int? repeatsCount;
 
   DateTime? dueDate;
   DateTime? closedDate;

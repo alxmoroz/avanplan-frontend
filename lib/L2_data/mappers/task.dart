@@ -56,6 +56,7 @@ extension TaskMapper on api.TaskGet {
       attachmentsCountIn: attachmentsCount,
       subtasksCountIn: subtasksCount,
       closedSubtasksCountIn: closedSubtasksCount,
+      repeatsCount: repeatsCount,
     );
 
     if (mappedTask.isBacklog || mappedTask.isInbox) {

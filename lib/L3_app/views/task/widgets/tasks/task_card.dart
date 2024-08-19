@@ -159,7 +159,7 @@ class TaskCard extends StatelessWidget {
             Row(
               children: [
                 if (_showDate) _date,
-                if (_showRepeat) const RepeatIcon(size: P, color: f2Color),
+                if (_showRepeat) ...[if (_showDate) const SizedBox(width: P), const RepeatIcon(size: P2 + P_2, color: f2Color)],
                 Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

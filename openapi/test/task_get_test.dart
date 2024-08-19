@@ -201,5 +201,10 @@ void main() {
     test('to test the property `subtasksCount`', () async {
       // TODO
     });
+
+    // int repeatsCount
+    test('to test the property `repeatsCount`', () async {
+      // TODO
+    });
   });
 }

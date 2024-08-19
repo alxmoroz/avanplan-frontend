@@ -42,5 +42,6 @@ extension TaskCopyExtension on Task {
         attachmentsCountIn: attachmentsCount,
         subtasksCountIn: subtasksCount,
         closedSubtasksCountIn: closedSubtasksCount,
+        repeatsCount: repeatsCount,
       );
 }

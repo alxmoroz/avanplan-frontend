@@ -16,11 +16,11 @@ import 'scrollable.dart';
 Color get barrierColor => b0Color.resolve(globalContext).withAlpha(245);
 
 BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
-  final size = screenSize(context);
+  final mq = MediaQuery.of(context);
   final big = isBigScreen(context);
   return BoxConstraints(
-    maxWidth: big ? min(size.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
-    maxHeight: big ? size.height - screenPadding(context).vertical - P6 : double.infinity,
+    maxWidth: big ? min(mq.size.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
+    maxHeight: big ? mq.size.height - mq.padding.vertical - P6 : double.infinity,
   );
 }
 

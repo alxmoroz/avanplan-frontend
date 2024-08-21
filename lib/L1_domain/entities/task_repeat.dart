@@ -20,6 +20,10 @@ class TaskRepeat extends WSBounded {
   int periodLength;
   String daysList;
 
+  bool get daily => periodType == TRPeriodType.DAILY.name;
+  bool get weekly => periodType == TRPeriodType.WEEKLY.name;
+  bool get monthly => periodType == TRPeriodType.MONTHLY.name;
+
   TaskRepeat copyWith({int? wsId, int? taskId, String? periodType, int? periodLength, String? daysList}) => TaskRepeat(
         wsId: wsId ?? this.wsId,
         taskId: taskId ?? this.taskId,

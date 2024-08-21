@@ -6,11 +6,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task_repeat.dart';
+import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
-import '../../../../components/segmented_button.dart';
+import '../../../../components/grid_button.dart';
+import '../../../../components/grid_multiselect_button.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
@@ -53,10 +55,10 @@ class _RepeatDialog extends StatelessWidget {
                   shrinkWrap: true,
                   children: [
                     const SizedBox(height: P3),
-                    MTSegmentedButton(
+                    MTGridButton(
                       [
                         for (TRPeriodType v in TRPeriodType.values)
-                          MTSegmentedButtonItem(v.name, Intl.message('task_repeat_period_${v.name.toLowerCase()}'))
+                          MTGridButtonItem(v.name, Intl.message('task_repeat_period_${v.name.toLowerCase()}'))
                       ],
                       value: _repeatController.repeat.periodType,
                       onChanged: _repeatController.setPeriodType,
@@ -75,7 +77,7 @@ class _RepeatDialog extends StatelessWidget {
                           ],
                         ),
                         MTTextField(
-                          controller: _repeatController.teController,
+                          controller: _repeatController.teController(0),
                           margin: EdgeInsets.zero,
                           style: const D2('').style(context),
                           textAlign: TextAlign.center,
@@ -98,10 +100,29 @@ class _RepeatDialog extends StatelessWidget {
                         ),
                       ],
                     ),
+                    if (_repeatController.weekly)
+                      MTGridMultiselectButton(
+                        [for (int wd = 1; wd < 8; wd++) MTGridButtonItem('$wd', DateFormat.E().format(now.add(Duration(days: wd - now.weekday))))],
+                        padding: const EdgeInsets.only(top: P3),
+                        segmentsInRow: 7,
+                        values: _repeatController.weekdays.toList(),
+                        onChanged: _repeatController.selectWeekday,
+                      )
+                    else if (_repeatController.monthly)
+                      MTGridMultiselectButton(
+                        [
+                          for (int d = 1; d < 29; d++) MTGridButtonItem('$d', '$d'),
+                          MTGridButtonItem('-1', 'LAST_DAY'),
+                        ],
+                        padding: const EdgeInsets.only(top: P3),
+                        segmentsInRow: 7,
+                        values: _repeatController.daysOfMonth.toList(),
+                        onChanged: _repeatController.selectDayOfMonth,
+                      ),
                     MTButton.main(
                       titleText: loc.save_action_title,
                       onTap: _repeatController.canSave ? () => _save(context) : null,
-                      margin: const EdgeInsets.symmetric(vertical: P3),
+                      margin: const EdgeInsets.symmetric(vertical: P4),
                     ),
                   ],
                 ),

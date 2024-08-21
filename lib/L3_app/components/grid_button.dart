@@ -8,26 +8,26 @@ import 'constants.dart';
 import 'list_tile.dart';
 import 'text.dart';
 
-class MTSegmentedButtonItem {
-  MTSegmentedButtonItem(this.value, this.title);
+class MTGridButtonItem {
+  MTGridButtonItem(this.value, this.title);
   final String value;
   final String title;
 }
 
-class MTSegmentedButton extends StatelessWidget {
-  const MTSegmentedButton(
+class MTGridButton extends StatelessWidget {
+  const MTGridButton(
     this.items, {
     this.onChanged,
     this.value,
     this.padding,
     super.key,
   });
-  final List<MTSegmentedButtonItem> items;
+  final List<MTGridButtonItem> items;
   final Function(String?)? onChanged;
   final String? value;
   final EdgeInsets? padding;
 
-  Widget _segment(BuildContext context, MTSegmentedButtonItem item, double width) {
+  Widget _segment(BuildContext context, MTGridButtonItem item, double width) {
     return Flexible(
       child: MTListTile(
         middle: BaseText.f2(item.title, maxLines: 1, align: TextAlign.center),
@@ -42,7 +42,7 @@ class MTSegmentedButton extends StatelessWidget {
 
   Widget _activeSegment(BuildContext context, double width) {
     int index = 0;
-    MTSegmentedButtonItem? item;
+    MTGridButtonItem? item;
 
     for (; index < items.length; index++) {
       item = items[index];
@@ -81,13 +81,13 @@ class MTSegmentedButton extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: LayoutBuilder(
         builder: (_, size) {
-          final btnWidth = size.maxWidth / 3;
+          final btnWidth = size.maxWidth / items.length;
           return Container(
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(MIN_BTN_HEIGHT / 2))),
             child: Stack(
               children: [
-                Row(children: [for (MTSegmentedButtonItem i in items) _segment(context, i, btnWidth)]),
+                Row(children: [for (MTGridButtonItem i in items) _segment(context, i, btnWidth)]),
                 _activeSegment(context, btnWidth),
               ],
             ),

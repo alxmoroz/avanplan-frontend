@@ -25,7 +25,16 @@ abstract class _Base extends EditController with Store {
 
   @action
   void setPeriodType(String? pt) {
-    if (pt != null) repeat = repeat.copyWith(periodType: pt);
+    if (pt != null && pt != repeat.periodType) {
+      repeat = repeat.copyWith(periodType: pt);
+      final days = (repeat.daily
+              ? ['']
+              : repeat.weekly
+                  ? weekdays
+                  : daysOfMonth)
+          .join(',');
+      repeat = repeat.copyWith(daysList: days);
+    }
   }
 
   @computed
@@ -34,8 +43,13 @@ abstract class _Base extends EditController with Store {
   bool get monthly => repeat.monthly;
 
   @action
-  void setPeriodLength(String? pl) {
-    if (pl != null && pl.isNotEmpty) repeat = repeat.copyWith(periodLength: int.parse(pl));
+  void setPeriodLength(String? plStr) {
+    if (plStr != null && plStr.isNotEmpty) {
+      final pl = int.parse(plStr);
+      if (pl != repeat.periodLength) {
+        repeat = repeat.copyWith(periodLength: pl);
+      }
+    }
   }
 
   @action

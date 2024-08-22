@@ -504,6 +504,10 @@
   "task_repeat_period_monthly": "Месяцы",
   "task_repeat_period_monthly_prefix": "{count, plural, one{каждый} other{каждые}}",
   "task_repeat_period_monthly_suffix": "{count, plural, one{месяц} few{месяца} other{месяцев}}",
+  "task_repeat_period_monthly_days_suffix": "числа",
+  "task_repeat_period_monthly_day_ordinal_suffix": "{count}",
+  "task_repeat_period_monthly_last_day": "Последний день месяца",
+  "task_repeat_period_monthly_last_day_short": "последний день",
 
   "task_start_date_label": "Начало",
   "task_start_date_placeholder": "Начало",

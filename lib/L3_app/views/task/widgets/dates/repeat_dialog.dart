@@ -112,7 +112,7 @@ class _RepeatDialog extends StatelessWidget {
                       MTGridMultiselectButton(
                         [
                           for (int d = 1; d < 29; d++) MTGridButtonItem('$d', '$d'),
-                          MTGridButtonItem('-1', 'LAST_DAY'),
+                          MTGridButtonItem('-1', loc.task_repeat_period_monthly_last_day),
                         ],
                         padding: const EdgeInsets.only(top: P3),
                         segmentsInRow: 7,

@@ -504,6 +504,11 @@
   "task_repeat_period_monthly": "Months",
   "task_repeat_period_monthly_prefix": "{count, plural, one{every} other{every}}",
   "task_repeat_period_monthly_suffix": "{count, plural, one{month} other{months}}",
+  "task_repeat_period_monthly_days_suffix": "",
+  "task_repeat_period_monthly_day_ordinal_suffix": "{count, plural, one{st} two{nd} few{rd} other{th}}",
+  "task_repeat_period_monthly_last_day": "Last day of the month",
+  "task_repeat_period_monthly_last_day_short": "last day",
+
 
   "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start Date",

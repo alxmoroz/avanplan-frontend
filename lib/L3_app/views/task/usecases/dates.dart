@@ -115,15 +115,17 @@ extension DatesUC on TaskController {
     });
   }
 
-  Future deleteRepeat(TaskRepeat repeat) async {
-    await editWrapper(() async {
-      setLoaderScreenSaving();
-      if (await task.ws.checkBalance(loc.edit_action_title)) {
-        final deletedRepeat = await taskRepeatUC.delete(repeat);
-        if (deletedRepeat != null) {
-          task.repeat = null;
+  Future deleteRepeat() async {
+    if (task.repeat != null) {
+      await editWrapper(() async {
+        setLoaderScreenSaving();
+        if (await task.ws.checkBalance(loc.edit_action_title)) {
+          final deletedRepeat = await taskRepeatUC.delete(task.repeat!);
+          if (deletedRepeat != null) {
+            task.repeat = null;
+          }
         }
-      }
-    });
+      });
+    }
   }
 }

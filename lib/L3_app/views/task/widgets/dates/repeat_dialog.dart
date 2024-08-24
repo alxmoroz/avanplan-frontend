@@ -13,6 +13,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/grid_button.dart';
 import '../../../../components/grid_multiselect_button.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
@@ -38,6 +39,11 @@ class _RepeatDialog extends StatelessWidget {
     await _taskController.saveRepeat(_repeatController.repeat);
   }
 
+  Future _delete(BuildContext context) async {
+    Navigator.of(context).pop();
+    await _taskController.deleteRepeat();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -48,6 +54,9 @@ class _RepeatDialog extends StatelessWidget {
                 showCloseButton: true,
                 color: b2Color,
                 middle: _taskController.task.subPageTitle(loc.task_repeat_dialog_title),
+                trailing: _taskController.task.repeat != null
+                    ? MTButton.icon(const DeleteIcon(), padding: const EdgeInsets.all(P2), onTap: () => _delete(context))
+                    : null,
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: P3),

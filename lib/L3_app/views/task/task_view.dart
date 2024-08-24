@@ -57,7 +57,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
   bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
-  double get _headerHeight => P8 + (_hasParent ? P6 : 0);
+  double get _headerHeight => P8 + (_hasParent ? P7 : 0);
 
   double get _scrollOffsetTop => _isTaskDialog || !isBigScreen(context) ? _headerHeight : P4;
 
@@ -103,7 +103,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
               /// Описание
               if (task.isTask && (task.hasDescription || task.canEdit))
-                TaskDescriptionField(controller, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P)),
+                TaskDescriptionField(controller, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
 
               /// Дашборд (аналитика, финансы, команда)
               if (task.isGroup || task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),

@@ -10,6 +10,7 @@ class TaskUC {
 
   Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed}) async => await repo.taskNode(wsId, taskId, closed: closed);
   Future<TasksChanges?> save(Task t) async => await repo.save(t);
+  Future<TasksChanges?> repeat(Task t) async => await repo.repeat(t);
   Future<TasksChanges?> duplicate(Task t) async => await repo.duplicate(t);
   Future<TasksChanges?> move(Task src, Task destination) async => await repo.move(src, destination);
   Future<TasksChanges?> delete(Task t) async => await repo.delete(t);

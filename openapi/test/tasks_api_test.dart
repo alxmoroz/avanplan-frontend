@@ -76,6 +76,13 @@ void main() {
       // TODO
     });
 
+    // Repeat
+    //
+    //Future<TasksChanges> repeatTask(int wsId, int taskId, int srcWsId) async
+    test('test repeatTask', () async {
+      // TODO
+    });
+
     // Setup Project Modules
     //
     //Future<BuiltList<ProjectModuleGet>> setupProjectModules(int taskId, int wsId, BuiltList<String> requestBody) async

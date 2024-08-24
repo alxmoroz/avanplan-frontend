@@ -122,6 +122,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**duplicateTask**](doc/TasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**moveTask**](doc/TasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
+[*TasksApi*](doc/TasksApi.md) | [**repeatTask**](doc/TasksApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [*TasksApi*](doc/TasksApi.md) | [**setupProjectModules**](doc/TasksApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [*TasksApi*](doc/TasksApi.md) | [**statusTasksCount**](doc/TasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*TasksApi*](doc/TasksApi.md) | [**taskNode**](doc/TasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Node
@@ -157,6 +158,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myProjects**](doc/WorkspacesApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myTasks**](doc/WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**projectTemplates**](doc/WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**repeatTask**](doc/WorkspacesApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**requestType**](doc/WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupProjectModules**](doc/WorkspacesApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sign**](doc/WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign

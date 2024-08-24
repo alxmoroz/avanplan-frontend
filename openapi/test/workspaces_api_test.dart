@@ -157,6 +157,13 @@ void main() {
       // TODO
     });
 
+    // Repeat
+    //
+    //Future<TasksChanges> repeatTask(int wsId, int taskId, int srcWsId) async
+    test('test repeatTask', () async {
+      // TODO
+    });
+
     // Request Type
     //
     //Future<bool> requestType(int wsId, BodyRequestType bodyRequestType) async

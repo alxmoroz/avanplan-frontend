@@ -493,6 +493,7 @@
 
   "task_reopen_action_title": "Переоткрыть",
 
+  "task_repeat_action_title": "Повторить",
   "task_repeat_dialog_title": "Настройки повтора",
   "task_repeat_placeholder": "Повтор",
   "task_repeat_period_daily": "Дни",

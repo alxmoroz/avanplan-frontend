@@ -79,6 +79,23 @@ class TaskRepo extends AbstractTaskRepo {
   }
 
   @override
+  Future<TasksChanges?> repeat(Task src) async {
+    final changes = (await api.repeatTask(
+      wsId: src.wsId,
+      srcWsId: src.wsId,
+      taskId: src.id!,
+    ))
+        .data;
+
+    return changes != null
+        ? TasksChanges(
+            changes.updatedTask.task(src.wsId),
+            changes.affectedTasks.map((t) => t.task(src.wsId)),
+          )
+        : null;
+  }
+
+  @override
   Future<TasksChanges?> move(Task src, Task destination) async {
     final changes = (await api.moveTask(
       srcWsId: src.wsId,

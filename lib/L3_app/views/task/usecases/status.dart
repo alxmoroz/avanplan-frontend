@@ -26,6 +26,7 @@ import '../../../usecases/task_status.dart';
 import '../../../usecases/task_tree.dart';
 import '../controllers/task_controller.dart';
 import '../usecases/edit.dart';
+import '../usecases/repeat.dart';
 import '../widgets/tasks/task_card.dart';
 
 extension StatusUC on TaskController {
@@ -72,13 +73,17 @@ extension StatusUC on TaskController {
     if (closed == true && t.hasOpenedSubtasks && await _closeTreeDialog() != true) {
       return;
     }
-    //TODO: тут нет await умышленно
+
+    // тут нет await умышленно, чтобы можно было сначала выйти из диалога и дожидаться операции уже в списке
     _setTaskTreeStatus(t, stId: stId, closed: closed);
-    tasksMainController.refreshUI();
+    // tasksMainController.refreshUI();
 
     // тут надо проверять контекст, чтобы понять, что был вызов из диалога, а не внутренний
     if (context != null && context.mounted && t.closed && !t.isCheckItem) {
       context.pop();
+      if (t.repeat != null) {
+        repeat();
+      }
     }
   }
 

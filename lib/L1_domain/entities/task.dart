@@ -39,6 +39,7 @@ enum TaskState {
   BACKLOG,
   IMPORTING,
   CLOSED,
+  NO_ANALYTICS,
 }
 
 class TaskDescriptor extends Titleable {

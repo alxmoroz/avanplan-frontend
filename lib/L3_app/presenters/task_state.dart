@@ -15,6 +15,7 @@ import '../components/images.dart';
 import '../extra/services.dart';
 import '../presenters/duration.dart';
 import '../presenters/task_type.dart';
+import '../usecases/project_module.dart';
 import '../usecases/task_tree.dart';
 
 Color stateColor(TaskState state, {Color? defaultColor}) {
@@ -123,6 +124,8 @@ String groupStateTitle(TaskState groupState) {
       return loc.state_importing_title;
     case TaskState.CLOSED:
       return loc.state_closed;
+    case TaskState.NO_ANALYTICS:
+      return loc.state_no_analytics;
   }
 }
 
@@ -218,7 +221,9 @@ extension TaskStatePresenter on Task {
               ? TaskState.BACKLOG
               : isTask
                   ? leafState
-                  : state;
+                  : hmAnalytics
+                      ? state
+                      : TaskState.NO_ANALYTICS;
 
   String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
 }

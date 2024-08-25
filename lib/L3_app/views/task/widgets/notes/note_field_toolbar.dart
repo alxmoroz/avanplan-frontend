@@ -22,8 +22,13 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
     return (hasAttachments ? P + (const SmallText('', maxLines: 1).style(context).fontSize ?? 0.0) : 0.0);
   }
 
-  static int _maxLines(BuildContext context, TaskController controller, TaskViewController tvController) {
-    final maxHeight = tvController.centerConstraints.maxHeight - _footerHeight(context, controller) - _verticalPadding;
+  static int _maxLines(BuildContext context, TaskController controller, TaskViewController tvController, bool inDialog) {
+    final viewInsets = MediaQuery.viewInsetsOf(context).bottom;
+    final viewPadding = MediaQuery.paddingOf(context);
+    final maxHeight = tvController.centerConstraints.maxHeight -
+        _footerHeight(context, controller) -
+        _verticalPadding -
+        (inDialog ? P4 : (P12 + viewInsets + (viewInsets > 0 ? viewPadding.top : viewPadding.vertical)));
     return maxHeight ~/
         TextPainter(
           text: TextSpan(text: '', style: const BaseText('').style(context)),
@@ -31,8 +36,8 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
         ).preferredLineHeight;
   }
 
-  static double calculateExtraHeight(BuildContext context, TaskController controller, TaskViewController tvController) {
-    final ml = _maxLines(context, controller, tvController);
+  static double calculateExtraHeight(BuildContext context, TaskController controller, TaskViewController tvController, bool inDialog) {
+    final ml = _maxLines(context, controller, tvController, inDialog);
     final style = const BaseText('').style(context);
     final tp = TextPainter(
       text: TextSpan(text: controller.fData(TaskFCode.note.index).text, style: style),
@@ -62,7 +67,7 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
       inDialog: inDialog,
       innerHeight: innerHeight,
       padding: const EdgeInsets.only(top: _topPadding, bottom: _bottomPadding),
-      middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController)),
+      middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController, inDialog)),
     );
   }
 }

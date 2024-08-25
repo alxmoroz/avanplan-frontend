@@ -98,7 +98,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget get _bodyContent => MTRefresh(
         onRefresh: () => controller.reload(closed: false),
         child: LayoutBuilder(builder: (ctx, constraints) {
-          _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - _headerHeight - P4));
+          // доступная высота для полей ввода
+          _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - _headerHeight));
 
           return ListView(
             controller: isWeb ? scrollController : null,
@@ -200,7 +201,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     return TaskRightToolbar(controller, tbController);
   }
 
-  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller, _tvController);
+  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller, _tvController, _isTaskDialog);
 
   @override
   Widget build(BuildContext context) {

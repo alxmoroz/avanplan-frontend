@@ -22,6 +22,7 @@ import '../_base/loader_screen.dart';
 import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
+import 'controllers/task_view_controller.dart';
 import 'usecases/edit.dart';
 import 'widgets/actions/bottom_toolbar.dart';
 import 'widgets/actions/popup_menu.dart';
@@ -48,6 +49,7 @@ class TaskView extends StatefulWidget {
 class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController scrollController;
   late final ScrollController _boardScrollController;
+  late final TaskViewController _tvController;
 
   TaskController get controller => widget._controller;
   bool _hasScrolled = false;
@@ -65,6 +67,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   void initState() {
     scrollController = ScrollController();
     _boardScrollController = ScrollController();
+    _tvController = TaskViewController();
 
     if (td.isGroup && task.creating) taskGroupToolbarController.setCompact(false);
 
@@ -94,8 +97,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget get _bodyContent => MTRefresh(
         onRefresh: () => controller.reload(closed: false),
-        child: LayoutBuilder(
-          builder: (ctx, size) => ListView(
+        child: LayoutBuilder(builder: (ctx, constraints) {
+          _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - _headerHeight - P4));
+
+          return ListView(
             controller: isWeb ? scrollController : null,
             children: [
               /// Заголовок
@@ -127,7 +132,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                                   /// Доска
                                   ? Container(
-                                      height: size.maxHeight - MediaQuery.paddingOf(ctx).vertical - (isBigScreen(context) ? _scrollOffsetTop : -P2),
+                                      height: constraints.maxHeight -
+                                          MediaQuery.paddingOf(ctx).vertical -
+                                          (isBigScreen(context) ? _scrollOffsetTop : -P2),
                                       padding: const EdgeInsets.only(top: P3),
                                       child: isWeb
                                           ? Scrollbar(
@@ -144,8 +151,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     ),
               // if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],
-          ),
-        ),
+          );
+        }),
       );
 
   Widget? get _title {
@@ -193,7 +200,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     return TaskRightToolbar(controller, tbController);
   }
 
-  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller);
+  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller, _tvController);
 
   @override
   Widget build(BuildContext context) {
@@ -208,14 +215,16 @@ class TaskViewState<T extends TaskView> extends State<T> {
       builder: (_) => controller.loading && !task.filled
           ? LoaderScreen(controller, isDialog: dialog)
           : dialog
-              ? MTDialog(
-                  topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
-                  body: _bodyContent,
-                  rightBar: _rightToolbar(hasKB),
-                  bottomBar: showNoteField ? NoteFieldToolbar(controller, inDialog: true, extraHeight: _extraHeight(context)) : null,
-                  scrollController: scrollController,
-                  scrollOffsetTop: _scrollOffsetTop,
-                  onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+              ? Observer(
+                  builder: (_) => MTDialog(
+                    topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
+                    body: _bodyContent,
+                    rightBar: _rightToolbar(hasKB),
+                    bottomBar: showNoteField ? NoteFieldToolbar(controller, _tvController, inDialog: true, extraHeight: _extraHeight(context)) : null,
+                    scrollController: scrollController,
+                    scrollOffsetTop: _scrollOffsetTop,
+                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                  ),
                 )
               : Observer(
                   builder: (_) {
@@ -224,7 +233,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                     PreferredSizeWidget? bottomToolBar;
                     if (showNoteField) {
-                      bottomToolBar = NoteFieldToolbar(controller, extraHeight: _extraHeight(context));
+                      bottomToolBar = NoteFieldToolbar(controller, _tvController, extraHeight: _extraHeight(context));
                     } else if (!hasKB && !bigGroup && ((task.hasSubtasks && (task.canLocalImport || task.canCreateSubtask)) || task.canShowBoard)) {
                       bottomToolBar = TaskBottomToolbar(controller);
                     }

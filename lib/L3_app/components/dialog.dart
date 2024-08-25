@@ -116,6 +116,7 @@ class MTDialog extends StatelessWidget {
               ),
             ),
             child: SafeArea(
+              bottom: false,
               child: scrollOffsetTop != null && scrollController != null
                   ? MTScrollable(
                       scrollController: scrollController!,

@@ -94,16 +94,18 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
     mainController.startup();
     WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController();
+
+    rightToolbarController = VerticalToolbarController(isCompact: true, wideWidth: 220);
+    taskGroupToolbarController = VerticalToolbarController(isCompact: true);
+    taskToolbarController = VerticalToolbarController();
+    leftMenuController = VerticalToolbarController(wideWidth: 242.0);
+
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    leftMenuController = VerticalToolbarController(isCompact: !isBigScreen(context), wideWidth: 242.0);
-    rightToolbarController = VerticalToolbarController(isCompact: true, wideWidth: 220);
-    taskGroupToolbarController = VerticalToolbarController(isCompact: true);
-    taskToolbarController = VerticalToolbarController(isCompact: false);
-
+    leftMenuController.setCompact(!isBigScreen(context));
     super.didChangeDependencies();
   }
 

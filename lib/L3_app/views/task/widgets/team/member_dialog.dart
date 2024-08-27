@@ -63,26 +63,29 @@ class _MemberDialog extends StatelessWidget {
                           const SizedBox(height: P3),
                           H3('$_member', align: TextAlign.center),
                           BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
-                          if (_mTasksController.hasAssignedTasks) MTListGroupTitle(titleText: loc.task_assignee_placeholder),
-                          if (_mTasksController.assignedTasks.isNotEmpty)
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: _mTasksController.assignedTasks.length,
-                              itemBuilder: (_, index) {
-                                final t = _mTasksController.assignedTasks[index];
-                                return TaskCard(
-                                  t,
-                                  showAssignee: false,
-                                  showParent: t.parentId != _project.id,
-                                  bottomDivider: index < _mTasksController.assignedTasks.length - 1,
-                                );
-                              },
-                            ),
-                          if (_mTasksController.classifiedTasksCount == 0)
-                            SmallText(
-                              '${loc.member_tasks_classified_count_prefix} ${loc.task_count_genitive(_mTasksController.classifiedTasksCount)}',
-                              padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
-                            ),
+                          if (_mTasksController.hasAssignedTasks) ...[
+                            MTListGroupTitle(titleText: loc.task_assignee_placeholder),
+                            if (_mTasksController.assignedTasks.isNotEmpty)
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _mTasksController.assignedTasks.length,
+                                itemBuilder: (_, index) {
+                                  final t = _mTasksController.assignedTasks[index];
+                                  return TaskCard(
+                                    t,
+                                    showAssignee: false,
+                                    showParent: t.parentId != _project.id,
+                                    bottomDivider: index < _mTasksController.assignedTasks.length - 1,
+                                  );
+                                },
+                              ),
+                            if (_mTasksController.classifiedTasksCount > 0)
+                              SmallText(
+                                '${loc.member_tasks_classified_count_prefix} ${loc.task_count_genitive(_mTasksController.classifiedTasksCount)}',
+                                padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
+                              ),
+                          ],
                           if (_member!.roles.isNotEmpty) ...[
                             MTListGroupTitle(titleText: loc.role_list_title),
                             MTListTile(

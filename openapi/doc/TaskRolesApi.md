@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignRole**](TaskRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[**assignRoles**](TaskRolesApi.md#assignroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Roles
 
 
-# **assignRole**
-> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody)
+# **assignRoles**
+> BuiltList<MemberGet> assignRoles(taskId, wsId, memberId, requestBody)
 
-Assign
+Assign Roles
 
 ### Example
 ```dart
@@ -34,10 +34,10 @@ final int memberId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignRole(taskId, wsId, memberId, requestBody);
+    final response = api.assignRoles(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskRolesApi->assignRole: $e\n');
+    print('Exception when calling TaskRolesApi->assignRoles: $e\n');
 }
 ```
 

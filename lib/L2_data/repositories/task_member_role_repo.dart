@@ -15,7 +15,7 @@ class TaskMemberRoleRepo extends AbstractTaskMemberRoleRepo {
   @override
   Future<Iterable<WSMember>> assignRoles(Task task, int memberId, Iterable<int> rolesIds) async {
     final taskId = task.id!;
-    final response = await api.assignRole(
+    final response = await api.assignRoles(
       taskId: taskId,
       memberId: memberId,
       wsId: task.wsId,

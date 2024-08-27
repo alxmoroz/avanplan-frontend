@@ -45,7 +45,7 @@ class WorkspacesApi {
 
   const WorkspacesApi(this._dio, this._serializers);
 
-  /// Assign
+  /// Assign Roles
   /// 
   ///
   /// Parameters:
@@ -62,7 +62,7 @@ class WorkspacesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignRole({ 
+  Future<Response<BuiltList<MemberGet>>> assignRoles({ 
     required int taskId,
     required int wsId,
     required int memberId,

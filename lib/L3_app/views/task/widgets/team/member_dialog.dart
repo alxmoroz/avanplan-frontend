@@ -6,11 +6,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
+import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/refresh.dart';
 import '../../../../components/text.dart';
@@ -22,27 +25,46 @@ import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/members.dart';
 import '../tasks/task_card.dart';
 import 'member_roles_controller.dart';
 import 'member_roles_dialog.dart';
 import 'member_tasks_controller.dart';
 
 Future taskMemberDialog(TaskController taskController, int memberId) async {
-  return await showMTDialog<void>(_MemberDialog(taskController, memberId, MemberTasksController(taskController.task.wsId, memberId)));
+  final mtc = MemberTasksController(taskController.task.wsId, memberId);
+  return await showMTDialog<void>(_MemberDialog(taskController, memberId, mtc));
 }
 
 class _MemberDialog extends StatelessWidget {
-  const _MemberDialog(this._taskController, this._memberId, this._mTasksController);
-  final TaskController _taskController;
+  const _MemberDialog(this._tc, this._memberId, this._mTasksController);
+  final TaskController _tc;
   final MemberTasksController _mTasksController;
   final int _memberId;
 
-  Task get _project => _taskController.task;
+  Task get _project => _tc.task;
   WSMember? get _member => _project.memberForId(_memberId);
 
   Future _editRoles(BuildContext context) async {
-    await memberRolesDialog(MemberRolesController(_project, _memberId));
+    await memberRolesDialog(MemberRolesController(_tc, _memberId));
     if (_member == null && context.mounted) Navigator.of(context).pop();
+  }
+
+  Future _unlinkMember(BuildContext context) async {
+    final confirm = await showMTAlertDialog(
+      imageName: ImageName.privacy.name,
+      title: loc.member_unlink_dialog_title,
+      description: loc.member_unlink_dialog_description,
+      actions: [
+        MTDialogAction(title: loc.action_unlink_title, type: ButtonType.danger, result: true),
+        MTDialogAction(title: loc.action_no_dont_unlink_title, result: false),
+      ],
+    );
+
+    if (confirm == true) {
+      if (context.mounted) Navigator.of(context).pop();
+      await _tc.assignMemberRoles(_memberId, []);
+    }
   }
 
   @override
@@ -86,17 +108,22 @@ class _MemberDialog extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
                               ),
                           ],
-                          if (_member!.roles.isNotEmpty) ...[
-                            MTListGroupTitle(titleText: loc.role_list_title),
-                            MTListTile(
-                              middle: BaseText(_member!.rolesStr),
-                              trailing: _project.canEditMembers ? const EditIcon() : null,
-                              bottomDivider: false,
-                              loading: _project.loading,
-                              onTap: _project.canEditMembers ? () => _editRoles(context) : null,
-                            )
-                          ] else if (MediaQuery.paddingOf(context).bottom == 0)
-                            const SizedBox(height: P3),
+
+                          /// Права в проекте
+                          MTListGroupTitle(titleText: loc.role_list_title),
+                          MTListTile(
+                            middle: BaseText(_member!.rolesStr),
+                            trailing: _project.canEditMembers ? const EditIcon() : null,
+                            bottomDivider: false,
+                            loading: _project.loading,
+                            onTap: _project.canEditMembers ? () => _editRoles(context) : null,
+                          ),
+                          MTButton.danger(
+                            titleText: loc.member_unlink_action_title,
+                            margin: const EdgeInsets.only(top: P6),
+                            onTap: () => _unlinkMember(context),
+                          ),
+                          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                         ],
                       ),
                     )

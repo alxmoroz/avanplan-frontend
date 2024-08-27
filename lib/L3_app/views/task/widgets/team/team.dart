@@ -58,7 +58,7 @@ class Team extends StatelessWidget {
                 if (_task.canInviteMembers) InvitationButton(_task, inList: true),
               ],
             )
-          : Center(child: NoMembers(_task)),
+          : NoMembers(_task),
     );
   }
 }

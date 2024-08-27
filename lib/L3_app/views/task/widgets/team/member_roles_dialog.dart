@@ -3,9 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/colors_base.dart';
@@ -22,9 +19,6 @@ Future memberRolesDialog(MemberRolesController controller) async => await showMT
 class _MemberRolesDialog extends StatelessWidget {
   const _MemberRolesDialog(this._controller);
   final MemberRolesController _controller;
-
-  Task get _task => _controller.task;
-  WSMember? get _member => _task.memberForId(_controller.memberId);
 
   Widget _roleItem(BuildContext context, int index) {
     final role = _controller.roles[index];
@@ -49,8 +43,8 @@ class _MemberRolesDialog extends StatelessWidget {
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _task.subPageTitle(loc.role_list_title),
-              BaseText.f2('$_member', maxLines: 1),
+              _controller.task.subPageTitle(loc.role_list_title),
+              BaseText.f2('${_controller.member}', maxLines: 1),
             ],
           ),
         ),

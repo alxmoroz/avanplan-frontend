@@ -3,33 +3,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../extra/services.dart';
 import '../../../../usecases/task_tree.dart';
-import '../../../../usecases/ws_actions.dart';
+import '../../controllers/task_controller.dart';
+import '../../usecases/members.dart';
 
 part 'member_roles_controller.g.dart';
 
-class MemberRolesController extends _MemberRolesControllerBase with _$MemberRolesController {
-  MemberRolesController(Task taskIn, int memberIdIn) {
-    task = taskIn;
-    memberId = memberIdIn;
-    final member = task.memberForId(memberId);
-    roles = task.ws.roles.toList();
-    for (var r in roles) {
-      r.selected = member!.roles.contains(r.code);
-    }
+class MemberRolesController extends _Base with _$MemberRolesController {
+  MemberRolesController(TaskController tcIn, int memberIdIn) {
+    _tc = tcIn;
+    _memberId = memberIdIn;
+    reload();
   }
 }
 
-abstract class _MemberRolesControllerBase with Store {
-  late final Task task;
-  late final int memberId;
+abstract class _Base with Store {
+  late final TaskController _tc;
+  late final int _memberId;
+
+  Task get task => _tc.task;
+  WSMember? get member => task.memberForId(_memberId);
 
   @observable
   List<Role> roles = [];
+
+  @action
+  Future reload() async {
+    roles = task.ws.roles.toList();
+    for (var r in roles) {
+      r.selected = member?.roles.contains(r.code) == true;
+    }
+  }
 
   @computed
   Iterable<Role> get selectedRoles => roles.where((r) => r.selected);
@@ -42,26 +50,6 @@ abstract class _MemberRolesControllerBase with Store {
 
   Future assignRoles(BuildContext context) async {
     Navigator.of(context).pop();
-
-    if (await task.ws.checkBalance(loc.member_edit_action_title)) {
-      // TODO: вынести в юзкейс. См. как сделано с комментами
-      task.loading = true;
-      tasksMainController.refreshUI();
-
-      final rolesIds = selectedRoles.map((r) => r.id!);
-      task.members = await taskMemberRoleUC.assignRoles(task, memberId, rolesIds);
-      final deleted = task.memberForId(memberId) == null;
-      if (deleted) {
-        if (task.assigneeId == memberId) {
-          task.assigneeId = null;
-        }
-        if (task.authorId == memberId) {
-          task.authorId = null;
-        }
-      }
-
-      task.loading = false;
-      tasksMainController.refreshUI();
-    }
+    await _tc.assignMemberRoles(_memberId, selectedRoles.map((r) => r.id!));
   }
 }

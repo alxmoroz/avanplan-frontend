@@ -319,7 +319,7 @@
   "role_full_description": "Project and members management",
   "role_guest_title": "Guest",
   "role_guest_description": "View Only",
-  "role_list_title": "Roles",
+  "role_title": "Rights and Access",
   "role_member_title": "Member",
   "role_member_description": "Work with Tasks",
   "role_owner_title": "Owner",

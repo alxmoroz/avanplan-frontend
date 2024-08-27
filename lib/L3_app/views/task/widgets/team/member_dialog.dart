@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -16,6 +17,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/refresh.dart';
+import '../../../../components/select_dialog.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
@@ -23,12 +25,11 @@ import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/members.dart';
 import '../tasks/task_card.dart';
-import 'member_roles_controller.dart';
-import 'member_roles_dialog.dart';
 import 'member_tasks_controller.dart';
 
 Future taskMemberDialog(TaskController taskController, int memberId) async {
@@ -46,8 +47,18 @@ class _MemberDialog extends StatelessWidget {
   WSMember? get _member => _project.memberForId(_memberId);
 
   Future _editRoles(BuildContext context) async {
-    await memberRolesDialog(MemberRolesController(_tc, _memberId));
-    if (_member == null && context.mounted) Navigator.of(context).pop();
+    final roles = _project.ws.roles.toList();
+    final selectedId = roles.firstWhereOrNull((r) => _member?.roles.contains(r.code) == true)?.id;
+    final selectedRole = await showMTSelectDialog(
+      roles,
+      selectedId,
+      loc.role_title,
+      valueBuilder: (_, r) => BaseText(r.title, maxLines: 1),
+      subtitleBuilder: (_, r) => r.description.isNotEmpty ? SmallText(r.description, maxLines: 1) : const SizedBox(),
+    );
+    if (selectedRole != null) {
+      await _tc.assignMemberRoles(_memberId, [selectedRole.id!]);
+    }
   }
 
   Future _unlinkMember(BuildContext context) async {
@@ -110,9 +121,10 @@ class _MemberDialog extends StatelessWidget {
                           ],
 
                           /// Права в проекте
-                          MTListGroupTitle(titleText: loc.role_list_title),
+                          MTListGroupTitle(titleText: loc.role_title),
                           MTListTile(
-                            middle: BaseText(_member!.rolesStr),
+                            middle: BaseText(_member!.rolesTitles, maxLines: 1),
+                            subtitle: SmallText(_member!.rolesDescriptions, maxLines: 1),
                             trailing: _project.canEditMembers ? const EditIcon() : null,
                             bottomDivider: false,
                             loading: _project.loading,

@@ -33,7 +33,7 @@ class Team extends StatelessWidget {
     return MTListTile(
       leading: member.icon(_iconSize / 2),
       middle: BaseText('$member', maxLines: 1),
-      subtitle: SmallText(member.rolesStr, maxLines: 1),
+      subtitle: SmallText(member.rolesTitles, maxLines: 1),
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
       bottomDivider: index < _activeMembers.length - 1 || _task.canInviteMembers,

@@ -319,7 +319,7 @@
   "role_full_description": "Управление проектом и участниками",
   "role_guest_title": "Наблюдатель",
   "role_guest_description": "Только просмотр",
-  "role_list_title": "Роли",
+  "role_title": "Права и доступ",
   "role_member_title": "Исполнитель",
   "role_member_description": "Работа с задачами",
   "role_owner_title": "Владелец",

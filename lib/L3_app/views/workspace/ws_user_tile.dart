@@ -23,7 +23,7 @@ class WSUserTile extends StatelessWidget {
     return MTListTile(
       leading: _user.icon(_iconSize / 2),
       middle: BaseText('$_user', maxLines: 1),
-      subtitle: SmallText(_user.rolesStr, maxLines: 1),
+      subtitle: SmallText(_user.rolesTitles, maxLines: 1),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       dividerIndent: _iconSize + P5,

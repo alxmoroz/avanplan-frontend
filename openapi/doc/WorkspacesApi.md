@@ -24,7 +24,7 @@ Method | HTTP request | Description
 [**duplicateTask**](WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [**getInvitations**](WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**getMyWorkspaces**](WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | My Workspaces
-[**myProjects**](WorkspacesApi.md#myProjects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
+[**getProjects**](WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
 [**getWorkspace**](WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [**memberAssignedTasks**](WorkspacesApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Member Assigned Tasks
 [**moveTask**](WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
@@ -796,8 +796,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **myProjects**
-> BuiltList<TaskRemote> myProjects(wsId, sourceId)
+# **getProjects**
+> BuiltList<TaskRemote> getProjects(wsId, sourceId)
 
 Get Projects
 
@@ -816,10 +816,10 @@ final int wsId = 56; // int |
 final int sourceId = 56; // int | 
 
 try {
-    final response = api.myProjects(wsId, sourceId);
+    final response = api.getProjects(wsId, sourceId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->myProjects: $e\n');
+    print('Exception when calling WorkspacesApi->getProjects: $e\n');
 }
 ```
 

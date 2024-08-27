@@ -40,7 +40,7 @@ class TaskCard extends StatelessWidget {
     this.showParent = false,
     this.bottomDivider = false,
     this.dragging = false,
-    this.isMine = false,
+    this.showAssignee = true,
   });
 
   final Task task;
@@ -49,7 +49,7 @@ class TaskCard extends StatelessWidget {
   final bool bottomDivider;
   final bool showStateMark;
   final bool dragging;
-  final bool isMine;
+  final bool showAssignee;
 
   Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 
@@ -82,7 +82,7 @@ class TaskCard extends StatelessWidget {
   bool get _showStatus => task.canShowStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
-  bool get _showAssignee => task.hmTeam && task.hasAssignee && !isMine;
+  bool get _showAssignee => task.hmTeam && task.hasAssignee && showAssignee;
   Widget get _assignee => task.assignee!.icon(P2 + P_2);
 
   bool get _showChecklistMark => !task.closed && task.isCheckList;

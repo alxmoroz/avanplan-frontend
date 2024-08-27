@@ -13,12 +13,14 @@ class WorkspaceUC {
   Future<Workspace?> getOne(int wsId) async => await repo.getOne(wsId);
   Future<Workspace?> save(WorkspaceUpsert data) async => await repo.save(data);
 
-  Future<Iterable<Task>> getProjects(int wsId, {bool? imported, bool? closed}) async => await repo.getProjects(
+  Future<Iterable<Task>> myProjects(int wsId, {bool? imported, bool? closed}) async => await repo.myProjects(
         wsId,
         imported: imported,
         closed: closed,
       );
-  Future<Iterable<Task>> getMyTasks(int wsId, {int? projectId}) async => await repo.getMyTasks(wsId, projectId: projectId);
+
+  Future<Iterable<Task>> myTasks(int wsId, {int? projectId}) async => await repo.myTasks(wsId, projectId: projectId);
+  Future<Iterable<Task>> memberAssignedTasks(int wsId, int memberId) async => await repo.memberAssignedTasks(wsId, memberId);
 
   Future<Iterable<Project>> getProjectTemplates(int wsId) async => await repo.projectTemplates(wsId);
   Future<TasksChanges?> createFromTemplate(int srcWsId, int srcProjectId, int dstWsId) async =>

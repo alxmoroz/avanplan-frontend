@@ -211,6 +211,7 @@
   "member_plural": "{count, plural, one{участник} few{участника} other{участников}}",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
+  "member_tasks_classified_count_prefix": "Недостаточно прав для просмотра ещё",
   "member_title": "Участник",
   "members_title": "Участники",
 
@@ -459,6 +460,7 @@
 
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
+  "task_count_genitive": "{count, plural, one{{count} задачи} other{{count} задач}}",
 
   "task_dates": "Даты и повтор",
   "task_delete_dialog_group_title": "Удалить вместе с подзадачами?",

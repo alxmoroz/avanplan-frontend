@@ -58,6 +58,7 @@ abstract class _TasksMainControllerBase with Store {
 
   Iterable<Task> get tasks => allTasks.where((t) => t.isTask);
   Iterable<Task> get openedTasks => tasks.where((t) => !t.closed);
+
   // TODO: тут не учитываются не загруженные задачи с бэка
   @computed
   bool get hasOpenedTasks => openedTasks.isNotEmpty;
@@ -112,7 +113,7 @@ abstract class _TasksMainControllerBase with Store {
   Future updateImportingProjects() async {
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      importedProjects.addAll(await wsUC.getProjects(ws.id!, closed: false, imported: true));
+      importedProjects.addAll(await wsUC.myProjects(ws.id!, closed: false, imported: true));
     }
 
     for (Task p in importedProjects) {
@@ -131,7 +132,7 @@ abstract class _TasksMainControllerBase with Store {
           if (existingProject != null) {
             existingProject.subtasks.toList().forEach((t) => removeTask(t));
           }
-          setTasks(await wsUC.getMyTasks(p.wsId, projectId: p.id));
+          setTasks(await wsUC.myTasks(p.wsId, projectId: p.id));
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
@@ -148,8 +149,8 @@ abstract class _TasksMainControllerBase with Store {
 
     // мои проекты и задачи
     for (Workspace ws in wsMainController.workspaces) {
-      tasks.addAll(await wsUC.getProjects(ws.id!));
-      tasks.addAll(await wsUC.getMyTasks(ws.id!));
+      tasks.addAll(await wsUC.myProjects(ws.id!));
+      tasks.addAll(await wsUC.myTasks(ws.id!));
     }
 
     tasks.sort();

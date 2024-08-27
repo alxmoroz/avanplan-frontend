@@ -211,6 +211,7 @@
   "member_plural": "{count, plural, one{member} other{members}}",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
+  "member_tasks_classified_count_prefix": "Insufficient rights to view the remaining",
   "member_title": "Member",
   "members_title": "Members",
 
@@ -459,6 +460,7 @@
 
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
+  "task_count_genitive": "{count, plural, one{{count} task} other{{count} tasks}}",
 
   "task_dates": "Dates and repeat settings",
   "task_delete_dialog_group_title": "Delete along with subtasks?",

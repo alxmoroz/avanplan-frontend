@@ -24,8 +24,9 @@ Method | HTTP request | Description
 [**duplicateTask**](WorkspacesApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [**getInvitations**](WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**getMyWorkspaces**](WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | My Workspaces
-[**getProjects**](WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
+[**myProjects**](WorkspacesApi.md#myProjects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
 [**getWorkspace**](WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
+[**memberAssignedTasks**](WorkspacesApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Member Assigned Tasks
 [**moveTask**](WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
 [**myProjects**](WorkspacesApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [**myTasks**](WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
@@ -795,8 +796,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getProjects**
-> BuiltList<TaskRemote> getProjects(wsId, sourceId)
+# **myProjects**
+> BuiltList<TaskRemote> myProjects(wsId, sourceId)
 
 Get Projects
 
@@ -815,10 +816,10 @@ final int wsId = 56; // int |
 final int sourceId = 56; // int | 
 
 try {
-    final response = api.getProjects(wsId, sourceId);
+    final response = api.myProjects(wsId, sourceId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->getProjects: $e\n');
+    print('Exception when calling WorkspacesApi->myProjects: $e\n');
 }
 ```
 
@@ -879,6 +880,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**WorkspaceGet**](WorkspaceGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **memberAssignedTasks**
+> BuiltList<TaskGet> memberAssignedTasks(memberId, wsId)
+
+Member Assigned Tasks
+
+Задачи участника РП
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWorkspacesApi();
+final int memberId = 56; // int | 
+final int wsId = 56; // int | 
+
+try {
+    final response = api.memberAssignedTasks(memberId, wsId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->memberAssignedTasks: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **int**|  | 
+ **wsId** | **int**|  | 
+
+### Return type
+
+[**BuiltList&lt;TaskGet&gt;**](TaskGet.md)
 
 ### Authorization
 

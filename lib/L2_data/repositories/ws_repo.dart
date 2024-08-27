@@ -38,13 +38,19 @@ class WSRepo extends AbstractWSRepo {
   }
 
   @override
-  Future<Iterable<Task>> getMyTasks(int wsId, {int? projectId}) async {
+  Future<Iterable<Task>> myTasks(int wsId, {int? projectId}) async {
     final response = await _api.myTasks(wsId: wsId, projectId: projectId);
     return response.data?.map((t) => t.task(wsId)) ?? [];
   }
 
   @override
-  Future<Iterable<Task>> getProjects(int wsId, {bool? closed, bool? imported}) async {
+  Future<Iterable<Task>> memberAssignedTasks(int wsId, int memberId) async {
+    final response = await _api.memberAssignedTasks(wsId: wsId, memberId: memberId);
+    return response.data?.map((t) => t.task(wsId)) ?? [];
+  }
+
+  @override
+  Future<Iterable<Task>> myProjects(int wsId, {bool? closed, bool? imported}) async {
     final response = await _api.myProjects(wsId: wsId, closed: closed, imported: imported);
     return response.data?.map((t) => t.task(wsId)) ?? [];
   }

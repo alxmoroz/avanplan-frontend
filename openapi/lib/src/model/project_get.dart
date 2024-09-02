@@ -18,6 +18,7 @@ part 'project_get.g.dart';
 /// * [category] 
 /// * [icon] 
 /// * [wsId] 
+/// * [position] 
 @BuiltValue()
 abstract class ProjectGet implements Built<ProjectGet, ProjectGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -40,6 +41,9 @@ abstract class ProjectGet implements Built<ProjectGet, ProjectGetBuilder> {
 
   @BuiltValueField(wireName: r'ws_id')
   int get wsId;
+
+  @BuiltValueField(wireName: r'position')
+  String? get position;
 
   ProjectGet._();
 
@@ -108,6 +112,13 @@ class _$ProjectGetSerializer implements PrimitiveSerializer<ProjectGet> {
       object.wsId,
       specifiedType: const FullType(int),
     );
+    if (object.position != null) {
+      yield r'position';
+      yield serializers.serialize(
+        object.position,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -179,6 +190,13 @@ class _$ProjectGetSerializer implements PrimitiveSerializer<ProjectGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.wsId = valueDes;
+          break;
+        case r'position':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.position = valueDes;
           break;
         default:
           unhandled.add(key);

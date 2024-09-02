@@ -11,9 +11,9 @@ import '../../L1_domain/entities_extensions/task_params.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../components/adaptive.dart';
 import '../extra/services.dart';
+import '../usecases/ws_actions.dart';
 import 'project_module.dart';
 import 'task_tree.dart';
-import 'ws_actions.dart';
 
 enum TaskAction {
   details,

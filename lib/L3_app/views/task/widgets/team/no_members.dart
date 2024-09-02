@@ -7,7 +7,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_actions.dart';
+import '../../../../presenters/task_actions.dart';
 import 'invitation_button.dart';
 
 class NoMembers extends StatelessWidget {

@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import '../../L3_app/usecases/task_tree.dart';
+import '../../L3_app/presenters/task_tree.dart';
 import '../entities/task.dart';
 
 extension TaskCopyExtension on Task {
@@ -17,6 +17,9 @@ extension TaskCopyExtension on Task {
         dueDate: dueDate,
         repeat: repeat,
         closed: closed,
+        category: category,
+        icon: icon,
+        position: position,
         projectStatusId: projectStatusId ?? this.projectStatusId,
         estimate: estimate,
         notes: notes,

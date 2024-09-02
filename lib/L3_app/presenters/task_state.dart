@@ -13,10 +13,10 @@ import '../components/colors_base.dart';
 import '../components/constants.dart';
 import '../components/images.dart';
 import '../extra/services.dart';
-import '../presenters/duration.dart';
-import '../presenters/task_type.dart';
-import '../usecases/project_module.dart';
-import '../usecases/task_tree.dart';
+import 'duration.dart';
+import 'project_module.dart';
+import 'task_tree.dart';
+import 'task_type.dart';
 
 Color stateColor(TaskState state, {Color? defaultColor}) {
   switch (state) {
@@ -141,6 +141,9 @@ List<Task> attentionalTasks(List<MapEntry<TaskState, List<Task>>> groups) => gro
     : [];
 
 extension TaskStatePresenter on Task {
+  bool get projectLowStart => project.state == TaskState.LOW_START;
+  double? get projectVelocity => project.velocity;
+
   List<Task> get attentionalSubtasks => attentionalTasks(subtaskGroups);
   TaskState get subtasksState => attentionalState(subtaskGroups);
 

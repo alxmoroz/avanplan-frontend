@@ -31,6 +31,8 @@ class TaskRepo extends AbstractTaskRepo {
   Future<TasksChanges?> save(Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
+      ..category = data.category
+      ..icon = data.icon
       ..createdOn = data.createdOn?.toUtc()
       ..taskSourceId = data.taskSource?.id
       ..assigneeId = data.assigneeId
@@ -50,6 +52,8 @@ class TaskRepo extends AbstractTaskRepo {
       taskUpsert: qBuilder.build(),
       wsId: data.wsId,
       taskId: data.id,
+      prevPosition: data.prevPosition,
+      nextPosition: data.nextPosition,
     ))
         .data;
 

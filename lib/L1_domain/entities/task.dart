@@ -53,12 +53,17 @@ class TaskDescriptor extends Titleable {
     super.description,
     this.category,
     this.icon,
+    this.position,
   });
 
   final String type;
   int wsId;
   final String? category;
   final String? icon;
+  final String? position;
+
+  String? prevPosition;
+  String? nextPosition;
 }
 
 class Project extends TaskDescriptor {
@@ -72,6 +77,7 @@ class Project extends TaskDescriptor {
     super.description,
     super.category,
     super.icon,
+    super.position,
   });
 }
 
@@ -82,6 +88,9 @@ class Task extends Project {
     super.description,
     super.createdOn,
     super.updatedOn,
+    super.position,
+    super.category,
+    super.icon,
     required this.startDate,
     required this.closed,
     required this.parentId,

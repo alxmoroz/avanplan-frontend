@@ -9,7 +9,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_actions.dart';
+import '../../../../presenters/task_actions.dart';
 
 class TaskActionItem extends StatelessWidget {
   const TaskActionItem(this._ta, {super.key, this.compact = false, this.inPopup = true, this.onTap});

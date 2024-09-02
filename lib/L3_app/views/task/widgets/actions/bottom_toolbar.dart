@@ -9,7 +9,7 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../usecases/task_actions.dart';
+import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';

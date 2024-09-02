@@ -280,7 +280,7 @@ void main() {
 
     // Upsert
     //
-    //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int taskId }) async
+    //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { String prevPosition, String nextPosition, int taskId }) async
     test('test upsertTask', () async {
       // TODO
     });

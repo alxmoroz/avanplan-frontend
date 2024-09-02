@@ -334,12 +334,12 @@ class MimeTypeIcon extends MTIcon {
   final String mimeType;
 }
 
-class MoveLeft extends MTIcon {
-  const MoveLeft({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_left);
+class MoveLeftIcon extends MTIcon {
+  const MoveLeftIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_left);
 }
 
-class MoveRight extends MTIcon {
-  const MoveRight({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_right);
+class MoveRightIcon extends MTIcon {
+  const MoveRightIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_right);
 }
 
 class NoteAddIcon extends MTIcon {

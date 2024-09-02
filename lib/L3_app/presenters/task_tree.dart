@@ -5,10 +5,11 @@ import 'package:collection/collection.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
+import '../../L1_domain/entities_extensions/task_position.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../extra/services.dart';
-import '../presenters/task_state.dart';
 import 'project_module.dart';
+import 'task_state.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
   final gt = groupBy<Task, TaskState>(tasks, (t) => t.overallState);
@@ -36,7 +37,7 @@ extension TaskTreeUC on Task {
   bool get hasSubtasks => subtasksCount > 0 || closedSubtasksCount > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
-  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();
+  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).sorted((t1, t2) => t1.compareByPosition(t2));
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
 
   bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hmTeam;

@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_tree.dart';
+import '../../../../presenters/task_tree.dart';
 import '../../../../views/_base/loadable.dart';
 
 part 'transfer_selector_controller.g.dart';

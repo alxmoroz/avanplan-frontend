@@ -17,8 +17,8 @@ import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
 import 'invitation_controller.dart';
 

@@ -41,5 +41,10 @@ void main() {
     test('to test the property `wsId`', () async {
       // TODO
     });
+
+    // String position
+    test('to test the property `position`', () async {
+      // TODO
+    });
   });
 }

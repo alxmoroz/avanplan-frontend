@@ -12,7 +12,7 @@ import '../../../../L1_domain/entities/workspace.dart';
 import '../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/task_tree.dart';
+import '../../../presenters/task_tree.dart';
 import '../../task/usecases/edit.dart';
 
 part 'tasks_main_controller.g.dart';

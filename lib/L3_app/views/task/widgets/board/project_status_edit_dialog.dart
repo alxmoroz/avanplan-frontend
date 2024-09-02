@@ -83,7 +83,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
             ),
             if (_controller.canMoveLeft)
               MTListTile(
-                leading: const MoveLeft(),
+                leading: const MoveLeftIcon(),
                 middle: BaseText.medium(loc.status_move_left_action_title, maxLines: 1, color: mainColor),
                 subtitle: SmallText('${_controller.leftStatus}', maxLines: 1),
                 bottomDivider: _controller.canMoveRight || !_used,
@@ -93,7 +93,7 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
               ),
             if (_controller.canMoveRight)
               MTListTile(
-                leading: const MoveRight(),
+                leading: const MoveRightIcon(),
                 middle: BaseText.medium(loc.status_move_right_action_title, maxLines: 1, color: mainColor),
                 subtitle: SmallText('${_controller.rightStatus}', maxLines: 1),
                 bottomDivider: !_used,

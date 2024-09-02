@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import '../../L1_domain/entities/project_status.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/utils/dates.dart';
-import 'task_tree.dart';
+import '../presenters/task_tree.dart';
 
 extension TaskStatus on Task {
   ProjectStatus? statusForId(int? id) => id != null ? project.projectStatuses.firstWhereOrNull((s) => s.id == id) : null;

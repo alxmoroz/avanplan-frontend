@@ -3,8 +3,8 @@
 import 'dart:async';
 
 import '../../../components/constants.dart';
+import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
-import '../../../usecases/task_tree.dart';
 import '../controllers/task_controller.dart';
 import 'edit.dart';
 

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/constants.dart';
-import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_tree.dart';
+import '../../../../presenters/task_actions.dart';
+import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
 import '../finance/finance_field.dart';

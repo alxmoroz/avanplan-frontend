@@ -13,8 +13,8 @@ import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../extra/router.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
-import '../../../usecases/task_tree.dart';
 import '../../task/widgets/create/create_task_dialog.dart';
 
 class InboxAddTaskButton extends StatelessWidget {

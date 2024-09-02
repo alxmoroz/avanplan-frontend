@@ -206,5 +206,10 @@ void main() {
     test('to test the property `repeatsCount`', () async {
       // TODO
     });
+
+    // String position
+    test('to test the property `position`', () async {
+      // TODO
+    });
   });
 }

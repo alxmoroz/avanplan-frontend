@@ -1004,7 +1004,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertTask**
-> TasksChanges upsertTask(wsId, taskUpsert, taskId)
+> TasksChanges upsertTask(wsId, taskUpsert, prevPosition, nextPosition, taskId)
 
 Upsert
 
@@ -1021,10 +1021,12 @@ import 'package:openapi/api.dart';
 final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
+final String prevPosition = prevPosition_example; // String | 
+final String nextPosition = nextPosition_example; // String | 
 final int taskId = 56; // int | 
 
 try {
-    final response = api.upsertTask(wsId, taskUpsert, taskId);
+    final response = api.upsertTask(wsId, taskUpsert, prevPosition, nextPosition, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksApi->upsertTask: $e\n');
@@ -1037,6 +1039,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
+ **prevPosition** | **String**|  | [optional] [default to '']
+ **nextPosition** | **String**|  | [optional] [default to '']
  **taskId** | **int**|  | [optional] 
 
 ### Return type

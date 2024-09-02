@@ -17,12 +17,4 @@ abstract class MTDragNDropColumnExpansionInterface implements MTDragNDropColumnI
   MTDragNDropColumnExpansionInterface({this.children});
   @override
   final List<MTDragNDropItem>? children;
-
-  bool get isExpanded;
-
-  void toggleExpanded();
-
-  void expand();
-
-  void collapse();
 }

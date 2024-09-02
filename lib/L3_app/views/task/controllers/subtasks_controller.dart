@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../usecases/task_tree.dart';
+import '../../../presenters/task_tree.dart';
 import '../usecases/delete.dart';
 import '../usecases/edit.dart';
 import 'task_controller.dart';

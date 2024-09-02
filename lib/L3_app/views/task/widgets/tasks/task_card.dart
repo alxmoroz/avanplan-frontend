@@ -20,15 +20,15 @@ import '../../../../components/text.dart';
 import '../../../../extra/router.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
+import '../../../../presenters/project_module.dart';
+import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_estimate.dart';
 import '../../../../presenters/task_state.dart';
+import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_member.dart';
-import '../../../../usecases/project_module.dart';
-import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
-import '../../../../usecases/task_tree.dart';
 import '../analytics/state_title.dart';
 
 class TaskCard extends StatelessWidget {
@@ -51,7 +51,8 @@ class TaskCard extends StatelessWidget {
   final bool dragging;
   final bool showAssignee;
 
-  Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
+  Color? get _textColor =>
+      task.closed || task.isImportingProject ? f2Color : null;
 
   Widget get _parentTitle => SmallText(task.parent!.title, maxLines: 1);
 
@@ -69,8 +70,14 @@ class TaskCard extends StatelessWidget {
       ]);
 
   bool get _showRepeat => task.hasRepeat;
-  bool get _showDate => task.leafState != TaskState.TODAY && task.hasDueDate && !task.closed && task.isTask;
-  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
+  bool get _showDate =>
+      task.hasDueDate &&
+      !task.closed &&
+      task.isTask &&
+      (task.leafState != TaskState.TODAY || board);
+  Color get _dateColor => task.dueDate!.isBefore(tomorrow)
+      ? stateColor(task.leafState)
+      : _textColor ?? f2Color;
   Widget get _date => Row(
         children: [
           CalendarIcon(color: _dateColor, size: P3, endMark: true),
@@ -80,7 +87,8 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showStatus => task.canShowStatus && !board && !task.closed;
-  Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
+  Widget get _status =>
+      SmallText('${task.status}', color: _textColor, maxLines: 1);
 
   bool get _showAssignee => task.hmTeam && task.hasAssignee && showAssignee;
   Widget get _assignee => task.assignee!.icon(P2 + P_2);
@@ -88,7 +96,8 @@ class TaskCard extends StatelessWidget {
   bool get _showChecklistMark => !task.closed && task.isCheckList;
   Widget get _checklistMark => Row(
         children: [
-          SmallText('${task.closedSubtasksCount}/${task.subtasksCount} ', color: f2Color, maxLines: 1),
+          SmallText('${task.closedSubtasksCount}/${task.subtasksCount} ',
+              color: f2Color, maxLines: 1),
           const CheckboxIcon(true, size: P3, color: f2Color),
         ],
       );
@@ -113,7 +122,8 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showEstimate => task.hmAnalytics && task.hasEstimate;
-  Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
+  Widget get _estimate =>
+      SmallText(task.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P),
@@ -134,16 +144,28 @@ class TaskCard extends StatelessWidget {
             _error(task.error!.message)
           // проекты, цели или группы задач: интегральная оценка, метка связанного проекта, вложений и комментариев
           else if (task.isGroup &&
-              (task.hasAnalytics || _showAttachmentsMark || _showNotesMark || task.isLinkedProject || task.wsCode.isNotEmpty)) ...[
+              (task.hasAnalytics ||
+                  _showAttachmentsMark ||
+                  _showNotesMark ||
+                  task.isLinkedProject ||
+                  task.wsCode.isNotEmpty)) ...[
             const SizedBox(height: P_2),
             Row(
               children: [
-                if (task.hasAnalytics) TaskStateTitle(task, place: StateTitlePlace.card),
+                if (task.hasAnalytics)
+                  TaskStateTitle(task, place: StateTitlePlace.card),
                 const Spacer(),
                 if (_showAttachmentsMark) ...[_attachmentsMark],
-                if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
-                if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],
-                if (task.wsCode.isNotEmpty) SmallText(task.wsCode, color: f3Color, maxLines: 1),
+                if (_showNotesMark) ...[
+                  if (_showAttachmentsMark) _divider,
+                  _notesMark
+                ],
+                if (task.isLinkedProject) ...[
+                  if (_showAttachmentsMark || _showNotesMark) _divider,
+                  const LinkIcon(color: f2Color)
+                ],
+                if (task.wsCode.isNotEmpty)
+                  SmallText(task.wsCode, color: f3Color, maxLines: 1),
               ],
             ),
             // задачи: срок, метка чек-листа, вложений, комментов, оценка, статус, назначено
@@ -159,7 +181,10 @@ class TaskCard extends StatelessWidget {
             Row(
               children: [
                 if (_showDate) _date,
-                if (_showRepeat) ...[if (_showDate) const SizedBox(width: P), const RepeatIcon(size: P2 + P_2, color: f2Color)],
+                if (_showRepeat) ...[
+                  if (_showDate) const SizedBox(width: P),
+                  const RepeatIcon(size: P2 + P_2, color: f2Color)
+                ],
                 Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -167,18 +192,37 @@ class TaskCard extends StatelessWidget {
                       const SizedBox(width: P2),
                       if (withDetails) ...[
                         if (_showChecklistMark) ...[_checklistMark],
-                        if (_showAttachmentsMark) ...[if (_showChecklistMark) _divider, _attachmentsMark],
-                        if (_showNotesMark) ...[if (_showChecklistMark || _showAttachmentsMark) _divider, _notesMark],
+                        if (_showAttachmentsMark) ...[
+                          if (_showChecklistMark) _divider,
+                          _attachmentsMark
+                        ],
+                        if (_showNotesMark) ...[
+                          if (_showChecklistMark || _showAttachmentsMark)
+                            _divider,
+                          _notesMark
+                        ],
                       ],
                       if (_showEstimate) ...[
-                        if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark)) _divider,
+                        if (withDetails &&
+                            (_showChecklistMark ||
+                                _showAttachmentsMark ||
+                                _showNotesMark))
+                          _divider,
                         _estimate,
                       ],
                       if (_showStatus) ...[
-                        if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark) || _showEstimate) _divider,
+                        if (withDetails &&
+                                (_showChecklistMark ||
+                                    _showAttachmentsMark ||
+                                    _showNotesMark) ||
+                            _showEstimate)
+                          _divider,
                         Flexible(child: _status),
                       ],
-                      if (_showAssignee) ...[const SizedBox(width: P), _assignee],
+                      if (_showAssignee) ...[
+                        const SizedBox(width: P),
+                        _assignee
+                      ],
                     ],
                   ),
                 ),
@@ -204,7 +248,9 @@ class TaskCard extends StatelessWidget {
           children: [
             MTListTile(
               leading: showStateMark ? const SizedBox(width: P) : null,
-              middle: LayoutBuilder(builder: (_, size) => _taskContent(size.maxWidth > SCR_S_WIDTH)),
+              middle: LayoutBuilder(
+                  builder: (_, size) =>
+                      _taskContent(size.maxWidth > SCR_S_WIDTH)),
               bottomDivider: bottomDivider,
               dividerIndent: showStateMark ? P6 : 0,
               loading: task.loading,
@@ -216,7 +262,8 @@ class TaskCard extends StatelessWidget {
                 top: 0,
                 bottom: 0,
                 child: Container(
-                  decoration: BoxDecoration(gradient: stateGradient(context, task.overallState)),
+                  decoration: BoxDecoration(
+                      gradient: stateGradient(context, task.overallState)),
                   width: P,
                 ),
               ),

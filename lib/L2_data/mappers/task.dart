@@ -24,6 +24,9 @@ extension TaskMapper on api.TaskGet {
       updatedOn: updatedOn.toLocal(),
       title: title.trim(),
       type: type ?? TType.TASK,
+      position: position,
+      category: category,
+      icon: icon,
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
       closedDate: closedDate?.toLocal(),
@@ -73,6 +76,7 @@ extension ProjectMapper on api.ProjectGet {
         wsId: wsId,
         title: title,
         description: description ?? '',
+        position: position,
         category: category,
         icon: icon,
       );

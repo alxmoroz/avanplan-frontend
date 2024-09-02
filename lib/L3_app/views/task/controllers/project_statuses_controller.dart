@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/task_tree.dart';
+import '../../../presenters/task_tree.dart';
 import '../../_base/loadable.dart';
 import '../widgets/board/project_status_edit_dialog.dart';
 import 'task_controller.dart';
@@ -17,6 +17,11 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
   ProjectStatusesController(TaskController tcIn) {
     _taskController = tcIn;
   }
+
+  ProjectStatus? leftStatus(ProjectStatus status) => sortedStatuses.lastWhereOrNull((s) => s.position < status.position);
+  ProjectStatus? rightStatus(ProjectStatus status) => sortedStatuses.firstWhereOrNull((s) => s.position > status.position);
+
+  void reload() => _setStatuses(project.projectStatuses);
 
   Future edit(ProjectStatus status) async => await projectStatusEditDialog(status, this);
 
@@ -29,37 +34,6 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
           projectId: project.id!,
         ),
       );
-}
-
-//TODO: переделать, как с заметками
-
-abstract class _ProjectStatusesControllerBase with Store, Loadable {
-  late final TaskController _taskController;
-
-  Task get project => _taskController.task.project;
-
-  @observable
-  ObservableList<ProjectStatus> _statuses = ObservableList();
-
-  @computed
-  List<ProjectStatus> get sortedStatuses => _statuses.sorted((s1, s2) => s1.position.compareTo(s2.position));
-
-  @computed
-  Iterable<int> get _closedStatusIds => sortedStatuses.where((s) => s.closed == true).map((s) => s.id!);
-  @computed
-  int? get firstClosedStatusId => _closedStatusIds.firstOrNull;
-  @computed
-  Iterable<int> get _openedStatusIds => sortedStatuses.where((s) => s.closed == false).map((s) => s.id!);
-  @computed
-  int? get firstOpenedStatusId => _openedStatusIds.firstOrNull;
-
-  @action
-  void _setStatuses(Iterable<ProjectStatus> sts) => _statuses = ObservableList.of(sts);
-
-  ProjectStatus? leftStatus(ProjectStatus status) => sortedStatuses.lastWhereOrNull((s) => s.position < status.position);
-  ProjectStatus? rightStatus(ProjectStatus status) => sortedStatuses.firstWhereOrNull((s) => s.position > status.position);
-
-  void reload() => _setStatuses(project.projectStatuses);
 
   Iterable<String> siblingsTitles(int? sId) => _statuses.where((s) => s.id != sId).map((s) => s.title.trim().toLowerCase());
 
@@ -99,4 +73,32 @@ abstract class _ProjectStatusesControllerBase with Store, Loadable {
           project.projectStatuses.remove(status);
         }
       });
+
+  int projectStatusId(int columnIndex) => sortedStatuses.elementAt(columnIndex).id!;
+}
+
+//TODO: переделать, как с заметками
+
+abstract class _ProjectStatusesControllerBase with Store, Loadable {
+  late final TaskController _taskController;
+
+  Task get project => _taskController.task.project;
+
+  @observable
+  ObservableList<ProjectStatus> _statuses = ObservableList();
+
+  @computed
+  List<ProjectStatus> get sortedStatuses => _statuses.sorted((s1, s2) => s1.position.compareTo(s2.position));
+
+  @computed
+  Iterable<int> get _closedStatusIds => sortedStatuses.where((s) => s.closed == true).map((s) => s.id!);
+  @computed
+  int? get firstClosedStatusId => _closedStatusIds.firstOrNull;
+  @computed
+  Iterable<int> get _openedStatusIds => sortedStatuses.where((s) => s.closed == false).map((s) => s.id!);
+  @computed
+  int? get firstOpenedStatusId => _openedStatusIds.firstOrNull;
+
+  @action
+  void _setStatuses(Iterable<ProjectStatus> sts) => _statuses = ObservableList.of(sts);
 }

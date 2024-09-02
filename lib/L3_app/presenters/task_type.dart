@@ -8,8 +8,8 @@ import '../../L1_domain/entities_extensions/task_type.dart';
 import '../components/constants.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
-import '../usecases/project_module.dart';
-import '../usecases/task_tree.dart';
+import 'project_module.dart';
+import 'task_tree.dart';
 import 'workspace.dart';
 
 String addSubtaskActionTitle(Task? parent) {

@@ -156,23 +156,30 @@ class TaskViewState<T extends TaskView> extends State<T> {
         }),
       );
 
+  Widget get _bigGroupTitle => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (_hasParent) TaskParentTitle(controller),
+          Container(
+            alignment: Alignment.centerLeft,
+            height: P8,
+            child: H1(task.title, maxLines: 1, height: 1.1, color: f2Color),
+          ),
+        ],
+      );
+
   Widget? get _title {
     return _isBigGroup
-        ? MTAdaptive(
-            padding: const EdgeInsets.symmetric(horizontal: P3),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (_hasParent) TaskParentTitle(controller),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  height: P8,
-                  child: H1(task.title, maxLines: 1, height: 1.1, color: f2Color),
-                ),
-              ],
-            ),
-          )
+        ? controller.showBoard
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: P3),
+                child: _bigGroupTitle,
+              )
+            : MTAdaptive(
+                padding: const EdgeInsets.symmetric(horizontal: P3),
+                child: _bigGroupTitle,
+              )
         : Opacity(
             opacity: _hasScrolled ? 1 : 0,
             child: Column(

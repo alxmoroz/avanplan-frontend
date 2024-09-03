@@ -65,10 +65,15 @@ class TaskHeader extends StatelessWidget {
         );
         return t.isTask
             ? Padding(padding: const EdgeInsets.symmetric(horizontal: P3), child: header)
-            : MTAdaptive(
-                padding: const EdgeInsets.symmetric(horizontal: P3),
-                child: header,
-              );
+            : _controller.showBoard
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: P3),
+                    child: header,
+                  )
+                : MTAdaptive(
+                    padding: const EdgeInsets.symmetric(horizontal: P3),
+                    child: header,
+                  );
       },
     );
   }

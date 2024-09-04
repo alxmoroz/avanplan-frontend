@@ -21,6 +21,7 @@ import '../../../presenters/task_actions.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
 import '../../../usecases/task_status.dart';
+import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../usecases/edit.dart';
 import '../usecases/repeat.dart';
@@ -66,21 +67,25 @@ extension StatusUC on TaskController {
   }
 
   Future setStatus(Task t, {int? stId, bool? closed, BuildContext? context}) async {
-    if (closed == true && t.hasOpenedSubtasks && await _closeTreeDialog() != true) {
+    if (!await taskDescriptor.ws.checkBalance(loc.edit_action_title) || (closed == true && t.hasOpenedSubtasks && await _closeTreeDialog() != true)) {
       return;
     }
 
-    // тут нет await умышленно, чтобы можно было сначала выйти из диалога и дожидаться операции уже в списке
-    _setTaskTreeStatus(t, stId: stId, closed: closed);
-    // tasksMainController.refreshUI();
-
-    // тут надо проверять контекст, чтобы понять, что был вызов из диалога, а не внутренний
-    if (context != null && context.mounted && t.closed && !t.isCheckItem) {
-      context.pop();
+    // закрываем задачу
+    if ((closed == true || t.statusForId(stId)?.closed == true) && !t.isCheckItem) {
+      // повтор задачи
       if (t.repeat != null) {
-        repeat();
+        TaskController(taskIn: t).repeat();
+      }
+
+      // тут надо проверять контекст, чтобы понять, что был вызов из диалога, а не внутренний
+      if (context != null && context.mounted) {
+        context.pop();
       }
     }
+
+    // сами статусы
+    await _setTaskTreeStatus(t, stId: stId, closed: closed);
   }
 
   Future setClosed(BuildContext context, bool closed) async => await setStatus(task, closed: closed, context: context);

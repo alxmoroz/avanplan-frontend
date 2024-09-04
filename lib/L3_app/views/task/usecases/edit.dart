@@ -136,34 +136,30 @@ extension TaskEditUC on TaskController {
 
   Future move(Task dst) async => await editWrapper(() async {
         setLoaderScreenSaving();
-        // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
-        if (await dst.ws.checkBalance(loc.task_transfer_export_action_title)) {
-          // перенос внутри одного РП - просто меняем родителя
-          // перенос между РП - новая задача в новом месте, старая удаляется
+        // перенос внутри одного РП - просто меняем родителя
+        // перенос между РП - новая задача в новом месте, старая удаляется
+        final sameWS = dst.wsId == taskDescriptor.wsId;
 
-          final sameWS = dst.wsId == taskDescriptor.wsId;
+        TasksChanges? changes;
 
-          TasksChanges? changes;
-
-          if (sameWS) {
-            // статус в другом проекте
-            int? dstProjectStatusId = task.projectStatusId;
-            if (dst.project.id != task.project.id) {
-              final psc = TaskController(taskIn: dst).projectStatusesController;
-              psc.reload();
-              dstProjectStatusId = psc.firstOpenedStatusId;
-            }
-            changes = await taskUC.save(task.copyWith(parentId: dst.id, projectStatusId: dstProjectStatusId));
-          } else {
-            changes = await taskUC.move(taskDescriptor, dst);
+        if (sameWS) {
+          // статус в другом проекте
+          int? dstProjectStatusId = task.projectStatusId;
+          if (dst.project.id != task.project.id) {
+            final psc = TaskController(taskIn: dst).projectStatusesController;
+            psc.reload();
+            dstProjectStatusId = psc.firstOpenedStatusId;
           }
+          changes = await taskUC.save(task.copyWith(parentId: dst.id, projectStatusId: dstProjectStatusId));
+        } else {
+          changes = await taskUC.move(taskDescriptor, dst);
+        }
 
-          if (changes != null) {
-            // changes.updated.filled = true;
-            tasksMainController.setTasks([changes.updated, ...changes.affected]);
-            if (!sameWS) tasksMainController.removeTask(task);
-            taskDescriptor = changes.updated;
-          }
+        if (changes != null) {
+          // changes.updated.filled = true;
+          tasksMainController.setTasks([changes.updated, ...changes.affected]);
+          if (!sameWS) tasksMainController.removeTask(task);
+          taskDescriptor = changes.updated;
         }
       });
 }

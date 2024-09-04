@@ -11,6 +11,7 @@ import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
 import '../../components/images.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
 
@@ -26,14 +27,14 @@ mixin Loadable {
     String? descriptionText,
     String? imageName,
     String? actionText,
-    Widget? action,
+    Widget? actionWidget,
   }) =>
       _l.set(
         titleText: titleText,
         descriptionText: descriptionText,
         imageName: imageName,
         actionText: actionText,
-        action: action,
+        actionWidget: actionWidget,
       );
 
   void setLoaderScreenLoading() => _l.set(titleText: loc.loader_refreshing_title, imageName: ImageName.loading.name);
@@ -117,11 +118,11 @@ class LoadableState extends _LoadableBase with _$LoadableState {
       imageName: ImageName.server_error.name,
       titleText: errorText,
       descriptionText: mainRecommendationText,
-      action: Column(
+      actionWidget: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _stopAction(loc.ok),
+          _stopActionButton(loc.ok),
           ReportErrorButton('$errorText ${errorDetail ?? ''}'),
         ],
       ),
@@ -153,8 +154,8 @@ class LoadableState extends _LoadableBase with _$LoadableState {
         titleText: loc.error_import_title,
         descriptionText: descriptionText,
         imageName: ImageName.import.name,
-        action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          _stopAction(loc.ok),
+        actionWidget: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          _stopActionButton(loc.ok),
           ReportErrorButton('$descriptionText ${errorDetail ?? ''}'),
         ]),
       );
@@ -168,7 +169,12 @@ abstract class _LoadableBase with Store {
   void start() => loading = true;
 
   @action
-  void stop() => loading = false;
+  void stop({bool pop = false}) {
+    loading = false;
+    if (pop) {
+      router.pop();
+    }
+  }
 
   @observable
   String? imageName;
@@ -182,9 +188,9 @@ abstract class _LoadableBase with Store {
   @observable
   Widget? actionWidget;
 
-  Widget _stopAction(String actionText) => MTButton.secondary(
+  Widget _stopActionButton(String actionText) => MTButton.secondary(
         titleText: actionText,
-        onTap: stop,
+        onTap: () => stop(pop: true),
       );
 
   @action
@@ -193,12 +199,12 @@ abstract class _LoadableBase with Store {
     String? descriptionText,
     String? imageName,
     String? actionText,
-    Widget? action,
+    Widget? actionWidget,
   }) {
-    action ??= actionText != null ? _stopAction(actionText) : null;
+    actionWidget ??= actionText != null ? _stopActionButton(actionText) : null;
     this.imageName = imageName;
     this.titleText = titleText;
     this.descriptionText = descriptionText;
-    actionWidget = action;
+    this.actionWidget = actionWidget;
   }
 }

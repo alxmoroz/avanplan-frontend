@@ -7,6 +7,7 @@ import '../../../../components/dialog.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
+import '../../../../usecases/ws_actions.dart';
 import '../../../../views/_base/loadable.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
@@ -65,15 +66,18 @@ abstract class _LocalImportControllerBase with Store, Loadable {
   void checkTask(int index, bool? selected) => checks[index] = selected == true;
 
   Future selectSourceForMove() async {
-    final controller = TransferSelectorController();
-    controller.getSourcesForMove(dstGroup);
-    final srcGoal = await showMTDialog<Task>(TransferSelectorDialog(
-      controller,
-      loc.task_transfer_source_hint,
-      loc.task_transfer_import_empty_title,
-    ));
-    if (srcGoal != null) {
-      _setSrc(srcGoal);
+    // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
+    if (await dstGroup.ws.checkBalance(loc.task_transfer_export_action_title)) {
+      final controller = TransferSelectorController();
+      controller.getSourcesForMove(dstGroup);
+      final srcGoal = await showMTDialog<Task>(TransferSelectorDialog(
+        controller,
+        loc.task_transfer_source_hint,
+        loc.task_transfer_import_empty_title,
+      ));
+      if (srcGoal != null) {
+        _setSrc(srcGoal);
+      }
     }
   }
 

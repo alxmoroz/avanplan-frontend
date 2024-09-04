@@ -5,6 +5,8 @@ import 'dart:async';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_tree.dart';
+import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/transfer/transfer_selector.dart';
 import '../widgets/transfer/transfer_selector_controller.dart';
@@ -20,6 +22,7 @@ extension LocalTransferUC on TaskController {
       loc.task_transfer_export_empty_title,
     ));
 
-    if (destination != null) await move(destination);
+    // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
+    if (destination != null && (await destination.ws.checkBalance(loc.task_transfer_export_action_title))) await move(destination);
   }
 }

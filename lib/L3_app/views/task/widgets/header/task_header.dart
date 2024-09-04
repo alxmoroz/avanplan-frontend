@@ -65,7 +65,7 @@ class TaskHeader extends StatelessWidget {
         );
         return t.isTask
             ? Padding(padding: const EdgeInsets.symmetric(horizontal: P3), child: header)
-            : _controller.showBoard
+            : t.canShowBoard && _controller.showBoard && !t.creating
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: P3),
                     child: header,

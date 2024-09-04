@@ -58,7 +58,7 @@ abstract class _AppControllerBase with Store, Loadable {
         titleText: loc.app_must_upgrade_title,
         descriptionText: loc.app_must_upgrade_description,
         imageName: ImageName.privacy.name,
-        action: MTButton.main(titleText: loc.app_install_action_title, onTap: go2AppInstall),
+        actionWidget: MTButton.main(titleText: loc.app_install_action_title, onTap: go2AppInstall),
       );
     } else {
       // если можно обновить приложение, предлагаем обновиться

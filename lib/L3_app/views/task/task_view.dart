@@ -171,7 +171,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget? get _title {
     return _isBigGroup
-        ? controller.showBoard
+        ? task.canShowBoard && controller.showBoard
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 child: _bigGroupTitle,

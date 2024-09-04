@@ -136,7 +136,7 @@ class TaskHeaderDashboard extends StatelessWidget {
         ),
       );
 
-      return _controller.showBoard
+      return _task.canShowBoard && _controller.showBoard
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: P3),
               child: content,

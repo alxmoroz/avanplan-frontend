@@ -30,6 +30,7 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
       topBar: qHeader,
       body: ListView(
         children: [
+          if (controller.task.parentId == null) const SizedBox(height: P),
           TaskHeader(controller),
           MTAdaptive(
             padding: const EdgeInsets.symmetric(horizontal: P3),

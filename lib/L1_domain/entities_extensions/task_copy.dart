@@ -6,7 +6,7 @@ import '../entities/task.dart';
 extension TaskCopyExtension on Task {
   Task copyWith({required int? parentId, required int? projectStatusId}) => Task(
         id: id,
-        parentId: parentId ?? this.parentId,
+        parentId: parentId,
         createdOn: createdOn,
         updatedOn: updatedOn,
         title: title,
@@ -20,7 +20,7 @@ extension TaskCopyExtension on Task {
         category: category,
         icon: icon,
         position: position,
-        projectStatusId: projectStatusId ?? this.projectStatusId,
+        projectStatusId: projectStatusId,
         estimate: estimate,
         notes: notes,
         attachments: attachments,

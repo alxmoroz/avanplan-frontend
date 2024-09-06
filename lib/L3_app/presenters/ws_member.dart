@@ -10,5 +10,5 @@ import '../extra/services.dart';
 
 extension WSMemberPresenter on WSMember {
   User? get user => userId != null ? wsMainController.ws(wsId)?.userForId(userId!) : null;
-  Widget icon(double radius) => MTAvatar(user: user, radius);
+  Widget icon(double radius) => MTAvatar(member: this, radius);
 }

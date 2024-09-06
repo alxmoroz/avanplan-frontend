@@ -41,8 +41,8 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
       projectStatuses: [],
       projectModules: [],
       wsId: ws.id!,
-      startDate: DateTime.now(),
-      createdOn: DateTime.now(),
+      startDate: null,
+      // startDate: DateTime.now(),
       type: newProject
           ? TType.PROJECT
           : newGoal

@@ -36,24 +36,31 @@ class TaskDatesField extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (dueDate == null) BaseText.f2('${loc.task_start_date_label}: ', maxLines: 1),
             BaseText(startDate.strMedium, maxLines: 1),
-            if (dueDate == null) Flexible(child: BaseText.f2(', ${DateFormat.EEEE().format(startDate)}', maxLines: 1)),
+            if (dueDate == null) Flexible(child: BaseText.f2(', ${DateFormat.E().format(startDate)}', maxLines: 1)),
           ],
         ),
       if (dueDate != null)
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (startDate == null) BaseText.f2('${loc.task_due_date_label}: ', maxLines: 1) else const BaseText(' – ', maxLines: 1),
+            if (startDate != null) const BaseText(' – ', maxLines: 1),
             BaseText(dueDate.strMedium, maxLines: 1),
-            if (startDate == null) Flexible(child: BaseText.f2(', ${DateFormat.EEEE().format(dueDate)}', maxLines: 1)),
+            if (startDate == null) Flexible(child: BaseText.f2(', ${DateFormat.E().format(dueDate)}', maxLines: 1)),
           ],
         ),
     ]);
 
     return MTField(
-      MTFieldData(-1, placeholder: loc.task_dates),
+      MTFieldData(
+        -1,
+        placeholder: loc.task_dates,
+        label: dueDate == null
+            ? loc.task_start_date_label
+            : startDate == null
+                ? loc.task_due_date_label
+                : '',
+      ),
       leading: const CalendarIcon(),
       value: startDate != null || dueDate != null || repeat != null
           ? Column(

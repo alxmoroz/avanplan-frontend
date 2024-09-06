@@ -10,7 +10,7 @@ void main() {
     //
     // Мои проекты, куда у меня есть доступ, в том числе Входящие
     //
-    //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
+    //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported, int taskId }) async
     test('test myProjects', () async {
       // TODO
     });
@@ -19,7 +19,7 @@ void main() {
     //
     // Мои задачи
     //
-    //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId }) async
+    //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId, int taskId }) async
     test('test myTasks', () async {
       // TODO
     });

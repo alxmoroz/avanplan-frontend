@@ -335,6 +335,8 @@ class WorkspacesApi {
   /// * [wsId] 
   /// * [srcProjectId] 
   /// * [srcWsId] 
+  /// * [srcTaskId] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -348,6 +350,8 @@ class WorkspacesApi {
     required int wsId,
     required int srcProjectId,
     required int srcWsId,
+    int? srcTaskId,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -381,6 +385,8 @@ class WorkspacesApi {
     final _queryParameters = <String, dynamic>{
       r'src_project_id': encodeQueryParameter(_serializers, srcProjectId, const FullType(int)),
       r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
+      if (srcTaskId != null) r'src_task_id': encodeQueryParameter(_serializers, srcTaskId, const FullType(int)),
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -1056,6 +1062,7 @@ class WorkspacesApi {
   /// Parameters:
   /// * [wsId] 
   /// * [taskType] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1068,6 +1075,7 @@ class WorkspacesApi {
   Future<Response<BuiltList<TaskGet>>> destinationsForMove({ 
     required int wsId,
     required String taskType,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1100,6 +1108,7 @@ class WorkspacesApi {
 
     final _queryParameters = <String, dynamic>{
       r'task_type': encodeQueryParameter(_serializers, taskType, const FullType(String)),
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -1149,6 +1158,7 @@ class WorkspacesApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [srcWsId] 
+  /// * [srcTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1162,6 +1172,7 @@ class WorkspacesApi {
     required int wsId,
     required int taskId,
     required int srcWsId,
+    int? srcTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1194,6 +1205,7 @@ class WorkspacesApi {
 
     final _queryParameters = <String, dynamic>{
       r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
+      if (srcTaskId != null) r'src_task_id': encodeQueryParameter(_serializers, srcTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -1591,6 +1603,7 @@ class WorkspacesApi {
   /// Parameters:
   /// * [memberId] 
   /// * [wsId] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1603,6 +1616,7 @@ class WorkspacesApi {
   Future<Response<BuiltList<TaskGet>>> memberAssignedTasks({ 
     required int memberId,
     required int wsId,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1633,9 +1647,14 @@ class WorkspacesApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -1776,6 +1795,7 @@ class WorkspacesApi {
   /// * [wsId] 
   /// * [closed] 
   /// * [imported] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1789,6 +1809,7 @@ class WorkspacesApi {
     required int wsId,
     bool? closed,
     bool? imported,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1822,6 +1843,7 @@ class WorkspacesApi {
     final _queryParameters = <String, dynamic>{
       if (closed != null) r'closed': encodeQueryParameter(_serializers, closed, const FullType(bool)),
       if (imported != null) r'imported': encodeQueryParameter(_serializers, imported, const FullType(bool)),
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -1870,6 +1892,7 @@ class WorkspacesApi {
   /// Parameters:
   /// * [wsId] 
   /// * [projectId] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1882,6 +1905,7 @@ class WorkspacesApi {
   Future<Response<BuiltList<TaskGet>>> myTasks({ 
     required int wsId,
     int? projectId,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1914,6 +1938,7 @@ class WorkspacesApi {
 
     final _queryParameters = <String, dynamic>{
       if (projectId != null) r'project_id': encodeQueryParameter(_serializers, projectId, const FullType(int)),
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -2048,6 +2073,7 @@ class WorkspacesApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [srcWsId] 
+  /// * [srcTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -2061,6 +2087,7 @@ class WorkspacesApi {
     required int wsId,
     required int taskId,
     required int srcWsId,
+    int? srcTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -2093,6 +2120,7 @@ class WorkspacesApi {
 
     final _queryParameters = <String, dynamic>{
       r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
+      if (srcTaskId != null) r'src_task_id': encodeQueryParameter(_serializers, srcTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -2440,6 +2468,7 @@ class WorkspacesApi {
   ///
   /// Parameters:
   /// * [wsId] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -2451,6 +2480,7 @@ class WorkspacesApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<TaskGet>>> sourcesForMoveTasks({ 
     required int wsId,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -2481,9 +2511,14 @@ class WorkspacesApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **memberAssignedTasks**
-> BuiltList<TaskGet> memberAssignedTasks(memberId, wsId)
+> BuiltList<TaskGet> memberAssignedTasks(memberId, wsId, taskId)
 
 Member Assigned Tasks
 
@@ -32,9 +32,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getMembersApi();
 final int memberId = 56; // int | 
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.memberAssignedTasks(memberId, wsId);
+    final response = api.memberAssignedTasks(memberId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling MembersApi->memberAssignedTasks: $e\n');
@@ -47,6 +48,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **int**|  | 
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 

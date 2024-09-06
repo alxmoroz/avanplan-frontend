@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **myProjects**
-> BuiltList<TaskGet> myProjects(wsId, closed, imported)
+> BuiltList<TaskGet> myProjects(wsId, closed, imported, taskId)
 
 Projects
 
@@ -34,9 +34,10 @@ final api = Openapi().getMyApi();
 final int wsId = 56; // int | 
 final bool closed = true; // bool | 
 final bool imported = true; // bool | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.myProjects(wsId, closed, imported);
+    final response = api.myProjects(wsId, closed, imported, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling MyApi->myProjects: $e\n');
@@ -50,6 +51,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **closed** | **bool**|  | [optional] 
  **imported** | **bool**|  | [optional] 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -67,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **myTasks**
-> BuiltList<TaskGet> myTasks(wsId, projectId)
+> BuiltList<TaskGet> myTasks(wsId, projectId, taskId)
 
 Tasks
 
@@ -86,9 +88,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getMyApi();
 final int wsId = 56; // int | 
 final int projectId = 56; // int | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.myTasks(wsId, projectId);
+    final response = api.myTasks(wsId, projectId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling MyApi->myTasks: $e\n');
@@ -101,6 +104,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **projectId** | **int**|  | [optional] 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 

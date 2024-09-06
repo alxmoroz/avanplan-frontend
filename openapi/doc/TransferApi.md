@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **createFromTemplate**
-> TasksChanges createFromTemplate(wsId, srcProjectId, srcWsId)
+> TasksChanges createFromTemplate(wsId, srcProjectId, srcWsId, srcTaskId, taskId)
 
 Create From Template
 
@@ -34,9 +34,11 @@ final api = Openapi().getTransferApi();
 final int wsId = 56; // int | 
 final int srcProjectId = 56; // int | 
 final int srcWsId = 56; // int | 
+final int srcTaskId = 56; // int | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.createFromTemplate(wsId, srcProjectId, srcWsId);
+    final response = api.createFromTemplate(wsId, srcProjectId, srcWsId, srcTaskId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TransferApi->createFromTemplate: $e\n');
@@ -50,6 +52,8 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **srcProjectId** | **int**|  | 
  **srcWsId** | **int**|  | 
+ **srcTaskId** | **int**|  | [optional] 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -67,7 +71,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **destinationsForMove**
-> BuiltList<TaskGet> destinationsForMove(wsId, taskType)
+> BuiltList<TaskGet> destinationsForMove(wsId, taskType, taskId)
 
 Destinations For Move
 
@@ -84,9 +88,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getTransferApi();
 final int wsId = 56; // int | 
 final String taskType = taskType_example; // String | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.destinationsForMove(wsId, taskType);
+    final response = api.destinationsForMove(wsId, taskType, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TransferApi->destinationsForMove: $e\n');
@@ -99,6 +104,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskType** | **String**|  | 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -163,7 +169,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **sourcesForMoveTasks**
-> BuiltList<TaskGet> sourcesForMoveTasks(wsId)
+> BuiltList<TaskGet> sourcesForMoveTasks(wsId, taskId)
 
 Sources For Move
 
@@ -179,9 +185,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTransferApi();
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.sourcesForMoveTasks(wsId);
+    final response = api.sourcesForMoveTasks(wsId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TransferApi->sourcesForMoveTasks: $e\n');
@@ -193,6 +200,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 

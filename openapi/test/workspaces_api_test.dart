@@ -29,7 +29,7 @@ void main() {
 
     // Create From Template
     //
-    //Future<TasksChanges> createFromTemplate(int wsId, int srcProjectId, int srcWsId) async
+    //Future<TasksChanges> createFromTemplate(int wsId, int srcProjectId, int srcWsId, { int srcTaskId, int taskId }) async
     test('test createFromTemplate', () async {
       // TODO
     });
@@ -85,14 +85,14 @@ void main() {
 
     // Destinations For Move
     //
-    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType) async
+    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType, { int taskId }) async
     test('test destinationsForMove', () async {
       // TODO
     });
 
     // Duplicate
     //
-    //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
+    //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId, { int srcTaskId }) async
     test('test duplicateTask', () async {
       // TODO
     });
@@ -129,7 +129,7 @@ void main() {
     //
     // Задачи участника РП
     //
-    //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId) async
+    //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId, { int taskId }) async
     test('test memberAssignedTasks', () async {
       // TODO
     });
@@ -145,7 +145,7 @@ void main() {
     //
     // Мои проекты, куда у меня есть доступ, в том числе Входящие
     //
-    //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported }) async
+    //Future<BuiltList<TaskGet>> myProjects(int wsId, { bool closed, bool imported, int taskId }) async
     test('test myProjects', () async {
       // TODO
     });
@@ -154,7 +154,7 @@ void main() {
     //
     // Мои задачи
     //
-    //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId }) async
+    //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId, int taskId }) async
     test('test myTasks', () async {
       // TODO
     });
@@ -168,7 +168,7 @@ void main() {
 
     // Repeat
     //
-    //Future<TasksChanges> repeatTask(int wsId, int taskId, int srcWsId) async
+    //Future<TasksChanges> repeatTask(int wsId, int taskId, int srcWsId, { int srcTaskId }) async
     test('test repeatTask', () async {
       // TODO
     });
@@ -196,7 +196,7 @@ void main() {
 
     // Sources For Move
     //
-    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId) async
+    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId, { int taskId }) async
     test('test sourcesForMoveTasks', () async {
       // TODO
     });

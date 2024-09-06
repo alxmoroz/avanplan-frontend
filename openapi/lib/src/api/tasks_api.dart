@@ -701,6 +701,7 @@ class TasksApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [srcWsId] 
+  /// * [srcTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -714,6 +715,7 @@ class TasksApi {
     required int wsId,
     required int taskId,
     required int srcWsId,
+    int? srcTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -746,6 +748,7 @@ class TasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
+      if (srcTaskId != null) r'src_task_id': encodeQueryParameter(_serializers, srcTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -986,6 +989,7 @@ class TasksApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [srcWsId] 
+  /// * [srcTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -999,6 +1003,7 @@ class TasksApi {
     required int wsId,
     required int taskId,
     required int srcWsId,
+    int? srcTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1031,6 +1036,7 @@ class TasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'src_ws_id': encodeQueryParameter(_serializers, srcWsId, const FullType(int)),
+      if (srcTaskId != null) r'src_task_id': encodeQueryParameter(_serializers, srcTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

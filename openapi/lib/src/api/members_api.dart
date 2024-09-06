@@ -26,6 +26,7 @@ class MembersApi {
   /// Parameters:
   /// * [memberId] 
   /// * [wsId] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,6 +39,7 @@ class MembersApi {
   Future<Response<BuiltList<TaskGet>>> memberAssignedTasks({ 
     required int memberId,
     required int wsId,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -68,9 +70,14 @@ class MembersApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

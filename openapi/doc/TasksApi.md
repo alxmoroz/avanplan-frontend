@@ -390,7 +390,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **duplicateTask**
-> TasksChanges duplicateTask(wsId, taskId, srcWsId)
+> TasksChanges duplicateTask(wsId, taskId, srcWsId, srcTaskId)
 
 Duplicate
 
@@ -408,9 +408,10 @@ final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final int srcWsId = 56; // int | 
+final int srcTaskId = 56; // int | 
 
 try {
-    final response = api.duplicateTask(wsId, taskId, srcWsId);
+    final response = api.duplicateTask(wsId, taskId, srcWsId, srcTaskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksApi->duplicateTask: $e\n');
@@ -424,6 +425,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **srcWsId** | **int**|  | 
+ **srcTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -545,7 +547,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **repeatTask**
-> TasksChanges repeatTask(wsId, taskId, srcWsId)
+> TasksChanges repeatTask(wsId, taskId, srcWsId, srcTaskId)
 
 Repeat
 
@@ -563,9 +565,10 @@ final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final int srcWsId = 56; // int | 
+final int srcTaskId = 56; // int | 
 
 try {
-    final response = api.repeatTask(wsId, taskId, srcWsId);
+    final response = api.repeatTask(wsId, taskId, srcWsId, srcTaskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksApi->repeatTask: $e\n');
@@ -579,6 +582,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **srcWsId** | **int**|  | 
+ **srcTaskId** | **int**|  | [optional] 
 
 ### Return type
 

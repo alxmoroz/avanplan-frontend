@@ -10,7 +10,7 @@ void main() {
     //
     // Задачи участника РП
     //
-    //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId) async
+    //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId, { int taskId }) async
     test('test memberAssignedTasks', () async {
       // TODO
     });

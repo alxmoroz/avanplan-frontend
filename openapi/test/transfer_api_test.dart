@@ -8,14 +8,14 @@ void main() {
   group(TransferApi, () {
     // Create From Template
     //
-    //Future<TasksChanges> createFromTemplate(int wsId, int srcProjectId, int srcWsId) async
+    //Future<TasksChanges> createFromTemplate(int wsId, int srcProjectId, int srcWsId, { int srcTaskId, int taskId }) async
     test('test createFromTemplate', () async {
       // TODO
     });
 
     // Destinations For Move
     //
-    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType) async
+    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType, { int taskId }) async
     test('test destinationsForMove', () async {
       // TODO
     });
@@ -29,7 +29,7 @@ void main() {
 
     // Sources For Move
     //
-    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId) async
+    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId, { int taskId }) async
     test('test sourcesForMoveTasks', () async {
       // TODO
     });

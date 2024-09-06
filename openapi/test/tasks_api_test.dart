@@ -57,7 +57,7 @@ void main() {
 
     // Duplicate
     //
-    //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId) async
+    //Future<TasksChanges> duplicateTask(int wsId, int taskId, int srcWsId, { int srcTaskId }) async
     test('test duplicateTask', () async {
       // TODO
     });
@@ -78,7 +78,7 @@ void main() {
 
     // Repeat
     //
-    //Future<TasksChanges> repeatTask(int wsId, int taskId, int srcWsId) async
+    //Future<TasksChanges> repeatTask(int wsId, int taskId, int srcWsId, { int srcTaskId }) async
     test('test repeatTask', () async {
       // TODO
     });

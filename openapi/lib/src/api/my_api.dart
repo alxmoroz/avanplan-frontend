@@ -27,6 +27,7 @@ class MyApi {
   /// * [wsId] 
   /// * [closed] 
   /// * [imported] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -40,6 +41,7 @@ class MyApi {
     required int wsId,
     bool? closed,
     bool? imported,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -73,6 +75,7 @@ class MyApi {
     final _queryParameters = <String, dynamic>{
       if (closed != null) r'closed': encodeQueryParameter(_serializers, closed, const FullType(bool)),
       if (imported != null) r'imported': encodeQueryParameter(_serializers, imported, const FullType(bool)),
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -121,6 +124,7 @@ class MyApi {
   /// Parameters:
   /// * [wsId] 
   /// * [projectId] 
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -133,6 +137,7 @@ class MyApi {
   Future<Response<BuiltList<TaskGet>>> myTasks({ 
     required int wsId,
     int? projectId,
+    int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -165,6 +170,7 @@ class MyApi {
 
     final _queryParameters = <String, dynamic>{
       if (projectId != null) r'project_id': encodeQueryParameter(_serializers, projectId, const FullType(int)),
+      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

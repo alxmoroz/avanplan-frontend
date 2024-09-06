@@ -24,5 +24,5 @@ abstract class Person extends RPersistable {
 
   bool hp(String code) => permissions.contains(code);
 
-  String get initials => (fullName ?? email.substring(0, 2)).split(RegExp(r'\s')).map((word) => word.substring(0, 1).toUpperCase()).join('');
+  String get initials => (fullName ?? email.split('').join(' ')).split(RegExp(r'\s')).map((word) => word.substring(0, 1).toUpperCase()).join('');
 }

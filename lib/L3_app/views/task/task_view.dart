@@ -215,12 +215,12 @@ class TaskViewState<T extends TaskView> extends State<T> {
     final dialog = _isTaskDialog;
     final big = isBigScreen(context);
 
-    final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
-    final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
-    final showNoteField = task.canComment && (!hasKB || noteFieldFocused);
+    return Observer(builder: (_) {
+      final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
+      final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
+      final showNoteField = task.canComment && (!hasKB || noteFieldFocused);
 
-    return Observer(
-      builder: (_) => controller.loading && !task.filled
+      return controller.loading && !task.filled
           ? LoaderScreen(controller, isDialog: dialog)
           : dialog
               ? Observer(
@@ -269,7 +269,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       onScrolled: onScrolled,
                     );
                   },
-                ),
-    );
+                );
+    });
   }
 }

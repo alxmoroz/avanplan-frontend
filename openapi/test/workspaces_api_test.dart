@@ -41,6 +41,15 @@ void main() {
       // TODO
     });
 
+    // Delete Contact
+    //
+    // Удаление способа связи
+    //
+    //Future<bool> deleteMemberContact(int memberId, int memberContactId, int wsId, { int taskId }) async
+    test('test deleteMemberContact', () async {
+      // TODO
+    });
+
     // Delete
     //
     //Future<bool> deleteNote(int wsId, int noteId, int taskId) async
@@ -131,6 +140,15 @@ void main() {
     //
     //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId, { int taskId }) async
     test('test memberAssignedTasks', () async {
+      // TODO
+    });
+
+    // Contacts
+    //
+    // Способы связи участника РП
+    //
+    //Future<BuiltList<MemberContactGet>> memberContacts(int memberId, int wsId, { int taskId }) async
+    test('test memberContacts', () async {
       // TODO
     });
 
@@ -240,6 +258,15 @@ void main() {
     //
     //Future<AttachmentGet> uploadAttachment(int wsId, int taskId, int noteId, MultipartFile file) async
     test('test uploadAttachment', () async {
+      // TODO
+    });
+
+    // Upsert Contact
+    //
+    // Добавление / редактирование способа связи
+    //
+    //Future<MemberContactGet> upsertMemberContact(int memberId, int wsId, String value, { int taskId }) async
+    test('test upsertMemberContact', () async {
       // TODO
     });
 

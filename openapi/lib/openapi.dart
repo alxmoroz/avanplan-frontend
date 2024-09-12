@@ -10,6 +10,7 @@ export 'package:openapi/src/serializers.dart';
 export 'package:openapi/src/model/date.dart';
 
 export 'package:openapi/src/api/auth_api.dart';
+export 'package:openapi/src/api/member_contacts_api.dart';
 export 'package:openapi/src/api/members_api.dart';
 export 'package:openapi/src/api/my_api.dart';
 export 'package:openapi/src/api/my_account_api.dart';
@@ -64,6 +65,7 @@ export 'package:openapi/src/model/invitation.dart';
 export 'package:openapi/src/model/invitation_get.dart';
 export 'package:openapi/src/model/invoice_detail_get.dart';
 export 'package:openapi/src/model/invoice_get.dart';
+export 'package:openapi/src/model/member_contact_get.dart';
 export 'package:openapi/src/model/member_get.dart';
 export 'package:openapi/src/model/my_user.dart';
 export 'package:openapi/src/model/note_get.dart';

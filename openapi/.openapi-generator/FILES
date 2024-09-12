@@ -31,6 +31,8 @@ doc/Invitation.md
 doc/InvitationGet.md
 doc/InvoiceDetailGet.md
 doc/InvoiceGet.md
+doc/MemberContactGet.md
+doc/MemberContactsApi.md
 doc/MemberGet.md
 doc/MembersApi.md
 doc/MyAccountApi.md
@@ -96,6 +98,7 @@ doc/WorkspacesApi.md
 lib/openapi.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
+lib/src/api/member_contacts_api.dart
 lib/src/api/members_api.dart
 lib/src/api/my_account_api.dart
 lib/src/api/my_activities_api.dart
@@ -157,6 +160,7 @@ lib/src/model/invitation.dart
 lib/src/model/invitation_get.dart
 lib/src/model/invoice_detail_get.dart
 lib/src/model/invoice_get.dart
+lib/src/model/member_contact_get.dart
 lib/src/model/member_get.dart
 lib/src/model/my_user.dart
 lib/src/model/note_get.dart
@@ -225,6 +229,8 @@ test/invitation_get_test.dart
 test/invitation_test.dart
 test/invoice_detail_get_test.dart
 test/invoice_get_test.dart
+test/member_contact_get_test.dart
+test/member_contacts_api_test.dart
 test/member_get_test.dart
 test/members_api_test.dart
 test/my_account_api_test.dart

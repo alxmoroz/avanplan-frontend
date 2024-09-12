@@ -1,26 +1,17 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-/// tests for MembersApi
+/// tests for MemberContactsApi
 void main() {
-  final instance = Openapi().getMembersApi();
+  final instance = Openapi().getMemberContactsApi();
 
-  group(MembersApi, () {
+  group(MemberContactsApi, () {
     // Delete Contact
     //
     // Удаление способа связи
     //
     //Future<bool> deleteMemberContact(int memberId, int memberContactId, int wsId, { int taskId }) async
     test('test deleteMemberContact', () async {
-      // TODO
-    });
-
-    // Member Assigned Tasks
-    //
-    // Задачи участника РП
-    //
-    //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId, { int taskId }) async
-    test('test memberAssignedTasks', () async {
       // TODO
     });
 

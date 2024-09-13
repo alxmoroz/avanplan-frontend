@@ -52,7 +52,7 @@ class _LocalImportDialog extends StatelessWidget {
           topBar: MTAppBar(
             showCloseButton: true,
             color: b2Color,
-            title: loc.task_transfer_title,
+            pageTitle: loc.task_transfer_title,
             innerHeight: P * 22 + (_showSelectAll ? P8 : P),
             bottom: Column(
               mainAxisSize: MainAxisSize.min,

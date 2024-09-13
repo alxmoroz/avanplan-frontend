@@ -21,7 +21,7 @@ class _WSSelectDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.workspace_selector_title),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.workspace_selector_title),
         body: ListView.builder(
           shrinkWrap: true,
           itemCount: _wss.length,

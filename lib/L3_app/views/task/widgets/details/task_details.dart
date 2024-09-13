@@ -24,7 +24,6 @@ import '../../../../presenters/source.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/task_tree.dart';
-import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
 import '../dates/dates_field.dart';
@@ -38,7 +37,7 @@ import 'task_status_field.dart';
 
 Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
       MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: controller.task.subPageTitle(loc.details)),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.details, parentPageTitle: controller.task.title),
         body: TaskDetails(controller, standalone: true),
       ),
     );

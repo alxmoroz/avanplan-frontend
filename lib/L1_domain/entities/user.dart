@@ -1,9 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
-
 import 'person.dart';
 import 'user_activity.dart';
 
@@ -23,7 +19,6 @@ class User extends Person {
   final int wsId;
   final Iterable<UActivity> activities;
   final bool hasAvatar;
-  String get emailMD5 => md5.convert(utf8.encode(email)).toString();
 
   static User get dummy => User(
         id: null,

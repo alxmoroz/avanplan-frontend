@@ -28,7 +28,7 @@ Future<List<XFile>> selectFilesDialog() async {
             topBar: MTAppBar(
               color: b2Color,
               showCloseButton: true,
-              title: loc.attachment_add_action_title,
+              pageTitle: loc.attachment_add_action_title,
             ),
             body: Builder(
               builder: (context) => ListView(

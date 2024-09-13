@@ -46,7 +46,7 @@ class _EditAvatarDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(color: b2Color, showCloseButton: true, title: loc.avatar_edit_action_title),
+      topBar: MTAppBar(color: b2Color, showCloseButton: true, pageTitle: loc.avatar_edit_action_title),
       body: ListView(
         shrinkWrap: true,
         children: [

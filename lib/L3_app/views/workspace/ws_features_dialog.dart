@@ -41,7 +41,7 @@ class _WSFeaturesDialog extends StatelessWidget {
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                title: loc.tariff_features_title,
+                pageTitle: loc.tariff_features_title,
               ),
               body: ListView.builder(
                 shrinkWrap: true,

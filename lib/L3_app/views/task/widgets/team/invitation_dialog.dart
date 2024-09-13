@@ -18,7 +18,6 @@ import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../../usecases/ws_actions.dart';
 import 'invitation_controller.dart';
 
@@ -50,7 +49,8 @@ class _InvitationDialog extends StatelessWidget {
         topBar: MTAppBar(
           showCloseButton: true,
           color: b2Color,
-          middle: _controller.task.subPageTitle('${loc.invitation_share_subject_prefix}${loc.app_title}'),
+          pageTitle: '${loc.invitation_share_subject_prefix}${loc.app_title}',
+          parentPageTitle: _controller.task.title,
         ),
         body: ListView(
           shrinkWrap: true,

@@ -61,7 +61,7 @@ class _StoreDialog extends StatelessWidget {
       builder: (_) => controller.loading
           ? LoaderScreen(controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.balance_replenish_store_title),
+              topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.balance_replenish_store_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [

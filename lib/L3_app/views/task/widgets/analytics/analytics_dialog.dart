@@ -18,7 +18,6 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/project_module.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_tree.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
 import 'timing_chart.dart';
@@ -58,7 +57,12 @@ class _AnalyticsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _task.subPageTitle(loc.analytics_title)),
+      topBar: MTAppBar(
+        showCloseButton: true,
+        color: b2Color,
+        pageTitle: loc.analytics_title,
+        parentPageTitle: _task.title,
+      ),
       body: ListView(
         shrinkWrap: true,
         children: [

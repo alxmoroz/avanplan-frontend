@@ -30,7 +30,7 @@ class _NotificationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: nf.title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: nf.title),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: P3),
           child: ListView(

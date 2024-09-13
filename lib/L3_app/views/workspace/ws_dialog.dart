@@ -193,7 +193,7 @@ class _WSDialogState extends State<WSDialog> {
               topBar: MTAppBar(
                   showCloseButton: true,
                   color: b2Color,
-                  title: loc.workspace_title,
+                  pageTitle: loc.workspace_title,
                   trailing: ws.hpInfoUpdate
                       ? MTButton.icon(
                           const EditIcon(),

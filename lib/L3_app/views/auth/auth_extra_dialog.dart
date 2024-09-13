@@ -31,7 +31,11 @@ class _AuthExtraDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(title: loc.auth_sign_in_extra_title, color: b2Color, showCloseButton: true),
+      topBar: MTAppBar(
+        pageTitle: loc.auth_sign_in_extra_title,
+        color: b2Color,
+        showCloseButton: true,
+      ),
       body: ListView(
         shrinkWrap: true,
         children: [

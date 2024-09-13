@@ -1,5 +1,9 @@
 //  Copyright (c) 2023. Alexandr Moroz
 
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+
 import 'base_entity.dart';
 
 abstract class Person extends RPersistable {
@@ -15,6 +19,8 @@ abstract class Person extends RPersistable {
 
   final String? fullName;
   final String email;
+
+  String get emailMD5 => md5.convert(utf8.encode(email)).toString();
 
   final Iterable<String> roles;
   final Iterable<String> permissions;

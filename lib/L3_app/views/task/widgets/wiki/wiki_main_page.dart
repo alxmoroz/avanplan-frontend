@@ -7,7 +7,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
 import '../details/task_description_field.dart';
 
@@ -20,7 +19,12 @@ class _WikiMainPageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, middle: _controller.task.subPageTitle(loc.description), color: b2Color),
+      topBar: MTAppBar(
+        showCloseButton: true,
+        pageTitle: loc.description,
+        parentPageTitle: _controller.task.title,
+        color: b2Color,
+      ),
       body: SafeArea(
         bottom: false,
         minimum: const EdgeInsets.only(bottom: P3),

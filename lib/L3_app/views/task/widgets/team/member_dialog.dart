@@ -24,7 +24,6 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
@@ -53,6 +52,7 @@ class _MemberDialog extends StatelessWidget {
       roles,
       selectedId,
       loc.role_title,
+      parentPageTitle: _member?.fullName,
       valueBuilder: (_, r) => BaseText(r.title, maxLines: 1),
       subtitleBuilder: (_, r) => r.description.isNotEmpty ? SmallText(r.description, maxLines: 1) : const SizedBox(),
     );
@@ -84,7 +84,12 @@ class _MemberDialog extends StatelessWidget {
       builder: (_) => _mTasksController.loading
           ? LoaderScreen(_mTasksController, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _project.subPageTitle(loc.member_title)),
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                parentPageTitle: _project.title,
+                pageTitle: loc.member_title,
+              ),
               body: _member != null
                   ? MTRefresh(
                       onRefresh: _mTasksController.reload,

@@ -95,6 +95,7 @@ extension StatusUC on TaskController {
       projectStatusesController.sortedStatuses,
       task.projectStatusId,
       loc.task_status_select_placeholder,
+      parentPageTitle: task.title,
       valueBuilder: (_, status) {
         final selected = task.projectStatusId == status.id;
         final closed = status.closed;

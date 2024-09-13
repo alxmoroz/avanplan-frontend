@@ -45,10 +45,16 @@ class _WSUsersDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _ws.subPageTitle(loc.members_title)),
+        topBar: MTAppBar(
+          showCloseButton: true,
+          color: b2Color,
+          pageTitle: loc.members_title,
+          parentPageTitle: _ws.title,
+        ),
         body: ListView.builder(
           shrinkWrap: true,
           itemBuilder: (_, int index) => WSUserTile(
+            _ws,
             _ws.sortedUsers[index],
             bottomBorder: index < _ws.sortedUsers.length - 1,
           ),

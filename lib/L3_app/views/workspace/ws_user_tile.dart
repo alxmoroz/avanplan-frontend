@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
@@ -12,8 +13,9 @@ import '../../presenters/user.dart';
 import 'ws_user_dialog.dart';
 
 class WSUserTile extends StatelessWidget {
-  const WSUserTile(this._user, {super.key, required this.bottomBorder});
+  const WSUserTile(this._ws, this._user, {super.key, required this.bottomBorder});
   final User _user;
+  final Workspace _ws;
   final bool bottomBorder;
 
   static const _iconSize = P8;
@@ -27,7 +29,7 @@ class WSUserTile extends StatelessWidget {
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       dividerIndent: _iconSize + P5,
-      onTap: () async => await wsUserDialog(_user),
+      onTap: () => wsUserDialog(_ws, _user),
     );
   }
 }

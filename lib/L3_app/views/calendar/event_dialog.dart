@@ -98,7 +98,7 @@ class _EventDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTAppBar(
-        title: loc.calendar_event_title,
+        pageTitle: loc.calendar_event_title,
         color: b2Color,
         showCloseButton: true,
       ),

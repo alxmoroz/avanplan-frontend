@@ -72,7 +72,7 @@ class _WSTariffDialog extends StatelessWidget {
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                title: loc.tariff_title,
+                pageTitle: loc.tariff_title,
               ),
               body: ListView(
                 shrinkWrap: true,

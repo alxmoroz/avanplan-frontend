@@ -17,7 +17,6 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
-import '../../../../presenters/task_type.dart';
 import 'transactions_empty_info.dart';
 
 Future financeSummaryDialog(Task task) async => await showMTDialog<void>(_FinanceSummaryDialog(task));
@@ -32,7 +31,8 @@ class _FinanceSummaryDialog extends StatelessWidget {
     final hasExpenses = _task.expenses < 0;
     return MTDialog(
       topBar: MTAppBar(
-        middle: _task.subPageTitle(loc.tariff_option_finance_title),
+        pageTitle: loc.tariff_option_finance_title,
+        parentPageTitle: _task.title,
         showCloseButton: true,
         color: b2Color,
       ),

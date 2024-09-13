@@ -8,7 +8,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
 import 'note_field.dart';
 
@@ -20,7 +19,12 @@ class NoteEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _controller.task.subPageTitle(loc.task_note_title)),
+      topBar: MTAppBar(
+        showCloseButton: true,
+        color: b2Color,
+        pageTitle: loc.task_note_title,
+        parentPageTitle: _controller.task.title,
+      ),
       body: SafeArea(
         minimum: const EdgeInsets.only(bottom: P3),
         child: NoteField(_controller, note: note),

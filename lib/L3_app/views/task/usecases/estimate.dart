@@ -31,6 +31,7 @@ extension EstimateUC on TaskController {
       task.ws.sortedEstimateValues,
       currentId,
       loc.task_estimate_placeholder,
+      parentPageTitle: task.title,
       valueBuilder: (_, e) {
         final selected = currentId == e.id;
         final text = '${e.value}';

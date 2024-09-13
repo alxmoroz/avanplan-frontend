@@ -21,7 +21,7 @@ class _WSExpensesDialog extends StatelessWidget {
       topBar: MTAppBar(
         color: b2Color,
         showCloseButton: true,
-        title: '${loc.tariff_current_expenses_title} ${loc.per_month_suffix}',
+        pageTitle: '${loc.tariff_current_expenses_title} ${loc.per_month_suffix}',
       ),
       body: TariffExpenses(_ws),
     );

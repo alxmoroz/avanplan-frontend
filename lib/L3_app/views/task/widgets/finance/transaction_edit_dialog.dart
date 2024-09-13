@@ -18,7 +18,6 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/number.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../../views/_base/loader_screen.dart';
 import 'transaction_edit_controller.dart';
 
@@ -68,9 +67,9 @@ class _TransactionEditDialog extends StatelessWidget {
       topBar: MTAppBar(
         showCloseButton: true,
         color: b2Color,
-        middle: _task.subPageTitle(
-          '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.transaction.createdOn?.strMedium}',
-        ),
+        pageTitle:
+            '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.transaction.createdOn?.strMedium}',
+        parentPageTitle: _task.title,
         trailing: canDelete ? MTButton.icon(const DeleteIcon(), onTap: () => _delete(context), padding: const EdgeInsets.all(P2)) : null,
       ),
       body: ListView(

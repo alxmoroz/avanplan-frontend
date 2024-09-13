@@ -24,7 +24,7 @@ class _TariffConfirmExpensesDialog extends StatelessWidget {
       topBar: MTAppBar(
         color: b2Color,
         showCloseButton: true,
-        title: '${loc.tariff_estimated_expenses_title} ${loc.per_month_suffix}',
+        pageTitle: '${loc.tariff_estimated_expenses_title} ${loc.per_month_suffix}',
       ),
       body: ListView(
         shrinkWrap: true,

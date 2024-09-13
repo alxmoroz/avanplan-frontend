@@ -19,7 +19,6 @@ import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_repeat.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/dates.dart';
@@ -53,7 +52,8 @@ class _RepeatDialog extends StatelessWidget {
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                middle: _taskController.task.subPageTitle(loc.task_repeat_dialog_title),
+                pageTitle: loc.task_repeat_dialog_title,
+                parentPageTitle: _taskController.task.title,
                 trailing: _taskController.task.repeat != null
                     ? MTButton.icon(const DeleteIcon(), padding: const EdgeInsets.all(P2), onTap: () => _delete(context))
                     : null,

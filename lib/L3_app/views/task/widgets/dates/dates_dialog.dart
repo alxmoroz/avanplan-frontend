@@ -11,7 +11,6 @@ import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
 import 'due_date_field.dart';
@@ -35,7 +34,8 @@ class _DatesDialog extends StatelessWidget {
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                middle: _controller.task.subPageTitle(loc.task_dates),
+                pageTitle: loc.task_dates,
+                parentPageTitle: t.title,
               ),
               body: ListView(
                 shrinkWrap: true,

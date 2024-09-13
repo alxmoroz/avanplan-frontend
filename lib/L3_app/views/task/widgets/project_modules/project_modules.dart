@@ -163,7 +163,7 @@ class _ProjectModulesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.project_modules_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.project_modules_title),
       body: _ProjectModulesBody(
         _controller.projectModulesController,
         footer: MTButton.main(

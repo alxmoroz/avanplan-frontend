@@ -17,7 +17,8 @@ import 'toolbar.dart';
 Future<T?> showMTSelectDialog<T extends RPersistable>(
   List<T> items,
   int? selectedId,
-  String? titleText, {
+  String? pageTitle, {
+  String? parentPageTitle,
   Widget? Function(BuildContext, T)? leadingBuilder,
   Widget Function(BuildContext, T)? valueBuilder,
   Widget? Function(BuildContext, T)? subtitleBuilder,
@@ -28,7 +29,8 @@ Future<T?> showMTSelectDialog<T extends RPersistable>(
       _MTSelectDialog<T>(
         items,
         selectedId,
-        titleText,
+        pageTitle,
+        parentPageTitle: parentPageTitle,
         leadingBuilder: leadingBuilder,
         valueBuilder: valueBuilder,
         subtitleBuilder: subtitleBuilder,
@@ -41,7 +43,8 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
   const _MTSelectDialog(
     this.items,
     this.selectedId,
-    this.titleText, {
+    this.pageTitle, {
+    this.parentPageTitle,
     this.leadingBuilder,
     this.valueBuilder,
     this.subtitleBuilder,
@@ -50,7 +53,8 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
   });
   final List<T> items;
   final int? selectedId;
-  final String? titleText;
+  final String? pageTitle;
+  final String? parentPageTitle;
   final Widget? Function(BuildContext, T)? leadingBuilder;
   final Widget? Function(BuildContext, T)? valueBuilder;
   final Widget? Function(BuildContext, T)? subtitleBuilder;
@@ -78,7 +82,8 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
         topBar: MTAppBar(
           showCloseButton: true,
           color: b2Color,
-          title: titleText,
+          pageTitle: pageTitle,
+          parentPageTitle: parentPageTitle,
           trailing: onReset != null && selectedId != null
               ? MTButton.icon(
                   const DeleteIcon(),

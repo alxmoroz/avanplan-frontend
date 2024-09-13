@@ -63,7 +63,8 @@ class _SourcesDialog extends StatelessWidget {
         topBar: MTAppBar(
           showCloseButton: true,
           color: b2Color,
-          middle: _ws.subPageTitle(loc.source_list_title),
+          pageTitle: loc.source_list_title,
+          parentPageTitle: _ws.title,
           trailing: _ws.sources.isNotEmpty && _ws.hpSourceCreate
               ? MTButton.icon(
                   const PlusIcon(circled: true, size: P5),

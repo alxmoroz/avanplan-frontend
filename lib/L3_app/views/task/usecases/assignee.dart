@@ -31,6 +31,7 @@ extension AssigneeUC on TaskController {
       task.activeMembers,
       task.assigneeId,
       loc.task_assignee_placeholder,
+      parentPageTitle: task.title,
       leadingBuilder: (_, member) => member.icon(P3),
       valueBuilder: (_, member) => BaseText('$member', maxLines: 1),
       dividerIndent: P6 + P5,

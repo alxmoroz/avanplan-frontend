@@ -25,7 +25,12 @@ class _NoteMenuDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.task_note_title),
+      topBar: MTAppBar(
+        showCloseButton: true,
+        color: b2Color,
+        pageTitle: loc.task_note_title,
+        parentPageTitle: _taskController.task.title,
+      ),
       body: ListView(
         shrinkWrap: true,
         children: [

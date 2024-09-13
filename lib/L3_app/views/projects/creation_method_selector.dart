@@ -22,7 +22,7 @@ class _CreationMethodSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.project_creation_method_selector_title),
+      topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.project_creation_method_selector_title),
       body: ListView(
         shrinkWrap: true,
         children: [

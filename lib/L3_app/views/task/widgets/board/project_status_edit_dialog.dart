@@ -55,7 +55,11 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.status_title),
+        topBar: MTAppBar(
+          showCloseButton: true,
+          color: b2Color,
+          pageTitle: loc.status_title,
+        ),
         body: ListView(
           shrinkWrap: true,
           children: [

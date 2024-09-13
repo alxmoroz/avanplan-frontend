@@ -85,7 +85,7 @@ class TransferSelectorDialog extends StatelessWidget {
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                title: empty ? '' : _titleText,
+                pageTitle: empty ? '' : _titleText,
               ),
               body: empty
                   ? ListView(

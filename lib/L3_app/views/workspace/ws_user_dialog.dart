@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../components/avatar.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -14,16 +15,22 @@ import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../../presenters/user.dart';
 
-Future wsUserDialog(User user) async => await showMTDialog<void>(_WSUserDialog(user));
+Future wsUserDialog(Workspace ws, User user) async => await showMTDialog<void>(_WSUserDialog(ws, user));
 
 class _WSUserDialog extends StatelessWidget {
-  const _WSUserDialog(this._user);
+  const _WSUserDialog(this._ws, this._user);
   final User _user;
+  final Workspace _ws;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.member_title),
+      topBar: MTAppBar(
+        showCloseButton: true,
+        color: b2Color,
+        pageTitle: loc.member_title,
+        parentPageTitle: _ws.title,
+      ),
       body: ListView(
         shrinkWrap: true,
         children: [

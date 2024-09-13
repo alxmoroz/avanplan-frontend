@@ -11,10 +11,35 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'text.dart';
 
+class _SubpageTitle extends StatelessWidget {
+  const _SubpageTitle(this.pageTitle, {this.parentPageTitle});
+
+  final String? parentPageTitle;
+  final String pageTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: P8,
+      padding: const EdgeInsets.symmetric(horizontal: P3),
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (parentPageTitle != null) SmallText(parentPageTitle!, align: TextAlign.center, maxLines: 1),
+          BaseText.medium(pageTitle, align: TextAlign.center, color: f2Color, maxLines: 1),
+        ],
+      ),
+    );
+  }
+}
+
 class ToolBar extends StatelessWidget {
   const ToolBar({
     super.key,
-    this.titleText,
+    this.pageTitle,
+    this.parentPageTitle,
     this.leading,
     this.middle,
     this.bottom,
@@ -23,7 +48,8 @@ class ToolBar extends StatelessWidget {
     this.onClose,
     this.color,
   });
-  final String? titleText;
+  final String? pageTitle;
+  final String? parentPageTitle;
   final Widget? leading;
   final Widget? middle;
   final Widget? bottom;
@@ -43,7 +69,7 @@ class ToolBar extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              if (middle != null || titleText != null) middle ?? BaseText.medium(titleText!, align: TextAlign.center, maxLines: 1),
+              if (middle != null) middle! else if (pageTitle != null) _SubpageTitle(pageTitle!, parentPageTitle: parentPageTitle),
               Row(children: [
                 if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(onTap: onClose),
                 const Spacer(),
@@ -65,7 +91,8 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.leading,
     this.middle,
-    this.title,
+    this.pageTitle,
+    this.parentPageTitle,
     this.trailing,
     this.bottom,
     this.color,
@@ -79,7 +106,8 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final Widget? leading;
   final Widget? middle;
-  final String? title;
+  final String? pageTitle;
+  final String? parentPageTitle;
   final Widget? trailing;
   final Color? color;
   final double? innerHeight;
@@ -101,7 +129,8 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
         showCloseButton: showCloseButton,
         onClose: onClose,
         leading: leading ?? (!isBottom && !showCloseButton && router.canPop() ? _backButton : null),
-        titleText: title,
+        pageTitle: pageTitle,
+        parentPageTitle: parentPageTitle,
         middle: middle,
         bottom: bottom,
         trailing: trailing,

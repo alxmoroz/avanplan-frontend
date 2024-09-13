@@ -1,12 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
-import '../components/constants.dart';
-import '../components/text.dart';
 import '../extra/services.dart';
 import 'project_module.dart';
 import 'task_tree.dart';
@@ -88,17 +83,6 @@ extension TaskTypePresenter on Task {
         TType.BACKLOG: loc.task_count(count),
       }[type] ??
       loc.subtask_count(count);
-
-  Widget subPageTitle(String pageTitle) => SizedBox(
-        height: P8,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SmallText('$this', align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)),
-            H3(pageTitle, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)),
-          ],
-        ),
-      );
 
   String get wsCode => isProject ? ws.codeStr : '';
 }

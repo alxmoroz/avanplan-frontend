@@ -28,7 +28,7 @@ class _ViewSettingsDialog extends StatelessWidget {
       builder: (_) => calendarController.loading
           ? LoaderScreen(calendarController, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.my_tasks_view_settings_title),
+              topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.my_tasks_view_settings_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [

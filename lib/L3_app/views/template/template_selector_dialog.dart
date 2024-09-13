@@ -79,7 +79,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
       builder: (_) => _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.template_selector_title),
+              topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.template_selector_title),
               body: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _controller.templatesGroups.length,

@@ -95,7 +95,7 @@ class _NotificationsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, title: loc.notification_list_title),
+        topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.notification_list_title),
         body: _controller.notifications.isEmpty
             ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
             : ListView(

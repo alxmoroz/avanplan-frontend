@@ -98,7 +98,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
                 fNode: fNode,
                 autofocus: widget.standalone && !task.hasDescription,
                 hintText: hintText,
-                style: const BaseText('', color: f2Color).style(context),
+                style: BaseText('', color: widget.standalone ? null : f2Color).style(context),
                 onChanged: controller.setDescription,
                 onTap: tap,
               ),

@@ -17,7 +17,6 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/task_finance.dart';
-import '../../../../presenters/task_type.dart';
 import '../../controllers/task_transactions_controller.dart';
 import 'finance_summary_card.dart';
 import 'transaction_tile.dart';
@@ -35,7 +34,12 @@ class _TransactionsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _task.subPageTitle(loc.tariff_option_finance_title)),
+        topBar: MTAppBar(
+          showCloseButton: true,
+          color: b2Color,
+          pageTitle: loc.tariff_option_finance_title,
+          parentPageTitle: _task.title,
+        ),
         body: ListView(
           shrinkWrap: true,
           children: [

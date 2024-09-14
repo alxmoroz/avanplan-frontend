@@ -66,8 +66,11 @@ class _RepeatDialog extends StatelessWidget {
                     const SizedBox(height: P3),
                     MTGridButton(
                       [
-                        for (TRPeriodType v in TRPeriodType.values)
-                          MTGridButtonItem(v.name, Intl.message('task_repeat_period_${v.name.toLowerCase()}'))
+                        for (var pt in TaskRepeat.allPeriodTypes)
+                          MTGridButtonItem(
+                            pt.name,
+                            Intl.message('task_repeat_period_${pt.name.toLowerCase()}'),
+                          )
                       ],
                       value: _repeatController.repeat.periodType,
                       onChanged: _repeatController.setPeriodType,

@@ -44,7 +44,7 @@ extension TaskUC on Task {
 
     // сохраняем настройки отображения доска / список
     // TODO: работает только до тех пор, пока не будет полная перезагрузка на главном экране
-    et.viewMode = viewMode;
+    et.viewSettings = viewSettings;
 
     return et;
   }

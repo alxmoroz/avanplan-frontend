@@ -10,8 +10,7 @@ import 'project_status.dart';
 import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
-
-enum TasksViewMode { LIST, BOARD }
+import 'task_view_settings.dart';
 
 class TType {
   static const PROJECT = 'PROJECT';
@@ -175,8 +174,8 @@ class Task extends Project {
 
   bool creating = false;
 
-  TasksViewMode viewMode = TasksViewMode.BOARD;
-  bool get showBoard => viewMode == TasksViewMode.BOARD;
+  TaskViewSettings viewSettings = TaskViewSettings();
+  bool get showBoard => viewSettings.showBoard;
 
   @override
   int compareTo(t2) {

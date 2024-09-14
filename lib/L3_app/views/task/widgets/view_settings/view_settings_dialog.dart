@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task_view_settings.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -34,7 +35,7 @@ class _TasksViewSettingsDialog extends StatelessWidget {
   Future _save(BuildContext context) async {
     Navigator.of(context).pop();
 
-    _task.viewMode = _vsController.viewMode;
+    _task.viewSettings = _vsController.viewSettings;
     tasksMainController.refreshUI();
   }
 
@@ -63,7 +64,7 @@ class _TasksViewSettingsDialog extends StatelessWidget {
                     ),
                 ],
                 padding: const EdgeInsets.symmetric(horizontal: P3),
-                value: _vsController.viewMode.name,
+                value: _vsController.viewSettings.viewMode.name,
                 onChanged: _vsController.setViewMode,
               ),
             ],

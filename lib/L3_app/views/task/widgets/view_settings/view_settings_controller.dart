@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task_view_settings.dart';
 import '../../controllers/task_controller.dart';
 
 part 'view_settings_controller.g.dart';
@@ -10,7 +11,7 @@ part 'view_settings_controller.g.dart';
 class TasksViewSettingsController extends _Base with _$TasksViewSettingsController {
   TasksViewSettingsController(TaskController tc) {
     _taskController = tc;
-    viewMode = tc.task.viewMode;
+    viewSettings = tc.task.viewSettings;
   }
 }
 
@@ -20,8 +21,10 @@ abstract class _Base with Store {
   Task get task => _taskController.task;
 
   @observable
-  TasksViewMode viewMode = TasksViewMode.BOARD;
+  TaskViewSettings viewSettings = TaskViewSettings();
 
   @action
-  setViewMode(String? name) => viewMode = name == TasksViewMode.LIST.name ? TasksViewMode.LIST : TasksViewMode.BOARD;
+  setViewMode(String? name) => viewSettings = viewSettings.copyWith(
+        viewMode: name == TasksViewMode.LIST.name ? TasksViewMode.LIST : TasksViewMode.BOARD,
+      );
 }

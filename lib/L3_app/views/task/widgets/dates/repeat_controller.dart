@@ -21,7 +21,7 @@ abstract class _Base extends EditController with Store {
   late final Task _task;
 
   @observable
-  TaskRepeat repeat = TaskRepeat(wsId: -1, taskId: -1, periodType: TRPeriodType.DAILY.name, periodLength: 1, daysList: '');
+  TaskRepeat repeat = TaskRepeat();
 
   @action
   void setPeriodType(String? pt) {

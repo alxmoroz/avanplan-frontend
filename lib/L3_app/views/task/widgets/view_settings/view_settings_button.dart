@@ -31,7 +31,7 @@ class TasksViewSettingsButton extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         SettingsIcon(circled: circled, size: size),
-        if (_hasFilter) const MTCircle(color: mainColor, size: P2),
+        if (_hasFilter) MTCircle(color: mainColor, size: size / 2),
       ],
     );
   }

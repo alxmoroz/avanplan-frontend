@@ -187,10 +187,5 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
 
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;
 
-  @observable
-  bool showBoard = true;
-  @action
-  void toggleBoardMode() => showBoard = !showBoard;
-
   Timer? textEditTimer;
 }

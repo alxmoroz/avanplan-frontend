@@ -232,7 +232,6 @@
   "my_tasks_no_due_title": "Без срока",
   "my_tasks_this_week_title": "На этой неделе",
   "my_tasks_upcoming_title": "Ближайшие дела",
-  "my_tasks_view_settings_title": "Настройки вида",
 
   "next_action_title": "Продолжить",
   "new_title": "Новый",
@@ -537,8 +536,8 @@
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
   "task_unlink_dialog_title": "Удалить связь с источником?",
 
-  "task_view_mode_board_action_title": "Переключить на доску",
-  "task_view_mode_list_action_title": "Переключить на список",
+  "tasks_view_mode_board": "Доска",
+  "tasks_view_mode_list": "Список",
 
   "team_empty_hint": "Пригласите участников для эффективной совместной работы",
   "team_empty_title": "Команда ждёт приглашения",
@@ -556,6 +555,8 @@
   "total_title": "Итого",
 
   "validation_empty_text": "Нужно заполнить",
+  "view_mode_title": "Режим отображения",
+  "view_settings_title": "Настройки вида",
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
   "workspace_money_remaining_time_prefix": "Средств хватит на",

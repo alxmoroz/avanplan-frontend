@@ -232,7 +232,6 @@
   "my_tasks_no_due_title": "No due date",
   "my_tasks_this_week_title": "This week",
   "my_tasks_upcoming_title": "Upcoming Tasks",
-  "my_tasks_view_settings_title": "View settings",
 
   "next_action_title": "Next",
   "new_title": "New",
@@ -538,8 +537,8 @@
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",
   "task_unlink_dialog_title": "Unlink a source?",
 
-  "task_view_mode_board_action_title": "Switch to board view",
-  "task_view_mode_list_action_title": "Switch to list view",
+  "tasks_view_mode_board": "Board",
+  "tasks_view_mode_list": "List",
 
   "team_empty_hint": "Invite members to collaborate effectively",
   "team_empty_title": "The team is waiting for an invitation",
@@ -557,6 +556,8 @@
   "total_title": "Total",
 
   "validation_empty_text": "Should not be empty",
+  "view_mode_title": "View Mode",
+  "view_settings_title": "View Settings",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",

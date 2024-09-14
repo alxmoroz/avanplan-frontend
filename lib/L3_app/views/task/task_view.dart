@@ -121,35 +121,32 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       : MTAdaptive(child: TaskDetails(controller))
 
                   /// Группа
-                  : Observer(
-                      builder: (_) => !task.hasSubtasks && (!task.canShowBoard || !controller.showBoard)
+                  : !task.hasSubtasks && (!task.canShowBoard || !task.showBoard)
 
-                          /// Группа без подзадач
-                          ? NoTasks(controller)
+                      /// Группа без подзадач
+                      ? NoTasks(controller)
 
-                          /// Группа с задачами
-                          : Observer(
-                              builder: (_) => task.canShowBoard && controller.showBoard
+                      /// Группа с задачами
+                      : Observer(
+                          builder: (_) => task.canShowBoard && task.showBoard
 
-                                  /// Доска
-                                  ? Container(
-                                      height: constraints.maxHeight -
-                                          MediaQuery.paddingOf(ctx).vertical -
-                                          (isBigScreen(context) ? _scrollOffsetTop : -P2),
-                                      padding: const EdgeInsets.only(top: P3),
-                                      child: isWeb
-                                          ? Scrollbar(
-                                              controller: _boardScrollController,
-                                              thumbVisibility: true,
-                                              child: _board,
-                                            )
-                                          : _board,
-                                    )
+                              /// Доска
+                              ? Container(
+                                  height:
+                                      constraints.maxHeight - MediaQuery.paddingOf(ctx).vertical - (isBigScreen(context) ? _scrollOffsetTop : -P2),
+                                  padding: const EdgeInsets.only(top: P3),
+                                  child: isWeb
+                                      ? Scrollbar(
+                                          controller: _boardScrollController,
+                                          thumbVisibility: true,
+                                          child: _board,
+                                        )
+                                      : _board,
+                                )
 
-                                  /// Список
-                                  : TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
-                            ),
-                    ),
+                              /// Список
+                              : TasksListView(task.subtaskGroups, extra: controller.loadClosedButton()),
+                        ),
               // if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],
           );
@@ -171,7 +168,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget? get _title {
     return _isBigGroup
-        ? task.canShowBoard && controller.showBoard
+        ? task.canShowBoard && task.showBoard
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 child: _bigGroupTitle,

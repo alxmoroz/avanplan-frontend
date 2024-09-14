@@ -31,7 +31,7 @@ class NextTaskOrEvent implements Comparable {
     }
 
     if (res == 0) {
-      res = compareNatural(item.title, other.item.pageTitle);
+      res = compareNatural(item.title, other.item.title);
     }
 
     return res;

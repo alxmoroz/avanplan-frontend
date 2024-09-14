@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
+import 'icons.dart';
 import 'list_tile.dart';
 import 'text.dart';
 
 class MTGridButtonItem {
-  MTGridButtonItem(this.value, this.title);
+  MTGridButtonItem(this.value, this.title, {this.iconData});
   final String value;
   final String title;
+  final IconData? iconData;
 }
 
 class MTGridButton extends StatelessWidget {
@@ -27,10 +29,23 @@ class MTGridButton extends StatelessWidget {
   final String? value;
   final EdgeInsets? padding;
 
+  Widget _content(BuildContext context, MTGridButtonItem item, Color color) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (item.iconData != null) ...[
+          MTIcon(item.iconData, color: color),
+          const SizedBox(width: P),
+        ],
+        BaseText(item.title, maxLines: 1, align: TextAlign.center, color: color),
+      ],
+    );
+  }
+
   Widget _segment(BuildContext context, MTGridButtonItem item, double width) {
     return Flexible(
       child: MTListTile(
-        middle: BaseText.f2(item.title, maxLines: 1, align: TextAlign.center),
+        middle: _content(context, item, f2Color),
         minHeight: MIN_BTN_HEIGHT,
         padding: EdgeInsets.zero,
         color: f3Color.withOpacity(0.2),
@@ -69,7 +84,7 @@ class MTGridButton extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(MIN_BTN_HEIGHT / 2)),
                 color: b3Color.resolve(context),
               ),
-              child: BaseText(item.title, color: mainColor, maxLines: 1),
+              child: _content(context, item, mainColor),
             ),
           )
         : const SizedBox();

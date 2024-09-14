@@ -33,7 +33,7 @@ class MainRightToolbar extends StatelessWidget implements PreferredSizeWidget {
             if (!isWeb)
               MTListTile(
                 leading: const SettingsIcon(),
-                middle: _compact ? null : BaseText(loc.my_tasks_view_settings_title, maxLines: 1),
+                middle: _compact ? null : BaseText(loc.view_settings_title, maxLines: 1),
                 bottomDivider: false,
                 onTap: showViewSettingsDialog,
               ),

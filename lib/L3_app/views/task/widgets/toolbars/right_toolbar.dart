@@ -20,9 +20,9 @@ import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';
 import '../transfer/local_import_dialog.dart';
+import '../view_settings/view_settings_button.dart';
 import 'action_item.dart';
 import 'popup_menu.dart';
-import 'toggle_view_button.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskRightToolbar(this._taskController, this._controller, {super.key});
@@ -43,7 +43,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         const Spacer(),
 
         /// контекстные быстрые действия
-        if (_task.canShowBoard) TaskToggleViewButton(_taskController, compact: _compact),
+        if (_task.canShowBoard) TasksViewSettingsButton(_taskController, compact: _compact),
         if (_task.canCreateSubtask) CreateTaskButton(_taskController, compact: _compact),
         if (_task.canLocalImport)
           MTListTile(

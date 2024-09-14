@@ -13,7 +13,7 @@ import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
 import '../transfer/local_import_dialog.dart';
-import 'toggle_view_button.dart';
+import '../view_settings/view_settings_button.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskBottomToolbar(this._controller, {super.key});
@@ -35,7 +35,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
         middle: Row(
           children: [
             const SizedBox(width: P2),
-            if (_task.canShowBoard) TaskToggleViewButton(_controller),
+            TasksViewSettingsButton(_controller, compact: true),
             const Spacer(),
             if (_task.canLocalImport)
               MTButton.secondary(

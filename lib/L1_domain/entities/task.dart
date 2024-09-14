@@ -11,6 +11,8 @@ import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
 
+enum TasksViewMode { LIST, BOARD }
+
 class TType {
   static const PROJECT = 'PROJECT';
   static const INBOX = 'INBOX';
@@ -172,6 +174,9 @@ class Task extends Project {
   num? estimate;
 
   bool creating = false;
+
+  TasksViewMode viewMode = TasksViewMode.BOARD;
+  bool get showBoard => viewMode == TasksViewMode.BOARD;
 
   @override
   int compareTo(t2) {

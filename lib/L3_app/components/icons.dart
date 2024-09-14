@@ -383,24 +383,18 @@ class ProjectsIcon extends MTIcon {
 
 class RepeatIcon extends MTIcon {
   const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.repeat);
-  // const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_2_squarepath);
-  // const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_2_circlepath);
 }
 
 class QuestionIcon extends MTIcon {
   const QuestionIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.question_circle);
 }
 
-// class RefreshIcon extends MTIcon {
-//   const RefreshIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.refresh);
-// }
-
 class ReleaseNotesIcon extends MTIcon {
   const ReleaseNotesIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.time);
 }
 
 class SettingsIcon extends MTIcon {
-  const SettingsIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.slider_horizontal_3);
+  const SettingsIcon({super.key, super.color, super.circled, super.size = P6}) : super(CupertinoIcons.slider_horizontal_3);
 }
 
 class ShareIcon extends MTIcon {

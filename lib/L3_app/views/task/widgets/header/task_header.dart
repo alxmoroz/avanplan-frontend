@@ -14,7 +14,7 @@ import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
-import '../actions/done_button.dart';
+import '../toolbars/done_button.dart';
 import 'parent_title.dart';
 
 class TaskHeader extends StatelessWidget {

@@ -17,7 +17,7 @@ import '../../../../components/text_field_inline.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
-import '../actions/done_button.dart';
+import '../toolbars/done_button.dart';
 
 class TaskChecklistItem extends StatefulWidget {
   const TaskChecklistItem(this._controller, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});

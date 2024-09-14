@@ -24,9 +24,6 @@ import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
 import 'controllers/task_view_controller.dart';
 import 'usecases/edit.dart';
-import 'widgets/actions/bottom_toolbar.dart';
-import 'widgets/actions/popup_menu.dart';
-import 'widgets/actions/right_toolbar.dart';
 import 'widgets/board/board.dart';
 import 'widgets/dashboard/header_dashboard.dart';
 import 'widgets/details/task_description_field.dart';
@@ -37,6 +34,9 @@ import 'widgets/header/parent_title.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/notes/note_field_toolbar.dart';
 import 'widgets/tasks/tasks_list_view.dart';
+import 'widgets/toolbars/bottom_toolbar.dart';
+import 'widgets/toolbars/popup_menu.dart';
+import 'widgets/toolbars/right_toolbar.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView(this._controller, {super.key});

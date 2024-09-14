@@ -11,9 +11,9 @@ import '../../../../components/icons.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../transfer/local_import_dialog.dart';
+import 'toggle_view_button.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskBottomToolbar(this._controller, {super.key});

@@ -17,12 +17,12 @@ import '../../../../components/vertical_toolbar_controller.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../board/toggle_view_button.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';
 import '../transfer/local_import_dialog.dart';
 import 'action_item.dart';
 import 'popup_menu.dart';
+import 'toggle_view_button.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   const TaskRightToolbar(this._taskController, this._controller, {super.key});

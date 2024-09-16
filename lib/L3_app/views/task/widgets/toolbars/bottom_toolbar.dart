@@ -32,8 +32,10 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(top: P2),
         middle: Row(
           children: [
-            const SizedBox(width: P2),
-            TasksViewSettingsButton(_controller, compact: true),
+            if (_task.canEditViewSettings) ...[
+              const SizedBox(width: P2),
+              TasksViewSettingsButton(_controller, compact: true),
+            ],
             const Spacer(),
             if (_task.canLocalImport)
               MTButton.secondary(

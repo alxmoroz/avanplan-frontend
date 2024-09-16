@@ -43,7 +43,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         const Spacer(),
 
         /// контекстные быстрые действия
-        if (_task.canShowBoard) TasksViewSettingsButton(_taskController, compact: _compact),
+        if (_task.canEditViewSettings) TasksViewSettingsButton(_taskController, compact: _compact),
         if (_task.canCreateSubtask) CreateTaskButton(_taskController, compact: _compact),
         if (_task.canLocalImport)
           MTListTile(

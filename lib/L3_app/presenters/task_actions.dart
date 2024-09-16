@@ -83,6 +83,7 @@ extension TaskActionsUC on Task {
   bool get canEditProjectStatuses => hmTaskboard && _hpProjectInfoUpdate;
 
   bool get canShowBoard => (isGoal || (isProject && !hmGoals)) && hmTaskboard;
+  bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
 
   Iterable<TaskAction> actions(BuildContext context) => [
         if (canShowDetails(context)) TaskAction.details,

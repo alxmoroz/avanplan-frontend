@@ -61,7 +61,7 @@ class _TasksViewSettingsDialog extends StatelessWidget {
                 onChanged: _vsController.setViewMode,
               ),
             ],
-            MTListGroupTitle(titleText: loc.view_filters_title),
+            MTListGroupTitle(titleText: loc.view_filters_title, topMargin: _task.canShowBoard ? null : 0),
             TasksAssigneeFilterField(_vsController),
           ],
         ),

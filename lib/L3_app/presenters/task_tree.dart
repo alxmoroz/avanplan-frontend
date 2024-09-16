@@ -3,6 +3,7 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_view_settings.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_position.dart';
@@ -22,7 +23,28 @@ extension TaskTreeUC on Task {
 
   // TODO: попробовать вынести в computed в один из контроллеров
   Task get project => (isProject || isInbox) ? this : parent!.project;
+
   Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
+
+  List<Task> _filteredSubtasksTree(Iterable<TaskViewFilter> filters) {
+    final taskTree = <Task>[];
+    for (Task st in subtasks) {
+      if (st.isTask) {
+        bool pass = false;
+        for (TaskViewFilter f in filters) {
+          if (f.isAssignee) {
+            pass = f.values.contains(st.assigneeId);
+          }
+        }
+        if (pass) {
+          taskTree.add(st);
+        }
+      } else if (st.isGroup) {
+        taskTree.addAll(st._filteredSubtasksTree(filters));
+      }
+    }
+    return taskTree;
+  }
 
   // считает только открытые задачи в группах
   int get subtasksCount => subtasksCountIn ?? subtasks.length;
@@ -37,8 +59,10 @@ extension TaskTreeUC on Task {
   bool get hasSubtasks => subtasksCount > 0 || closedSubtasksCount > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
-  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).sorted((t1, t2) => t1.compareByPosition(t2));
-  List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
+  Iterable<Task> get _filteredSubtasks => viewSettings.hasFilters ? _filteredSubtasksTree(viewSettings.filters!) : subtasks;
+  List<Task> subtasksForStatus(int statusId) =>
+      _filteredSubtasks.where((t) => t.projectStatusId == statusId).sorted((t1, t2) => t1.compareByPosition(t2));
+  List<MapEntry<TaskState, List<Task>>> get filteredSubtaskGroups => groups(_filteredSubtasks);
 
   bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hmTeam;
 }

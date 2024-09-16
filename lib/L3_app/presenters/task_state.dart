@@ -144,8 +144,8 @@ extension TaskStatePresenter on Task {
   bool get projectLowStart => project.state == TaskState.LOW_START;
   double? get projectVelocity => project.velocity;
 
-  List<Task> get attentionalSubtasks => attentionalTasks(subtaskGroups);
-  TaskState get subtasksState => attentionalState(subtaskGroups);
+  List<Task> get attentionalSubtasks => attentionalTasks(filteredSubtaskGroups);
+  TaskState get subtasksState => attentionalState(filteredSubtaskGroups);
 
   String _subjects(int count, {bool dative = true}) {
     String res = '';

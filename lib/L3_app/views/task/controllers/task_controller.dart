@@ -48,8 +48,6 @@ enum TaskFCode {
   finance,
 }
 
-enum TasksFilter { my, projects }
-
 class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController({Task? taskIn}) {
     if (taskIn != null) initWithTask(taskIn);

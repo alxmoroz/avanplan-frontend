@@ -28,16 +28,16 @@ class TaskAssigneeFilterChip extends StatelessWidget {
       child: MTButton(
         type: ButtonType.card,
         color: b1Color,
-        minSize: const Size(0, P6),
+        minSize: const Size(0, P5),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: P),
-            BaseText.f3('${loc.task_assignee_label}: ', maxLines: 1),
-            Flexible(child: BaseText.f2(_task.filteredAssigneesStr, maxLines: 1)),
+            SmallText('${loc.task_assignee_label.toLowerCase()}: ', maxLines: 1),
+            Flexible(child: SmallText(_task.filteredAssigneesStr, maxLines: 1)),
             const SizedBox(width: P),
-            const CloseIcon(),
-            const SizedBox(width: P),
+            const CloseIcon(color: f2Color, size: P3),
+            // const SizedBox(width: P),
           ],
         ),
         onTap: TaskViewSettingsController(_task).resetAssigneesFilter,

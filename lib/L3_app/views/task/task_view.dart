@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_view.dart';
+import 'package:avanplan/L3_app/views/task/widgets/tasks/assignee_filter_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -113,6 +115,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
               /// Дашборд (аналитика, финансы, команда)
               if (task.isGroup || task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
+
+              if (task.hasFilteredAssignees) TaskAssigneeFilterChip(controller),
 
               /// Задача (лист)
               td.isTask

@@ -30,7 +30,7 @@ import '../dates/dates_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
 import '../project_modules/project_modules.dart';
-import '../tasks/task_checklist.dart';
+import '../tasks/checklist.dart';
 import 'assignee_field.dart';
 import 'estimate_field.dart';
 import 'task_status_field.dart';

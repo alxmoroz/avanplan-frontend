@@ -15,13 +15,12 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
-import '../../controllers/task_controller.dart';
 import 'assignee_filter_field.dart';
 import 'view_settings_controller.dart';
 
-Future showTasksViewSettingsDialog(TaskController taskController) async {
+Future showTasksViewSettingsDialog(Task task) async {
   await showMTDialog<void>(
-    _TasksViewSettingsDialog(TaskViewSettingsController(taskController)),
+    _TasksViewSettingsDialog(TaskViewSettingsController(task)),
     maxWidth: SCR_XS_WIDTH,
   );
 }

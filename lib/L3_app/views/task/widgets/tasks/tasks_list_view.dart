@@ -6,7 +6,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../analytics/state_title.dart';
-import 'task_card.dart';
+import 'card.dart';
 
 class TasksListView extends StatelessWidget {
   const TasksListView(this.groups, {this.extra, super.key});

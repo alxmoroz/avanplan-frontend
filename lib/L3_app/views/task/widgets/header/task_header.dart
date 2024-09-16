@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
+import '../../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';

@@ -20,7 +20,7 @@ class TasksViewSettingsButton extends StatelessWidget {
   final TaskController _controller;
   final bool compact;
 
-  void _tap() => showTasksViewSettingsDialog(_controller);
+  void _tap() => showTasksViewSettingsDialog(_controller.task);
 
   Widget _icon(BuildContext context) {
     final circled = isBigScreen(context);

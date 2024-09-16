@@ -175,7 +175,6 @@ class Task extends Project {
   bool creating = false;
 
   TaskViewSettings viewSettings = TaskViewSettings();
-  bool get showBoard => viewSettings.showBoard;
 
   @override
   int compareTo(t2) {

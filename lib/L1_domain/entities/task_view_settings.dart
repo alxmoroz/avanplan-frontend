@@ -13,6 +13,7 @@ class TaskViewFilter {
 
   bool get isAssignee => type == TaskViewFilterType.ASSIGNEE;
   bool get isEmpty => values.isEmpty;
+  bool get isNotEmpty => values.isNotEmpty;
 }
 
 class TaskViewSettings {

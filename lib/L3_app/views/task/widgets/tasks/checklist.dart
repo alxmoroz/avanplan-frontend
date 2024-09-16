@@ -15,7 +15,7 @@ import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
-import 'task_checklist_item.dart';
+import 'checklist_item.dart';
 
 class TaskChecklist extends StatelessWidget {
   const TaskChecklist(this._taskController, {super.key});

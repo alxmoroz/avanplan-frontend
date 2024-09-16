@@ -8,6 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
+import '../../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';

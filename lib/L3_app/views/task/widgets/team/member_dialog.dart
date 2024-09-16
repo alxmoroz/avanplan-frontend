@@ -28,7 +28,7 @@ import '../../../../presenters/ws_member.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/members.dart';
-import '../tasks/task_card.dart';
+import '../tasks/card.dart';
 import 'member_tasks_controller.dart';
 
 Future taskMemberDialog(TaskController taskController, int memberId) async {

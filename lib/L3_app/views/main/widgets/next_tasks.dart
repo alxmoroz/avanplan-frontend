@@ -8,7 +8,7 @@ import '../../../../L1_domain/entities/next_task_or_event.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
 import '../../../extra/services.dart';
-import '../../../views/task/widgets/tasks/task_card.dart';
+import '../../../views/task/widgets/tasks/card.dart';
 import '../../calendar/event_card.dart';
 import '../../task/widgets/analytics/state_title.dart';
 

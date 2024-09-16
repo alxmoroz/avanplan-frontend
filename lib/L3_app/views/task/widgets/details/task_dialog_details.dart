@@ -10,7 +10,7 @@ import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
-import '../tasks/task_checklist.dart';
+import '../tasks/checklist.dart';
 
 class TaskDialogDetails extends StatelessWidget {
   const TaskDialogDetails(this._controller, {super.key});

@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/toolbar.dart';
@@ -29,7 +28,6 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
     return Observer(
       builder: (_) => MTAppBar(
         isBottom: true,
-        color: b2Color,
         innerHeight: preferredSize.height - P2,
         padding: const EdgeInsets.only(top: P2),
         middle: Row(

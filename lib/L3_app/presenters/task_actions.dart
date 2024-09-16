@@ -3,9 +3,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
+import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_params.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';

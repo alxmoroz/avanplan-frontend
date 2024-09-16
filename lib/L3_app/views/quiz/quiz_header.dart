@@ -63,7 +63,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
                     const Spacer(),
                     if (_controller.stepIndex < _controller.stepsCount - 1)
                       MTButton(
-                        titleText: loc.skip_action_title,
+                        titleText: loc.action_skip_title,
                         padding: const EdgeInsets.only(right: P2),
                         onTap: _controller.finish,
                       )

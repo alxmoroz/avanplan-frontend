@@ -132,7 +132,7 @@ class _RepeatDialog extends StatelessWidget {
                         onChanged: _repeatController.selectDayOfMonth,
                       ),
                     MTButton.main(
-                      titleText: loc.save_action_title,
+                      titleText: loc.action_save_title,
                       onTap: _repeatController.canSave ? () => _save(context) : null,
                       margin: const EdgeInsets.symmetric(vertical: P4),
                     ),

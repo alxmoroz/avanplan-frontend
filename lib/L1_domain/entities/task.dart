@@ -3,7 +3,6 @@
 import '../entities_extensions/task_dates.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
-import 'member.dart';
 import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
@@ -11,6 +10,7 @@ import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
 import 'task_view_settings.dart';
+import 'ws_member.dart';
 
 class TType {
   static const PROJECT = 'PROJECT';

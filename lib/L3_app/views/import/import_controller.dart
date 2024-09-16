@@ -80,8 +80,8 @@ abstract class _ImportControllerBase with Store, Loadable {
   }
 
   @action
-  void selectProject(ProjectRemote task, bool? selected) {
-    task.selected = selected == true;
+  void selectProject(ProjectRemote p, bool? selected) {
+    p.selected = selected == true;
     projects = [...projects];
   }
 

@@ -99,14 +99,14 @@ extension TaskEditUC on TaskController {
   Widget? loadClosedButton({bool board = false}) => task.closedSubtasksCount > task.closedSubtasks.length
       ? board
           ? MTListTile(
-              middle: BaseText.medium(loc.show_closed_action_title, color: mainColor, align: TextAlign.center),
+              middle: BaseText.medium(loc.action_show_closed_title, color: mainColor, align: TextAlign.center),
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
               loading: loading,
               bottomDivider: false,
               onTap: reload,
             )
           : MTButton.secondary(
-              titleText: loc.show_closed_action_title,
+              titleText: loc.action_show_closed_title,
               margin: const EdgeInsets.only(top: P3),
               loading: loading,
               onTap: reload,

@@ -4,6 +4,7 @@
   "about_service_title": "О сервисе",
 
   "action_add_title": "Добавить",
+  "action_apply_title": "Применить",
   "action_back_title": "Назад",
   "action_clear_title": "Сбросить",
   "action_close_title": "Завершить",
@@ -15,6 +16,10 @@
   "action_no_dont_delete_title": "Не удалять",
   "action_no_dont_unlink_title": "Не отключать",
   "action_no_dont_unsubscribe_title": "Не отключать",
+  "action_save_title": "Сохранить",
+  "action_select_all_title": "Выбрать все",
+  "action_show_closed_title": "Показать выполненные",
+  "action_skip_title": "Пропустить",
   "action_subscribe_title": "Подключить",
   "action_unlink_title": "Отключить",
   "action_yes_title": "Да",
@@ -325,12 +330,6 @@
   "role_owner_description": "Полный доступ",
   "role_select_action_title": "Выберите роль",
 
-  "save_action_title": "Сохранить",
-  "select_all_action_title": "Выбрать все",
-  "show_closed_action_title": "Показать выполненные",
-
-  "skip_action_title": "Пропустить",
-
   "source_api_key_placeholder": "Ключ API / Токен",
   "source_auth_user_placeholder": "Пользователь",
   "source_delete_dialog_title": "Удалить источник импорта?",
@@ -555,6 +554,9 @@
   "total_title": "Итого",
 
   "validation_empty_text": "Нужно заполнить",
+
+  "view_filter_title": "Фильтр",
+  "view_filters_title": "Фильтры",
   "view_mode_title": "Режим отображения",
   "view_settings_title": "Настройки вида",
 

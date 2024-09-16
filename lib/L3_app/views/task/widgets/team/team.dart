@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/ws_member.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';

@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -63,7 +62,6 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
     return MTAppBar(
       key: const ValueKey('NoteFieldToolbar'),
       isBottom: true,
-      color: b2Color,
       inDialog: inDialog,
       innerHeight: innerHeight,
       padding: const EdgeInsets.only(top: _topPadding, bottom: _bottomPadding),

@@ -107,7 +107,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                   const Spacer(),
                   if (accountController.me != null)
                     MTListTile(
-                      leading: accountController.me!.icon(P6 / 2, borderColor: mainColor),
+                      leading: accountController.me!.icon(P3, borderColor: mainColor),
                       middle: _compact ? null : BaseText('${accountController.me!}', maxLines: 1, color: f2Color),
                       bottomDivider: false,
                       onTap: settingsMenu,

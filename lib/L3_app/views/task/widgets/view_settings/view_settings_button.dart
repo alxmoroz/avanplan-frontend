@@ -20,8 +20,6 @@ class TasksViewSettingsButton extends StatelessWidget {
   final TaskController _controller;
   final bool compact;
 
-  bool get _hasFilter => true;
-
   void _tap() => showTasksViewSettingsDialog(_controller);
 
   Widget _icon(BuildContext context) {
@@ -31,7 +29,7 @@ class TasksViewSettingsButton extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         SettingsIcon(circled: circled, size: size),
-        if (_hasFilter) MTCircle(color: mainColor, size: size / 2),
+        if (_controller.task.viewSettings.hasFilters) MTCircle(color: mainColor, size: size / 2),
       ],
     );
   }

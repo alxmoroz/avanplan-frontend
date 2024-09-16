@@ -4,8 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/ws_member.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
@@ -43,7 +43,7 @@ class _MemberDialog extends StatelessWidget {
   final int _memberId;
 
   Task get _project => _tc.task;
-  WSMember? get _member => _project.memberForId(_memberId);
+  WSMember? get _member => _project.taskMemberForId(_memberId);
 
   Future _editRoles(BuildContext context) async {
     final roles = _project.ws.roles.toList();

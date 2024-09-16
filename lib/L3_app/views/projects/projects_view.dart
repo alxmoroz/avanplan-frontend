@@ -110,7 +110,6 @@ class _ProjectsViewState extends State<ProjectsView> {
                 : MTAppBar(
                     isBottom: true,
                     padding: const EdgeInsets.only(top: P2),
-                    color: b2Color,
                     trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary),
                   )
             : null,

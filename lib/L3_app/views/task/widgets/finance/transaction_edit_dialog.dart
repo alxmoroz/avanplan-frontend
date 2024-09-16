@@ -126,7 +126,7 @@ class _TransactionEditDialog extends StatelessWidget {
           for (final code in [TransactionFCode.category, TransactionFCode.description]) _tf(code),
           const SizedBox(height: P3),
           MTButton.main(
-            titleText: loc.save_action_title,
+            titleText: loc.action_save_title,
             onTap: canSave ? () => _save(context) : null,
           ),
           if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),

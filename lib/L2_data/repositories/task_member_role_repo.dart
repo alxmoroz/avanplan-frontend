@@ -3,8 +3,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/repositories/abs_member_role_repo.dart';
 import '../../L2_data/mappers/member.dart';
 import '../services/api.dart';

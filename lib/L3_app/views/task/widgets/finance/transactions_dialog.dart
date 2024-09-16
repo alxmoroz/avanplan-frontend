@@ -85,7 +85,6 @@ class _TransactionsDialog extends StatelessWidget {
         bottomBar: MTAppBar(
           isBottom: true,
           inDialog: true,
-          color: b2Color,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: Row(
             children: [

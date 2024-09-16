@@ -167,7 +167,7 @@ class _ProjectModulesDialog extends StatelessWidget {
       body: _ProjectModulesBody(
         _controller.projectModulesController,
         footer: MTButton.main(
-          titleText: loc.save_action_title,
+          titleText: loc.action_save_title,
           margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: () async {
             Navigator.of(context).pop();

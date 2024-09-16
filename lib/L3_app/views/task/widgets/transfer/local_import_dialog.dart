@@ -83,7 +83,7 @@ class _LocalImportDialog extends StatelessWidget {
                 ),
                 if (_showSelectAll)
                   MTCheckBoxTile(
-                    title: '${loc.select_all_action_title} (${controller.checks.length})',
+                    title: '${loc.action_select_all_title} (${controller.checks.length})',
                     titleColor: mainColor,
                     color: b2Color,
                     value: controller.selectedAll,
@@ -96,7 +96,6 @@ class _LocalImportDialog extends StatelessWidget {
             ),
           ),
           body: MTShadowed(
-            shadowColor: b1Color,
             bottomShadow: controller.srcSelected,
             child: ListView.builder(
               shrinkWrap: true,
@@ -108,7 +107,6 @@ class _LocalImportDialog extends StatelessWidget {
               ? MTAppBar(
                   isBottom: true,
                   inDialog: true,
-                  color: b2Color,
                   padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),

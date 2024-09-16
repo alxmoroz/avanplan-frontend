@@ -76,7 +76,7 @@ class _ImportDialog extends StatelessWidget {
             if (_hasProjects) ...[
               if (_showSelectAll)
                 MTCheckBoxTile(
-                  title: '${loc.select_all_action_title} (${controller.selectableProjects.length})',
+                  title: '${loc.action_select_all_title} (${controller.selectableProjects.length})',
                   titleColor: mainColor,
                   color: b2Color,
                   value: _selectedAll,
@@ -114,7 +114,6 @@ class _ImportDialog extends StatelessWidget {
         )
       : _hasSources
           ? MTShadowed(
-              shadowColor: b1Color,
               bottomShadow: true,
               child: ListView.builder(
                 shrinkWrap: true,
@@ -130,7 +129,6 @@ class _ImportDialog extends StatelessWidget {
       ? MTAppBar(
           isBottom: true,
           inDialog: true,
-          color: b2Color,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: MTButton.main(
             padding: const EdgeInsets.symmetric(horizontal: P3),

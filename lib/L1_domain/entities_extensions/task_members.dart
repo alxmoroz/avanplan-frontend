@@ -3,8 +3,8 @@
 import 'package:collection/collection.dart';
 
 import '../../L3_app/presenters/task_tree.dart';
-import '../entities/member.dart';
 import '../entities/task.dart';
+import '../entities/ws_member.dart';
 import 'ws_users.dart';
 
 extension TaskMembersExtension on Task {
@@ -18,7 +18,7 @@ extension TaskMembersExtension on Task {
       .toList();
 
   // выставляем флаг, что этот участник есть в проекте, либо без этого
-  WSMember? memberForId(int? id) => activeMembers.firstWhereOrNull((m) => m.id == id) ?? ws.members.firstWhereOrNull((m) => m.id == id);
-  WSMember? get author => memberForId(authorId);
-  WSMember? get assignee => memberForId(assigneeId);
+  WSMember? taskMemberForId(int? id) => activeMembers.firstWhereOrNull((m) => m.id == id) ?? ws.members.firstWhereOrNull((m) => m.id == id);
+  WSMember? get author => taskMemberForId(authorId);
+  WSMember? get assignee => taskMemberForId(assigneeId);
 }

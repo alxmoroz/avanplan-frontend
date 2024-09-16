@@ -4,6 +4,7 @@
   "about_service_title": "About service",
 
   "action_add_title": "Add",
+  "action_apply_title": "Apply",
   "action_back_title": "Back",
   "action_clear_title": "Clear",
   "action_close_title": "Close",
@@ -15,6 +16,10 @@
   "action_no_dont_delete_title": "No, don't delete",
   "action_no_dont_unlink_title": "No, don't unlink",
   "action_no_dont_unsubscribe_title": "No, don't unsubscribe",
+  "action_save_title": "Save",
+  "action_select_all_title": "Select all",
+  "action_show_closed_title": "Show closed",
+  "action_skip_title": "Skip",
   "action_subscribe_title": "Subscribe",
   "action_unlink_title": "Unlink",
   "action_yes_title": "Yes",
@@ -325,12 +330,6 @@
   "role_owner_description": "Full Access",
   "role_select_action_title": "Select role",
 
-  "save_action_title": "Save",
-  "select_all_action_title": "Select all",
-  "show_closed_action_title": "Show closed",
-
-  "skip_action_title": "Skip",
-
   "source_api_key_placeholder": "API key / Token",
   "source_auth_user_placeholder": "User",
   "source_create_action_title": "Add source",
@@ -556,6 +555,9 @@
   "total_title": "Total",
 
   "validation_empty_text": "Should not be empty",
+
+  "view_filter_title": "View Filter",
+  "view_filters_title": "View Filters",
   "view_mode_title": "View Mode",
   "view_settings_title": "View Settings",
 

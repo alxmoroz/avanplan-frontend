@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import '../../../../L1_domain/entities/member.dart';
+import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/constants.dart';
 import '../../../components/select_dialog.dart';

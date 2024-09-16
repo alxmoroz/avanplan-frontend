@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart' as api;
 
-import '../../L1_domain/entities/member.dart';
+import '../../L1_domain/entities/ws_member.dart';
 
 extension MemberMapper on api.MemberGet {
   WSMember wsMember(int wsId) => WSMember(

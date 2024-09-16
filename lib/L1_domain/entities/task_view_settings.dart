@@ -1,17 +1,27 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-enum TasksViewMode { LIST, BOARD }
+import 'package:collection/collection.dart';
+
+enum TaskViewMode { LIST, BOARD }
+
+enum TaskViewFilterType { ASSIGNEE }
+
+class TaskViewFilter {
+  TaskViewFilter(this.type, this.values);
+  final TaskViewFilterType type;
+  final List values;
+
+  bool get isAssignee => type == TaskViewFilterType.ASSIGNEE;
+  bool get isEmpty => values.isEmpty;
+}
 
 class TaskViewSettings {
-  TaskViewSettings({this.viewMode = TasksViewMode.BOARD});
-  final TasksViewMode viewMode;
+  TaskViewSettings({this.viewMode = TaskViewMode.BOARD, this.filters});
+  final TaskViewMode viewMode;
+  final Iterable<TaskViewFilter>? filters;
 
-  bool get showBoard => viewMode == TasksViewMode.BOARD;
+  bool get showBoard => viewMode == TaskViewMode.BOARD;
+  bool get hasFilters => filters?.isNotEmpty == true;
 
-  TaskViewSettings copyWith({
-    TasksViewMode? viewMode,
-  }) =>
-      TaskViewSettings(
-        viewMode: viewMode ?? this.viewMode,
-      );
+  TaskViewFilter? get assigneeFilter => filters?.firstWhereOrNull((f) => f.isAssignee);
 }

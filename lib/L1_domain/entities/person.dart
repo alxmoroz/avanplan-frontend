@@ -1,8 +1,9 @@
-//  Copyright (c) 2023. Alexandr Moroz
+//  Copyright (c) 2024. Alexandr Moroz
 
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 
 import 'base_entity.dart';
 
@@ -17,6 +18,7 @@ abstract class Person extends RPersistable {
     required this.permissions,
   });
 
+  @protected
   final String? fullName;
   final String email;
 
@@ -25,10 +27,10 @@ abstract class Person extends RPersistable {
   final Iterable<String> roles;
   final Iterable<String> permissions;
 
-  @override
-  String toString() => fullName ?? email;
-
   bool hp(String code) => permissions.contains(code);
 
-  String get initials => (fullName ?? email.split('').join(' ')).split(RegExp(r'\s')).map((word) => word.substring(0, 1).toUpperCase()).join('');
+  String get viewableName => fullName != null && fullName!.isNotEmpty ? fullName! : email;
+
+  @override
+  String toString() => viewableName;
 }

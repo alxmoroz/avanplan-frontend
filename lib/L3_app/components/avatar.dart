@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/ws_member.dart';
 import '../../L2_data/services/api.dart';
+import '../presenters/person.dart';
 import '../presenters/ws_member.dart';
 import 'circle.dart';
 import 'colors.dart';

@@ -52,7 +52,7 @@ class _MemberDialog extends StatelessWidget {
       roles,
       selectedId,
       loc.role_title,
-      parentPageTitle: _member?.fullName,
+      parentPageTitle: _member?.viewableName,
       valueBuilder: (_, r) => BaseText(r.title, maxLines: 1),
       subtitleBuilder: (_, r) => r.description.isNotEmpty ? SmallText(r.description, maxLines: 1) : const SizedBox(),
     );

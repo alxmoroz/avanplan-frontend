@@ -12,5 +12,5 @@ extension TaskViewExt on Task {
   Iterable<WSMember> get _filteredAssignees => activeMembers.where((m) => (_assigneeFilter?.values ?? []).contains(m.id));
 
   bool get hasFilteredAssignees => _assigneeFilter?.isNotEmpty == true && _filteredAssignees.isNotEmpty;
-  String get filteredAssigneesStr => _filteredAssignees.map((m) => m.fullName).join(', ');
+  String get filteredAssigneesStr => _filteredAssignees.map((m) => m.viewableName).join(', ');
 }

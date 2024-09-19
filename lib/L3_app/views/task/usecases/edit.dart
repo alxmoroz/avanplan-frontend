@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_copy.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -15,6 +14,7 @@ import '../../../extra/router.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/project_module.dart';
 import '../../../presenters/task_tree.dart';
+import '../../../presenters/task_view.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/create/create_task_dialog.dart';
@@ -75,8 +75,7 @@ extension TaskEditUC on TaskController {
     await editWrapper(() async {
       setLoaderScreenLoading();
       final filteredSubtasks = task.filteredSubtasks.toList();
-      final fullTree = task.isProject && task.hasFilteredAssignees;
-      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: fullTree);
+      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: task.isProjectWithGoalsAndFilters);
       if (taskNode != null) {
         // удаление дерева подзадач
         for (final t in filteredSubtasks) {

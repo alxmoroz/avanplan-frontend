@@ -5,7 +5,9 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_view_settings.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_view.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/edit.dart';
 
 part 'view_settings_controller.g.dart';
 
@@ -38,17 +40,25 @@ abstract class _Base with Store {
   }
 
   void setFilter(TaskViewFilter filter) {
+    bool hasChanges = false;
+
     if (filter.isEmpty) {
       _filters.removeWhere((f) => f.type == filter.type);
     } else {
       final index = _filters.indexWhere((f) => f.type == filter.type);
       if (index > -1) {
-        _filters[index] = filter;
+        final oldFilter = _filters[index];
+        hasChanges = oldFilter.values != filter.values;
+        if (hasChanges) _filters[index] = filter;
       } else {
+        hasChanges = true;
         _filters.add(filter);
       }
     }
     _save();
+
+    // обновляем проект с целями при включении фильтрации
+    if (hasChanges && task.isProjectWithGoalsAndFilters) _tc.reload();
   }
 
   void resetAssigneesFilter() {

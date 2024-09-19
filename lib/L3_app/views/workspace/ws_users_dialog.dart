@@ -27,7 +27,7 @@ class WSUsersRoute extends MTRoute {
   bool isDialog(BuildContext context) => true;
 
   @override
-  String? title(GoRouterState state) => '${_wsController.ws.code} | ${loc.members_title}';
+  String? title(GoRouterState state) => '${_wsController.ws.code} | ${loc.workspace_members_title}';
 
   WSController get _wsController => parent!.controller as WSController;
 
@@ -48,7 +48,7 @@ class _WSUsersDialog extends StatelessWidget {
         topBar: MTAppBar(
           showCloseButton: true,
           color: b2Color,
-          pageTitle: loc.members_title,
+          pageTitle: loc.workspace_members_title,
           parentPageTitle: _ws.title,
         ),
         body: ListView.builder(

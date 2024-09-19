@@ -218,12 +218,6 @@
   "member_plural": "{count, plural, one{участник} few{участника} other{участников}}",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
-  "member_tasks_classified_count_prefix": "Недостаточно прав для просмотра ещё",
-  "member_title": "Участник",
-  "member_unlink_action_title": "Отключить от проекта",
-  "member_unlink_dialog_title": "Отключить участника от проекта?",
-  "member_unlink_dialog_description": "Участник потеряет доступ к проекту. ",
-  "members_title": "Участники",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
   "more_count": "и ещё {count}",
@@ -276,6 +270,11 @@
   "project_list_empty_title": "Добавьте проект",
   "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",
   "project_list_title": "Проекты",
+
+  "project_member_title": "Участник проекта",
+  "project_member_unlink_action_title": "Отключить от проекта",
+  "project_member_unlink_dialog_title": "Отключить участника от проекта?",
+  "project_member_unlink_dialog_description": "Участник потеряет доступ к проекту",
 
   "project_modules_always_on_label": "Подключены всегда",
   "project_modules_available_label": "Доступны на вашем тарифе",
@@ -561,6 +560,8 @@
   "view_settings_title": "Настройки вида",
 
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
+  "workspace_member_title": "Участник РП",
+  "workspace_members_title": "Участники РП",
   "workspace_money_remaining_time_prefix": "Средств хватит на",
   "workspace_selector_title": "Выберите рабочее пространство",
   "workspace_title": "Рабочее пространство",

@@ -218,12 +218,6 @@
   "member_plural": "{count, plural, one{member} other{members}}",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
-  "member_tasks_classified_count_prefix": "Insufficient rights to view the remaining",
-  "member_title": "Member",
-  "member_unlink_action_title": "Unlink from project",
-  "member_unlink_dialog_title": "Unlink member from project?",
-  "member_unlink_dialog_description": "The member will lose access to the project",
-  "members_title": "Members",
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
   "more_count": "and {count} more",
@@ -276,6 +270,11 @@
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
   "project_list_title": "Projects",
+
+  "project_member_title": "Project Member",
+  "project_member_unlink_action_title": "Unlink from project",
+  "project_member_unlink_dialog_title": "Unlink member from project?",
+  "project_member_unlink_dialog_description": "The member will lose access to the project",
 
   "project_modules_always_on_label": "Always On",
   "project_modules_available_label": "Available on your tariff plan",
@@ -562,6 +561,8 @@
   "view_settings_title": "View Settings",
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
+  "workspace_member_title": "Workspace Member",
+  "workspace_members_title": "Workspace Members",
   "workspace_money_remaining_time_prefix": "Funds will be enough for",
   "workspace_selector_title": "Choose a workspace",
   "workspace_title": "Workspace",

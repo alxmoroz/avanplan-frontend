@@ -28,7 +28,7 @@ class _WSUserDialog extends StatelessWidget {
       topBar: MTAppBar(
         showCloseButton: true,
         color: b2Color,
-        pageTitle: loc.member_title,
+        pageTitle: loc.workspace_member_title,
         parentPageTitle: _ws.title,
       ),
       body: ListView(

@@ -15,8 +15,8 @@ import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
 import 'invitation_button.dart';
-import 'member_dialog.dart';
 import 'no_members.dart';
+import 'project_member_dialog.dart';
 
 class Team extends StatelessWidget {
   const Team(this._controller, {super.key, this.standalone = true});
@@ -37,7 +37,7 @@ class Team extends StatelessWidget {
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
       bottomDivider: index < _activeMembers.length - 1 || _task.canInviteMembers,
-      onTap: () async => await taskMemberDialog(_controller, member.id!),
+      onTap: () async => await projectMemberDialog(_controller, member.id!),
     );
   }
 

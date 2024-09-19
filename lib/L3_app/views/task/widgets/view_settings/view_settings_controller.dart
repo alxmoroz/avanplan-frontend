@@ -5,20 +5,23 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_view_settings.dart';
 import '../../../../extra/services.dart';
+import '../../controllers/task_controller.dart';
 
 part 'view_settings_controller.g.dart';
 
 class TaskViewSettingsController extends _Base with _$TaskViewSettingsController {
-  TaskViewSettingsController(Task t) {
-    task = t;
+  TaskViewSettingsController(TaskController tc) {
+    _tc = tc;
     viewMode = task.viewSettings.viewMode;
     _filters = List.of(task.viewSettings.filters ?? []);
   }
 }
 
 abstract class _Base with Store {
-  late final Task task;
+  late final TaskController _tc;
   late final List<TaskViewFilter> _filters;
+
+  Task get task => _tc.task;
 
   void _save() {
     task.viewSettings = TaskViewSettings(viewMode: viewMode, filters: _filters);

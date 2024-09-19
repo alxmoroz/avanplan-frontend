@@ -99,7 +99,7 @@ void main() {
 
     // Node
     //
-    //Future<TaskNode> taskNode(int taskId, int wsId, { bool closed }) async
+    //Future<TaskNode> taskNode(int taskId, int wsId, { bool closed, bool fullTree }) async
     test('test taskNode', () async {
       // TODO
     });

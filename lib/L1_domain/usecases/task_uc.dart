@@ -8,7 +8,9 @@ class TaskUC {
 
   final AbstractTaskRepo repo;
 
-  Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed}) async => await repo.taskNode(wsId, taskId, closed: closed);
+  Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed, bool? fullTree}) async =>
+      await repo.taskNode(wsId, taskId, closed: closed, fullTree: fullTree);
+
   Future<TasksChanges?> save(Task t) async => await repo.save(t);
   Future<TasksChanges?> repeat(Task t) async => await repo.repeat(t);
   Future<TasksChanges?> duplicate(Task t) async => await repo.duplicate(t);

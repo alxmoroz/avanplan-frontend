@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_copy.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
+import '../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -73,10 +74,14 @@ extension TaskEditUC on TaskController {
 
     await editWrapper(() async {
       setLoaderScreenLoading();
-      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed);
+      final filteredSubtasks = task.filteredSubtasks.toList();
+      final fullTree = task.isProject && task.hasFilteredAssignees;
+      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: fullTree);
       if (taskNode != null) {
         // удаление дерева подзадач
-        task.subtasks.toList().forEach((t) => tasksMainController.removeTask(t));
+        for (final t in filteredSubtasks) {
+          tasksMainController.removeTask(t);
+        }
 
         // новое дерево родителей и подзадач
         // сама задача / цель / проект

@@ -59,10 +59,10 @@ extension TaskTreeUC on Task {
   bool get hasSubtasks => subtasksCount > 0 || closedSubtasksCount > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
-  Iterable<Task> get _filteredSubtasks => viewSettings.hasFilters ? _filteredSubtasksTree(viewSettings.filters!) : subtasks;
+  Iterable<Task> get filteredSubtasks => viewSettings.hasFilters ? _filteredSubtasksTree(viewSettings.filters!) : subtasks;
   List<Task> subtasksForStatus(int statusId) =>
-      _filteredSubtasks.where((t) => t.projectStatusId == statusId).sorted((t1, t2) => t1.compareByPosition(t2));
-  List<MapEntry<TaskState, List<Task>>> get filteredSubtaskGroups => groups(_filteredSubtasks);
+      filteredSubtasks.where((t) => t.projectStatusId == statusId).sorted((t1, t2) => t1.compareByPosition(t2));
+  List<MapEntry<TaskState, List<Task>>> get filteredSubtaskGroups => groups(filteredSubtasks);
 
   bool get assignedToMe => (assignee != null && assignee!.userId == accountController.me!.id) || !hmTeam;
 }

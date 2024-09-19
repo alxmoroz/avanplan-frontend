@@ -40,7 +40,7 @@ class TaskAssigneeFilterChip extends StatelessWidget {
             // const SizedBox(width: P),
           ],
         ),
-        onTap: TaskViewSettingsController(_task).resetAssigneesFilter,
+        onTap: TaskViewSettingsController(_controller).resetAssigneesFilter,
       ),
     );
 

@@ -702,7 +702,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **taskNode**
-> TaskNode taskNode(taskId, wsId, closed)
+> TaskNode taskNode(taskId, wsId, closed, fullTree)
 
 Node
 
@@ -720,9 +720,10 @@ final api = Openapi().getTasksApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final bool closed = true; // bool | 
+final bool fullTree = true; // bool | 
 
 try {
-    final response = api.taskNode(taskId, wsId, closed);
+    final response = api.taskNode(taskId, wsId, closed, fullTree);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksApi->taskNode: $e\n');
@@ -736,6 +737,7 @@ Name | Type | Description  | Notes
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **closed** | **bool**|  | [optional] 
+ **fullTree** | **bool**|  | [optional] [default to false]
 
 ### Return type
 

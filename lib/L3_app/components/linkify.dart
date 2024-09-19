@@ -9,11 +9,12 @@ import 'colors.dart';
 import 'text.dart';
 
 class MTLinkify extends StatelessWidget {
-  const MTLinkify(this.text, {this.maxLines, super.key, this.style, this.linkStyle, this.onTap});
+  const MTLinkify(this.text, {this.maxLines, super.key, this.style, this.linkStyle, this.textAlign, this.onTap});
   final String text;
   final int? maxLines;
   final TextStyle? style;
   final TextStyle? linkStyle;
+  final TextAlign? textAlign;
   final Function()? onTap;
 
   @override
@@ -21,6 +22,7 @@ class MTLinkify extends StatelessWidget {
     final baseStyle = style ?? BaseText('', maxLines: maxLines).style(context);
     return SelectableLinkify(
       text: text,
+      textAlign: textAlign,
       minLines: 1,
       maxLines: maxLines,
       style: baseStyle,

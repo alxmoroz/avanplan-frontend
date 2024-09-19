@@ -16,6 +16,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
+import '../../../../components/linkify.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/select_dialog.dart';
 import '../../../../components/text.dart';
@@ -96,8 +97,8 @@ class _ProjectMemberDialog extends StatelessWidget {
                   const SizedBox(height: P3),
                   _member!.icon(MAX_AVATAR_RADIUS),
                   const SizedBox(height: P3),
-                  H2('$_member', align: TextAlign.center),
-                  BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
+                  MTLinkify('$_member', style: const H2('').style(context), textAlign: TextAlign.center),
+                  // BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
 
                   /// Ответственный в задачах в проекте
                   MTListTile(

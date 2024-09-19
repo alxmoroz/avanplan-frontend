@@ -12,5 +12,5 @@ dart run intl_utils:generate
 bash ./scripts/build_runner_build.sh
 
 echo "BUILDING FOR WEB..."
-flutter build web --wasm
+flutter build web
 echo "BUILDING FOR WEB COMPLETE"

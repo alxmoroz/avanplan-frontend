@@ -9,8 +9,32 @@ if (!window._flutter) {
 _flutter.buildConfig = {"engineRevision":"36335019a8eab588c3c2ea783c618d90505be233","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"}]};
 
 
+function hideSplash() {
+  var splash = document.getElementById("splash");
+  if (splash) {
+    splash.style.opacity = 0;
+    setTimeout(() => {splash.remove();}, 500);
+  }
+}
+
 _flutter.loader.load({
   serviceWorkerSettings: {
-    serviceWorkerVersion: "3618176465"
+    serviceWorkerVersion: "3514109894",
+  },
+  onEntrypointLoaded: async function(engineInitializer) {
+    // Firebase
+    navigator.serviceWorker.register('/firebase-messaging-sw.js');
+
+    const appRunner = await engineInitializer.initializeEngine();
+
+    // Splash
+    var splash = document.getElementById("splash");
+    if (splash) {
+      splash.style.opacity = 0;
+      setTimeout(() => {splash.remove();}, 500);
+    }
+
+    // Запуск приложения
+    await appRunner.runApp();
   }
 });

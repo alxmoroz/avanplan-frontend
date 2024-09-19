@@ -75,35 +75,7 @@
     </picture>
   </div>
 
-  <script>
-    function hideSplash() {
-      var splash = document.getElementById("splash");
-      if (splash) {
-        splash.style.opacity = 0;
-        setTimeout(() => {splash.remove();}, 500);
-      }
-    }
-  </script>
-
-  <script>
-    var serviceWorkerVersion = null;
-
-    window.addEventListener('load', function(ev) {
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: async function(engineInitializer) {
-          // Firebase
-          navigator.serviceWorker.register('/firebase-messaging-sw.js');
-
-          let appRunner = await engineInitializer.initializeEngine();
-          hideSplash();
-          await appRunner.runApp();
-        }
-      });
-    });
-  </script>
+  <script src="flutter_bootstrap.js" async></script>
 
 </body>
 </html>

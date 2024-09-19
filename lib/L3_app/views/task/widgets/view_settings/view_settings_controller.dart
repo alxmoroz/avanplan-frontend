@@ -61,6 +61,8 @@ abstract class _Base with Store {
     if (hasChanges && task.isProjectWithGoalsAndFilters) _tc.reload();
   }
 
+  void setAssigneeFilter(int assigneeId) => setFilter(TaskViewFilter(TaskViewFilterType.ASSIGNEE, [assigneeId]));
+
   void resetAssigneesFilter() {
     _filters.removeWhere((f) => f.type == TaskViewFilterType.ASSIGNEE);
     _save();

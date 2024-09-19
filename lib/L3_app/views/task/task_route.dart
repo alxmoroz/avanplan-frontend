@@ -19,7 +19,7 @@ import 'task_view.dart';
 import 'widgets/create/create_task_quiz_view.dart';
 import 'widgets/empty_state/task_404_dialog.dart';
 import 'widgets/project_modules/project_modules.dart';
-import 'widgets/team/team_quiz_view.dart';
+import 'widgets/team/project_team_quiz_view.dart';
 
 abstract class BaseTaskRoute extends MTRoute {
   BaseTaskRoute({
@@ -120,7 +120,7 @@ class ProjectRoute extends BaseTaskRoute {
   @override
   List<RouteBase> get routes => [
         ProjectModulesQuizRoute(parent: this),
-        TeamQuizRoute(parent: this),
+        ProjectTeamQuizRoute(parent: this),
         GoalRoute(parent: this),
         BacklogRoute(parent: this),
         TaskRoute(parent: this),

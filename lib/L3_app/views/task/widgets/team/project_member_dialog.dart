@@ -10,6 +10,7 @@ import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -26,24 +27,24 @@ import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/members.dart';
+import '../view_settings/view_settings_controller.dart';
 
-Future projectMemberDialog(TaskController taskController, int memberId) async {
-  // final mtc = MemberTasksController(taskController.task.wsId, memberId);
-  return await showMTDialog<void>(_ProjectMemberDialog(taskController, memberId));
+Future<String?> projectMemberDialog(TaskController taskController, int memberId) async {
+  return await showMTDialog<String?>(_ProjectMemberDialog(taskController, memberId));
 }
 
 class _ProjectMemberDialog extends StatelessWidget {
-  const _ProjectMemberDialog(
-    this._tc,
-    this._memberId,
-    // this._mTasksController,
-  );
+  const _ProjectMemberDialog(this._tc, this._memberId);
   final TaskController _tc;
-  // final MemberTasksController _mTasksController;
   final int _memberId;
 
   Task get _project => _tc.task;
   WSMember? get _member => _project.taskMemberForId(_memberId);
+
+  void _assigneeFilterSet(BuildContext context) {
+    TaskViewSettingsController(_tc).setAssigneeFilter(_memberId);
+    Navigator.of(context).pop('popToProject');
+  }
 
   Future _editRoles(BuildContext context) async {
     final roles = _project.ws.roles.toList();
@@ -95,48 +96,38 @@ class _ProjectMemberDialog extends StatelessWidget {
                   const SizedBox(height: P3),
                   _member!.icon(MAX_AVATAR_RADIUS),
                   const SizedBox(height: P3),
-                  H3('$_member', align: TextAlign.center),
+                  H2('$_member', align: TextAlign.center),
                   BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
-                  // if (_mTasksController.hasAssignedTasks) ...[
-                  //   MTListGroupTitle(titleText: loc.task_assignee_placeholder),
-                  //   if (_mTasksController.assignedTasks.isNotEmpty)
-                  //     ListView.builder(
-                  //       shrinkWrap: true,
-                  //       physics: const NeverScrollableScrollPhysics(),
-                  //       itemCount: _mTasksController.assignedTasks.length,
-                  //       itemBuilder: (_, index) {
-                  //         final t = _mTasksController.assignedTasks[index];
-                  //         return TaskCard(
-                  //           t,
-                  //           showAssignee: false,
-                  //           showParent: t.parentId != _project.id,
-                  //           bottomDivider: index < _mTasksController.assignedTasks.length - 1,
-                  //         );
-                  //       },
-                  //     ),
-                  //   if (_mTasksController.classifiedTasksCount > 0)
-                  //     SmallText(
-                  //       '${loc.member_tasks_classified_count_prefix} ${loc.task_count_genitive(_mTasksController.classifiedTasksCount)}',
-                  //       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
-                  //     ),
-                  // ],
+
+                  /// Ответственный в задачах в проекте
+                  MTListTile(
+                    margin: const EdgeInsets.only(top: P3),
+                    leading: const PersonIcon(),
+                    middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
+                    // subtitle: SmallText('', maxLines: 1),
+                    trailing: const ChevronIcon(),
+                    dividerIndent: P11,
+                    onTap: () => _assigneeFilterSet(context),
+                  ),
 
                   /// Права в проекте
-                  MTListGroupTitle(titleText: loc.role_title),
                   MTListTile(
-                    middle: BaseText(_member!.rolesTitles, maxLines: 1),
-                    subtitle: SmallText(_member!.rolesDescriptions, maxLines: 1),
+                    leading: const PrivacyIcon(),
+                    middle: BaseText(loc.role_title, maxLines: 1),
+                    subtitle: SmallText(_member!.rolesTitles, maxLines: 1),
                     trailing: _project.canEditMembers ? const EditIcon() : null,
                     bottomDivider: false,
                     loading: _project.loading,
                     onTap: _project.canEditMembers ? () => _editRoles(context) : null,
                   ),
-                  MTButton.danger(
-                    titleText: loc.project_member_unlink_action_title,
-                    margin: const EdgeInsets.only(top: P6),
+
+                  /// Отключение от проекта
+                  MTListTile(
+                    middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                    margin: EdgeInsets.only(top: P6, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                    bottomDivider: false,
                     onTap: () => _unlinkMember(context),
                   ),
-                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],
               )
             : Container(),

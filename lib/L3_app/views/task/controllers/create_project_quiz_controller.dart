@@ -12,7 +12,7 @@ import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../usecases/edit.dart';
 import '../widgets/project_modules/project_modules.dart';
-import '../widgets/team/team_quiz_view.dart';
+import '../widgets/team/project_team_quiz_view.dart';
 import 'project_modules_controller.dart';
 import 'task_controller.dart';
 
@@ -41,7 +41,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       _pmc.reload();
       await router.pushTaskQuizStep(ProjectModulesQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.team.name) {
-      await router.pushTaskQuizStep(TeamQuizRoute.staticBaseName, this);
+      await router.pushTaskQuizStep(ProjectTeamQuizRoute.staticBaseName, this);
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) await _addGoal();
       if (_goalController != null) await router.pushTaskQuizStep('goal', this, pathParameters: {'goalId': '${_goalController!.taskDescriptor.id}'});

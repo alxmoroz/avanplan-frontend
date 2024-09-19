@@ -5,9 +5,9 @@ import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
-import 'team.dart';
+import 'project_team.dart';
 
-Future showTeamDialog(TaskController controller) async => await showMTDialog<void>(
+Future showProjectTeamDialog(TaskController controller) async => await showMTDialog<void>(
       MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,
@@ -15,6 +15,6 @@ Future showTeamDialog(TaskController controller) async => await showMTDialog<voi
           pageTitle: loc.team_title,
           parentPageTitle: controller.task.title,
         ),
-        body: Team(controller),
+        body: ProjectTeam(controller),
       ),
     );

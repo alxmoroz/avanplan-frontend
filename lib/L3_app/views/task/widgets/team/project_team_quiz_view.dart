@@ -10,12 +10,12 @@ import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
-import 'team.dart';
+import 'project_team.dart';
 
-class TeamQuizRoute extends AbstractTaskQuizRoute {
+class ProjectTeamQuizRoute extends AbstractTaskQuizRoute {
   static const staticBaseName = 'team';
 
-  TeamQuizRoute({super.parent})
+  ProjectTeamQuizRoute({super.parent})
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
@@ -59,7 +59,7 @@ class _TeamQuizViewState extends State<_TeamQuizView> {
           shrinkWrap: true,
           children: [
             const SizedBox(height: P3),
-            Team(_taskController, standalone: false),
+            ProjectTeam(_taskController, standalone: false),
             const SizedBox(height: P3),
             QuizNextButton(_qController, margin: EdgeInsets.zero),
           ],

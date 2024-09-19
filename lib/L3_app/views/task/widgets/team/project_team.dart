@@ -18,15 +18,22 @@ import 'invitation_button.dart';
 import 'no_members.dart';
 import 'project_member_dialog.dart';
 
-class Team extends StatelessWidget {
-  const Team(this._controller, {super.key, this.standalone = true});
-  final TaskController _controller;
+class ProjectTeam extends StatelessWidget {
+  const ProjectTeam(this._tc, {super.key, this.standalone = true});
+  final TaskController _tc;
   final bool standalone;
 
-  Task get _task => _controller.task;
+  Task get _task => _tc.task;
   List<WSMember> get _activeMembers => _task.activeMembers;
 
   static const _iconSize = P8;
+
+  Future _memberTap(BuildContext context, int memberId) async {
+    final popResult = await projectMemberDialog(_tc, memberId);
+    if (popResult == 'popToProject' && context.mounted) {
+      Navigator.of(context).pop('popToProject');
+    }
+  }
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _activeMembers[index];
@@ -37,7 +44,7 @@ class Team extends StatelessWidget {
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
       bottomDivider: index < _activeMembers.length - 1 || _task.canInviteMembers,
-      onTap: () async => await projectMemberDialog(_controller, member.id!),
+      onTap: () async => await _memberTap(context, member.id!),
     );
   }
 

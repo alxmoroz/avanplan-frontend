@@ -38,9 +38,9 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
     return MenuAnchor(
       controller: menuController,
       style: MenuStyle(
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS))),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
-        fixedSize: MaterialStateProperty.all(const Size.fromWidth(_menuWidth)),
+        shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS))),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
+        fixedSize: WidgetStateProperty.all(const Size.fromWidth(_menuWidth)),
         alignment: Alignment.bottomLeft,
       ),
       crossAxisUnconstrained: false,

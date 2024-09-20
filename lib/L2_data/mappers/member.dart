@@ -10,7 +10,7 @@ extension MemberMapper on api.MemberGet {
         wsId: wsId,
         userId: userId,
         email: email,
-        fullName: fullName,
+        fullName: fullName ?? '',
         roles: roleCodes ?? [],
         permissions: permissionCodes ?? [],
       );

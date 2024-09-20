@@ -1,22 +1,21 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'person.dart';
 import 'user_activity.dart';
+import 'ws_member.dart';
 
-class User extends Person {
+class User extends WSMember {
   User({
     required super.id,
-    required super.updatedOn,
     required super.email,
     required super.fullName,
     required super.roles,
     required super.permissions,
-    required this.wsId,
+    required super.wsId,
     required this.activities,
     required this.hasAvatar,
+    super.updatedOn,
   });
 
-  final int wsId;
   final Iterable<UActivity> activities;
   final bool hasAvatar;
 

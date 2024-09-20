@@ -12,8 +12,8 @@ import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/person.dart';
 import '../../presenters/user.dart';
+import '../../presenters/ws_member.dart';
 
 Future wsUserDialog(Workspace ws, User user) async => await showMTDialog<void>(_WSUserDialog(ws, user));
 

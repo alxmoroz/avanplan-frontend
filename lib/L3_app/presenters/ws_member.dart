@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../L1_domain/entities/role.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/entities_extensions/ws_users.dart';
@@ -11,4 +12,7 @@ import '../extra/services.dart';
 extension WSMemberPresenter on WSMember {
   User? get user => userId != null ? wsMainController.ws(wsId)?.userForId(userId!) : null;
   Widget icon(double radius, {Color? borderColor}) => MTAvatar(radius, member: this, borderColor: borderColor);
+
+  String get rolesTitles => roles.map((rCode) => Role(code: rCode, id: null).title).join(', ');
+  String get rolesDescriptions => roles.map((rCode) => Role(code: rCode, id: null).description).join(', ');
 }

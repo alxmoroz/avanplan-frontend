@@ -8,13 +8,17 @@ class WSMember extends Person {
     required this.wsId,
     required super.email,
     required super.fullName,
-    required super.roles,
-    required super.permissions,
-    required this.userId,
+    required this.roles,
+    required this.permissions,
+    this.userId,
+    super.updatedOn,
   });
 
   final int wsId;
   final int? userId;
+  final Iterable<String> roles;
+  final Iterable<String> permissions;
+  bool hp(String code) => permissions.contains(code);
 
   bool isTaskMember = false;
 }

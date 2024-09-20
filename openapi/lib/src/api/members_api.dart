@@ -11,6 +11,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/member_contact_get.dart';
+import 'package:openapi/src/model/member_contact_upsert.dart';
 import 'package:openapi/src/model/task_get.dart';
 
 class MembersApi {
@@ -208,7 +209,7 @@ class MembersApi {
     );
   }
 
-  /// Contacts
+  /// Member Contacts
   /// Способы связи участника РП
   ///
   /// Parameters:
@@ -308,7 +309,7 @@ class MembersApi {
   /// Parameters:
   /// * [memberId] 
   /// * [wsId] 
-  /// * [value] 
+  /// * [memberContactUpsert] 
   /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -322,7 +323,7 @@ class MembersApi {
   Future<Response<MemberContactGet>> upsertMemberContact({ 
     required int memberId,
     required int wsId,
-    required String value,
+    required MemberContactUpsert memberContactUpsert,
     int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -351,16 +352,36 @@ class MembersApi {
         ],
         ...?extra,
       },
+      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
     final _queryParameters = <String, dynamic>{
-      r'value': encodeQueryParameter(_serializers, value, const FullType(String)),
       if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(MemberContactUpsert);
+      _bodyData = _serializers.serialize(memberContactUpsert, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+          queryParameters: _queryParameters,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
     final _response = await _dio.request<Object>(
       _path,
+      data: _bodyData,
       options: _options,
       queryParameters: _queryParameters,
       cancelToken: cancelToken,

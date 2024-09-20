@@ -10,25 +10,22 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/member_contact_get.dart';
-import 'package:openapi/src/model/member_contact_upsert.dart';
+import 'package:openapi/src/model/user_contact_get.dart';
+import 'package:openapi/src/model/user_contact_upsert.dart';
 
-class MemberContactsApi {
+class MyContactsApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const MemberContactsApi(this._dio, this._serializers);
+  const MyContactsApi(this._dio, this._serializers);
 
-  /// Delete Contact
-  /// Удаление способа связи
+  /// Delete My Contact
+  /// Удаление способа связи пользователя
   ///
   /// Parameters:
-  /// * [memberId] 
-  /// * [memberContactId] 
-  /// * [wsId] 
-  /// * [taskId] 
+  /// * [userContactId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,11 +35,8 @@ class MemberContactsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteMemberContact({ 
-    required int memberId,
-    required int memberContactId,
-    required int wsId,
-    int? taskId,
+  Future<Response<bool>> deleteMyContact({ 
+    required int userContactId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -50,7 +44,7 @@ class MemberContactsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id}'.replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'member_contact_id' '}', encodeQueryParameter(_serializers, memberContactId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/my/contacts/{user_contact_id}'.replaceAll('{' r'user_contact_id' '}', encodeQueryParameter(_serializers, userContactId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -73,14 +67,9 @@ class MemberContactsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -114,13 +103,10 @@ class MemberContactsApi {
     );
   }
 
-  /// Member Contacts
-  /// Способы связи участника РП
+  /// My Contacts
+  /// Способы связи пользователя
   ///
   /// Parameters:
-  /// * [memberId] 
-  /// * [wsId] 
-  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -128,12 +114,9 @@ class MemberContactsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<MemberContactGet>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<UserContactGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberContactGet>>> memberContacts({ 
-    required int memberId,
-    required int wsId,
-    int? taskId,
+  Future<Response<BuiltList<UserContactGet>>> myContacts({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -141,7 +124,7 @@ class MemberContactsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/members/{member_id}/contacts'.replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/my/contacts';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -164,27 +147,22 @@ class MemberContactsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<MemberContactGet>? _responseData;
+    BuiltList<UserContactGet>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(MemberContactGet)]),
-      ) as BuiltList<MemberContactGet>;
+        specifiedType: const FullType(BuiltList, [FullType(UserContactGet)]),
+      ) as BuiltList<UserContactGet>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -196,7 +174,7 @@ class MemberContactsApi {
       );
     }
 
-    return Response<BuiltList<MemberContactGet>>(
+    return Response<BuiltList<UserContactGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -208,14 +186,11 @@ class MemberContactsApi {
     );
   }
 
-  /// Upsert Contact
-  /// Добавление / редактирование способа связи
+  /// Upsert My Contact
+  /// Добавление / редактирование способа связи пользователя
   ///
   /// Parameters:
-  /// * [memberId] 
-  /// * [wsId] 
-  /// * [memberContactUpsert] 
-  /// * [taskId] 
+  /// * [userContactUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -223,13 +198,10 @@ class MemberContactsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [MemberContactGet] as data
+  /// Returns a [Future] containing a [Response] with a [UserContactGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MemberContactGet>> upsertMemberContact({ 
-    required int memberId,
-    required int wsId,
-    required MemberContactUpsert memberContactUpsert,
-    int? taskId,
+  Future<Response<UserContactGet>> upsertMyContact({ 
+    required UserContactUpsert userContactUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -237,7 +209,7 @@ class MemberContactsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/members/{member_id}/contacts'.replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/my/contacts';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -261,22 +233,17 @@ class MemberContactsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
-      const _type = FullType(MemberContactUpsert);
-      _bodyData = _serializers.serialize(memberContactUpsert, specifiedType: _type);
+      const _type = FullType(UserContactUpsert);
+      _bodyData = _serializers.serialize(userContactUpsert, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -288,20 +255,19 @@ class MemberContactsApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    MemberContactGet? _responseData;
+    UserContactGet? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(MemberContactGet),
-      ) as MemberContactGet;
+        specifiedType: const FullType(UserContactGet),
+      ) as UserContactGet;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -313,7 +279,7 @@ class MemberContactsApi {
       );
     }
 
-    return Response<MemberContactGet>(
+    return Response<UserContactGet>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

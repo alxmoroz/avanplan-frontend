@@ -1,4 +1,4 @@
-# openapi.api.MemberContactsApi
+# openapi.api.MyContactsApi
 
 ## Load the API package
 ```dart
@@ -9,17 +9,17 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteMemberContact**](MemberContactsApi.md#deletemembercontact) | **DELETE** /v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id} | Delete Contact
-[**memberContacts**](MemberContactsApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Member Contacts
-[**upsertMemberContact**](MemberContactsApi.md#upsertmembercontact) | **POST** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Upsert Contact
+[**deleteMyContact**](MyContactsApi.md#deletemycontact) | **DELETE** /v1/my/contacts/{user_contact_id} | Delete My Contact
+[**myContacts**](MyContactsApi.md#mycontacts) | **GET** /v1/my/contacts | My Contacts
+[**upsertMyContact**](MyContactsApi.md#upsertmycontact) | **POST** /v1/my/contacts | Upsert My Contact
 
 
-# **deleteMemberContact**
-> bool deleteMemberContact(memberId, memberContactId, wsId, taskId)
+# **deleteMyContact**
+> bool deleteMyContact(userContactId)
 
-Delete Contact
+Delete My Contact
 
-Удаление способа связи
+Удаление способа связи пользователя
 
 ### Example
 ```dart
@@ -31,17 +31,14 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getMemberContactsApi();
-final int memberId = 56; // int | 
-final int memberContactId = 56; // int | 
-final int wsId = 56; // int | 
-final int taskId = 56; // int | 
+final api = Openapi().getMyContactsApi();
+final int userContactId = 56; // int | 
 
 try {
-    final response = api.deleteMemberContact(memberId, memberContactId, wsId, taskId);
+    final response = api.deleteMyContact(userContactId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MemberContactsApi->deleteMemberContact: $e\n');
+    print('Exception when calling MyContactsApi->deleteMyContact: $e\n');
 }
 ```
 
@@ -49,10 +46,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  | 
- **memberContactId** | **int**|  | 
- **wsId** | **int**|  | 
- **taskId** | **int**|  | [optional] 
+ **userContactId** | **int**|  | 
 
 ### Return type
 
@@ -69,12 +63,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **memberContacts**
-> BuiltList<MemberContactGet> memberContacts(memberId, wsId, taskId)
+# **myContacts**
+> BuiltList<UserContactGet> myContacts()
 
-Member Contacts
+My Contacts
 
-Способы связи участника РП
+Способы связи пользователя
 
 ### Example
 ```dart
@@ -86,30 +80,22 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getMemberContactsApi();
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final int taskId = 56; // int | 
+final api = Openapi().getMyContactsApi();
 
 try {
-    final response = api.memberContacts(memberId, wsId, taskId);
+    final response = api.myContacts();
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MemberContactsApi->memberContacts: $e\n');
+    print('Exception when calling MyContactsApi->myContacts: $e\n');
 }
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **taskId** | **int**|  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;MemberContactGet&gt;**](MemberContactGet.md)
+[**BuiltList&lt;UserContactGet&gt;**](UserContactGet.md)
 
 ### Authorization
 
@@ -122,12 +108,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertMemberContact**
-> MemberContactGet upsertMemberContact(memberId, wsId, memberContactUpsert, taskId)
+# **upsertMyContact**
+> UserContactGet upsertMyContact(userContactUpsert)
 
-Upsert Contact
+Upsert My Contact
 
-Добавление / редактирование способа связи
+Добавление / редактирование способа связи пользователя
 
 ### Example
 ```dart
@@ -139,17 +125,14 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getMemberContactsApi();
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final MemberContactUpsert memberContactUpsert = ; // MemberContactUpsert | 
-final int taskId = 56; // int | 
+final api = Openapi().getMyContactsApi();
+final UserContactUpsert userContactUpsert = ; // UserContactUpsert | 
 
 try {
-    final response = api.upsertMemberContact(memberId, wsId, memberContactUpsert, taskId);
+    final response = api.upsertMyContact(userContactUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling MemberContactsApi->upsertMemberContact: $e\n');
+    print('Exception when calling MyContactsApi->upsertMyContact: $e\n');
 }
 ```
 
@@ -157,14 +140,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **memberContactUpsert** | [**MemberContactUpsert**](MemberContactUpsert.md)|  | 
- **taskId** | **int**|  | [optional] 
+ **userContactUpsert** | [**UserContactUpsert**](UserContactUpsert.md)|  | 
 
 ### Return type
 
-[**MemberContactGet**](MemberContactGet.md)
+[**UserContactGet**](UserContactGet.md)
 
 ### Authorization
 

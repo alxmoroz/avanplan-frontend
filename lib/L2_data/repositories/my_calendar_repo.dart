@@ -14,7 +14,7 @@ import '../mappers/calendar_source.dart';
 import '../services/api.dart';
 import 'auth_google_repo.dart';
 
-class MyCalendarRepo extends AbstractCalendarRepo {
+class MyCalendarRepo extends AbstractMyCalendarRepo {
   o_api.MyCalendarApi get _myCalendarApi => openAPI.getMyCalendarApi();
 
   @override

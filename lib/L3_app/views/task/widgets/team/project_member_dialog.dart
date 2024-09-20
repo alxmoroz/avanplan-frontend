@@ -39,7 +39,7 @@ class _ProjectMemberDialog extends StatelessWidget {
   final int _memberId;
 
   Task get _project => _tc.task;
-  WSMember? get _member => _project.taskMemberForId(_memberId);
+  WSMember? get _projectMember => _project.taskMemberForId(_memberId);
 
   void _assigneeFilterSet(BuildContext context) {
     TaskViewSettingsController(_tc).setAssigneeFilter(_memberId);
@@ -48,12 +48,12 @@ class _ProjectMemberDialog extends StatelessWidget {
 
   Future _editRoles(BuildContext context) async {
     final roles = _project.ws.roles.toList();
-    final selectedId = roles.firstWhereOrNull((r) => _member?.roles.contains(r.code) == true)?.id;
+    final selectedId = roles.firstWhereOrNull((r) => _projectMember?.roles.contains(r.code) == true)?.id;
     final selectedRole = await showMTSelectDialog(
       roles,
       selectedId,
       loc.role_title,
-      parentPageTitle: _member?.viewableName,
+      parentPageTitle: _projectMember?.viewableName,
       valueBuilder: (_, r) => BaseText(r.title, maxLines: 1),
       subtitleBuilder: (_, r) => r.description.isNotEmpty ? SmallText(r.description, maxLines: 1) : const SizedBox(),
     );
@@ -89,14 +89,14 @@ class _ProjectMemberDialog extends StatelessWidget {
           parentPageTitle: _project.title,
           pageTitle: loc.project_member_title,
         ),
-        body: _member != null
+        body: _projectMember != null
             ? ListView(
                 shrinkWrap: true,
                 children: [
                   const SizedBox(height: P3),
-                  _member!.icon(MAX_AVATAR_RADIUS),
+                  _projectMember!.icon(MAX_AVATAR_RADIUS),
                   const SizedBox(height: P3),
-                  MTLinkify('$_member', style: const H2('').style(context), textAlign: TextAlign.center),
+                  MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
                   // BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
 
                   /// Ответственный в задачах в проекте
@@ -114,7 +114,7 @@ class _ProjectMemberDialog extends StatelessWidget {
                   MTListTile(
                     leading: const PrivacyIcon(),
                     middle: BaseText(loc.role_title, maxLines: 1),
-                    subtitle: SmallText(_member!.rolesTitles, maxLines: 1),
+                    subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
                     trailing: _project.canEditMembers ? const EditIcon() : null,
                     bottomDivider: false,
                     loading: _project.loading,

@@ -17,6 +17,7 @@ import 'package:openapi/src/api/my_account_api.dart';
 import 'package:openapi/src/api/my_activities_api.dart';
 import 'package:openapi/src/api/my_avatar_api.dart';
 import 'package:openapi/src/api/my_calendar_api.dart';
+import 'package:openapi/src/api/my_contacts_api.dart';
 import 'package:openapi/src/api/my_invitations_api.dart';
 import 'package:openapi/src/api/my_notifications_api.dart';
 import 'package:openapi/src/api/my_push_tokens_api.dart';
@@ -137,6 +138,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   MyCalendarApi getMyCalendarApi() {
     return MyCalendarApi(dio, serializers);
+  }
+
+  /// Get MyContactsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyContactsApi getMyContactsApi() {
+    return MyContactsApi(dio, serializers);
   }
 
   /// Get MyInvitationsApi instance, base route and serializer can be overridden by a given but be careful,

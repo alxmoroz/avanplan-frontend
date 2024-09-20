@@ -7,7 +7,7 @@ import '../repositories/abs_my_calendar_repo.dart';
 class MyCalendarUC {
   const MyCalendarUC(this.repo);
 
-  final AbstractCalendarRepo repo;
+  final AbstractMyCalendarRepo repo;
 
   Future<CalendarSource?> updateSource(CalendarSourceType type) async => await repo.updateSource(type);
   Future<Iterable<CalendarSource>> getSources() async => await repo.getSources();

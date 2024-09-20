@@ -43,6 +43,7 @@ import 'package:openapi/src/model/invitation_get.dart';
 import 'package:openapi/src/model/invoice_detail_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/member_contact_get.dart';
+import 'package:openapi/src/model/member_contact_upsert.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/my_user.dart';
 import 'package:openapi/src/model/note_get.dart';
@@ -76,6 +77,8 @@ import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/tasks_changes.dart';
 import 'package:openapi/src/model/u_activity_get.dart';
 import 'package:openapi/src/model/user.dart';
+import 'package:openapi/src/model/user_contact_get.dart';
+import 'package:openapi/src/model/user_contact_upsert.dart';
 import 'package:openapi/src/model/validation_error.dart';
 import 'package:openapi/src/model/validation_error_loc_inner.dart';
 import 'package:openapi/src/model/workspace_get.dart';
@@ -113,6 +116,7 @@ part 'serializers.g.dart';
   InvoiceDetailGet,
   InvoiceGet,
   MemberContactGet,
+  MemberContactUpsert,
   MemberGet,
   MyUser,
   NoteGet,
@@ -146,6 +150,8 @@ part 'serializers.g.dart';
   TasksChanges,
   UActivityGet,
   User,
+  UserContactGet,
+  UserContactUpsert,
   ValidationError,
   ValidationErrorLocInner,
   WorkspaceGet,
@@ -159,6 +165,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(WorkspaceGet)]),
         () => ListBuilder<WorkspaceGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(UserContactGet)]),
+        () => ListBuilder<UserContactGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TariffGet)]),

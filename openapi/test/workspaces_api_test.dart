@@ -143,7 +143,7 @@ void main() {
       // TODO
     });
 
-    // Contacts
+    // Member Contacts
     //
     // Способы связи участника РП
     //
@@ -265,7 +265,7 @@ void main() {
     //
     // Добавление / редактирование способа связи
     //
-    //Future<MemberContactGet> upsertMemberContact(int memberId, int wsId, String value, { int taskId }) async
+    //Future<MemberContactGet> upsertMemberContact(int memberId, int wsId, MemberContactUpsert memberContactUpsert, { int taskId }) async
     test('test upsertMemberContact', () async {
       // TODO
     });

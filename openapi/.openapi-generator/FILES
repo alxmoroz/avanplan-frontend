@@ -32,6 +32,7 @@ doc/InvitationGet.md
 doc/InvoiceDetailGet.md
 doc/InvoiceGet.md
 doc/MemberContactGet.md
+doc/MemberContactUpsert.md
 doc/MemberContactsApi.md
 doc/MemberGet.md
 doc/MembersApi.md
@@ -40,6 +41,7 @@ doc/MyActivitiesApi.md
 doc/MyApi.md
 doc/MyAvatarApi.md
 doc/MyCalendarApi.md
+doc/MyContactsApi.md
 doc/MyInvitationsApi.md
 doc/MyNotificationsApi.md
 doc/MyPushTokensApi.md
@@ -90,6 +92,8 @@ doc/TasksChanges.md
 doc/TransferApi.md
 doc/UActivityGet.md
 doc/User.md
+doc/UserContactGet.md
+doc/UserContactUpsert.md
 doc/ValidationError.md
 doc/ValidationErrorLocInner.md
 doc/WorkspaceGet.md
@@ -105,6 +109,7 @@ lib/src/api/my_activities_api.dart
 lib/src/api/my_api.dart
 lib/src/api/my_avatar_api.dart
 lib/src/api/my_calendar_api.dart
+lib/src/api/my_contacts_api.dart
 lib/src/api/my_invitations_api.dart
 lib/src/api/my_notifications_api.dart
 lib/src/api/my_push_tokens_api.dart
@@ -161,6 +166,7 @@ lib/src/model/invitation_get.dart
 lib/src/model/invoice_detail_get.dart
 lib/src/model/invoice_get.dart
 lib/src/model/member_contact_get.dart
+lib/src/model/member_contact_upsert.dart
 lib/src/model/member_get.dart
 lib/src/model/my_user.dart
 lib/src/model/note_get.dart
@@ -194,6 +200,8 @@ lib/src/model/task_upsert.dart
 lib/src/model/tasks_changes.dart
 lib/src/model/u_activity_get.dart
 lib/src/model/user.dart
+lib/src/model/user_contact_get.dart
+lib/src/model/user_contact_upsert.dart
 lib/src/model/validation_error.dart
 lib/src/model/validation_error_loc_inner.dart
 lib/src/model/workspace_get.dart
@@ -230,6 +238,7 @@ test/invitation_test.dart
 test/invoice_detail_get_test.dart
 test/invoice_get_test.dart
 test/member_contact_get_test.dart
+test/member_contact_upsert_test.dart
 test/member_contacts_api_test.dart
 test/member_get_test.dart
 test/members_api_test.dart
@@ -238,6 +247,7 @@ test/my_activities_api_test.dart
 test/my_api_test.dart
 test/my_avatar_api_test.dart
 test/my_calendar_api_test.dart
+test/my_contacts_api_test.dart
 test/my_invitations_api_test.dart
 test/my_notifications_api_test.dart
 test/my_push_tokens_api_test.dart
@@ -287,6 +297,8 @@ test/tasks_api_test.dart
 test/tasks_changes_test.dart
 test/transfer_api_test.dart
 test/u_activity_get_test.dart
+test/user_contact_get_test.dart
+test/user_contact_upsert_test.dart
 test/user_test.dart
 test/validation_error_loc_inner_test.dart
 test/validation_error_test.dart

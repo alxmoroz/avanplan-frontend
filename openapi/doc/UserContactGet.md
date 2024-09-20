@@ -1,4 +1,4 @@
-# openapi.model.MemberContactGet
+# openapi.model.UserContactGet
 
 ## Load the model package
 ```dart
@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **value** | **String** |  | 
-**memberId** | **int** |  | 
+**userId** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

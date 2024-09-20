@@ -20,6 +20,8 @@ import '../../extra/services.dart';
 import '../../presenters/user.dart';
 import '../../views/_base/loader_screen.dart';
 import 'edit_avatar_dialog.dart';
+import 'usecases/contacts.dart';
+import 'usecases/edit.dart';
 
 class AccountRoute extends MTRoute {
   static const staticBaseName = 'my_account';
@@ -38,10 +40,21 @@ class AccountRoute extends MTRoute {
   String? title(GoRouterState state) => loc.my_account_title;
 }
 
-class _AccountDialog extends StatelessWidget {
+class _AccountDialog extends StatefulWidget {
   const _AccountDialog();
 
+  @override
+  State<_AccountDialog> createState() => _State();
+}
+
+class _State extends State<_AccountDialog> {
   User? get _me => accountController.me;
+
+  @override
+  void initState() {
+    accountController.loadContacts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

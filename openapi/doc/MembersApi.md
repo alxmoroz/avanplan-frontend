@@ -11,7 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteMemberContact**](MembersApi.md#deletemembercontact) | **DELETE** /v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id} | Delete Contact
 [**memberAssignedTasks**](MembersApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Member Assigned Tasks
-[**memberContacts**](MembersApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Contacts
+[**memberContacts**](MembersApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Member Contacts
 [**upsertMemberContact**](MembersApi.md#upsertmembercontact) | **POST** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Upsert Contact
 
 
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 # **memberContacts**
 > BuiltList<MemberContactGet> memberContacts(memberId, wsId, taskId)
 
-Contacts
+Member Contacts
 
 Способы связи участника РП
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertMemberContact**
-> MemberContactGet upsertMemberContact(memberId, wsId, value, taskId)
+> MemberContactGet upsertMemberContact(memberId, wsId, memberContactUpsert, taskId)
 
 Upsert Contact
 
@@ -196,11 +196,11 @@ import 'package:openapi/api.dart';
 final api = Openapi().getMembersApi();
 final int memberId = 56; // int | 
 final int wsId = 56; // int | 
-final String value = value_example; // String | 
+final MemberContactUpsert memberContactUpsert = ; // MemberContactUpsert | 
 final int taskId = 56; // int | 
 
 try {
-    final response = api.upsertMemberContact(memberId, wsId, value, taskId);
+    final response = api.upsertMemberContact(memberId, wsId, memberContactUpsert, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling MembersApi->upsertMemberContact: $e\n');
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **memberId** | **int**|  | 
  **wsId** | **int**|  | 
- **value** | **String**|  | 
+ **memberContactUpsert** | [**MemberContactUpsert**](MemberContactUpsert.md)|  | 
  **taskId** | **int**|  | [optional] 
 
 ### Return type
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

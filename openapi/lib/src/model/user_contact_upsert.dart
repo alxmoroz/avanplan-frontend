@@ -6,61 +6,63 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'member_contact_get.g.dart';
+part 'user_contact_upsert.g.dart';
 
-/// MemberContactGet
+/// UserContactUpsert
 ///
 /// Properties:
 /// * [id] 
 /// * [value] 
-/// * [memberId] 
+/// * [userId] 
 @BuiltValue()
-abstract class MemberContactGet implements Built<MemberContactGet, MemberContactGetBuilder> {
+abstract class UserContactUpsert implements Built<UserContactUpsert, UserContactUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
-  int get id;
+  int? get id;
 
   @BuiltValueField(wireName: r'value')
   String get value;
 
-  @BuiltValueField(wireName: r'member_id')
-  int get memberId;
+  @BuiltValueField(wireName: r'user_id')
+  int get userId;
 
-  MemberContactGet._();
+  UserContactUpsert._();
 
-  factory MemberContactGet([void updates(MemberContactGetBuilder b)]) = _$MemberContactGet;
+  factory UserContactUpsert([void updates(UserContactUpsertBuilder b)]) = _$UserContactUpsert;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MemberContactGetBuilder b) => b;
+  static void _defaults(UserContactUpsertBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<MemberContactGet> get serializer => _$MemberContactGetSerializer();
+  static Serializer<UserContactUpsert> get serializer => _$UserContactUpsertSerializer();
 }
 
-class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactGet> {
+class _$UserContactUpsertSerializer implements PrimitiveSerializer<UserContactUpsert> {
   @override
-  final Iterable<Type> types = const [MemberContactGet, _$MemberContactGet];
+  final Iterable<Type> types = const [UserContactUpsert, _$UserContactUpsert];
 
   @override
-  final String wireName = r'MemberContactGet';
+  final String wireName = r'UserContactUpsert';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    MemberContactGet object, {
+    UserContactUpsert object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'id';
-    yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
+    if (object.id != null) {
+      yield r'id';
+      yield serializers.serialize(
+        object.id,
+        specifiedType: const FullType(int),
+      );
+    }
     yield r'value';
     yield serializers.serialize(
       object.value,
       specifiedType: const FullType(String),
     );
-    yield r'member_id';
+    yield r'user_id';
     yield serializers.serialize(
-      object.memberId,
+      object.userId,
       specifiedType: const FullType(int),
     );
   }
@@ -68,7 +70,7 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
   @override
   Object serialize(
     Serializers serializers,
-    MemberContactGet object, {
+    UserContactUpsert object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -79,7 +81,7 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required MemberContactGetBuilder result,
+    required UserContactUpsertBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -100,12 +102,12 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
           ) as String;
           result.value = valueDes;
           break;
-        case r'member_id':
+        case r'user_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
-          result.memberId = valueDes;
+          result.userId = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -116,12 +118,12 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
   }
 
   @override
-  MemberContactGet deserialize(
+  UserContactUpsert deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = MemberContactGetBuilder();
+    final result = UserContactUpsertBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

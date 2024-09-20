@@ -13,6 +13,7 @@ import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_avatar_uc.dart';
 import '../../L1_domain/usecases/my_calendar_uc.dart';
+import '../../L1_domain/usecases/my_contacts_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
 import '../../L1_domain/usecases/project_module_uc.dart';
@@ -37,6 +38,7 @@ import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_avatar_repo.dart';
 import '../../L2_data/repositories/my_calendar_repo.dart';
+import '../../L2_data/repositories/my_contacts_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/note_repo.dart';
 import '../../L2_data/repositories/project_module_repo.dart';
@@ -83,24 +85,28 @@ CalendarController get calendarController => GetIt.I<CalendarController>();
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
+
 MyUC get myUC => GetIt.I<MyUC>();
+MyCalendarUC get myCalendarUC => GetIt.I<MyCalendarUC>();
+MyContactsUC get myContactsUC => GetIt.I<MyContactsUC>();
+MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
+
 WorkspaceUC get wsUC => GetIt.I<WorkspaceUC>();
-TaskUC get taskUC => GetIt.I<TaskUC>();
 SourceUC get sourceUC => GetIt.I<SourceUC>();
 ProjectStatusUC get projectStatusUC => GetIt.I<ProjectStatusUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 InvitationUC get invitationUC => GetIt.I<InvitationUC>();
-TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
 InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
-NoteUC get noteUC => GetIt.I<NoteUC>();
-AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 ProjectModuleUC get projectModuleUC => GetIt.I<ProjectModuleUC>();
 ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
-MyCalendarUC get myCalendarUC => GetIt.I<MyCalendarUC>();
-MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
+
+TaskUC get taskUC => GetIt.I<TaskUC>();
+TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
 TaskTransactionUC get taskTransactionUC => GetIt.I<TaskTransactionUC>();
 TaskRepeatUC get taskRepeatUC => GetIt.I<TaskRepeatUC>();
+NoteUC get noteUC => GetIt.I<NoteUC>();
+AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 
 void setup() {
   /// device
@@ -119,25 +125,29 @@ void setup() {
     localDBAuthRepo: LocalAuthRepo(),
   ));
   getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
+
   getIt.registerSingleton<MyUC>(MyUC(MyRepo()));
+  getIt.registerSingleton<MyCalendarUC>(MyCalendarUC(MyCalendarRepo()));
+  getIt.registerSingleton<MyContactsUC>(MyContactsUC(MyContactsRepo()));
+  getIt.registerSingleton<MyAvatarUC>(MyAvatarUC(MyAvatarRepo()));
+
   getIt.registerSingleton<WorkspaceUC>(WorkspaceUC(WSRepo()));
-  getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
   getIt.registerSingleton<SourceUC>(SourceUC(SourceRepo()));
   getIt.registerSingleton<ProjectStatusUC>(ProjectStatusUC(ProjectStatusRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(ImportRepo()));
   getIt.registerSingleton<ServiceSettingsUC>(ServiceSettingsUC(ServiceSettingsRepo()));
   getIt.registerSingleton<InvitationUC>(InvitationUC(InvitationRepo()));
-  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
   getIt.registerSingleton<InAppPurchaseUC>(InAppPurchaseUC(IAPRepo()));
   getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
-  getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
-  getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
   getIt.registerSingleton<ProjectModuleUC>(ProjectModuleUC(ProjectModulesRepo()));
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
-  getIt.registerSingleton<MyCalendarUC>(MyCalendarUC(MyCalendarRepo()));
-  getIt.registerSingleton<MyAvatarUC>(MyAvatarUC(MyAvatarRepo()));
+
+  getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
+  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
   getIt.registerSingleton<TaskTransactionUC>(TaskTransactionUC(TaskTransactionRepo()));
   getIt.registerSingleton<TaskRepeatUC>(TaskRepeatUC(TaskRepeatRepo()));
+  getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
+  getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
 
   /// global state controllers
   // первый контроллер

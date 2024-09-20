@@ -2,48 +2,18 @@
 
 import 'package:collection/collection.dart';
 import 'package:file_selector/file_selector.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
-import '../../components/alert_dialog.dart';
-import '../../components/button.dart';
-import '../../components/images.dart';
+import '../../../L1_domain/entities/user_contact.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
 
 part 'account_controller.g.dart';
 
-class AccountController extends _AccountControllerBase with _$AccountController {
-  Future delete(BuildContext context) async {
-    if ((await showMTAlertDialog(
-          imageName: ImageName.delete.name,
-          title: loc.my_account_delete_dialog_title,
-          description: loc.my_account_delete_dialog_description,
-          actions: [
-            MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
-            MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
-          ],
-        )) ==
-        true) {
-      setLoaderScreenDeleting();
-      await load(() async {
-        await myUC.deleteAccount();
-        await authController.signOut();
-      });
-    }
-  }
-
-  Future registerPromoFeaturesViewed() async {
-    await registerActivity(UACode.PROMO_FEATURES_VIEWED);
-  }
-
-  Future registerOnboardingPassed(String stepCode) async {
-    await registerActivity('${UACode.ONBOARDING_PASSED}_$stepCode');
-  }
-}
+class AccountController extends _AccountControllerBase with _$AccountController {}
 
 abstract class _AccountControllerBase extends EditController with Store, Loadable {
   @observable
@@ -58,6 +28,12 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
   @computed
   bool get promoFeaturesViewed => me?.activities.where((a) => a.code.startsWith(UACode.PROMO_FEATURES_VIEWED)).isNotEmpty == true;
 
+  @observable
+  ObservableList<UserContact> contacts = ObservableList();
+
+  @action
+  void setContacts(Iterable<UserContact> data) => contacts = ObservableList.of(data);
+
   @action
   Future reload() async {
     // вызывается из mainController с его лоадером
@@ -67,9 +43,6 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
 
   @action
   Future registerActivity(String code, {int? wsId}) async => me = await myUC.registerActivity(code, wsId: wsId);
-
-  @action
-  void clear() => me = null;
 
   @action
   Future uploadAvatar(XFile file) async {
@@ -92,5 +65,11 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
       me = await myAvatarUC.deleteAvatar();
     });
     wsMainController.reload();
+  }
+
+  @action
+  void clear() {
+    me = null;
+    contacts.clear();
   }
 }

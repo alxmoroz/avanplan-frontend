@@ -72,11 +72,11 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*MemberContactsApi*](doc/MemberContactsApi.md) | [**deleteMemberContact**](doc/MemberContactsApi.md#deletemembercontact) | **DELETE** /v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id} | Delete Contact
-[*MemberContactsApi*](doc/MemberContactsApi.md) | [**memberContacts**](doc/MemberContactsApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Contacts
+[*MemberContactsApi*](doc/MemberContactsApi.md) | [**memberContacts**](doc/MemberContactsApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Member Contacts
 [*MemberContactsApi*](doc/MemberContactsApi.md) | [**upsertMemberContact**](doc/MemberContactsApi.md#upsertmembercontact) | **POST** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Upsert Contact
 [*MembersApi*](doc/MembersApi.md) | [**deleteMemberContact**](doc/MembersApi.md#deletemembercontact) | **DELETE** /v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id} | Delete Contact
 [*MembersApi*](doc/MembersApi.md) | [**memberAssignedTasks**](doc/MembersApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Member Assigned Tasks
-[*MembersApi*](doc/MembersApi.md) | [**memberContacts**](doc/MembersApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Contacts
+[*MembersApi*](doc/MembersApi.md) | [**memberContacts**](doc/MembersApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Member Contacts
 [*MembersApi*](doc/MembersApi.md) | [**upsertMemberContact**](doc/MembersApi.md#upsertmembercontact) | **POST** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Upsert Contact
 [*MyApi*](doc/MyApi.md) | [**myProjects**](doc/MyApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*MyApi*](doc/MyApi.md) | [**myTasks**](doc/MyApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
@@ -88,6 +88,9 @@ Class | Method | HTTP request | Description
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSources**](doc/MyCalendarApi.md#mycalendarsources) | **GET** /v1/my/calendar/sources | Sources
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarSourcesUpsert**](doc/MyCalendarApi.md#mycalendarsourcesupsert) | **POST** /v1/my/calendar/sources | Upsert
 [*MyCalendarApi*](doc/MyCalendarApi.md) | [**myCalendarsEvents**](doc/MyCalendarApi.md#mycalendarsevents) | **GET** /v1/my/calendar/calendars_events | Calendars Events
+[*MyContactsApi*](doc/MyContactsApi.md) | [**deleteMyContact**](doc/MyContactsApi.md#deletemycontact) | **DELETE** /v1/my/contacts/{user_contact_id} | Delete My Contact
+[*MyContactsApi*](doc/MyContactsApi.md) | [**myContacts**](doc/MyContactsApi.md#mycontacts) | **GET** /v1/my/contacts | My Contacts
+[*MyContactsApi*](doc/MyContactsApi.md) | [**upsertMyContact**](doc/MyContactsApi.md#upsertmycontact) | **POST** /v1/my/contacts | Upsert My Contact
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemInvitation**](doc/MyInvitationsApi.md#redeeminvitation) | **POST** /v1/my/invitations/redeem | Redeem Invitation
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
@@ -163,7 +166,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getProjects**](doc/WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspace**](doc/WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**memberAssignedTasks**](doc/WorkspacesApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Member Assigned Tasks
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**memberContacts**](doc/WorkspacesApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Contacts
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**memberContacts**](doc/WorkspacesApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Member Contacts
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**moveTask**](doc/WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myProjects**](doc/WorkspacesApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myTasks**](doc/WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
@@ -220,6 +223,7 @@ Class | Method | HTTP request | Description
  - [InvoiceDetailGet](doc/InvoiceDetailGet.md)
  - [InvoiceGet](doc/InvoiceGet.md)
  - [MemberContactGet](doc/MemberContactGet.md)
+ - [MemberContactUpsert](doc/MemberContactUpsert.md)
  - [MemberGet](doc/MemberGet.md)
  - [MyUser](doc/MyUser.md)
  - [NoteGet](doc/NoteGet.md)
@@ -253,6 +257,8 @@ Class | Method | HTTP request | Description
  - [TasksChanges](doc/TasksChanges.md)
  - [UActivityGet](doc/UActivityGet.md)
  - [User](doc/User.md)
+ - [UserContactGet](doc/UserContactGet.md)
+ - [UserContactUpsert](doc/UserContactUpsert.md)
  - [ValidationError](doc/ValidationError.md)
  - [ValidationErrorLocInner](doc/ValidationErrorLocInner.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)

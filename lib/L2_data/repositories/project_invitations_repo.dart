@@ -3,12 +3,12 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/invitation.dart';
-import '../../L1_domain/repositories/abs_invitation_repo.dart';
+import '../../L1_domain/repositories/abs_project_invitations_repo.dart';
 import '../mappers/task_invitation.dart';
 import '../services/api.dart';
 
-class InvitationRepo extends AbstractInvitationRepo {
-  o_api.TaskInvitationsApi get api => openAPI.getTaskInvitationsApi();
+class ProjectInvitationsRepo extends AbstractProjectInvitationsRepo {
+  o_api.TaskInvitationsApi get _api => openAPI.getTaskInvitationsApi();
 
   @override
   Future<Invitation?> create(Invitation invitation, int wsId) async {
@@ -17,7 +17,7 @@ class InvitationRepo extends AbstractInvitationRepo {
           ..taskId = invitation.taskId
           ..expiresOn = invitation.expiresOn.toUtc())
         .build();
-    final response = await api.createInvitation(
+    final response = await _api.createInvitation(
       wsId: wsId,
       taskId: invitation.taskId,
       invitation: data,
@@ -27,7 +27,7 @@ class InvitationRepo extends AbstractInvitationRepo {
 
   @override
   Future<Invitation?> getInvitation(int wsId, int taskId, int roleId) async {
-    final response = await api.getInvitations(
+    final response = await _api.getInvitations(
       wsId: wsId,
       roleId: roleId,
       taskId: taskId,

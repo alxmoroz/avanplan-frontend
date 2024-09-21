@@ -20,5 +20,5 @@ class WSMember extends Person {
   final Iterable<String> permissions;
   bool hp(String code) => permissions.contains(code);
 
-  bool isTaskMember = false;
+  int? taskId;
 }

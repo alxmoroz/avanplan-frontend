@@ -69,7 +69,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
       }
 
       if (tasksWithStatusCount == 0) {
-        await load(() async => tasksWithStatusCount = await projectStatusUC.statusTasksCount(status.wsId, status.projectId, status.id!));
+        await load(() async => tasksWithStatusCount = await projectStatusesUC.statusTasksCount(status.wsId, status.projectId, status.id!));
       }
     }
   }

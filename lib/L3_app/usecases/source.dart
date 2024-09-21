@@ -8,7 +8,7 @@ extension SourceUC on RemoteSource {
     bool ok = false;
     connectionState = RemoteSourceConnectionState.checking;
     try {
-      ok = await wsSourcesUC.checkConnection(this);
+      ok = await remoteSourcesUC.checkConnection(this);
     } catch (_) {}
 
     connectionState = ok ? RemoteSourceConnectionState.connected : RemoteSourceConnectionState.error;

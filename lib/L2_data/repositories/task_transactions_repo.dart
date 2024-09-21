@@ -8,7 +8,7 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-class TaskTransactionRepo extends AbstractApiRepo<TasksChanges, TaskTransaction> {
+class TaskTransactionsRepo extends AbstractApiRepo<TasksChanges, TaskTransaction> {
   o_api.TaskTransactionsApi get api => openAPI.getTaskTransactionsApi();
 
   @override

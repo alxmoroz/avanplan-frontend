@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getWSTasksApi();
 
   group(WSTasksApi, () {
-    // Assign Member Roles
+    // Assign Project Member Roles
     //
-    //Future<BuiltList<MemberGet>> assignMemberRoles(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
-    test('test assignMemberRoles', () async {
+    //Future<BuiltList<MemberGet>> assignProjectMemberRoles(int taskId, int memberId, int wsId, BuiltList<int> requestBody) async
+    test('test assignProjectMemberRoles', () async {
       // TODO
     });
 
@@ -73,6 +73,15 @@ void main() {
     //
     //Future<TasksChanges> moveTask(int wsId, int taskId, int srcTaskId, int srcWsId) async
     test('test moveTask', () async {
+      // TODO
+    });
+
+    // Project Member Contacts
+    //
+    // Способы связи участника РП в проекте
+    //
+    //Future<BuiltList<MemberContactGet>> projectMemberContacts(int memberId, int wsId, int taskId) async
+    test('test projectMemberContacts', () async {
       // TODO
     });
 

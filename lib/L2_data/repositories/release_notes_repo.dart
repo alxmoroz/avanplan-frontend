@@ -3,11 +3,11 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/release_note.dart';
-import '../../L1_domain/repositories/abs_release_note_repo.dart';
+import '../../L1_domain/repositories/abs_release_notes_repo.dart';
 import '../mappers/release_note.dart';
 import '../services/api.dart';
 
-class ReleaseNoteRepo extends AbstractReleaseNoteRepo {
+class ReleaseNotesRepo extends AbstractReleaseNotesRepo {
   o_api.ReleaseNotesApi get api => openAPI.getReleaseNotesApi();
 
   @override

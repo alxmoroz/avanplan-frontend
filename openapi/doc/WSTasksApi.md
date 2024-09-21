@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignMemberRoles**](WSTasksApi.md#assignmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Member Roles
+[**assignProjectMemberRoles**](WSTasksApi.md#assignprojectmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
 [**createInvitation**](WSTasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [**deleteNote**](WSTasksApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [**deleteRepeat**](WSTasksApi.md#deleterepeat) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**duplicateTask**](WSTasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
 [**getInvitations**](WSTasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**moveTask**](WSTasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
+[**projectMemberContacts**](WSTasksApi.md#projectmembercontacts) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
 [**repeatTask**](WSTasksApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [**setupProjectModules**](WSTasksApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [**statusTasksCount**](WSTasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
@@ -32,10 +33,10 @@ Method | HTTP request | Description
 [**upsertTransaction**](WSTasksApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
-# **assignMemberRoles**
-> BuiltList<MemberGet> assignMemberRoles(taskId, wsId, memberId, requestBody)
+# **assignProjectMemberRoles**
+> BuiltList<MemberGet> assignProjectMemberRoles(taskId, memberId, wsId, requestBody)
 
-Assign Member Roles
+Assign Project Member Roles
 
 ### Example
 ```dart
@@ -49,15 +50,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getWSTasksApi();
 final int taskId = 56; // int | 
-final int wsId = 56; // int | 
 final int memberId = 56; // int | 
+final int wsId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignMemberRoles(taskId, wsId, memberId, requestBody);
+    final response = api.assignProjectMemberRoles(taskId, memberId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->assignMemberRoles: $e\n');
+    print('Exception when calling WSTasksApi->assignProjectMemberRoles: $e\n');
 }
 ```
 
@@ -66,8 +67,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
- **wsId** | **int**|  | 
  **memberId** | **int**|  | 
+ **wsId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
 
 ### Return type
@@ -534,6 +535,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TasksChanges**](TasksChanges.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **projectMemberContacts**
+> BuiltList<MemberContactGet> projectMemberContacts(memberId, wsId, taskId)
+
+Project Member Contacts
+
+Способы связи участника РП в проекте
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWSTasksApi();
+final int memberId = 56; // int | 
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+
+try {
+    final response = api.projectMemberContacts(memberId, wsId, taskId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WSTasksApi->projectMemberContacts: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **int**|  | 
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+
+### Return type
+
+[**BuiltList&lt;MemberContactGet&gt;**](MemberContactGet.md)
 
 ### Authorization
 

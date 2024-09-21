@@ -8,10 +8,11 @@ import '../entities/ws_member.dart';
 import 'ws_users.dart';
 
 extension TaskMembersExtension on Task {
+  // TODO: в компьютед нужно это
   List<WSMember> get activeMembers => project.members
       .where((m) => m.userId != null && ws.userForId(m.userId!) != null)
       .map((m) {
-        m.isTaskMember = true;
+        m.taskId = id!;
         return m;
       })
       .sorted((m1, m2) => compareNatural('$m1', '$m2'))

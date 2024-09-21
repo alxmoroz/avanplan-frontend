@@ -19,16 +19,15 @@ import 'package:openapi/src/api/my_invitations_api.dart';
 import 'package:openapi/src/api/my_notifications_api.dart';
 import 'package:openapi/src/api/my_push_tokens_api.dart';
 import 'package:openapi/src/api/payments_api.dart';
+import 'package:openapi/src/api/project_members_api.dart';
 import 'package:openapi/src/api/project_modules_api.dart';
 import 'package:openapi/src/api/project_statuses_api.dart';
 import 'package:openapi/src/api/release_notes_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/task_invitations_api.dart';
-import 'package:openapi/src/api/task_members_roles_api.dart';
 import 'package:openapi/src/api/task_notes_api.dart';
 import 'package:openapi/src/api/task_repeats_api.dart';
 import 'package:openapi/src/api/task_transactions_api.dart';
-import 'package:openapi/src/api/ws_member_contacts_api.dart';
 import 'package:openapi/src/api/ws_members_api.dart';
 import 'package:openapi/src/api/wsmy_api.dart';
 import 'package:openapi/src/api/ws_sources_api.dart';
@@ -152,6 +151,12 @@ class Openapi {
     return PaymentsApi(dio, serializers);
   }
 
+  /// Get ProjectMembersApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ProjectMembersApi getProjectMembersApi() {
+    return ProjectMembersApi(dio, serializers);
+  }
+
   /// Get ProjectModulesApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   ProjectModulesApi getProjectModulesApi() {
@@ -182,12 +187,6 @@ class Openapi {
     return TaskInvitationsApi(dio, serializers);
   }
 
-  /// Get TaskMembersRolesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TaskMembersRolesApi getTaskMembersRolesApi() {
-    return TaskMembersRolesApi(dio, serializers);
-  }
-
   /// Get TaskNotesApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   TaskNotesApi getTaskNotesApi() {
@@ -204,12 +203,6 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   TaskTransactionsApi getTaskTransactionsApi() {
     return TaskTransactionsApi(dio, serializers);
-  }
-
-  /// Get WSMemberContactsApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  WSMemberContactsApi getWSMemberContactsApi() {
-    return WSMemberContactsApi(dio, serializers);
   }
 
   /// Get WSMembersApi instance, base route and serializer can be overridden by a given but be careful,

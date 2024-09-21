@@ -15,7 +15,7 @@ extension AttachmentsUC on AttachmentsController {
   Future uploadAttachments(Note note) async {
     if (selectedFiles.isNotEmpty) {
       for (final f in selectedFiles) {
-        final attachment = await attachmentUC.upload(
+        final attachment = await attachmentsUC.upload(
           task.wsId,
           task.id!,
           note.id!,

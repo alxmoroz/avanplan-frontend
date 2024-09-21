@@ -3,8 +3,8 @@
 import '../entities/note.dart';
 import '../repositories/abs_api_repo.dart';
 
-class NoteUC {
-  NoteUC(this.repo);
+class NotesUC {
+  NotesUC(this.repo);
 
   final AbstractApiRepo<Note, Note> repo;
 

@@ -4,8 +4,8 @@ import '../entities/task.dart';
 import '../entities/task_transaction.dart';
 import '../repositories/abs_api_repo.dart';
 
-class TaskTransactionUC {
-  TaskTransactionUC(this.repo);
+class TaskTransactionsUC {
+  TaskTransactionsUC(this.repo);
 
   final AbstractApiRepo<TasksChanges, TaskTransaction> repo;
 

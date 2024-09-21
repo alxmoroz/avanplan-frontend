@@ -3,8 +3,8 @@
 import '../entities/task_repeat.dart';
 import '../repositories/abs_api_repo.dart';
 
-class TaskRepeatUC {
-  TaskRepeatUC(this.repo);
+class TaskRepeatsUC {
+  TaskRepeatsUC(this.repo);
 
   final AbstractApiRepo<TaskRepeat, TaskRepeat> repo;
 

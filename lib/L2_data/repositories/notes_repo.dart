@@ -7,8 +7,8 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/note.dart';
 import '../services/api.dart';
 
-class NoteRepo extends AbstractApiRepo<Note, Note> {
-  o_api.TaskNotesApi get api => openAPI.getTaskNotesApi();
+class NotesRepo extends AbstractApiRepo<Note, Note> {
+  o_api.TaskNotesApi get _api => openAPI.getTaskNotesApi();
 
   @override
   Future<Note?> save(Note data) async {
@@ -22,7 +22,7 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
       ..text = data.text
       ..type = data.type;
 
-    final response = await api.upsertNote(
+    final response = await _api.upsertNote(
       noteUpsert: b.build(),
       taskId: data.taskId,
       wsId: data.wsId,
@@ -41,7 +41,7 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
 
   @override
   Future<Note?> delete(Note data) async {
-    final response = await api.deleteNote(
+    final response = await _api.deleteNote(
       noteId: data.id!,
       taskId: data.taskId,
       wsId: data.wsId,

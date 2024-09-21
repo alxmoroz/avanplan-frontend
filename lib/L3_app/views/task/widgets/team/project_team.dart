@@ -22,8 +22,8 @@ class ProjectTeam extends StatelessWidget {
   final TaskController _tc;
   final bool standalone;
 
-  Task get _task => _tc.task;
-  List<WSMember> get _activeMembers => _task.activeMembers;
+  Task get _project => _tc.task;
+  List<WSMember> get _activeMembers => _project.activeMembers;
 
   static const _iconSize = P8;
 
@@ -34,16 +34,16 @@ class ProjectTeam extends StatelessWidget {
     }
   }
 
-  Widget _memberBuilder(BuildContext context, int index) {
-    final member = _activeMembers[index];
+  Widget _projectMemberBuilder(BuildContext context, int index) {
+    final projectMember = _activeMembers[index];
     return MTListTile(
-      leading: member.icon(_iconSize / 2),
-      middle: BaseText('$member', maxLines: 1),
-      subtitle: SmallText(member.rolesTitles, maxLines: 1),
+      leading: projectMember.icon(_iconSize / 2),
+      middle: BaseText('$projectMember', maxLines: 1),
+      subtitle: SmallText(projectMember.rolesTitles, maxLines: 1),
       trailing: const ChevronIcon(),
       dividerIndent: _iconSize + P5,
-      bottomDivider: index < _activeMembers.length - 1 || _task.canInviteMembers,
-      onTap: () async => await _memberTap(context, member.id!),
+      bottomDivider: index < _activeMembers.length - 1 || _project.canInviteMembers,
+      onTap: () async => await _memberTap(context, projectMember.id!),
     );
   }
 
@@ -58,13 +58,13 @@ class ProjectTeam extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: _memberBuilder,
+                  itemBuilder: _projectMemberBuilder,
                   itemCount: _activeMembers.length,
                 ),
-                if (_task.canInviteMembers) InvitationButton(_task, inList: true),
+                if (_project.canInviteMembers) InvitationButton(_project, inList: true),
               ],
             )
-          : NoMembers(_task),
+          : NoMembers(_project),
     );
   }
 }

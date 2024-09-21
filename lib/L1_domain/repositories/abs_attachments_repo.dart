@@ -1,13 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/attachment.dart';
-import '../repositories/abs_attachment_repo.dart';
+import 'abs_api_repo.dart';
 
-class AttachmentUC {
-  AttachmentUC(this.repo);
-
-  final AbstractAttachmentRepo repo;
-
+abstract class AbstractAttachmentsRepo extends AbstractApiRepo<Attachment, Attachment> {
   Future<Attachment?> upload(
     int wsId,
     int taskId,
@@ -16,6 +12,6 @@ class AttachmentUC {
     int length,
     String filename,
     DateTime lastModified,
-  ) async =>
-      await repo.upload(wsId, taskId, noteId, data, length, filename, lastModified);
+  ) =>
+      throw UnimplementedError();
 }

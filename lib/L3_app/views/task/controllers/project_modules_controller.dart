@@ -76,7 +76,7 @@ abstract class _ProjectModulesControllerBase with Store {
         toCodes.add(enabledProjectOptions.elementAt(index).code);
       }
     }
-    project.projectModules = await projectModuleUC.setup(project.wsId, project.id!, toCodes);
+    project.projectModules = await projectModulesUC.setup(project.wsId, project.id!, toCodes);
     _taskController.updateField(fIndex, loading: false);
   }
 }

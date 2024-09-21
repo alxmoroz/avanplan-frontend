@@ -52,7 +52,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
     ProjectStatus? es;
 
     await _editWrapper(status, () async {
-      es = await projectStatusUC.save(status);
+      es = await projectStatusesUC.save(status);
       if (es != null) {
         if (status.isNew) {
           project.projectStatuses.add(es!);
@@ -69,7 +69,7 @@ class ProjectStatusesController extends _ProjectStatusesControllerBase with _$Pr
   }
 
   Future deleteStatus(ProjectStatus status) async => await _editWrapper(status, () async {
-        if (await projectStatusUC.delete(status) != null) {
+        if (await projectStatusesUC.delete(status) != null) {
           project.projectStatuses.remove(status);
         }
       });

@@ -4,12 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/attachment.dart';
-import '../../L1_domain/repositories/abs_attachment_repo.dart';
+import '../../L1_domain/repositories/abs_attachments_repo.dart';
 import '../mappers/attachment.dart';
 import '../services/api.dart';
 
-class AttachmentRepo extends AbstractAttachmentRepo {
-  o_api.TaskNotesApi get api => openAPI.getTaskNotesApi();
+class AttachmentsRepo extends AbstractAttachmentsRepo {
+  o_api.TaskNotesApi get _api => openAPI.getTaskNotesApi();
 
   @override
   Future<Attachment?> upload(
@@ -29,7 +29,7 @@ class AttachmentRepo extends AbstractAttachmentRepo {
         'last-modified': [lastModified.toIso8601String()]
       },
     );
-    final response = await api.uploadAttachment(
+    final response = await _api.uploadAttachment(
       wsId: wsId,
       taskId: taskId,
       noteId: noteId,

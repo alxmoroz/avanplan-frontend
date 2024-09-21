@@ -3,10 +3,10 @@
 import '../entities/project_status.dart';
 import '../repositories/abs_project_status_repo.dart';
 
-class ProjectStatusUC {
-  ProjectStatusUC(this.repo);
+class ProjectStatusesUC {
+  ProjectStatusesUC(this.repo);
 
-  final AbstractProjectStatusRepo repo;
+  final AbstractProjectStatusesRepo repo;
 
   Future<int> statusTasksCount(int wsId, int projectId, int statusId) async => await repo.statusTasksCount(wsId, projectId, statusId);
   Future<ProjectStatus?> save(ProjectStatus s) async => await repo.save(s);

@@ -39,7 +39,7 @@ extension NoteEditUC on TaskController {
       Note? en;
       await _noteEditWrapper(note, () async {
         if (await task.ws.checkBalance(loc.task_note_add_action_title)) {
-          en = await noteUC.save(note);
+          en = await notesUC.save(note);
           if (en != null) {
             // TODO: вложенности
             // if (en.notes.isEmpty) {
@@ -107,7 +107,7 @@ extension NoteEditUC on TaskController {
 
   Future deleteNote(Note note) async {
     await _noteEditWrapper(note, () async {
-      final deletedNote = await noteUC.delete(note);
+      final deletedNote = await notesUC.delete(note);
       if (deletedNote != null) {
         task.notes.remove(note);
         final noteAttachmentsIds = note.attachments.map((na) => na.id);

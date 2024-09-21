@@ -7,8 +7,8 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/task_repeat.dart';
 import '../services/api.dart';
 
-class TaskRepeatRepo extends AbstractApiRepo<TaskRepeat, TaskRepeat> {
-  o_api.TaskRepeatsApi get api => openAPI.getTaskRepeatsApi();
+class TaskRepeatsRepo extends AbstractApiRepo<TaskRepeat, TaskRepeat> {
+  o_api.TaskRepeatsApi get _api => openAPI.getTaskRepeatsApi();
 
   @override
   Future<TaskRepeat?> save(TaskRepeat data) async {
@@ -19,7 +19,7 @@ class TaskRepeatRepo extends AbstractApiRepo<TaskRepeat, TaskRepeat> {
       ..periodLength = data.periodLength
       ..daysList = data.daysList;
 
-    final response = await api.upsertRepeat(
+    final response = await _api.upsertRepeat(
       wsId: data.wsId,
       taskId: data.taskId,
       taskRepeatUpsert: b.build(),
@@ -38,7 +38,7 @@ class TaskRepeatRepo extends AbstractApiRepo<TaskRepeat, TaskRepeat> {
 
   @override
   Future<TaskRepeat?> delete(TaskRepeat data) async {
-    final response = await api.deleteRepeat(
+    final response = await _api.deleteRepeat(
       wsId: data.wsId,
       taskId: data.taskId,
       repeatId: data.id!,

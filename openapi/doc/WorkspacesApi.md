@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignMemberRoles**](WorkspacesApi.md#assignmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Member Roles
+[**assignProjectMemberRoles**](WorkspacesApi.md#assignprojectmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
 [**availableTariffs**](WorkspacesApi.md#availabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [**checkConnection**](WorkspacesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
 [**createFromTemplate**](WorkspacesApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
@@ -26,11 +26,11 @@ Method | HTTP request | Description
 [**getMyWorkspaces**](WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | My Workspaces
 [**getProjects**](WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
 [**getWorkspace**](WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
-[**memberAssignedTasks**](WorkspacesApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Member Assigned Tasks
-[**memberContacts**](WorkspacesApi.md#membercontacts) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Member Contacts
+[**memberAssignedTasks**](WorkspacesApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Ws Member Assigned Tasks
 [**moveTask**](WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
 [**myProjects**](WorkspacesApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [**myTasks**](WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
+[**projectMemberContacts**](WorkspacesApi.md#projectmembercontacts) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
 [**projectTemplates**](WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [**repeatTask**](WorkspacesApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [**requestType**](WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
@@ -52,10 +52,10 @@ Method | HTTP request | Description
 [**upsertTransaction**](WorkspacesApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
-# **assignMemberRoles**
-> BuiltList<MemberGet> assignMemberRoles(taskId, wsId, memberId, requestBody)
+# **assignProjectMemberRoles**
+> BuiltList<MemberGet> assignProjectMemberRoles(taskId, memberId, wsId, requestBody)
 
-Assign Member Roles
+Assign Project Member Roles
 
 ### Example
 ```dart
@@ -69,15 +69,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getWorkspacesApi();
 final int taskId = 56; // int | 
-final int wsId = 56; // int | 
 final int memberId = 56; // int | 
+final int wsId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignMemberRoles(taskId, wsId, memberId, requestBody);
+    final response = api.assignProjectMemberRoles(taskId, memberId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->assignMemberRoles: $e\n');
+    print('Exception when calling WorkspacesApi->assignProjectMemberRoles: $e\n');
 }
 ```
 
@@ -86,8 +86,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
- **wsId** | **int**|  | 
  **memberId** | **int**|  | 
+ **wsId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
 
 ### Return type
@@ -904,7 +904,7 @@ Name | Type | Description  | Notes
 # **memberAssignedTasks**
 > BuiltList<TaskGet> memberAssignedTasks(memberId, wsId, taskId)
 
-Member Assigned Tasks
+Ws Member Assigned Tasks
 
 Задачи участника РП
 
@@ -942,59 +942,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BuiltList&lt;TaskGet&gt;**](TaskGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **memberContacts**
-> BuiltList<MemberContactGet> memberContacts(memberId, wsId, taskId)
-
-Member Contacts
-
-Способы связи участника РП в проекте
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final int taskId = 56; // int | 
-
-try {
-    final response = api.memberContacts(memberId, wsId, taskId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->memberContacts: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **taskId** | **int**|  | [optional] 
-
-### Return type
-
-[**BuiltList&lt;MemberContactGet&gt;**](MemberContactGet.md)
 
 ### Authorization
 
@@ -1156,6 +1103,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BuiltList&lt;TaskGet&gt;**](TaskGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **projectMemberContacts**
+> BuiltList<MemberContactGet> projectMemberContacts(memberId, wsId, taskId)
+
+Project Member Contacts
+
+Способы связи участника РП в проекте
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getWorkspacesApi();
+final int memberId = 56; // int | 
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+
+try {
+    final response = api.projectMemberContacts(memberId, wsId, taskId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling WorkspacesApi->projectMemberContacts: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **memberId** | **int**|  | 
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+
+### Return type
+
+[**BuiltList&lt;MemberContactGet&gt;**](MemberContactGet.md)
 
 ### Authorization
 

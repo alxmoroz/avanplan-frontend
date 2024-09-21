@@ -79,7 +79,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
     if (await ws.checkBalance(loc.source_create_action_title)) {
       setLoaderScreenSaving();
       load(() async {
-        final editedSource = await wsSourcesUC.save(
+        final editedSource = await remoteSourcesUC.save(
           RemoteSource(
             id: source?.id,
             url: fData(SourceFCode.url.index).text,
@@ -110,7 +110,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
           true) {
         setLoaderScreenDeleting();
         load(() async {
-          final s = await wsSourcesUC.delete(source!);
+          final s = await remoteSourcesUC.delete(source!);
           if (s != null) {
             if (context.mounted) Navigator.of(context).pop(s);
             // отвязываем задачи

@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../L1_domain/usecases/attachment_uc.dart';
+import '../../L1_domain/usecases/attachments_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/iap_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
@@ -15,46 +15,46 @@ import '../../L1_domain/usecases/my_calendar_uc.dart';
 import '../../L1_domain/usecases/my_contacts_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
+import '../../L1_domain/usecases/project_members_uc.dart';
 import '../../L1_domain/usecases/project_module_uc.dart';
 import '../../L1_domain/usecases/project_status_uc.dart';
 import '../../L1_domain/usecases/release_note_uc.dart';
+import '../../L1_domain/usecases/remote_sources_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
-import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_repeat_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/transaction_uc.dart';
 import '../../L1_domain/usecases/ws_members_uc.dart';
 import '../../L1_domain/usecases/ws_my_uc.dart';
-import '../../L1_domain/usecases/ws_sources_uc.dart';
 import '../../L1_domain/usecases/ws_tariffs_uc.dart';
 import '../../L1_domain/usecases/ws_transfer_uc.dart';
 import '../../L1_domain/usecases/ws_uc.dart';
-import '../../L2_data/repositories/attachment_repo.dart';
+import '../../L2_data/repositories/attachments_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/auth_yandex_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/iap_repo.dart';
-import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_avatar_repo.dart';
 import '../../L2_data/repositories/my_calendar_repo.dart';
 import '../../L2_data/repositories/my_contacts_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
-import '../../L2_data/repositories/note_repo.dart';
-import '../../L2_data/repositories/project_module_repo.dart';
-import '../../L2_data/repositories/project_status_repo.dart';
-import '../../L2_data/repositories/release_note_repo.dart';
+import '../../L2_data/repositories/notes_repo.dart';
+import '../../L2_data/repositories/project_invitations_repo.dart';
+import '../../L2_data/repositories/project_members_repo.dart';
+import '../../L2_data/repositories/project_modules_repo.dart';
+import '../../L2_data/repositories/project_statuses_repo.dart';
+import '../../L2_data/repositories/release_notes_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
-import '../../L2_data/repositories/task_member_role_repo.dart';
-import '../../L2_data/repositories/task_repeat_repo.dart';
+import '../../L2_data/repositories/task_repeats_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
-import '../../L2_data/repositories/task_transaction_repo.dart';
+import '../../L2_data/repositories/task_transactions_repo.dart';
 import '../../L2_data/repositories/ws_members_repo.dart';
 import '../../L2_data/repositories/ws_my_repo.dart';
 import '../../L2_data/repositories/ws_repo.dart';
 import '../../L2_data/repositories/ws_sources_repo.dart';
-import '../../L2_data/repositories/ws_tariff_repo.dart';
+import '../../L2_data/repositories/ws_tariffs_repo.dart';
 import '../../L2_data/repositories/ws_transfer_repo.dart';
 import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
@@ -96,24 +96,25 @@ MyContactsUC get myContactsUC => GetIt.I<MyContactsUC>();
 MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
 
 WorkspaceUC get wsUC => GetIt.I<WorkspaceUC>();
-WSTariffsUC get tariffUC => GetIt.I<WSTariffsUC>();
-RemoteSourcesUC get wsSourcesUC => GetIt.I<RemoteSourcesUC>();
+WSTariffsUC get tariffsUC => GetIt.I<WSTariffsUC>();
+RemoteSourcesUC get remoteSourcesUC => GetIt.I<RemoteSourcesUC>();
 WSTransferUC get wsTransferUC => GetIt.I<WSTransferUC>();
 WSMyUC get wsMyUC => GetIt.I<WSMyUC>();
 WSMembersUC get wsMembersUC => GetIt.I<WSMembersUC>();
-
-ProjectStatusUC get projectStatusUC => GetIt.I<ProjectStatusUC>();
 InvitationUC get invitationUC => GetIt.I<InvitationUC>();
-InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
-ProjectModuleUC get projectModuleUC => GetIt.I<ProjectModuleUC>();
-ReleaseNoteUC get releaseNoteUC => GetIt.I<ReleaseNoteUC>();
+
+ProjectStatusesUC get projectStatusesUC => GetIt.I<ProjectStatusesUC>();
+ProjectMembersUC get projectMembersUC => GetIt.I<ProjectMembersUC>();
+ProjectModulesUC get projectModulesUC => GetIt.I<ProjectModulesUC>();
 
 TaskUC get taskUC => GetIt.I<TaskUC>();
-TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
-TaskTransactionUC get taskTransactionUC => GetIt.I<TaskTransactionUC>();
-TaskRepeatUC get taskRepeatUC => GetIt.I<TaskRepeatUC>();
-NoteUC get noteUC => GetIt.I<NoteUC>();
-AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
+TaskTransactionsUC get taskTransactionsUC => GetIt.I<TaskTransactionsUC>();
+TaskRepeatsUC get taskRepeatsUC => GetIt.I<TaskRepeatsUC>();
+NotesUC get notesUC => GetIt.I<NotesUC>();
+AttachmentsUC get attachmentsUC => GetIt.I<AttachmentsUC>();
+
+InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
+ReleaseNotesUC get releaseNotesUC => GetIt.I<ReleaseNotesUC>();
 
 void setup() {
   /// device
@@ -141,23 +142,23 @@ void setup() {
   getIt.registerSingleton<WorkspaceUC>(WorkspaceUC(WSRepo()));
   getIt.registerSingleton<WSMyUC>(WSMyUC(WSMyRepo()));
   getIt.registerSingleton<RemoteSourcesUC>(RemoteSourcesUC(WSSourcesRepo()));
-  getIt.registerSingleton<WSTariffsUC>(WSTariffsUC(WSTariffRepo()));
+  getIt.registerSingleton<WSTariffsUC>(WSTariffsUC(WSTariffsRepo()));
   getIt.registerSingleton<WSTransferUC>(WSTransferUC(WSTransferRepo()));
   getIt.registerSingleton<WSMembersUC>(WSMembersUC(WSMembersRepo()));
 
-  getIt.registerSingleton<ProjectStatusUC>(ProjectStatusUC(ProjectStatusRepo()));
+  getIt.registerSingleton<ProjectStatusesUC>(ProjectStatusesUC(ProjectStatusesRepo()));
   getIt.registerSingleton<ServiceSettingsUC>(ServiceSettingsUC(ServiceSettingsRepo()));
-  getIt.registerSingleton<InvitationUC>(InvitationUC(InvitationRepo()));
+  getIt.registerSingleton<InvitationUC>(InvitationUC(ProjectInvitationsRepo()));
   getIt.registerSingleton<InAppPurchaseUC>(InAppPurchaseUC(IAPRepo()));
-  getIt.registerSingleton<ProjectModuleUC>(ProjectModuleUC(ProjectModulesRepo()));
-  getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
+  getIt.registerSingleton<ProjectModulesUC>(ProjectModulesUC(ProjectModulesRepo()));
+  getIt.registerSingleton<ReleaseNotesUC>(ReleaseNotesUC(ReleaseNotesRepo()));
 
   getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
-  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMembersRolesRepo()));
-  getIt.registerSingleton<TaskTransactionUC>(TaskTransactionUC(TaskTransactionRepo()));
-  getIt.registerSingleton<TaskRepeatUC>(TaskRepeatUC(TaskRepeatRepo()));
-  getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
-  getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
+  getIt.registerSingleton<ProjectMembersUC>(ProjectMembersUC(ProjectMembersRepo()));
+  getIt.registerSingleton<TaskTransactionsUC>(TaskTransactionsUC(TaskTransactionsRepo()));
+  getIt.registerSingleton<TaskRepeatsUC>(TaskRepeatsUC(TaskRepeatsRepo()));
+  getIt.registerSingleton<NotesUC>(NotesUC(NotesRepo()));
+  getIt.registerSingleton<AttachmentsUC>(AttachmentsUC(AttachmentsRepo()));
 
   /// global state controllers
   // первый контроллер

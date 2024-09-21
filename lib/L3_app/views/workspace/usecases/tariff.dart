@@ -25,7 +25,7 @@ extension WSTariffUC on WSController {
       if (await ws.checkBalance(loc.tariff_change_action_title, extraMoney: ws.expectedDailyCharge)) {
         setLoaderScreenSaving();
         await load(() async {
-          final signedInvoice = await tariffUC.sign(tariff.id!, wsDescriptor.id!);
+          final signedInvoice = await tariffsUC.sign(tariff.id!, wsDescriptor.id!);
           if (signedInvoice != null) {
             ws.invoice = signedInvoice;
             wsMainController.refreshUI();
@@ -79,7 +79,7 @@ extension WSTariffUC on WSController {
     if (!needDeleteTeam || deleteTeamGranted == true) {
       setLoaderScreenSaving();
       await load(() async {
-        final signedInvoice = await tariffUC.upsertOption(
+        final signedInvoice = await tariffsUC.upsertOption(
           ws.id!,
           ws.tariff.id!,
           f.id!,

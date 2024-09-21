@@ -7,7 +7,7 @@ import '../../L1_domain/repositories/abs_project_status_repo.dart';
 import '../mappers/project_status.dart';
 import '../services/api.dart';
 
-class ProjectStatusRepo extends AbstractProjectStatusRepo {
+class ProjectStatusesRepo extends AbstractProjectStatusesRepo {
   o_api.ProjectStatusesApi get _api => openAPI.getProjectStatusesApi();
 
   @override

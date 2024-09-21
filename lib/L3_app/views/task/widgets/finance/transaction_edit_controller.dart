@@ -59,7 +59,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
       transaction.category = fData(TransactionFCode.category.index).text;
       transaction.description = fData(TransactionFCode.description.index).text;
 
-      final changes = await taskTransactionUC.save(transaction);
+      final changes = await taskTransactionsUC.save(transaction);
       if (changes != null) {
         tasksMainController.setTasks([changes.updated, ...changes.affected]);
       }
@@ -74,7 +74,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
     setLoaderScreenDeleting();
 
     await _editWrapper(() async {
-      final changes = await taskTransactionUC.delete(transaction);
+      final changes = await taskTransactionsUC.delete(transaction);
       if (changes != null) {
         tasksMainController.setTasks([changes.updated, ...changes.affected]);
       }

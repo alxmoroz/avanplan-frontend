@@ -107,7 +107,7 @@ extension DatesUC on TaskController {
     await editWrapper(() async {
       setLoaderScreenSaving();
       if (await task.ws.checkBalance(loc.edit_action_title)) {
-        final etr = await taskRepeatUC.save(repeat);
+        final etr = await taskRepeatsUC.save(repeat);
         if (etr != null) {
           task.repeat = etr;
         }
@@ -120,7 +120,7 @@ extension DatesUC on TaskController {
       await editWrapper(() async {
         setLoaderScreenSaving();
         if (await task.ws.checkBalance(loc.edit_action_title)) {
-          final deletedRepeat = await taskRepeatUC.delete(task.repeat!);
+          final deletedRepeat = await taskRepeatsUC.delete(task.repeat!);
           if (deletedRepeat != null) {
             task.repeat = null;
           }

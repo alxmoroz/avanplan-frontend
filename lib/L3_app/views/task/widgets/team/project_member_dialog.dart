@@ -25,6 +25,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/ws_member.dart';
+import '../../../../views/_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/members.dart';
 import '../view_settings/view_settings_controller.dart';
@@ -82,56 +83,58 @@ class _ProjectMemberDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          parentPageTitle: _project.title,
-          pageTitle: loc.project_member_title,
-        ),
-        body: _projectMember != null
-            ? ListView(
-                shrinkWrap: true,
-                children: [
-                  const SizedBox(height: P3),
-                  _projectMember!.icon(MAX_AVATAR_RADIUS),
-                  const SizedBox(height: P3),
-                  MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
-                  // BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
+      builder: (_) => _tc.loading
+          ? LoaderScreen(_tc, isDialog: true)
+          : MTDialog(
+              topBar: MTAppBar(
+                showCloseButton: true,
+                color: b2Color,
+                parentPageTitle: _project.title,
+                pageTitle: loc.project_member_title,
+              ),
+              body: _projectMember != null
+                  ? ListView(
+                      shrinkWrap: true,
+                      children: [
+                        const SizedBox(height: P3),
+                        _projectMember!.icon(MAX_AVATAR_RADIUS),
+                        const SizedBox(height: P3),
+                        MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
+                        // BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
 
-                  /// Ответственный в задачах в проекте
-                  MTListTile(
-                    margin: const EdgeInsets.only(top: P3),
-                    leading: const PersonIcon(),
-                    middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
-                    // subtitle: SmallText('', maxLines: 1),
-                    trailing: const ChevronIcon(),
-                    dividerIndent: P11,
-                    onTap: () => _assigneeFilterSet(context),
-                  ),
+                        /// Ответственный в задачах в проекте
+                        MTListTile(
+                          margin: const EdgeInsets.only(top: P3),
+                          leading: const PersonIcon(),
+                          middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
+                          // subtitle: SmallText('', maxLines: 1),
+                          trailing: const ChevronIcon(),
+                          dividerIndent: P11,
+                          onTap: () => _assigneeFilterSet(context),
+                        ),
 
-                  /// Права в проекте
-                  MTListTile(
-                    leading: const PrivacyIcon(),
-                    middle: BaseText(loc.role_title, maxLines: 1),
-                    subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
-                    trailing: _project.canEditMembers ? const EditIcon() : null,
-                    bottomDivider: false,
-                    loading: _project.loading,
-                    onTap: _project.canEditMembers ? () => _editRoles(context) : null,
-                  ),
+                        /// Права в проекте
+                        MTListTile(
+                          leading: const PrivacyIcon(),
+                          middle: BaseText(loc.role_title, maxLines: 1),
+                          subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
+                          trailing: _project.canEditMembers ? const EditIcon() : null,
+                          bottomDivider: false,
+                          loading: _project.loading,
+                          onTap: _project.canEditMembers ? () => _editRoles(context) : null,
+                        ),
 
-                  /// Отключение от проекта
-                  MTListTile(
-                    middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                    margin: EdgeInsets.only(top: P6, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
-                    bottomDivider: false,
-                    onTap: () => _unlinkMember(context),
-                  ),
-                ],
-              )
-            : Container(),
-      ),
+                        /// Отключение от проекта
+                        MTListTile(
+                          middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                          margin: EdgeInsets.only(top: P6, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                          bottomDivider: false,
+                          onTap: () => _unlinkMember(context),
+                        ),
+                      ],
+                    )
+                  : Container(),
+            ),
     );
   }
 }

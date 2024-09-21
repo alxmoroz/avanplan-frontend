@@ -41,7 +41,7 @@ Future<RemoteSource?> addSource(Workspace ws, {required RemoteSourceType sType})
   if (sType.active) {
     s = await editSource(ws, sType: sType);
   } else {
-    wsSourcesUC.requestType(sType, ws.id!);
+    remoteSourcesUC.requestType(sType, ws.id!);
 
     if (sType.custom) {
       await _emailUsCustomImport();

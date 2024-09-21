@@ -201,12 +201,12 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<CalendarSourceGet>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(ProjectModuleGet)]),
-        () => ListBuilder<ProjectModuleGet>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(MemberGet)]),
         () => ListBuilder<MemberGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectModuleGet)]),
+        () => ListBuilder<ProjectModuleGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(String)]),

@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getWorkspacesApi();
 
   group(WorkspacesApi, () {
-    // Assign Member Roles
+    // Assign Project Member Roles
     //
-    //Future<BuiltList<MemberGet>> assignMemberRoles(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
-    test('test assignMemberRoles', () async {
+    //Future<BuiltList<MemberGet>> assignProjectMemberRoles(int taskId, int memberId, int wsId, BuiltList<int> requestBody) async
+    test('test assignProjectMemberRoles', () async {
       // TODO
     });
 
@@ -125,21 +125,12 @@ void main() {
       // TODO
     });
 
-    // Member Assigned Tasks
+    // Ws Member Assigned Tasks
     //
     // Задачи участника РП
     //
     //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId, { int taskId }) async
     test('test memberAssignedTasks', () async {
-      // TODO
-    });
-
-    // Member Contacts
-    //
-    // Способы связи участника РП в проекте
-    //
-    //Future<BuiltList<MemberContactGet>> memberContacts(int memberId, int wsId, { int taskId }) async
-    test('test memberContacts', () async {
       // TODO
     });
 
@@ -165,6 +156,15 @@ void main() {
     //
     //Future<BuiltList<TaskGet>> myTasks(int wsId, { int projectId, int taskId }) async
     test('test myTasks', () async {
+      // TODO
+    });
+
+    // Project Member Contacts
+    //
+    // Способы связи участника РП в проекте
+    //
+    //Future<BuiltList<MemberContactGet>> projectMemberContacts(int memberId, int wsId, int taskId) async
+    test('test projectMemberContacts', () async {
       // TODO
     });
 

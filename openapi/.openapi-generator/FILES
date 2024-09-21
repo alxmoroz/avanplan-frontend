@@ -49,6 +49,7 @@ doc/PaymentsApi.md
 doc/PermissionGet.md
 doc/PermissionRoleGet.md
 doc/ProjectGet.md
+doc/ProjectMembersApi.md
 doc/ProjectModuleGet.md
 doc/ProjectModulesApi.md
 doc/ProjectStatusGet.md
@@ -67,7 +68,6 @@ doc/TariffGet.md
 doc/TariffOptionGet.md
 doc/TaskGet.md
 doc/TaskInvitationsApi.md
-doc/TaskMembersRolesApi.md
 doc/TaskNode.md
 doc/TaskNotesApi.md
 doc/TaskRemote.md
@@ -87,7 +87,6 @@ doc/UserContactGet.md
 doc/UserContactUpsert.md
 doc/ValidationError.md
 doc/ValidationErrorLocInner.md
-doc/WSMemberContactsApi.md
 doc/WSMembersApi.md
 doc/WSMyApi.md
 doc/WSSourcesApi.md
@@ -110,17 +109,16 @@ lib/src/api/my_invitations_api.dart
 lib/src/api/my_notifications_api.dart
 lib/src/api/my_push_tokens_api.dart
 lib/src/api/payments_api.dart
+lib/src/api/project_members_api.dart
 lib/src/api/project_modules_api.dart
 lib/src/api/project_statuses_api.dart
 lib/src/api/release_notes_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/task_invitations_api.dart
-lib/src/api/task_members_roles_api.dart
 lib/src/api/task_notes_api.dart
 lib/src/api/task_repeats_api.dart
 lib/src/api/task_transactions_api.dart
 lib/src/api/workspaces_api.dart
-lib/src/api/ws_member_contacts_api.dart
 lib/src/api/ws_members_api.dart
 lib/src/api/ws_sources_api.dart
 lib/src/api/ws_tariff_options_api.dart
@@ -253,6 +251,7 @@ test/payments_api_test.dart
 test/permission_get_test.dart
 test/permission_role_get_test.dart
 test/project_get_test.dart
+test/project_members_api_test.dart
 test/project_module_get_test.dart
 test/project_modules_api_test.dart
 test/project_status_get_test.dart
@@ -271,7 +270,6 @@ test/tariff_get_test.dart
 test/tariff_option_get_test.dart
 test/task_get_test.dart
 test/task_invitations_api_test.dart
-test/task_members_roles_api_test.dart
 test/task_node_test.dart
 test/task_notes_api_test.dart
 test/task_remote_test.dart
@@ -294,7 +292,6 @@ test/validation_error_test.dart
 test/workspace_get_test.dart
 test/workspace_upsert_test.dart
 test/workspaces_api_test.dart
-test/ws_member_contacts_api_test.dart
 test/ws_members_api_test.dart
 test/ws_sources_api_test.dart
 test/ws_tariff_options_api_test.dart

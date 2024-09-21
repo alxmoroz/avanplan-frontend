@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getWorkspacesApi();
 
   group(WorkspacesApi, () {
-    // Assign Roles
+    // Assign Member Roles
     //
-    //Future<BuiltList<MemberGet>> assignRoles(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
-    test('test assignRoles', () async {
+    //Future<BuiltList<MemberGet>> assignMemberRoles(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
+    test('test assignMemberRoles', () async {
       // TODO
     });
 
@@ -38,15 +38,6 @@ void main() {
     //
     //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async
     test('test createInvitation', () async {
-      // TODO
-    });
-
-    // Delete Contact
-    //
-    // Удаление способа связи
-    //
-    //Future<bool> deleteMemberContact(int memberId, int memberContactId, int wsId, { int taskId }) async
-    test('test deleteMemberContact', () async {
       // TODO
     });
 
@@ -145,7 +136,7 @@ void main() {
 
     // Member Contacts
     //
-    // Способы связи участника РП
+    // Способы связи участника РП в проекте
     //
     //Future<BuiltList<MemberContactGet>> memberContacts(int memberId, int wsId, { int taskId }) async
     test('test memberContacts', () async {
@@ -258,15 +249,6 @@ void main() {
     //
     //Future<AttachmentGet> uploadAttachment(int wsId, int taskId, int noteId, MultipartFile file) async
     test('test uploadAttachment', () async {
-      // TODO
-    });
-
-    // Upsert Contact
-    //
-    // Добавление / редактирование способа связи
-    //
-    //Future<MemberContactGet> upsertMemberContact(int memberId, int wsId, MemberContactUpsert memberContactUpsert, { int taskId }) async
-    test('test upsertMemberContact', () async {
       // TODO
     });
 

@@ -2,8 +2,8 @@
 
 import 'base_entity.dart';
 
-class SourceType extends Titleable {
-  SourceType({
+class RemoteSourceType extends Titleable {
+  RemoteSourceType({
     super.id,
     required super.title,
     required this.code,

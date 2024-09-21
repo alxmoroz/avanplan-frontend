@@ -23,7 +23,7 @@ extension TaskMemberUC on TaskController {
     if (await task.ws.checkBalance(loc.member_edit_action_title)) {
       await editWrapper(() async {
         setLoaderScreenSaving();
-        task.members = await taskMemberRoleUC.assignRoles(task, memberId, rolesIds);
+        task.members = await taskMemberRoleUC.assignMemberRoles(task, memberId, rolesIds);
         // Отключение от проекта
         if (rolesIds.isEmpty) {
           // для всех задач проекта и самого проекта тоже, где пользователь быз назначен, убрать назначение с него

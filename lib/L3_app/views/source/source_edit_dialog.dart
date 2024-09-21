@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/source_type.dart';
+import '../../../L1_domain/entities/remote_source.dart';
+import '../../../L1_domain/entities/remote_source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../../L1_domain/entities_extensions/remote_source.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
@@ -19,7 +19,7 @@ import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/source.dart';
+import '../../presenters/remote_source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/communications.dart';
 import '../../usecases/source.dart';
@@ -36,8 +36,8 @@ Future startAddSource(Workspace ws) async {
 
 Future _emailUsCustomImport() async => await mailUs(subject: loc.import_custom_request_mail_subject, text: loc.import_custom_request_mail_body_text);
 
-Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
-  Source? s;
+Future<RemoteSource?> addSource(Workspace ws, {required RemoteSourceType sType}) async {
+  RemoteSource? s;
   if (sType.active) {
     s = await editSource(ws, sType: sType);
   } else {
@@ -60,10 +60,10 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
   return s;
 }
 
-Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async {
+Future<RemoteSource?> editSource(Workspace ws, {RemoteSource? src, RemoteSourceType? sType}) async {
   final s = await sourceEditDialog(ws, src, sType);
   if (s != null) {
-    ws.updateSourceInList(s);
+    ws.updateRemoteSourceInList(s);
     if (!s.removed) {
       await s.checkConnection();
     }
@@ -72,14 +72,14 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
   return s;
 }
 
-Future<Source?> sourceEditDialog(Workspace ws, Source? src, SourceType? sType) async =>
-    await showMTDialog<Source?>(_SourceEditDialog(ws, src, sType));
+Future<RemoteSource?> sourceEditDialog(Workspace ws, RemoteSource? src, RemoteSourceType? sType) async =>
+    await showMTDialog<RemoteSource?>(_SourceEditDialog(ws, src, sType));
 
 class _SourceEditDialog extends StatefulWidget {
   const _SourceEditDialog(this.ws, this.src, this.sType);
   final Workspace ws;
-  final Source? src;
-  final SourceType? sType;
+  final RemoteSource? src;
+  final RemoteSourceType? sType;
 
   @override
   State<StatefulWidget> createState() => _SourceEditDialogState();

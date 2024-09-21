@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getWSTasksApi();
 
   group(WSTasksApi, () {
-    // Assign Roles
+    // Assign Member Roles
     //
-    //Future<BuiltList<MemberGet>> assignRoles(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
-    test('test assignRoles', () async {
+    //Future<BuiltList<MemberGet>> assignMemberRoles(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
+    test('test assignMemberRoles', () async {
       // TODO
     });
 

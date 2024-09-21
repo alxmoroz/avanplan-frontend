@@ -1,13 +1,13 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import '../../../L1_domain/entities/source_type.dart';
+import '../../../L1_domain/entities/remote_source_type.dart';
 import '../../components/constants.dart';
 import '../../components/select_dialog.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../../presenters/source.dart';
+import '../../presenters/remote_source.dart';
 
-Future<SourceType?> selectSourceType({int? selectedId}) async => await showMTSelectDialog(
+Future<RemoteSourceType?> selectSourceType({int? selectedId}) async => await showMTSelectDialog(
       refsController.sourceTypes,
       selectedId,
       loc.source_type_selector_title,

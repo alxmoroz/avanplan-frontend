@@ -1,18 +1,18 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/remote_source.dart';
 import '../extra/services.dart';
 
-extension SourceUC on Source {
+extension SourceUC on RemoteSource {
   Future<bool> checkConnection() async {
-    bool connected = false;
-    state = SrcState.checking;
+    bool ok = false;
+    connectionState = RemoteSourceConnectionState.checking;
     try {
-      connected = await wsSourcesUC.checkConnection(this);
+      ok = await wsSourcesUC.checkConnection(this);
     } catch (_) {}
 
-    state = connected ? SrcState.connected : SrcState.error;
+    connectionState = ok ? RemoteSourceConnectionState.connected : RemoteSourceConnectionState.error;
     wsMainController.refreshUI();
-    return connected;
+    return ok;
   }
 }

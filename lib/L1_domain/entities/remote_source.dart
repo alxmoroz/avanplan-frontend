@@ -2,15 +2,15 @@
 
 import 'base_entity.dart';
 
-enum SrcState {
+enum RemoteSourceConnectionState {
   connected,
   error,
   unknown,
   checking,
 }
 
-class Source extends WSBounded {
-  Source({
+class RemoteSource extends WSBounded {
+  RemoteSource({
     super.id,
     required super.wsId,
     required this.typeCode,
@@ -19,7 +19,7 @@ class Source extends WSBounded {
     this.username,
     this.password,
     this.description = '',
-    this.state = SrcState.unknown,
+    this.connectionState = RemoteSourceConnectionState.unknown,
   });
 
   final String typeCode;
@@ -28,7 +28,8 @@ class Source extends WSBounded {
   final String? username;
   final String? password;
   final String description;
-  SrcState state;
+
+  RemoteSourceConnectionState connectionState;
 
   @override
   String toString() {

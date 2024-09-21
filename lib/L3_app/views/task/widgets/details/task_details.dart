@@ -20,7 +20,7 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/project_module.dart';
-import '../../../../presenters/source.dart';
+import '../../../../presenters/remote_source.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/task_tree.dart';

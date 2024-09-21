@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignRoles**](WSTasksApi.md#assignroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Roles
+[**assignMemberRoles**](WSTasksApi.md#assignmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Member Roles
 [**createInvitation**](WSTasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [**deleteNote**](WSTasksApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [**deleteRepeat**](WSTasksApi.md#deleterepeat) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
@@ -32,10 +32,10 @@ Method | HTTP request | Description
 [**upsertTransaction**](WSTasksApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
-# **assignRoles**
-> BuiltList<MemberGet> assignRoles(taskId, wsId, memberId, requestBody)
+# **assignMemberRoles**
+> BuiltList<MemberGet> assignMemberRoles(taskId, wsId, memberId, requestBody)
 
-Assign Roles
+Assign Member Roles
 
 ### Example
 ```dart
@@ -54,10 +54,10 @@ final int memberId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignRoles(taskId, wsId, memberId, requestBody);
+    final response = api.assignMemberRoles(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->assignRoles: $e\n');
+    print('Exception when calling WSTasksApi->assignMemberRoles: $e\n');
 }
 ```
 

@@ -8,13 +8,13 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import 'attachment.dart';
-import 'member.dart';
 import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
 import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
+import 'ws_member.dart';
 
 extension TaskMapper on api.TaskGet {
   Task task(int wsId) {
@@ -83,7 +83,7 @@ extension ProjectMapper on api.ProjectGet {
 }
 
 extension TaskRemoteMapper on api.TaskRemote {
-  ProjectRemote get taskImport => ProjectRemote(
+  RemoteProject get taskImport => RemoteProject(
         title: title,
         description: description ?? '',
         taskSource: taskSource.taskSourceRemote,

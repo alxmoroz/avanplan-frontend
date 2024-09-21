@@ -3,11 +3,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/entities/source.dart';
-import '../../L1_domain/entities/source_type.dart';
+import '../../L1_domain/entities/remote_source.dart';
+import '../../L1_domain/entities/remote_source_type.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_ws_sources_repo.dart';
-import '../mappers/source.dart';
+import '../mappers/remote_source.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
@@ -15,7 +15,7 @@ class WSSourcesRepo extends AbstractWSSourcesRepo {
   o_api.WSSourcesApi get _api => openAPI.getWSSourcesApi();
 
   @override
-  Future<Source?> save(Source data) async {
+  Future<RemoteSource?> save(RemoteSource data) async {
     final b = o_api.SourceUpsertBuilder()
       ..id = data.id
       ..type = data.typeCode
@@ -33,13 +33,13 @@ class WSSourcesRepo extends AbstractWSSourcesRepo {
   }
 
   @override
-  Future<Source?> delete(Source data) async {
+  Future<RemoteSource?> delete(RemoteSource data) async {
     final response = await _api.deleteSource(sourceId: data.id!, wsId: data.wsId);
     return response.data == true ? data : null;
   }
 
   @override
-  Future<bool> checkConnection(Source s) async {
+  Future<bool> checkConnection(RemoteSource s) async {
     try {
       final response = await _api.checkConnection(sourceId: s.id!, wsId: s.wsId);
       return response.data == true;
@@ -49,19 +49,19 @@ class WSSourcesRepo extends AbstractWSSourcesRepo {
   }
 
   @override
-  Future<bool> requestType(SourceType st, int wsId) async {
+  Future<bool> requestType(RemoteSourceType st, int wsId) async {
     final response = await _api.requestType(bodyRequestType: (o_api.BodyRequestTypeBuilder()..code = st.code).build(), wsId: wsId);
     return response.data == true;
   }
 
   @override
-  Future<Iterable<ProjectRemote>> getProjectsList(int wsId, int sourceId) async {
+  Future<Iterable<RemoteProject>> getProjectsList(int wsId, int sourceId) async {
     final response = await _api.getProjects(wsId: wsId, sourceId: sourceId);
     return response.data?.map((t) => t.taskImport) ?? [];
   }
 
   @override
-  Future<bool> import(int wsId, int sourceId, Iterable<ProjectRemote> projects) async {
+  Future<bool> import(int wsId, int sourceId, Iterable<RemoteProject> projects) async {
     final response = await _api.startImport(
       wsId: wsId,
       sourceId: sourceId,

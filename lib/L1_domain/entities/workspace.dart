@@ -3,8 +3,8 @@
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
+import 'remote_source.dart';
 import 'role.dart';
-import 'source.dart';
 import 'user.dart';
 import 'ws_member.dart';
 import 'ws_settings.dart';
@@ -46,7 +46,7 @@ class Workspace extends WorkspaceUpsert {
 
   // редактируемые поля
   List<EstimateValue> estimateValues;
-  List<Source> sources;
+  List<RemoteSource> sources;
 
   final num fsVolume;
   final int tasksCount;

@@ -24,9 +24,9 @@ import 'package:openapi/src/api/project_statuses_api.dart';
 import 'package:openapi/src/api/release_notes_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/task_invitations_api.dart';
+import 'package:openapi/src/api/task_members_roles_api.dart';
 import 'package:openapi/src/api/task_notes_api.dart';
 import 'package:openapi/src/api/task_repeats_api.dart';
-import 'package:openapi/src/api/task_roles_api.dart';
 import 'package:openapi/src/api/task_transactions_api.dart';
 import 'package:openapi/src/api/ws_member_contacts_api.dart';
 import 'package:openapi/src/api/ws_members_api.dart';
@@ -182,6 +182,12 @@ class Openapi {
     return TaskInvitationsApi(dio, serializers);
   }
 
+  /// Get TaskMembersRolesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TaskMembersRolesApi getTaskMembersRolesApi() {
+    return TaskMembersRolesApi(dio, serializers);
+  }
+
   /// Get TaskNotesApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   TaskNotesApi getTaskNotesApi() {
@@ -192,12 +198,6 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   TaskRepeatsApi getTaskRepeatsApi() {
     return TaskRepeatsApi(dio, serializers);
-  }
-
-  /// Get TaskRolesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TaskRolesApi getTaskRolesApi() {
-    return TaskRolesApi(dio, serializers);
   }
 
   /// Get TaskTransactionsApi instance, base route and serializer can be overridden by a given but be careful,

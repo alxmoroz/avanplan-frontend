@@ -4,11 +4,11 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../../../L1_domain/entities_extensions/remote_source.dart';
 import '../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/project_module.dart';
-import '../../../presenters/source.dart';
+import '../../../presenters/remote_source.dart';
 import '../../../presenters/task_tree.dart';
 import 'task_controller.dart';
 
@@ -60,7 +60,7 @@ abstract class _ProjectModulesControllerBase with Store {
         disabled = checked && project.members.length > 1;
       } else if (f.code == TOCode.GOALS) {
         // не можем включить для трелло и не можем выключить, если есть уже цели или задачи в корне проекта
-        final isTrello = project.ws.sourceForId(project.taskSource?.sourceId)?.type.isTrello == true;
+        final isTrello = project.ws.remoteSourceForId(project.taskSource?.sourceId)?.type.isTrello == true;
         disabled = isTrello || project.hasSubtasks;
       }
     }

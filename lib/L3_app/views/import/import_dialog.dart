@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/remote_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
 import '../../components/checkbox.dart';
@@ -17,7 +17,7 @@ import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/source.dart';
+import '../../presenters/remote_source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_sources.dart';
 import '../_base/loader_screen.dart';
@@ -44,7 +44,7 @@ class _ImportDialog extends StatelessWidget {
   bool get _hasSources => controller.ws.sources.isNotEmpty;
   bool get _showSelectAll => controller.projects.length > 2;
 
-  Widget get _sourceDropdown => MTDropdown<Source>(
+  Widget get _sourceDropdown => MTDropdown<RemoteSource>(
         onChanged: controller.selectSource,
         value: controller.selectedSourceId,
         ddItems: [

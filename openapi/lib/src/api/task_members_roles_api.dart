@@ -12,15 +12,15 @@ import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/member_get.dart';
 
-class TaskRolesApi {
+class TaskMembersRolesApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const TaskRolesApi(this._dio, this._serializers);
+  const TaskMembersRolesApi(this._dio, this._serializers);
 
-  /// Assign Roles
+  /// Assign Member Roles
   /// 
   ///
   /// Parameters:
@@ -37,7 +37,7 @@ class TaskRolesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignRoles({ 
+  Future<Response<BuiltList<MemberGet>>> assignMemberRoles({ 
     required int taskId,
     required int wsId,
     required int memberId,

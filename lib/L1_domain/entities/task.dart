@@ -198,8 +198,8 @@ class Task extends Project {
   }
 }
 
-class ProjectRemote extends Project {
-  ProjectRemote({
+class RemoteProject extends Project {
+  RemoteProject({
     required super.title,
     required super.wsId,
     super.description,

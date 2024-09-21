@@ -2,7 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/source_type.dart';
+import '../../../L1_domain/entities/remote_source_type.dart';
 import '../../extra/services.dart';
 
 part 'references_controller.g.dart';
@@ -12,17 +12,17 @@ class ReferencesController extends _ReferencesControllerBase with _$ReferencesCo
 abstract class _ReferencesControllerBase with Store {
   /// тип источника импорта
   @observable
-  List<SourceType> sourceTypes = [];
+  List<RemoteSourceType> sourceTypes = [];
 
   @action
   Future reload() async {
     sourceTypes = [
-      for (final st in ['Trello', 'Jira', 'GitLab', 'Redmine']) SourceType(id: -1, title: st, code: st.toLowerCase()),
-      for (final st in ['Notion', 'GitHub', 'Asana', 'WEEEK']) SourceType(id: -1, title: st, code: st.toLowerCase(), active: false),
+      for (final st in ['Trello', 'Jira', 'GitLab', 'Redmine']) RemoteSourceType(id: -1, title: st, code: st.toLowerCase()),
+      for (final st in ['Notion', 'GitHub', 'Asana', 'WEEEK']) RemoteSourceType(id: -1, title: st, code: st.toLowerCase(), active: false),
       // SourceType(id: -1, title: 'Trello JSON', code: 'trello_json'),
       // SourceType(id: -1, title: 'WEEEK JSON', code: 'weeek_json'),
-      SourceType(id: -1, title: 'Яндекс.Трекер', code: 'yandex_tracker', active: false),
-      SourceType(id: -1, title: loc.source_type_custom_title, description: loc.source_type_custom_description, code: 'custom', active: false),
+      RemoteSourceType(id: -1, title: 'Яндекс.Трекер', code: 'yandex_tracker', active: false),
+      RemoteSourceType(id: -1, title: loc.source_type_custom_title, description: loc.source_type_custom_description, code: 'custom', active: false),
     ];
   }
 
@@ -31,5 +31,5 @@ abstract class _ReferencesControllerBase with Store {
     sourceTypes = [];
   }
 
-  SourceType typeForCode(String code) => sourceTypes.firstWhere((st) => st.code == code);
+  RemoteSourceType typeForCode(String code) => sourceTypes.firstWhere((st) => st.code == code);
 }

@@ -9,12 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignRoles**](WorkspacesApi.md#assignroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Roles
+[**assignMemberRoles**](WorkspacesApi.md#assignmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Member Roles
 [**availableTariffs**](WorkspacesApi.md#availabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [**checkConnection**](WorkspacesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
 [**createFromTemplate**](WorkspacesApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
 [**createInvitation**](WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
-[**deleteMemberContact**](WorkspacesApi.md#deletemembercontact) | **DELETE** /v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id} | Delete Contact
 [**deleteNote**](WorkspacesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [**deleteRepeat**](WorkspacesApi.md#deleterepeat) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
 [**deleteSource**](WorkspacesApi.md#deletesource) | **DELETE** /v1/workspaces/{ws_id}/sources/{source_id} | Delete
@@ -44,7 +43,6 @@ Method | HTTP request | Description
 [**unlinkTask**](WorkspacesApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
 [**updateWorkspace**](WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Upsert
 [**uploadAttachment**](WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
-[**upsertMemberContact**](WorkspacesApi.md#upsertmembercontact) | **POST** /v1/workspaces/{ws_id}/members/{member_id}/contacts | Upsert Contact
 [**upsertNote**](WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [**upsertOption**](WorkspacesApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
 [**upsertRepeat**](WorkspacesApi.md#upsertrepeat) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats | Upsert
@@ -54,10 +52,10 @@ Method | HTTP request | Description
 [**upsertTransaction**](WorkspacesApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
-# **assignRoles**
-> BuiltList<MemberGet> assignRoles(taskId, wsId, memberId, requestBody)
+# **assignMemberRoles**
+> BuiltList<MemberGet> assignMemberRoles(taskId, wsId, memberId, requestBody)
 
-Assign Roles
+Assign Member Roles
 
 ### Example
 ```dart
@@ -76,10 +74,10 @@ final int memberId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignRoles(taskId, wsId, memberId, requestBody);
+    final response = api.assignMemberRoles(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->assignRoles: $e\n');
+    print('Exception when calling WorkspacesApi->assignMemberRoles: $e\n');
 }
 ```
 
@@ -303,61 +301,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteMemberContact**
-> bool deleteMemberContact(memberId, memberContactId, wsId, taskId)
-
-Delete Contact
-
-Удаление способа связи
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
-final int memberId = 56; // int | 
-final int memberContactId = 56; // int | 
-final int wsId = 56; // int | 
-final int taskId = 56; // int | 
-
-try {
-    final response = api.deleteMemberContact(memberId, memberContactId, wsId, taskId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->deleteMemberContact: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  | 
- **memberContactId** | **int**|  | 
- **wsId** | **int**|  | 
- **taskId** | **int**|  | [optional] 
-
-### Return type
-
-**bool**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1016,7 +959,7 @@ Name | Type | Description  | Notes
 
 Member Contacts
 
-Способы связи участника РП
+Способы связи участника РП в проекте
 
 ### Example
 ```dart
@@ -1825,61 +1768,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **upsertMemberContact**
-> MemberContactGet upsertMemberContact(memberId, wsId, memberContactUpsert, taskId)
-
-Upsert Contact
-
-Добавление / редактирование способа связи
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final MemberContactUpsert memberContactUpsert = ; // MemberContactUpsert | 
-final int taskId = 56; // int | 
-
-try {
-    final response = api.upsertMemberContact(memberId, wsId, memberContactUpsert, taskId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->upsertMemberContact: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **memberContactUpsert** | [**MemberContactUpsert**](MemberContactUpsert.md)|  | 
- **taskId** | **int**|  | [optional] 
-
-### Return type
-
-[**MemberContactGet**](MemberContactGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -1,4 +1,4 @@
-# openapi.api.TaskRolesApi
+# openapi.api.TaskMembersRolesApi
 
 ## Load the API package
 ```dart
@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignRoles**](TaskRolesApi.md#assignroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Roles
+[**assignMemberRoles**](TaskMembersRolesApi.md#assignmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign Member Roles
 
 
-# **assignRoles**
-> BuiltList<MemberGet> assignRoles(taskId, wsId, memberId, requestBody)
+# **assignMemberRoles**
+> BuiltList<MemberGet> assignMemberRoles(taskId, wsId, memberId, requestBody)
 
-Assign Roles
+Assign Member Roles
 
 ### Example
 ```dart
@@ -27,17 +27,17 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTaskRolesApi();
+final api = Openapi().getTaskMembersRolesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final int memberId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignRoles(taskId, wsId, memberId, requestBody);
+    final response = api.assignMemberRoles(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskRolesApi->assignRoles: $e\n');
+    print('Exception when calling TaskMembersRolesApi->assignMemberRoles: $e\n');
 }
 ```
 

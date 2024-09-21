@@ -43,7 +43,6 @@ import 'package:openapi/src/model/invitation_get.dart';
 import 'package:openapi/src/model/invoice_detail_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/member_contact_get.dart';
-import 'package:openapi/src/model/member_contact_upsert.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/my_user.dart';
 import 'package:openapi/src/model/note_get.dart';
@@ -116,7 +115,6 @@ part 'serializers.g.dart';
   InvoiceDetailGet,
   InvoiceGet,
   MemberContactGet,
-  MemberContactUpsert,
   MemberGet,
   MyUser,
   NoteGet,

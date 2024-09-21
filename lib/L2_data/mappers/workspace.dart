@@ -5,10 +5,10 @@ import 'package:openapi/openapi.dart' as api;
 import '../../L1_domain/entities/workspace.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
-import 'member.dart';
+import 'remote_source.dart';
 import 'role.dart';
-import 'source.dart';
 import 'user.dart';
+import 'ws_member.dart';
 import 'ws_settings.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {

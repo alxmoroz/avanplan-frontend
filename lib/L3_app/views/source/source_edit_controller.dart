@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/source_type.dart';
+import '../../../L1_domain/entities/remote_source.dart';
+import '../../../L1_domain/entities/remote_source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../../L1_domain/entities_extensions/remote_source.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
@@ -16,7 +16,7 @@ import '../../components/field_data.dart';
 import '../../components/images.dart';
 import '../../components/text_field.dart';
 import '../../extra/services.dart';
-import '../../presenters/source.dart';
+import '../../presenters/remote_source.dart';
 import '../../usecases/ws_actions.dart';
 import '../../views/task/usecases/link.dart';
 import '../_base/edit_controller.dart';
@@ -27,7 +27,7 @@ part 'source_edit_controller.g.dart';
 enum SourceFCode { url, username, apiKey, password, description }
 
 class SourceEditController extends _SourceEditControllerBase with _$SourceEditController {
-  SourceEditController(Workspace wsIn, int? srcIdIn, SourceType? sType) {
+  SourceEditController(Workspace wsIn, int? srcIdIn, RemoteSourceType? sType) {
     ws = wsIn;
     srcId = srcIdIn;
     selectType(source?.type ?? sType);
@@ -51,7 +51,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
   late final Workspace ws;
   late final int? srcId;
 
-  Source? get source => ws.sourceForId(srcId);
+  RemoteSource? get source => ws.remoteSourceForId(srcId);
 
   @computed
   bool get canEdit => source != null;
@@ -59,10 +59,10 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
   /// тип источника
 
   @observable
-  SourceType? selectedType;
+  RemoteSourceType? selectedType;
 
   @action
-  void selectType(SourceType? type) => selectedType = type;
+  void selectType(RemoteSourceType? type) => selectedType = type;
 
   @computed
   bool get showUsername => selectedType?.isJira == true;
@@ -80,7 +80,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
       setLoaderScreenSaving();
       load(() async {
         final editedSource = await wsSourcesUC.save(
-          Source(
+          RemoteSource(
             id: source?.id,
             url: fData(SourceFCode.url.index).text,
             apiKey: fData(SourceFCode.apiKey.index).text,

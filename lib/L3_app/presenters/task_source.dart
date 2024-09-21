@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 
-import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/remote_source.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../L1_domain/entities_extensions/remote_source.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
-import 'source.dart';
+import 'remote_source.dart';
 import 'task_tree.dart';
 
 extension TaskSourcePresenter on Task {
-  Source? get source => ws.sourceForId(taskSource?.sourceId);
+  RemoteSource? get source => ws.remoteSourceForId(taskSource?.sourceId);
 
   Widget get go2SourceTitle {
     return Row(

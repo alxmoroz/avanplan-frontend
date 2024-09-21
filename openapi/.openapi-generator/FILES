@@ -32,7 +32,6 @@ doc/InvitationGet.md
 doc/InvoiceDetailGet.md
 doc/InvoiceGet.md
 doc/MemberContactGet.md
-doc/MemberContactUpsert.md
 doc/MemberGet.md
 doc/MyAccountApi.md
 doc/MyActivitiesApi.md
@@ -68,13 +67,13 @@ doc/TariffGet.md
 doc/TariffOptionGet.md
 doc/TaskGet.md
 doc/TaskInvitationsApi.md
+doc/TaskMembersRolesApi.md
 doc/TaskNode.md
 doc/TaskNotesApi.md
 doc/TaskRemote.md
 doc/TaskRepeatGet.md
 doc/TaskRepeatUpsert.md
 doc/TaskRepeatsApi.md
-doc/TaskRolesApi.md
 doc/TaskSource.md
 doc/TaskSourceGet.md
 doc/TaskTransactionGet.md
@@ -116,9 +115,9 @@ lib/src/api/project_statuses_api.dart
 lib/src/api/release_notes_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/task_invitations_api.dart
+lib/src/api/task_members_roles_api.dart
 lib/src/api/task_notes_api.dart
 lib/src/api/task_repeats_api.dart
-lib/src/api/task_roles_api.dart
 lib/src/api/task_transactions_api.dart
 lib/src/api/workspaces_api.dart
 lib/src/api/ws_member_contacts_api.dart
@@ -166,7 +165,6 @@ lib/src/model/invitation_get.dart
 lib/src/model/invoice_detail_get.dart
 lib/src/model/invoice_get.dart
 lib/src/model/member_contact_get.dart
-lib/src/model/member_contact_upsert.dart
 lib/src/model/member_get.dart
 lib/src/model/my_user.dart
 lib/src/model/note_get.dart
@@ -238,7 +236,6 @@ test/invitation_test.dart
 test/invoice_detail_get_test.dart
 test/invoice_get_test.dart
 test/member_contact_get_test.dart
-test/member_contact_upsert_test.dart
 test/member_get_test.dart
 test/my_account_api_test.dart
 test/my_activities_api_test.dart
@@ -274,13 +271,13 @@ test/tariff_get_test.dart
 test/tariff_option_get_test.dart
 test/task_get_test.dart
 test/task_invitations_api_test.dart
+test/task_members_roles_api_test.dart
 test/task_node_test.dart
 test/task_notes_api_test.dart
 test/task_remote_test.dart
 test/task_repeat_get_test.dart
 test/task_repeat_upsert_test.dart
 test/task_repeats_api_test.dart
-test/task_roles_api_test.dart
 test/task_source_get_test.dart
 test/task_source_test.dart
 test/task_transaction_get_test.dart

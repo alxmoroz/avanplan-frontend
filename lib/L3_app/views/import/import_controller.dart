@@ -6,12 +6,13 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/remote_source.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/ws_sources.dart';
+import '../../../L1_domain/entities_extensions/remote_source.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';
+import '../../presenters/remote_source.dart';
 import '../../usecases/source.dart';
 import '../../usecases/ws_actions.dart';
 import '../_base/loadable.dart';
@@ -42,19 +43,19 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 abstract class _ImportControllerBase with Store, Loadable {
   late final Workspace ws;
 
-  bool isImporting(ProjectRemote rp) {
+  bool isImporting(RemoteProject rp) {
     final rts = rp.taskSource!;
     return tasksMainController.importingTSs.where((ts) => ts.code == rts.code && ts.sourceId == rts.sourceId).isNotEmpty;
   }
 
   @observable
-  List<ProjectRemote> projects = [];
+  List<RemoteProject> projects = [];
 
   @computed
-  Iterable<ProjectRemote> get selectableProjects => projects.where((p) => !isImporting(p));
+  Iterable<RemoteProject> get selectableProjects => projects.where((p) => !isImporting(p));
 
   @computed
-  Iterable<ProjectRemote> get selectedProjects => projects.where((p) => p.selected);
+  Iterable<RemoteProject> get selectedProjects => projects.where((p) => p.selected);
 
   @computed
   bool get validated => selectedProjects.isNotEmpty;
@@ -73,14 +74,14 @@ abstract class _ImportControllerBase with Store, Loadable {
 
   @action
   void toggleSelectedAll(bool? value) {
-    for (ProjectRemote p in selectableProjects) {
+    for (RemoteProject p in selectableProjects) {
       p.selected = value == true;
     }
     projects = [...projects];
   }
 
   @action
-  void selectProject(ProjectRemote p, bool? selected) {
+  void selectProject(RemoteProject p, bool? selected) {
     p.selected = selected == true;
     projects = [...projects];
   }
@@ -91,7 +92,7 @@ abstract class _ImportControllerBase with Store, Loadable {
   int? selectedSourceId;
 
   @computed
-  Source? get selectedSource => ws.sourceForId(selectedSourceId);
+  RemoteSource? get selectedSource => ws.remoteSourceForId(selectedSourceId);
 
   @action
   Future selectSource(int? id) async {
@@ -100,7 +101,7 @@ abstract class _ImportControllerBase with Store, Loadable {
       selectedSourceId = id;
       final loaderDescription = '$selectedSource';
       startLoading();
-      bool connected = selectedSource?.state == SrcState.connected;
+      bool connected = selectedSource?.connected == true;
       if (!connected) {
         setLoaderScreen(
           imageName: ImageName.sync.name,

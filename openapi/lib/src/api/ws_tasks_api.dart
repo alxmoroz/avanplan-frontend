@@ -34,7 +34,7 @@ class WSTasksApi {
 
   const WSTasksApi(this._dio, this._serializers);
 
-  /// Assign Roles
+  /// Assign Member Roles
   /// 
   ///
   /// Parameters:
@@ -51,7 +51,7 @@ class WSTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignRoles({ 
+  Future<Response<BuiltList<MemberGet>>> assignMemberRoles({ 
     required int taskId,
     required int wsId,
     required int memberId,

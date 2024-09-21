@@ -97,7 +97,7 @@ MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
 
 WorkspaceUC get wsUC => GetIt.I<WorkspaceUC>();
 WSTariffsUC get tariffUC => GetIt.I<WSTariffsUC>();
-WSSourcesUC get wsSourcesUC => GetIt.I<WSSourcesUC>();
+RemoteSourcesUC get wsSourcesUC => GetIt.I<RemoteSourcesUC>();
 WSTransferUC get wsTransferUC => GetIt.I<WSTransferUC>();
 WSMyUC get wsMyUC => GetIt.I<WSMyUC>();
 WSMembersUC get wsMembersUC => GetIt.I<WSMembersUC>();
@@ -140,7 +140,7 @@ void setup() {
 
   getIt.registerSingleton<WorkspaceUC>(WorkspaceUC(WSRepo()));
   getIt.registerSingleton<WSMyUC>(WSMyUC(WSMyRepo()));
-  getIt.registerSingleton<WSSourcesUC>(WSSourcesUC(WSSourcesRepo()));
+  getIt.registerSingleton<RemoteSourcesUC>(RemoteSourcesUC(WSSourcesRepo()));
   getIt.registerSingleton<WSTariffsUC>(WSTariffsUC(WSTariffRepo()));
   getIt.registerSingleton<WSTransferUC>(WSTransferUC(WSTransferRepo()));
   getIt.registerSingleton<WSMembersUC>(WSMembersUC(WSMembersRepo()));
@@ -153,7 +153,7 @@ void setup() {
   getIt.registerSingleton<ReleaseNoteUC>(ReleaseNoteUC(ReleaseNoteRepo()));
 
   getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
-  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
+  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMembersRolesRepo()));
   getIt.registerSingleton<TaskTransactionUC>(TaskTransactionUC(TaskTransactionRepo()));
   getIt.registerSingleton<TaskRepeatUC>(TaskRepeatUC(TaskRepeatRepo()));
   getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));

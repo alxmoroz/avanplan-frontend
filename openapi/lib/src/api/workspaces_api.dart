@@ -17,7 +17,6 @@ import 'package:openapi/src/model/invitation.dart';
 import 'package:openapi/src/model/invitation_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/member_contact_get.dart';
-import 'package:openapi/src/model/member_contact_upsert.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/note_get.dart';
 import 'package:openapi/src/model/note_upsert.dart';
@@ -47,7 +46,7 @@ class WorkspacesApi {
 
   const WorkspacesApi(this._dio, this._serializers);
 
-  /// Assign Roles
+  /// Assign Member Roles
   /// 
   ///
   /// Parameters:
@@ -64,7 +63,7 @@ class WorkspacesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignRoles({ 
+  Future<Response<BuiltList<MemberGet>>> assignMemberRoles({ 
     required int taskId,
     required int wsId,
     required int memberId,
@@ -529,99 +528,6 @@ class WorkspacesApi {
     }
 
     return Response<InvitationGet>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// Delete Contact
-  /// Удаление способа связи
-  ///
-  /// Parameters:
-  /// * [memberId] 
-  /// * [memberContactId] 
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteMemberContact({ 
-    required int memberId,
-    required int memberContactId,
-    required int wsId,
-    int? taskId,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/v1/workspaces/{ws_id}/members/{member_id}/contacts/{member_contact_id}'.replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'member_contact_id' '}', encodeQueryParameter(_serializers, memberContactId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
-    final _options = Options(
-      method: r'DELETE',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'apiKey',
-            'name': 'APIKeyHeader',
-            'keyName': 'Avanplan',
-            'where': 'header',
-          },{
-            'type': 'oauth2',
-            'name': 'OAuth2PasswordBearer',
-          },
-        ],
-        ...?extra,
-      },
-      validateStatus: validateStatus,
-    );
-
-    final _queryParameters = <String, dynamic>{
-      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
-    };
-
-    final _response = await _dio.request<Object>(
-      _path,
-      options: _options,
-      queryParameters: _queryParameters,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    bool? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as bool;
-
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -1787,7 +1693,7 @@ class WorkspacesApi {
   }
 
   /// Member Contacts
-  /// Способы связи участника РП
+  /// Способы связи участника РП в проекте
   ///
   /// Parameters:
   /// * [memberId] 
@@ -3330,123 +3236,6 @@ class WorkspacesApi {
     }
 
     return Response<AttachmentGet>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// Upsert Contact
-  /// Добавление / редактирование способа связи
-  ///
-  /// Parameters:
-  /// * [memberId] 
-  /// * [wsId] 
-  /// * [memberContactUpsert] 
-  /// * [taskId] 
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [MemberContactGet] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<MemberContactGet>> upsertMemberContact({ 
-    required int memberId,
-    required int wsId,
-    required MemberContactUpsert memberContactUpsert,
-    int? taskId,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/v1/workspaces/{ws_id}/members/{member_id}/contacts'.replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
-    final _options = Options(
-      method: r'POST',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'apiKey',
-            'name': 'APIKeyHeader',
-            'keyName': 'Avanplan',
-            'where': 'header',
-          },{
-            'type': 'oauth2',
-            'name': 'OAuth2PasswordBearer',
-          },
-        ],
-        ...?extra,
-      },
-      contentType: 'application/json',
-      validateStatus: validateStatus,
-    );
-
-    final _queryParameters = <String, dynamic>{
-      if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
-    };
-
-    dynamic _bodyData;
-
-    try {
-      const _type = FullType(MemberContactUpsert);
-      _bodyData = _serializers.serialize(memberContactUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
-      throw DioException(
-         requestOptions: _options.compose(
-          _dio.options,
-          _path,
-          queryParameters: _queryParameters,
-        ),
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    final _response = await _dio.request<Object>(
-      _path,
-      data: _bodyData,
-      options: _options,
-      queryParameters: _queryParameters,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    MemberContactGet? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(MemberContactGet),
-      ) as MemberContactGet;
-
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<MemberContactGet>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -2,10 +2,10 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/remote_source.dart';
 
-extension SourceMapper on SourceGet {
-  Source source(int wsId) => Source(
+extension RemoteSourceMapper on SourceGet {
+  RemoteSource source(int wsId) => RemoteSource(
         id: id,
         typeCode: type,
         url: url,

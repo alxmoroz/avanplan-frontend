@@ -117,7 +117,7 @@ abstract class _ImportControllerBase with Store, Loadable {
           imageName: ImageName.import.name,
         );
         try {
-          projects = (await importUC.getProjectsList(ws.id!, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
+          projects = (await wsSourcesUC.getProjectsList(ws.id!, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
         } on Exception catch (e) {
           parseError(e);
         }
@@ -138,7 +138,7 @@ abstract class _ImportControllerBase with Store, Loadable {
       );
       startLoading();
       try {
-        await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
+        await wsSourcesUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
         tasksMainController.updateImportingProjects();
         if (context.mounted) Navigator.of(context).pop();
       } on Exception catch (e) {

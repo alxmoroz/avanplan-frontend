@@ -8,7 +8,7 @@ import '../mappers/task.dart';
 import '../services/api.dart';
 
 class TaskRepo extends AbstractTaskRepo {
-  o_api.TasksApi get api => openAPI.getTasksApi();
+  o_api.WSTasksApi get api => openAPI.getWSTasksApi();
 
   @override
   Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed, bool? fullTree}) async {

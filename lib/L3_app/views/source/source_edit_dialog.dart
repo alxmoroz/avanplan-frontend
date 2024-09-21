@@ -41,7 +41,7 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
   if (sType.active) {
     s = await editSource(ws, sType: sType);
   } else {
-    sourceUC.requestType(sType, ws.id!);
+    wsSourcesUC.requestType(sType, ws.id!);
 
     if (sType.custom) {
       await _emailUsCustomImport();

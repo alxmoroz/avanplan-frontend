@@ -89,7 +89,7 @@ extension TaskEditUC on TaskController {
         final newTasks = [root, ...taskNode.subtasks];
         // мои задачи из проекта, если обновляем проект с целями
         if (root.isProject && root.hmGoals) {
-          newTasks.addAll(await wsUC.myTasks(root.wsId, projectId: root.id!));
+          newTasks.addAll(await wsMyUC.myTasks(root.wsId, projectId: root.id!));
         }
         tasksMainController.setTasks([...newTasks, ...taskNode.parents]);
         taskDescriptor = root;

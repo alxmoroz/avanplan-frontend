@@ -20,7 +20,7 @@ abstract class _TransferSelectorControllerBase with Store, Loadable {
         () async {
           tasks = [];
           for (Workspace ws in wsMainController.workspaces) {
-            tasks.addAll(await wsUC.sourcesForMove(ws.id!));
+            tasks.addAll(await wsTransferUC.sourcesForMove(ws.id!));
           }
           tasks.removeWhere((t) => t.wsId == dst.wsId && t.id == dst.id);
           tasks.sort();
@@ -32,7 +32,7 @@ abstract class _TransferSelectorControllerBase with Store, Loadable {
         () async {
           tasks = [];
           for (Workspace ws in wsMainController.workspaces) {
-            tasks.addAll(await wsUC.destinationsForMove(ws.id!, src.type));
+            tasks.addAll(await wsTransferUC.destinationsForMove(ws.id!, src.type));
           }
           tasks.removeWhere((t) => t.wsId == src.parent?.wsId && t.id == src.parentId);
           tasks.sort();

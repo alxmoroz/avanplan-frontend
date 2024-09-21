@@ -15,10 +15,6 @@ import '../services/platform.dart';
 
 class MyRepo extends AbstractMyRepo {
   o_api.MyAccountApi get _accountApi => openAPI.getMyAccountApi();
-  o_api.MyInvitationsApi get _invitationsApi => openAPI.getMyInvitationsApi();
-  o_api.MyActivitiesApi get _activitiesApi => openAPI.getMyActivitiesApi();
-  o_api.MyNotificationsApi get _notificationsApi => openAPI.getMyNotificationsApi();
-  o_api.MyPushTokensApi get _pushTokensApi => openAPI.getMyPushTokensApi();
 
   @override
   Future<User?> getAccount() async {
@@ -29,6 +25,7 @@ class MyRepo extends AbstractMyRepo {
   @override
   Future deleteAccount() async => await _accountApi.deleteAccountV1MyAccountDelete();
 
+  o_api.MyNotificationsApi get _notificationsApi => openAPI.getMyNotificationsApi();
   @override
   Future<Iterable<MTNotification>> getNotifications() async {
     final response = await _notificationsApi.myNotificationsV1MyNotificationsGet();
@@ -38,6 +35,8 @@ class MyRepo extends AbstractMyRepo {
   @override
   Future markReadNotifications(Iterable<int> notificationsIds) async =>
       await _notificationsApi.markReadV1MyNotificationsPost(requestBody: BuiltList.from(notificationsIds));
+
+  o_api.MyPushTokensApi get _pushTokensApi => openAPI.getMyPushTokensApi();
 
   @override
   Future updatePushToken(String token, bool hasPermission) async {
@@ -49,12 +48,16 @@ class MyRepo extends AbstractMyRepo {
     await _pushTokensApi.updatePushTokenV1MyPushTokensPost(bodyUpdatePushTokenV1MyPushTokensPost: body);
   }
 
+  o_api.MyInvitationsApi get _invitationsApi => openAPI.getMyInvitationsApi();
+
   @override
   Future<TaskDescriptor?> redeemInvitation(String? token) async {
     final body = (o_api.BodyRedeemInvitationBuilder()..invitationToken = token).build();
     final response = await _invitationsApi.redeemInvitation(bodyRedeemInvitation: body);
     return response.data?.project;
   }
+
+  o_api.MyActivitiesApi get _activitiesApi => openAPI.getMyActivitiesApi();
 
   @override
   Future<User?> registerActivity(String code, {int? wsId}) async {

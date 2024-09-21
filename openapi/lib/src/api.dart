@@ -10,9 +10,6 @@ import 'package:openapi/src/auth/basic_auth.dart';
 import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
-import 'package:openapi/src/api/member_contacts_api.dart';
-import 'package:openapi/src/api/members_api.dart';
-import 'package:openapi/src/api/my_api.dart';
 import 'package:openapi/src/api/my_account_api.dart';
 import 'package:openapi/src/api/my_activities_api.dart';
 import 'package:openapi/src/api/my_avatar_api.dart';
@@ -26,16 +23,19 @@ import 'package:openapi/src/api/project_modules_api.dart';
 import 'package:openapi/src/api/project_statuses_api.dart';
 import 'package:openapi/src/api/release_notes_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
-import 'package:openapi/src/api/sources_api.dart';
-import 'package:openapi/src/api/tariff_options_api.dart';
-import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/task_invitations_api.dart';
 import 'package:openapi/src/api/task_notes_api.dart';
 import 'package:openapi/src/api/task_repeats_api.dart';
 import 'package:openapi/src/api/task_roles_api.dart';
 import 'package:openapi/src/api/task_transactions_api.dart';
-import 'package:openapi/src/api/tasks_api.dart';
-import 'package:openapi/src/api/transfer_api.dart';
+import 'package:openapi/src/api/ws_member_contacts_api.dart';
+import 'package:openapi/src/api/ws_members_api.dart';
+import 'package:openapi/src/api/wsmy_api.dart';
+import 'package:openapi/src/api/ws_sources_api.dart';
+import 'package:openapi/src/api/ws_tariff_options_api.dart';
+import 'package:openapi/src/api/ws_tariffs_api.dart';
+import 'package:openapi/src/api/ws_tasks_api.dart';
+import 'package:openapi/src/api/ws_transfer_api.dart';
 import 'package:openapi/src/api/workspaces_api.dart';
 
 class Openapi {
@@ -96,24 +96,6 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   AuthApi getAuthApi() {
     return AuthApi(dio, serializers);
-  }
-
-  /// Get MemberContactsApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  MemberContactsApi getMemberContactsApi() {
-    return MemberContactsApi(dio, serializers);
-  }
-
-  /// Get MembersApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  MembersApi getMembersApi() {
-    return MembersApi(dio, serializers);
-  }
-
-  /// Get MyApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  MyApi getMyApi() {
-    return MyApi(dio, serializers);
   }
 
   /// Get MyAccountApi instance, base route and serializer can be overridden by a given but be careful,
@@ -194,24 +176,6 @@ class Openapi {
     return SettingsApi(dio, serializers);
   }
 
-  /// Get SourcesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  SourcesApi getSourcesApi() {
-    return SourcesApi(dio, serializers);
-  }
-
-  /// Get TariffOptionsApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TariffOptionsApi getTariffOptionsApi() {
-    return TariffOptionsApi(dio, serializers);
-  }
-
-  /// Get TariffsApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  TariffsApi getTariffsApi() {
-    return TariffsApi(dio, serializers);
-  }
-
   /// Get TaskInvitationsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   TaskInvitationsApi getTaskInvitationsApi() {
@@ -242,16 +206,52 @@ class Openapi {
     return TaskTransactionsApi(dio, serializers);
   }
 
-  /// Get TasksApi instance, base route and serializer can be overridden by a given but be careful,
+  /// Get WSMemberContactsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
-  TasksApi getTasksApi() {
-    return TasksApi(dio, serializers);
+  WSMemberContactsApi getWSMemberContactsApi() {
+    return WSMemberContactsApi(dio, serializers);
   }
 
-  /// Get TransferApi instance, base route and serializer can be overridden by a given but be careful,
+  /// Get WSMembersApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
-  TransferApi getTransferApi() {
-    return TransferApi(dio, serializers);
+  WSMembersApi getWSMembersApi() {
+    return WSMembersApi(dio, serializers);
+  }
+
+  /// Get WSMyApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSMyApi getWSMyApi() {
+    return WSMyApi(dio, serializers);
+  }
+
+  /// Get WSSourcesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSSourcesApi getWSSourcesApi() {
+    return WSSourcesApi(dio, serializers);
+  }
+
+  /// Get WSTariffOptionsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSTariffOptionsApi getWSTariffOptionsApi() {
+    return WSTariffOptionsApi(dio, serializers);
+  }
+
+  /// Get WSTariffsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSTariffsApi getWSTariffsApi() {
+    return WSTariffsApi(dio, serializers);
+  }
+
+  /// Get WSTasksApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSTasksApi getWSTasksApi() {
+    return WSTasksApi(dio, serializers);
+  }
+
+  /// Get WSTransferApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSTransferApi getWSTransferApi() {
+    return WSTransferApi(dio, serializers);
   }
 
   /// Get WorkspacesApi instance, base route and serializer can be overridden by a given but be careful,

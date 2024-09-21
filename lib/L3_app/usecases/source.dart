@@ -8,7 +8,7 @@ extension SourceUC on Source {
     bool connected = false;
     state = SrcState.checking;
     try {
-      connected = await sourceUC.checkConnection(this);
+      connected = await wsSourcesUC.checkConnection(this);
     } catch (_) {}
 
     state = connected ? SrcState.connected : SrcState.error;

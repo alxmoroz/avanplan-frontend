@@ -113,7 +113,7 @@ abstract class _TasksMainControllerBase with Store {
   Future updateImportingProjects() async {
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      importedProjects.addAll(await wsUC.myProjects(ws.id!, closed: false, imported: true));
+      importedProjects.addAll(await wsMyUC.myProjects(ws.id!, closed: false, imported: true));
     }
 
     for (Task p in importedProjects) {
@@ -132,7 +132,7 @@ abstract class _TasksMainControllerBase with Store {
           if (existingProject != null) {
             existingProject.subtasks.toList().forEach((t) => removeTask(t));
           }
-          setTasks(await wsUC.myTasks(p.wsId, projectId: p.id));
+          setTasks(await wsMyUC.myTasks(p.wsId, projectId: p.id));
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
@@ -149,8 +149,8 @@ abstract class _TasksMainControllerBase with Store {
 
     // мои проекты и задачи
     for (Workspace ws in wsMainController.workspaces) {
-      tasks.addAll(await wsUC.myProjects(ws.id!));
-      tasks.addAll(await wsUC.myTasks(ws.id!));
+      tasks.addAll(await wsMyUC.myProjects(ws.id!));
+      tasks.addAll(await wsMyUC.myTasks(ws.id!));
     }
 
     tasks.sort();

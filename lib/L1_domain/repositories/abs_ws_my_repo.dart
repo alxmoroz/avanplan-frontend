@@ -1,0 +1,8 @@
+// Copyright (c) 2024. Alexandr Moroz
+
+import '../entities/task.dart';
+
+abstract class AbstractWSMyRepo {
+  Future<Iterable<Task>> myProjects(int wsId, {bool? closed, bool? imported}) async => throw UnimplementedError();
+  Future<Iterable<Task>> myTasks(int wsId, {int? projectId}) async => throw UnimplementedError();
+}

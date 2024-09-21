@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'colors_base.dart';
+import 'constants.dart';
 
 class MTShadowed extends StatelessWidget {
   const MTShadowed({
@@ -58,7 +59,7 @@ class MTShadowed extends StatelessWidget {
           data: mq.copyWith(
             padding: mqPadding.copyWith(
               top: mqPadding.top + (topIndent ?? 0),
-              bottom: mqPadding.bottom + (bottomIndent ?? 0),
+              bottom: mqPadding.bottom + (bottomIndent ?? P6),
             ),
           ),
           child: child,

@@ -9,5 +9,6 @@ extension UserContactMapper on api.UserContactGet {
         id: id,
         userId: userId,
         value: value,
+        description: description ?? '',
       );
 }

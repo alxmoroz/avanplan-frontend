@@ -13,6 +13,7 @@ part 'member_contact_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [value] 
+/// * [description] 
 /// * [memberId] 
 @BuiltValue()
 abstract class MemberContactGet implements Built<MemberContactGet, MemberContactGetBuilder> {
@@ -21,6 +22,9 @@ abstract class MemberContactGet implements Built<MemberContactGet, MemberContact
 
   @BuiltValueField(wireName: r'value')
   String get value;
+
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
   @BuiltValueField(wireName: r'member_id')
   int get memberId;
@@ -58,6 +62,13 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
       object.value,
       specifiedType: const FullType(String),
     );
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'member_id';
     yield serializers.serialize(
       object.memberId,
@@ -99,6 +110,13 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
             specifiedType: const FullType(String),
           ) as String;
           result.value = valueDes;
+          break;
+        case r'description':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.description = valueDes;
           break;
         case r'member_id':
           final valueDes = serializers.deserialize(

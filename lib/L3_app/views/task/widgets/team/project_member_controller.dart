@@ -1,10 +1,12 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/ws_member.dart';
 import '../../../../../L1_domain/entities/ws_member_contact.dart';
+import '../../../../../L1_domain/entities_extensions/contact.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../extra/services.dart';
 import '../../../_base/loadable.dart';
@@ -34,18 +36,33 @@ abstract class _Base with Store, Loadable {
   WSMember? get projectMember => project.taskMemberForId(_memberId);
 
   @observable
-  Iterable<WSMemberContact> _allContacts = [];
+  Iterable<WSMemberContact> contacts = [];
 
   @computed
-  List<WSMemberContact> get shortlistContacts => _allContacts.where((c) => true).toList();
+  Iterable<WSMemberContact> get emails => contacts.where((c) => c.mayBeEmail);
+  @computed
+  WSMemberContact? get firstEmail => emails.firstOrNull;
+
+  @computed
+  Iterable<WSMemberContact> get phones => contacts.where((c) => c.mayBePhone);
+  @computed
+  WSMemberContact? get firstPhone => phones.firstOrNull;
+
+  @computed
+  Iterable<WSMemberContact> get urls => contacts.where((c) => c.mayBeUrl);
+  @computed
+  WSMemberContact? get firstUrl => urls.firstOrNull;
+
+  @computed
+  Iterable<WSMemberContact> get others => contacts.where((c) => c.other);
+
+  @computed
+  bool get hasDupInTypes => emails.length > 1 || phones.length > 1 || urls.length > 1;
 
   @action
   Future reload() async {
     await load(() async {
-      _allContacts = [
-        WSMemberContact(id: -1, value: projectMember!.email, memberId: _memberId),
-        ...await projectMembersUC.memberContacts(project.wsId, project.id!, _memberId),
-      ];
+      contacts = await projectMembersUC.memberContacts(project.wsId, project.id!, _memberId);
     });
   }
 }

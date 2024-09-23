@@ -6,6 +6,7 @@ class WSMemberContact extends AbstractContact {
   WSMemberContact({
     super.id,
     required super.value,
+    super.description,
     required this.memberId,
   });
 

@@ -9,5 +9,6 @@ extension WSMemberContactMapper on o_api.MemberContactGet {
         id: id,
         memberId: memberId,
         value: value,
+        description: description ?? '',
       );
 }

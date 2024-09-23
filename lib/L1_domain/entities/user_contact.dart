@@ -6,6 +6,7 @@ class UserContact extends AbstractContact {
   UserContact({
     super.id,
     required super.value,
+    super.description,
     required this.userId,
   });
 

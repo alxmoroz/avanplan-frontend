@@ -266,6 +266,8 @@
   "per_day_suffix": "в день",
   "per_month_suffix": "в месяц",
 
+  "person_contacts_title": "Способы связи",
+
   "project_creation_method_selector_title": "Выберите способ создания проекта",
   "project_list_empty_title": "Добавьте проект",
   "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",

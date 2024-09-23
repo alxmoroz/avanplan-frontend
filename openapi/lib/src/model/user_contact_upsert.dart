@@ -13,6 +13,7 @@ part 'user_contact_upsert.g.dart';
 /// Properties:
 /// * [id] 
 /// * [value] 
+/// * [description] 
 /// * [userId] 
 @BuiltValue()
 abstract class UserContactUpsert implements Built<UserContactUpsert, UserContactUpsertBuilder> {
@@ -21,6 +22,9 @@ abstract class UserContactUpsert implements Built<UserContactUpsert, UserContact
 
   @BuiltValueField(wireName: r'value')
   String get value;
+
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
   @BuiltValueField(wireName: r'user_id')
   int get userId;
@@ -60,6 +64,13 @@ class _$UserContactUpsertSerializer implements PrimitiveSerializer<UserContactUp
       object.value,
       specifiedType: const FullType(String),
     );
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'user_id';
     yield serializers.serialize(
       object.userId,
@@ -101,6 +112,13 @@ class _$UserContactUpsertSerializer implements PrimitiveSerializer<UserContactUp
             specifiedType: const FullType(String),
           ) as String;
           result.value = valueDes;
+          break;
+        case r'description':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.description = valueDes;
           break;
         case r'user_id':
           final valueDes = serializers.deserialize(

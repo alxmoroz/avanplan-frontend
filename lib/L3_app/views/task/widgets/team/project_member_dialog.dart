@@ -1,13 +1,12 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/contact.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/abs_contact.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/ws_member.dart';
+import '../../../../../L1_domain/entities/ws_member_contact.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
 import '../../../../components/button.dart';
@@ -23,10 +22,12 @@ import '../../../../components/select_dialog.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/contact.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../../views/_base/loader_screen.dart';
+import '../../../../views/person/contacts_dialog.dart';
 import '../../controllers/task_controller.dart';
 import 'project_member_controller.dart';
 
@@ -85,11 +86,23 @@ class _ProjectMemberDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const SizedBox(width: P3),
-        for (AbstractContact contact in _pmc.shortlistContacts)
+        for (WSMemberContact? contact in [_pmc.firstPhone, _pmc.firstEmail, _pmc.firstUrl])
+          if (contact != null)
+            MTButton.icon(
+              contact.icon,
+              margin: const EdgeInsets.only(right: P3),
+              onTap: () => contact.tap(context),
+            ),
+        if (_pmc.hasDupInTypes || _pmc.contacts.length > 3)
           MTButton.icon(
-            contact.icon,
+            const MenuIcon(size: P5),
             margin: const EdgeInsets.only(right: P3),
-            onTap: () => contact.tap(context),
+            onTap: () => showPersonContactsDialog(_projectMember!.viewableName, [
+              ..._pmc.emails,
+              ..._pmc.phones,
+              ..._pmc.urls,
+              ..._pmc.others,
+            ]),
           ),
       ],
     );
@@ -120,8 +133,10 @@ class _ProjectMemberDialog extends StatelessWidget {
                         MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
 
                         /// Способы связи
-                        const SizedBox(height: P2),
-                        _contacts(context),
+                        if (_pmc.contacts.isNotEmpty) ...[
+                          const SizedBox(height: P2),
+                          _contacts(context),
+                        ],
 
                         /// Ответственный в задачах в проекте
                         MTListTile(

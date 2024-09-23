@@ -266,6 +266,8 @@
   "per_day_suffix": "/ day",
   "per_month_suffix": "per month",
 
+  "person_contacts_title": "Contacts for Communication",
+
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",

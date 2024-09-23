@@ -13,8 +13,6 @@ import 'constants.dart';
 import 'material_wrapper.dart';
 import 'scrollable.dart';
 
-Color get barrierColor => b0Color.resolve(globalContext).withAlpha(245);
-
 BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final mq = MediaQuery.of(context);
   final big = isBigScreen(context);
@@ -41,32 +39,39 @@ class MTDialogPage<T> extends Page<T> {
   Route<T> createRoute(BuildContext context) => isBigScreen(context)
       ? DialogRoute(
           context: context,
-          barrierColor: barrierColor,
+          barrierColor: defaultBarrierColor.resolve(context),
           settings: this,
           builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
         )
       : ModalBottomSheetRoute(
           useSafeArea: true,
           constraints: _dialogConstrains(context, maxWidth),
-          modalBarrierColor: barrierColor,
+          modalBarrierColor: defaultBarrierColor.resolve(context),
+          backgroundColor: Colors.transparent,
           isScrollControlled: true,
           settings: this,
           builder: (_) => child,
         );
 }
 
-Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
-  return isBigScreen(globalContext)
+Future<T?> showMTDialog<T>(
+  Widget child, {
+  double? maxWidth,
+  bool forceBottomSheet = false,
+  Color? barrierColor,
+}) async {
+  return !forceBottomSheet && isBigScreen(globalContext)
       ? await showDialog<T?>(
           context: globalContext,
-          barrierColor: barrierColor,
+          barrierColor: (barrierColor ?? defaultBarrierColor).resolve(globalContext),
           useRootNavigator: false,
           useSafeArea: true,
           builder: (_) => _constrainedDialog(globalContext, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: globalContext,
-          barrierColor: barrierColor,
+          barrierColor: (barrierColor ?? defaultBarrierColor).resolve(globalContext),
+          backgroundColor: Colors.transparent,
           isScrollControlled: true,
           useRootNavigator: false,
           useSafeArea: true,
@@ -160,6 +165,7 @@ class MTDialog extends StatelessWidget {
               bottomLeft: big ? _radius : Radius.zero,
               bottomRight: big ? _radius : Radius.zero,
             ),
+            boxShadow: [BoxShadow(blurRadius: P, offset: Offset(0, big ? P_2 : -P_2), color: b0Color.resolve(context).withOpacity(0.42))],
           ),
           child: Stack(
             children: [

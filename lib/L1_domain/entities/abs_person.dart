@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 
 import 'base_entity.dart';
 
-abstract class Person extends RPersistable {
-  Person({
+abstract class AbstractPerson extends RPersistable {
+  AbstractPerson({
     super.id,
     super.createdOn,
     super.updatedOn,

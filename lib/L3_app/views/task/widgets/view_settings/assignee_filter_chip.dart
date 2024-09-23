@@ -13,7 +13,7 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../../widgets/view_settings/view_settings_controller.dart';
+import 'view_settings_controller.dart';
 
 class TaskAssigneeFilterChip extends StatelessWidget {
   const TaskAssigneeFilterChip(this._controller, {super.key});
@@ -23,7 +23,7 @@ class TaskAssigneeFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Container(
+    final content = Align(
       alignment: Alignment.centerLeft,
       child: MTButton(
         type: ButtonType.card,
@@ -33,11 +33,13 @@ class TaskAssigneeFilterChip extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: P),
+            const FilterIcon(color: f2Color),
+            const SizedBox(width: P_2),
             SmallText('${loc.task_assignee_label.toLowerCase()}: ', maxLines: 1),
-            Flexible(child: SmallText(_task.filteredAssigneesStr, maxLines: 1)),
+            Flexible(child: SmallText(_task.filteredAssigneesStr, maxLines: 1, weight: FontWeight.w500)),
             const SizedBox(width: P),
             const CloseIcon(color: f2Color, size: P3),
-            // const SizedBox(width: P),
+            const SizedBox(width: P_2),
           ],
         ),
         onTap: TaskViewSettingsController(_controller).resetAssigneesFilter,

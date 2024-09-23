@@ -25,7 +25,7 @@ class ProjectMembersRepo extends AbstractProjectMembersRepo {
   }
 
   @override
-  Future<Iterable<WSMemberContact>> projectMemberContacts(int wsId, int taskId, int memberId) async {
+  Future<Iterable<WSMemberContact>> memberContacts(int wsId, int taskId, int memberId) async {
     final response = await _api.projectMemberContacts(wsId: wsId, taskId: taskId, memberId: memberId);
     return response.data?.map((contact) => contact.memberContact) ?? [];
   }

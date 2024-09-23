@@ -1,8 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'person.dart';
+import 'abs_person.dart';
 
-class WSMember extends Person {
+class WSMember extends AbstractPerson {
   WSMember({
     required super.id,
     required this.wsId,

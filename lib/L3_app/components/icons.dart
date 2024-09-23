@@ -261,6 +261,10 @@ class FileStorageIcon extends MTIcon {
   const FileStorageIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cube);
 }
 
+class FilterIcon extends MTIcon {
+  const FilterIcon({super.key, super.color, super.size = P3}) : super(CupertinoIcons.search);
+}
+
 class FinanceIcon extends MTIcon {
   const FinanceIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.money_rubl, circled: true);
 }
@@ -365,6 +369,10 @@ class PersonNoAvatarIcon extends MTIcon {
   const PersonNoAvatarIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.person);
 }
 
+class PhoneIcon extends MTIcon {
+  const PhoneIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.phone);
+}
+
 class PlusIcon extends MTIcon {
   const PlusIcon({super.key, super.color, super.size = P4, super.circled}) : super(CupertinoIcons.plus);
 }
@@ -415,6 +423,10 @@ class TasksIcon extends MTIcon {
 
 class TemplateIcon extends MTIcon {
   const TemplateIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.collections);
+}
+
+class WebIcon extends MTIcon {
+  const WebIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.globe);
 }
 
 class WSPublicIcon extends MTIcon {

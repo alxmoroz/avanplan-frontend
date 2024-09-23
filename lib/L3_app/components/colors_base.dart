@@ -9,34 +9,34 @@ const _b3R = 255;
 const _b3G = 254;
 const _b3B = 253;
 
-const _b2R = 240;
+const _b2R = 239;
 const _b2G = 242;
-const _b2B = 250;
+const _b2B = 251;
 
-const _b1R = 202;
-const _b1G = 210;
-const _b1B = 244;
+const _b1R = 210;
+const _b1G = 216;
+const _b1B = 238;
 
-const _b0R = 110;
-const _b0G = 120;
-const _b0B = 150;
+const _b0R = 130;
+const _b0G = 140;
+const _b0B = 190;
 
 /// темная тема
-const _b3R_d = 48;
-const _b3G_d = 52;
-const _b3B_d = 74;
+const _b3R_d = 49;
+const _b3G_d = 54;
+const _b3B_d = 79;
 
-const _b2R_d = 36;
+const _b2R_d = 37;
 const _b2G_d = 42;
-const _b2B_d = 66;
+const _b2B_d = 67;
 
-const _b1R_d = 18;
-const _b1G_d = 22;
-const _b1B_d = 48;
+const _b1R_d = 22;
+const _b1G_d = 28;
+const _b1B_d = 54;
 
-const _b0R_d = 6;
-const _b0G_d = 12;
-const _b0B_d = 32;
+const _b0R_d = 2;
+const _b0G_d = 6;
+const _b0B_d = 24;
 
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(
@@ -54,6 +54,12 @@ const b2Color = CupertinoDynamicColor.withBrightness(
 const b1Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, _b1R, _b1G, _b1B),
   darkColor: Color.fromARGB(255, _b1R_d, _b1G_d, _b1B_d),
+);
+
+/// фон барьера диалогов
+const defaultBarrierColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(210, _b1R, _b1G, _b1B),
+  darkColor: Color.fromARGB(210, _b1R_d, _b1G_d, _b1B_d),
 );
 
 /// тень фона

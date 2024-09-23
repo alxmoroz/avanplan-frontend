@@ -1,13 +1,12 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities_extensions/task_view.dart';
-import 'package:avanplan/L3_app/views/task/widgets/tasks/assignee_filter_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../L1_domain/entities_extensions/task_type.dart';
+import '../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
@@ -39,6 +38,7 @@ import 'widgets/tasks/tasks_list_view.dart';
 import 'widgets/toolbars/bottom_toolbar.dart';
 import 'widgets/toolbars/popup_menu.dart';
 import 'widgets/toolbars/right_toolbar.dart';
+import 'widgets/view_settings/assignee_filter_chip.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView(this._controller, {super.key});

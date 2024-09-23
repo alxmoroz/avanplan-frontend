@@ -108,6 +108,7 @@ class SmallText extends BaseText {
     Color? color,
     super.align,
     super.padding,
+    super.weight,
   }) : super(
           color: color ?? f2Color,
           sizeScale: 0.85,

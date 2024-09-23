@@ -12,6 +12,6 @@ class ProjectMembersUC {
   Future<Iterable<WSMember>> assignMemberRoles(int wsId, int projectId, int memberId, Iterable<int> rolesIds) async =>
       await repo.assignProjectMemberRoles(wsId, projectId, memberId, rolesIds);
 
-  Future<Iterable<WSMemberContact>> projectMemberContacts(int wsId, int projectId, int memberId) async =>
-      await repo.projectMemberContacts(wsId, projectId, memberId);
+  Future<Iterable<WSMemberContact>> memberContacts(int wsId, int projectId, int memberId) async =>
+      await repo.memberContacts(wsId, projectId, memberId);
 }

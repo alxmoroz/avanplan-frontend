@@ -43,7 +43,7 @@ class MTGridMultiselectButton extends StatelessWidget {
     final bottomLeftRounded = lastRow && col == 0;
     final bottomRightRounded = lastRow && lastCol;
 
-    final borderSide = BorderSide(color: (selected ? mainColor : f3Color.withOpacity(0.42)).resolve(context));
+    final borderSide = BorderSide(color: (selected ? mainColor : b1Color).resolve(context));
 
     return Flexible(
       child: MTListTile(

@@ -1,12 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/contact.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/abs_contact.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/ws_member.dart';
-import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
 import '../../../../components/button.dart';
@@ -27,23 +28,22 @@ import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../../views/_base/loader_screen.dart';
 import '../../controllers/task_controller.dart';
-import '../../usecases/members.dart';
-import '../view_settings/view_settings_controller.dart';
+import 'project_member_controller.dart';
 
-Future<String?> projectMemberDialog(TaskController taskController, int memberId) async {
-  return await showMTDialog<String?>(_ProjectMemberDialog(taskController, memberId));
+Future<String?> projectMemberDialog(TaskController tc, int memberId) async {
+  final pmc = ProjectMemberController(tc, memberId);
+  return await showMTDialog<String?>(_ProjectMemberDialog(pmc));
 }
 
 class _ProjectMemberDialog extends StatelessWidget {
-  const _ProjectMemberDialog(this._tc, this._memberId);
-  final TaskController _tc;
-  final int _memberId;
+  const _ProjectMemberDialog(this._pmc);
+  final ProjectMemberController _pmc;
 
-  Task get _project => _tc.task;
-  WSMember? get _projectMember => _project.taskMemberForId(_memberId);
+  Task get _project => _pmc.project;
+  WSMember? get _projectMember => _pmc.projectMember;
 
   void _assigneeFilterSet(BuildContext context) {
-    TaskViewSettingsController(_tc).setAssigneeFilter(_memberId);
+    _pmc.setAssigneeFilter();
     Navigator.of(context).pop('popToProject');
   }
 
@@ -59,7 +59,7 @@ class _ProjectMemberDialog extends StatelessWidget {
       subtitleBuilder: (_, r) => r.description.isNotEmpty ? SmallText(r.description, maxLines: 1) : const SizedBox(),
     );
     if (selectedRole != null) {
-      await _tc.assignMemberRoles(_memberId, [selectedRole.id!]);
+      await _pmc.assignRole(selectedRole.id!);
     }
   }
 
@@ -76,15 +76,30 @@ class _ProjectMemberDialog extends StatelessWidget {
 
     if (confirm == true) {
       if (context.mounted) Navigator.of(context).pop();
-      await _tc.assignMemberRoles(_memberId, []);
+      await _pmc.unlinkRole();
     }
+  }
+
+  Widget _contacts(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(width: P3),
+        for (AbstractContact contact in _pmc.shortlistContacts)
+          MTButton.icon(
+            contact.icon,
+            margin: const EdgeInsets.only(right: P3),
+            onTap: () => contact.tap(context),
+          ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _tc.loading
-          ? LoaderScreen(_tc, isDialog: true)
+      builder: (_) => _pmc.loading
+          ? LoaderScreen(_pmc, isDialog: true)
           : MTDialog(
               topBar: MTAppBar(
                 showCloseButton: true,
@@ -96,11 +111,17 @@ class _ProjectMemberDialog extends StatelessWidget {
                   ? ListView(
                       shrinkWrap: true,
                       children: [
+                        /// Аватарка
                         const SizedBox(height: P3),
                         _projectMember!.icon(MAX_AVATAR_RADIUS),
+
+                        /// Имя, фамилия
                         const SizedBox(height: P3),
                         MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
-                        // BaseText(_member!.email, align: TextAlign.center, maxLines: 1),
+
+                        /// Способы связи
+                        const SizedBox(height: P2),
+                        _contacts(context),
 
                         /// Ответственный в задачах в проекте
                         MTListTile(

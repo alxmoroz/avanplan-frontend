@@ -66,7 +66,8 @@ class MTListTile extends StatelessWidget with FocusManaging {
 
   @override
   Widget build(BuildContext context) {
-    final splashColor = mainColor.withAlpha(10).resolve(context);
+    final splashColor = mainColor.resolve(context).withAlpha(15);
+    final hoverColor = mainColor.resolve(context).withAlpha(7);
 
     final hasMiddle = middle != null || titleText != null;
     final hasSubtitle = subtitle != null;
@@ -89,8 +90,8 @@ class MTListTile extends StatelessWidget with FocusManaging {
             InkWell(
               onTap: onTap != null ? () => tapAction(uf, onTap!) : null,
               onHover: onHover,
-              hoverColor: mainColor.withAlpha(10).resolve(context),
-              highlightColor: splashColor,
+              hoverColor: hoverColor,
+              highlightColor: hoverColor,
               splashColor: splashColor,
               canRequestFocus: false,
               focusColor: Colors.transparent,

@@ -33,14 +33,11 @@ const warningColor = CupertinoDynamicColor.withBrightness(
 const mainBtnTitleColor = b2Color;
 
 // цвет для "прозрачного" апп-бара
-const transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
+const navbarDefaultBgColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(0, 255, 255, 255),
   darkColor: Color.fromARGB(0, 0, 0, 0),
 );
 
-Color get navbarDefaultBgColor => transparentAppbarBgColor;
-
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);
-  Color? maybeResolve(BuildContext context) => CupertinoDynamicColor.maybeResolve(this, context);
 }

@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -10,9 +9,7 @@ import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../../L2_data/services/platform.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
-import '../../../../components/text.dart';
+import '../../../../extra/clipboard.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
 
@@ -56,7 +53,7 @@ abstract class _InvitationControllerBase with Store {
 
     if (context.mounted && hasUrl) {
       if (isWeb) {
-        copy(context);
+        copyToClipboard(context, invitationText);
       } else {
         Navigator.of(context).pop();
         await _share(context);
@@ -81,17 +78,6 @@ abstract class _InvitationControllerBase with Store {
       invitationText,
       subject: _invitationSubject,
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
-  }
-
-  void copy(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: invitationText));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: BaseText(loc.copied_notification_title, align: TextAlign.center),
-        backgroundColor: b2Color.resolve(context),
-        duration: const Duration(milliseconds: 1234),
-      ),
     );
   }
 }

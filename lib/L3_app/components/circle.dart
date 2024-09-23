@@ -7,13 +7,18 @@ import 'colors_base.dart';
 import 'constants.dart';
 
 class MTCircle extends StatelessWidget {
-  const MTCircle({super.key, this.color, this.size, this.border, this.boxShadow, this.child});
+  const MTCircle({
+    super.key,
+    this.color,
+    this.size,
+    this.border,
+    this.child,
+  });
 
   final Color? color;
   final double? size;
   final Border? border;
   final Widget? child;
-  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,6 @@ class MTCircle extends StatelessWidget {
         color: (color ?? f2Color).resolve(context),
         shape: BoxShape.circle,
         border: border ?? const Border(),
-        boxShadow: boxShadow,
       ),
       child: child,
     );

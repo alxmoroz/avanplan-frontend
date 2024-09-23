@@ -16,6 +16,7 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/clipboard.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
@@ -32,15 +33,16 @@ class _InvitationDialog extends StatelessWidget {
   final InvitationController _controller;
 
   Widget _copyButton(BuildContext context) => MTButton(
-      middle: Row(
-        children: [
-          Container(height: P * 24, width: 1, color: b2Color.resolve(context)),
-          const SizedBox(width: P2),
-          const CopyIcon(),
-          const SizedBox(width: P2),
-        ],
-      ),
-      onTap: () => _controller.copy(context));
+        middle: Row(
+          children: [
+            Container(height: P * 24, width: 1, color: b2Color.resolve(context)),
+            const SizedBox(width: P2),
+            const CopyIcon(),
+            const SizedBox(width: P2),
+          ],
+        ),
+        onTap: () => copyToClipboard(context, _controller.invitationText),
+      );
 
   @override
   Widget build(BuildContext context) {

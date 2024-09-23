@@ -1,14 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'base_entity.dart';
+import 'abs_contact.dart';
 
-class WSMemberContact extends RPersistable {
+class WSMemberContact extends AbstractContact {
   WSMemberContact({
     super.id,
+    required super.value,
     required this.memberId,
-    required this.value,
   });
 
   final int memberId;
-  final String value;
 }

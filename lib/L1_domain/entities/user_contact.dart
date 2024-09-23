@@ -1,14 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'base_entity.dart';
+import 'abs_contact.dart';
 
-class UserContact extends RPersistable {
+class UserContact extends AbstractContact {
   UserContact({
     super.id,
+    required super.value,
     required this.userId,
-    required this.value,
   });
 
   final int userId;
-  final String value;
 }

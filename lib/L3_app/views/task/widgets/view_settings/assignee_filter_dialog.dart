@@ -11,7 +11,6 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
-import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/ws_member.dart';
@@ -58,12 +57,10 @@ class _TaskAssigneeFilterDialog extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: [
-            MTShadowed(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: _afController.checks.length,
-                itemBuilder: _item,
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: _afController.checks.length,
+              itemBuilder: _item,
             ),
           ],
         ),

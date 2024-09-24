@@ -1,9 +1,9 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import '../../../../L1_domain/entities/user_activity.dart';
-import '../account_controller.dart';
+import '../my_account_controller.dart';
 
-extension OnboardingUC on AccountController {
+extension OnboardingUC on MyAccountController {
   Future registerPromoFeaturesViewed() async {
     await registerActivity(UACode.PROMO_FEATURES_VIEWED);
   }

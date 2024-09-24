@@ -7,7 +7,7 @@ import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/button.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../account/usecases/onboarding.dart';
+import '../my_account/usecases/onboarding.dart';
 import '../quiz/abstract_quiz_controller.dart';
 
 part 'onboarding_controller.g.dart';
@@ -21,13 +21,13 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
 
   @override
   Future afterNext() async {
-    if (isPromoFeaturesStep) await accountController.registerPromoFeaturesViewed();
+    if (isPromoFeaturesStep) await myAccountController.registerPromoFeaturesViewed();
   }
 
   @override
   Future finish() async {
     router.pop(step.code);
-    await accountController.registerOnboardingPassed(step.code);
+    await myAccountController.registerOnboardingPassed(step.code);
   }
 }
 

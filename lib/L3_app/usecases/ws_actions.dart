@@ -10,7 +10,7 @@ import '../views/iap/iap_dialog.dart';
 import '../views/workspace/ws_controller.dart';
 
 extension WSActionsUC on Workspace {
-  User get me => users.firstWhereOrNull((u) => u.id == accountController.me?.id) ?? User.dummy;
+  User get me => users.firstWhereOrNull((u) => u.id == myAccountController.me?.id) ?? User.dummy;
 
   // bool get hpInfoRead => me.hp('INFO_READ');
   bool get hpInfoUpdate => me.hp('INFO_UPDATE');

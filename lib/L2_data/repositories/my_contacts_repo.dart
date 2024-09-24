@@ -17,8 +17,10 @@ class MyContactsRepo extends AbstractApiRepo<UserContact, UserContact> {
   Future<UserContact?> save(UserContact data) async {
     return (await _myContactsApi.upsertMyContact(
             userContactUpsert: (o_api.UserContactUpsertBuilder()
+                  ..id = data.id
                   ..userId = data.userId
-                  ..value = data.value)
+                  ..value = data.value
+                  ..description = data.description)
                 .build()))
         .data
         ?.userContact;

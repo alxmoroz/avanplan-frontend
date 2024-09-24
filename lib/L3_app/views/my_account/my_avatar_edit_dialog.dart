@@ -17,9 +17,9 @@ import '../../extra/services.dart';
 
 enum _FileSource { gallery, camera, files }
 
-Future editAvatarDialog() async => await showMTDialog<void>(_EditAvatarDialog());
+Future showMyAvatarEditDialog() async => await showMTDialog<void>(_MyAvatarEditDialog());
 
-class _EditAvatarDialog extends StatelessWidget {
+class _MyAvatarEditDialog extends StatelessWidget {
   Future _upload(BuildContext context, _FileSource fSource) async {
     Navigator.of(context).pop();
 
@@ -34,13 +34,13 @@ class _EditAvatarDialog extends StatelessWidget {
     }
 
     if (file != null) {
-      await accountController.uploadAvatar(file);
+      await myAccountController.uploadAvatar(file);
     }
   }
 
   Future _deleteAvatar(BuildContext context) async {
     Navigator.of(context).pop();
-    await accountController.deleteAvatar();
+    await myAccountController.deleteAvatar();
   }
 
   @override
@@ -71,7 +71,7 @@ class _EditAvatarDialog extends StatelessWidget {
               bottomDivider: false,
               onTap: () => _upload(context, _FileSource.camera),
             ),
-          if (accountController.me!.hasAvatar)
+          if (myAccountController.me!.hasAvatar)
             MTListTile(
               leading: const DeleteIcon(size: P6),
               middle: BaseText(loc.action_delete_title, color: dangerColor),

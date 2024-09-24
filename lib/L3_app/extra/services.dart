@@ -60,7 +60,6 @@ import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/_base/api_interceptor.dart';
-import '../views/account/account_controller.dart';
 import '../views/app/app_controller.dart';
 import '../views/app/local_settings_controller.dart';
 import '../views/auth/auth_controller.dart';
@@ -68,6 +67,7 @@ import '../views/calendar/calendar_controller.dart';
 import '../views/main/controllers/main_controller.dart';
 import '../views/main/controllers/tasks_main_controller.dart';
 import '../views/main/controllers/ws_main_controller.dart';
+import '../views/my_account/my_account_controller.dart';
 import '../views/notification/notification_controller.dart';
 import '../views/references/references_controller.dart';
 
@@ -81,7 +81,7 @@ MainController get mainController => GetIt.I<MainController>();
 WSMainController get wsMainController => GetIt.I<WSMainController>();
 TasksMainController get tasksMainController => GetIt.I<TasksMainController>();
 ReferencesController get refsController => GetIt.I<ReferencesController>();
-AccountController get accountController => GetIt.I<AccountController>();
+MyAccountController get myAccountController => GetIt.I<MyAccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
 CalendarController get calendarController => GetIt.I<CalendarController>();
@@ -175,7 +175,7 @@ void setup() {
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<WSMainController>(WSMainController());
   getIt.registerSingleton<TasksMainController>(TasksMainController());
-  getIt.registerSingleton<AccountController>(AccountController());
+  getIt.registerSingleton<MyAccountController>(MyAccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
   getIt.registerSingleton<CalendarController>(CalendarController());
 }

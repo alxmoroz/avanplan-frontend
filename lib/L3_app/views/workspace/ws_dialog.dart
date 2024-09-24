@@ -197,7 +197,7 @@ class _WSDialogState extends State<WSDialog> {
                   trailing: ws.hpInfoUpdate
                       ? MTButton.icon(
                           const EditIcon(),
-                          onTap: () => editWS(controller),
+                          onTap: () => showWSEditDialog(controller),
                           margin: const EdgeInsets.only(right: P2),
                         )
                       : null),

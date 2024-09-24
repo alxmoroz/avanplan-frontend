@@ -266,6 +266,9 @@
   "per_day_suffix": "в день",
   "per_month_suffix": "в месяц",
 
+  "person_contact_title": "Способ связи",
+  "person_contact_placeholder": "Почта, телефон, телеграм и т.п.",
+  "person_contact_description_placeholder": "Комментарий",
   "person_contacts_title": "Способы связи",
 
   "project_creation_method_selector_title": "Выберите способ создания проекта",

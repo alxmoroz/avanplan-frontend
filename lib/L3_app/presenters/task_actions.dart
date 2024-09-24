@@ -27,9 +27,8 @@ enum TaskAction {
 }
 
 extension TaskActionsUC on Task {
-  User? get _authUser => accountController.me;
-
   /// разрешения для текущего участника РП, выбранной задачи или проекта
+  User? get _authUser => myAccountController.me;
   WSMember? get me => activeMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
   bool get _hpMemberUpdate => me?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;

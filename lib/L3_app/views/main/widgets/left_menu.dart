@@ -94,6 +94,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final route = mainController.currentRoute;
+      final me = myAccountController.me;
       return _controller.hidden
           ? const SizedBox()
           : VerticalToolbar(
@@ -105,10 +106,10 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                   _projectsButton(context, route is ProjectsRoute),
                   _inboxButton(context, route is InboxRoute),
                   const Spacer(),
-                  if (accountController.me != null)
+                  if (me != null)
                     MTListTile(
-                      leading: accountController.me!.icon(P3, borderColor: mainColor),
-                      middle: _compact ? null : BaseText('${accountController.me!}', maxLines: 1, color: f2Color),
+                      leading: me.icon(P3, borderColor: mainColor),
+                      middle: _compact ? null : BaseText('$me', maxLines: 1, color: f2Color),
                       bottomDivider: false,
                       onTap: settingsMenu,
                     )

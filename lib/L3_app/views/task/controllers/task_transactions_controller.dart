@@ -22,7 +22,7 @@ class TaskTransactionsController extends _Base with _$TaskTransactionsController
 
   Future _editTransaction(TaskTransaction transaction, num sign) async {
     final trEditController = TransactionEditController(transaction, sign);
-    await transactionEditDialog(task, trEditController);
+    await showTransactionEditDialog(task, trEditController);
     reload();
   }
 

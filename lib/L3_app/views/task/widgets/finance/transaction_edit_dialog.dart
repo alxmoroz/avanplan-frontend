@@ -21,7 +21,7 @@ import '../../../../presenters/number.dart';
 import '../../../../views/_base/loader_screen.dart';
 import 'transaction_edit_controller.dart';
 
-Future transactionEditDialog(Task task, TransactionEditController trEditController) async {
+Future showTransactionEditDialog(Task task, TransactionEditController trEditController) async {
   await showMTDialog<void>(_TransactionEditDialog(task, trEditController));
 }
 

@@ -14,7 +14,7 @@ import '../../presenters/user.dart';
 class AccountButton extends StatelessWidget {
   const AccountButton({super.key});
 
-  User? get me => accountController.me;
+  User? get me => myAccountController.me;
 
   @override
   Widget build(BuildContext context) {

@@ -56,7 +56,7 @@ abstract class _IAPControllerBase with Store, Loadable {
 
   @action
   Future pay(Workspace ws, IAPProduct product) async {
-    final userId = accountController.me?.id;
+    final userId = myAccountController.me?.id;
     if (userId != null) {
       startLoading();
       await iapUC.pay(

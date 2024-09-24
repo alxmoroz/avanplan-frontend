@@ -55,7 +55,7 @@ class _ProjectMemberDialog extends StatelessWidget {
       roles,
       selectedId,
       loc.role_title,
-      parentPageTitle: _projectMember?.viewableName,
+      parentPageTitle: '$_projectMember',
       valueBuilder: (_, r) => BaseText(r.title, maxLines: 1),
       subtitleBuilder: (_, r) => r.description.isNotEmpty ? SmallText(r.description, maxLines: 1) : const SizedBox(),
     );
@@ -97,7 +97,7 @@ class _ProjectMemberDialog extends StatelessWidget {
           MTButton.icon(
             const MenuIcon(size: P5),
             margin: const EdgeInsets.only(right: P3),
-            onTap: () => showPersonContactsDialog(_projectMember!.viewableName, [
+            onTap: () => showPersonContactsDialog('$_projectMember', [
               ..._pmc.emails,
               ..._pmc.phones,
               ..._pmc.urls,
@@ -111,7 +111,7 @@ class _ProjectMemberDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _pmc.loading
+      builder: (_) => _pmc.loading || _projectMember == null
           ? LoaderScreen(_pmc, isDialog: true)
           : MTDialog(
               topBar: MTAppBar(
@@ -120,56 +120,53 @@ class _ProjectMemberDialog extends StatelessWidget {
                 parentPageTitle: _project.title,
                 pageTitle: loc.project_member_title,
               ),
-              body: _projectMember != null
-                  ? ListView(
-                      shrinkWrap: true,
-                      children: [
-                        /// Аватарка
-                        const SizedBox(height: P3),
-                        _projectMember!.icon(MAX_AVATAR_RADIUS),
+              body: ListView(
+                shrinkWrap: true,
+                children: [
+                  /// Аватарка
+                  const SizedBox(height: P3),
+                  _projectMember!.icon(MAX_AVATAR_RADIUS),
 
-                        /// Имя, фамилия
-                        const SizedBox(height: P3),
-                        MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
+                  /// Имя, фамилия
+                  const SizedBox(height: P3),
+                  MTLinkify('$_projectMember', style: const H2('').style(context), textAlign: TextAlign.center),
 
-                        /// Способы связи
-                        if (_pmc.contacts.isNotEmpty) ...[
-                          const SizedBox(height: P2),
-                          _contacts(context),
-                        ],
+                  /// Способы связи
+                  if (_pmc.contacts.isNotEmpty) ...[
+                    const SizedBox(height: P2),
+                    _contacts(context),
+                  ],
 
-                        /// Ответственный в задачах в проекте
-                        MTListTile(
-                          margin: const EdgeInsets.only(top: P3),
-                          leading: const PersonIcon(),
-                          middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
-                          // subtitle: SmallText('', maxLines: 1),
-                          trailing: const ChevronIcon(),
-                          dividerIndent: P11,
-                          onTap: () => _assigneeFilterSet(context),
-                        ),
+                  /// Ответственный в задачах в проекте
+                  MTListTile(
+                    margin: const EdgeInsets.only(top: P3),
+                    leading: const PersonIcon(),
+                    middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
+                    trailing: const ChevronIcon(),
+                    dividerIndent: P11,
+                    onTap: () => _assigneeFilterSet(context),
+                  ),
 
-                        /// Права в проекте
-                        MTListTile(
-                          leading: const PrivacyIcon(),
-                          middle: BaseText(loc.role_title, maxLines: 1),
-                          subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
-                          trailing: _project.canEditMembers ? const EditIcon() : null,
-                          bottomDivider: false,
-                          loading: _project.loading,
-                          onTap: _project.canEditMembers ? () => _editRoles(context) : null,
-                        ),
+                  /// Права в проекте
+                  MTListTile(
+                    leading: const PrivacyIcon(),
+                    middle: BaseText(loc.role_title, maxLines: 1),
+                    subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
+                    trailing: _project.canEditMembers ? const EditIcon() : null,
+                    bottomDivider: false,
+                    loading: _project.loading,
+                    onTap: _project.canEditMembers ? () => _editRoles(context) : null,
+                  ),
 
-                        /// Отключение от проекта
-                        MTListTile(
-                          middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                          margin: EdgeInsets.only(top: P6, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
-                          bottomDivider: false,
-                          onTap: () => _unlinkMember(context),
-                        ),
-                      ],
-                    )
-                  : Container(),
+                  /// Отключение от проекта
+                  MTListTile(
+                    middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                    margin: EdgeInsets.only(top: P6, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                    bottomDivider: false,
+                    onTap: () => _unlinkMember(context),
+                  ),
+                ],
+              ),
             ),
     );
   }

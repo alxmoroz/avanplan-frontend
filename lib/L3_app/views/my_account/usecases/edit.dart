@@ -6,9 +6,9 @@ import '../../../components/alert_dialog.dart';
 import '../../../components/button.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
-import '../account_controller.dart';
+import '../my_account_controller.dart';
 
-extension AccountEditUC on AccountController {
+extension AccountEditUC on MyAccountController {
   Future delete(BuildContext context) async {
     if ((await showMTAlertDialog(
           imageName: ImageName.delete.name,

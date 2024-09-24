@@ -22,8 +22,6 @@ abstract class AbstractPerson extends RPersistable {
 
   String get emailMD5 => md5.convert(utf8.encode(email)).toString();
 
-  String get viewableName => fullName.isNotEmpty ? fullName : email;
-
   @override
-  String toString() => viewableName;
+  String toString() => fullName.isNotEmpty ? fullName : email;
 }

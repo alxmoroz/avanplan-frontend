@@ -266,7 +266,10 @@
   "per_day_suffix": "/ day",
   "per_month_suffix": "per month",
 
-  "person_contacts_title": "Contacts for Communication",
+  "person_contact_title": "Contact Method",
+  "person_contact_placeholder": "Mail, phone, telegram, etc.",
+  "person_contact_description_placeholder": "Comment",
+  "person_contacts_title": "Contact Methods",
 
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_list_empty_title": "Add a project",

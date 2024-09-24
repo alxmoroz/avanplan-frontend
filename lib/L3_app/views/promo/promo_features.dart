@@ -16,16 +16,16 @@ import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import '../account/usecases/onboarding.dart';
+import '../my_account/usecases/onboarding.dart';
 import '../workspace/ws_controller.dart';
 import '../workspace/ws_features_dialog.dart';
 
 // NB! Этот диалог вызывается только из квиза создания проекта
 // NB! Для онбординга проверка наличия включенных функций не нужна, т.к. пользователь в своём РП их ещё точно не включил.
 Future showPromoFeatures(Workspace ws) async {
-  if (!ws.allProjectOptionsUsed && !accountController.promoFeaturesViewed) {
+  if (!ws.allProjectOptionsUsed && !myAccountController.promoFeaturesViewed) {
     await showMTDialog(_PromoFeaturesDialog(ws));
-    accountController.registerPromoFeaturesViewed();
+    myAccountController.registerPromoFeaturesViewed();
   }
 }
 

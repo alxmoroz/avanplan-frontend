@@ -13,7 +13,7 @@ extension WSPresenter on Workspace {
   List<User> get sortedUsers => users.sorted((u1, u2) => compareNatural('$u1', '$u2'));
   List<EstimateValue> get sortedEstimateValues => estimateValues.sortedBy<num>((e) => e.value);
 
-  String get wsUsersStr => sortedUsers.map((u) => u.viewableName).take(1).join(', ');
+  String get wsUsersStr => sortedUsers.map((u) => '$u').take(1).join(', ');
   String get wsUsersCountMoreStr => sortedUsers.length > 1 ? loc.more_count(users.length - 1) : '';
 
   String get estimateUnitCode => '${settings?.estimateUnit ?? ''}';

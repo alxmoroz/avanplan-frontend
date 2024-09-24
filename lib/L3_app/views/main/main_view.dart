@@ -20,7 +20,7 @@ import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../presenters/user.dart';
 import '../_base/loader_screen.dart';
-import '../account/account_dialog.dart';
+import '../my_account/my_account_dialog.dart';
 import '../auth/auth_view.dart';
 import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
@@ -57,7 +57,7 @@ class MainRoute extends MTRoute {
 
   @override
   List<RouteBase> get routes => [
-        AccountRoute(parent: this),
+        MyAccountRoute(parent: this),
         NotificationsRoute(parent: this),
         WSRoute(parent: this),
         ProjectsRoute(parent: this),
@@ -133,7 +133,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
       );
 
   Widget get _settingsButton => MTButton.icon(
-        accountController.me!.icon(P6 / 2, borderColor: mainColor),
+        myAccountController.me!.icon(P6 / 2, borderColor: mainColor),
         padding: const EdgeInsets.symmetric(horizontal: P2),
         onTap: settingsMenu,
       );
@@ -164,7 +164,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
               ? MTAppBar(leading: const SizedBox(), color: b2Color, middle: _bigTitle)
               : null
           : MTAppBar(
-              leading: accountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P8),
+              leading: myAccountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P8),
               middle: _hasScrolled ? H3(loc.my_tasks_upcoming_title, maxLines: 1) : null,
               trailing: isWeb ? null : _appBarTrailing,
             ),

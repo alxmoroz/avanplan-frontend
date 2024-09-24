@@ -61,6 +61,7 @@ abstract class _Base with Store, Loadable {
 
   @action
   Future reload() async {
+    setLoaderScreenLoading();
     await load(() async {
       contacts = await projectMembersUC.memberContacts(project.wsId, project.id!, _memberId);
     });

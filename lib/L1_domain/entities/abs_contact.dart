@@ -9,8 +9,8 @@ abstract class AbstractContact extends RPersistable {
     this.description = '',
   });
 
-  final String value;
-  final String description;
+  String value;
+  String description;
 
   bool get hasDescription => description.trim().isNotEmpty;
 

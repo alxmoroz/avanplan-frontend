@@ -8,6 +8,8 @@ import '../../components/avatar.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
+import '../../components/icons.dart';
+import '../../components/linkify.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
@@ -34,18 +36,24 @@ class _WSUserDialog extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          _user.icon(MAX_AVATAR_RADIUS),
+          /// Аватарка
           const SizedBox(height: P3),
-          H2('$_user', align: TextAlign.center),
-          BaseText(_user.email, align: TextAlign.center, maxLines: 1),
-          if (_user.roles.isNotEmpty) ...[
-            MTListGroupTitle(titleText: loc.role_title),
-            MTListTile(
-              titleText: _user.rolesTitles,
-              subtitle: _user.rolesDescriptions.isNotEmpty ? SmallText(_user.rolesDescriptions, maxLines: 1) : null,
-              bottomDivider: false,
-            ),
-          ]
+          _user.icon(MAX_AVATAR_RADIUS),
+
+          /// Имя, фамилия
+          const SizedBox(height: P3),
+          MTLinkify('$_user', style: const H2('').style(context), textAlign: TextAlign.center),
+          const SizedBox(height: P_2),
+          SmallText(_user.email, align: TextAlign.center, maxLines: 1),
+
+          /// Права в РП
+          const SizedBox(height: P3),
+          MTListTile(
+            leading: const PrivacyIcon(),
+            middle: BaseText(loc.role_title, maxLines: 1),
+            subtitle: SmallText(_user.rolesTitles, maxLines: 1),
+            bottomDivider: false,
+          ),
         ],
       ),
     );

@@ -11,11 +11,11 @@ import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
 
-part 'account_controller.g.dart';
+part 'my_account_controller.g.dart';
 
-class AccountController extends _AccountControllerBase with _$AccountController {}
+class MyAccountController extends _Base with _$MyAccountController {}
 
-abstract class _AccountControllerBase extends EditController with Store, Loadable {
+abstract class _Base extends EditController with Store, Loadable {
   @observable
   User? me;
 
@@ -33,6 +33,8 @@ abstract class _AccountControllerBase extends EditController with Store, Loadabl
 
   @action
   void setContacts(Iterable<UserContact> data) => contacts = ObservableList.of(data);
+
+  void refreshContacts() => setContacts(contacts);
 
   @action
   Future reload() async {

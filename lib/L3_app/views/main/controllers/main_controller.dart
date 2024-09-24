@@ -40,7 +40,7 @@ abstract class _MainControllerBase with Store, Loadable {
 
   Future _reloadData() async {
     setLoaderScreenLoading();
-    await accountController.reload();
+    await myAccountController.reload();
     await refsController.reload();
     await notificationController.reload();
     await wsMainController.reload();
@@ -98,7 +98,7 @@ abstract class _MainControllerBase with Store, Loadable {
 
         // Онбординг
         String? onbPassedStepCode;
-        if (!accountController.onboardingPassed) onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
+        if (!myAccountController.onboardingPassed) onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
 
         // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
         // TODO: также тут происходит обработка сообщения из пуш-уведомления. Проверить логику, что это должно происходить в этом месте
@@ -119,7 +119,7 @@ abstract class _MainControllerBase with Store, Loadable {
     wsMainController.clear();
     notificationController.clear();
     refsController.clear();
-    accountController.clear();
+    myAccountController.clear();
 
     _setUpdateDate(null);
   }

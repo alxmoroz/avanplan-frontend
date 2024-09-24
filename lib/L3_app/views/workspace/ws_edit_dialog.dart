@@ -15,7 +15,7 @@ import '../../views/_base/loader_screen.dart';
 import 'usecases/edit.dart';
 import 'ws_controller.dart';
 
-Future editWS(WSController controller) async {
+Future showWSEditDialog(WSController controller) async {
   controller.setupFields();
   await showMTDialog<Workspace?>(_WSEditDialog(controller));
 }

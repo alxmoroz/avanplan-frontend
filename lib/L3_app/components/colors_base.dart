@@ -22,9 +22,9 @@ const _b0G = 140;
 const _b0B = 190;
 
 /// темная тема
-const _b3R_d = 53;
-const _b3G_d = 61;
-const _b3B_d = 89;
+const _b3R_d = 54;
+const _b3G_d = 60;
+const _b3B_d = 86;
 
 const _b2R_d = 43;
 const _b2G_d = 48;
@@ -58,8 +58,8 @@ const b1Color = CupertinoDynamicColor.withBrightness(
 
 /// фон барьера диалогов
 const defaultBarrierColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(230, _b1R, _b1G, _b1B),
-  darkColor: Color.fromARGB(230, _b1R_d, _b1G_d, _b1B_d),
+  color: Color.fromARGB(240, _b1R, _b1G, _b1B),
+  darkColor: Color.fromARGB(240, _b1R_d, _b1G_d, _b1B_d),
 );
 
 /// тень фона

@@ -22,13 +22,13 @@ const _b0G = 140;
 const _b0B = 190;
 
 /// темная тема
-const _b3R_d = 52;
-const _b3G_d = 59;
-const _b3B_d = 88;
+const _b3R_d = 53;
+const _b3G_d = 61;
+const _b3B_d = 89;
 
-const _b2R_d = 40;
-const _b2G_d = 45;
-const _b2B_d = 70;
+const _b2R_d = 43;
+const _b2G_d = 48;
+const _b2B_d = 73;
 
 const _b1R_d = 24;
 const _b1G_d = 30;

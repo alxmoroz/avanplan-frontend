@@ -78,6 +78,38 @@ class TaskBoardColumn {
         canDrag: t.canSetStatus,
       );
 
+  Widget get _header => Observer(
+        builder: (_) => Row(
+          children: [
+            if (_parent.canEditProjectStatuses) const SizedBox(width: P6),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_status.closed) const DoneIcon(true, color: f2Color, size: P3),
+                  Flexible(
+                    child: BaseText.medium(
+                      '$_status',
+                      align: TextAlign.center,
+                      color: f2Color,
+                      maxLines: 2,
+                      padding: const EdgeInsets.symmetric(horizontal: P),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (_parent.canEditProjectStatuses) ...[
+              MTButton.icon(
+                const MenuIcon(),
+                padding: const EdgeInsets.all(P),
+                onTap: () => _taskController.projectStatusesController.edit(_status),
+              ),
+            ],
+          ],
+        ),
+      );
+
   Widget? get _footer => _status.closed
       ? _taskController.loadClosedButton(board: true)
       : _parent.canCreate
@@ -95,30 +127,6 @@ class TaskBoardColumn {
               onTap: () => _taskController.addSubtask(statusId: _status.id!),
             )
           : null;
-
-  Widget get _header => Observer(
-        builder: (_) => Row(
-          children: [
-            if (_parent.canEditProjectStatuses) const SizedBox(width: P6),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_status.closed) const DoneIcon(true, color: f2Color),
-                  Flexible(child: H3('$_status', padding: const EdgeInsets.all(P), maxLines: 2, align: TextAlign.center)),
-                ],
-              ),
-            ),
-            if (_parent.canEditProjectStatuses) ...[
-              MTButton.icon(
-                const MenuIcon(),
-                padding: const EdgeInsets.all(P),
-                onTap: () => _taskController.projectStatusesController.edit(_status),
-              ),
-            ],
-          ],
-        ),
-      );
 
   MTBoardColumn builder(BuildContext context) => _Column(
         _status,

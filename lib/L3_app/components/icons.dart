@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +38,8 @@ class MTIcon extends StatelessWidget {
           MTCircle(
             color: solid == true ? rColor.withAlpha(30) : Colors.transparent,
             size: size,
-            border: Border.all(color: rColor, width: 2),
+            // от 1 до 3 пикселей ширина обводки, в зависимости от размера иконки
+            border: Border.all(color: rColor, width: min(3, max(1, size / 18))),
           ),
         if (iconData != null)
           Icon(

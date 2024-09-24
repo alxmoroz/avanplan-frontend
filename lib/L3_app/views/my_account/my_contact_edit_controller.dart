@@ -26,13 +26,14 @@ class MyContactEditController extends EditController {
 
   Timer? _textEditTimer;
 
-  Future<bool> _saveField(ContactFCode code) async {
+  Future<UserContact?> _saveField(ContactFCode code) async {
     updateField(code.index, loading: true);
 
-    final saved = (await myAccountController.saveContact(contact)) != null;
+    final ec = await myAccountController.saveContact(contact);
+    if (_contactIn.isNew && ec != null) _contactIn.id = ec.id;
 
     updateField(code.index, loading: false);
-    return saved;
+    return ec;
   }
 
   Future _setValue(String str) async {
@@ -40,7 +41,7 @@ class MyContactEditController extends EditController {
     final oldValue = contact.value;
     if (oldValue != str && str.isNotEmpty) {
       contact.value = str;
-      if (!(await _saveField(ContactFCode.value))) {
+      if ((await _saveField(ContactFCode.value) == null)) {
         contact.value = oldValue;
       }
     }
@@ -51,7 +52,7 @@ class MyContactEditController extends EditController {
     final oldValue = contact.description;
     if (oldValue != str) {
       contact.description = str;
-      if (!(await _saveField(ContactFCode.description))) {
+      if ((await _saveField(ContactFCode.description) == null)) {
         contact.description = oldValue;
       }
     }

@@ -33,14 +33,16 @@ class _MyContactEditDialog extends StatelessWidget {
           showCloseButton: true,
           color: b2Color,
           pageTitle: loc.person_contact_title,
-          trailing: MTButton.icon(
-            const DeleteIcon(),
-            onTap: () {
-              Navigator.of(context).pop();
-              _cec.delete();
-            },
-            padding: const EdgeInsets.all(P2),
-          ),
+          trailing: _cec.contact.isNew
+              ? null
+              : MTButton.icon(
+                  const DeleteIcon(),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    _cec.delete();
+                  },
+                  padding: const EdgeInsets.all(P2),
+                ),
         ),
         body: ListView(
           shrinkWrap: true,

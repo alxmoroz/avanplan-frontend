@@ -36,16 +36,20 @@ class _State extends State<_MTNotificationDialog> {
   Widget build(BuildContext context) {
     return MTDialog(
       bgColor: f1Color,
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(DEF_BORDER_RADIUS),
+        topRight: Radius.circular(DEF_BORDER_RADIUS),
+      ),
       body: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          const SizedBox(height: P3),
           H3(
             widget._text,
             color: b3Color,
             align: TextAlign.center,
-            maxLines: 3,
+            maxLines: 5,
+            padding: const EdgeInsets.all(P3).copyWith(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           ),
         ],
       ),

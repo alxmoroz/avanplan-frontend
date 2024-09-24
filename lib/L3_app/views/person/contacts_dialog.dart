@@ -11,6 +11,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../extra/clipboard.dart';
 import '../../extra/services.dart';
 import '../../presenters/contact.dart';
 
@@ -25,7 +26,11 @@ class _PersonContactsDialog extends StatelessWidget {
 
   void _tap(BuildContext context, AbstractContact contact) {
     Navigator.of(context).pop();
-    contact.tap(context);
+    if (contact.other) {
+      copyToClipboard(context, contact.value);
+    } else {
+      contact.tap(context);
+    }
   }
 
   @override
@@ -47,7 +52,7 @@ class _PersonContactsDialog extends StatelessWidget {
             leading: c.icon,
             middle: c.hasDescription ? SmallText(c.description, maxLines: 1) : value,
             subtitle: c.hasDescription ? value : null,
-            trailing: c.other ? const ChevronIcon() : const LinkOutIcon(),
+            trailing: c.other ? const CopyIcon() : const LinkOutIcon(),
             bottomDivider: index < _contacts.length - 1,
             dividerIndent: P11,
             onTap: () => _tap(context, c),

@@ -81,6 +81,15 @@ class _ProjectMemberDialog extends StatelessWidget {
     }
   }
 
+  void _showAllContacts() {
+    showPersonContactsDialog('$_projectMember', [
+      ..._pmc.emails,
+      ..._pmc.phones,
+      ..._pmc.urls,
+      ..._pmc.others,
+    ]);
+  }
+
   Widget _contacts(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,17 +102,19 @@ class _ProjectMemberDialog extends StatelessWidget {
               margin: const EdgeInsets.only(right: P3),
               onTap: () => contact.tap(context),
             ),
-        if (_pmc.hasDupInTypes || _pmc.contacts.length > 3)
-          MTButton.icon(
-            const MenuIcon(size: P5),
-            margin: const EdgeInsets.only(right: P3),
-            onTap: () => showPersonContactsDialog('$_projectMember', [
-              ..._pmc.emails,
-              ..._pmc.phones,
-              ..._pmc.urls,
-              ..._pmc.others,
-            ]),
-          ),
+        if (_pmc.needShowAll)
+          _pmc.onlyOthers
+              ? MTButton(
+                  titleText: loc.person_contacts_title,
+                  trailing: const ChevronIcon(),
+                  margin: const EdgeInsets.only(right: P3),
+                  onTap: _showAllContacts,
+                )
+              : MTButton.icon(
+                  const MenuIcon(size: P5),
+                  margin: const EdgeInsets.only(right: P3),
+                  onTap: _showAllContacts,
+                ),
       ],
     );
   }

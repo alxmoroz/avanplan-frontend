@@ -92,6 +92,7 @@ class MTDialog extends StatelessWidget {
     this.scrollController,
     this.scrollOffsetTop,
     this.onScrolled,
+    this.borderRadius,
   });
 
   final Widget body;
@@ -102,6 +103,7 @@ class MTDialog extends StatelessWidget {
 
   final Color? bottomBarColor;
   final Color? bgColor;
+  final BorderRadiusGeometry? borderRadius;
 
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
@@ -159,12 +161,13 @@ class MTDialog extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: (bgColor ?? b2Color).resolve(context),
-            borderRadius: BorderRadius.only(
-              topLeft: _radius,
-              topRight: _radius,
-              bottomLeft: big ? _radius : Radius.zero,
-              bottomRight: big ? _radius : Radius.zero,
-            ),
+            borderRadius: borderRadius ??
+                BorderRadius.only(
+                  topLeft: _radius,
+                  topRight: _radius,
+                  bottomLeft: big ? _radius : Radius.zero,
+                  bottomRight: big ? _radius : Radius.zero,
+                ),
             boxShadow: [BoxShadow(blurRadius: P, offset: Offset(0, big ? P_2 : -P_2), color: b0Color.resolve(context).withOpacity(0.42))],
           ),
           child: Stack(

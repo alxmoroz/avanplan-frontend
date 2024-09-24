@@ -59,6 +59,11 @@ abstract class _Base with Store, Loadable {
   @computed
   bool get hasDupInTypes => emails.length > 1 || phones.length > 1 || urls.length > 1;
 
+  @computed
+  bool get onlyOthers => contacts.length == others.length;
+  @computed
+  bool get needShowAll => hasDupInTypes || contacts.length > 3 || onlyOthers;
+
   @action
   Future reload() async {
     setLoaderScreenLoading();

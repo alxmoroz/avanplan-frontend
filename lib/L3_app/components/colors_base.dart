@@ -22,17 +22,17 @@ const _b0G = 140;
 const _b0B = 190;
 
 /// темная тема
-const _b3R_d = 49;
-const _b3G_d = 54;
-const _b3B_d = 79;
+const _b3R_d = 52;
+const _b3G_d = 59;
+const _b3B_d = 88;
 
-const _b2R_d = 37;
-const _b2G_d = 42;
-const _b2B_d = 67;
+const _b2R_d = 40;
+const _b2G_d = 45;
+const _b2B_d = 70;
 
-const _b1R_d = 22;
-const _b1G_d = 28;
-const _b1B_d = 54;
+const _b1R_d = 24;
+const _b1G_d = 30;
+const _b1B_d = 56;
 
 const _b0R_d = 2;
 const _b0G_d = 6;
@@ -58,8 +58,8 @@ const b1Color = CupertinoDynamicColor.withBrightness(
 
 /// фон барьера диалогов
 const defaultBarrierColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(210, _b1R, _b1G, _b1B),
-  darkColor: Color.fromARGB(210, _b1R_d, _b1G_d, _b1B_d),
+  color: Color.fromARGB(230, _b1R, _b1G, _b1B),
+  darkColor: Color.fromARGB(230, _b1R_d, _b1G_d, _b1B_d),
 );
 
 /// тень фона

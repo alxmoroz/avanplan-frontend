@@ -20,8 +20,8 @@ import '../../extra/route.dart';
 import '../../extra/services.dart';
 import '../../presenters/user.dart';
 import '../_base/loader_screen.dart';
-import '../my_account/my_account_dialog.dart';
 import '../auth/auth_view.dart';
+import '../my_account/my_account_dialog.dart';
 import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
@@ -111,7 +111,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
+    if (!isWeb && state == AppLifecycleState.resumed) {
       mainController.startup();
     }
   }

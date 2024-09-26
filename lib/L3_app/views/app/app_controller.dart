@@ -16,7 +16,11 @@ import 'release_notes_dialog.dart';
 
 part 'app_controller.g.dart';
 
-class AppController extends _AppControllerBase with _$AppController {}
+class AppController extends _AppControllerBase with _$AppController {
+  AppController() {
+    stopLoading();
+  }
+}
 
 abstract class _AppControllerBase with Store, Loadable {
   @observable
@@ -47,9 +51,6 @@ abstract class _AppControllerBase with Store, Loadable {
   bool get mustUpgrade => localSettingsController.buildNumber < _ltsBuildNumber;
 
   Future startup() async {
-    setLoaderScreenLoading();
-    startLoading();
-
     await _getSettings();
 
     // если нужно обязательно обновить приложение, заставляем обновиться
@@ -60,10 +61,11 @@ abstract class _AppControllerBase with Store, Loadable {
         imageName: ImageName.privacy.name,
         actionWidget: MTButton.main(titleText: loc.app_install_action_title, onTap: go2AppInstall),
       );
+      startLoading();
     } else {
       // если можно обновить приложение, предлагаем обновиться
       if (!isWeb && mayUpgrade && localSettingsController.canProposeAppUpgrade) {
-        await showAppMayUpgradeDialog();
+        showAppMayUpgradeDialog();
         localSettingsController.setAppUpgradeProposalDate();
       }
 
@@ -83,7 +85,6 @@ abstract class _AppControllerBase with Store, Loadable {
           if (kDebugMode) print('getReleaseNotes $e');
         }
       }
-      stopLoading();
     }
   }
 }

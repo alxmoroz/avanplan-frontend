@@ -8,9 +8,9 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../../L2_data/services/platform.dart';
 import '../extra/route.dart';
-import '../views/my_account/my_account_dialog.dart';
 import '../views/auth/auth_view.dart';
 import '../views/main/main_view.dart';
+import '../views/my_account/my_account_dialog.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/onboarding/onboarding_view.dart';
 import '../views/projects/projects_view.dart';
@@ -34,6 +34,8 @@ final router = GoRouter(
       mainRoute,
       onboardingRoute,
     ],
+    initialLocation: '/',
+    initialExtra: 'local',
     navigatorKey: _rootKey,
     onException: (_, state, r) {
       if (kDebugMode) print('GoRouter onException -> $state');

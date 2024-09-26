@@ -71,14 +71,13 @@ abstract class _MainControllerBase with Store, Loadable {
 
     await authController.checkLocalAuth();
     if (authController.authorized) {
-      await load(() async {
-        TaskDescriptor? hostProject;
+      TaskDescriptor? hostProject;
+      // удаляем инфу о переходе по рекламе (передали в хедере)
+      if (localSettingsController.hasUTM) await localSettingsController.deleteUTM();
 
-        // удаляем инфу о переходе по рекламе (передали в хедере)
-        if (localSettingsController.hasUTM) await localSettingsController.deleteUTM();
-
-        // определение возможного погашения приглашения для подключения к проекту
-        if (localSettingsController.hasInvitation) {
+      // определение возможного погашения приглашения для подключения к проекту
+      if (localSettingsController.hasInvitation) {
+        await load(() async {
           setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
           // TODO: на бэке предусмотрена логика погашения приглашения, сохраненного при регистрации.
           //  Т.е. если на фронте токена нет (другое устройство или сеанс), то это не помешает реализовать приглашение в проект после первой авторизации
@@ -88,26 +87,30 @@ abstract class _MainControllerBase with Store, Loadable {
           } catch (_) {}
 
           await localSettingsController.deleteInvitationToken();
-        }
+        });
+      }
 
-        // обновление данных
-        final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
-        if (isTimeToUpdate || router.isDeepLink) {
-          await _reloadData();
-        }
+      // обновление данных
+      final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
+      if (isTimeToUpdate || router.isDeepLink) {
+        await reload();
+      }
 
-        // Онбординг
-        String? onbPassedStepCode;
-        if (!myAccountController.onboardingPassed) onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
+      // Онбординг
+      String? onbPassedStepCode;
+      if (!myAccountController.onboardingPassed) {
+        onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
+      }
 
-        // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
-        // TODO: также тут происходит обработка сообщения из пуш-уведомления. Проверить логику, что это должно происходить в этом месте
-        // Настройка пушей и обработка ссылок из пуша
-        await notificationController.setup();
+      // при наличии приглашения показываем диалог перехода к приглашающему проекту, если не было такого шага в онбординге
+      if (hostProject != null && onbPassedStepCode != OnboardingStepCode.where_we_go.name) {
+        await startWithHostProjectDialog(hostProject!);
+      }
 
-        // при наличии приглашения показываем диалог перехода к приглашающему проекту, если не было такого шага в онбординге
-        if (hostProject != null && onbPassedStepCode != OnboardingStepCode.where_we_go.name) await startWithHostProjectDialog(hostProject);
-      });
+      // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг
+      // TODO: также тут происходит обработка сообщения из пуш-уведомления. Проверить логику, что это должно происходить в этом месте
+      // Настройка пушей и обработка ссылок из пуша
+      await notificationController.setup();
     } else {
       authController.signOut();
     }

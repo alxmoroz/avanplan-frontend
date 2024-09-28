@@ -1,81 +1,61 @@
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
 }
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+def keyDir = '../../../_android_key/'
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = file(keyDir + 'key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdk 34
+    namespace = 'team.moroz.avanplan'
+
+    compileSdk = flutter.compileSdkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        jvmTarget = '17'
     }
 
     defaultConfig {
-        applicationId "team.moroz.avanplan"
-        minSdkVersion 31
-        targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        applicationId = "team.moroz.avanplan"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     signingConfigs {
         key0 {
-            keyAlias 'key0'
-            keyPassword 'Sovenok!@#'
-            storeFile file('/Users/alexandr/MorozTeam/projects/upload_keystore.jks')
-            storePassword 'Sovenok!@#'
+            keyAlias = keystoreProperties.getProperty('keyAlias')
+            keyPassword = keystoreProperties.getProperty('keyPassword')
+            storeFile = file(keyDir + keystoreProperties.getProperty('storeFile'))
+            storePassword = keystoreProperties.getProperty('storePassword')
         }
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
-            debuggable true
-            signingConfig signingConfigs.key0
+            applicationIdSuffix = ".debug"
+            debuggable = true
+            signingConfig = signingConfigs.key0
         }
         release {
-            minifyEnabled true
-            signingConfig signingConfigs.key0
+            minifyEnabled = true
+            signingConfig = signingConfigs.key0
         }
     }
-    namespace 'team.moroz.avanplan'
+
 }
 
 flutter {
-    source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    source = '../..'
 }

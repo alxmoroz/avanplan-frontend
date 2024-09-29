@@ -26,9 +26,6 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
   Workspace get ws => wsController.ws;
 
   @observable
-  String reason = '';
-
-  @observable
   List<Tariff> tariffs = [];
 
   @action
@@ -44,7 +41,7 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
   int get activeTariffIndex => tariffs.indexWhere((t) => t.id == ws.tariff.id);
 
   @computed
-  int get suggestedTariffIndex => activeTariffIndex < tariffs.length && reason.isNotEmpty ? activeTariffIndex + 1 : activeTariffIndex;
+  int get suggestedTariffIndex => activeTariffIndex < tariffs.length ? activeTariffIndex + 1 : activeTariffIndex;
 
   @observable
   int? pageIndex;

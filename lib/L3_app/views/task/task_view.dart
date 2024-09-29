@@ -183,18 +183,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
               )
         : Opacity(
             opacity: _hasScrolled ? 1 : 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (_hasParent)
-                  SmallText(
-                    task.parent!.title,
-                    maxLines: 1,
-                    padding: const EdgeInsets.symmetric(horizontal: P6),
-                  ),
-                H3(task.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P8)),
-              ],
-            ),
+            child: SubpageTitle(task.title, parentPageTitle: task.parent?.title),
           );
   }
 
@@ -255,7 +244,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                           ? null
                           : MTAppBar(
                               innerHeight: big ? _headerHeight : null,
-                              color: bigGroup ? b2Color : null,
+                              color: b2Color,
                               leading: bigGroup ? const SizedBox() : null,
                               middle: _title,
                               trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,

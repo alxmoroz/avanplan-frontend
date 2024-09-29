@@ -11,8 +11,8 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'text.dart';
 
-class _SubpageTitle extends StatelessWidget {
-  const _SubpageTitle(this.pageTitle, {this.parentPageTitle});
+class SubpageTitle extends StatelessWidget {
+  const SubpageTitle(this.pageTitle, {super.key, this.parentPageTitle});
 
   final String? parentPageTitle;
   final String pageTitle;
@@ -27,7 +27,14 @@ class _SubpageTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (parentPageTitle != null) SmallText(parentPageTitle!, align: TextAlign.center, maxLines: 1),
+          if (parentPageTitle != null)
+            SmallText(
+              parentPageTitle!,
+              align: TextAlign.center,
+              maxLines: 1,
+              color: f3Color,
+              padding: EdgeInsets.only(bottom: P_2),
+            ),
           BaseText.medium(pageTitle, align: TextAlign.center, color: f2Color, maxLines: 1),
         ],
       ),
@@ -69,7 +76,7 @@ class ToolBar extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              if (middle != null) middle! else if (pageTitle != null) _SubpageTitle(pageTitle!, parentPageTitle: parentPageTitle),
+              if (middle != null) middle! else if (pageTitle != null) SubpageTitle(pageTitle!, parentPageTitle: parentPageTitle),
               Row(children: [
                 if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(onTap: onClose),
                 const Spacer(),
@@ -143,7 +150,6 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     final big = isBigScreen(context);
 
     final bottomInsets = isBottom && !inDialog ? MediaQuery.viewInsetsOf(context).bottom : 0.0;
-    final rColor = (color ?? b2Color).resolve(context);
 
     final h = (isBottom
             ? bottomInsets > 0
@@ -152,11 +158,12 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
             : mqPadding.top) +
         preferredSize.height;
 
+    final flat = big || inDialog || isBottom || color != null;
     return Container(
       height: h,
-      color: rColor,
+      color: flat ? (color ?? b2Color).resolve(context) : null,
       padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
-      child: big || isBottom
+      child: flat
           ? SafeArea(
               top: !isBottom,
               bottom: isBottom,

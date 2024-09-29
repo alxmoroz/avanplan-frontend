@@ -11,7 +11,6 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../views/_base/loader_screen.dart';
@@ -110,13 +109,7 @@ class _TariffSelectorDialog extends StatelessWidget {
               topBar: MTAppBar(
                 showCloseButton: true,
                 color: b2Color,
-                innerHeight: _controller.reason.isNotEmpty ? P12 : P8,
-                middle: BaseText.medium(
-                  _controller.reason.isNotEmpty ? _controller.reason : loc.tariff_list_title,
-                  align: TextAlign.center,
-                  padding: const EdgeInsets.symmetric(horizontal: P6),
-                  maxLines: 2,
-                ),
+                pageTitle: loc.tariff_list_title,
               ),
 
               /// тут нужна SafeArea

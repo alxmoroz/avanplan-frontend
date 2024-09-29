@@ -74,9 +74,9 @@ const b0Color = CupertinoDynamicColor.withBrightness(
 const _fDC = 58;
 
 /// светлая тема
-const _f3R = _b1R - 20;
-const _f3G = _b1G - 20;
-const _f3B = _b1R - 4;
+const _f3R = _b1R - 38;
+const _f3G = _b1G - 38;
+const _f3B = _b1R - 22;
 
 const _f2R = _f3R - _fDC;
 const _f2G = _f3G - _fDC;

@@ -142,7 +142,7 @@ class H2 extends BaseText {
     super.align,
     super.padding,
   }) : super(
-          sizeScale: 1.44,
+          sizeScale: 1.42,
           maxLines: maxLines ?? 3,
           height: height ?? 1.1,
         );
@@ -159,7 +159,7 @@ class H1 extends BaseText {
     super.padding,
   }) : super(
           weight: FontWeight.w300,
-          sizeScale: 1.8,
+          sizeScale: 1.65,
           maxLines: maxLines ?? 2,
           height: height ?? 1.1,
         );

@@ -14,9 +14,11 @@ class TextDemo extends StatelessWidget {
       children: [
         Row(
           children: [
+            SizedBox(width: P6),
             text,
             const Spacer(),
-            BaseText('size: ${style.fontSize?.round()}  weight: ${style.fontWeight?.value}'),
+            BaseText('fs: ${style.fontSize?.round()}  w: ${style.fontWeight?.value}'),
+            SizedBox(width: P6),
           ],
         ),
         const SizedBox(height: P3),
@@ -33,11 +35,13 @@ class TextDemo extends StatelessWidget {
         // _t(const D1('D1'), context),
         _t(const D2('D2'), context),
         _t(const D3('D3'), context),
+        _t(const DText('DText'), context),
+        _t(const DSmallText('DSmallText'), context),
         _t(const H1('H1'), context),
         _t(const H2('H2'), context),
         _t(const H3('H3'), context),
         _t(const BaseText.medium('BaseText Medium'), context),
-        _t(const BaseText('BaseText Regular'), context),
+        _t(const BaseText('BaseText'), context),
         _t(const SmallText('SmallText'), context),
       ],
     );

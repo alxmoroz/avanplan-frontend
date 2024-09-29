@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors_base.dart';
 
+const _baseFontSize = 18.0;
+
 class BaseText extends StatelessWidget {
   const BaseText(
     this.text, {
@@ -69,7 +71,7 @@ class BaseText extends StatelessWidget {
     // если указан явно межстрочный интервал, то оставляем его.
     // Если указано количество строк, то для однострочников - 1, для двух - 1.1, для трех - 1.2, для остального всего - 1.3
     final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.2}[maxLines] ?? 1.3;
-    final double fs = 17 * (sizeScale ?? 1);
+    final double fs = _baseFontSize * (sizeScale ?? 1);
     final rColor = CupertinoDynamicColor.maybeResolve(color ?? f1Color, context);
 
     return cupertinoTS.copyWith(
@@ -99,36 +101,20 @@ class BaseText extends StatelessWidget {
   }
 }
 
-class SmallText extends BaseText {
-  const SmallText(
+class H1 extends BaseText {
+  const H1(
     super.text, {
     super.key,
-    int? maxLines,
-    super.height,
-    Color? color,
-    super.align,
-    super.padding,
-    super.weight,
-  }) : super(
-          color: color ?? f2Color,
-          sizeScale: 0.85,
-          maxLines: maxLines ?? 9,
-        );
-}
-
-class H3 extends BaseText {
-  const H3(
-    super.text, {
-    super.key,
+    super.color,
     int? maxLines,
     double? height,
-    super.color,
     super.align,
     super.padding,
   }) : super(
-          sizeScale: 1.22,
-          maxLines: maxLines ?? 5,
-          height: height ?? 1.2,
+          weight: FontWeight.w300,
+          sizeScale: 28 / _baseFontSize,
+          maxLines: maxLines ?? 2,
+          height: height ?? 1.1,
         );
 }
 
@@ -142,36 +128,54 @@ class H2 extends BaseText {
     super.align,
     super.padding,
   }) : super(
-          sizeScale: 1.42,
+          sizeScale: 25 / _baseFontSize,
           maxLines: maxLines ?? 3,
           height: height ?? 1.1,
         );
 }
 
-class H1 extends BaseText {
-  const H1(
+class H3 extends BaseText {
+  const H3(
     super.text, {
     super.key,
-    super.color,
     int? maxLines,
     double? height,
+    super.color,
     super.align,
     super.padding,
   }) : super(
-          weight: FontWeight.w300,
-          sizeScale: 1.65,
-          maxLines: maxLines ?? 2,
-          height: height ?? 1.1,
+          sizeScale: 21 / _baseFontSize,
+          maxLines: maxLines ?? 5,
+          height: height ?? 1.2,
+        );
+}
+
+class SmallText extends BaseText {
+  const SmallText(
+    super.text, {
+    super.key,
+    int? maxLines,
+    super.height,
+    Color? color,
+    super.align,
+    super.padding,
+    super.weight,
+  }) : super(
+          color: color ?? f2Color,
+          sizeScale: 15 / _baseFontSize,
+          maxLines: maxLines ?? 9,
         );
 }
 
 /// Цифры
 class DText extends BaseText {
+  static const _scale = 20 / _baseFontSize;
+
   const DText(
     super.text, {
     super.key,
     super.color,
-    super.sizeScale = 1.15,
+    super.sizeScale = _scale,
     super.padding,
     super.decoration,
     super.maxLines = 1,
@@ -183,7 +187,7 @@ class DText extends BaseText {
     super.text, {
     super.key,
     super.color,
-    super.sizeScale = 1.15,
+    super.sizeScale = _scale,
     super.padding,
     super.decoration,
     super.maxLines = 1,
@@ -195,7 +199,7 @@ class DText extends BaseText {
     super.text, {
     super.key,
     super.color,
-    super.sizeScale = 1.15,
+    super.sizeScale = _scale,
     super.padding,
     super.decoration,
     super.maxLines = 1,
@@ -207,20 +211,23 @@ class DText extends BaseText {
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'MontserratAvanplan');
 }
 
-class DSmallText extends DText {
-  const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
-      : super(sizeScale: 0.95);
-  const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: 0.95);
+class D2 extends DText {
+  static const _scale = 39 / _baseFontSize;
+  const D2(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.decoration}) : super.medium(sizeScale: _scale);
 }
 
 class D3 extends DText {
-  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration}) : super(sizeScale: 1.5);
-  const D3.medium(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.medium(sizeScale: 1.5);
-  const D3.bold(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.bold(sizeScale: 1.5);
+  static const _scale = 26 / _baseFontSize;
+  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
+      : super(sizeScale: _scale);
+  const D3.medium(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.medium(sizeScale: _scale);
 }
 
-class D2 extends DText {
-  const D2(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.decoration}) : super.medium(sizeScale: 2.3);
+class DSmallText extends DText {
+  static const _scale = 16 / _baseFontSize;
+  const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
+      : super(sizeScale: _scale);
+  const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: _scale);
 }
 
 /// Декоративный стиль (для названия приложения)

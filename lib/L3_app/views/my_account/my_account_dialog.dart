@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/adaptive.dart';
 import '../../components/avatar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -118,9 +119,9 @@ class _State extends State<_MyAccountDialog> {
                   ),
 
                   /// Выход из системы
-                  const SizedBox(height: P6),
                   MTListTile(
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                    margin: EdgeInsets.only(top: P6, bottom: !isBigScreen(context) && MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                     bottomDivider: false,
                     onTap: authController.signOut,
                   ),

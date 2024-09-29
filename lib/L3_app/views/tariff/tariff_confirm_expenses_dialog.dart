@@ -6,6 +6,7 @@ import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
+import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -33,6 +34,7 @@ class _TariffConfirmExpensesDialog extends StatelessWidget {
           TariffExpenses(_ws, tariff: _tariff),
           MTButton.main(
             titleText: loc.action_subscribe_title,
+            margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
             onTap: () => Navigator.of(context).pop(true),
           ),
         ],

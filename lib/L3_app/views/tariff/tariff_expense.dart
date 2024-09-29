@@ -29,11 +29,14 @@ class TariffExpenseTile extends StatelessWidget {
 
     // опции с превышением
     if (!_to.userManageable) {
-      // TODO: deprecated FS_VOLUME, как только не останется старых тарифов
-      if ([TOCode.FILE_STORAGE, 'FS_VOLUME'].contains(_to.code)) {
-        overdraftQuantityStr = '+${_to.tariffQuantity.humanBytesStr}';
+      if ([
+        TOCode.FILE_STORAGE,
+        // TODO: deprecated FS_VOLUME, как только не останется старых тарифов
+        'FS_VOLUME',
+      ].contains(_to.code)) {
+        overdraftQuantityStr = '+${_overdraft.humanBytesStr}';
       } else {
-        overdraftQuantityStr = '+${_to.tariffQuantity.humanValueStr}';
+        overdraftQuantityStr = '+${_overdraft.humanValueStr}';
       }
     }
 

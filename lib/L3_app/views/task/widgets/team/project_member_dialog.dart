@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/ws_member.dart';
 import '../../../../../L1_domain/entities/ws_member_contact.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
 import '../../../../components/button.dart';
@@ -172,7 +173,7 @@ class _ProjectMemberDialog extends StatelessWidget {
                   /// Отключение от проекта
                   MTListTile(
                     middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                    margin: EdgeInsets.only(top: P6, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                    margin: EdgeInsets.only(top: P6, bottom: !isBigScreen(context) && MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                     bottomDivider: false,
                     onTap: () => _unlinkMember(context),
                   ),

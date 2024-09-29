@@ -25,13 +25,12 @@ class NoSources extends StatelessWidget {
         MTImage(ImageName.empty_sources.name),
         H2(loc.source_list_empty_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
         BaseText(loc.source_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-        const SizedBox(height: P3),
         MTButton.main(
           leading: const PlusIcon(color: mainBtnTitleColor),
           titleText: loc.source_create_action_title,
+          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: () => startAddSource(_ws),
         ),
-        if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
       ],
     );
   }

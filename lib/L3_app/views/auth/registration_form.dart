@@ -55,12 +55,11 @@ class _RegistrationDialogState extends State<_RegistrationDialog> {
                           controller.tf(RegistrationFCode.name, first: true),
                           controller.tf(RegistrationFCode.email),
                           controller.tf(RegistrationFCode.password),
-                          const SizedBox(height: P3),
                           MTButton.main(
                             titleText: loc.register_action_title,
+                            margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                             onTap: controller.validated ? () => controller.createRequest(context) : null,
                           ),
-                          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                         ],
                       ),
               ),

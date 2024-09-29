@@ -50,9 +50,9 @@ class RegistrationCompletedMessage extends StatelessWidget {
         SmallText(loc.register_troubleshooting_hint, align: TextAlign.center),
         MTButton(
           middle: SmallText(loc.action_email_us_title.toLowerCase(), color: mainColor),
+          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: mailUs,
         ),
-        if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
       ],
     );
   }

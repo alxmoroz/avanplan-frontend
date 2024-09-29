@@ -38,9 +38,11 @@ class _AppMayUpgradeDialog extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
-            const SizedBox(height: P3),
-            MTButton(titleText: loc.later, onTap: router.pop),
-            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+            MTButton(
+              titleText: loc.later,
+              margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+              onTap: router.pop,
+            ),
           ],
         ),
       ),

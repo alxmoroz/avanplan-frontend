@@ -52,12 +52,11 @@ class _WSEditDialog extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) _tf(code),
-                  const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.action_save_title,
+                    margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                     onTap: canSave ? () => _save(context) : null,
                   ),
-                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],
               ),
             ),

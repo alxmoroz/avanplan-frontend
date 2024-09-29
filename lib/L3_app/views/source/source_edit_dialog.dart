@@ -147,12 +147,11 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                     controller.tf(SourceFCode.apiKey),
                   ],
                   controller.tf(SourceFCode.description),
-                  const SizedBox(height: P3),
                   MTButton.main(
                     titleText: loc.action_save_title,
+                    margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                     onTap: _canSave ? () => controller.save(context) : null,
                   ),
-                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],
               ),
             ),

@@ -151,7 +151,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               /// Список
                               : TasksListView(task.filteredSubtaskGroups, extra: controller.loadClosedButton()),
                         ),
-              // if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
             ],
           );
         }),

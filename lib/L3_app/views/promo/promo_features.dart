@@ -87,12 +87,11 @@ class PromoFeatures extends StatelessWidget {
               ),
             const SizedBox(height: P6),
             MTButton.secondary(titleText: loc.later, onTap: () => _later(context)),
-            const SizedBox(height: P3),
             MTButton.main(
               titleText: loc.promo_features_subscribe_title,
+              margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
               onTap: () => _subscribe(context),
             ),
-            if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
           ],
         ),
       ),

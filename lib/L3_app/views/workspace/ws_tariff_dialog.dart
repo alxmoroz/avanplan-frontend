@@ -77,6 +77,7 @@ class _WSTariffDialog extends StatelessWidget {
               body: ListView(
                 shrinkWrap: true,
                 children: [
+                  /// Карточка текущего тарифа
                   MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
                     child: ListView(
@@ -100,7 +101,11 @@ class _WSTariffDialog extends StatelessWidget {
                       ],
                     ),
                   ),
+
+                  /// Подключенные функции
                   if (_tariff.hasFeatures) _features,
+
+                  /// Текущие затраты
                   _tariffExpenses,
                 ],
               ),

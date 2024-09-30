@@ -1,21 +1,8 @@
-
-analyzer:
-  strong-mode:
-    implicit-dynamic: false
-  errors:
-    mixin_inherits_from_not_object: ignore
-    missing_required_param: error
-    missing_return: error
-    todo: ignore
-    sdk_version_async_exported_from_core: ignore
-    omit_local_variable_types: ignore
-  exclude:
-    - '**/*.g.dart'
-    - '**/generated/**/*'
-    - 'proto/**/*.dart'
-
 include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
     constant_identifier_names: false
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true

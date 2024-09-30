@@ -33,6 +33,8 @@ abstract class _TariffSelectorControllerBase with Store, Loadable {
     await load(() async {
       tariffs =
           (await tariffsUC.availableTariffs(wsd.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
+      tariffs[activeTariffIndex] = ws.tariff;
+
       pageIndex = suggestedTariffIndex;
     });
   }

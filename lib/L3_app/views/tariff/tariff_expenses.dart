@@ -23,7 +23,6 @@ class TariffExpenses extends StatelessWidget {
   final Tariff? tariff;
 
   Tariff get _tariff => tariff ?? _ws.tariff;
-  bool get _isMyTariff => _tariff.id == _ws.tariff.id;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class TariffExpenses extends StatelessWidget {
           itemBuilder: (_, index) {
             final to = _ws.expensiveOptions[index];
             final ad = _ws.ad(to.code)!;
-            return TariffExpenseTile(to, ad, isMyTariff: _isMyTariff);
+            return TariffExpenseTile(to, ad);
           },
           itemCount: _ws.expensiveOptions.length,
         ),
@@ -56,7 +55,7 @@ class TariffExpenses extends StatelessWidget {
           itemBuilder: (_, index) {
             final to = _ws.expensiveFeatures[index];
             final ad = _ws.ad(to.code)!;
-            return TariffExpenseTile(to, ad, isMyTariff: _isMyTariff, bottomDivider: index < _ws.expensiveFeatures.length - 1);
+            return TariffExpenseTile(to, ad, bottomDivider: index < _ws.expensiveFeatures.length - 1);
           },
         ),
 

@@ -19,7 +19,6 @@ class TariffOptions extends StatelessWidget {
   // NB! Тариф и РП совпадают в частном случае только. Поэтому отдельные аргументы
   final Workspace _ws;
   final Tariff _tariff;
-  bool get _isMyTariff => _tariff.id == _ws.tariff.id;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +40,9 @@ class TariffOptions extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) {
             final f = _tariff.features[index];
-            final actualPrice = (_isMyTariff ? _ws.finalPrice(f.code) : null) ?? f.finalPrice;
-            final term = f.priceTerm(_isMyTariff ? _ws.consumedEndDate(f.code) : null);
+            final actualPrice = _ws.finalPrice(f.code) ?? f.finalPrice;
+            final term = f.priceTerm(_ws.consumedEndDate(f.code));
+
             return MTListTile(
               leading: f.icon,
               middle: BaseText(f.title, align: TextAlign.left),

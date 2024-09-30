@@ -55,38 +55,50 @@ class _WSFeaturesDialog extends StatelessWidget {
 
                   return MTCard(
                     margin: const EdgeInsets.all(P3).copyWith(top: 0),
+                    padding: const EdgeInsets.symmetric(vertical: P2, horizontal: P3),
                     borderSide: subscribed ? BorderSide(color: greenColor.resolve(context)) : null,
                     child: ListView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        // заголовок
-                        MTListTile(leading: f.image, middle: H3(f.title), bottomDivider: false),
-                        // описание функции
+                        /// название функции с иконкой
+                        MTListTile(leading: f.image, middle: H3(f.title), bottomDivider: false, padding: EdgeInsets.zero),
+
+                        /// описание функции
+                        const SizedBox(height: P),
                         for (String d in f.description.split('\n'))
                           Row(
                             children: [
-                              const SizedBox(width: P3),
                               const MTCircle(size: P, color: f3Color),
                               const SizedBox(width: P),
-                              Expanded(child: BaseText.f2(d, maxLines: 2, padding: const EdgeInsets.symmetric(vertical: P_3))),
-                              const SizedBox(width: P2),
+                              Expanded(child: BaseText.f2(d, maxLines: 2, padding: const EdgeInsets.symmetric(vertical: P_2))),
                             ],
                           ),
-                        MTListTile(
-                          // цена
-                          middle: MTPrice(actualPrice, originalValue: originalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
-                          // период тарификации, время до конца акции
-                          subtitle: BaseText.f2(term, maxLines: 1),
-                          // кнопка для подключения / отключения функции
-                          trailing: MTButton(
-                            type: subscribed ? ButtonType.secondary : ButtonType.main,
-                            titleText: subscribed ? loc.tariff_feature_unsubscribe_action_title : loc.tariff_feature_subscribe_action_title,
-                            padding: const EdgeInsets.symmetric(horizontal: P8),
-                            constrained: false,
-                            onTap: () => _controller.toggleFeatureSubscription(context, f),
-                          ),
-                          bottomDivider: false,
+                        const SizedBox(height: P2),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  /// цена
+                                  MTPrice(actualPrice, originalValue: originalPrice, color: mainColor, rowAlign: MainAxisAlignment.start),
+
+                                  /// период тарификации, время до конца акции
+                                  SmallText(term, maxLines: 1),
+                                ],
+                              ),
+                            ),
+
+                            /// кнопка для подключения / отключения функции
+                            MTButton(
+                              type: subscribed ? ButtonType.secondary : ButtonType.main,
+                              titleText: subscribed ? loc.tariff_feature_unsubscribe_action_title : loc.tariff_feature_subscribe_action_title,
+                              padding: const EdgeInsets.symmetric(horizontal: P6),
+                              constrained: false,
+                              onTap: () => _controller.toggleFeatureSubscription(context, f),
+                            )
+                          ],
                         ),
                       ],
                     ),

@@ -11,15 +11,15 @@ import '../../components/price.dart';
 import '../../components/text.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
+import '../../presenters/tariff_option.dart';
 
 class TariffExpenseTile extends StatelessWidget {
-  const TariffExpenseTile(this._to, this._d, {required this.isMyTariff, this.bottomDivider = true, super.key});
+  const TariffExpenseTile(this._to, this._d, {this.bottomDivider = true, super.key});
   final InvoiceDetail _d;
   final TariffOption _to;
-  final bool isMyTariff;
   final bool bottomDivider;
 
-  num get _price => ((isMyTariff ? _d.finalPrice : null) ?? _to.finalPrice);
+  num get _price => _d.finalPrice ?? _to.finalPrice;
   num get _overdraft => ((_d.serviceAmount - _to.freeLimit) / _to.tariffQuantity).ceil();
   num get _expense => _overdraft * _price;
 
@@ -44,8 +44,9 @@ class TariffExpenseTile extends StatelessWidget {
       titleText: _to.title,
       subtitle: Row(
         children: [
-          DSmallText('$overdraftQuantityStr x ', color: f2Color, align: TextAlign.left),
+          if (_price > 0) DSmallText('$overdraftQuantityStr x ', color: f2Color, align: TextAlign.left),
           MTPrice(_price, color: f2Color, size: AdaptiveSize.xs),
+          if (_d.endDate != null) DSmallText(' ${_to.priceTerm(_d.endDate)}', color: f2Color, align: TextAlign.left),
         ],
       ),
       trailing: DText('${_expense.currency} $CURRENCY_SYMBOL_ROUBLE'),

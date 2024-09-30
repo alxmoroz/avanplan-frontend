@@ -18,8 +18,9 @@ class MTTextFieldInline extends StatelessWidget {
     this.hintText,
     required this.fNode,
     this.autofocus = false,
+    this.readOnly = false,
     this.textInputAction,
-    required this.onTap,
+    this.onTap,
     this.onChanged,
     this.onSubmit,
   });
@@ -31,6 +32,7 @@ class MTTextFieldInline extends StatelessWidget {
   final String? hintText;
   final FocusNode? fNode;
   final bool autofocus;
+  final bool readOnly;
   final Function()? onTap;
   final Function(String str)? onChanged;
   final Function()? onSubmit;
@@ -46,27 +48,28 @@ class MTTextFieldInline extends StatelessWidget {
     return Stack(
       alignment: Alignment.centerLeft,
       children: [
-        Opacity(
-          opacity: (hasFocus || !hasText) ? 1 : 0,
-          child: MTTextField(
-            textInputAction: textInputAction,
-            controller: controller,
-            autofocus: autofocus,
-            margin: EdgeInsets.zero,
-            padding: EdgeInsets.zero,
-            maxLines: maxLines,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.zero,
-              hintText: hintText,
-              hintStyle: hintStyle ?? textStyle.copyWith(color: f3Color.resolve(context)),
+        if (!readOnly)
+          Opacity(
+            opacity: (hasFocus || !hasText) ? 1 : 0,
+            child: MTTextField(
+              textInputAction: textInputAction,
+              controller: controller,
+              autofocus: autofocus,
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              maxLines: maxLines,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.zero,
+                hintText: hintText,
+                hintStyle: hintStyle ?? textStyle.copyWith(color: f3Color.resolve(context)),
+              ),
+              style: style,
+              onChanged: onChanged,
+              onSubmitted: onSubmit != null ? (_) => onSubmit!() : null,
+              focusNode: fNode,
             ),
-            style: style,
-            onChanged: onChanged,
-            onSubmitted: onSubmit != null ? (_) => onSubmit!() : null,
-            focusNode: fNode,
           ),
-        ),
         if (hasText && !hasFocus)
           MTLinkify(
             text,

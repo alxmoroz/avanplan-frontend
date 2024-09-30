@@ -39,13 +39,17 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
   final hintText = loc.description;
   final fIndex = TaskFCode.description.index;
   FocusNode? fNode;
-  bool expanded = true;
+  bool expanded = false;
 
   static const readOnlyMaxLines = 15;
   static const readOnlyShortLines = 7;
   static const expandButtonHeight = P6;
 
-  void _fNodeListener() => setState(() {});
+  bool get _hasFocus => fNode?.hasFocus == true;
+
+  void _fNodeListener() => setState(() {
+        if (_hasFocus) expanded = true;
+      });
 
   @override
   void initState() {
@@ -60,10 +64,6 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
     super.dispose();
   }
 
-  void tap() {
-    if (task.canEdit) fNode?.requestFocus();
-  }
-
   bool _exceedROMaxLines(double maxWidth) {
     final tp = TextPainter(text: TextSpan(text: fd.text), maxLines: readOnlyMaxLines, textDirection: TextDirection.ltr);
     tp.layout(maxWidth: maxWidth - (widget.padding?.horizontal ?? 0));
@@ -74,7 +74,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (_, size) {
       return Observer(builder: (_) {
-        final hasFocus = fNode?.hasFocus == true;
+        final hasFocus = _hasFocus;
         bool exceedReadOnlyMaxLines = false;
         int? maxLines;
 
@@ -96,13 +96,14 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
                 key: widget.key,
                 maxLines: maxLines,
                 fNode: fNode,
+                readOnly: !task.canEdit,
                 autofocus: widget.standalone && !task.hasDescription,
                 hintText: hintText,
                 style: BaseText('', color: widget.standalone ? null : f2Color).style(context),
                 onChanged: controller.setDescription,
-                onTap: tap,
+                // onTap: tap,
               ),
-              onTap: tap,
+              // onTap: tap,
             ),
             if (exceedReadOnlyMaxLines && !hasFocus)
               MTListTile(

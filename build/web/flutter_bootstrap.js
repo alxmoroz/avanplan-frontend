@@ -19,7 +19,7 @@ function hideSplash() {
 
 _flutter.loader.load({
   serviceWorkerSettings: {
-    serviceWorkerVersion: "1033585616",
+    serviceWorkerVersion: "395136203",
   },
   onEntrypointLoaded: async function(engineInitializer) {
     // Firebase

@@ -33,7 +33,7 @@ class SubpageTitle extends StatelessWidget {
               align: TextAlign.center,
               maxLines: 1,
               color: f3Color,
-              padding: EdgeInsets.only(bottom: P_2),
+              padding: const EdgeInsets.only(bottom: P_2),
             ),
           BaseText.medium(pageTitle, align: TextAlign.center, color: f2Color, maxLines: 1),
         ],

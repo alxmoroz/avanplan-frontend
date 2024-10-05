@@ -49,40 +49,35 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
-      S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate
-    ];
-
-    final supportedLocales = S.delegate.supportedLocales;
-    final themeData = ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: mainColor.resolve(context),
-        primary: mainColor.resolve(context),
-        brightness: MediaQuery.platformBrightnessOf(context),
-        surfaceTint: b2Color.resolve(context),
-        surface: b2Color.resolve(context),
-      ),
-      fontFamily: 'RobotoAvanplan',
-      useMaterial3: true,
-    );
-
     return FutureBuilder(
       future: getIt.allReady(),
       builder: (_, snapshot) => snapshot.hasData
           ? MaterialApp.router(
               debugShowCheckedModeBanner: true,
-              theme: themeData,
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: mainColor.resolve(context),
+                  primary: mainColor.resolve(context),
+                  brightness: MediaQuery.platformBrightnessOf(context),
+                  surfaceTint: b2Color.resolve(context),
+                  surface: b2Color.resolve(context),
+                ),
+                fontFamily: 'RobotoAvanplan',
+                useMaterial3: true,
+              ),
               scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
                 if (isWeb) PointerDeviceKind.mouse,
                 ...const MaterialScrollBehavior().dragDevices,
               }),
-              localizationsDelegates: localizationsDelegates,
-              supportedLocales: supportedLocales,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate
+              ],
+              supportedLocales: S.delegate.supportedLocales,
               routerConfig: router,
-              onGenerateTitle: (context) => loc.app_title,
+              onGenerateTitle: (_) => loc.app_title,
             )
           : const MTBackgroundWrapper(Center(child: MTCircularProgress(size: P10))),
     );

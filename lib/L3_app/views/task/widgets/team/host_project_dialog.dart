@@ -4,8 +4,8 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/button.dart';
 import '../../../../components/images.dart';
-import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
+import '../../../../navigation/router.dart';
 
 Future startWithHostProjectDialog(TaskDescriptor hostProject) async {
   await showMTAlertDialog(

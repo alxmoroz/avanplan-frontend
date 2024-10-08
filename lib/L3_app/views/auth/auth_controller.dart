@@ -7,8 +7,8 @@ import '../../../L2_data/services/environment.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/images.dart';
 import '../../components/webview_dialog.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 import '../../views/_base/loadable.dart';
 
 part 'auth_controller.g.dart';

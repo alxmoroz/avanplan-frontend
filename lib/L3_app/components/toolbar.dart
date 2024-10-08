@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../extra/router.dart';
+import '../navigation/router.dart';
 import 'adaptive.dart';
 import 'close_dialog_button.dart';
 import 'colors.dart';

@@ -11,8 +11,8 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 import '../../presenters/date.dart';
 
 Future notificationDialog() async => await showMTDialog<void>(const _NotificationDialog(), maxWidth: SCR_M_WIDTH);

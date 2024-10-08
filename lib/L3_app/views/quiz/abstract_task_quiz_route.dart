@@ -2,8 +2,8 @@
 
 import 'package:go_router/go_router.dart';
 
-import '../../extra/route.dart';
-import '../../extra/router.dart';
+import '../../navigation/route.dart';
+import '../../navigation/router.dart';
 import '../task/task_route.dart';
 import 'abstract_task_quiz_controller.dart';
 

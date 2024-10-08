@@ -6,7 +6,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/dialog.dart';
-import '../../../../extra/router.dart';
+import '../../../../navigation/router.dart';
 import '../../../../presenters/project_module.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/ws_actions.dart';

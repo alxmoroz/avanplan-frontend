@@ -8,8 +8,8 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 import '../projects/create_project_controller.dart';
 import 'onboarding_controller.dart';
 

@@ -9,8 +9,8 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
-import '../../../extra/router.dart';
 import '../../../extra/services.dart';
+import '../../../navigation/router.dart';
 import 'inbox_add_task_button.dart';
 
 class BottomMenu extends StatelessWidget implements PreferredSizeWidget {

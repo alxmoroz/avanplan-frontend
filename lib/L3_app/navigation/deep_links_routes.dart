@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../L1_domain/entities/local_settings.dart';
 import '../../L2_data/services/environment.dart';
+import '../extra/services.dart';
 import '../views/auth/auth_view.dart';
 import '../views/main/main_view.dart';
 import 'route.dart';
-import 'services.dart';
 
 final registrationTokenRoute = MTRoute(
   path: '/register',

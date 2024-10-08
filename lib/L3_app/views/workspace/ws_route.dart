@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../extra/route.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/route.dart';
+import '../../navigation/router.dart';
 import '../source/sources_dialog.dart';
 import 'ws_controller.dart';
 import 'ws_dialog.dart';

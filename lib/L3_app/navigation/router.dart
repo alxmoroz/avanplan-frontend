@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../../L2_data/services/platform.dart';
-import '../extra/route.dart';
 import '../views/auth/auth_view.dart';
 import '../views/main/main_view.dart';
 import '../views/my_account/my_account_dialog.dart';
@@ -20,6 +19,7 @@ import '../views/task/widgets/empty_state/task_404_dialog.dart';
 import '../views/workspace/ws_route.dart';
 import '../views/workspace/ws_users_dialog.dart';
 import 'deep_links_routes.dart';
+import 'route.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => _rootKey.currentContext!;

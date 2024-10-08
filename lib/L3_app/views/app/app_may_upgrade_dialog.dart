@@ -7,8 +7,8 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 import '../../usecases/communications.dart';
 
 Future showAppMayUpgradeDialog() async => await showMTDialog(const _AppMayUpgradeDialog());

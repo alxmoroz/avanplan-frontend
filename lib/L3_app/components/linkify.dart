@@ -5,7 +5,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:linkify/linkify.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../extra/router.dart';
+import '../navigation/router.dart';
 import 'colors.dart';
 import 'text.dart';
 

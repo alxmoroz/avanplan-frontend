@@ -3,8 +3,8 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../extra/router.dart';
 import '../../../extra/services.dart';
+import '../../../navigation/router.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 

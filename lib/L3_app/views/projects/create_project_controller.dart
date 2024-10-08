@@ -2,8 +2,8 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 import '../../usecases/ws_actions.dart';
 import '../import/import_dialog.dart';
 import '../task/widgets/create/create_task_dialog.dart';

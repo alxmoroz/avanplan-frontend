@@ -3,8 +3,8 @@
 import 'package:mobx/mobx.dart';
 
 import '../../components/button.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 
 part 'abstract_quiz_controller.g.dart';
 

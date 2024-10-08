@@ -5,8 +5,8 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/button.dart';
-import '../../extra/router.dart';
 import '../../extra/services.dart';
+import '../../navigation/router.dart';
 import '../my_account/usecases/onboarding.dart';
 import '../quiz/abstract_quiz_controller.dart';
 

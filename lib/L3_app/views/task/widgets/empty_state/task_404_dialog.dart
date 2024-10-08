@@ -8,8 +8,8 @@ import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/route.dart';
 import '../../../../extra/services.dart';
+import '../../../../navigation/route.dart';
 
 class Task404Route extends MTRoute {
   static const staticBaseName = '404';

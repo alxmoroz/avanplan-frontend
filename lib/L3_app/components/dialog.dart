@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../extra/router.dart';
+import '../navigation/router.dart';
 import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';

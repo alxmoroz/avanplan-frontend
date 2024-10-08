@@ -51,11 +51,6 @@ abstract class BaseTaskRoute extends MTRoute {
         final taskId = state.pathParamInt('${baseName}Id')!;
         _tc.init(wsId, taskId, type: baseName.toUpperCase(), route: this);
 
-        // Нет проекта или РП для этой задачи -> 404
-        if (!(_td.isProject || _td.isInbox) && _td.parent == null) {
-          return router.taskNotFoundLocation(this);
-        }
-
         return null;
       };
 

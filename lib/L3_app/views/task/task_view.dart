@@ -199,16 +199,18 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller, _tvController, _isTaskDialog);
 
+  bool _showNoteField(bool hasKB) {
+    final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
+    return task.canComment && (!hasKB || noteFieldFocused);
+  }
+
   @override
   Widget build(BuildContext context) {
     final dialog = _isTaskDialog;
     final big = isBigScreen(context);
 
     return Observer(builder: (_) {
-      final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
       final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
-      final showNoteField = task.canComment && (!hasKB || noteFieldFocused);
-
       return controller.loading && !task.filled
           ? LoaderScreen(controller, isDialog: dialog)
           : dialog
@@ -217,7 +219,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
                     body: _bodyContent,
                     rightBar: _rightToolbar(hasKB),
-                    bottomBar: showNoteField ? NoteFieldToolbar(controller, _tvController, inDialog: true, extraHeight: _extraHeight(context)) : null,
+                    bottomBar: _showNoteField(hasKB)
+                        ? NoteFieldToolbar(controller, _tvController, inDialog: true, extraHeight: _extraHeight(context))
+                        : null,
                     scrollController: scrollController,
                     scrollOffsetTop: _scrollOffsetTop,
                     onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
@@ -229,7 +233,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     final actions = controller.loading ? <TaskAction>[] : task.actions(context);
 
                     PreferredSizeWidget? bottomToolBar;
-                    if (showNoteField) {
+                    if (_showNoteField(hasKB)) {
                       bottomToolBar = NoteFieldToolbar(controller, _tvController, extraHeight: _extraHeight(context));
                     } else if (!hasKB && !bigGroup && ((task.hasSubtasks && (task.canLocalImport || task.canCreateSubtask)) || task.canShowBoard)) {
                       bottomToolBar = TaskBottomToolbar(controller);

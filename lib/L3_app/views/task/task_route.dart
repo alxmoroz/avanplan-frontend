@@ -46,10 +46,15 @@ abstract class BaseTaskRoute extends MTRoute {
   Task get _td => _tc.taskDescriptor;
 
   @override
-  GoRouterRedirect? get redirect => (context, state) {
+  GoRouterRedirect? get redirect => (_, state) async {
         final wsId = state.pathParamInt('wsId')!;
         final taskId = state.pathParamInt('${baseName}Id')!;
         _tc.init(wsId, taskId, type: baseName.toUpperCase(), route: this);
+
+        // Нет проекта или РП для этой задачи -> 404
+        if (!(_td.isProject || _td.isInbox) && _td.parent == null) {
+          return router.taskNotFoundLocation(this);
+        }
 
         return null;
       };

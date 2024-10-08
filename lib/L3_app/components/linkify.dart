@@ -5,6 +5,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:linkify/linkify.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../extra/router.dart';
 import 'colors.dart';
 import 'text.dart';
 
@@ -16,6 +17,15 @@ class MTLinkify extends StatelessWidget {
   final TextStyle? linkStyle;
   final TextAlign? textAlign;
   final Function()? onTap;
+
+  Future _openLink(String urlString) async {
+    final uri = Uri.parse(urlString);
+    if (['avanplan.ru', 'test.avanplan.ru', 'localhost', '127.0.0.1'].contains(uri.host)) {
+      await router.goInner(uri);
+    } else {
+      await launchUrlString(urlString);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +42,7 @@ class MTLinkify extends StatelessWidget {
         anchors: state.contextMenuAnchors,
         buttonItems: state.contextMenuButtonItems,
       ),
-      onOpen: (link) async => await launchUrlString(link.url),
+      onOpen: (link) async => await _openLink(link.url),
       onTap: onTap,
     );
   }

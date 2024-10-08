@@ -94,15 +94,16 @@ extension MTRouterHelper on GoRouter {
   }
 
   // 404 для задач
-  void goTask404(MTRoute? parent) {
+  String taskNotFoundLocation(MTRoute? parent) {
     RouteMatchList rConfig = _currentConfig;
     while (rConfig.matches.length > 1 && rConfig.last.route != parent) {
       rConfig = rConfig.remove(rConfig.last);
     }
     final parentLocation = rConfig.last.matchedLocation;
-
-    go('${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}');
+    return '${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}';
   }
+
+  void goTask404(MTRoute? parent) => go(taskNotFoundLocation(parent));
 
   // главный онбординг
   Future pushOnboarding({TaskDescriptor? hostProject}) async => await pushNamed(onboardingRoute.name, extra: hostProject ?? 'local');
@@ -131,5 +132,14 @@ extension MTRouterHelper on GoRouter {
     }
 
     go(rConfig.last.matchedLocation);
+  }
+
+  Future goInner(Uri uri) async {
+    String location = uri.path;
+    if (uri.hasQuery) {
+      location += '/?${uri.query}';
+    }
+
+    router.go(location, extra: 'local');
   }
 }

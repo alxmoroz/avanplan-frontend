@@ -58,7 +58,7 @@ abstract class _Base with Store {
     _save();
 
     // обновляем проект с целями при включении фильтрации
-    if (hasChanges && task.isProjectWithGoalsAndFilters) _tc.reload();
+    if (hasChanges && task.isProjectWithGoalsAndFilters) _tc.reload(closed: false);
   }
 
   void setAssigneeFilter(int assigneeId) => setFilter(TaskViewFilter(TaskViewFilterType.ASSIGNEE, [assigneeId]));

@@ -37,13 +37,13 @@ abstract class BaseTaskRoute extends MTRoute {
   double get dialogMaxWidth => SCR_L_WIDTH;
 
   @override
-  String title(GoRouterState state) => _td.viewTitle;
+  String title(GoRouterState state) => td.viewTitle;
 
   @override
   bool isDialog(BuildContext context) => isBigScreen(context) && baseName == TType.TASK.toLowerCase();
 
   TaskController get _tc => controller as TaskController;
-  Task get _td => _tc.taskDescriptor;
+  Task get td => _tc.taskDescriptor;
 
   @override
   GoRouterRedirect? get redirect => (_, state) async {
@@ -58,13 +58,13 @@ abstract class BaseTaskRoute extends MTRoute {
   GoRouterWidgetBuilder? get builder => (_, state) {
         // шаг квиза?
         AbstractTaskQuizController? quizController = (state.extra is AbstractTaskQuizController) ? state.extra as AbstractTaskQuizController : null;
-        if (quizController == null && _td.creating && (_td.isProject || _td.isGoal)) {
-          quizController = _td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
+        if (quizController == null && td.creating && (td.isProject || td.isGoal)) {
+          quizController = td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
         }
         final qcTD = quizController?.taskController.taskDescriptor;
 
-        final key = ValueKey('${_td.wsId}_${_td.id}');
-        return quizController != null && (qcTD == _td || qcTD == _td.parent)
+        final key = ValueKey('${td.wsId}_${td.id}');
+        return quizController != null && (qcTD == td || qcTD == td.parent)
             ? CreateTaskQuizView(_tc, quizController, key: key)
             : TaskView(_tc, key: key);
       };

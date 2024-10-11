@@ -33,7 +33,7 @@ class WSSourcesRoute extends MTRoute {
   bool isDialog(BuildContext context) => true;
 
   @override
-  String? title(GoRouterState state) => '${_wsController.ws.code} | ${loc.source_list_title}';
+  String title(GoRouterState state) => '${_wsController.ws.code} | ${loc.source_list_title}';
 
   WSController get _wsController => parent!.controller as WSController;
 

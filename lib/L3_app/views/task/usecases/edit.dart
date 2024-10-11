@@ -107,13 +107,13 @@ extension TaskEditUC on TaskController {
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
               loading: loading,
               bottomDivider: false,
-              onTap: reload,
+              onTap: () => reload(closed: true),
             )
           : MTButton.secondary(
               titleText: loc.action_show_closed_title,
               margin: const EdgeInsets.only(top: P3),
               loading: loading,
-              onTap: reload,
+              onTap: () => reload(closed: true),
             )
       : null;
 

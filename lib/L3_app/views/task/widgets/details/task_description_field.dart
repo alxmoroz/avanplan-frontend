@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -41,8 +42,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
   FocusNode? fNode;
   bool expanded = false;
 
-  static const readOnlyMaxLines = 15;
-  static const readOnlyShortLines = 7;
+  static final readOnlyMaxLines = isWeb ? 15 : 10;
   static const expandButtonHeight = P6;
 
   bool get _hasFocus => fNode?.hasFocus == true;
@@ -75,13 +75,12 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
     return LayoutBuilder(builder: (_, size) {
       return Observer(builder: (_) {
         final hasFocus = _hasFocus;
-        bool exceedReadOnlyMaxLines = false;
+        bool exceedROMaxLines = false;
         int? maxLines;
-
         final needCheckToggle = !hasFocus && task.isTask;
         if (needCheckToggle) {
-          exceedReadOnlyMaxLines = _exceedROMaxLines(size.maxWidth);
-          maxLines = hasFocus || expanded ? null : readOnlyShortLines;
+          exceedROMaxLines = _exceedROMaxLines(size.maxWidth);
+          maxLines = hasFocus || expanded ? null : readOnlyMaxLines;
         }
         return Stack(
           alignment: Alignment.bottomCenter,
@@ -89,8 +88,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
             MTField(
               fd,
               color: Colors.transparent,
-              padding: (widget.padding ?? EdgeInsets.zero)
-                  .add(EdgeInsets.only(bottom: exceedReadOnlyMaxLines && expanded && !hasFocus ? expandButtonHeight : 0)) as EdgeInsets,
+              padding: (widget.padding ?? EdgeInsets.zero),
               value: MTTextFieldInline(
                 teController,
                 key: widget.key,
@@ -99,13 +97,13 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
                 readOnly: !task.canEdit,
                 autofocus: widget.standalone && !task.hasDescription,
                 hintText: hintText,
-                style: BaseText('', color: widget.standalone ? null : f2Color).style(context),
+                style: BaseText('', color: widget.standalone ? null : f2Color, maxLines: maxLines).style(context),
                 onChanged: controller.setDescription,
-                // onTap: tap,
+                onTap: () => fNode?.requestFocus(),
               ),
-              // onTap: tap,
+              // onTap: () => fNode?.requestFocus(),
             ),
-            if (exceedReadOnlyMaxLines && !hasFocus)
+            if (exceedROMaxLines && !hasFocus)
               MTListTile(
                 minHeight: expandButtonHeight,
                 decoration: BoxDecoration(

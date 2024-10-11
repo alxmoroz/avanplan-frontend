@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'colors_base.dart';
-import 'linkify.dart';
+import 'linkify/linkify.dart';
 import 'text.dart';
 import 'text_field.dart';
 
@@ -33,11 +33,10 @@ class MTTextFieldInline extends StatelessWidget {
   final FocusNode? fNode;
   final bool autofocus;
   final bool readOnly;
+  final TextInputAction? textInputAction;
   final Function()? onTap;
   final Function(String str)? onChanged;
   final Function()? onSubmit;
-
-  final TextInputAction? textInputAction;
 
   @override
   Widget build(BuildContext context) {

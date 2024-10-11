@@ -43,14 +43,14 @@ class MTRoute extends GoRoute {
 
   bool isDialog(BuildContext context) => false;
 
-  String? title(GoRouterState state) => null;
+  String title(GoRouterState state) => '';
 
   @override
   GoRouterPageBuilder? get pageBuilder => (BuildContext context, GoRouterState state) {
         mainController.setRoute(this);
 
         if (isWeb) {
-          final pageTitle = title(state) ?? '';
+          final pageTitle = title(state);
           SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
             label: '${loc.app_title}${pageTitle.isNotEmpty ? ' | $pageTitle' : ''}',
             primaryColor: mainColor.resolve(context).value,

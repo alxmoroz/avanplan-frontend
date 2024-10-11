@@ -40,7 +40,7 @@ class NotificationsRoute extends MTRoute {
   double get dialogMaxWidth => SCR_M_WIDTH;
 
   @override
-  String? title(GoRouterState state) => loc.notification_list_title;
+  String title(GoRouterState state) => loc.notification_list_title;
 }
 
 class _NotificationsDialog extends StatelessWidget {

@@ -2,15 +2,15 @@
 
 import '../entities/abs_contact.dart';
 
-final _emailRx = RegExp(r'^.+@.+\..+');
-final _phoneRx = RegExp(r'^\+?\d{6,15}');
+final _emailRe = RegExp(r'^.+@.+\..+');
+final _phoneRe = RegExp(r'^\+?\d{6,15}');
 
 extension ContactParserExtension on AbstractContact {
   String get email => value.replaceFirst('mailto:', '');
-  bool get mayBeEmail => value.startsWith('mailto:') || _emailRx.hasMatch(email);
+  bool get mayBeEmail => value.startsWith('mailto:') || _emailRe.hasMatch(email);
 
   String get phoneNumber => value.replaceFirst('tel:', '').replaceAll(RegExp(r'[^+\d]'), '');
-  bool get mayBePhone => value.startsWith('tel:') || _phoneRx.hasMatch(phoneNumber);
+  bool get mayBePhone => value.startsWith('tel:') || _phoneRe.hasMatch(phoneNumber);
 
   bool get mayBeUrl => value.startsWith(RegExp(r'https?://'));
 

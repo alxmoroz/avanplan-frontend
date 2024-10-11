@@ -41,7 +41,7 @@ class ProjectsRoute extends MTRoute {
       ];
 
   @override
-  String? title(GoRouterState state) => loc.project_list_title;
+  String title(GoRouterState state) => loc.project_list_title;
 }
 
 class ProjectsView extends StatefulWidget {

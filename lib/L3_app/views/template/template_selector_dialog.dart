@@ -61,7 +61,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
             itemBuilder: (_, tIndex) {
               final template = templates[tIndex];
               return MTListTile(
-                leading: MTImage(template.icon ?? 'tmpl_task_list', height: _iconSize, width: _iconSize),
+                leading: MTImage(template.icon, fallbackName: 'tmpl_task_list', height: _iconSize, width: _iconSize),
                 middle: BaseText.medium(template.title, maxLines: 2),
                 subtitle: template.description.isNotEmpty ? SmallText(template.description, maxLines: 2) : null,
                 dividerIndent: _iconSize + P5,

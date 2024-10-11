@@ -45,10 +45,11 @@ String _assetPath(String name, BuildContext context) {
 }
 
 class MTImage extends StatelessWidget {
-  const MTImage(this.name, {super.key, this.height, this.width});
-  final String name;
+  const MTImage(this.name, {super.key, this.height, this.width, this.fallbackName});
+  final String? name;
   final double? height;
   final double? width;
+  final String? fallbackName;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +60,11 @@ class MTImage extends StatelessWidget {
       width: w,
       height: h,
       child: Image.asset(
-        _assetPath(name, context),
+        _assetPath(name ?? fallbackName ?? 'no_info', context),
         // isAntiAlias: true,
         // filterQuality: FilterQuality.high,
         errorBuilder: (_, __, ___) => Image.asset(
-          _assetPath('no_info', context),
+          _assetPath(fallbackName ?? 'no_info', context),
         ),
       ),
     );

@@ -21,7 +21,7 @@ class SubpageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: P8,
-      padding: const EdgeInsets.symmetric(horizontal: P3),
+      padding: const EdgeInsets.symmetric(horizontal: P6),
       alignment: Alignment.center,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

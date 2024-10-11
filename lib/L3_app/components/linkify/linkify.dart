@@ -62,6 +62,7 @@ class MTLinkify extends StatelessWidget {
         anchors: state.contextMenuAnchors,
         buttonItems: state.contextMenuButtonItems,
       ),
+      enableInteractiveSelection: false,
       onTap: onTap,
     );
   }

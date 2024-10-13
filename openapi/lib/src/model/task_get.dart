@@ -9,6 +9,7 @@ import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_repeat_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/task_relation_get.dart';
 import 'package:openapi/src/model/task_transaction_get.dart';
 import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/note_get.dart';
@@ -48,18 +49,20 @@ part 'task_get.g.dart';
 /// * [closedSubtasksCount] 
 /// * [income] 
 /// * [expenses] 
+/// * [relations] 
+/// * [relationsCount] 
 /// * [repeat] 
+/// * [repeatsCount] 
 /// * [taskSource] 
 /// * [members] 
 /// * [notes] 
+/// * [notesCount] 
 /// * [attachments] 
+/// * [attachmentsCount] 
 /// * [projectStatuses] 
 /// * [projectModules] 
 /// * [transactions] 
-/// * [notesCount] 
-/// * [attachmentsCount] 
 /// * [subtasksCount] 
-/// * [repeatsCount] 
 /// * [position] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
@@ -147,8 +150,17 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'expenses')
   num? get expenses;
 
+  @BuiltValueField(wireName: r'relations')
+  BuiltList<TaskRelationGet>? get relations;
+
+  @BuiltValueField(wireName: r'relations_count')
+  int? get relationsCount;
+
   @BuiltValueField(wireName: r'repeat')
   TaskRepeatGet? get repeat;
+
+  @BuiltValueField(wireName: r'repeats_count')
+  int? get repeatsCount;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
@@ -159,8 +171,14 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'notes')
   BuiltList<NoteGet>? get notes;
 
+  @BuiltValueField(wireName: r'notes_count')
+  int? get notesCount;
+
   @BuiltValueField(wireName: r'attachments')
   BuiltList<AttachmentGet>? get attachments;
+
+  @BuiltValueField(wireName: r'attachments_count')
+  int? get attachmentsCount;
 
   @BuiltValueField(wireName: r'project_statuses')
   BuiltList<ProjectStatusGet>? get projectStatuses;
@@ -171,17 +189,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'transactions')
   BuiltList<TaskTransactionGet>? get transactions;
 
-  @BuiltValueField(wireName: r'notes_count')
-  int? get notesCount;
-
-  @BuiltValueField(wireName: r'attachments_count')
-  int? get attachmentsCount;
-
   @BuiltValueField(wireName: r'subtasks_count')
   int? get subtasksCount;
-
-  @BuiltValueField(wireName: r'repeats_count')
-  int? get repeatsCount;
 
   @BuiltValueField(wireName: r'position')
   String? get position;
@@ -401,11 +410,32 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(num),
       );
     }
+    if (object.relations != null) {
+      yield r'relations';
+      yield serializers.serialize(
+        object.relations,
+        specifiedType: const FullType(BuiltList, [FullType(TaskRelationGet)]),
+      );
+    }
+    if (object.relationsCount != null) {
+      yield r'relations_count';
+      yield serializers.serialize(
+        object.relationsCount,
+        specifiedType: const FullType(int),
+      );
+    }
     if (object.repeat != null) {
       yield r'repeat';
       yield serializers.serialize(
         object.repeat,
         specifiedType: const FullType(TaskRepeatGet),
+      );
+    }
+    if (object.repeatsCount != null) {
+      yield r'repeats_count';
+      yield serializers.serialize(
+        object.repeatsCount,
+        specifiedType: const FullType(int),
       );
     }
     if (object.taskSource != null) {
@@ -429,11 +459,25 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
       );
     }
+    if (object.notesCount != null) {
+      yield r'notes_count';
+      yield serializers.serialize(
+        object.notesCount,
+        specifiedType: const FullType(int),
+      );
+    }
     if (object.attachments != null) {
       yield r'attachments';
       yield serializers.serialize(
         object.attachments,
         specifiedType: const FullType(BuiltList, [FullType(AttachmentGet)]),
+      );
+    }
+    if (object.attachmentsCount != null) {
+      yield r'attachments_count';
+      yield serializers.serialize(
+        object.attachmentsCount,
+        specifiedType: const FullType(int),
       );
     }
     if (object.projectStatuses != null) {
@@ -457,31 +501,10 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(TaskTransactionGet)]),
       );
     }
-    if (object.notesCount != null) {
-      yield r'notes_count';
-      yield serializers.serialize(
-        object.notesCount,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.attachmentsCount != null) {
-      yield r'attachments_count';
-      yield serializers.serialize(
-        object.attachmentsCount,
-        specifiedType: const FullType(int),
-      );
-    }
     if (object.subtasksCount != null) {
       yield r'subtasks_count';
       yield serializers.serialize(
         object.subtasksCount,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.repeatsCount != null) {
-      yield r'repeats_count';
-      yield serializers.serialize(
-        object.repeatsCount,
         specifiedType: const FullType(int),
       );
     }
@@ -711,12 +734,33 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as num;
           result.expenses = valueDes;
           break;
+        case r'relations':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TaskRelationGet)]),
+          ) as BuiltList<TaskRelationGet>;
+          result.relations.replace(valueDes);
+          break;
+        case r'relations_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.relationsCount = valueDes;
+          break;
         case r'repeat':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(TaskRepeatGet),
           ) as TaskRepeatGet;
           result.repeat.replace(valueDes);
+          break;
+        case r'repeats_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.repeatsCount = valueDes;
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(
@@ -739,12 +783,26 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<NoteGet>;
           result.notes.replace(valueDes);
           break;
+        case r'notes_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.notesCount = valueDes;
+          break;
         case r'attachments':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList, [FullType(AttachmentGet)]),
           ) as BuiltList<AttachmentGet>;
           result.attachments.replace(valueDes);
+          break;
+        case r'attachments_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.attachmentsCount = valueDes;
           break;
         case r'project_statuses':
           final valueDes = serializers.deserialize(
@@ -767,33 +825,12 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<TaskTransactionGet>;
           result.transactions.replace(valueDes);
           break;
-        case r'notes_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.notesCount = valueDes;
-          break;
-        case r'attachments_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.attachmentsCount = valueDes;
-          break;
         case r'subtasks_count':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
           result.subtasksCount = valueDes;
-          break;
-        case r'repeats_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.repeatsCount = valueDes;
           break;
         case r'position':
           final valueDes = serializers.deserialize(

@@ -147,8 +147,23 @@ void main() {
       // TODO
     });
 
+    // BuiltList<TaskRelationGet> relations
+    test('to test the property `relations`', () async {
+      // TODO
+    });
+
+    // int relationsCount
+    test('to test the property `relationsCount`', () async {
+      // TODO
+    });
+
     // TaskRepeatGet repeat
     test('to test the property `repeat`', () async {
+      // TODO
+    });
+
+    // int repeatsCount
+    test('to test the property `repeatsCount`', () async {
       // TODO
     });
 
@@ -167,8 +182,18 @@ void main() {
       // TODO
     });
 
+    // int notesCount
+    test('to test the property `notesCount`', () async {
+      // TODO
+    });
+
     // BuiltList<AttachmentGet> attachments
     test('to test the property `attachments`', () async {
+      // TODO
+    });
+
+    // int attachmentsCount
+    test('to test the property `attachmentsCount`', () async {
       // TODO
     });
 
@@ -187,23 +212,8 @@ void main() {
       // TODO
     });
 
-    // int notesCount
-    test('to test the property `notesCount`', () async {
-      // TODO
-    });
-
-    // int attachmentsCount
-    test('to test the property `attachmentsCount`', () async {
-      // TODO
-    });
-
     // int subtasksCount
     test('to test the property `subtasksCount`', () async {
-      // TODO
-    });
-
-    // int repeatsCount
-    test('to test the property `repeatsCount`', () async {
       // TODO
     });
 

@@ -10,6 +10,7 @@ import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
+import '../relations/relations_field.dart';
 import '../tasks/checklist.dart';
 
 class TaskDialogDetails extends StatelessWidget {
@@ -30,12 +31,16 @@ class TaskDialogDetails extends StatelessWidget {
             TaskChecklist(_controller),
           ],
 
-          /// Финансы
-          if (t.canShowFinanceField) FinanceField(_controller, hasMargin: true),
-
           /// Вложения
           if (t.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: true),
 
+          /// Финансы
+          if (t.canShowFinanceField) FinanceField(_controller, hasMargin: true),
+
+          /// Связи
+          if (t.relations.isNotEmpty) TaskRelationsField(_controller, hasMargin: true),
+
+          /// Комментарии
           if (_controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),
         ],
       );

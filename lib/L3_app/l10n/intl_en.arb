@@ -503,6 +503,8 @@
 
   "task_reopen_action_title": "Reopen",
 
+  "task_relations_title": "Relations",
+
   "task_repeat_action_title": "Repeat",
   "task_repeat_dialog_title": "Repeat settings",
   "task_repeat_placeholder": "Repeat",

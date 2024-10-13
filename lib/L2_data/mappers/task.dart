@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L2_data/mappers/task_relation.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
@@ -32,11 +33,16 @@ extension TaskMapper on api.TaskGet {
       closedDate: closedDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
       repeat: repeat?.repeat(wsId),
+      repeatsCount: repeatsCount,
       closed: closed ?? false,
       projectStatusId: projectStatusId,
       estimate: estimate,
+      relations: relations?.map((r) => r.relation(wsId)).toList() ?? [],
+      relationsCount: relationsCount,
       notes: notes?.map((n) => n.note(wsId)).toList() ?? [],
+      notesCountIn: notesCount,
       attachments: attachments?.map((a) => a.attachment(wsId)).toList() ?? [],
+      attachmentsCountIn: attachmentsCount,
       transactions: transactions?.map((tr) => tr.transaction(wsId)).toList() ?? [],
       income: income ?? 0,
       expenses: expenses ?? 0,
@@ -55,11 +61,8 @@ extension TaskMapper on api.TaskGet {
       etaDate: etaDate?.toLocal(),
       openedVolume: openedVolume,
       closedVolume: closedVolume,
-      notesCountIn: notesCount,
-      attachmentsCountIn: attachmentsCount,
       subtasksCountIn: subtasksCount,
       closedSubtasksCountIn: closedSubtasksCount,
-      repeatsCount: repeatsCount,
     );
 
     if (mappedTask.isBacklog || mappedTask.isInbox) {

@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/task/widgets/relations/relations_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -80,11 +81,16 @@ class TaskDetails extends StatelessWidget {
           /// Оценки
           if (t.canShowEstimate || t.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: hasMargins),
 
-          /// Финансы
-          if (t.canShowFinanceField && !isTaskDialog) FinanceField(_controller, hasMargin: hasMargins),
+          if (!isTaskDialog) ...[
+            /// Вложения
+            if (t.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: hasMargins),
 
-          /// Вложения
-          if (!isTaskDialog && t.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: hasMargins),
+            /// Финансы
+            if (t.canShowFinanceField) FinanceField(_controller, hasMargin: hasMargins),
+
+            /// Связи
+            if (t.relations.isNotEmpty) TaskRelationsField(_controller, hasMargin: hasMargins),
+          ],
 
           /// Модули проекта
           if (t.canShowProjectModules)

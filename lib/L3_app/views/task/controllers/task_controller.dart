@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:avanplan/L3_app/views/task/controllers/relations_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -46,6 +47,7 @@ enum TaskFCode {
   note,
   attachment,
   finance,
+  relation,
 }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
@@ -59,6 +61,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   void initWithTask(Task taskIn) {
     taskDescriptor = taskIn;
 
+    relationsController = RelationsController(this);
     attachmentsController = AttachmentsController(this);
     notesController = NotesController(this);
     transactionsController = TaskTransactionsController(this);
@@ -87,6 +90,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
             startDate: null,
             closed: false,
             parentId: null,
+            relations: [],
             notes: [],
             attachments: [],
             transactions: [],
@@ -119,9 +123,11 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.note.index),
         MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
         MTFieldData(TaskFCode.finance.index, label: loc.tariff_option_finance_title, placeholder: loc.tariff_option_finance_title),
+        MTFieldData(TaskFCode.relation.index, label: loc.task_relations_title, placeholder: loc.task_relations_title),
       ]);
 
   void reloadContentControllers() {
+    relationsController.reload();
     attachmentsController.reload();
     notesController.reload();
     transactionsController.reload();
@@ -176,6 +182,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late Task taskDescriptor;
 
+  late final RelationsController relationsController;
   late final AttachmentsController attachmentsController;
   late final NotesController notesController;
   late final TaskTransactionsController transactionsController;

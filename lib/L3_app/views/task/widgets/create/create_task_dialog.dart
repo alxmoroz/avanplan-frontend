@@ -33,6 +33,7 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
       closed: false,
       parentId: parent?.id,
       members: [],
+      relations: [],
       notes: [],
       attachments: [],
       transactions: [],

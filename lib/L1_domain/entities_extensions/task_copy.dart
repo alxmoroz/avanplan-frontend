@@ -22,6 +22,8 @@ extension TaskCopyExtension on Task {
         position: position,
         projectStatusId: projectStatusId,
         estimate: estimate,
+        relations: relations,
+        relationsCount: relationsCount,
         notes: notes,
         attachments: attachments,
         transactions: transactions,

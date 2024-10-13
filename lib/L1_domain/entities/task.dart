@@ -6,6 +6,7 @@ import 'base_entity.dart';
 import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
+import 'task_relation.dart';
 import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
@@ -85,6 +86,7 @@ class Project extends TaskDescriptor {
 class Task extends Project {
   Task({
     super.id,
+    required this.parentId,
     required super.title,
     super.description,
     super.createdOn,
@@ -93,10 +95,17 @@ class Task extends Project {
     super.category,
     super.icon,
     required this.startDate,
+    this.dueDate,
+    this.repeat,
+    this.repeatsCount,
     required this.closed,
-    required this.parentId,
+    this.closedDate,
+    required this.relations,
+    this.relationsCount,
     required this.notes,
+    this.notesCountIn,
     required this.attachments,
+    this.attachmentsCountIn,
     required this.transactions,
     required this.income,
     required this.expenses,
@@ -106,9 +115,6 @@ class Task extends Project {
     required super.wsId,
     required super.type,
     this.taskSource,
-    this.dueDate,
-    this.repeat,
-    this.closedDate,
     this.projectStatusId,
     this.authorId,
     this.assigneeId,
@@ -121,11 +127,21 @@ class Task extends Project {
     this.openedVolume,
     this.closedVolume,
     this.closedSubtasksCountIn,
-    this.notesCountIn,
-    this.attachmentsCountIn,
     this.subtasksCountIn,
-    this.repeatsCount,
   });
+
+  int? parentId;
+
+  DateTime? startDate;
+  DateTime? dueDate;
+  bool closed;
+  DateTime? closedDate;
+
+  TaskRepeat? repeat;
+  final int? repeatsCount;
+
+  List<TaskRelation> relations;
+  final int? relationsCount;
 
   final TaskState state;
   final double velocity;
@@ -138,15 +154,17 @@ class Task extends Project {
   final int? closedSubtasksCountIn;
   num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
 
-  DateTime? startDate;
-  bool closed;
-  int? parentId;
   List<ProjectStatus> projectStatuses;
 
   List<Note> notes;
+  final int? notesCountIn;
+  int get notesCount => notesCountIn ?? notes.length;
+
   List<Attachment> attachments;
+  final int? attachmentsCountIn;
+  int get attachmentsCount => attachmentsCountIn ?? attachments.length;
+
   List<TaskTransaction> transactions;
-  TaskRepeat? repeat;
 
   final num income;
   final num expenses;
@@ -155,18 +173,8 @@ class Task extends Project {
   Iterable<ProjectModule> projectModules;
   TaskSource? taskSource;
 
-  final int? notesCountIn;
-  int get notesCount => notesCountIn ?? notes.length;
-
-  final int? attachmentsCountIn;
-  int get attachmentsCount => attachmentsCountIn ?? attachments.length;
-
   final int? subtasksCountIn;
 
-  final int? repeatsCount;
-
-  DateTime? dueDate;
-  DateTime? closedDate;
   int? projectStatusId;
   int? authorId;
   int? assigneeId;

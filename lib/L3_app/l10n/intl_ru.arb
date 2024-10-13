@@ -503,6 +503,8 @@
 
   "task_reopen_action_title": "Переоткрыть",
 
+  "task_relations_title": "Связи",
+
   "task_repeat_action_title": "Повторить",
   "task_repeat_dialog_title": "Настройки повтора",
   "task_repeat_placeholder": "Повтор",

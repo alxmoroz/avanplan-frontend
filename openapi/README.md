@@ -239,6 +239,7 @@ Class | Method | HTTP request | Description
  - [TariffOptionGet](doc/TariffOptionGet.md)
  - [TaskGet](doc/TaskGet.md)
  - [TaskNode](doc/TaskNode.md)
+ - [TaskRelationGet](doc/TaskRelationGet.md)
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskRepeatGet](doc/TaskRepeatGet.md)
  - [TaskRepeatUpsert](doc/TaskRepeatUpsert.md)

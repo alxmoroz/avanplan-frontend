@@ -36,7 +36,7 @@ import 'assignee_field.dart';
 import 'estimate_field.dart';
 import 'task_status_field.dart';
 
-Future showDetailsDialog(TaskController controller) async => await showMTDialog<void>(
+Future showDetailsDialog(TaskController controller) async => await showMTDialog(
       MTDialog(
         topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.details, parentPageTitle: controller.task.title),
         body: TaskDetails(controller, standalone: true),

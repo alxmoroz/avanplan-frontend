@@ -7,7 +7,7 @@ import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 import 'project_team.dart';
 
-Future showProjectTeamDialog(TaskController controller) async => await showMTDialog<void>(
+Future showProjectTeamDialog(TaskController controller) async => await showMTDialog(
       MTDialog(
         topBar: MTAppBar(
           showCloseButton: true,

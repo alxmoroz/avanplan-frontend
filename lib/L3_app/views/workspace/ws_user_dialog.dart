@@ -17,7 +17,7 @@ import '../../extra/services.dart';
 import '../../presenters/user.dart';
 import '../../presenters/ws_member.dart';
 
-Future wsUserDialog(Workspace ws, User user) async => await showMTDialog<void>(_WSUserDialog(ws, user));
+Future wsUserDialog(Workspace ws, User user) async => await showMTDialog(_WSUserDialog(ws, user));
 
 class _WSUserDialog extends StatelessWidget {
   const _WSUserDialog(this._ws, this._user);

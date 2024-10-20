@@ -8,6 +8,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../controllers/relations_controller.dart';
 import '../../controllers/task_controller.dart';
+import 'relations_dialog.dart';
 
 class TaskRelationsField extends StatelessWidget {
   const TaskRelationsField(this._controller, {super.key, this.hasMargin = false});
@@ -31,7 +32,7 @@ class TaskRelationsField extends StatelessWidget {
             padding: const EdgeInsets.only(left: P),
           )
       ]),
-      onTap: () => print('REL DIALOG'),
+      onTap: () => relationsDialog(_rc),
     );
   }
 }

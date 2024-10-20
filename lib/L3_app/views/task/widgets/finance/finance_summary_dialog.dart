@@ -19,7 +19,7 @@ import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
 import 'transactions_empty_info.dart';
 
-Future financeSummaryDialog(Task task) async => await showMTDialog<void>(_FinanceSummaryDialog(task));
+Future financeSummaryDialog(Task task) async => await showMTDialog(_FinanceSummaryDialog(task));
 
 class _FinanceSummaryDialog extends StatelessWidget {
   const _FinanceSummaryDialog(this._task);

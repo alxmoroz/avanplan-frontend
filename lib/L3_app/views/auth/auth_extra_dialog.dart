@@ -13,7 +13,7 @@ import '../../extra/services.dart';
 import 'registration_form.dart';
 import 'sign_in_email_dialog.dart';
 
-Future authExtraDialog() async => await showMTDialog<void>(const _AuthExtraDialog(), maxWidth: SCR_XS_WIDTH);
+Future authExtraDialog() async => await showMTDialog(const _AuthExtraDialog(), maxWidth: SCR_XS_WIDTH);
 
 class _AuthExtraDialog extends StatelessWidget {
   const _AuthExtraDialog();

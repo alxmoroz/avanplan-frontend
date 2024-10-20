@@ -1,12 +1,13 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/task_relation.dart';
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_relation.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_relation.dart';
+import '../../../views/_base/loadable.dart';
 import 'task_controller.dart';
 
 part 'relations_controller.g.dart';
@@ -17,7 +18,7 @@ class RelationsController extends _Base with _$RelationsController {
   }
 }
 
-abstract class _Base with Store {
+abstract class _Base with Store, Loadable {
   late final TaskController taskController;
   Task get task => taskController.task;
 

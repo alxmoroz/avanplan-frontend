@@ -22,7 +22,7 @@ import '../../../../views/_base/loader_screen.dart';
 import 'transaction_edit_controller.dart';
 
 Future showTransactionEditDialog(Task task, TransactionEditController trEditController) async {
-  await showMTDialog<void>(_TransactionEditDialog(task, trEditController));
+  await showMTDialog(_TransactionEditDialog(task, trEditController));
 }
 
 class _TransactionEditDialog extends StatelessWidget {

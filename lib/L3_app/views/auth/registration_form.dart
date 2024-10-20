@@ -13,7 +13,7 @@ import '../../views/_base/loader_screen.dart';
 import 'registration_completed_message.dart';
 import 'registration_request_controller.dart';
 
-Future registrationDialog() async => await showMTDialog<void>(const _RegistrationDialog());
+Future registrationDialog() async => await showMTDialog(const _RegistrationDialog());
 
 class _RegistrationDialog extends StatefulWidget {
   const _RegistrationDialog();

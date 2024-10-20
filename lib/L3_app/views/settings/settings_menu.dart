@@ -17,7 +17,7 @@ import '../workspace/ws_list_tile.dart';
 import 'account_button.dart';
 import 'notifications_button.dart';
 
-Future settingsMenu() async => await showMTDialog<void>(const _SettingsDialog());
+Future settingsMenu() async => await showMTDialog(const _SettingsDialog());
 
 class _SettingsDialog extends StatelessWidget {
   const _SettingsDialog();

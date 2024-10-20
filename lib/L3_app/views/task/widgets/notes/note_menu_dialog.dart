@@ -15,7 +15,7 @@ import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/note.dart';
 
-void noteMenuDialog(TaskController taskController, Note note) => showMTDialog<void>(_NoteMenuDialog(taskController, note));
+void noteMenuDialog(TaskController taskController, Note note) => showMTDialog(_NoteMenuDialog(taskController, note));
 
 class _NoteMenuDialog extends StatelessWidget {
   const _NoteMenuDialog(this._taskController, this._note);

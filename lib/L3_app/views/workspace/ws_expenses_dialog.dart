@@ -9,7 +9,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../tariff/tariff_expenses.dart';
 
-Future showWSExpenses(Workspace ws) async => await showMTDialog<void>(_WSExpensesDialog(ws));
+Future showWSExpenses(Workspace ws) async => await showMTDialog(_WSExpensesDialog(ws));
 
 class _WSExpensesDialog extends StatelessWidget {
   const _WSExpensesDialog(this._ws);

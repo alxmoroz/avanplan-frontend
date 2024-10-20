@@ -24,7 +24,7 @@ import '../_base/loader_screen.dart';
 import 'usecases/tariff.dart';
 import 'ws_controller.dart';
 
-Future wsFeatures(WSController controller) async => await showMTDialog<void>(_WSFeaturesDialog(controller));
+Future wsFeatures(WSController controller) async => await showMTDialog(_WSFeaturesDialog(controller));
 
 class _WSFeaturesDialog extends StatelessWidget {
   const _WSFeaturesDialog(this._controller);

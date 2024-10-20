@@ -19,7 +19,7 @@ import 'view_settings_controller.dart';
 
 Future showTaskAssigneeFilterDialog(TaskViewSettingsController vsController) async {
   final afc = TaskViewAssigneeFilterController(vsController);
-  await showMTDialog<void>(_TaskAssigneeFilterDialog(afc), maxWidth: SCR_XS_WIDTH);
+  await showMTDialog(_TaskAssigneeFilterDialog(afc), maxWidth: SCR_XS_WIDTH);
 }
 
 class _TaskAssigneeFilterDialog extends StatelessWidget {

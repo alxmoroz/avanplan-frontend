@@ -31,7 +31,7 @@ import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/project_modules_controller.dart';
 import '../../controllers/task_controller.dart';
 
-Future projectModulesDialog(TaskController controller) async => await showMTDialog<void>(_ProjectModulesDialog(controller));
+Future projectModulesDialog(TaskController controller) async => await showMTDialog(_ProjectModulesDialog(controller));
 
 class ProjectModulesQuizRoute extends AbstractTaskQuizRoute {
   static String get staticBaseName => 'modules';

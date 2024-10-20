@@ -17,7 +17,7 @@ import 'due_date_field.dart';
 import 'repeat_field.dart';
 import 'start_date_field.dart';
 
-Future showTaskDatesDialog(TaskController controller) async => await showMTDialog<void>(_DatesDialog(controller));
+Future showTaskDatesDialog(TaskController controller) async => await showMTDialog(_DatesDialog(controller));
 
 class _DatesDialog extends StatelessWidget {
   const _DatesDialog(this._controller);

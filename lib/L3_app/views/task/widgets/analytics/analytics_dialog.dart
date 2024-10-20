@@ -24,7 +24,7 @@ import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future analyticsDialog(Task task) async => await showMTDialog<void>(_AnalyticsDialog(task));
+Future analyticsDialog(Task task) async => await showMTDialog(_AnalyticsDialog(task));
 
 class _AnalyticsDialog extends StatelessWidget {
   const _AnalyticsDialog(this._task);

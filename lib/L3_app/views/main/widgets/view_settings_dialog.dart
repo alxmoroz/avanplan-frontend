@@ -17,7 +17,7 @@ import '../../../components/toolbar.dart';
 import '../../../extra/services.dart';
 import '../../../views/_base/loader_screen.dart';
 
-Future showViewSettingsDialog() async => await showMTDialog<void>(const _ViewSettingsDialog());
+Future showViewSettingsDialog() async => await showMTDialog(const _ViewSettingsDialog());
 
 class _ViewSettingsDialog extends StatelessWidget {
   const _ViewSettingsDialog();

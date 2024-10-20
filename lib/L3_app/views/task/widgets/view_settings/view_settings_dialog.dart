@@ -20,7 +20,7 @@ import 'assignee_filter_field.dart';
 import 'view_settings_controller.dart';
 
 Future showTasksViewSettingsDialog(TaskController tc) async {
-  await showMTDialog<void>(
+  await showMTDialog(
     _TasksViewSettingsDialog(TaskViewSettingsController(tc)),
     maxWidth: SCR_XS_WIDTH,
   );

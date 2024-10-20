@@ -25,7 +25,7 @@ import '../../usecases/dates.dart';
 import 'repeat_controller.dart';
 
 Future showTaskRepeatDialog(TaskController taskController) async {
-  await showMTDialog<void>(_RepeatDialog(taskController, RepeatController(taskController.task)), maxWidth: SCR_XS_WIDTH);
+  await showMTDialog(_RepeatDialog(taskController, RepeatController(taskController.task)), maxWidth: SCR_XS_WIDTH);
 }
 
 class _RepeatDialog extends StatelessWidget {

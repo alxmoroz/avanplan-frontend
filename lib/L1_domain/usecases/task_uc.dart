@@ -8,6 +8,8 @@ class TaskUC {
 
   final AbstractTaskRepo repo;
 
+  Future<Iterable<Task>> tasksList(int wsId, Iterable<int> taskIds) async => await repo.tasksList(wsId, taskIds);
+
   Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed, bool? fullTree}) async =>
       await repo.taskNode(wsId, taskId, closed: closed, fullTree: fullTree);
 

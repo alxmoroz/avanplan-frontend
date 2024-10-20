@@ -29,7 +29,7 @@ import 'import_controller.dart';
 Future importTasks(Workspace ws) async {
   final controller = await ImportController().init(ws);
   controller.ws.checkSources();
-  await showMTDialog<void>(_ImportDialog(controller));
+  await showMTDialog(_ImportDialog(controller));
 }
 
 class _ImportDialog extends StatelessWidget {

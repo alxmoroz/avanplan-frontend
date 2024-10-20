@@ -11,7 +11,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future signInEmailDialog() async => await showMTDialog<void>(const _SignInEmailDialog());
+Future signInEmailDialog() async => await showMTDialog(const _SignInEmailDialog());
 
 class _SignInEmailDialog extends StatefulWidget {
   const _SignInEmailDialog();

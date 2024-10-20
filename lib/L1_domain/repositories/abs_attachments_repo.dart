@@ -12,6 +12,5 @@ abstract class AbstractAttachmentsRepo extends AbstractApiRepo<Attachment, Attac
     int length,
     String filename,
     DateTime lastModified,
-  ) =>
-      throw UnimplementedError();
+  );
 }

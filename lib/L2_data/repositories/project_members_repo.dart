@@ -19,7 +19,7 @@ class ProjectMembersRepo extends AbstractProjectMembersRepo {
       taskId: taskId,
       memberId: memberId,
       wsId: wsId,
-      requestBody: BuiltList.from(rolesIds),
+      requestBody: BuiltList.of(rolesIds),
     );
     return response.data?.map((m) => m.wsMember(wsId)) ?? [];
   }

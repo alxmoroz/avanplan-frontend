@@ -22,7 +22,7 @@ Future localImportDialog(TaskController taskController) async {
   final lic = LocalImportController(taskController);
   await lic.selectSourceForMove();
   if (lic.srcSelected) {
-    await showMTDialog<void>(_LocalImportDialog(lic));
+    await showMTDialog(_LocalImportDialog(lic));
   }
 }
 

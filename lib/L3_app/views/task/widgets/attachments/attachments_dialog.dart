@@ -16,7 +16,7 @@ import '../../../../presenters/bytes.dart';
 import '../../controllers/attachments_controller.dart';
 import '../../usecases/attachments.dart';
 
-Future attachmentsDialog(AttachmentsController controller) async => await showMTDialog<void>(_AttachmentsDialog(controller));
+Future attachmentsDialog(AttachmentsController controller) async => await showMTDialog(_AttachmentsDialog(controller));
 
 class _AttachmentsDialog extends StatelessWidget {
   const _AttachmentsDialog(this._controller);

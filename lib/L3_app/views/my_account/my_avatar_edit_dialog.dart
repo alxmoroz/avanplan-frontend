@@ -17,7 +17,7 @@ import '../../extra/services.dart';
 
 enum _FileSource { gallery, camera, files }
 
-Future showMyAvatarEditDialog() async => await showMTDialog<void>(_MyAvatarEditDialog());
+Future showMyAvatarEditDialog() async => await showMTDialog(_MyAvatarEditDialog());
 
 class _MyAvatarEditDialog extends StatelessWidget {
   Future _upload(BuildContext context, _FileSource fSource) async {

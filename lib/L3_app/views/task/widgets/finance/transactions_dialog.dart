@@ -22,7 +22,7 @@ import 'finance_summary_card.dart';
 import 'transaction_tile.dart';
 import 'transactions_empty_info.dart';
 
-Future transactionsDialog(TaskTransactionsController controller) async => await showMTDialog<void>(_TransactionsDialog(controller));
+Future transactionsDialog(TaskTransactionsController controller) async => await showMTDialog(_TransactionsDialog(controller));
 
 class _TransactionsDialog extends StatelessWidget {
   const _TransactionsDialog(this._controller);

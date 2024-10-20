@@ -24,7 +24,7 @@ import 'invitation_controller.dart';
 
 Future invite(Task task) async {
   if (await task.ws.checkBalance(loc.invitation_create_title)) {
-    await showMTDialog<void>(_InvitationDialog(InvitationController(task)));
+    await showMTDialog(_InvitationDialog(InvitationController(task)));
   }
 }
 

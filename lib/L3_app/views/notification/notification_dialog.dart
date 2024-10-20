@@ -15,7 +15,7 @@ import '../../extra/services.dart';
 import '../../navigation/router.dart';
 import '../../presenters/date.dart';
 
-Future notificationDialog() async => await showMTDialog<void>(const _NotificationDialog(), maxWidth: SCR_M_WIDTH);
+Future notificationDialog() async => await showMTDialog(const _NotificationDialog(), maxWidth: SCR_M_WIDTH);
 
 class _NotificationDialog extends StatelessWidget {
   const _NotificationDialog();

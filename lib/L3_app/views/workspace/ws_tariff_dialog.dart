@@ -28,7 +28,7 @@ import 'ws_controller.dart';
 import 'ws_expenses_dialog.dart';
 import 'ws_features_dialog.dart';
 
-Future showWSTariff(WSController controller) async => await showMTDialog<void>(_WSTariffDialog(controller));
+Future showWSTariff(WSController controller) async => await showMTDialog(_WSTariffDialog(controller));
 
 class _WSTariffDialog extends StatelessWidget {
   const _WSTariffDialog(this._controller);

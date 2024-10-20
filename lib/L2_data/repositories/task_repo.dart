@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
@@ -9,6 +10,16 @@ import '../services/api.dart';
 
 class TaskRepo extends AbstractTaskRepo {
   o_api.WSTasksApi get api => openAPI.getWSTasksApi();
+
+  @override
+  Future<Iterable<Task>> tasksList(int wsId, Iterable<int> taskIds) async {
+    final data = (await api.tasksList(
+      wsId: wsId,
+      requestBody: BuiltList.of(taskIds),
+    ))
+        .data;
+    return data?.map((t) => t.task(wsId)) ?? [];
+  }
 
   @override
   Future<TaskNode?> taskNode(int wsId, int taskId, {bool? closed, bool? fullTree}) async {

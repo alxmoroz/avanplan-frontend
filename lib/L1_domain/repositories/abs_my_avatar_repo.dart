@@ -8,8 +8,7 @@ abstract class AbstractMyAvatarRepo {
     int length,
     String filename,
     DateTime lastModified,
-  ) =>
-      throw UnimplementedError();
+  );
 
-  Future<User?> deleteAvatar() => throw UnimplementedError();
+  Future<User?> deleteAvatar();
 }

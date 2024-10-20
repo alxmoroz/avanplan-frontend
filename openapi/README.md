@@ -130,7 +130,8 @@ Class | Method | HTTP request | Description
 [*WSTasksApi*](doc/WSTasksApi.md) | [**repeatTask**](doc/WSTasksApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [*WSTasksApi*](doc/WSTasksApi.md) | [**setupProjectModules**](doc/WSTasksApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [*WSTasksApi*](doc/WSTasksApi.md) | [**statusTasksCount**](doc/WSTasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
-[*WSTasksApi*](doc/WSTasksApi.md) | [**taskNode**](doc/WSTasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Node
+[*WSTasksApi*](doc/WSTasksApi.md) | [**taskNode**](doc/WSTasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
+[*WSTasksApi*](doc/WSTasksApi.md) | [**tasksList**](doc/WSTasksApi.md#taskslist) | **GET** /v1/workspaces/{ws_id}/tasks | Tasks List
 [*WSTasksApi*](doc/WSTasksApi.md) | [**unlinkTask**](doc/WSTasksApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
 [*WSTasksApi*](doc/WSTasksApi.md) | [**uploadAttachment**](doc/WSTasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [*WSTasksApi*](doc/WSTasksApi.md) | [**upsertNote**](doc/WSTasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
@@ -171,7 +172,8 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForMoveTasks**](doc/WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**startImport**](doc/WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusTasksCount**](doc/WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**taskNode**](doc/WorkspacesApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Node
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**taskNode**](doc/WorkspacesApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**tasksList**](doc/WorkspacesApi.md#taskslist) | **GET** /v1/workspaces/{ws_id}/tasks | Tasks List
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**unlinkTask**](doc/WorkspacesApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**uploadAttachment**](doc/WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment

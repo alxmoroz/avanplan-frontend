@@ -215,10 +215,17 @@ void main() {
       // TODO
     });
 
-    // Node
+    // Task Node
     //
     //Future<TaskNode> taskNode(int taskId, int wsId, { bool closed, bool fullTree }) async
     test('test taskNode', () async {
+      // TODO
+    });
+
+    // Tasks List
+    //
+    //Future<BuiltList<TaskGet>> tasksList(int wsId, BuiltList<int> requestBody, { int taskId }) async
+    test('test tasksList', () async {
       // TODO
     });
 

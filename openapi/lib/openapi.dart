@@ -28,7 +28,6 @@ export 'package:openapi/src/api/task_invitations_api.dart';
 export 'package:openapi/src/api/task_notes_api.dart';
 export 'package:openapi/src/api/task_repeats_api.dart';
 export 'package:openapi/src/api/task_transactions_api.dart';
-export 'package:openapi/src/api/ws_members_api.dart';
 export 'package:openapi/src/api/wsmy_api.dart';
 export 'package:openapi/src/api/ws_sources_api.dart';
 export 'package:openapi/src/api/ws_tariff_options_api.dart';

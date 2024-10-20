@@ -104,7 +104,6 @@ Class | Method | HTTP request | Description
 [*TaskRepeatsApi*](doc/TaskRepeatsApi.md) | [**upsertRepeat**](doc/TaskRepeatsApi.md#upsertrepeat) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats | Upsert
 [*TaskTransactionsApi*](doc/TaskTransactionsApi.md) | [**deleteTransaction**](doc/TaskTransactionsApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
 [*TaskTransactionsApi*](doc/TaskTransactionsApi.md) | [**upsertTransaction**](doc/TaskTransactionsApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
-[*WSMembersApi*](doc/WSMembersApi.md) | [**memberAssignedTasks**](doc/WSMembersApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Ws Member Assigned Tasks
 [*WSMyApi*](doc/WSMyApi.md) | [**myProjects**](doc/WSMyApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*WSMyApi*](doc/WSMyApi.md) | [**myTasks**](doc/WSMyApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 [*WSSourcesApi*](doc/WSSourcesApi.md) | [**checkConnection**](doc/WSSourcesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
@@ -160,7 +159,6 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspaces**](doc/WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | My Workspaces
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getProjects**](doc/WorkspacesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspace**](doc/WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**memberAssignedTasks**](doc/WorkspacesApi.md#memberassignedtasks) | **GET** /v1/workspaces/{ws_id}/members/{member_id}/assigned_tasks | Ws Member Assigned Tasks
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**moveTask**](doc/WorkspacesApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myProjects**](doc/WorkspacesApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**myTasks**](doc/WorkspacesApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks

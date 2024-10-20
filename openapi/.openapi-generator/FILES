@@ -88,7 +88,6 @@ doc/UserContactGet.md
 doc/UserContactUpsert.md
 doc/ValidationError.md
 doc/ValidationErrorLocInner.md
-doc/WSMembersApi.md
 doc/WSMyApi.md
 doc/WSSourcesApi.md
 doc/WSTariffOptionsApi.md
@@ -120,7 +119,6 @@ lib/src/api/task_notes_api.dart
 lib/src/api/task_repeats_api.dart
 lib/src/api/task_transactions_api.dart
 lib/src/api/workspaces_api.dart
-lib/src/api/ws_members_api.dart
 lib/src/api/ws_sources_api.dart
 lib/src/api/ws_tariff_options_api.dart
 lib/src/api/ws_tariffs_api.dart
@@ -295,7 +293,6 @@ test/validation_error_test.dart
 test/workspace_get_test.dart
 test/workspace_upsert_test.dart
 test/workspaces_api_test.dart
-test/ws_members_api_test.dart
 test/ws_sources_api_test.dart
 test/ws_tariff_options_api_test.dart
 test/ws_tariffs_api_test.dart

@@ -125,15 +125,6 @@ void main() {
       // TODO
     });
 
-    // Ws Member Assigned Tasks
-    //
-    // Задачи участника РП
-    //
-    //Future<BuiltList<TaskGet>> memberAssignedTasks(int memberId, int wsId, { int taskId }) async
-    test('test memberAssignedTasks', () async {
-      // TODO
-    });
-
     // Move
     //
     //Future<TasksChanges> moveTask(int wsId, int taskId, int srcTaskId, int srcWsId) async

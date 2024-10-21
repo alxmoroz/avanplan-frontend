@@ -16,7 +16,7 @@ import 'scrollable.dart';
 class MTPage extends StatelessWidget {
   const MTPage({
     super.key,
-    this.topBar,
+    this.navBar,
     required this.body,
     this.bottomBar,
     this.leftBar,
@@ -28,7 +28,7 @@ class MTPage extends StatelessWidget {
 
   final PreferredSizeWidget? leftBar;
   final PreferredSizeWidget? rightBar;
-  final PreferredSizeWidget? topBar;
+  final PreferredSizeWidget? navBar;
   final Widget body;
   final PreferredSizeWidget? bottomBar;
 
@@ -60,7 +60,7 @@ class MTPage extends StatelessWidget {
                 MediaQuery(
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
-                      top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (topBar?.preferredSize.height ?? 0)),
+                      top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
                       bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + (bottomBar?.preferredSize.height ?? 0),
                     ),
                   ),
@@ -73,13 +73,13 @@ class MTPage extends StatelessWidget {
                             scrollOffsetTop: scrollOffsetTop!,
                             onScrolled: onScrolled,
                             bottomShadow: bottomBar != null,
-                            topShadowPadding: mqPadding.top + (topBar?.preferredSize.height ?? 0),
+                            topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
                             child: body,
                           )
                         : body,
                   ),
                 ),
-                if (topBar != null) topBar!,
+                if (navBar != null) navBar!,
                 if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
               ],
             ),

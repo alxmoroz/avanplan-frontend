@@ -8,13 +8,11 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
-import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../my_account/usecases/onboarding.dart';
 import '../workspace/ws_controller.dart';
@@ -36,7 +34,6 @@ class _PromoFeaturesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTAppBar(showCloseButton: true, color: b2Color),
       body: ListView(
         shrinkWrap: true,
         children: [PromoFeatures(ws)],

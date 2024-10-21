@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -21,7 +20,7 @@ class _WSSelectDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.workspace_selector_title),
+        topBar: MTTopBar(pageTitle: loc.workspace_selector_title),
         body: ListView.builder(
           shrinkWrap: true,
           itemCount: _wss.length,

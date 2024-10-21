@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../navigation/router.dart';
 import '../app/about_dialog.dart';
@@ -60,7 +58,6 @@ class _SettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: const MTAppBar(showCloseButton: true, color: b2Color),
         body: ListView(
           shrinkWrap: true,
           children: [

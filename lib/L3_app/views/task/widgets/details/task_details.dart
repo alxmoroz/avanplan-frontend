@@ -38,7 +38,7 @@ import 'task_status_field.dart';
 
 Future showDetailsDialog(TaskController controller) async => await showMTDialog(
       MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.details, parentPageTitle: controller.task.title),
+        topBar: MTTopBar(pageTitle: loc.details, parentPageTitle: controller.task.title),
         body: TaskDetails(controller, standalone: true),
       ),
     );
@@ -89,7 +89,7 @@ class TaskDetails extends StatelessWidget {
             if (t.canShowFinanceField) FinanceField(_controller, hasMargin: hasMargins),
 
             /// Связи
-            if (t.relations.isNotEmpty) TaskRelationsField(_controller, hasMargin: hasMargins),
+            if (t.canShowRelationsField) TaskRelationsField(_controller, hasMargin: hasMargins),
           ],
 
           /// Модули проекта

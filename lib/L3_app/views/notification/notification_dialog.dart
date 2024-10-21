@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -30,7 +29,7 @@ class _NotificationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: nf.title),
+      topBar: MTTopBar(pageTitle: nf.title),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: P3),
           child: ListView(

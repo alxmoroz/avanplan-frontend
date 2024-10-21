@@ -17,6 +17,8 @@ class MTLinkify extends StatelessWidget {
     this.style,
     this.linkStyle,
     this.textAlign,
+    this.paddingLines = 0,
+    this.enableInteractiveSelection = true,
     this.onTap,
     super.key,
   });
@@ -25,6 +27,8 @@ class MTLinkify extends StatelessWidget {
   final TextStyle? style;
   final TextStyle? linkStyle;
   final TextAlign? textAlign;
+  final int paddingLines;
+  final bool enableInteractiveSelection;
   final Function()? onTap;
 
   Future _openLink(Uri uri) async {
@@ -52,7 +56,7 @@ class MTLinkify extends StatelessWidget {
                   )
                 : TextSpan(text: '$el', style: baseStyle),
           // дополнительная пустая строка, потому что нет свойства пэддинга у SelectableText
-          if (elements.isNotEmpty) const TextSpan(text: '\n'),
+          if (elements.isNotEmpty && paddingLines > 0) TextSpan(text: '\n' * paddingLines),
         ],
       ),
       textAlign: textAlign,
@@ -62,7 +66,7 @@ class MTLinkify extends StatelessWidget {
         anchors: state.contextMenuAnchors,
         buttonItems: state.contextMenuButtonItems,
       ),
-      enableInteractiveSelection: false,
+      enableInteractiveSelection: enableInteractiveSelection,
       onTap: onTap,
     );
   }

@@ -190,9 +190,7 @@ class _WSDialogState extends State<WSDialog> {
       return controller.loading && !ws.filled
           ? LoaderScreen(controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                  showCloseButton: true,
-                  color: b2Color,
+              topBar: MTTopBar(
                   pageTitle: loc.workspace_title,
                   trailing: ws.hpInfoUpdate
                       ? MTButton.icon(

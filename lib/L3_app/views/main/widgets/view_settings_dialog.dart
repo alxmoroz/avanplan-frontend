@@ -7,7 +7,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../L1_domain/entities/calendar_source.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
-import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../components/icons.dart';
@@ -28,7 +27,7 @@ class _ViewSettingsDialog extends StatelessWidget {
       builder: (_) => calendarController.loading
           ? LoaderScreen(calendarController, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.view_settings_title),
+              topBar: MTTopBar(pageTitle: loc.view_settings_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [

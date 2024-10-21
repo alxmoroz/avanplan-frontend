@@ -49,12 +49,10 @@ class _LocalImportDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTDialog(
-          topBar: MTAppBar(
-            showCloseButton: true,
-            color: b2Color,
+          topBar: MTTopBar(
             pageTitle: loc.task_transfer_title,
             innerHeight: P * 22 + (_showSelectAll ? P8 : P),
-            bottom: Column(
+            bottomWidget: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
@@ -104,9 +102,8 @@ class _LocalImportDialog extends StatelessWidget {
             ),
           ),
           bottomBar: controller.srcSelected
-              ? MTAppBar(
-                  isBottom: true,
-                  inDialog: true,
+              ? MTBottomBar(
+                  inBigDialog: true,
                   padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),

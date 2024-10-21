@@ -21,7 +21,6 @@ enum TaskAction {
   reopen,
   localExport,
   duplicate,
-  // go2source,
   unlink,
   delete,
 }
@@ -83,6 +82,8 @@ extension TaskActionsUC on Task {
 
   bool get canShowBoard => (isGoal || (isProject && !hmGoals)) && hmTaskboard;
   bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
+
+  bool get canShowRelationsField => isTask && (relations.isNotEmpty || canEdit);
 
   Iterable<TaskAction> actions(BuildContext context) => [
         if (canShowDetails(context)) TaskAction.details,

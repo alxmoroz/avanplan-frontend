@@ -126,9 +126,8 @@ class _ImportDialog extends StatelessWidget {
   String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
 
   PreferredSizeWidget? _bottomBar(BuildContext context) => _hasProjects
-      ? MTAppBar(
-          isBottom: true,
-          inDialog: true,
+      ? MTBottomBar(
+          inBigDialog: true,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: MTButton.main(
             padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -144,13 +143,11 @@ class _ImportDialog extends StatelessWidget {
       builder: (_) => controller.loading
           ? LoaderScreen(controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
+              topBar: MTTopBar(
                 innerHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
                 pageTitle: loc.import_title,
                 parentPageTitle: controller.ws.title,
-                bottom: _hasSources ? _header : null,
+                bottomWidget: _hasSources ? _header : null,
               ),
               body: _body(context),
               bottomBar: _bottomBar(context),

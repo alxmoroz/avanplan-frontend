@@ -41,6 +41,7 @@ class TaskCard extends StatelessWidget {
     this.bottomDivider = false,
     this.dragging = false,
     this.showAssignee = true,
+    this.onTap,
   });
 
   final Task task;
@@ -50,6 +51,9 @@ class TaskCard extends StatelessWidget {
   final bool showStateMark;
   final bool dragging;
   final bool showAssignee;
+  final Function(Task)? onTap;
+
+  void _tap(Task task) => onTap != null ? onTap!(task) : router.goTaskView(task);
 
   Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 
@@ -67,10 +71,10 @@ class TaskCard extends StatelessWidget {
         const SizedBox(width: P_2),
         SmallText(errText, color: _textColor, maxLines: 1),
       ]);
-
   bool get _showRepeat => task.hasRepeat;
   bool get _showDate => task.hasDueDate && !task.closed && task.isTask && (task.leafState != TaskState.TODAY || board);
   Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
+
   Widget get _date => Row(
         children: [
           CalendarIcon(color: _dateColor, size: P3, endMark: true),
@@ -78,30 +82,30 @@ class TaskCard extends StatelessWidget {
           SmallText(task.dueDate!.strMedium, color: _dateColor, maxLines: 1),
         ],
       );
-
   bool get _showStatus => task.canShowStatus && !board && !task.closed;
+
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
-
   bool get _showAssignee => task.hmTeam && task.hasAssignee && showAssignee;
-  Widget get _assignee => task.assignee!.icon(P2 + P_2);
 
+  Widget get _assignee => task.assignee!.icon(P2 + P_2);
   bool get _showChecklistMark => !task.closed && task.isCheckList;
+
   Widget get _checklistMark => Row(
         children: [
           SmallText('${task.closedSubtasksCount}/${task.subtasksCount} ', color: f2Color, maxLines: 1),
           const CheckboxIcon(true, size: P3, color: f2Color),
         ],
       );
-
   bool get _showAttachmentsMark => !task.closed && task.attachmentsCount > 0;
+
   Widget get _attachmentsMark => Row(
         children: [
           SmallText('${task.attachmentsCount} ', color: f2Color, maxLines: 1),
           const AttachmentIcon(size: P3, color: f2Color),
         ],
       );
-
   bool get _showNotesMark => !task.closed && task.notesCount > 0;
+
   Widget get _notesMark => Row(
         children: [
           SmallText('${task.notesCount} ', color: f2Color, maxLines: 1),
@@ -111,8 +115,8 @@ class TaskCard extends StatelessWidget {
           ),
         ],
       );
-
   bool get _showEstimate => task.hmAnalytics && task.hasEstimate;
+
   Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(
@@ -188,8 +192,6 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  void _tap() => router.goTaskView(task);
-
   @override
   Widget build(BuildContext context) => board
       ? MTCardButton(
@@ -197,7 +199,7 @@ class TaskCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
-          onTap: dragging ? null : _tap,
+          onTap: dragging ? null : () => _tap(task),
           child: _taskContent(false),
         )
       : Stack(
@@ -208,7 +210,7 @@ class TaskCard extends StatelessWidget {
               bottomDivider: bottomDivider,
               dividerIndent: showStateMark ? P6 : 0,
               loading: task.loading,
-              onTap: task.isImportingProject || dragging ? null : _tap,
+              onTap: task.isImportingProject || dragging ? null : () => _tap(task),
             ),
             if (showStateMark)
               Positioned(

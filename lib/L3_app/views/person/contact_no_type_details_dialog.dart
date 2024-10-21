@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/abs_contact.dart';
-import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
-import '../../components/toolbar.dart';
 import '../../extra/clipboard.dart';
 
 class PersonContactNoTypeDetailsDialog extends StatelessWidget {
@@ -21,7 +19,6 @@ class PersonContactNoTypeDetailsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTAppBar(showCloseButton: true, color: b2Color),
       body: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

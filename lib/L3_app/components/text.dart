@@ -69,8 +69,7 @@ class BaseText extends StatelessWidget {
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     // если указан явно межстрочный интервал, то оставляем его.
-    // Если указано количество строк, то для однострочников - 1, для двух - 1.1, для трех - 1.2, для остального всего - 1.3
-    final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.2}[maxLines] ?? 1.3;
+    final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
     final double fs = _baseFontSize * (sizeScale ?? 1);
     final rColor = CupertinoDynamicColor.maybeResolve(color ?? f1Color, context);
 

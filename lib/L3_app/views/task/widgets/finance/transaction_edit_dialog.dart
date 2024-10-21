@@ -64,9 +64,7 @@ class _TransactionEditDialog extends StatelessWidget {
     final decimalSep = seps.decimalSep;
     final textColor = _controller.sign > 0 ? greenColor : dangerColor;
     return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        color: b2Color,
+      topBar: MTTopBar(
         pageTitle:
             '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.transaction.createdOn?.strMedium}',
         parentPageTitle: _task.title,

@@ -159,11 +159,12 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
     );
     return MTPage(
       key: widget.key,
-      topBar: big
+      navBar: big
           ? _hasScrolled
-              ? MTAppBar(leading: const SizedBox(), color: b2Color, middle: _bigTitle)
+              ? MTTopBar(leading: const SizedBox(), middle: _bigTitle)
               : null
-          : MTAppBar(
+          : MTTopBar(
+              color: navbarColor,
               leading: myAccountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P10),
               pageTitle: _hasScrolled ? loc.my_tasks_upcoming_title : '',
               trailing: isWeb ? null : _appBarTrailing,

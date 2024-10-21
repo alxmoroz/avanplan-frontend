@@ -12,7 +12,6 @@ import '../../../../components/alert_dialog.dart';
 import '../../../../components/avatar.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
@@ -126,12 +125,7 @@ class _ProjectMemberDialog extends StatelessWidget {
       builder: (_) => _pmc.loading || _projectMember == null
           ? LoaderScreen(_pmc, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
-                parentPageTitle: _project.title,
-                pageTitle: loc.project_member_title,
-              ),
+              topBar: MTTopBar(pageTitle: loc.project_member_title, parentPageTitle: _project.title),
               body: ListView(
                 shrinkWrap: true,
                 children: [

@@ -41,9 +41,9 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTAppBar(
+      builder: (_) => MTTopBar(
         innerHeight: preferredSize.height,
-        color: isBigScreen(context) ? b2Color : null,
+        color: isBigScreen(context) ? b2Color : navbarColor,
         leading: const SizedBox(),
         middle: MTAdaptive(
             padding: const EdgeInsets.symmetric(horizontal: P2),
@@ -71,7 +71,7 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ],
             )),
-        bottom: _controller.stepTitle.trim().isNotEmpty
+        bottomWidget: _controller.stepTitle.trim().isNotEmpty
             ? BaseText.medium(
                 _controller.stepTitle,
                 align: TextAlign.center,

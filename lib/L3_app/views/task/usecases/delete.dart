@@ -36,7 +36,7 @@ extension DeleteUC on TaskController {
       await editWrapper(() async {
         final changes = await taskUC.delete(taskDescriptor);
         if (changes != null) {
-          tasksMainController.setTasks(changes.affected);
+          tasksMainController.upsertTasks(changes.affected);
           tasksMainController.removeTask(task);
           res = true;
         }

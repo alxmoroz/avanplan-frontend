@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/colors_base.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -45,12 +44,7 @@ class _WSUsersDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          pageTitle: loc.workspace_members_title,
-          parentPageTitle: _ws.title,
-        ),
+        topBar: MTTopBar(pageTitle: loc.workspace_members_title, parentPageTitle: _ws.title),
         body: ListView.builder(
           shrinkWrap: true,
           itemBuilder: (_, int index) => WSUserTile(

@@ -9,7 +9,6 @@ import '../../components/adaptive.dart';
 import '../../components/avatar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -66,9 +65,7 @@ class _State extends State<_MyAccountDialog> {
       builder: (_) => myAccountController.loading || _me == null
           ? LoaderScreen(myAccountController, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
+              topBar: MTTopBar(
                 pageTitle: loc.my_account_title,
                 trailing: MTButton.icon(const DeleteIcon(), onTap: () => myAccountController.delete(context), padding: const EdgeInsets.all(P2)),
               ),

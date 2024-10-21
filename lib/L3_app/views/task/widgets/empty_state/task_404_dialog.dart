@@ -2,12 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../navigation/route.dart';
 
@@ -31,15 +29,20 @@ class _Task404Dialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTAppBar(showCloseButton: true, color: b2Color),
       body: ListView(
         shrinkWrap: true,
         children: [
           MTImage(ImageName.no_info.name),
-          const SizedBox(height: P3),
-          H2(loc.error_404_task_title, align: TextAlign.center),
-          const SizedBox(height: P),
-          BaseText(loc.error_404_task_description, align: TextAlign.center),
+          H2(
+            loc.error_404_task_title,
+            align: TextAlign.center,
+            padding: const EdgeInsets.all(P3),
+          ),
+          BaseText(
+            loc.error_404_task_description,
+            align: TextAlign.center,
+            padding: const EdgeInsets.symmetric(horizontal: P6),
+          ),
           const SizedBox(height: P3),
         ],
       ),

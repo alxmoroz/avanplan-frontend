@@ -33,7 +33,7 @@ const warningColor = CupertinoDynamicColor.withBrightness(
 const mainBtnTitleColor = b2Color;
 
 // цвет для "прозрачного" апп-бара
-const navbarDefaultBgColor = CupertinoDynamicColor.withBrightness(
+const navbarColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(0, 255, 255, 255),
   darkColor: Color.fromARGB(0, 0, 0, 0),
 );

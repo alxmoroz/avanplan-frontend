@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -60,9 +59,7 @@ class _SourcesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
+        topBar: MTTopBar(
           pageTitle: loc.source_list_title,
           parentPageTitle: _ws.title,
           trailing: _ws.sources.isNotEmpty && _ws.hpSourceCreate

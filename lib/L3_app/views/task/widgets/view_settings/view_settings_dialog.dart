@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_view_settings.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/grid_button.dart';
@@ -36,12 +35,7 @@ class _TasksViewSettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          pageTitle: loc.view_settings_title,
-          parentPageTitle: _task.title,
-        ),
+        topBar: MTTopBar(pageTitle: loc.view_settings_title, parentPageTitle: _task.title),
         body: ListView(
           shrinkWrap: true,
           children: [

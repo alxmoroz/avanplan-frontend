@@ -69,11 +69,7 @@ class _WSTariffDialog extends StatelessWidget {
       builder: (_) => _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
-                pageTitle: loc.tariff_title,
-              ),
+              topBar: MTTopBar(pageTitle: loc.tariff_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [

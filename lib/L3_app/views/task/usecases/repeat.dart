@@ -11,7 +11,7 @@ extension RepeatUC on TaskController {
         final changes = await taskUC.repeat(task);
         if (changes != null) {
           changes.updated.filled = true;
-          tasksMainController.setTasks([changes.updated, ...changes.affected]);
+          tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
         }
       });
 }

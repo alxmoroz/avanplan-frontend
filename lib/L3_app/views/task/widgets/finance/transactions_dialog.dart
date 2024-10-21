@@ -34,12 +34,7 @@ class _TransactionsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          pageTitle: loc.tariff_option_finance_title,
-          parentPageTitle: _task.title,
-        ),
+        topBar: MTTopBar(pageTitle: loc.tariff_option_finance_title, parentPageTitle: _task.title),
         body: ListView(
           shrinkWrap: true,
           children: [
@@ -82,9 +77,8 @@ class _TransactionsDialog extends StatelessWidget {
               TransactionsEmptyInfo(_task),
           ],
         ),
-        bottomBar: MTAppBar(
-          isBottom: true,
-          inDialog: true,
+        bottomBar: MTBottomBar(
+          inBigDialog: true,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: Row(
             children: [

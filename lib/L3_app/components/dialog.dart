@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:avanplan/L3_app/components/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -84,7 +85,7 @@ class MTDialog extends StatelessWidget {
   const MTDialog({
     super.key,
     required this.body,
-    this.topBar,
+    this.topBar = const MTTopBar(),
     this.bottomBar,
     this.bottomBarColor,
     this.rightBar,

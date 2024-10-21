@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -22,7 +21,7 @@ class _CreationMethodSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.project_creation_method_selector_title),
+      topBar: MTTopBar(pageTitle: loc.project_creation_method_selector_title),
       body: ListView(
         shrinkWrap: true,
         children: [

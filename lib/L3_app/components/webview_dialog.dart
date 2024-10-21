@@ -27,7 +27,7 @@ class _MTWebViewDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTAppBar(showCloseButton: true, color: b3Color),
+      topBar: const MTTopBar(color: b3Color),
       body: SafeArea(
         bottom: false,
         child: Stack(

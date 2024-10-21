@@ -6,7 +6,6 @@ import '../../L1_domain/entities/base_entity.dart';
 import 'button.dart';
 import 'circle.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'icons.dart';
@@ -79,9 +78,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
+        topBar: MTTopBar(
           pageTitle: pageTitle,
           parentPageTitle: parentPageTitle,
           trailing: onReset != null && selectedId != null

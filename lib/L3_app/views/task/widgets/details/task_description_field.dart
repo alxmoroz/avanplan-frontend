@@ -95,6 +95,7 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
                 maxLines: maxLines,
                 fNode: fNode,
                 readOnly: !task.canEdit,
+                paddingLines: exceedROMaxLines ? 1 : 0,
                 autofocus: widget.standalone && !task.hasDescription,
                 hintText: hintText,
                 style: BaseText('', color: widget.standalone ? null : f2Color, maxLines: maxLines).style(context),

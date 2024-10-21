@@ -49,9 +49,7 @@ class _RepeatDialog extends StatelessWidget {
       builder: (_) => _taskController.loading
           ? LoaderScreen(_taskController, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
+              topBar: MTTopBar(
                 pageTitle: loc.task_repeat_dialog_title,
                 parentPageTitle: _taskController.task.title,
                 trailing: _taskController.task.repeat != null

@@ -15,7 +15,7 @@ extension DuplicateUC on TaskController {
           final changes = await taskUC.duplicate(task);
           if (changes != null) {
             changes.updated.filled = true;
-            tasksMainController.setTasks([changes.updated, ...changes.affected]);
+            tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
             router.pop();
             router.goTaskView(changes.updated);
           }

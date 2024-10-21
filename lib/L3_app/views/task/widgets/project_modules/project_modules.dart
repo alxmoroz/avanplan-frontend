@@ -11,7 +11,6 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
@@ -138,7 +137,7 @@ class _ProjectModulesQuizViewState extends State<_ProjectModulesQuizView> {
     final qHeader = QuizHeader(_qController);
     return Observer(
       builder: (_) => MTPage(
-        topBar: qHeader,
+        navBar: qHeader,
         body: MTAdaptive(
           child: _ProjectModulesBody(
             _pmController,
@@ -163,7 +162,7 @@ class _ProjectModulesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.project_modules_title),
+      topBar: MTTopBar(pageTitle: loc.project_modules_title),
       body: _ProjectModulesBody(
         _controller.projectModulesController,
         footer: MTButton.main(

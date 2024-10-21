@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../navigation/router.dart';
 import 'adaptive.dart';
@@ -42,18 +41,14 @@ class SubpageTitle extends StatelessWidget {
   }
 }
 
-class ToolBar extends StatelessWidget {
-  const ToolBar({
-    super.key,
+class _ToolBar extends StatelessWidget {
+  const _ToolBar({
     this.pageTitle,
     this.parentPageTitle,
     this.leading,
     this.middle,
     this.bottom,
     this.trailing,
-    this.showCloseButton = true,
-    this.onClose,
-    this.color,
   });
   final String? pageTitle;
   final String? parentPageTitle;
@@ -61,69 +56,63 @@ class ToolBar extends StatelessWidget {
   final Widget? middle;
   final Widget? bottom;
   final Widget? trailing;
-  final bool showCloseButton;
-  final VoidCallback? onClose;
-  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: (color ?? b2Color).resolve(context),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              if (middle != null) middle! else if (pageTitle != null) SubpageTitle(pageTitle!, parentPageTitle: parentPageTitle),
-              Row(children: [
-                if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(onTap: onClose),
-                const Spacer(),
-                if (trailing != null) trailing!,
-              ]),
-            ],
-          ),
-          if (bottom != null) bottom!,
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            if (middle != null) middle! else if (pageTitle != null) SubpageTitle(pageTitle!, parentPageTitle: parentPageTitle),
+            Row(children: [
+              if (leading != null) leading!,
+              const Spacer(),
+              if (trailing != null) trailing!,
+            ]),
+          ],
+        ),
+        if (bottom != null) bottom!,
+      ],
     );
   }
 }
 
-Widget get _backButton => CupertinoNavigationBarBackButton(onPressed: router.pop);
-
-class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MTAppBar({
+abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _MTAppBar({
     super.key,
-    this.leading,
-    this.middle,
+    required this.isBottom,
+    required this.color,
     this.pageTitle,
     this.parentPageTitle,
+    this.leading,
+    this.middle,
     this.trailing,
-    this.bottom,
-    this.color,
+    this.bottomWidget,
     this.innerHeight,
     this.padding,
-    this.isBottom = false,
-    this.showCloseButton = false,
-    this.inDialog = false,
-    this.onClose,
+    this.inBigDialog = false,
+    this.fullScreen = false,
   });
+
+  final bool isBottom;
+  final Color color;
+
+  final String? pageTitle;
+  final String? parentPageTitle;
 
   final Widget? leading;
   final Widget? middle;
-  final String? pageTitle;
-  final String? parentPageTitle;
   final Widget? trailing;
-  final Color? color;
+  final Widget? bottomWidget;
+
   final double? innerHeight;
   final EdgeInsets? padding;
-  final Widget? bottom;
-  final bool isBottom;
-  final bool inDialog;
-  final bool showCloseButton;
-  final VoidCallback? onClose;
+
+  final bool inBigDialog;
+  final bool fullScreen;
 
   double get _pTop => padding?.top ?? 0;
   double get _innerHeight => innerHeight ?? P8;
@@ -132,16 +121,21 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(_pTop + _innerHeight + _pBottom);
 
-  Widget get _toolbar => ToolBar(
-        showCloseButton: showCloseButton,
-        onClose: onClose,
-        leading: leading ?? (!isBottom && !showCloseButton && router.canPop() ? _backButton : null),
+  Widget? get _leading =>
+      leading ??
+      (!isBottom && router.canPop()
+          ? fullScreen
+              ? CupertinoNavigationBarBackButton(onPressed: router.pop)
+              : const MTCloseDialogButton()
+          : null);
+
+  Widget get _toolbar => _ToolBar(
         pageTitle: pageTitle,
         parentPageTitle: parentPageTitle,
+        leading: _leading,
         middle: middle,
-        bottom: bottom,
         trailing: trailing,
-        color: Colors.transparent,
+        bottom: bottomWidget,
       );
 
   @override
@@ -149,7 +143,7 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
 
-    final bottomInsets = isBottom && !inDialog ? MediaQuery.viewInsetsOf(context).bottom : 0.0;
+    final bottomInsets = isBottom && !inBigDialog ? MediaQuery.viewInsetsOf(context).bottom : 0.0;
 
     final h = (isBottom
             ? bottomInsets > 0
@@ -158,10 +152,10 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
             : mqPadding.top) +
         preferredSize.height;
 
-    final flat = big || inDialog || isBottom || color != null;
+    final flat = big || isBottom;
     return Container(
       height: h,
-      color: flat ? (color ?? b2Color).resolve(context) : null,
+      color: flat ? color.resolve(context) : null,
       padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
       child: flat
           ? SafeArea(
@@ -174,9 +168,53 @@ class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
               automaticallyImplyMiddle: false,
               padding: EdgeInsetsDirectional.only(top: _pTop, bottom: _pBottom, start: 0, end: 0),
               leading: _toolbar,
-              backgroundColor: color ?? navbarDefaultBgColor,
+              backgroundColor: color,
               border: null,
             ),
     );
   }
+}
+
+class MTTopBar extends _MTAppBar {
+  const MTTopBar({
+    super.pageTitle,
+    super.parentPageTitle,
+    super.leading,
+    super.middle,
+    super.trailing,
+    super.bottomWidget,
+    super.color = b2Color,
+    super.innerHeight,
+    super.padding,
+    super.fullScreen,
+    super.key,
+  }) : super(isBottom: false);
+}
+
+class MTNavBar extends MTTopBar {
+  const MTNavBar({
+    super.pageTitle,
+    super.parentPageTitle,
+    super.middle,
+    super.trailing,
+    super.bottomWidget,
+    super.color = navbarColor,
+    super.innerHeight,
+    super.padding,
+    super.key,
+  }) : super(fullScreen: true);
+}
+
+class MTBottomBar extends _MTAppBar {
+  const MTBottomBar({
+    super.leading,
+    super.middle,
+    super.trailing,
+    super.bottomWidget,
+    super.color = b2Color,
+    super.innerHeight,
+    super.padding,
+    super.inBigDialog,
+    super.key,
+  }) : super(isBottom: true);
 }

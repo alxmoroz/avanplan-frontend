@@ -3,52 +3,60 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../components/colors_base.dart';
+import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
-import '../../../../components/list_tile.dart';
-import '../../../../components/shadowed.dart';
+import '../../../../components/images.dart';
+import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_relation.dart';
+import '../../../_base/loader_screen.dart';
 import '../../controllers/relations_controller.dart';
+import '../tasks/tasks_list_view.dart';
 
-Future relationsDialog(RelationsController controller) async {
-  await showMTDialog(_RelationsDialog(controller));
+Future relationsDialog(RelationsController rc) async {
+  rc.reloadRelatedTasks();
+  await showMTDialog(_RelationsDialog(rc));
 }
 
 class _RelationsDialog extends StatelessWidget {
-  const _RelationsDialog(this._controller);
-  final RelationsController _controller;
+  const _RelationsDialog(this._rc);
+  final RelationsController _rc;
+
+  void _addRelation() {
+    print('ADD RELATION 1');
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        color: b2Color,
-        pageTitle: loc.task_relations_title,
-        parentPageTitle: _controller.task.title,
-      ),
-      body: Observer(
-        builder: (_) => MTShadowed(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: _controller.sortedRelations.length,
-            itemBuilder: (_, index) {
-              final r = _controller.sortedRelations[index];
-              return MTListTile(
-                // leading: MimeTypeIcon(a.type),
-                titleText: r.title(_controller.task.id!),
-                // subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
-                dividerIndent: P6 + P5,
-                bottomDivider: index < _controller.sortedRelations.length - 1,
-                onTap: () => print('TASK PREVIEW $index'),
-              );
-            },
-          ),
-        ),
-      ),
+    return Observer(
+      builder: (_) => _rc.loading
+          ? LoaderScreen(_rc, isDialog: true)
+          : MTDialog(
+              topBar: MTTopBar(pageTitle: loc.task_relations_title, parentPageTitle: _rc.task.title),
+              body: _rc.hasRelations
+                  ? TasksListView(
+                      _rc.tasksGroups,
+                      onTaskTap: (t) => print(t),
+                    )
+                  : ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        MTImage(ImageName.relations.name),
+                        H2(loc.relations_empty_title, padding: const EdgeInsets.all(P3), align: TextAlign.center),
+                        BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+                        const SizedBox(height: P3),
+                      ],
+                    ),
+              bottomBar: MTBottomBar(
+                padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                middle: MTButton.main(
+                  titleText: loc.action_add_title,
+                  onTap: _addRelation,
+                ),
+              ),
+            ),
     );
   }
 }

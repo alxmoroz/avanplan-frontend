@@ -59,10 +59,9 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTAppBar(
+    return MTBottomBar(
       key: const ValueKey('NoteFieldToolbar'),
-      isBottom: true,
-      inDialog: inDialog,
+      inBigDialog: inDialog,
       innerHeight: innerHeight,
       padding: const EdgeInsets.only(top: _topPadding, bottom: _bottomPadding),
       middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController, inDialog)),

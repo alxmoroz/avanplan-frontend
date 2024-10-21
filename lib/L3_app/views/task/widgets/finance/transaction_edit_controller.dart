@@ -61,7 +61,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
 
       final changes = await taskTransactionsUC.save(transaction);
       if (changes != null) {
-        tasksMainController.setTasks([changes.updated, ...changes.affected]);
+        tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
       }
     });
 
@@ -76,7 +76,7 @@ class TransactionEditController extends _Base with _$TransactionEditController {
     await _editWrapper(() async {
       final changes = await taskTransactionsUC.delete(transaction);
       if (changes != null) {
-        tasksMainController.setTasks([changes.updated, ...changes.affected]);
+        tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
       }
     });
   }

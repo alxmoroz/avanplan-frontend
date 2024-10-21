@@ -19,6 +19,7 @@ class MTTextFieldInline extends StatelessWidget {
     required this.fNode,
     this.autofocus = false,
     this.readOnly = false,
+    this.paddingLines = 0,
     this.textInputAction,
     this.onTap,
     this.onChanged,
@@ -33,6 +34,7 @@ class MTTextFieldInline extends StatelessWidget {
   final FocusNode? fNode;
   final bool autofocus;
   final bool readOnly;
+  final int paddingLines;
   final TextInputAction? textInputAction;
   final Function()? onTap;
   final Function(String str)? onChanged;
@@ -74,6 +76,8 @@ class MTTextFieldInline extends StatelessWidget {
             text,
             maxLines: maxLines,
             style: textStyle,
+            paddingLines: paddingLines,
+            enableInteractiveSelection: paddingLines == 0,
             onTap: onTap,
           ),
       ],

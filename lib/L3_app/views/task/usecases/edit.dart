@@ -91,7 +91,7 @@ extension TaskEditUC on TaskController {
         if (root.isProject && root.hmGoals) {
           newTasks.addAll(await wsMyUC.myTasks(root.wsId, projectId: root.id!));
         }
-        tasksMainController.setTasks([...newTasks, ...taskNode.parents]);
+        tasksMainController.upsertTasks([...newTasks, ...taskNode.parents]);
         taskDescriptor = root;
 
         setupFields();
@@ -134,7 +134,7 @@ extension TaskEditUC on TaskController {
       if (await task.ws.checkBalance(loc.edit_action_title)) {
         final changes = await taskUC.save(task);
         if (changes != null) {
-          tasksMainController.setTasks([changes.updated, ...changes.affected]);
+          tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
           et = changes.updated;
         }
       }
@@ -165,7 +165,7 @@ extension TaskEditUC on TaskController {
 
         if (changes != null) {
           // changes.updated.filled = true;
-          tasksMainController.setTasks([changes.updated, ...changes.affected]);
+          tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
           if (!sameWS) tasksMainController.removeTask(task);
           taskDescriptor = changes.updated;
         }

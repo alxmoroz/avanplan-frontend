@@ -27,7 +27,7 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
     final qHeader = QuizHeader(qController);
     return MTPage(
       key: widget.key,
-      topBar: qHeader,
+      navBar: qHeader,
       body: ListView(
         children: [
           if (controller.task.parentId == null) const SizedBox(height: P),

@@ -29,9 +29,7 @@ class _MyContactEditDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
+        topBar: MTTopBar(
           pageTitle: loc.person_contact_title,
           trailing: _cec.contact.isNew
               ? null

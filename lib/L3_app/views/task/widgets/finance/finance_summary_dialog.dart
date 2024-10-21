@@ -6,7 +6,6 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
@@ -30,12 +29,7 @@ class _FinanceSummaryDialog extends StatelessWidget {
     final hasIncome = _task.income > 0;
     final hasExpenses = _task.expenses < 0;
     return MTDialog(
-      topBar: MTAppBar(
-        pageTitle: loc.tariff_option_finance_title,
-        parentPageTitle: _task.title,
-        showCloseButton: true,
-        color: b2Color,
-      ),
+      topBar: MTTopBar(pageTitle: loc.tariff_option_finance_title, parentPageTitle: _task.title),
       body: ListView(
         shrinkWrap: true,
         children: [

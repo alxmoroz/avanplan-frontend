@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -46,7 +45,7 @@ class _MyAvatarEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(color: b2Color, showCloseButton: true, pageTitle: loc.avatar_edit_action_title),
+      topBar: MTTopBar(pageTitle: loc.avatar_edit_action_title),
       body: ListView(
         shrinkWrap: true,
         children: [

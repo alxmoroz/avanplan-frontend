@@ -48,9 +48,7 @@ class _InvitationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
+        topBar: MTTopBar(
           pageTitle: '${loc.invitation_share_subject_prefix}${loc.app_title}',
           parentPageTitle: _controller.task.title,
         ),

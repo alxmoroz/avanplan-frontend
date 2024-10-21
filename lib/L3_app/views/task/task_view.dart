@@ -9,6 +9,7 @@ import '../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
+import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -216,7 +217,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           : dialog
               ? Observer(
                   builder: (_) => MTDialog(
-                    topBar: MTAppBar(showCloseButton: true, color: b2Color, middle: _title),
+                    topBar: MTTopBar(middle: _title),
                     body: _bodyContent,
                     rightBar: _rightToolbar(hasKB),
                     bottomBar: _showNoteField(hasKB)
@@ -243,12 +244,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                     return MTPage(
                       key: widget.key,
-                      topBar: big && !_hasScrolled
+                      navBar: big && !_hasScrolled
                           ? null
-                          : MTAppBar(
+                          : MTTopBar(
                               innerHeight: big ? _headerHeight : null,
-                              color: b2Color,
                               leading: bigGroup ? const SizedBox() : null,
+                              fullScreen: !big,
+                              color: big ? b2Color : navbarColor,
                               middle: _title,
                               trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                             ),

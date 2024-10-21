@@ -124,6 +124,7 @@ class TaskHeaderDashboard extends StatelessWidget {
                 onTap: _task.members.isEmpty ? () => invite(_task) : () => showProjectTeamDialog(_controller),
               ),
 
+            /// Описание
             if (_task.hasDescription || _task.canEdit)
               _card(
                 _task.hasDescription ? '' : loc.description,

@@ -38,9 +38,8 @@ class NoTasks extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          const SizedBox(height: P12),
-          MTImage(imageCode.name),
           const SizedBox(height: P3),
+          MTImage(imageCode.name),
           H2(
             overview
                 ? _isProjectWGoals

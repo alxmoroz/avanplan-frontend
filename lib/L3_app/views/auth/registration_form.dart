@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
@@ -42,11 +41,7 @@ class _RegistrationDialogState extends State<_RegistrationDialog> {
         builder: (_) => controller.loading
             ? LoaderScreen(controller, isDialog: true)
             : MTDialog(
-                topBar: MTAppBar(
-                  showCloseButton: true,
-                  color: b2Color,
-                  pageTitle: controller.requestCompleted ? loc.register_completed_title : loc.register_title,
-                ),
+                topBar: MTTopBar(pageTitle: controller.requestCompleted ? loc.register_completed_title : loc.register_title),
                 body: controller.requestCompleted
                     ? RegistrationCompletedMessage(controller)
                     : ListView(

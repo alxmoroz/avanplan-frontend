@@ -1,14 +1,6 @@
 {{flutter_js}}
 {{flutter_build_config}}
 
-function hideSplash() {
-  var splash = document.getElementById("splash");
-  if (splash) {
-    splash.style.opacity = 0;
-    setTimeout(() => {splash.remove();}, 500);
-  }
-}
-
 _flutter.loader.load({
   serviceWorkerSettings: {
     serviceWorkerVersion: {{flutter_service_worker_version}},
@@ -20,7 +12,7 @@ _flutter.loader.load({
     const appRunner = await engineInitializer.initializeEngine();
 
     // Splash
-    var splash = document.getElementById("splash");
+    const splash = document.getElementById("splash");
     if (splash) {
       splash.style.opacity = 0;
       setTimeout(() => {splash.remove();}, 500);

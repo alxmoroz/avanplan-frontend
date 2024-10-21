@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
@@ -37,7 +36,7 @@ class _SignInEmailDialogState extends State<_SignInEmailDialog> {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.auth_sign_in_email_dialog_title),
+        topBar: MTTopBar(pageTitle: loc.auth_sign_in_email_dialog_title),
         body: Observer(
           builder: (_) => ListView(
             shrinkWrap: true,

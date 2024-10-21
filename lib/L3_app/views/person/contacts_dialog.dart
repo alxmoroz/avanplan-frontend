@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/abs_contact.dart';
 import '../../../L1_domain/entities_extensions/contact.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -36,9 +35,7 @@ class _PersonContactsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(
-        color: b2Color,
-        showCloseButton: true,
+      topBar: MTTopBar(
         pageTitle: loc.person_contacts_title,
         parentPageTitle: _personName,
       ),

@@ -27,6 +27,7 @@ enum ImageName {
   privacy,
   promo_features,
   purchase,
+  relations,
   risk,
   save,
   server_error,

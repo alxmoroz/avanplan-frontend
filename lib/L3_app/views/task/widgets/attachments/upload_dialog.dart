@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
@@ -25,11 +24,7 @@ Future<List<XFile>> selectFilesDialog() async {
       ? _FileSource.files
       : await showMTDialog<_FileSource?>(
           MTDialog(
-            topBar: MTAppBar(
-              color: b2Color,
-              showCloseButton: true,
-              pageTitle: loc.attachment_add_action_title,
-            ),
+            topBar: MTTopBar(pageTitle: loc.attachment_add_action_title),
             body: Builder(
               builder: (context) => ListView(
                 shrinkWrap: true,

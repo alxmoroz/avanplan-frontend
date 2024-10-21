@@ -318,7 +318,9 @@
   "register_action_title": "Create account",
   "register_title": "Register",
 
-  "reload_action_title": "Reload",
+  "relations_empty_title": "There are no related tasks yet",
+  "relations_empty_hint": "Add relations to track dependencies and determine order of tasks",
+
   "report_bug_action_title": "Report a bug",
 
   "role_admin_title": "Administrator",

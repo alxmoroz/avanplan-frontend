@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
@@ -22,11 +21,7 @@ class _TariffConfirmExpensesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(
-        color: b2Color,
-        showCloseButton: true,
-        pageTitle: '${loc.tariff_estimated_expenses_title} ${loc.per_month_suffix}',
-      ),
+      topBar: MTTopBar(pageTitle: '${loc.tariff_estimated_expenses_title} ${loc.per_month_suffix}'),
       body: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

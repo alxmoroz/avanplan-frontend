@@ -318,7 +318,9 @@
   "register_action_title": "Создать учётную запись",
   "register_title": "Регистрация",
 
-  "reload_action_title": "Перезагрузить",
+  "relations_empty_title": "Связанных задач пока нет",
+  "relations_empty_hint": "Добавьте связи, чтобы отслеживать зависимости и определять порядок",
+
   "report_bug_action_title": "Сообщить о проблеме",
 
   "role_admin_title": "Администратор",

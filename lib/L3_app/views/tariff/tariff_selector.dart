@@ -106,11 +106,7 @@ class _TariffSelectorDialog extends StatelessWidget {
       builder: (_) => _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(
-                showCloseButton: true,
-                color: b2Color,
-                pageTitle: loc.tariff_list_title,
-              ),
+              topBar: MTTopBar(pageTitle: loc.tariff_list_title),
 
               /// тут нужна SafeArea
               body: SafeArea(

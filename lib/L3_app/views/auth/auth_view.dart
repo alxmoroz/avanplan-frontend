@@ -89,7 +89,11 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
               ? LoaderScreen(authController)
               : MTPage(
                   key: widget.key,
-                  topBar: MTAppBar(leading: const SizedBox(), middle: const AppTitle(), color: isBigScreen(context) ? Colors.transparent : null),
+                  navBar: MTTopBar(
+                    leading: const SizedBox(),
+                    middle: const AppTitle(),
+                    color: isBigScreen(context) ? Colors.transparent : navbarColor,
+                  ),
                   body: SafeArea(
                     child: Center(
                       child: ListView(

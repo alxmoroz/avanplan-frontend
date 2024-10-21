@@ -9,32 +9,26 @@ import 'constants.dart';
 import 'dialog.dart';
 import 'text.dart';
 
-Future showMTNotification(String text) async {
+Future showMTSnackbar(String text) async {
   await showMTDialog(
-    _MTNotificationDialog(text),
+    _MTSnackbarDialog(text),
     forceBottomSheet: true,
     barrierColor: Colors.transparent,
   );
 }
 
-class _MTNotificationDialog extends StatefulWidget {
-  const _MTNotificationDialog(this._text);
+class _MTSnackbarDialog extends StatelessWidget {
+  const _MTSnackbarDialog(this._text);
   final String _text;
 
   @override
-  State<_MTNotificationDialog> createState() => _State();
-}
-
-class _State extends State<_MTNotificationDialog> {
-  @override
-  void initState() {
-    Timer(const Duration(milliseconds: 1000), () => Navigator.of(context).pop());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Timer(const Duration(milliseconds: 1000), () {
+      if (context.mounted) Navigator.of(context).pop();
+    });
+
     return MTDialog(
+      topBar: null,
       bgColor: f1Color,
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(DEF_BORDER_RADIUS),
@@ -45,7 +39,7 @@ class _State extends State<_MTNotificationDialog> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           H3(
-            widget._text,
+            _text,
             color: b3Color,
             align: TextAlign.center,
             maxLines: 5,

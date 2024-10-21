@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
@@ -19,12 +18,7 @@ class _WikiMainPageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        pageTitle: loc.description,
-        parentPageTitle: _controller.task.title,
-        color: b2Color,
-      ),
+      topBar: MTTopBar(pageTitle: loc.description, parentPageTitle: _controller.task.title),
       body: SafeArea(
         bottom: false,
         minimum: const EdgeInsets.only(bottom: P3),

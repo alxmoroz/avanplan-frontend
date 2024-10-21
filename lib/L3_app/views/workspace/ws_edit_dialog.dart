@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/text_field.dart';
@@ -47,7 +46,7 @@ class _WSEditDialog extends StatelessWidget {
       builder: (_) => _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.workspace_title),
+              topBar: MTTopBar(pageTitle: loc.workspace_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [

@@ -46,7 +46,7 @@ class _OnboardingViewState extends State<_OnboardingView> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return MTPage(
-        topBar: QuizHeader(_controller),
+        navBar: QuizHeader(_controller),
         body: Center(
           child: ListView(
             shrinkWrap: true,

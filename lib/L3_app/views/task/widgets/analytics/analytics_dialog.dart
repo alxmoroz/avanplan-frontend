@@ -57,12 +57,7 @@ class _AnalyticsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        color: b2Color,
-        pageTitle: loc.analytics_title,
-        parentPageTitle: _task.title,
-      ),
+      topBar: MTTopBar(pageTitle: loc.analytics_title, parentPageTitle: _task.title),
       body: ListView(
         shrinkWrap: true,
         children: [

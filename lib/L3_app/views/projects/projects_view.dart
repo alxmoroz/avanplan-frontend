@@ -97,18 +97,17 @@ class _ProjectsViewState extends State<ProjectsView> {
       );
       return MTPage(
         key: widget.key,
-        topBar: big
+        navBar: big
             ? _hasScrolled
-                ? MTAppBar(color: b2Color, leading: const SizedBox(), middle: _bigTitle)
+                ? MTTopBar(leading: const SizedBox(), middle: _bigTitle)
                 : null
-            : MTAppBar(pageTitle: _hasScrolled ? loc.project_list_title : null),
+            : MTNavBar(pageTitle: _hasScrolled ? loc.project_list_title : null),
         leftBar: big ? LeftMenu(leftMenuController) : null,
         body: body,
         bottomBar: _showProjects
             ? canShowVerticalBars(context)
                 ? null
-                : MTAppBar(
-                    isBottom: true,
+                : MTBottomBar(
                     padding: const EdgeInsets.only(top: P2),
                     trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary),
                   )

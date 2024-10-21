@@ -8,7 +8,6 @@ import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
@@ -48,12 +47,7 @@ class _TaskAssigneeFilterDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          showCloseButton: true,
-          color: b2Color,
-          pageTitle: '${loc.view_filter_title} - ${loc.task_assignee_label}',
-          parentPageTitle: _task.title,
-        ),
+        topBar: MTTopBar(pageTitle: '${loc.view_filter_title} - ${loc.task_assignee_label}', parentPageTitle: _task.title),
         body: ListView(
           shrinkWrap: true,
           children: [
@@ -64,9 +58,8 @@ class _TaskAssigneeFilterDialog extends StatelessWidget {
             ),
           ],
         ),
-        bottomBar: MTAppBar(
-          isBottom: true,
-          inDialog: true,
+        bottomBar: MTBottomBar(
+          inBigDialog: true,
           padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           middle: MTButton.main(
             titleText: loc.action_apply_title,

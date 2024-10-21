@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
@@ -31,7 +30,7 @@ Future createFromTemplate(Workspace ws) async {
       if (changes != null) {
         final p = changes.updated;
         p.filled = true;
-        tasksMainController.setTasks([p, ...changes.affected]);
+        tasksMainController.upsertTasks([p, ...changes.affected]);
         tasksMainController.refreshUI();
 
         router.goTaskView(p);
@@ -79,7 +78,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
       builder: (_) => _controller.loading
           ? LoaderScreen(_controller, isDialog: true)
           : MTDialog(
-              topBar: MTAppBar(showCloseButton: true, color: b2Color, pageTitle: loc.template_selector_title),
+              topBar: MTTopBar(pageTitle: loc.template_selector_title),
               body: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _controller.templatesGroups.length,

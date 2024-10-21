@@ -26,8 +26,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTAppBar(
-        isBottom: true,
+      builder: (_) => MTBottomBar(
         innerHeight: preferredSize.height - P2,
         padding: const EdgeInsets.only(top: P2),
         middle: Row(

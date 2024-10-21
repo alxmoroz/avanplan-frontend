@@ -53,7 +53,7 @@ class _TeamQuizViewState extends State<_TeamQuizView> {
   Widget build(BuildContext context) {
     final qHeader = QuizHeader(_qController);
     return MTPage(
-      topBar: qHeader,
+      navBar: qHeader,
       body: MTAdaptive(
         child: ListView(
           shrinkWrap: true,

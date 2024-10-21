@@ -26,7 +26,7 @@ class _AboutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTAppBar(showCloseButton: true, middle: AppTitle(), color: b2Color),
+      topBar: const MTTopBar(middle: AppTitle()),
       body: ListView(
         shrinkWrap: true,
         children: [

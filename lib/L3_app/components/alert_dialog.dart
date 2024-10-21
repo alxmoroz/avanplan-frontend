@@ -3,12 +3,10 @@
 import 'package:flutter/cupertino.dart';
 
 import 'button.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'images.dart';
 import 'text.dart';
-import 'toolbar.dart';
 
 class MTDialogAction<T> {
   MTDialogAction({
@@ -64,7 +62,6 @@ class _MTAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTAppBar(showCloseButton: true, color: b2Color),
       body: ListView(
         shrinkWrap: true,
         children: [

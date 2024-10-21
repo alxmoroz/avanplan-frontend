@@ -38,7 +38,7 @@ class TaskDialogDetails extends StatelessWidget {
           if (t.canShowFinanceField) FinanceField(_controller, hasMargin: true),
 
           /// Связи
-          if (t.relations.isNotEmpty) TaskRelationsField(_controller, hasMargin: true),
+          if (t.canShowRelationsField) TaskRelationsField(_controller, hasMargin: true),
 
           /// Комментарии
           if (_controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/avatar.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -27,12 +26,7 @@ class _WSUserDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTAppBar(
-        showCloseButton: true,
-        color: b2Color,
-        pageTitle: loc.workspace_member_title,
-        parentPageTitle: _ws.title,
-      ),
+      topBar: MTTopBar(pageTitle: loc.workspace_member_title, parentPageTitle: _ws.title),
       body: ListView(
         shrinkWrap: true,
         children: [

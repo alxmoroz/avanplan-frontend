@@ -37,6 +37,7 @@ class _RelationsDialog extends StatelessWidget {
               body: _rc.hasRelations
                   ? TasksListView(
                       _rc.tasksGroups,
+                      adaptive: false,
                       onTaskTap: (t) => print(t),
                     )
                   : ListView(
@@ -49,13 +50,7 @@ class _RelationsDialog extends StatelessWidget {
                         const SizedBox(height: P3),
                       ],
                     ),
-              bottomBar: MTBottomBar(
-                bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
-                middle: MTButton.main(
-                  titleText: loc.action_add_title,
-                  onTap: _addRelation,
-                ),
-              ),
+              bottomBar: MTBottomBar(middle: MTButton.main(titleText: loc.action_add_title, onTap: _addRelation)),
             ),
     );
   }

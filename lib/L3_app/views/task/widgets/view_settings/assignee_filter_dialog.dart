@@ -58,13 +58,7 @@ class _TaskAssigneeFilterDialog extends StatelessWidget {
             ),
           ],
         ),
-        bottomBar: MTBottomBar(
-          bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
-          middle: MTButton.main(
-            titleText: loc.action_apply_title,
-            onTap: () => _save(context),
-          ),
-        ),
+        bottomBar: MTBottomBar(middle: MTButton.main(titleText: loc.action_apply_title, onTap: () => _save(context))),
       ),
     );
   }

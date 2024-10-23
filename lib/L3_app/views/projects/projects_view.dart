@@ -107,10 +107,7 @@ class _ProjectsViewState extends State<ProjectsView> {
         bottomBar: _showProjects
             ? canShowVerticalBars(context)
                 ? null
-                : MTBottomBar(
-                    bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
-                    trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary),
-                  )
+                : MTBottomBar(trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary))
             : null,
         rightBar: _showProjects
             ? canShowVerticalBars(context)

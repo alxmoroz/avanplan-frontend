@@ -78,7 +78,6 @@ class _TransactionsDialog extends StatelessWidget {
           ],
         ),
         bottomBar: MTBottomBar(
-          bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
           middle: Row(
             children: [
               const SizedBox(width: P3),

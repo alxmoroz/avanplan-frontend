@@ -39,10 +39,7 @@ class _ReleaseNotesDialog extends StatelessWidget {
         itemCount: _releaseNotes.length,
         itemBuilder: _rnBuilder,
       ),
-      bottomBar: MTBottomBar(
-        bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
-        middle: MTButton.secondary(titleText: loc.ok, onTap: router.pop),
-      ),
+      bottomBar: MTBottomBar(middle: MTButton.secondary(titleText: loc.ok, onTap: router.pop)),
     );
   }
 }

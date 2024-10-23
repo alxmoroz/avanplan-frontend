@@ -32,7 +32,7 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
     final viewPadding = MediaQuery.paddingOf(context);
     final maxHeight = tvController.centerConstraints.maxHeight -
         _footerHeight(context, controller) -
-        _verticalPadding -
+        _topPadding -
         (ignoreBottomInsets ? P4 : (P12 + viewInsets + (viewInsets > 0 ? viewPadding.top : viewPadding.vertical)));
     return maxHeight ~/
         TextPainter(
@@ -54,14 +54,12 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
     return tp.height - tp.preferredLineHeight + _footerHeight(context, controller);
   }
 
-  static const _bottomPadding = P2;
   static const _topPadding = P2;
-  static const _verticalPadding = _topPadding + _bottomPadding;
 
   @override
-  Size get preferredSize => Size.fromHeight(P8 + extraHeight + _verticalPadding);
+  Size get preferredSize => Size.fromHeight(P8 + extraHeight + _topPadding);
 
-  double get innerHeight => preferredSize.height - _verticalPadding;
+  double get innerHeight => preferredSize.height - _topPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +68,6 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
       ignoreBottomInsets: ignoreBottomInsets,
       innerHeight: innerHeight,
       topPadding: _topPadding,
-      bottomPadding: _bottomPadding,
       middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController, ignoreBottomInsets)),
     );
   }

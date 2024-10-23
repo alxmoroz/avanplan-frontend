@@ -25,7 +25,7 @@ import '../my_account/my_account_dialog.dart';
 import '../notification/notifications_dialog.dart';
 import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
-import '../settings/settings_menu.dart';
+import '../settings/settings_dialog.dart';
 import '../task/task_route.dart';
 import '../task/widgets/empty_state/task_404_dialog.dart';
 import '../workspace/ws_route.dart';
@@ -135,7 +135,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
   Widget get _settingsButton => MTButton.icon(
         myAccountController.me!.icon(P6 / 2, borderColor: mainColor),
         padding: const EdgeInsets.symmetric(horizontal: P2),
-        onTap: settingsMenu,
+        onTap: settingsDialog,
       );
 
   Widget get _appBarTrailing => const MTButton.icon(

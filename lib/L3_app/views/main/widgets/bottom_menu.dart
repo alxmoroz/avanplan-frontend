@@ -30,6 +30,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
         MTBottomBar(
           key: const ValueKey('BottomMenu'),
           color: b3Color,
+          topPadding: 0,
           middle: Row(
             children: [
               Flexible(

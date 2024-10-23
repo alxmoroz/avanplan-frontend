@@ -40,8 +40,8 @@ class MTPage extends StatelessWidget {
     return material(Builder(builder: (ctx) {
       final mq = MediaQuery.of(ctx);
       final mqPadding = mq.padding.copyWith(
-        top: max(mq.padding.top, P3),
-        bottom: max(mq.padding.bottom, P4),
+        top: max(mq.padding.top, DEF_PAGE_TOP_PADDING),
+        bottom: max(mq.padding.bottom, DEF_PAGE_BOTTOM_PADDING),
       );
 
       final hasKB = mq.viewInsets.bottom > 0;

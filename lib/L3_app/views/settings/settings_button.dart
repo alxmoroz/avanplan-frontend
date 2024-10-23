@@ -7,7 +7,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../extra/services.dart';
 import '../../presenters/user.dart';
-import 'settings_menu.dart';
+import 'settings_dialog.dart';
 
 class SettingsButton extends StatelessWidget {
   const SettingsButton({super.key});
@@ -16,7 +16,7 @@ class SettingsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTButton.icon(
       myAccountController.me!.icon(P3, borderColor: mainColor),
-      onTap: settingsMenu,
+      onTap: settingsDialog,
     );
   }
 }

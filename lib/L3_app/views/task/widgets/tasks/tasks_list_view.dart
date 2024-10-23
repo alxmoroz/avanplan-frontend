@@ -12,11 +12,13 @@ class TasksListView extends StatelessWidget {
   const TasksListView(
     this.groups, {
     this.extra,
+    this.adaptive = true,
     this.onTaskTap,
     super.key,
   });
   final List<MapEntry<TaskState, List<Task>>> groups;
   final Widget? extra;
+  final bool adaptive;
   final Function(Task)? onTaskTap;
 
   bool get _hasExtra => extra != null;
@@ -59,14 +61,12 @@ class TasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTAdaptive(
-      force: true,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: _groupBuilder,
-        itemCount: groups.length + (_hasExtra ? 1 : 0),
-      ),
+    final list = ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: _groupBuilder,
+      itemCount: groups.length + (_hasExtra ? 1 : 0),
     );
+    return adaptive ? MTAdaptive(child: list) : list;
   }
 }

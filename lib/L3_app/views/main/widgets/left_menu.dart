@@ -16,7 +16,7 @@ import '../../../extra/services.dart';
 import '../../../navigation/router.dart';
 import '../../../presenters/user.dart';
 import '../../projects/projects_view.dart';
-import '../../settings/settings_menu.dart';
+import '../../settings/settings_dialog.dart';
 import '../../task/task_route.dart';
 import '../main_view.dart';
 
@@ -111,7 +111,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                       leading: me.icon(P3, borderColor: mainColor),
                       middle: _compact ? null : BaseText('$me', maxLines: 1, color: f2Color),
                       bottomDivider: false,
-                      onTap: settingsMenu,
+                      onTap: settingsDialog,
                     )
                 ],
               ),

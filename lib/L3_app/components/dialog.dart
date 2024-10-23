@@ -87,6 +87,7 @@ class MTDialog extends StatelessWidget {
     required this.body,
     this.topBar = const MTTopBar(),
     this.bottomBar,
+    this.minBottomPadding,
     this.bottomBarColor,
     this.rightBar,
     this.bgColor,
@@ -101,7 +102,7 @@ class MTDialog extends StatelessWidget {
   final PreferredSizeWidget? topBar;
   final PreferredSizeWidget? rightBar;
   final PreferredSizeWidget? bottomBar;
-
+  final double? minBottomPadding;
   final Color? bottomBarColor;
   final Color? bgColor;
   final BorderRadiusGeometry? borderRadius;
@@ -110,35 +111,43 @@ class MTDialog extends StatelessWidget {
   final double? scrollOffsetTop;
   final Function(bool)? onScrolled;
 
+  bool get _hasBottombar => bottomBar != null;
+
   Widget get _center {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
-      final mqPadding = mq.padding;
-      return Stack(
-        children: [
-          MediaQuery(
-            data: mq.copyWith(
-              padding: mqPadding.copyWith(
-                top: (topBar?.preferredSize.height ?? 0),
-                bottom: mqPadding.bottom + (bottomBar?.preferredSize.height ?? 0),
+      final mqPadding = mq.padding.copyWith(
+        bottom: max(mq.padding.bottom, minBottomPadding ?? (_hasBottombar ? DEF_DIALOG_BOTTOM_PADDING : 0)),
+      );
+
+      return MediaQuery(
+        data: mq.copyWith(padding: mqPadding),
+        child: Stack(
+          children: [
+            MediaQuery(
+              data: mq.copyWith(
+                padding: mqPadding.copyWith(
+                  top: (topBar?.preferredSize.height ?? 0),
+                  bottom: mqPadding.bottom + (bottomBar?.preferredSize.height ?? 0),
+                ),
+              ),
+              child: SafeArea(
+                bottom: false,
+                child: scrollOffsetTop != null && scrollController != null
+                    ? MTScrollable(
+                        scrollController: scrollController!,
+                        scrollOffsetTop: scrollOffsetTop!,
+                        onScrolled: onScrolled,
+                        bottomShadow: _hasBottombar,
+                        child: body,
+                      )
+                    : body,
               ),
             ),
-            child: SafeArea(
-              bottom: false,
-              child: scrollOffsetTop != null && scrollController != null
-                  ? MTScrollable(
-                      scrollController: scrollController!,
-                      scrollOffsetTop: scrollOffsetTop!,
-                      onScrolled: onScrolled,
-                      bottomShadow: bottomBar != null,
-                      child: body,
-                    )
-                  : body,
-            ),
-          ),
-          if (topBar != null) topBar!,
-          if (bottomBar != null) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
-        ],
+            if (topBar != null) topBar!,
+            if (_hasBottombar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
+          ],
+        ),
       );
     });
   }

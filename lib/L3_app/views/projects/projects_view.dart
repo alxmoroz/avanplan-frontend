@@ -108,7 +108,7 @@ class _ProjectsViewState extends State<ProjectsView> {
             ? canShowVerticalBars(context)
                 ? null
                 : MTBottomBar(
-                    padding: const EdgeInsets.only(top: P2),
+                    bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
                     trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary),
                   )
             : null,

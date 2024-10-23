@@ -103,8 +103,7 @@ class _LocalImportDialog extends StatelessWidget {
           ),
           bottomBar: controller.srcSelected
               ? MTBottomBar(
-                  inBigDialog: true,
-                  padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                  bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
                     titleText: loc.task_transfer_import_confirm_action_title,

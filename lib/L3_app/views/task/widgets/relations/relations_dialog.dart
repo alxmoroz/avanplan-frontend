@@ -50,7 +50,7 @@ class _RelationsDialog extends StatelessWidget {
                       ],
                     ),
               bottomBar: MTBottomBar(
-                padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
                 middle: MTButton.main(
                   titleText: loc.action_add_title,
                   onTap: _addRelation,

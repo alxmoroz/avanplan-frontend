@@ -82,7 +82,6 @@ class _ToolBar extends StatelessWidget {
 
 abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _MTAppBar({
-    super.key,
     required this.isBottom,
     required this.color,
     this.pageTitle,
@@ -92,9 +91,11 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
     this.trailing,
     this.bottomWidget,
     this.innerHeight,
-    this.padding,
-    this.inBigDialog = false,
+    this.topPadding = 0,
+    this.bottomPadding = 0,
+    this.ignoreBottomInsets = false,
     this.fullScreen = false,
+    super.key,
   });
 
   final bool isBottom;
@@ -109,17 +110,16 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
   final Widget? bottomWidget;
 
   final double? innerHeight;
-  final EdgeInsets? padding;
+  final double topPadding;
+  final double bottomPadding;
 
-  final bool inBigDialog;
+  final bool ignoreBottomInsets;
   final bool fullScreen;
 
-  double get _pTop => padding?.top ?? 0;
   double get _innerHeight => innerHeight ?? P8;
-  double get _pBottom => padding?.bottom ?? 0;
 
   @override
-  Size get preferredSize => Size.fromHeight(_pTop + _innerHeight + _pBottom);
+  Size get preferredSize => Size.fromHeight(topPadding + _innerHeight + bottomPadding);
 
   Widget? get _leading =>
       leading ??
@@ -143,7 +143,7 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
 
-    final bottomInsets = isBottom && !inBigDialog ? MediaQuery.viewInsetsOf(context).bottom : 0.0;
+    final bottomInsets = ignoreBottomInsets ? 0.0 : MediaQuery.viewInsetsOf(context).bottom;
 
     final h = (isBottom
             ? bottomInsets > 0
@@ -156,7 +156,7 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
     return Container(
       height: h,
       color: flat ? color.resolve(context) : null,
-      padding: EdgeInsets.only(top: _pTop, bottom: _pBottom),
+      padding: EdgeInsets.only(top: topPadding, bottom: bottomPadding),
       child: flat
           ? SafeArea(
               top: !isBottom,
@@ -166,7 +166,7 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
           : CupertinoNavigationBar(
               automaticallyImplyLeading: false,
               automaticallyImplyMiddle: false,
-              padding: EdgeInsetsDirectional.only(top: _pTop, bottom: _pBottom, start: 0, end: 0),
+              padding: EdgeInsetsDirectional.only(top: topPadding, bottom: bottomPadding, start: 0, end: 0),
               leading: _toolbar,
               backgroundColor: color,
               border: null,
@@ -185,7 +185,6 @@ class MTTopBar extends _MTAppBar {
     super.bottomWidget,
     super.color = b2Color,
     super.innerHeight,
-    super.padding,
     super.fullScreen,
     super.key,
   }) : super(isBottom: false);
@@ -200,7 +199,6 @@ class MTNavBar extends MTTopBar {
     super.bottomWidget,
     super.color = navbarColor,
     super.innerHeight,
-    super.padding,
     super.key,
   }) : super(fullScreen: true);
 }
@@ -213,8 +211,9 @@ class MTBottomBar extends _MTAppBar {
     super.bottomWidget,
     super.color = b2Color,
     super.innerHeight,
-    super.padding,
-    super.inBigDialog,
+    super.topPadding = P2,
+    super.bottomPadding,
+    super.ignoreBottomInsets,
     super.key,
   }) : super(isBottom: true);
 }

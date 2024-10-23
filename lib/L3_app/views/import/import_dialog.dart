@@ -127,8 +127,7 @@ class _ImportDialog extends StatelessWidget {
 
   PreferredSizeWidget? _bottomBar(BuildContext context) => _hasProjects
       ? MTBottomBar(
-          inBigDialog: true,
-          padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
           middle: MTButton.main(
             padding: const EdgeInsets.symmetric(horizontal: P3),
             titleText: '${loc.import_action_title}$_importBtnCountHint',

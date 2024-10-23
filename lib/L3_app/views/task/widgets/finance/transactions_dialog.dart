@@ -78,8 +78,7 @@ class _TransactionsDialog extends StatelessWidget {
           ],
         ),
         bottomBar: MTBottomBar(
-          inBigDialog: true,
-          padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
           middle: Row(
             children: [
               const SizedBox(width: P3),

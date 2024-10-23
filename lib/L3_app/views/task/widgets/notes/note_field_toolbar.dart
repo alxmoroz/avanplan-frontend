@@ -10,24 +10,30 @@ import '../../controllers/task_view_controller.dart';
 import '../notes/note_field.dart';
 
 class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const NoteFieldToolbar(this._controller, this._tvController, {super.key, this.extraHeight = 0.0, this.inDialog = false});
+  const NoteFieldToolbar(
+    this._controller,
+    this._tvController, {
+    super.key,
+    this.extraHeight = 0.0,
+    this.ignoreBottomInsets = false,
+  });
   final TaskController _controller;
   final TaskViewController _tvController;
   final double extraHeight;
-  final bool inDialog;
+  final bool ignoreBottomInsets;
 
   static double _footerHeight(BuildContext context, TaskController controller) {
     final hasAttachments = controller.attachmentsController.selectedFiles.isNotEmpty;
     return (hasAttachments ? P + (const SmallText('', maxLines: 1).style(context).fontSize ?? 0.0) : 0.0);
   }
 
-  static int _maxLines(BuildContext context, TaskController controller, TaskViewController tvController, bool inDialog) {
+  static int _maxLines(BuildContext context, TaskController controller, TaskViewController tvController, bool ignoreBottomInsets) {
     final viewInsets = MediaQuery.viewInsetsOf(context).bottom;
     final viewPadding = MediaQuery.paddingOf(context);
     final maxHeight = tvController.centerConstraints.maxHeight -
         _footerHeight(context, controller) -
         _verticalPadding -
-        (inDialog ? P4 : (P12 + viewInsets + (viewInsets > 0 ? viewPadding.top : viewPadding.vertical)));
+        (ignoreBottomInsets ? P4 : (P12 + viewInsets + (viewInsets > 0 ? viewPadding.top : viewPadding.vertical)));
     return maxHeight ~/
         TextPainter(
           text: TextSpan(text: '', style: const BaseText('').style(context)),
@@ -35,8 +41,8 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
         ).preferredLineHeight;
   }
 
-  static double calculateExtraHeight(BuildContext context, TaskController controller, TaskViewController tvController, bool inDialog) {
-    final ml = _maxLines(context, controller, tvController, inDialog);
+  static double calculateExtraHeight(BuildContext context, TaskController controller, TaskViewController tvController, bool ignoreBottomInsets) {
+    final ml = _maxLines(context, controller, tvController, ignoreBottomInsets);
     final style = const BaseText('').style(context);
     final tp = TextPainter(
       text: TextSpan(text: controller.fData(TaskFCode.note.index).text, style: style),
@@ -61,10 +67,11 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return MTBottomBar(
       key: const ValueKey('NoteFieldToolbar'),
-      inBigDialog: inDialog,
+      ignoreBottomInsets: ignoreBottomInsets,
       innerHeight: innerHeight,
-      padding: const EdgeInsets.only(top: _topPadding, bottom: _bottomPadding),
-      middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController, inDialog)),
+      topPadding: _topPadding,
+      bottomPadding: _bottomPadding,
+      middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController, ignoreBottomInsets)),
     );
   }
 }

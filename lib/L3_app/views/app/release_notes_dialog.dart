@@ -33,15 +33,14 @@ class _ReleaseNotesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(middle: H3(loc.app_whats_new, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3))),
+      topBar: MTTopBar(pageTitle: loc.app_whats_new),
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: _releaseNotes.length,
         itemBuilder: _rnBuilder,
       ),
       bottomBar: MTBottomBar(
-        inBigDialog: true,
-        padding: EdgeInsets.only(top: P2, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+        bottomPadding: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0,
         middle: MTButton.secondary(titleText: loc.ok, onTap: router.pop),
       ),
     );

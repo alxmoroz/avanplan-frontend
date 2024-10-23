@@ -221,7 +221,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     body: _bodyContent,
                     rightBar: _rightToolbar(hasKB),
                     bottomBar: _showNoteField(hasKB)
-                        ? NoteFieldToolbar(controller, _tvController, inDialog: true, extraHeight: _extraHeight(context))
+                        ? NoteFieldToolbar(controller, _tvController, ignoreBottomInsets: true, extraHeight: _extraHeight(context))
                         : null,
                     scrollController: scrollController,
                     scrollOffsetTop: _scrollOffsetTop,

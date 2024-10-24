@@ -2,8 +2,8 @@
 
 # Copyright (c) 2022. Alexandr Moroz
 
-#remote_schema="https://test.avanplan.ru/api/v1/openapi.json"
-remote_schema="http://127.0.0.1:9999/api/v1/openapi.json"
+remote_schema="https://test.avanplan.ru/api/v1/openapi.json"
+#remote_schema="http://127.0.0.1:9999/api/v1/openapi.json"
 
 api_folder="./openapi"
 

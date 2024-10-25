@@ -46,6 +46,7 @@ extension TaskActionsUC on Task {
 
   bool get canDuplicate => !isInbox && canCreate;
   bool get canEdit => !isInbox && isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
+  bool get _canEditTask => isTask && canEdit;
   bool get canDelete => !isInbox && ((isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete));
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => !closed && canEdit;
@@ -58,22 +59,21 @@ extension TaskActionsUC on Task {
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
 
   bool get canShowStatus => hmTaskboard && hasStatus;
-  bool get canSetStatus => isTask && hmTaskboard && project.projectStatuses.isNotEmpty && canEdit;
+  bool get canSetStatus => hmTaskboard && project.projectStatuses.isNotEmpty && _canEditTask;
 
-  bool get canAssign => canEdit && hmTeam && activeMembers.isNotEmpty;
-  bool get canShowAssignee => hmTeam && (hasAssignee || canAssign);
+  bool get canAssign => hmTeam && canEdit && activeMembers.isNotEmpty;
 
   bool get canShowEstimate => hmAnalytics && isTask && hasEstimate;
-  bool get canEstimate => hmAnalytics && isTask && canEdit && ws.estimateValues.isNotEmpty;
+  bool get canEstimate => hmAnalytics && _canEditTask && ws.estimateValues.isNotEmpty;
 
-  bool get canShowFinanceField => hmFinance && isTask;
+  bool get canEditFinance => hmFinance && _canEditTask;
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
   bool get canLocalExport => canEdit && !isProject && !isInbox;
   bool get canLocalImport => canEdit && (isGoal || isBacklog || (isProject && !hmGoals));
 
-  bool get canComment => isTask && !closed && canEdit;
+  bool get canComment => !closed && _canEditTask;
 
   bool get canShowProjectModules => isProject && _hpProjectInfoRead;
   bool get canEditProjectModules => isProject && _hpProjectInfoUpdate;
@@ -83,7 +83,7 @@ extension TaskActionsUC on Task {
   bool get canShowBoard => (isGoal || (isProject && !hmGoals)) && hmTaskboard;
   bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
 
-  bool get canShowRelationsField => isTask && (relations.isNotEmpty || canEdit);
+  bool get canEditRelations => _canEditTask;
 
   Iterable<TaskAction> actions(BuildContext context) => [
         if (canShowDetails(context)) TaskAction.details,

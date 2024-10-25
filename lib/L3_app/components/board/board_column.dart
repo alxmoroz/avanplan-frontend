@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../colors.dart';
-import '../colors_base.dart';
 import '../constants.dart';
 import 'dd_column_interface.dart';
 import 'dd_item.dart';

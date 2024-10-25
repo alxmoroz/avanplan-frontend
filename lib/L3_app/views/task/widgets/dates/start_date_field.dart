@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
@@ -27,7 +26,8 @@ class TaskStartDateField extends StatelessWidget {
 
     return MTField(
       _controller.fData(TaskFCode.startDate.index),
-      leading: CalendarIcon(color: _task.canEdit ? mainColor : f2Color, startMark: true),
+      leading: CalendarIcon(
+          color: _task.canEdit ? mainColor : f2Color, startMark: true),
       value: date != null
           ? Row(
               children: [
@@ -37,7 +37,9 @@ class TaskStartDateField extends StatelessWidget {
             )
           : null,
       margin: const EdgeInsets.only(top: P3),
-      onTap: _task.canEdit ? () => _controller.selectDate(context, TaskFCode.startDate) : null,
+      onTap: _task.canEdit
+          ? () => _controller.selectDate(context, TaskFCode.startDate)
+          : null,
     );
   }
 }

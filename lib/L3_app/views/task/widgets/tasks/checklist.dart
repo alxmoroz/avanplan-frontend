@@ -11,7 +11,6 @@ import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/subtasks_controller.dart';
@@ -19,30 +18,30 @@ import '../../controllers/task_controller.dart';
 import 'checklist_item.dart';
 
 class TaskChecklist extends StatelessWidget {
-  const TaskChecklist(this._taskController, {super.key});
-  final TaskController _taskController;
-  Task get _task => _taskController.task;
-  SubtasksController get _controller => _taskController.subtasksController;
+  const TaskChecklist(this._tc, {super.key});
+  final TaskController _tc;
+  Task get _t => _tc.task;
+  SubtasksController get _stc => _tc.subtasksController;
 
   Widget get _addButton => MTField(
         const MTFieldData(-1),
         leading: const PlusIcon(circled: true, size: P6),
         value: BaseText(
-          _task.hasSubtasks ? addSubtaskActionTitle(_task) : '${loc.action_add_title} ${loc.checklist.toLowerCase()}',
+          _t.hasSubtasks ? addSubtaskActionTitle(_t) : '${loc.action_add_title} ${loc.checklist.toLowerCase()}',
           color: mainColor,
         ),
-        onTap: _controller.add,
+        onTap: _stc.add,
       );
 
-  Widget _itemBuilder(BuildContext _, int index) {
-    return index == _controller.tasksControllers.length
+  Widget _itemBuilder(_, int index) {
+    return index == _stc.tasksControllers.length
         ? _addButton
         : TaskChecklistItem(
-            _controller.tasksControllers.elementAt(index),
-            key: ObjectKey(_controller.tasksControllers.elementAt(index)),
-            bottomDivider: index < _controller.tasksControllers.length - 1 || _task.canCreateChecklist,
-            onSubmit: _controller.add,
-            onDelete: () => _controller.delete(index),
+            _stc.tasksControllers.elementAt(index),
+            key: ObjectKey(_stc.tasksControllers.elementAt(index)),
+            bottomDivider: index < _stc.tasksControllers.length - 1 || _tc.canCreateChecklist,
+            onSubmit: _stc.add,
+            onDelete: () => _stc.delete(index),
           );
   }
 
@@ -53,7 +52,7 @@ class TaskChecklist extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: _itemBuilder,
-        itemCount: _controller.tasksControllers.length + (_task.canCreateChecklist ? 1 : 0),
+        itemCount: _stc.tasksControllers.length + (_tc.canCreateChecklist ? 1 : 0),
       ),
     );
   }

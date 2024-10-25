@@ -2,12 +2,13 @@
 
 import 'dart:async';
 
-import 'package:avanplan/L3_app/views/task/controllers/relations_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_dates.dart';
+import '../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/field_data.dart';
 import '../../../extra/services.dart';
@@ -27,6 +28,7 @@ import 'attachments_controller.dart';
 import 'notes_controller.dart';
 import 'project_modules_controller.dart';
 import 'project_statuses_controller.dart';
+import 'relations_controller.dart';
 import 'subtasks_controller.dart';
 import 'task_transactions_controller.dart';
 
@@ -51,7 +53,8 @@ enum TaskFCode {
 }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController({Task? taskIn}) {
+  TaskController({Task? taskIn, bool isPreview = false}) {
+    _isPreview = isPreview;
     if (taskIn != null) initWithTask(taskIn);
   }
 
@@ -193,4 +196,22 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;
 
   Timer? textEditTimer;
+
+  // TODO: чтобы сделать тут компьютед, нужно разобраться с обсервабле для задачи. Это может немного повысить производительность.
+
+  late final bool _isPreview;
+  bool get isPreview => _isPreview;
+  bool get canEdit => !_isPreview && task.canEdit;
+  bool get canDelete => !_isPreview && task.canDelete;
+  bool get canCreateChecklist => !_isPreview && task.canCreateChecklist;
+  bool get canSetStatus => !_isPreview && task.canSetStatus;
+  bool get canAssign => !_isPreview && task.canAssign;
+  bool get canShowAssigneeField => task.hasAssignee || canAssign;
+  bool get canShowDateField => task.hasDates || canEdit;
+  bool get canEstimate => !_isPreview && task.canEstimate;
+  bool get canShowEstimateField => task.canShowEstimate || canEstimate;
+  bool get canShowAttachmentsField => !_isPreview && task.attachments.isNotEmpty;
+  bool get canEditFinance => !_isPreview && task.canEditFinance;
+  bool get canShowFinanceField => transactionsController.hasTransactions || canEditFinance;
+  bool get canShowRelationsField => relationsController.hasRelations || (!_isPreview && task.canEditRelations);
 }

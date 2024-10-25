@@ -25,7 +25,14 @@ abstract class _SubtasksControllerBase with Store {
   ObservableList<TaskController> tasksControllers = ObservableList();
 
   @action
-  void reload() => tasksControllers = ObservableList.of(parent.subtasks.map((t) => TaskController(taskIn: t)));
+  void reload() => tasksControllers = ObservableList.of(
+        parent.subtasks.map(
+          (t) => TaskController(
+            taskIn: t,
+            isPreview: _parentTaskController.isPreview,
+          ),
+        ),
+      );
 
   @action
   Future add() async {

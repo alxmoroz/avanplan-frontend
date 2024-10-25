@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -12,6 +14,8 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/relations_controller.dart';
+import '../../controllers/task_controller.dart';
+import '../tasks/task_preview.dart';
 import '../tasks/tasks_list_view.dart';
 
 Future relationsDialog(RelationsController rc) async {
@@ -27,6 +31,8 @@ class _RelationsDialog extends StatelessWidget {
     print('ADD RELATION 1');
   }
 
+  void _showTaskPreview(Task t) => showMTDialog(TaskPreview(TaskController(taskIn: t, isPreview: true)));
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -38,7 +44,7 @@ class _RelationsDialog extends StatelessWidget {
                   ? TasksListView(
                       _rc.tasksGroups,
                       adaptive: false,
-                      onTaskTap: (t) => print(t),
+                      onTaskTap: isBigScreen(context) ? null : _showTaskPreview,
                     )
                   : ListView(
                       shrinkWrap: true,

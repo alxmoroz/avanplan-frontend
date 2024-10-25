@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';

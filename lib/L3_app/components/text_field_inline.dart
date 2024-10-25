@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'colors_base.dart';
 import 'linkify/linkify.dart';
 import 'text.dart';
 import 'text_field.dart';
@@ -49,28 +48,29 @@ class MTTextFieldInline extends StatelessWidget {
     return Stack(
       alignment: Alignment.centerLeft,
       children: [
-        if (!readOnly)
-          Opacity(
-            opacity: (hasFocus || !hasText) ? 1 : 0,
-            child: MTTextField(
-              textInputAction: textInputAction,
-              controller: controller,
-              autofocus: autofocus,
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.zero,
-              maxLines: maxLines,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-                hintText: hintText,
-                hintStyle: hintStyle ?? textStyle.copyWith(color: f3Color.resolve(context)),
-              ),
-              style: style,
-              onChanged: onChanged,
-              onSubmitted: onSubmit != null ? (_) => onSubmit!() : null,
-              focusNode: fNode,
+        // if (!readOnly)
+        Opacity(
+          opacity: !readOnly && (hasFocus || !hasText) ? 1 : 0,
+          child: MTTextField(
+            readOnly: readOnly,
+            textInputAction: textInputAction,
+            controller: controller,
+            autofocus: autofocus,
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
+            maxLines: maxLines,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.zero,
+              hintText: hintText,
+              hintStyle: hintStyle ?? textStyle.copyWith(color: f3Color.resolve(context)),
             ),
+            style: style,
+            onChanged: onChanged,
+            onSubmitted: onSubmit != null ? (_) => onSubmit!() : null,
+            focusNode: fNode,
           ),
+        ),
         if (hasText && !hasFocus)
           MTLinkify(
             text,

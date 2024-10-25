@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/invoice_detail.dart';
 import '../../../L1_domain/entities/tariff_option.dart';
 import '../../components/adaptive.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
 import '../../components/text.dart';

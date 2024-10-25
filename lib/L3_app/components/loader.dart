@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'circular_progress.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 
 class MTLoader extends StatelessWidget {
   const MTLoader({super.key, this.radius});

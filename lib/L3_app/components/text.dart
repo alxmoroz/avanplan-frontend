@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'colors_base.dart';
+import 'colors.dart';
 
 const _baseFontSize = 18.0;
 

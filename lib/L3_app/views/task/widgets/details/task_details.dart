@@ -5,13 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/field.dart';
@@ -44,17 +41,15 @@ Future showDetailsDialog(TaskController controller) async => await showMTDialog(
     );
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(this._controller, {super.key, this.standalone = false, this.compact = false});
-  final TaskController _controller;
+  const TaskDetails(this._tc, {super.key, this.standalone = false, this.compact = false});
+  final TaskController _tc;
   final bool standalone;
   final bool compact;
-
-  Task get _task => _controller.task;
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      final t = _task;
+      final t = _tc.task;
       final isTaskDialog = isBigScreen(context) && t.isTask;
       final isTaskMobileView = !isBigScreen(context) && t.isTask;
       final hasMargins = standalone || isTaskMobileView;
@@ -64,43 +59,43 @@ class TaskDetails extends StatelessWidget {
         physics: standalone ? null : const NeverScrollableScrollPhysics(),
         children: [
           /// Чек-лист
-          if (!isTaskDialog && (t.canCreateChecklist || t.isCheckList)) ...[
+          if (!isTaskDialog && (_tc.canCreateChecklist || t.isCheckList)) ...[
             const SizedBox(height: P3),
-            TaskChecklist(_controller),
+            TaskChecklist(_tc),
           ],
 
           /// Статус
-          if (t.canShowStatus) TaskStatusField(_controller, compact: compact, hasMargin: hasMargins),
+          if (t.canShowStatus) TaskStatusField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Назначенный
-          if (t.canShowAssignee) TaskAssigneeField(_controller, compact: compact, hasMargin: hasMargins),
+          if (_tc.canShowAssigneeField) TaskAssigneeField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Даты
-          if (t.hasDueDate || t.hasRepeat || t.canEdit) TaskDatesField(_controller, compact: compact, hasMargin: hasMargins),
+          if (_tc.canShowDateField) TaskDatesField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Оценки
-          if (t.canShowEstimate || t.canEstimate) TaskEstimateField(_controller, compact: compact, hasMargin: hasMargins),
+          if (_tc.canShowEstimateField) TaskEstimateField(_tc, compact: compact, hasMargin: hasMargins),
 
           if (!isTaskDialog) ...[
             /// Вложения
-            if (t.attachments.isNotEmpty) TaskAttachmentsField(_controller, hasMargin: hasMargins),
+            if (_tc.canShowAttachmentsField) TaskAttachmentsField(_tc, hasMargin: hasMargins),
 
             /// Финансы
-            if (t.canShowFinanceField) FinanceField(_controller, hasMargin: hasMargins),
+            if (_tc.canShowFinanceField) FinanceField(_tc, hasMargin: hasMargins),
 
             /// Связи
-            if (t.canShowRelationsField) TaskRelationsField(_controller, hasMargin: hasMargins),
+            if (_tc.canShowRelationsField) TaskRelationsField(_tc, hasMargin: hasMargins),
           ],
 
           /// Модули проекта
           if (t.canShowProjectModules)
             MTField(
-              _controller.fData(TaskFCode.projectModules.index),
+              _tc.fData(TaskFCode.projectModules.index),
               margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
               leading: SettingsIcon(color: t.canEditProjectModules ? mainColor : f3Color),
               value: BaseText(t.localizedModules, maxLines: 1),
               compact: compact,
-              onTap: t.canEditProjectModules ? () => projectModulesDialog(_controller) : null,
+              onTap: t.canEditProjectModules ? () => projectModulesDialog(_tc) : null,
             ),
 
           /// Связь с источником импорта
@@ -115,7 +110,7 @@ class TaskDetails extends StatelessWidget {
             ),
 
           /// Комментарии
-          if (isTaskMobileView && _controller.notesController.hasNotes) Notes(_controller),
+          if (isTaskMobileView && _tc.notesController.hasNotes) Notes(_tc),
         ],
       );
     });

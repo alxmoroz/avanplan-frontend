@@ -10,7 +10,7 @@ import '../../../L1_domain/entities/calendar.dart';
 import '../../../L1_domain/entities/calendar_event.dart';
 import '../../../L1_domain/entities_extensions/calendar_event.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/field.dart';

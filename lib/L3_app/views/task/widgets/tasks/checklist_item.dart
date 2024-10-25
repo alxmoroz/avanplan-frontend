@@ -8,7 +8,6 @@ import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
@@ -20,8 +19,8 @@ import '../../usecases/title.dart';
 import '../toolbars/done_button.dart';
 
 class TaskChecklistItem extends StatefulWidget {
-  const TaskChecklistItem(this._controller, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
-  final TaskController _controller;
+  const TaskChecklistItem(this._tc, {super.key, required this.bottomDivider, this.onSubmit, this.onDelete});
+  final TaskController _tc;
   final bool bottomDivider;
   final Function()? onSubmit;
   final Function()? onDelete;
@@ -31,16 +30,16 @@ class TaskChecklistItem extends StatefulWidget {
 }
 
 class _TaskChecklistItemState extends State<TaskChecklistItem> {
-  TaskController get controller => widget._controller;
-  Task get task => controller.task;
+  static final _tfIndex = TaskFCode.title.index;
+  static const _deleteIconSize = P4;
 
-  bool fieldHover = false;
-  bool delBtnHover = false;
-  bool deleting = false;
+  TaskController get _tc => widget._tc;
+  Task get _t => _tc.task;
 
-  final tfIndex = TaskFCode.title.index;
-
-  static const deleteIconSize = P4;
+  bool _fieldHover = false;
+  bool _delBtnHover = false;
+  bool _deleting = false;
+  late final bool _ro;
 
   FocusNode? fNode;
 
@@ -48,8 +47,11 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   @override
   void initState() {
-    fNode = controller.focusNode(tfIndex);
-    fNode?.addListener(_fNodeListener);
+    _ro = !_tc.canEdit;
+    if (!_ro) {
+      fNode = _tc.focusNode(_tfIndex);
+      fNode?.addListener(_fNodeListener);
+    }
     super.initState();
   }
 
@@ -59,31 +61,38 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     super.dispose();
   }
 
-  Future<bool> delete() async {
-    setState(() => deleting = true);
+  Future<bool> _delete() async {
+    setState(() => _deleting = true);
     if (widget.onDelete != null) await widget.onDelete!();
     return false;
   }
 
-  Widget get tf => MTTextFieldInline(
-        controller.teController(tfIndex)!,
+  Widget get _tf => MTTextFieldInline(
+        _tc.teController(_tfIndex)!,
         key: widget.key,
-        style: BaseText('', color: task.closed ? f3Color : null).style(context),
-        hintText: controller.titlePlaceholder,
+        style: BaseText('',
+                color: _t.closed
+                    ? f3Color
+                    : _ro
+                        ? f2Color
+                        : null)
+            .style(context),
+        hintText: _tc.titlePlaceholder,
         fNode: fNode,
-        autofocus: task.creating,
+        autofocus: _t.creating,
+        readOnly: _ro,
         textInputAction: TextInputAction.done,
-        onTap: () => controller.setFocus(tfIndex),
-        onChanged: controller.setTitle,
+        onTap: () => _tc.setFocus(_tfIndex),
+        onChanged: _tc.setTitle,
         onSubmit: widget.onSubmit,
       );
 
-  Widget get item {
+  Widget get _item {
     return Row(
       children: [
         const SizedBox(width: P3),
-        if (task.isCheckItem) ...[
-          TaskDoneButton(controller),
+        if (_t.isCheckItem) ...[
+          TaskDoneButton(_tc),
           const SizedBox(width: P2),
         ],
 
@@ -91,45 +100,48 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: P),
-            child: tf,
+            child: _tf,
           ),
         ),
-        if (isWeb)
-          Opacity(
-            opacity: fieldHover ? 1 : 0,
-            child: MTButton.icon(
-              DeleteIcon(color: delBtnHover ? dangerColor : f2Color, size: deleteIconSize),
-              padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
-              margin: const EdgeInsets.only(left: P2),
-              onHover: (hover) => setState(() => delBtnHover = hover),
-              onTap: delete,
-            ),
-          )
-        else
-          const SizedBox(width: P6),
+        if (_tc.canDelete)
+          if (isWeb)
+            Opacity(
+              opacity: _fieldHover ? 1 : 0,
+              child: MTButton.icon(
+                DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: _deleteIconSize),
+                padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
+                margin: const EdgeInsets.only(left: P2),
+                onHover: (hover) => setState(() => _delBtnHover = hover),
+                onTap: _delete,
+              ),
+            )
+
+          /// это место для захвата свайпа в мобилке
+          else
+            const SizedBox(width: P6),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final fd = controller.fData(tfIndex);
+    final fd = _tc.fData(_tfIndex);
     return MTField(
       fd,
-      loading: deleting,
-      value: isWeb
-          ? item
+      loading: _deleting,
+      value: _ro || isWeb
+          ? _item
           : Slidable(
-              key: ObjectKey(controller),
+              key: ObjectKey(_tc),
               endActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(
                   onDismissed: () {},
-                  confirmDismiss: delete,
+                  confirmDismiss: _delete,
                 ),
                 children: [
                   SlidableAction(
-                    onPressed: (_) async => await delete(),
+                    onPressed: (_) async => await _delete(),
                     backgroundColor: dangerColor.resolve(context),
                     foregroundColor: b3Color.resolve(context),
                     icon: CupertinoIcons.delete,
@@ -137,14 +149,14 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   ),
                 ],
               ),
-              child: item,
+              child: _item,
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: task.isCheckItem ? P11 : P3,
+      dividerIndent: _t.isCheckItem ? P11 : P3,
       dividerEndIndent: P3,
       bottomDivider: widget.bottomDivider,
-      onHover: isWeb ? (hover) => setState(() => fieldHover = hover) : null,
-      onTap: () => controller.setFocus(tfIndex),
+      onHover: !_ro && isWeb ? (hover) => setState(() => _fieldHover = hover) : null,
+      onTap: !_ro ? () => _tc.setFocus(_tfIndex) : null,
     );
   }
 }

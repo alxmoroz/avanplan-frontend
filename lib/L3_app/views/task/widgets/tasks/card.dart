@@ -12,7 +12,7 @@ import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
-import '../../../../components/colors_base.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';

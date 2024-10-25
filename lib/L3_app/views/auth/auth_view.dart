@@ -7,7 +7,6 @@ import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/divider.dart';
 import '../../components/icons.dart';

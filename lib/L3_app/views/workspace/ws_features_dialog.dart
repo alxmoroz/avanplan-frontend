@@ -11,7 +11,6 @@ import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/circle.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/list_tile.dart';

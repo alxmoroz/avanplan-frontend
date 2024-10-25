@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';

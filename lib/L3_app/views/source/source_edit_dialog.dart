@@ -11,7 +11,7 @@ import '../../../L1_domain/entities_extensions/remote_source.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';

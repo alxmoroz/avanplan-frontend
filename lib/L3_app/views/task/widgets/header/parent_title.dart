@@ -13,26 +13,26 @@ import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskParentTitle extends StatelessWidget {
-  const TaskParentTitle(this._controller, {super.key});
-  final TaskController _controller;
+  const TaskParentTitle(this._tc, {super.key});
+  final TaskController _tc;
 
-  Task get _task => _controller.task;
+  Task get _t => _tc.task;
 
   void _toParent() {
     router.pop();
-    router.goTaskView(_task.parent!, direct: true);
+    router.goTaskView(_t.parent!, direct: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTField(
-        _controller.fData(TaskFCode.parent.index),
-        value: BaseText(_task.parent!.title, maxLines: 1, color: mainColor),
+        _tc.fData(TaskFCode.parent.index),
+        value: BaseText(_t.parent!.title, maxLines: 1, color: _tc.isPreview ? f3Color : mainColor),
         padding: const EdgeInsets.only(left: 1),
         color: Colors.transparent,
         minHeight: P7,
-        onTap: _toParent,
+        onTap: _tc.isPreview ? null : _toParent,
       ),
     );
   }

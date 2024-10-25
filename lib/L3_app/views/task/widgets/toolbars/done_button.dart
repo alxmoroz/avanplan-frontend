@@ -12,8 +12,8 @@ import '../../controllers/task_controller.dart';
 import '../../usecases/status.dart';
 
 class TaskDoneButton extends StatefulWidget {
-  const TaskDoneButton(this._controller, {super.key, this.size, this.onTap});
-  final TaskController _controller;
+  const TaskDoneButton(this._tc, {super.key, this.size, this.onTap});
+  final TaskController _tc;
   final double? size;
   final Function()? onTap;
 
@@ -22,14 +22,14 @@ class TaskDoneButton extends StatefulWidget {
 }
 
 class _TaskDoneButtonState extends State<TaskDoneButton> {
-  TaskController get controller => widget._controller;
-  Task get task => controller.task;
+  TaskController get _tc => widget._tc;
+  Task get _t => _tc.task;
 
   bool hover = false;
 
   Future tap() async {
-    if (task.parent?.closed == false || !task.closed) {
-      await controller.setClosed(context, !task.closed);
+    if (_t.parent?.closed == false || !_t.closed) {
+      await _tc.setClosed(context, !_t.closed);
     }
   }
 
@@ -37,14 +37,18 @@ class _TaskDoneButtonState extends State<TaskDoneButton> {
   Widget build(BuildContext context) {
     return MTButton.icon(
       DoneIcon(
-        task.closed,
+        _t.closed,
         size: widget.size ?? P6,
-        color: task.closed ? (hover ? mainColor : greenLightColor) : (hover ? greenColor : mainColor),
-        solid: task.closed,
+        color: !_tc.canEdit
+            ? f3Color
+            : _t.closed
+                ? (hover ? mainColor : greenLightColor)
+                : (hover ? greenColor : mainColor),
+        solid: _t.closed,
       ),
       padding: const EdgeInsets.symmetric(vertical: P),
-      onHover: (h) => setState(() => hover = h),
-      onTap: tap,
+      onHover: _tc.canEdit ? (h) => setState(() => hover = h) : null,
+      onTap: _tc.canEdit ? tap : null,
     );
   }
 }

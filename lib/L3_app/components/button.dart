@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import 'adaptive.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'loader.dart';

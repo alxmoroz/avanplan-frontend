@@ -15,7 +15,6 @@ import 'L2_data/services/platform.dart';
 import 'L3_app/components/background.dart';
 import 'L3_app/components/circular_progress.dart';
 import 'L3_app/components/colors.dart';
-import 'L3_app/components/colors_base.dart';
 import 'L3_app/components/constants.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';

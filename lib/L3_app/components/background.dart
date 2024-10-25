@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'adaptive.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 
 class MTBackgroundWrapper extends StatelessWidget {
   const MTBackgroundWrapper(this.child, {super.key, this.bg1Color, this.bg2Color});

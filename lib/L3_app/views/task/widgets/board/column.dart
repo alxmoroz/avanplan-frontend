@@ -9,7 +9,6 @@ import '../../../../components/board/board_column.dart';
 import '../../../../components/board/dd_item.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';

@@ -9,7 +9,6 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
 import '../../components/checkbox.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/dropdown.dart';

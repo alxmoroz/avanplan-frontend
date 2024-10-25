@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
-import 'colors_base.dart';
 import 'text.dart';
 
 class ColorsDemo extends StatelessWidget {

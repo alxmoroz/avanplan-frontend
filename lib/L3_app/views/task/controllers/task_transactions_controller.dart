@@ -56,4 +56,7 @@ abstract class _Base with Store {
 
   @computed
   num get transactionsCount => _transactions.length;
+
+  @computed
+  bool get hasTransactions => transactionsCount > 0;
 }

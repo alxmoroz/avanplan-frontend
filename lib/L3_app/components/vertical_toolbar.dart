@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../L2_data/services/platform.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'list_tile.dart';

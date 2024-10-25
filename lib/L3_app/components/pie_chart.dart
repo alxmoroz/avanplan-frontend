@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 
 class MTPieChartData {

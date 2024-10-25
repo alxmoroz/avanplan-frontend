@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import '../presenters/mime_type.dart';
 import 'circle.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'painters.dart';
 

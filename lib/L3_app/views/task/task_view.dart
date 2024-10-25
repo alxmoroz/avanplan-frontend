@@ -10,7 +10,6 @@ import '../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/page.dart';
@@ -62,9 +61,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
   bool get _isBigGroup => isBigScreen(context) && (td.isGroup || td.isInbox);
-  double get _headerHeight => P8 + (_hasParent ? P7 : 0);
+  double get headerHeight => P8 + (_hasParent ? P7 : 0);
 
-  double get _scrollOffsetTop => _isTaskDialog || !isBigScreen(context) ? _headerHeight : P4;
+  double get _scrollOffsetTop => _isTaskDialog || !isBigScreen(context) ? headerHeight : P4;
 
   @override
   void initState() {
@@ -102,7 +101,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         onRefresh: () => controller.reload(closed: false),
         child: LayoutBuilder(builder: (ctx, constraints) {
           // доступная высота для полей ввода
-          _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - _headerHeight));
+          _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - headerHeight));
 
           return ListView(
             controller: isWeb ? scrollController : null,
@@ -170,7 +169,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         ],
       );
 
-  Widget? get _title {
+  Widget? get toolbarTitle {
     return _isBigGroup
         ? task.canShowBoard && task.showBoard
             ? Padding(
@@ -217,7 +216,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           : dialog
               ? Observer(
                   builder: (_) => MTDialog(
-                    topBar: MTTopBar(middle: _title),
+                    topBar: MTTopBar(middle: toolbarTitle),
                     body: _bodyContent,
                     rightBar: _rightToolbar(hasKB),
                     bottomBar: _showNoteField(hasKB)
@@ -225,7 +224,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                         : null,
                     scrollController: scrollController,
                     scrollOffsetTop: _scrollOffsetTop,
-                    onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),
+                    onScrolled: onScrolled,
                   ),
                 )
               : Observer(
@@ -247,11 +246,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       navBar: big && !_hasScrolled
                           ? null
                           : MTTopBar(
-                              innerHeight: big ? _headerHeight : null,
+                              innerHeight: big ? headerHeight : null,
                               leading: bigGroup ? const SizedBox() : null,
                               fullScreen: !big,
                               color: big ? b2Color : navbarColor,
-                              middle: _title,
+                              middle: toolbarTitle,
                               trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,

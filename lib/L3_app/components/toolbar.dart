@@ -6,7 +6,6 @@ import '../navigation/router.dart';
 import 'adaptive.dart';
 import 'close_dialog_button.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'text.dart';
 

@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user_contact.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/field.dart';

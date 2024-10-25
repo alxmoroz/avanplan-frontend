@@ -8,7 +8,6 @@ import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
@@ -17,13 +16,12 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field_inline.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
 
 class TaskDescriptionField extends StatefulWidget {
-  const TaskDescriptionField(this._controller, {super.key, this.standalone = false, this.padding});
-  final TaskController _controller;
+  const TaskDescriptionField(this._tc, {super.key, this.standalone = false, this.padding});
+  final TaskController _tc;
   final bool standalone;
   final EdgeInsets? padding;
 
@@ -32,40 +30,40 @@ class TaskDescriptionField extends StatefulWidget {
 }
 
 class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
-  TaskController get controller => widget._controller;
-  Task get task => controller.task;
-  TextEditingController get teController => controller.teController(fIndex)!;
-  MTFieldData get fd => controller.fData(fIndex);
+  static final _fIndex = TaskFCode.description.index;
+  static final _readOnlyMaxLines = isWeb ? 15 : 7;
+  static const _expandButtonHeight = P6;
 
-  final hintText = loc.description;
-  final fIndex = TaskFCode.description.index;
-  FocusNode? fNode;
-  bool expanded = false;
+  TaskController get _tc => widget._tc;
+  Task get _t => _tc.task;
+  TextEditingController get _teController => _tc.teController(_fIndex)!;
+  MTFieldData get _fd => _tc.fData(_fIndex);
 
-  static final readOnlyMaxLines = isWeb ? 15 : 10;
-  static const expandButtonHeight = P6;
-
-  bool get _hasFocus => fNode?.hasFocus == true;
+  FocusNode? _fNode;
+  bool _expanded = false;
+  bool get _hasFocus => _fNode?.hasFocus == true;
 
   void _fNodeListener() => setState(() {
-        if (_hasFocus) expanded = true;
+        if (_hasFocus) _expanded = true;
       });
 
   @override
   void initState() {
-    fNode = controller.focusNode(fIndex);
-    fNode?.addListener(_fNodeListener);
+    if (_tc.canEdit) {
+      _fNode = _tc.focusNode(_fIndex);
+      _fNode?.addListener(_fNodeListener);
+    }
     super.initState();
   }
 
   @override
   void dispose() {
-    fNode?.removeListener(_fNodeListener);
+    _fNode?.removeListener(_fNodeListener);
     super.dispose();
   }
 
   bool _exceedROMaxLines(double maxWidth) {
-    final tp = TextPainter(text: TextSpan(text: fd.text), maxLines: readOnlyMaxLines, textDirection: TextDirection.ltr);
+    final tp = TextPainter(text: TextSpan(text: _fd.text), maxLines: _readOnlyMaxLines, textDirection: TextDirection.ltr);
     tp.layout(maxWidth: maxWidth - (widget.padding?.horizontal ?? 0));
     return tp.didExceedMaxLines;
   }
@@ -77,36 +75,36 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
         final hasFocus = _hasFocus;
         bool exceedROMaxLines = false;
         int? maxLines;
-        final needCheckToggle = !hasFocus && task.isTask;
+        final needCheckToggle = !hasFocus && _t.isTask;
         if (needCheckToggle) {
           exceedROMaxLines = _exceedROMaxLines(size.maxWidth);
-          maxLines = hasFocus || expanded ? null : readOnlyMaxLines;
+          maxLines = hasFocus || _expanded ? null : _readOnlyMaxLines;
         }
         return Stack(
           alignment: Alignment.bottomCenter,
           children: [
             MTField(
-              fd,
+              _fd,
               color: Colors.transparent,
               padding: (widget.padding ?? EdgeInsets.zero),
               value: MTTextFieldInline(
-                teController,
+                _teController,
                 key: widget.key,
                 maxLines: maxLines,
-                fNode: fNode,
-                readOnly: !task.canEdit,
+                fNode: _fNode,
+                readOnly: !_tc.canEdit,
                 paddingLines: exceedROMaxLines ? 1 : 0,
-                autofocus: widget.standalone && !task.hasDescription,
-                hintText: hintText,
+                autofocus: widget.standalone && !_t.hasDescription,
+                hintText: loc.description,
                 style: BaseText('', color: widget.standalone ? null : f2Color, maxLines: maxLines).style(context),
-                onChanged: controller.setDescription,
-                onTap: () => fNode?.requestFocus(),
+                onChanged: _tc.setDescription,
+                onTap: () => _fNode?.requestFocus(),
               ),
               // onTap: () => fNode?.requestFocus(),
             ),
             if (exceedROMaxLines && !hasFocus)
               MTListTile(
-                minHeight: expandButtonHeight,
+                minHeight: _expandButtonHeight,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -117,14 +115,14 @@ class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
                 ),
                 middle: UnconstrainedBox(
                   child: CaretIcon(
-                    up: expanded,
+                    up: _expanded,
                     color: mainColor,
                     size: const Size(P2, P),
                   ),
                 ),
                 padding: EdgeInsets.zero,
                 bottomDivider: false,
-                onTap: () => setState(() => expanded = !expanded),
+                onTap: () => setState(() => _expanded = !_expanded),
               ),
           ],
         );

@@ -5,7 +5,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'circular_progress.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'toolbar.dart';

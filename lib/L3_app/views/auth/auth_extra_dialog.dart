@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';

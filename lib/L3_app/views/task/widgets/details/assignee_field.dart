@@ -3,43 +3,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/assignee.dart';
 
 class TaskAssigneeField extends StatelessWidget {
-  const TaskAssigneeField(this._controller, {super.key, this.compact = false, this.hasMargin = false});
-  final TaskController _controller;
+  const TaskAssigneeField(this._tc, {super.key, this.compact = false, this.hasMargin = false});
+  final TaskController _tc;
   final bool compact;
   final bool hasMargin;
 
-  Task get _task => _controller.task;
-
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTField(
-        _controller.fData(TaskFCode.assignee.index),
-        leading: _task.hasAssignee
-            ? _task.assignee!.icon(P6 / 2)
+    return Observer(builder: (_) {
+      final t = _tc.task;
+      final canAssign = _tc.canAssign;
+      final assignee = t.assignee;
+      final hasAssignee = t.hasAssignee;
+      return MTField(
+        _tc.fData(TaskFCode.assignee.index),
+        leading: hasAssignee
+            ? assignee!.icon(P6 / 2)
             : PersonIcon(
-                color: _task.canAssign ? mainColor : f2Color,
+                color: canAssign ? mainColor : f2Color,
               ),
-        value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
+        value: hasAssignee ? BaseText('$assignee', color: canAssign ? null : f2Color, maxLines: 1) : null,
         compact: compact,
         margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-        onTap: _task.canAssign ? _controller.startAssign : null,
-      ),
-    );
+        onTap: canAssign ? _tc.startAssign : null,
+      );
+    });
   }
 }

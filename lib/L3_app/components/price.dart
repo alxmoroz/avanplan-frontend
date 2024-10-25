@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../components/colors_base.dart';
 import '../presenters/number.dart';
 import 'adaptive.dart';
+import 'colors.dart';
 import 'constants.dart';
 import 'text.dart';
 

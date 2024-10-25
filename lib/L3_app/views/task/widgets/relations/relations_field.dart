@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
@@ -20,13 +21,15 @@ class TaskRelationsField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canEdit = _tc.canEditRelations;
+
     return MTField(
       _tc.fData(TaskFCode.relation.index),
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-      leading: const LinkIcon(size: P6),
+      leading: LinkIcon(size: P6, color: canEdit ? mainColor : f3Color),
       value: _rc.hasRelations
           ? Row(children: [
-              Flexible(child: BaseText(_rc.relationsStr, maxLines: 1)),
+              Flexible(child: BaseText(_rc.relationsStr, maxLines: 1, color: canEdit ? null : f2Color)),
               if (_rc.relationsCountMoreStr.isNotEmpty)
                 BaseText.f2(
                   _rc.relationsCountMoreStr,
@@ -35,7 +38,7 @@ class TaskRelationsField extends StatelessWidget {
                 )
             ])
           : null,
-      onTap: () => relationsDialog(_rc),
+      onTap: canEdit ? () => relationsDialog(_rc) : null,
     );
   }
 }

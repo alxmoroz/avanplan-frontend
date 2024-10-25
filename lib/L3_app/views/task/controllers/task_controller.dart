@@ -213,5 +213,7 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   bool get canShowAttachmentsField => !_isPreview && task.attachments.isNotEmpty;
   bool get canEditFinance => !_isPreview && task.canEditFinance;
   bool get canShowFinanceField => transactionsController.hasTransactions || canEditFinance;
-  bool get canShowRelationsField => relationsController.hasRelations || (!_isPreview && task.canEditRelations);
+  bool get canEditRelations => !_isPreview && task.canEditRelations;
+  bool get canShowRelationsField => relationsController.hasRelations || canEditRelations;
+  bool get canComment => !_isPreview && task.canComment;
 }

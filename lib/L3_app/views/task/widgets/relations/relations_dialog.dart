@@ -19,8 +19,8 @@ import '../../../../presenters/task_tree.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/relations_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../tasks/task_preview.dart';
 import '../tasks/tasks_list_view.dart';
+import 'related_task_preview.dart';
 
 Future relationsDialog(RelationsController rc) async {
   rc.reloadRelatedTasks();
@@ -43,7 +43,7 @@ class _RelationsDialog extends StatelessWidget {
     // превью для мобилки, чтобы не делать бесконечную пуш-навигацию
     else {
       // выход из превью может сопровождаться желанием перейти к задаче для редактирования
-      final wantGoTask = await showMTDialog(TaskPreview(TaskController(taskIn: t, isPreview: true)));
+      final wantGoTask = await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true)));
       if (wantGoTask == true) {
         // закрываем этот диалог (список связей)
         if (context.mounted) Navigator.of(context).pop();

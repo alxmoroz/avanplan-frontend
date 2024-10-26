@@ -20,14 +20,14 @@ import '../details/task_description_field.dart';
 import '../details/task_details.dart';
 import '../header/task_header.dart';
 
-class TaskPreview extends TaskView {
-  const TaskPreview(super.controller, {super.key});
+class RelatedTaskPreview extends TaskView {
+  const RelatedTaskPreview(super.controller, {super.key});
 
   @override
-  State<TaskPreview> createState() => _State();
+  State<RelatedTaskPreview> createState() => _State();
 }
 
-class _State extends TaskViewState<TaskPreview> {
+class _State extends TaskViewState<RelatedTaskPreview> {
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -48,7 +48,7 @@ class _State extends TaskViewState<TaskPreview> {
                 middle: Column(children: [
                   MTListGroupTitle(
                     leading: const InfoIcon(color: warningColor),
-                    middle: SmallText(loc.relations_task_read_only_hint),
+                    middle: SmallText(loc.related_task_preview_hint),
                     padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P2),
                     margin: EdgeInsets.zero,
                   ),

@@ -319,9 +319,9 @@
   "register_action_title": "Создать учётную запись",
   "register_title": "Регистрация",
 
+  "related_task_preview_hint": "Только просмотр\nПерейдите для внесения изменений",
   "relations_empty_title": "Связанных задач пока нет",
   "relations_empty_hint": "Добавьте связи, чтобы отслеживать зависимости и определять порядок",
-  "relations_task_read_only_hint": "Только просмотр\nПерейдите для внесения изменений",
 
   "report_bug_action_title": "Сообщить о проблеме",
 

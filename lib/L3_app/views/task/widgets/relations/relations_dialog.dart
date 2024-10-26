@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -55,7 +57,7 @@ class _RelationsDialog extends StatelessWidget {
         }
         // переход к задаче по связи
         // здесь такой костыль, чтобы роутер успел обновить конфиг свой, если была тут же другая навигация
-        await Future(() => router.goTaskView(t, direct: direct));
+        Timer.run(() => router.goTaskView(t, direct: direct));
       }
     }
   }

@@ -295,6 +295,10 @@ class InboxIcon extends MTIcon {
   const InboxIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.tray);
 }
 
+class InfoIcon extends MTIcon {
+  const InfoIcon({super.key, super.color = mainColor, super.size = P5}) : super(CupertinoIcons.info);
+}
+
 class LinkIcon extends MTIcon {
   const LinkIcon({super.key, super.color, super.size = P3}) : super(Icons.link);
 }

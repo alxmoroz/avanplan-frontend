@@ -321,6 +321,7 @@
 
   "relations_empty_title": "There are no related tasks yet",
   "relations_empty_hint": "Add relations to track dependencies and determine order of tasks",
+  "relations_task_read_only_hint": "Read Only\nGo to task to make changes",
 
   "report_bug_action_title": "Report a bug",
 

@@ -51,7 +51,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   @override
   void finish() {
     _project.creating = false;
-    router.popToTaskType(TType.PROJECT.toLowerCase());
+    router.popToTaskTypeOrMain(TType.PROJECT);
   }
 }
 

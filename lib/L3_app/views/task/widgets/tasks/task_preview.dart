@@ -5,9 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../components/adaptive.dart';
+import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
 import '../../../_base/loader_screen.dart';
 import '../../task_view.dart';
 import '../details/task_description_field.dart';
@@ -36,6 +38,12 @@ class _State extends TaskViewState<TaskPreview> {
                   if (task.hasDescription) TaskDescriptionField(controller, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
                   MTAdaptive(child: TaskDetails(controller)),
                 ],
+              ),
+              bottomBar: MTBottomBar(
+                middle: MTButton.secondary(
+                  titleText: loc.action_goto_task_title,
+                  onTap: () => Navigator.of(context).pop(true),
+                ),
               ),
               scrollController: scrollController,
               scrollOffsetTop: headerHeight,

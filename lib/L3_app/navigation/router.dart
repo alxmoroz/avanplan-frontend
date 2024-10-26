@@ -52,6 +52,8 @@ extension MTRouterHelper on GoRouter {
 
   bool get isDeepLink => _currentConfig.extra == null;
 
+  void _go(String location, {Object? extra = 'local'}) => go(location, extra: extra);
+
   void _goNamed(
     String name, {
     Map<String, String> pathParameters = const <String, String>{},
@@ -103,7 +105,7 @@ extension MTRouterHelper on GoRouter {
     return '${parentLocation == '/' ? '' : parentLocation}/${Task404Route.staticBaseName}';
   }
 
-  void goTask404(MTRoute? parent) => go(taskNotFoundLocation(parent));
+  void goTask404(MTRoute? parent) => _go(taskNotFoundLocation(parent));
 
   // главный онбординг
   Future pushOnboarding({TaskDescriptor? hostProject}) async => await pushNamed(onboardingRoute.name, extra: hostProject ?? 'local');
@@ -125,13 +127,13 @@ extension MTRouterHelper on GoRouter {
   }
 
   // Выход из квиза создания цели или проекта
-  void popToTaskType(String type) {
+  void popToTaskTypeOrMain(String type) {
     RouteMatchList rConfig = _currentConfig;
+    type = type.toLowerCase();
     while (rConfig.matches.length > 1 && (rConfig.last.route as MTRoute).baseName != type) {
       rConfig = rConfig.remove(rConfig.last);
     }
-
-    go(rConfig.last.matchedLocation);
+    _go(rConfig.last.matchedLocation);
   }
 
   Future goInner(Uri uri) async {
@@ -140,6 +142,6 @@ extension MTRouterHelper on GoRouter {
       location += '/?${uri.query}';
     }
 
-    router.go(location, extra: 'local');
+    _go(location);
   }
 }

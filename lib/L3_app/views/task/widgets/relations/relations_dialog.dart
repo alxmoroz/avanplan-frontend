@@ -49,34 +49,41 @@ class _RelationsDialog extends StatelessWidget {
     }
   }
 
+  Widget _tasksDialog(BuildContext context) {
+    final srcTask = _rc.task;
+    final forbiddenCount = _rc.forbiddenRelatedTasksCount;
+    return MTDialog(
+      topBar: MTTopBar(pageTitle: loc.task_relations_title, parentPageTitle: srcTask.title),
+      body: _rc.hasRelations
+          ? TasksListView(
+              _rc.tasksGroups,
+              adaptive: false,
+              extra: forbiddenCount > 0
+                  ? SmallText(
+                      '${loc.more_count(forbiddenCount)} ${loc.task_plural(forbiddenCount)} ${loc.tasks_forbidden_view_suffix(forbiddenCount)}',
+                      padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P),
+                    )
+                  : null,
+              onTaskTap: (t) => _showTask(context, t, srcTask),
+            )
+          : ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                MTImage(ImageName.relations.name),
+                H2(loc.relations_empty_title, padding: const EdgeInsets.all(P3), align: TextAlign.center),
+                BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+                const SizedBox(height: P3),
+              ],
+            ),
+      bottomBar: MTBottomBar(middle: MTButton.main(titleText: loc.action_add_title, onTap: _addRelation)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) {
-        final srcTask = _rc.task;
-        return _rc.loading
-            ? LoaderScreen(_rc, isDialog: true)
-            : MTDialog(
-                topBar: MTTopBar(pageTitle: loc.task_relations_title, parentPageTitle: srcTask.title),
-                body: _rc.hasRelations
-                    ? TasksListView(
-                        _rc.tasksGroups,
-                        adaptive: false,
-                        onTaskTap: (t) => _showTask(context, t, srcTask),
-                      )
-                    : ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          MTImage(ImageName.relations.name),
-                          H2(loc.relations_empty_title, padding: const EdgeInsets.all(P3), align: TextAlign.center),
-                          BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-                          const SizedBox(height: P3),
-                        ],
-                      ),
-                bottomBar: MTBottomBar(middle: MTButton.main(titleText: loc.action_add_title, onTap: _addRelation)),
-              );
-      },
+      builder: (_) => _rc.loading ? LoaderScreen(_rc, isDialog: true) : _tasksDialog(context),
     );
   }
 }

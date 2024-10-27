@@ -33,12 +33,14 @@ class TasksMainController extends _TasksMainControllerBase with _$TasksMainContr
     return loadedTasks;
   }
 
-  Future loadTasksIfAbsent(int wsId, Iterable<int> tasksIds) async {
+  Future<int> loadTasksIfAbsent(int wsId, Iterable<int> tasksIds) async {
     final loadedTasks = await _loadTasks(wsId, tasksIds);
-    if (loadedTasks.isNotEmpty) {
-      upsertTasks(loadedTasks);
+    final availableTasks = loadedTasks.where((t) => !t.isForbidden);
+    if (availableTasks.isNotEmpty) {
+      upsertTasks(availableTasks);
       refreshUI();
     }
+    return loadedTasks.where((t) => t.isForbidden).length;
   }
 
   /// задачи из списка

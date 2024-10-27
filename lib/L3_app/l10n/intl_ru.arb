@@ -545,6 +545,8 @@
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
   "task_unlink_dialog_title": "Удалить связь с источником?",
 
+  "tasks_forbidden_view_suffix": "{count, plural, one{недоступна} few{недоступны} other{недоступно}} для просмотра",
+
   "tasks_view_mode_board": "Доска",
   "tasks_view_mode_list": "Список",
 

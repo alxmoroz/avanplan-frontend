@@ -546,6 +546,8 @@
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",
   "task_unlink_dialog_title": "Unlink a source?",
 
+  "tasks_forbidden_view_suffix": "{count, plural, one{is} other{are}} not available for viewing",
+
   "tasks_view_mode_board": "Board",
   "tasks_view_mode_list": "List",
 

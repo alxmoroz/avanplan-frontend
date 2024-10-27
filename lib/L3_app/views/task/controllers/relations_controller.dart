@@ -28,6 +28,12 @@ abstract class _Base with Store, Loadable {
   @observable
   ObservableList<TaskRelation> _relations = ObservableList();
 
+  @observable
+  int forbiddenRelatedTasksCount = 0;
+
+  @action
+  void setForbiddenRelatedTasksCount(int count) => forbiddenRelatedTasksCount = count;
+
   @computed
   bool get hasRelations => _relations.isNotEmpty;
 
@@ -42,17 +48,18 @@ abstract class _Base with Store, Loadable {
 
   Future reloadRelatedTasks() async {
     await load(() async {
-      await tasksMainController.loadTasksIfAbsent(_wsId, _relatedTasksIds);
+      final frtCount = await tasksMainController.loadTasksIfAbsent(_wsId, _relatedTasksIds);
+      setForbiddenRelatedTasksCount(frtCount);
     });
   }
 
   @computed
   List<TaskRelation> get sortedRelations => _relations.sorted((r1, r2) => r1.title(_taskId).compareTo(r2.title(_taskId)));
 
-  static const _visibleTitles = 1;
+  static const _visibleTitlesCount = 1;
 
   @computed
-  String get relationsStr => sortedRelations.map((r) => r.title(_taskId)).take(_visibleTitles).join(', ');
+  String get relationsStr => sortedRelations.map((r) => r.title(_taskId)).take(_visibleTitlesCount).join(', ');
   @computed
-  String get relationsCountMoreStr => sortedRelations.length > _visibleTitles ? loc.more_count(_relations.length - _visibleTitles) : '';
+  String get relationsCountMoreStr => sortedRelations.length > _visibleTitlesCount ? loc.more_count(_relations.length - _visibleTitlesCount) : '';
 }

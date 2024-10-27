@@ -53,7 +53,7 @@ class TaskCard extends StatelessWidget {
   final bool showAssignee;
   final Function(Task)? onTap;
 
-  void _tap(Task task) => onTap != null ? onTap!(task) : router.goTaskView(task);
+  void _tap(Task task) => onTap != null ? onTap!(task) : router.goTask(task);
 
   Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 

@@ -18,9 +18,11 @@ class TaskParentTitle extends StatelessWidget {
 
   Task get _t => _tc.task;
 
+  // TODO: поправить тут с учётом goTaskFromTask и др. кода в нашем роутере.
+  //  Проблема в том, что подряд две строчки эти не работают корректно. Только в изоляции друг от друга.
   void _toParent() {
     router.pop();
-    router.goTaskView(_t.parent!, direct: true);
+    router.goTask(_t.parent!, direct: true);
   }
 
   @override

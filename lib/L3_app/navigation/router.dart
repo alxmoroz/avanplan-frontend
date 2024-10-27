@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../../L2_data/services/platform.dart';
+import '../presenters/task_tree.dart';
 import '../views/auth/auth_view.dart';
 import '../views/main/main_view.dart';
 import '../views/my_account/my_account_dialog.dart';
@@ -81,7 +82,7 @@ extension MTRouterHelper on GoRouter {
   void goWSUsers(int wsId) => _goNamed('$_wsRName/${WSUsersRoute.staticBaseName}', pathParameters: {'wsId': '$wsId'});
 
   // Задачи
-  void goTaskView(TaskDescriptor td, {bool direct = false}) {
+  void goTask(TaskDescriptor td, {bool direct = false}) {
     final tt = td.type.toLowerCase();
     final currentPP = _currentConfig.pathParameters;
     final ttIdKey = '${tt}Id';
@@ -93,6 +94,32 @@ extension MTRouterHelper on GoRouter {
       final currentName = needPush ? currentRoute.name : mainRoute.name;
       _goNamed('$currentName/$tt', pathParameters: pp);
     }
+  }
+
+  void goTaskFromTask(Task toTask, Task fromTask) {
+    RouteMatchList rConfig = _currentConfig;
+    // Выходим из исходной задачи
+    // Поднимаемся на один уровень, если родители совпадают (проект или цель)
+    // ...а также, когда задача открыта с главной
+    if (toTask.parentId == fromTask.parentId || currentRoute.parent == mainRoute) {
+      rConfig = rConfig.remove(rConfig.last);
+    }
+    // ...если родители не совпадают, поднимаемся до уровня общего проекта или корня
+    else {
+      final sameProject = toTask.project == fromTask.project;
+      final prjType = TType.PROJECT.toLowerCase();
+      while (rConfig.matches.length > 1 && (!sameProject || (rConfig.last.route as MTRoute).baseName != prjType)) {
+        rConfig = rConfig.remove(rConfig.last);
+      }
+    }
+
+    final pp = rConfig.pathParameters;
+    pp.addAll({'taskId': '${toTask.id!}'});
+    if (!pp.containsKey('wsId')) {
+      pp.addAll({'wsId': '${toTask.wsId}'});
+    }
+
+    pushReplacementNamed('${rConfig.last.route.name}/task', pathParameters: pp, extra: 'local');
   }
 
   // 404 для задач
@@ -141,7 +168,6 @@ extension MTRouterHelper on GoRouter {
     if (uri.hasQuery) {
       location += '/?${uri.query}';
     }
-
     _go(location);
   }
 }

@@ -3,6 +3,7 @@
 import 'package:collection/collection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
@@ -76,7 +77,13 @@ abstract class _NotificationControllerBase with Store {
       //   vapidKey: isWeb ? 'BCOA2mDb6-CkpUHqBhSYe5Ave8GES9JBE--Ux2LpgiQ5GyZBSaLZpHjqSH9-LDnC-K7QUtoyXM_BnaetF6pw5Xc' : null,
       // );
     } else {
-      token = await FirebaseMessaging.instance.getToken();
+      try {
+        token = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
     }
     final hasToken = token?.isNotEmpty == true;
     pushAuthorized = hasToken && authStatus == AuthorizationStatus.authorized;

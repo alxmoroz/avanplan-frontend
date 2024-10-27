@@ -86,7 +86,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
         InboxIcon(size: selected ? _selectedSize : _unselectedSize),
         loc.inbox,
         selected,
-        () => router.goTaskView(tasksMainController.inbox!, direct: true),
+        () => router.goTask(tasksMainController.inbox!, direct: true),
       );
 
   @override

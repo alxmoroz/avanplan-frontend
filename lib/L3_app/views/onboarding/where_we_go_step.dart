@@ -28,7 +28,7 @@ class WhereWeGoStep extends StatelessWidget {
 
   Future _goToHostProject() async {
     await _controller.next();
-    router.goTaskView(_controller.hostProject!);
+    router.goTask(_controller.hostProject!);
   }
 
   @override

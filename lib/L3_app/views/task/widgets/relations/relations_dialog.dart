@@ -15,7 +15,6 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../navigation/router.dart';
-import '../../../../presenters/task_tree.dart';
 import '../../../_base/loader_screen.dart';
 import '../../controllers/relations_controller.dart';
 import '../../controllers/task_controller.dart';
@@ -36,29 +35,17 @@ class _RelationsDialog extends StatelessWidget {
   }
 
   Future _showTask(BuildContext context, Task t, Task srcTask) async {
-    // обычный переход к задаче, без превью
-    if (isBigScreen(context)) {
-      router.goTaskView(t, direct: true);
-    }
     // превью для мобилки, чтобы не делать бесконечную пуш-навигацию
-    else {
-      // выход из превью может сопровождаться желанием перейти к задаче для редактирования
-      final wantGoTask = await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true)));
-      if (wantGoTask == true) {
-        // закрываем этот диалог (список связей)
-        if (context.mounted) Navigator.of(context).pop();
+    // выход из превью может сопровождаться желанием перейти к задаче для редактирования
+    // для большого экрана не показываем превью, переходим к целевой задаче
+    bool? wantGoTask = isBigScreen(context) || await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true)));
+    // есть желание и возможность перейти к целевой задаче
+    if (wantGoTask == true) {
+      // закрываем этот диалог (список связей)
+      if (context.mounted) Navigator.of(context).pop();
 
-        // Выходим из исходной задачи до проекта, если исходная и целевая в одном проекте
-        // Иначе до главной - тогда и pop не нужен, просто директ переход
-        bool direct = true;
-        if (t.project == srcTask.project) {
-          router.popToTaskTypeOrMain(TType.PROJECT);
-          direct = false;
-        }
-        // переход к задаче по связи
-        // здесь такой костыль, чтобы роутер успел обновить конфиг свой, если была тут же другая навигация
-        Timer.run(() => router.goTaskView(t, direct: direct));
-      }
+      // Переходим к целевой задаче
+      router.goTaskFromTask(t, srcTask);
     }
   }
 

@@ -123,7 +123,7 @@ extension TaskEditUC on TaskController {
       task,
       statusId: statusId ?? ((task.isProject && task.hmGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
     );
-    if (newTC != null && !noGo) router.goTaskView(newTC.taskDescriptor);
+    if (newTC != null && !noGo) router.goTask(newTC.taskDescriptor);
     return newTC;
   }
 

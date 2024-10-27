@@ -33,7 +33,7 @@ Future createFromTemplate(Workspace ws) async {
         tasksMainController.upsertTasks([p, ...changes.affected]);
         tasksMainController.refreshUI();
 
-        router.goTaskView(p);
+        router.goTask(p);
       }
     });
   }

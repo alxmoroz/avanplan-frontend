@@ -17,7 +17,7 @@ Future startWithHostProjectDialog(TaskDescriptor hostProject) async {
       MTDialogAction(
         title: loc.start_with_host_project_action_title,
         type: ButtonType.main,
-        onTap: () => router.goTaskView(hostProject),
+        onTap: () => router.goTask(hostProject),
       ),
     ],
   );

@@ -38,7 +38,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                   color: Colors.transparent,
                   padding: _btnPadding,
                   bottomDivider: false,
-                  onTap: () => router.goTaskView(tasksMainController.inbox!, direct: true),
+                  onTap: () => router.goTask(tasksMainController.inbox!, direct: true),
                 ),
               ),
               const Spacer(),

@@ -34,7 +34,7 @@ abstract class _CreateProjectControllerBase with Store {
         switch (methodCode) {
           case CreationMethod.create:
             final newTC = await createTask(ws!, null);
-            if (newTC != null) router.goTaskView(newTC.taskDescriptor);
+            if (newTC != null) router.goTask(newTC.taskDescriptor);
             break;
           case CreationMethod.template:
             await createFromTemplate(ws!);

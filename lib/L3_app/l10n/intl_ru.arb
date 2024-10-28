@@ -323,7 +323,7 @@
   "relation_create_dialog_title": "Выберите задачу для связи",
   "relations_empty_title": "Связанных задач пока нет",
   "relations_empty_hint": "Добавьте связи, чтобы отслеживать зависимости и определять порядок",
-  "relations_only_one_task_title": "Нет других задач\nдля связывания",
+  "relations_only_one_task_title": "В рабочем пространстве нет других задач для связывания",
   "relation_title": "Связь",
   "relations_title": "Связи",
 

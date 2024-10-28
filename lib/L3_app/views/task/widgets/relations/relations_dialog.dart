@@ -20,7 +20,6 @@ import '../../../_base/loader_screen.dart';
 import '../../controllers/relations_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../tasks/tasks_list_view.dart';
-import 'create_relation_dialog.dart';
 import 'related_task_preview.dart';
 
 Future relationsDialog(RelationsController rc) async {
@@ -47,10 +46,35 @@ class _RelationsDialog extends StatelessWidget {
     }
   }
 
+  bool get _onlyOneTaskInWS => tasksMainController.tasks.where((t) => t.wsId == _rc.wsId).length == 1;
+
+  Widget get _createRelationButton => MTButton.secondary(
+        leading: const PlusIcon(),
+        titleText: '${loc.action_add_title} ${loc.relation_title.toLowerCase()}',
+        onTap: _rc.startCreateRelation,
+      );
+
+  Widget get _emptyRelationsScreen => ListView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          MTImage(ImageName.relations.name),
+          H2(
+            _onlyOneTaskInWS ? loc.relations_only_one_task_title : loc.relations_empty_title,
+            padding: const EdgeInsets.all(P3),
+            align: TextAlign.center,
+          ),
+          if (!_onlyOneTaskInWS) ...[
+            BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+            const SizedBox(height: P3),
+            _createRelationButton,
+          ],
+        ],
+      );
+
   Widget _tasksDialog(BuildContext context) {
     final srcTask = _rc.task;
     final forbiddenCount = _rc.forbiddenRelatedTasksCount;
-    final onlyOneTask = tasksMainController.tasks.where((t) => t.wsId == srcTask.wsId).length == 1;
     return MTDialog(
       topBar: MTTopBar(pageTitle: loc.relations_title, parentPageTitle: srcTask.title),
       body: _rc.hasRelations
@@ -61,29 +85,17 @@ class _RelationsDialog extends StatelessWidget {
                   ? SmallText(
                       '${loc.more_count(forbiddenCount)} ${loc.task_plural(forbiddenCount)} ${loc.tasks_forbidden_view_suffix(forbiddenCount)}',
                       padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P),
+                      align: TextAlign.center,
                     )
                   : null,
               onTaskTap: (t) => _showTask(context, t, srcTask),
             )
-          : ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                MTImage(ImageName.relations.name),
-                H2(onlyOneTask ? loc.relations_only_one_task_title : loc.relations_empty_title,
-                    padding: const EdgeInsets.all(P3), align: TextAlign.center),
-                if (!onlyOneTask) BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-                const SizedBox(height: P3),
-              ],
-            ),
-      bottomBar: !onlyOneTask
+          : _emptyRelationsScreen,
+      bottomBar: _rc.hasRelations
           ? MTBottomBar(
-              middle: MTButton.secondary(
-                leading: const PlusIcon(),
-                titleText: '${loc.action_add_title} ${loc.relation_title.toLowerCase()}',
-                onTap: () => createRelationDialog(_rc.tc),
-              ),
-            )
+              middle: _onlyOneTaskInWS
+                  ? SmallText(loc.relations_only_one_task_title, padding: const EdgeInsets.symmetric(horizontal: P3), align: TextAlign.center)
+                  : _createRelationButton)
           : null,
     );
   }

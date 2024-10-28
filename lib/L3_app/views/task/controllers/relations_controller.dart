@@ -10,21 +10,31 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_relation.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../views/_base/loadable.dart';
+import '../widgets/relations/create_relation_dialog.dart';
 import 'task_controller.dart';
 
 part 'relations_controller.g.dart';
 
 class RelationsController extends _Base with _$RelationsController {
   RelationsController(TaskController tcIn) {
-    tc = tcIn;
+    _tc = tcIn;
+  }
+
+  void startCreateRelation() => createRelationDialog(_tc);
+
+  Future reloadRelatedTasks() async {
+    await load(() async {
+      final forbiddenTasksCount = await tasksMainController.loadTasksIfAbsent(wsId, _relatedTasksIds);
+      setForbiddenRelatedTasksCount(forbiddenTasksCount);
+    });
   }
 }
 
 abstract class _Base with Store, Loadable {
-  late final TaskController tc;
-  Task get task => tc.task;
-  int get _wsId => tc.taskDescriptor.wsId;
-  int get _taskId => tc.taskDescriptor.id!;
+  late final TaskController _tc;
+  Task get task => _tc.task;
+  int get wsId => _tc.taskDescriptor.wsId;
+  int get _taskId => _tc.taskDescriptor.id!;
 
   @observable
   ObservableList<TaskRelation> _relations = ObservableList();
@@ -39,20 +49,13 @@ abstract class _Base with Store, Loadable {
   bool get hasRelations => _relations.isNotEmpty;
 
   @action
-  void reload() => _relations = ObservableList.of(tc.task.relations);
+  void reload() => _relations = ObservableList.of(task.relations);
 
   @computed
   Iterable<int> get _relatedTasksIds => _relations.map((r) => r.relatedTaskId(_taskId));
 
   @computed
-  List<MapEntry<TaskState, List<Task>>> get tasksGroups => groups(_relatedTasksIds.map((id) => tasksMainController.task(_wsId, id)).whereNotNull());
-
-  Future reloadRelatedTasks() async {
-    await load(() async {
-      final frtCount = await tasksMainController.loadTasksIfAbsent(_wsId, _relatedTasksIds);
-      setForbiddenRelatedTasksCount(frtCount);
-    });
-  }
+  List<MapEntry<TaskState, List<Task>>> get tasksGroups => groups(_relatedTasksIds.map((id) => tasksMainController.task(wsId, id)).whereNotNull());
 
   @computed
   List<TaskRelation> get sortedRelations => _relations.sorted((r1, r2) => r1.title(_taskId).compareTo(r2.title(_taskId)));

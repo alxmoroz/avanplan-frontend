@@ -21,12 +21,12 @@ class InvitationController extends _InvitationControllerBase with _$InvitationCo
   InvitationController(Task taskIn) {
     task = taskIn;
   }
+
+  Iterable<Role> get roles => task.ws.roles;
 }
 
 abstract class _InvitationControllerBase with Store {
   late final Task task;
-
-  Iterable<Role> get roles => task.ws.roles;
 
   /// Роль
   @observable

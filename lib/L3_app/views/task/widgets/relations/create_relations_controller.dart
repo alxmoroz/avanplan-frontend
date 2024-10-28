@@ -21,31 +21,6 @@ class CreateRelationsController extends _Base with _$CreateRelationsController {
   CreateRelationsController(TaskController tcIn) {
     _tc = tcIn;
   }
-}
-
-abstract class _Base with Store, Loadable {
-  late final TaskController _tc;
-  Task get task => _tc.task;
-
-  @observable
-  TaskController? _dstTC;
-
-  @computed
-  bool get dstSelected => _dstTC != null;
-
-  @computed
-  Task? get dstGroup => _dstTC?.task;
-
-  @computed
-  List<Task> get dstTasks => dstGroup?.subtasks.where((t) => t.id != task.id).toList() ?? [];
-
-  @action
-  Future _setDstGroup(Task dst) async {
-    _dstTC = TaskController(taskIn: dst);
-    if (!dstGroup!.filled) {
-      await load(() async => await _dstTC!.reload());
-    }
-  }
 
   Future selectDstGroup() async {
     final src = task;
@@ -77,10 +52,36 @@ abstract class _Base with Store, Loadable {
         srcId: src.id!,
         dstId: dst.id!,
       ));
-      // if (relation != null) {
-      //   src.relations.add(relation);
-      //   dst.relations.add(relation);
-      // }
+      if (relation != null) {
+        src.relations.add(relation);
+        _tc.relationsController.reload();
+        dst.relations.add(relation);
+      }
     });
+  }
+}
+
+abstract class _Base with Store, Loadable {
+  late final TaskController _tc;
+  Task get task => _tc.task;
+
+  @observable
+  TaskController? _dstTC;
+
+  @computed
+  bool get dstSelected => _dstTC != null;
+
+  @computed
+  Task? get dstGroup => _dstTC?.task;
+
+  @computed
+  List<Task> get dstTasks => dstGroup?.subtasks.where((t) => t.id != task.id).toList() ?? [];
+
+  @action
+  Future _setDstGroup(Task dst) async {
+    _dstTC = TaskController(taskIn: dst);
+    if (!dstGroup!.filled) {
+      await load(() async => await _dstTC!.reload());
+    }
   }
 }

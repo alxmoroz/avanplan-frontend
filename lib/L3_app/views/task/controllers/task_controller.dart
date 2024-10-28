@@ -180,9 +180,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       super.parseError(e);
     }
   }
-}
 
-abstract class _TaskControllerBase extends EditController with Store, Loadable {
   late Task taskDescriptor;
 
   late final RelationsController relationsController;
@@ -217,3 +215,5 @@ abstract class _TaskControllerBase extends EditController with Store, Loadable {
   bool get canShowRelationsField => relationsController.hasRelations || canEditRelations;
   bool get canComment => !_isPreview && task.canComment;
 }
+
+abstract class _TaskControllerBase extends EditController with Store, Loadable {}

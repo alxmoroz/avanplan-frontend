@@ -18,6 +18,46 @@ class ProjectModulesController extends _ProjectModulesControllerBase with _$Proj
   ProjectModulesController(TaskController taskController) {
     _taskController = taskController;
   }
+
+  bool hasChecked(String code) {
+    for (int index = 0; index < checks.length; index++) {
+      if (enabledProjectOptions.elementAt(index).code == code && checks[index]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future setup() async {
+    final fIndex = TaskFCode.projectModules.index;
+    _taskController.updateField(fIndex, loading: true);
+    final toCodes = <String>[];
+    for (int index = 0; index < checks.length; index++) {
+      if (checks[index]) {
+        toCodes.add(enabledProjectOptions.elementAt(index).code);
+      }
+    }
+    project.projectModules = await projectModulesUC.setup(project.wsId, project.id!, toCodes);
+    _taskController.updateField(fIndex, loading: false);
+  }
+
+  Function(bool?)? onChanged(int index) {
+    bool disabled = _taskController.loading == true;
+
+    if (!disabled) {
+      final f = enabledProjectOptions.elementAt(index);
+      final checked = checks[index];
+
+      if (f.code == TOCode.TEAM) {
+        disabled = checked && project.members.length > 1;
+      } else if (f.code == TOCode.GOALS) {
+        // не можем включить для трелло и не можем выключить, если есть уже цели или задачи в корне проекта
+        final isTrello = project.ws.remoteSourceForId(project.taskSource?.sourceId)?.type.isTrello == true;
+        disabled = isTrello || project.hasSubtasks;
+      }
+    }
+    return disabled ? null : (bool? value) => selectModule(index, value);
+  }
 }
 
 abstract class _ProjectModulesControllerBase with Store {
@@ -37,46 +77,6 @@ abstract class _ProjectModulesControllerBase with Store {
     checks = ObservableList.of([for (var to in enabledProjectOptions) project.hm(to.code)]);
   }
 
-  bool hasChecked(String code) {
-    for (int index = 0; index < checks.length; index++) {
-      if (enabledProjectOptions.elementAt(index).code == code && checks[index]) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   @action
   void selectModule(int index, bool? selected) => checks[index] = selected == true;
-
-  Function(bool?)? onChanged(int index) {
-    bool disabled = _taskController.loading == true;
-
-    if (!disabled) {
-      final f = enabledProjectOptions.elementAt(index);
-      final checked = checks[index];
-
-      if (f.code == TOCode.TEAM) {
-        disabled = checked && project.members.length > 1;
-      } else if (f.code == TOCode.GOALS) {
-        // не можем включить для трелло и не можем выключить, если есть уже цели или задачи в корне проекта
-        final isTrello = project.ws.remoteSourceForId(project.taskSource?.sourceId)?.type.isTrello == true;
-        disabled = isTrello || project.hasSubtasks;
-      }
-    }
-    return disabled ? null : (bool? value) => selectModule(index, value);
-  }
-
-  Future setup() async {
-    final fIndex = TaskFCode.projectModules.index;
-    _taskController.updateField(fIndex, loading: true);
-    final toCodes = <String>[];
-    for (int index = 0; index < checks.length; index++) {
-      if (checks[index]) {
-        toCodes.add(enabledProjectOptions.elementAt(index).code);
-      }
-    }
-    project.projectModules = await projectModulesUC.setup(project.wsId, project.id!, toCodes);
-    _taskController.updateField(fIndex, loading: false);
-  }
 }

@@ -10,6 +10,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -50,32 +51,23 @@ class _LocalImportDialog extends StatelessWidget {
         builder: (_) => MTDialog(
           topBar: MTTopBar(
             pageTitle: loc.task_transfer_title,
-            innerHeight: P * 22 + (_showSelectAll ? P8 : P),
+            parentPageTitle: _dst.title,
+            innerHeight: P * 19 + (_showSelectAll ? P8 : 0),
             bottomWidget: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  height: P3,
-                  alignment: Alignment.center,
-                  child: BaseText(
-                    '$_dst',
+                MTListTile(
+                  middle: BaseText.medium(
+                    controller.srcSelected ? '$_src' : loc.task_transfer_source_hint,
+                    color: f2Color,
                     maxLines: 1,
-                    align: TextAlign.center,
-                    padding: const EdgeInsets.symmetric(horizontal: P2),
                   ),
-                ),
-                const SizedBox(height: P),
-                MTButton.secondary(
-                  constrained: false,
-                  padding: const EdgeInsets.symmetric(horizontal: P3),
-                  margin: const EdgeInsets.symmetric(horizontal: P2),
-                  titleText: controller.srcSelected ? '$_src' : loc.task_transfer_source_hint,
-                  trailing: controller.srcSelected
-                      ? const Padding(
-                          padding: EdgeInsets.only(top: P_2),
-                          child: CaretIcon(size: Size(P2 * 0.7, P2 * 0.7), color: mainColor),
-                        )
-                      : null,
+                  trailing: const SizedBox(
+                    width: P4,
+                    child: Align(child: CaretIcon(size: Size(P2, P2), color: mainColor)),
+                  ),
+                  margin: const EdgeInsets.only(top: P),
+                  bottomDivider: false,
                   onTap: controller.selectSourceForMove,
                 ),
                 if (_showSelectAll)
@@ -87,8 +79,6 @@ class _LocalImportDialog extends StatelessWidget {
                     bottomDivider: false,
                     onChanged: controller.toggleAll,
                   )
-                else
-                  const SizedBox(height: P),
               ],
             ),
           ),

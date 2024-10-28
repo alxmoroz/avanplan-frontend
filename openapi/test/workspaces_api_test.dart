@@ -48,6 +48,13 @@ void main() {
       // TODO
     });
 
+    // Delete Relation
+    //
+    //Future<bool> deleteRelation(int wsId, int relationId, { int taskId }) async
+    test('test deleteRelation', () async {
+      // TODO
+    });
+
     // Delete
     //
     //Future<bool> deleteRepeat(int wsId, int taskId, int repeatId) async
@@ -201,6 +208,13 @@ void main() {
       // TODO
     });
 
+    // Sources For Relations
+    //
+    //Future<BuiltList<TaskGet>> sourcesForRelations(int wsId, { int taskId }) async
+    test('test sourcesForRelations', () async {
+      // TODO
+    });
+
     // Start Import
     //
     //Future<bool> startImport(int wsId, int sourceId, BodyStartImport bodyStartImport) async
@@ -261,6 +275,13 @@ void main() {
     //
     //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async
     test('test upsertOption', () async {
+      // TODO
+    });
+
+    // Upsert Relation
+    //
+    //Future<TaskRelationGet> upsertRelation(int wsId, TaskRelationUpsert taskRelationUpsert, { int taskId }) async
+    test('test upsertRelation', () async {
       // TODO
     });
 

@@ -15,15 +15,15 @@ part 'relations_controller.g.dart';
 
 class RelationsController extends _Base with _$RelationsController {
   RelationsController(TaskController tcIn) {
-    _tc = tcIn;
+    tc = tcIn;
   }
 }
 
 abstract class _Base with Store, Loadable {
-  late final TaskController _tc;
-  Task get task => _tc.task;
-  int get _wsId => _tc.taskDescriptor.wsId;
-  int get _taskId => _tc.taskDescriptor.id!;
+  late final TaskController tc;
+  Task get task => tc.task;
+  int get _wsId => tc.taskDescriptor.wsId;
+  int get _taskId => tc.taskDescriptor.id!;
 
   @observable
   ObservableList<TaskRelation> _relations = ObservableList();
@@ -38,7 +38,7 @@ abstract class _Base with Store, Loadable {
   bool get hasRelations => _relations.isNotEmpty;
 
   @action
-  void reload() => _relations = ObservableList.of(_tc.task.relations);
+  void reload() => _relations = ObservableList.of(tc.task.relations);
 
   @computed
   Iterable<int> get _relatedTasksIds => _relations.map((r) => r.relatedTaskId(_taskId));

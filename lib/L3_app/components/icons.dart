@@ -139,7 +139,7 @@ class CaretIcon extends StatelessWidget {
 }
 
 class CheckboxIcon extends MTIcon {
-  const CheckboxIcon(this.checked, {super.key, super.color, super.size = P6, super.solid})
+  const CheckboxIcon(this.checked, {super.key, super.color, super.size = P4, super.solid})
       : super(
           checked ? (solid == true ? CupertinoIcons.checkmark_square_fill : CupertinoIcons.checkmark_square) : CupertinoIcons.square,
         );

@@ -29,6 +29,7 @@ import 'package:openapi/src/api/task_notes_api.dart';
 import 'package:openapi/src/api/task_repeats_api.dart';
 import 'package:openapi/src/api/task_transactions_api.dart';
 import 'package:openapi/src/api/wsmy_api.dart';
+import 'package:openapi/src/api/ws_relations_api.dart';
 import 'package:openapi/src/api/ws_sources_api.dart';
 import 'package:openapi/src/api/ws_tariff_options_api.dart';
 import 'package:openapi/src/api/ws_tariffs_api.dart';
@@ -208,6 +209,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   WSMyApi getWSMyApi() {
     return WSMyApi(dio, serializers);
+  }
+
+  /// Get WSRelationsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WSRelationsApi getWSRelationsApi() {
+    return WSRelationsApi(dio, serializers);
   }
 
   /// Get WSSourcesApi instance, base route and serializer can be overridden by a given but be careful,

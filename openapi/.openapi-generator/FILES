@@ -71,6 +71,7 @@ doc/TaskInvitationsApi.md
 doc/TaskNode.md
 doc/TaskNotesApi.md
 doc/TaskRelationGet.md
+doc/TaskRelationUpsert.md
 doc/TaskRemote.md
 doc/TaskRepeatGet.md
 doc/TaskRepeatUpsert.md
@@ -89,6 +90,7 @@ doc/UserContactUpsert.md
 doc/ValidationError.md
 doc/ValidationErrorLocInner.md
 doc/WSMyApi.md
+doc/WSRelationsApi.md
 doc/WSSourcesApi.md
 doc/WSTariffOptionsApi.md
 doc/WSTariffsApi.md
@@ -119,6 +121,7 @@ lib/src/api/task_notes_api.dart
 lib/src/api/task_repeats_api.dart
 lib/src/api/task_transactions_api.dart
 lib/src/api/workspaces_api.dart
+lib/src/api/ws_relations_api.dart
 lib/src/api/ws_sources_api.dart
 lib/src/api/ws_tariff_options_api.dart
 lib/src/api/ws_tariffs_api.dart
@@ -185,6 +188,7 @@ lib/src/model/tariff_option_get.dart
 lib/src/model/task_get.dart
 lib/src/model/task_node.dart
 lib/src/model/task_relation_get.dart
+lib/src/model/task_relation_upsert.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_repeat_get.dart
 lib/src/model/task_repeat_upsert.dart
@@ -273,6 +277,7 @@ test/task_invitations_api_test.dart
 test/task_node_test.dart
 test/task_notes_api_test.dart
 test/task_relation_get_test.dart
+test/task_relation_upsert_test.dart
 test/task_remote_test.dart
 test/task_repeat_get_test.dart
 test/task_repeat_upsert_test.dart
@@ -293,6 +298,7 @@ test/validation_error_test.dart
 test/workspace_get_test.dart
 test/workspace_upsert_test.dart
 test/workspaces_api_test.dart
+test/ws_relations_api_test.dart
 test/ws_sources_api_test.dart
 test/ws_tariff_options_api_test.dart
 test/ws_tariffs_api_test.dart

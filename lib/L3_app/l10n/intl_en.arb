@@ -321,7 +321,10 @@
 
   "related_task_preview_hint": "Read Only\nGo to task to make changes",
   "relations_empty_title": "There are no related tasks yet",
+  "relation_create_dialog_title": "Select a task for the relation",
   "relations_empty_hint": "Add relations to track dependencies and determine order of tasks",
+  "relation_title": "Relation",
+  "relations_title": "Relations",
 
   "report_bug_action_title": "Report a bug",
 
@@ -507,8 +510,6 @@
 
   "task_reopen_action_title": "Reopen",
 
-  "task_relations_title": "Relations",
-
   "task_repeat_action_title": "Repeat",
   "task_repeat_dialog_title": "Repeat settings",
   "task_repeat_placeholder": "Repeat",
@@ -540,7 +541,7 @@
   "task_transfer_import_confirm_action_title": "Transfer",
   "task_transfer_import_empty_title": "There are no tasks to transfer",
   "task_transfer_source_hint": "Select where to transfer from",
-  "task_transfer_title": "Transfer tasks to ",
+  "task_transfer_title": "Transfer tasks",
 
   "task_unlink_action_title": "Delete link",
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",

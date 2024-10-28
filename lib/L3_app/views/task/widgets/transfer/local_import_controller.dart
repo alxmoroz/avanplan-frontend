@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../components/dialog.dart';
 import '../../../../extra/services.dart';
 import '../../../../navigation/router.dart';
@@ -11,36 +12,36 @@ import '../../../../usecases/ws_actions.dart';
 import '../../../../views/_base/loadable.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
-import 'transfer_selector.dart';
-import 'transfer_selector_controller.dart';
+import '../tasks/tasks_selector_controller.dart';
+import '../tasks/tasks_selector_dialog.dart';
 
 part 'local_import_controller.g.dart';
 
-class LocalImportController extends _LocalImportControllerBase with _$LocalImportController {
-  LocalImportController(TaskController taskController) {
-    _taskController = taskController;
+class LocalImportController extends _Base with _$LocalImportController {
+  LocalImportController(TaskController tc) {
+    _tc = tc;
   }
 }
 
-abstract class _LocalImportControllerBase with Store, Loadable {
-  late final TaskController _taskController;
+abstract class _Base with Store, Loadable {
+  late final TaskController _tc;
 
-  Task get dstGroup => _taskController.task;
+  Task get dstGroup => _tc.task;
 
   @observable
-  TaskController? srcController;
+  TaskController? _srcController;
 
   @computed
-  bool get srcSelected => srcController != null;
+  bool get srcSelected => _srcController != null;
 
-  Task? get srcGroup => srcController?.task;
+  Task? get srcGroup => _srcController?.task;
 
   @action
   Future _setSrc(Task src) async {
-    srcController = TaskController(taskIn: src);
+    _srcController = TaskController(taskIn: src);
 
     if (srcGroup?.filled == false) {
-      await load(() async => await srcController!.reload(closed: false));
+      await load(() async => await _srcController!.reload(closed: false));
     }
 
     srcTasks = srcGroup?.openedSubtasks.toList() ?? [];
@@ -67,16 +68,26 @@ abstract class _LocalImportControllerBase with Store, Loadable {
 
   Future selectSourceForMove() async {
     // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
-    if (await dstGroup.ws.checkBalance(loc.task_transfer_export_action_title)) {
-      final controller = TransferSelectorController();
-      controller.getSourcesForMove(dstGroup);
-      final srcGoal = await showMTDialog<Task>(TransferSelectorDialog(
-        controller,
+    final dst = dstGroup;
+    if (await dst.ws.checkBalance(loc.task_transfer_export_action_title)) {
+      final tsc = TasksSelectorController();
+      tsc.load(() async {
+        // перенос из других целей, бэклогов, проектов
+        final tasks = <Task>[];
+        for (Workspace ws in wsMainController.workspaces) {
+          tasks.addAll(await wsTransferUC.sourcesForMove(ws.id!));
+        }
+        tasks.removeWhere((t) => t.wsId == dst.wsId && t.id == dst.id);
+        tasks.sort();
+        tsc.setTasks(tasks);
+      });
+      final srcGroup = await showMTDialog<Task>(TasksSelectorDialog(
+        tsc,
         loc.task_transfer_source_hint,
         loc.task_transfer_import_empty_title,
       ));
-      if (srcGoal != null) {
-        _setSrc(srcGoal);
+      if (srcGroup != null) {
+        _setSrc(srcGroup);
       }
     }
   }

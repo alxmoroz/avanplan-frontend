@@ -320,8 +320,11 @@
   "register_title": "Регистрация",
 
   "related_task_preview_hint": "Только просмотр\nПерейдите для внесения изменений",
+  "relation_create_dialog_title": "Выберите задачу для связи",
   "relations_empty_title": "Связанных задач пока нет",
   "relations_empty_hint": "Добавьте связи, чтобы отслеживать зависимости и определять порядок",
+  "relation_title": "Связь",
+  "relations_title": "Связи",
 
   "report_bug_action_title": "Сообщить о проблеме",
 
@@ -507,8 +510,6 @@
 
   "task_reopen_action_title": "Переоткрыть",
 
-  "task_relations_title": "Связи",
-
   "task_repeat_action_title": "Повторить",
   "task_repeat_dialog_title": "Настройки повтора",
   "task_repeat_placeholder": "Повтор",
@@ -539,7 +540,7 @@
   "task_transfer_import_confirm_action_title": "Перенести",
   "task_transfer_import_empty_title": "Нечего переносить",
   "task_transfer_source_hint": "Выберите, откуда перенести",
-  "task_transfer_title": "Перенос задач в ",
+  "task_transfer_title": "Перенос задач",
 
   "task_unlink_action_title": "Удалить связь",
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",

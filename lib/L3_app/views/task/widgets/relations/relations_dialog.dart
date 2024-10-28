@@ -10,6 +10,7 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -19,6 +20,7 @@ import '../../../_base/loader_screen.dart';
 import '../../controllers/relations_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../tasks/tasks_list_view.dart';
+import 'create_relation_dialog.dart';
 import 'related_task_preview.dart';
 
 Future relationsDialog(RelationsController rc) async {
@@ -30,15 +32,12 @@ class _RelationsDialog extends StatelessWidget {
   const _RelationsDialog(this._rc);
   final RelationsController _rc;
 
-  void _addRelation() {
-    print('ADD RELATION 1');
-  }
-
   Future _showTask(BuildContext context, Task t, Task srcTask) async {
     // превью для мобилки, чтобы не делать бесконечную пуш-навигацию
     // выход из превью может сопровождаться желанием перейти к задаче для редактирования
     // для большого экрана не показываем превью, переходим к целевой задаче
-    bool? wantGoTask = isBigScreen(context) || await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true)));
+    final big = isBigScreen(context);
+    bool? wantGoTask = big || await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true)));
     // есть желание и возможность перейти к целевой задаче
     if (wantGoTask == true) {
       // закрываем этот диалог (список связей)
@@ -53,7 +52,7 @@ class _RelationsDialog extends StatelessWidget {
     final srcTask = _rc.task;
     final forbiddenCount = _rc.forbiddenRelatedTasksCount;
     return MTDialog(
-      topBar: MTTopBar(pageTitle: loc.task_relations_title, parentPageTitle: srcTask.title),
+      topBar: MTTopBar(pageTitle: loc.relations_title, parentPageTitle: srcTask.title),
       body: _rc.hasRelations
           ? TasksListView(
               _rc.tasksGroups,
@@ -76,7 +75,13 @@ class _RelationsDialog extends StatelessWidget {
                 const SizedBox(height: P3),
               ],
             ),
-      bottomBar: MTBottomBar(middle: MTButton.main(titleText: loc.action_add_title, onTap: _addRelation)),
+      bottomBar: MTBottomBar(
+        middle: MTButton.secondary(
+          leading: const PlusIcon(),
+          titleText: '${loc.action_add_title} ${loc.relation_title.toLowerCase()}',
+          onTap: () => createRelationDialog(_rc.tc),
+        ),
+      ),
     );
   }
 

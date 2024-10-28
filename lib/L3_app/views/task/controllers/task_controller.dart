@@ -126,7 +126,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         MTFieldData(TaskFCode.note.index),
         MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
         MTFieldData(TaskFCode.finance.index, label: loc.tariff_option_finance_title, placeholder: loc.tariff_option_finance_title),
-        MTFieldData(TaskFCode.relation.index, label: loc.task_relations_title, placeholder: loc.task_relations_title),
+        MTFieldData(TaskFCode.relation.index, label: loc.relations_title, placeholder: loc.relations_title),
       ]);
 
   void reloadContentControllers() {

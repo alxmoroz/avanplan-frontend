@@ -3,21 +3,33 @@
 import 'dart:async';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/workspace.dart';
 import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
-import '../widgets/transfer/transfer_selector.dart';
-import '../widgets/transfer/transfer_selector_controller.dart';
+import '../widgets/tasks/tasks_selector_controller.dart';
+import '../widgets/tasks/tasks_selector_dialog.dart';
 import 'edit.dart';
 
 extension LocalTransferUC on TaskController {
+  // перенос в другую цель, проект
   Future localExport() async {
-    final controller = TransferSelectorController();
-    controller.getDestinationsForMove(task);
-    final destination = await showMTDialog<Task>(TransferSelectorDialog(
-      controller,
+    final src = task;
+    final tsc = TasksSelectorController();
+    tsc.load(() async {
+      final tasks = <Task>[];
+      for (Workspace ws in wsMainController.workspaces) {
+        tasks.addAll(await wsTransferUC.destinationsForMove(ws.id!, src.type));
+      }
+      tasks.removeWhere((t) => t.wsId == src.parent?.wsId && t.id == src.parentId);
+      tasks.sort();
+      tsc.setTasks(tasks);
+    });
+
+    final destination = await showMTDialog<Task>(TasksSelectorDialog(
+      tsc,
       loc.task_transfer_destination_hint,
       loc.task_transfer_export_empty_title,
     ));

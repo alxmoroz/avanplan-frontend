@@ -25,6 +25,7 @@ import '../../L1_domain/usecases/task_repeat_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/transaction_uc.dart';
 import '../../L1_domain/usecases/ws_my_uc.dart';
+import '../../L1_domain/usecases/ws_relations_uc.dart';
 import '../../L1_domain/usecases/ws_tariffs_uc.dart';
 import '../../L1_domain/usecases/ws_transfer_uc.dart';
 import '../../L1_domain/usecases/ws_uc.dart';
@@ -50,6 +51,7 @@ import '../../L2_data/repositories/task_repeats_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
 import '../../L2_data/repositories/task_transactions_repo.dart';
 import '../../L2_data/repositories/ws_my_repo.dart';
+import '../../L2_data/repositories/ws_relations_repo.dart';
 import '../../L2_data/repositories/ws_repo.dart';
 import '../../L2_data/repositories/ws_sources_repo.dart';
 import '../../L2_data/repositories/ws_tariffs_repo.dart';
@@ -95,6 +97,7 @@ MyAvatarUC get myAvatarUC => GetIt.I<MyAvatarUC>();
 
 WorkspaceUC get wsUC => GetIt.I<WorkspaceUC>();
 WSTariffsUC get tariffsUC => GetIt.I<WSTariffsUC>();
+WSRelationsUC get relationsUC => GetIt.I<WSRelationsUC>();
 RemoteSourcesUC get remoteSourcesUC => GetIt.I<RemoteSourcesUC>();
 WSTransferUC get wsTransferUC => GetIt.I<WSTransferUC>();
 WSMyUC get wsMyUC => GetIt.I<WSMyUC>();
@@ -140,6 +143,7 @@ void setup() {
   getIt.registerSingleton<WSMyUC>(WSMyUC(WSMyRepo()));
   getIt.registerSingleton<RemoteSourcesUC>(RemoteSourcesUC(WSSourcesRepo()));
   getIt.registerSingleton<WSTariffsUC>(WSTariffsUC(WSTariffsRepo()));
+  getIt.registerSingleton<WSRelationsUC>(WSRelationsUC(WSRelationsRepo()));
   getIt.registerSingleton<WSTransferUC>(WSTransferUC(WSTransferRepo()));
 
   getIt.registerSingleton<ProjectStatusesUC>(ProjectStatusesUC(ProjectStatusesRepo()));

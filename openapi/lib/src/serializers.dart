@@ -66,6 +66,7 @@ import 'package:openapi/src/model/tariff_option_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_node.dart';
 import 'package:openapi/src/model/task_relation_get.dart';
+import 'package:openapi/src/model/task_relation_upsert.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_repeat_get.dart';
 import 'package:openapi/src/model/task_repeat_upsert.dart';
@@ -139,6 +140,7 @@ part 'serializers.g.dart';
   TaskGet,
   TaskNode,
   TaskRelationGet,
+  TaskRelationUpsert,
   TaskRemote,
   TaskRepeatGet,
   TaskRepeatUpsert,

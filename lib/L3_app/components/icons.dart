@@ -197,10 +197,9 @@ class DocumentIcon extends MTIcon {
 }
 
 class DoneIcon extends MTIcon {
-  const DoneIcon(this.done, {super.key, super.color, super.solid, super.size = P4})
+  const DoneIcon(this.done, {super.key, super.color, super.solid, super.size = P4, super.circled = true})
       : super(
           done ? CupertinoIcons.checkmark : null,
-          circled: true,
         );
   final bool done;
 }
@@ -264,7 +263,7 @@ class FileStorageIcon extends MTIcon {
 }
 
 class FilterIcon extends MTIcon {
-  const FilterIcon({super.key, super.color, super.size = P3}) : super(CupertinoIcons.search);
+  const FilterIcon({super.key, super.color, super.size = P3}) : super(CupertinoIcons.line_horizontal_3_decrease);
 }
 
 class FinanceIcon extends MTIcon {

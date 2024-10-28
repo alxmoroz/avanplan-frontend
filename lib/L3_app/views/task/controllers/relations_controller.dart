@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_relation.dart';
+import '../../../../L1_domain/entities_extensions/task_relation.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_relation.dart';
 import '../../../presenters/task_tree.dart';

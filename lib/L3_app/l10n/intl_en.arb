@@ -323,6 +323,7 @@
   "relations_empty_title": "There are no related tasks yet",
   "relation_create_dialog_title": "Select a task for the relation",
   "relations_empty_hint": "Add relations to track dependencies and determine order of tasks",
+  "relations_only_one_task_title": "There are no other tasks\nto relate to",
   "relation_title": "Relation",
   "relations_title": "Relations",
 

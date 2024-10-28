@@ -37,9 +37,8 @@ class _RelationsDialog extends StatelessWidget {
     // выход из превью может сопровождаться желанием перейти к задаче для редактирования
     // для большого экрана не показываем превью, переходим к целевой задаче
     final big = isBigScreen(context);
-    bool? wantGoTask = big || await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true)));
     // есть желание и возможность перейти к целевой задаче
-    if (wantGoTask == true) {
+    if (big || await showMTDialog(RelatedTaskPreview(TaskController(taskIn: t, isPreview: true))) == true) {
       // закрываем этот диалог (список связей)
       if (context.mounted) Navigator.of(context).pop();
 
@@ -51,6 +50,7 @@ class _RelationsDialog extends StatelessWidget {
   Widget _tasksDialog(BuildContext context) {
     final srcTask = _rc.task;
     final forbiddenCount = _rc.forbiddenRelatedTasksCount;
+    final onlyOneTask = tasksMainController.tasks.where((t) => t.wsId == srcTask.wsId).length == 1;
     return MTDialog(
       topBar: MTTopBar(pageTitle: loc.relations_title, parentPageTitle: srcTask.title),
       body: _rc.hasRelations
@@ -70,18 +70,21 @@ class _RelationsDialog extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 MTImage(ImageName.relations.name),
-                H2(loc.relations_empty_title, padding: const EdgeInsets.all(P3), align: TextAlign.center),
-                BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+                H2(onlyOneTask ? loc.relations_only_one_task_title : loc.relations_empty_title,
+                    padding: const EdgeInsets.all(P3), align: TextAlign.center),
+                if (!onlyOneTask) BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
                 const SizedBox(height: P3),
               ],
             ),
-      bottomBar: MTBottomBar(
-        middle: MTButton.secondary(
-          leading: const PlusIcon(),
-          titleText: '${loc.action_add_title} ${loc.relation_title.toLowerCase()}',
-          onTap: () => createRelationDialog(_rc.tc),
-        ),
-      ),
+      bottomBar: !onlyOneTask
+          ? MTBottomBar(
+              middle: MTButton.secondary(
+                leading: const PlusIcon(),
+                titleText: '${loc.action_add_title} ${loc.relation_title.toLowerCase()}',
+                onTap: () => createRelationDialog(_rc.tc),
+              ),
+            )
+          : null,
     );
   }
 

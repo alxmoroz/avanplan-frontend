@@ -33,20 +33,18 @@ abstract class _Base with Store, Loadable {
   @computed
   bool get dstSelected => _dstTC != null;
 
+  @computed
   Task? get dstGroup => _dstTC?.task;
 
-  @observable
-  List<Task> dstTasks = [];
+  @computed
+  List<Task> get dstTasks => dstGroup?.subtasks.where((t) => t.id != task.id).toList() ?? [];
 
   @action
   Future _setDstGroup(Task dst) async {
     _dstTC = TaskController(taskIn: dst);
-
-    if (dstGroup?.filled == false) {
+    if (!dstGroup!.filled) {
       await load(() async => await _dstTC!.reload());
     }
-
-    dstTasks = dstGroup?.subtasks.toList() ?? [];
   }
 
   Future selectDstGroup() async {
@@ -55,9 +53,9 @@ abstract class _Base with Store, Loadable {
     if (await src.ws.checkBalance('${loc.action_add_title} ${loc.relation_title}'.toLowerCase())) {
       final tsc = TasksSelectorController();
       tsc.load(() async {
-        final tasks = (await relationsUC.sourcesForRelations(src.wsId)).toList();
-        tasks.sort();
-        tsc.setTasks(tasks);
+        final groups = (await relationsUC.sourcesForRelations(src.wsId)).toList();
+        groups.sort();
+        tsc.setTasks(groups);
       });
       final dstGroup = await showMTDialog<Task>(TasksSelectorDialog(
         tsc,
@@ -72,13 +70,17 @@ abstract class _Base with Store, Loadable {
 
   Future createRelation(Task dst) async {
     router.pop();
-    load(() async {
+    await load(() async {
       final src = task;
-      await relationsUC.upsertRelation(TaskRelation(
+      final relation = await relationsUC.upsertRelation(TaskRelation(
         wsId: src.wsId,
         srcId: src.id!,
         dstId: dst.id!,
       ));
+      // if (relation != null) {
+      //   src.relations.add(relation);
+      //   dst.relations.add(relation);
+      // }
     });
   }
 }

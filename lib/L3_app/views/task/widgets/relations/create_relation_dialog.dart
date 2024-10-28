@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_relation.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -33,10 +34,12 @@ class _CreateRelationDialog extends StatelessWidget {
 
   Widget _taskItem(BuildContext context, int index) {
     final t = crc.dstTasks[index];
+    final isRelated = crc.task.isRelated(t.id!);
     return TaskCard(
       t,
       bottomDivider: index < crc.dstTasks.length - 1,
-      trailing: const LinkIcon(size: P4),
+      trailing: isRelated ? const DoneIcon(true, circled: false, size: P3, color: f3Color) : const LinkIcon(size: P4),
+      readOnly: isRelated,
       onTap: crc.createRelation,
     );
   }

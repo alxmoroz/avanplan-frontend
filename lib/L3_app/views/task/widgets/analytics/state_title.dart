@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -21,7 +22,7 @@ class _StateTitle extends StatelessWidget {
     return place == StateTitlePlace.groupHeader
         ? MTListGroupTitle(
             leading: Padding(padding: const EdgeInsets.only(top: P2), child: stateIconGroup(context, state)),
-            middle: BaseText(text, maxLines: 1),
+            middle: SmallText(text, maxLines: 1, weight: FontWeight.w500, color: f3Color),
             padding: EdgeInsets.zero,
           )
         : SmallText(text);

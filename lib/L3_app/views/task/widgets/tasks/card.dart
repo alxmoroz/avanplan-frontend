@@ -41,6 +41,7 @@ class TaskCard extends StatelessWidget {
     this.bottomDivider = false,
     this.dragging = false,
     this.showAssignee = true,
+    this.readOnly = false,
     this.trailing,
     this.onTap,
   });
@@ -52,12 +53,15 @@ class TaskCard extends StatelessWidget {
   final bool showStateMark;
   final bool dragging;
   final bool showAssignee;
+  final bool readOnly;
   final Widget? trailing;
   final Function(Task)? onTap;
 
+  bool get _ro => readOnly || task.closed || task.isImportingProject;
+
   void _tap(Task task) => onTap != null ? onTap!(task) : router.goTask(task);
 
-  Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
+  Color? get _textColor => _ro ? f2Color : null;
 
   Widget get _parentTitle => SmallText(task.parent!.title, maxLines: 1);
 
@@ -201,7 +205,7 @@ class TaskCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
-          onTap: dragging ? null : () => _tap(task),
+          onTap: _ro || dragging ? null : () => _tap(task),
           child: _taskContent(false),
         )
       : Stack(
@@ -212,7 +216,7 @@ class TaskCard extends StatelessWidget {
               bottomDivider: bottomDivider,
               dividerIndent: showStateMark ? P6 : P3,
               loading: task.loading,
-              onTap: task.isImportingProject || dragging ? null : () => _tap(task),
+              onTap: _ro || dragging ? null : () => _tap(task),
             ),
             if (showStateMark)
               Positioned(

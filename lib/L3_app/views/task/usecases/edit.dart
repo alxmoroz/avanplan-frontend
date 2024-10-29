@@ -36,6 +36,7 @@ extension TaskUC on Task {
       if (et.notes.isEmpty) et.notes = notes;
       if (et.attachments.isEmpty) et.attachments = attachments;
       if (et.transactions.isEmpty) et.transactions = transactions;
+      if (et.relations.isEmpty) et.relations = relations;
 
       et.repeat ??= repeat;
       et.taskSource ??= taskSource;

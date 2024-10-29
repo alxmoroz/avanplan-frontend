@@ -31,16 +31,16 @@ class _State extends TaskViewState<RelatedTaskPreview> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.loading
-          ? LoaderScreen(controller, isDialog: true)
+      builder: (_) => tc.loading
+          ? LoaderScreen(tc, isDialog: true)
           : MTDialog(
               key: widget.key,
               topBar: MTTopBar(middle: toolbarTitle),
               body: ListView(
                 children: [
-                  TaskHeader(controller),
-                  if (task.hasDescription) TaskDescriptionField(controller, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
-                  MTAdaptive(child: TaskDetails(controller)),
+                  TaskHeader(tc),
+                  if (task.hasDescription) TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
+                  MTAdaptive(child: TaskDetails(tc)),
                 ],
               ),
               bottomBar: MTBottomBar(

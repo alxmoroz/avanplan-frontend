@@ -10,6 +10,8 @@ import '../../../components/adaptive.dart';
 import '../../../extra/services.dart';
 import '../../../views/task/widgets/tasks/card.dart';
 import '../../calendar/event_card.dart';
+import '../../task/controllers/task_controller.dart';
+import '../../task/usecases/delete.dart';
 import '../../task/widgets/analytics/state_title.dart';
 
 class NextTasks extends StatelessWidget {
@@ -40,6 +42,7 @@ class NextTasks extends StatelessWidget {
                     showParent: true,
                     bottomDivider: index < items.length - 1,
                     showAssignee: false,
+                    onDelete: (t) async => await TaskController(taskIn: t).delete(),
                   )
                 : EventCard(
                     item.item as CalendarEvent,

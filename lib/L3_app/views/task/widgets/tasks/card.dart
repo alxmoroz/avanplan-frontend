@@ -1,7 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
 import '../../../../../../L1_domain/entities_extensions/task_dates.dart';
@@ -10,6 +10,7 @@ import '../../../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/utils/dates.dart';
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
@@ -17,6 +18,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
+import '../../../../extra/services.dart';
 import '../../../../navigation/router.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
@@ -31,7 +33,7 @@ import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_status.dart';
 import '../analytics/state_title.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends StatefulWidget {
   const TaskCard(
     this.task, {
     super.key,
@@ -44,6 +46,7 @@ class TaskCard extends StatelessWidget {
     this.readOnly = false,
     this.trailing,
     this.onTap,
+    this.onDelete,
   });
 
   final Task task;
@@ -56,19 +59,37 @@ class TaskCard extends StatelessWidget {
   final bool readOnly;
   final Widget? trailing;
   final Function(Task)? onTap;
+  final Function(Task)? onDelete;
 
-  bool get _ro => readOnly || task.closed || task.isImportingProject;
+  @override
+  State<StatefulWidget> createState() => _State();
+}
 
-  void _tap(Task task) => onTap != null ? onTap!(task) : router.goTask(task);
+class _State extends State<TaskCard> {
+  bool _cardHover = false;
+  bool _delBtnHover = false;
+  bool _deleting = false;
 
-  Color? get _textColor => _ro ? f2Color : null;
+  Task get _t => widget.task;
+  bool get _inactive => widget.readOnly || _t.closed || _t.isImportingProject;
+  bool get _canDelete => widget.onDelete != null && _t.canDelete;
 
-  Widget get _parentTitle => SmallText(task.parent!.title, maxLines: 1);
+  void _tap(Task task) => widget.onTap != null ? widget.onTap!(task) : router.goTask(task);
+
+  Future<bool> _delete() async {
+    setState(() => _deleting = true);
+    widget.onDelete!(_t);
+    return false;
+  }
+
+  Color? get _textColor => _inactive ? f2Color : null;
+
+  Widget get _parentTitle => SmallText(_t.parent!.title, maxLines: 1);
 
   Widget get _title => Row(
         children: [
-          Expanded(child: BaseText(task.title, maxLines: 2, color: _textColor)),
-          if (trailing != null) trailing! else if (!board && !task.isImportingProject) const ChevronIcon(),
+          Expanded(child: BaseText(_t.title, maxLines: 2, color: _textColor)),
+          if (widget.trailing != null) widget.trailing! else if (!isWeb && !widget.board && !_t.isImportingProject) const ChevronIcon(),
         ],
       );
 
@@ -77,53 +98,53 @@ class TaskCard extends StatelessWidget {
         const SizedBox(width: P_2),
         SmallText(errText, color: _textColor, maxLines: 1),
       ]);
-  bool get _showRepeat => task.hasRepeat;
-  bool get _showDate => task.hasDueDate && !task.closed && task.isTask && (task.leafState != TaskState.TODAY || board);
-  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
+  bool get _showRepeat => _t.hasRepeat;
+  bool get _showDate => _t.hasDueDate && !_t.closed && _t.isTask && (_t.leafState != TaskState.TODAY || widget.board);
+  Color get _dateColor => _t.dueDate!.isBefore(tomorrow) ? stateColor(_t.leafState) : _textColor ?? f2Color;
 
   Widget get _date => Row(
         children: [
           CalendarIcon(color: _dateColor, size: P3, endMark: true),
           const SizedBox(width: P_2),
-          SmallText(task.dueDate!.strMedium, color: _dateColor, maxLines: 1),
+          SmallText(_t.dueDate!.strMedium, color: _dateColor, maxLines: 1),
         ],
       );
-  bool get _showStatus => task.canShowStatus && !board && !task.closed;
+  bool get _showStatus => _t.canShowStatus && !widget.board && !_t.closed;
 
-  Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
-  bool get _showAssignee => task.hmTeam && task.hasAssignee && showAssignee;
+  Widget get _status => SmallText('${_t.status}', color: _textColor, maxLines: 1);
+  bool get _showAssignee => _t.hmTeam && _t.hasAssignee && widget.showAssignee;
 
-  Widget get _assignee => task.assignee!.icon(P2 + P_2);
-  bool get _showChecklistMark => !task.closed && task.isCheckList;
+  Widget get _assignee => _t.assignee!.icon(P2 + P_2);
+  bool get _showChecklistMark => !_t.closed && _t.isCheckList;
 
   Widget get _checklistMark => Row(
         children: [
-          SmallText('${task.closedSubtasksCount}/${task.subtasksCount} ', color: f2Color, maxLines: 1),
+          SmallText('${_t.closedSubtasksCount}/${_t.subtasksCount} ', color: f2Color, maxLines: 1),
           const CheckboxIcon(true, size: P3, color: f2Color),
         ],
       );
-  bool get _showAttachmentsMark => !task.closed && task.attachmentsCount > 0;
+  bool get _showAttachmentsMark => !_t.closed && _t.attachmentsCount > 0;
 
   Widget get _attachmentsMark => Row(
         children: [
-          SmallText('${task.attachmentsCount} ', color: f2Color, maxLines: 1),
+          SmallText('${_t.attachmentsCount} ', color: f2Color, maxLines: 1),
           const AttachmentIcon(size: P3, color: f2Color),
         ],
       );
-  bool get _showNotesMark => !task.closed && task.notesCount > 0;
+  bool get _showNotesMark => !_t.closed && _t.notesCount > 0;
 
   Widget get _notesMark => Row(
         children: [
-          SmallText('${task.notesCount} ', color: f2Color, maxLines: 1),
+          SmallText('${_t.notesCount} ', color: f2Color, maxLines: 1),
           NoteMarkIcon(
-            mine: task.notes.any((n) => n.isMine(task)),
-            theirs: task.notes.any((n) => !n.isMine(task)),
+            mine: _t.notes.any((n) => n.isMine(_t)),
+            theirs: _t.notes.any((n) => !n.isMine(_t)),
           ),
         ],
       );
-  bool get _showEstimate => task.hmAnalytics && task.hasEstimate;
+  bool get _showEstimate => _t.hmAnalytics && _t.hasEstimate;
 
-  Widget get _estimate => SmallText(task.estimateStr, color: _textColor, maxLines: 1);
+  Widget get _estimate => SmallText(_t.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P),
@@ -134,26 +155,25 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showParent && task.parent != null) ...[
+          if (widget.showParent && _t.parent != null) ...[
             _parentTitle,
             const SizedBox(height: P_2),
           ],
           _title,
           // ошибки
-          if (task.error != null)
-            _error(task.error!.message)
+          if (_t.error != null)
+            _error(_t.error!.message)
           // проекты, цели или группы задач: интегральная оценка, метка связанного проекта, вложений и комментариев
-          else if (task.isGroup &&
-              (task.hasAnalytics || _showAttachmentsMark || _showNotesMark || task.isLinkedProject || task.wsCode.isNotEmpty)) ...[
+          else if (_t.isGroup && (_t.hasAnalytics || _showAttachmentsMark || _showNotesMark || _t.isLinkedProject || _t.wsCode.isNotEmpty)) ...[
             const SizedBox(height: P_2),
             Row(
               children: [
-                if (task.hasAnalytics) TaskStateTitle(task, place: StateTitlePlace.card),
+                if (_t.hasAnalytics) TaskStateTitle(_t, place: StateTitlePlace.card),
                 const Spacer(),
                 if (_showAttachmentsMark) ...[_attachmentsMark],
                 if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
-                if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],
-                if (task.wsCode.isNotEmpty) SmallText(task.wsCode, color: f3Color, maxLines: 1),
+                if (_t.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],
+                if (_t.wsCode.isNotEmpty) SmallText(_t.wsCode, color: f3Color, maxLines: 1),
               ],
             ),
             // задачи: срок, метка чек-листа, вложений, комментов, оценка, статус, назначено
@@ -165,7 +185,7 @@ class TaskCard extends StatelessWidget {
               _showStatus ||
               _showAssignee ||
               _showEstimate) ...[
-            SizedBox(height: board ? P_2 : P),
+            SizedBox(height: widget.board ? P_2 : P),
             Row(
               children: [
                 if (_showDate) _date,
@@ -198,36 +218,81 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  @override
-  Widget build(BuildContext context) => board
-      ? MTCardButton(
-          elevation: dragging ? 3 : null,
-          margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-          padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-          loading: task.loading,
-          onTap: _ro || dragging ? null : () => _tap(task),
-          child: _taskContent(false),
-        )
-      : Stack(
-          children: [
-            MTListTile(
-              leading: showStateMark ? const SizedBox(width: P) : null,
-              middle: LayoutBuilder(builder: (_, size) => _taskContent(size.maxWidth > SCR_S_WIDTH)),
-              bottomDivider: bottomDivider,
-              dividerIndent: showStateMark ? P6 : P3,
-              loading: task.loading,
-              onTap: _ro || dragging ? null : () => _tap(task),
+  Widget get _boardCard {
+    return MTCardButton(
+      elevation: widget.dragging ? 3 : null,
+      margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+      padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+      loading: _t.loading,
+      onTap: _inactive || widget.dragging ? null : () => _tap(_t),
+      child: _taskContent(false),
+    );
+  }
+
+  Widget _listTile(BuildContext context) {
+    final showStateMark = widget.showStateMark;
+    final content = Stack(
+      children: [
+        MTListTile(
+          leading: showStateMark ? const SizedBox(width: P) : null,
+          middle: LayoutBuilder(builder: (_, size) => _taskContent(size.maxWidth > SCR_S_WIDTH)),
+          bottomDivider: widget.bottomDivider,
+          dividerIndent: showStateMark ? P6 : P3,
+          loading: _deleting || _t.loading,
+          onHover: !_inactive && isWeb ? (hover) => setState(() => _cardHover = hover) : null,
+          onTap: _inactive || widget.dragging ? null : () => _tap(_t),
+        ),
+        if (showStateMark)
+          Positioned(
+            left: P3,
+            top: 0,
+            bottom: 0,
+            child: Container(
+              decoration: BoxDecoration(gradient: stateGradient(context, _t.overallState)),
+              width: P,
             ),
-            if (showStateMark)
-              Positioned(
-                left: P3,
-                top: 0,
-                bottom: 0,
-                child: Container(
-                  decoration: BoxDecoration(gradient: stateGradient(context, task.overallState)),
-                  width: P,
-                ),
+          ),
+        if (_canDelete && isWeb)
+          Positioned(
+            right: 0,
+            child: Opacity(
+              opacity: _cardHover ? 1 : 0,
+              child: MTButton.icon(
+                DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: P4),
+                padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
+                margin: const EdgeInsets.only(left: P2),
+                onHover: (hover) => setState(() => _delBtnHover = hover),
+                onTap: _delete,
               ),
-          ],
-        );
+            ),
+          )
+      ],
+    );
+
+    return _inactive || isWeb || !_canDelete
+        ? content
+        : Slidable(
+            key: ObjectKey(_t),
+            endActionPane: ActionPane(
+              motion: const ScrollMotion(),
+              dismissible: DismissiblePane(
+                onDismissed: () {},
+                confirmDismiss: _delete,
+              ),
+              children: [
+                SlidableAction(
+                  onPressed: (_) async => await _delete(),
+                  backgroundColor: dangerColor.resolve(context),
+                  foregroundColor: b3Color.resolve(context),
+                  icon: CupertinoIcons.delete,
+                  label: loc.action_delete_title,
+                ),
+              ],
+            ),
+            child: content,
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.board ? _boardCard : _listTile(context);
 }

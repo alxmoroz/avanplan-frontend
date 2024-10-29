@@ -163,7 +163,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         await unlink();
         break;
       case TaskAction.delete:
-        await delete();
+        await delete(pop: true);
         break;
       default:
     }

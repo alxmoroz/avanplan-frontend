@@ -24,6 +24,7 @@ import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
 import 'controllers/task_controller.dart';
 import 'controllers/task_view_controller.dart';
+import 'usecases/delete.dart';
 import 'usecases/edit.dart';
 import 'widgets/board/board.dart';
 import 'widgets/dashboard/header_dashboard.dart';
@@ -41,8 +42,8 @@ import 'widgets/toolbars/right_toolbar.dart';
 import 'widgets/view_settings/assignee_filter_chip.dart';
 
 class TaskView extends StatefulWidget {
-  const TaskView(this._controller, {super.key});
-  final TaskController _controller;
+  const TaskView(this._tc, {super.key});
+  final TaskController _tc;
 
   @override
   State<TaskView> createState() => TaskViewState();
@@ -53,10 +54,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController _boardScrollController;
   late final TaskViewController _tvController;
 
-  TaskController get controller => widget._controller;
+  TaskController get tc => widget._tc;
   bool _hasScrolled = false;
-  Task get task => controller.task;
-  Task get td => controller.taskDescriptor;
+  Task get task => tc.task;
+  Task get td => tc.taskDescriptor;
   bool get _hasParent => task.parent != null;
 
   bool get _isTaskDialog => isBigScreen(context) && td.isTask;
@@ -73,7 +74,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
     if (td.isGroup && task.creating) taskGroupToolbarController.setCompact(false);
 
-    if (!td.filled) controller.reload(closed: false);
+    if (!td.filled) tc.reload(closed: false);
 
     super.initState();
   }
@@ -92,13 +93,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
   // TODO: попробовать определять, что контент под тул-баром
   // bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
 
-  Widget get _board => TasksBoard(
-        controller,
-        scrollController: _boardScrollController,
-      );
+  Widget get _board => TasksBoard(tc, scrollController: _boardScrollController);
 
   Widget get _bodyContent => MTRefresh(
-        onRefresh: () => controller.reload(closed: false),
+        onRefresh: () => tc.reload(closed: false),
         child: LayoutBuilder(builder: (ctx, constraints) {
           // доступная высота для полей ввода
           _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - headerHeight));
@@ -107,28 +105,28 @@ class TaskViewState<T extends TaskView> extends State<T> {
             controller: isWeb ? scrollController : null,
             children: [
               /// Заголовок
-              TaskHeader(controller),
+              TaskHeader(tc),
 
               /// Описание
               if (task.isTask && (task.hasDescription || task.canEdit))
-                TaskDescriptionField(controller, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
+                TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
 
               /// Дашборд (аналитика, финансы, команда)
-              if (task.isGroup || task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(controller),
+              if (task.isGroup || task.hasAnalytics || task.hasFinance || task.hasTeam) TaskHeaderDashboard(tc),
 
-              if (task.hasFilteredAssignees) TaskAssigneeFilterChip(controller),
+              if (task.hasFilteredAssignees) TaskAssigneeFilterChip(tc),
 
               /// Задача (лист)
               td.isTask
                   ? _isTaskDialog
-                      ? TaskDialogDetails(controller)
-                      : MTAdaptive(child: TaskDetails(controller))
+                      ? TaskDialogDetails(tc)
+                      : MTAdaptive(child: TaskDetails(tc))
 
                   /// Группа
                   : !task.hasSubtasks && (!task.canShowBoard || !task.showBoard)
 
                       /// Группа без подзадач
-                      ? NoTasks(controller)
+                      ? NoTasks(tc)
 
                       /// Группа с задачами
                       : Observer(
@@ -149,7 +147,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                 )
 
                               /// Список
-                              : TasksListView(task.filteredSubtaskGroups, extra: controller.loadClosedButton()),
+                              : TasksListView(
+                                  task.filteredSubtaskGroups,
+                                  onTaskDelete: (t) async => await TaskController(taskIn: t).delete(),
+                                  extra: tc.loadClosedButton(),
+                                ),
                         ),
             ],
           );
@@ -160,7 +162,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_hasParent) TaskParentTitle(controller),
+          if (_hasParent) TaskParentTitle(tc),
           Container(
             alignment: Alignment.centerLeft,
             height: P8,
@@ -194,13 +196,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
             : taskGroupToolbarController;
     tbController.setHidden(hasKB);
 
-    return TaskRightToolbar(controller, tbController);
+    return TaskRightToolbar(tc, tbController);
   }
 
-  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, controller, _tvController, _isTaskDialog);
+  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, tc, _tvController, _isTaskDialog);
 
   bool _showNoteField(bool hasKB) {
-    final noteFieldFocused = controller.focusNode(TaskFCode.note.index)?.hasFocus == true;
+    final noteFieldFocused = tc.focusNode(TaskFCode.note.index)?.hasFocus == true;
     return task.canComment && (!hasKB || noteFieldFocused);
   }
 
@@ -211,8 +213,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
     return Observer(builder: (_) {
       final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
-      return controller.loading && !task.filled
-          ? LoaderScreen(controller, isDialog: dialog)
+      return tc.loading && !task.filled
+          ? LoaderScreen(tc, isDialog: dialog)
           : dialog
               ? Observer(
                   builder: (_) => MTDialog(
@@ -220,7 +222,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                     body: _bodyContent,
                     rightBar: _rightToolbar(hasKB),
                     bottomBar: _showNoteField(hasKB)
-                        ? NoteFieldToolbar(controller, _tvController, ignoreBottomInsets: true, extraHeight: _extraHeight(context))
+                        ? NoteFieldToolbar(tc, _tvController, ignoreBottomInsets: true, extraHeight: _extraHeight(context))
                         : null,
                     scrollController: scrollController,
                     scrollOffsetTop: _scrollOffsetTop,
@@ -230,13 +232,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
               : Observer(
                   builder: (_) {
                     final bigGroup = _isBigGroup;
-                    final actions = controller.loading ? <TaskAction>[] : task.actions(context);
+                    final actions = tc.loading ? <TaskAction>[] : task.actions(context);
 
                     PreferredSizeWidget? bottomToolBar;
                     if (_showNoteField(hasKB)) {
-                      bottomToolBar = NoteFieldToolbar(controller, _tvController, extraHeight: _extraHeight(context));
+                      bottomToolBar = NoteFieldToolbar(tc, _tvController, extraHeight: _extraHeight(context));
                     } else if (!hasKB && !bigGroup && ((task.hasSubtasks && (task.canLocalImport || task.canCreateSubtask)) || task.canShowBoard)) {
-                      bottomToolBar = TaskBottomToolbar(controller);
+                      bottomToolBar = TaskBottomToolbar(tc);
                     }
 
                     leftMenuController.setHidden(hasKB);
@@ -251,7 +253,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               fullScreen: !big,
                               color: big ? b2Color : navbarColor,
                               middle: toolbarTitle,
-                              trailing: !bigGroup && controller.loading != true && actions.isNotEmpty ? TaskPopupMenu(controller, actions) : null,
+                              trailing: !bigGroup && tc.loading != true && actions.isNotEmpty ? TaskPopupMenu(tc, actions) : null,
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
                       body: _bodyContent,

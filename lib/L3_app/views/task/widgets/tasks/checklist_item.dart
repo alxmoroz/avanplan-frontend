@@ -31,7 +31,6 @@ class TaskChecklistItem extends StatefulWidget {
 
 class _TaskChecklistItemState extends State<TaskChecklistItem> {
   static final _tfIndex = TaskFCode.title.index;
-  static const _deleteIconSize = P4;
 
   TaskController get _tc => widget._tc;
   Task get _t => _tc.task;
@@ -108,7 +107,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             Opacity(
               opacity: _fieldHover ? 1 : 0,
               child: MTButton.icon(
-                DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: _deleteIconSize),
+                DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: P4),
                 padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
                 margin: const EdgeInsets.only(left: P2),
                 onHover: (hover) => setState(() => _delBtnHover = hover),

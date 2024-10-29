@@ -14,25 +14,29 @@ import '../controllers/task_controller.dart';
 import 'edit.dart';
 
 extension DeleteUC on TaskController {
-  Future delete() async {
+  Future get _confirmDelete async {
     final hasSubtasks = task.hasSubtasks;
+    return await showMTAlertDialog(
+          imageName: ImageName.delete.name,
+          title: task.hasSubtasks ? loc.task_delete_dialog_group_title : task.deleteDialogTitle,
+          description: loc.delete_dialog_description,
+          actions: [
+            MTDialogAction(
+              title: hasSubtasks ? loc.action_yes_delete_all_title : loc.action_yes_delete_title,
+              type: ButtonType.danger,
+              result: true,
+            ),
+            MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
+          ],
+        ) ==
+        true;
+  }
+
+  Future<bool> delete({bool pop = false}) async {
     bool res = false;
-    if (task.isCheckItem ||
-        await showMTAlertDialog(
-              imageName: ImageName.delete.name,
-              title: task.hasSubtasks ? loc.task_delete_dialog_group_title : task.deleteDialogTitle,
-              description: loc.delete_dialog_description,
-              actions: [
-                MTDialogAction(
-                  title: hasSubtasks ? loc.action_yes_delete_all_title : loc.action_yes_delete_title,
-                  type: ButtonType.danger,
-                  result: true,
-                ),
-                MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
-              ],
-            ) ==
-            true) {
-      if (!task.isCheckItem) router.pop();
+    if (task.isCheckItem || await _confirmDelete) {
+      if (pop) router.pop();
+
       await editWrapper(() async {
         final changes = await taskUC.delete(taskDescriptor);
         if (changes != null) {

@@ -30,11 +30,11 @@ class _CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
       navBar: qHeader,
       body: ListView(
         children: [
-          if (controller.task.parentId == null) const SizedBox(height: P),
-          TaskHeader(controller),
+          if (tc.task.parentId == null) const SizedBox(height: P),
+          TaskHeader(tc),
           MTAdaptive(
             padding: const EdgeInsets.symmetric(horizontal: P3),
-            child: TaskQuizDetails(qController, controller),
+            child: TaskQuizDetails(qController, tc),
           ),
         ],
       ),

@@ -31,7 +31,7 @@ class _RelationsDialog extends StatelessWidget {
   const _RelationsDialog(this._rc);
   final RelationsController _rc;
 
-  Future _showTask(BuildContext context, Task t, Task srcTask) async {
+  Future _showTask(BuildContext context, Task t) async {
     // превью для мобилки, чтобы не делать бесконечную пуш-навигацию
     // выход из превью может сопровождаться желанием перейти к задаче для редактирования
     // для большого экрана не показываем превью, переходим к целевой задаче
@@ -42,7 +42,7 @@ class _RelationsDialog extends StatelessWidget {
       if (context.mounted) Navigator.of(context).pop();
 
       // Переходим к целевой задаче
-      router.goTaskFromTask(t, srcTask);
+      router.goTaskFromTask(t, _rc.task);
     }
   }
 
@@ -73,10 +73,9 @@ class _RelationsDialog extends StatelessWidget {
       );
 
   Widget _tasksDialog(BuildContext context) {
-    final srcTask = _rc.task;
     final forbiddenCount = _rc.forbiddenRelatedTasksCount;
     return MTDialog(
-      topBar: MTTopBar(pageTitle: loc.relations_title, parentPageTitle: srcTask.title),
+      topBar: MTTopBar(pageTitle: loc.relations_title, parentPageTitle: _rc.task.title),
       body: _rc.hasRelations
           ? TasksListView(
               _rc.tasksGroups,
@@ -88,7 +87,8 @@ class _RelationsDialog extends StatelessWidget {
                       align: TextAlign.center,
                     )
                   : null,
-              onTaskTap: (t) => _showTask(context, t, srcTask),
+              onTaskTap: (t) => _showTask(context, t),
+              onTaskDelete: _rc.deleteRelationFromTask,
             )
           : _emptyRelationsScreen,
       bottomBar: _rc.hasRelations

@@ -7,8 +7,8 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_relation.dart';
 import '../../../../L1_domain/entities_extensions/task_relation.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_relation.dart';
 import '../../../presenters/task_tree.dart';
+import '../../../presenters/task_type.dart';
 import '../../../views/_base/loadable.dart';
 import '../widgets/relations/create_relation_dialog.dart';
 import 'task_controller.dart';
@@ -26,7 +26,20 @@ class RelationsController extends _Base with _$RelationsController {
     await load(() async {
       final forbiddenTasksCount = await tasksMainController.loadTasksIfAbsent(wsId, _relatedTasksIds);
       setForbiddenRelatedTasksCount(forbiddenTasksCount);
+      reload();
     });
+  }
+
+  Future deleteRelationFromTask(Task dst) async {
+    final r = _relations.firstWhereOrNull((r) => r.relatedTaskId(_taskId) == dst.id);
+    if (r != null) {
+      final relation = await relationsUC.deleteRelation(r);
+      if (relation != null) {
+        task.relations.remove(relation);
+        reload();
+        dst.relations.remove(relation);
+      }
+    }
   }
 }
 
@@ -52,18 +65,20 @@ abstract class _Base with Store, Loadable {
   void reload() => _relations = ObservableList.of(task.relations);
 
   @computed
-  Iterable<int> get _relatedTasksIds => _relations.map((r) => r.relatedTaskId(_taskId));
+  Iterable<Task> get _relatedTasks => _relations.map((r) => (TaskController()..init(wsId, r.relatedTaskId(_taskId))).task);
+  @computed
+  Iterable<int> get _relatedTasksIds => _relatedTasks.map((t) => t.id!);
 
   @computed
-  List<MapEntry<TaskState, List<Task>>> get tasksGroups => groups(_relatedTasksIds.map((id) => tasksMainController.task(wsId, id)).whereNotNull());
+  List<Task> get _sortedRelatedTasks => _relatedTasks.sorted((t1, t2) => t1.compareTo(t2));
 
   @computed
-  List<TaskRelation> get sortedRelations => _relations.sorted((r1, r2) => r1.title(_taskId).compareTo(r2.title(_taskId)));
+  List<MapEntry<TaskState, List<Task>>> get tasksGroups => groups(_sortedRelatedTasks);
 
   static const _visibleTitlesCount = 1;
 
   @computed
-  String get relationsStr => sortedRelations.map((r) => r.title(_taskId)).take(_visibleTitlesCount).join(', ');
+  String get relationsStr => _sortedRelatedTasks.map((t) => t.title.isNotEmpty ? t.title : t.viewTitle).take(_visibleTitlesCount).join(', ');
   @computed
-  String get relationsCountMoreStr => sortedRelations.length > _visibleTitlesCount ? loc.more_count(_relations.length - _visibleTitlesCount) : '';
+  String get relationsCountMoreStr => _relations.length > _visibleTitlesCount ? loc.more_count(_relations.length - _visibleTitlesCount) : '';
 }

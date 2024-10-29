@@ -302,8 +302,8 @@ class LinkIcon extends MTIcon {
   const LinkIcon({super.key, super.color, super.size = P3}) : super(Icons.link);
 }
 
-class LinkBreakIcon extends MTIcon {
-  const LinkBreakIcon({super.key, super.color = dangerColor, super.size, super.circled}) : super(Icons.link_off);
+class LinkOffIcon extends MTIcon {
+  const LinkOffIcon({super.key, super.color = dangerColor, super.size, super.circled}) : super(Icons.link_off);
 }
 
 class LinkOutIcon extends MTIcon {

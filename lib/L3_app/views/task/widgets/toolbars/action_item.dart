@@ -47,7 +47,7 @@ class TaskActionItem extends StatelessWidget {
       case TaskAction.unlink:
         return _tile(
           context,
-          leading: LinkBreakIcon(size: iconSize, circled: !inPopup),
+          leading: LinkOffIcon(size: iconSize, circled: !inPopup),
           title: loc.task_unlink_action_title,
           color: dangerColor,
         );

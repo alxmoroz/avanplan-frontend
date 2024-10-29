@@ -45,6 +45,8 @@ class TaskCard extends StatefulWidget {
     this.showAssignee = true,
     this.readOnly = false,
     this.trailing,
+    this.deleteIconData,
+    this.deleteActionLabel,
     this.onTap,
     this.onDelete,
   });
@@ -58,6 +60,8 @@ class TaskCard extends StatefulWidget {
   final bool showAssignee;
   final bool readOnly;
   final Widget? trailing;
+  final IconData? deleteIconData;
+  final String? deleteActionLabel;
   final Function(Task)? onTap;
   final Function(Task)? onDelete;
 
@@ -69,6 +73,8 @@ class _State extends State<TaskCard> {
   bool _cardHover = false;
   bool _delBtnHover = false;
   bool _deleting = false;
+
+  IconData? get _delIconData => widget.deleteIconData ?? const DeleteIcon().iconData;
 
   Task get _t => widget.task;
   bool get _inactive => widget.readOnly || _t.closed || _t.isImportingProject;
@@ -258,7 +264,7 @@ class _State extends State<TaskCard> {
             child: Opacity(
               opacity: _cardHover ? 1 : 0,
               child: MTButton.icon(
-                DeleteIcon(color: _delBtnHover ? dangerColor : f2Color, size: P4),
+                MTIcon(_delIconData, color: _delBtnHover ? dangerColor : f2Color, size: P4),
                 padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
                 margin: const EdgeInsets.only(left: P2),
                 onHover: (hover) => setState(() => _delBtnHover = hover),
@@ -284,8 +290,8 @@ class _State extends State<TaskCard> {
                   onPressed: (_) async => await _delete(),
                   backgroundColor: dangerColor.resolve(context),
                   foregroundColor: b3Color.resolve(context),
-                  icon: CupertinoIcons.delete,
-                  label: loc.action_delete_title,
+                  icon: _delIconData,
+                  label: widget.deleteActionLabel ?? loc.action_delete_title,
                 ),
               ],
             ),

@@ -13,6 +13,8 @@ class TasksListView extends StatelessWidget {
     this.groups, {
     this.extra,
     this.adaptive = true,
+    this.delIconData,
+    this.deleteActionLabel,
     this.onTaskTap,
     this.onTaskDelete,
     super.key,
@@ -20,6 +22,8 @@ class TasksListView extends StatelessWidget {
   final List<MapEntry<TaskState, List<Task>>> groups;
   final Widget? extra;
   final bool adaptive;
+  final IconData? delIconData;
+  final String? deleteActionLabel;
   final Function(Task)? onTaskTap;
   final Function(Task)? onTaskDelete;
 
@@ -52,6 +56,8 @@ class TasksListView extends StatelessWidget {
                 t,
                 showStateMark: true,
                 bottomDivider: index < tasks.length - 1,
+                deleteIconData: delIconData,
+                deleteActionLabel: deleteActionLabel,
                 onTap: onTaskTap,
                 onDelete: onTaskDelete,
               );

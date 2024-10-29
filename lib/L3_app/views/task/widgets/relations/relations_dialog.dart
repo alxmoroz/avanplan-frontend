@@ -87,6 +87,8 @@ class _RelationsDialog extends StatelessWidget {
                       align: TextAlign.center,
                     )
                   : null,
+              delIconData: const LinkOffIcon().iconData,
+              deleteActionLabel: loc.action_unlink_title,
               onTaskTap: (t) => _showTask(context, t),
               onTaskDelete: _rc.deleteRelationFromTask,
             )

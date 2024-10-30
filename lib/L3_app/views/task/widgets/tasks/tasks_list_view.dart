@@ -54,6 +54,7 @@ class TasksListView extends StatelessWidget {
               final t = tasks[index];
               return TaskCard(
                 t,
+                key: ObjectKey(t),
                 showStateMark: true,
                 bottomDivider: index < tasks.length - 1,
                 deleteIconData: delIconData,

@@ -11,6 +11,7 @@ import '../../promo/promo_features.dart';
 import '../../quiz/abstract_quiz_controller.dart';
 import '../../quiz/abstract_task_quiz_controller.dart';
 import '../usecases/edit.dart';
+import '../usecases/project_modules.dart';
 import '../widgets/project_modules/project_modules.dart';
 import '../widgets/team/project_team_quiz_view.dart';
 import 'project_modules_controller.dart';
@@ -31,7 +32,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
 
   @override
   Future beforeNext() async {
-    if (step.code == _StepCode.projectModules.name) await _pmc.setup();
+    if (step.code == _StepCode.projectModules.name) await taskController.setupProjectModules();
   }
 
   @override
@@ -62,8 +63,8 @@ abstract class _CreateProjectQuizControllerBase extends AbstractTaskQuizControll
 
   ProjectModulesController get _pmc => taskController.projectModulesController;
 
-  bool get _wantTeam => _pmc.hasChecked(TOCode.TEAM);
-  bool get _wantGoals => _pmc.hasChecked(TOCode.GOALS);
+  bool get _wantTeam => taskController.hasProjectModuleChecked(TOCode.TEAM);
+  bool get _wantGoals => taskController.hasProjectModuleChecked(TOCode.GOALS);
   // bool get _wantBoard => _pmc.hasChecked(TOCode.TASKBOARD);
 
   @override

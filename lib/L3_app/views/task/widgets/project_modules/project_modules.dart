@@ -29,8 +29,9 @@ import '../../../workspace/ws_features_dialog.dart';
 import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/project_modules_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/project_modules.dart';
 
-Future projectModulesDialog(TaskController controller) async => await showMTDialog(_ProjectModulesDialog(controller));
+Future projectModulesDialog(TaskController tc) async => await showMTDialog(_ProjectModulesDialog(tc));
 
 class ProjectModulesQuizRoute extends AbstractTaskQuizRoute {
   static String get staticBaseName => 'modules';
@@ -44,18 +45,19 @@ class ProjectModulesQuizRoute extends AbstractTaskQuizRoute {
 }
 
 class _ProjectModulesBody extends StatelessWidget {
-  const _ProjectModulesBody(this._controller, {this.footer});
-  final ProjectModulesController _controller;
+  const _ProjectModulesBody(this._tc, {this.footer});
+  final TaskController _tc;
   final Widget? footer;
 
-  Task get _project => _controller.project;
+  ProjectModulesController get _pmc => _tc.projectModulesController;
+  Task get _project => _tc.task;
 
   static const _iconSize = 50.0;
   Widget _image(String code) => MTImage('fs_${code.toLowerCase()}', width: _iconSize, height: _iconSize);
 
   Future _selectFeatures() async {
     await wsFeatures(WSController(wsIn: _project.ws));
-    _controller.reload();
+    _pmc.reload();
   }
 
   @override
@@ -76,17 +78,17 @@ class _ProjectModulesBody extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: _controller.checks.length,
+            itemCount: _pmc.checks.length,
             itemBuilder: (_, index) {
-              final pm = _controller.enabledProjectOptions.elementAt(index);
+              final pm = _pmc.enabledProjectOptions.elementAt(index);
               return MTCheckBoxTile(
                 leading: _image(pm.code),
                 title: pm.title,
                 description: pm.subtitle,
-                value: _controller.checks[index],
-                bottomDivider: index < _controller.checks.length - 1,
+                value: _pmc.checks[index],
+                bottomDivider: index < _pmc.checks.length - 1,
                 dividerIndent: _iconSize + P5,
-                onChanged: _controller.onChanged(index),
+                onChanged: _tc.onChanged(index),
               );
             },
           ),
@@ -118,7 +120,7 @@ class _ProjectModulesQuizViewState extends State<_ProjectModulesQuizView> {
   late final ScrollController scrollController;
 
   CreateProjectQuizController get _qController => widget._qController;
-  ProjectModulesController get _pmController => _qController.taskController.projectModulesController;
+  TaskController get _tc => _qController.taskController;
 
   @override
   void initState() {
@@ -140,10 +142,10 @@ class _ProjectModulesQuizViewState extends State<_ProjectModulesQuizView> {
         navBar: qHeader,
         body: MTAdaptive(
           child: _ProjectModulesBody(
-            _pmController,
+            _tc,
             footer: QuizNextButton(
               _qController,
-              loading: _pmController.project.loading,
+              loading: _tc.task.loading,
               margin: const EdgeInsets.symmetric(vertical: P3),
             ),
           ),
@@ -156,21 +158,21 @@ class _ProjectModulesQuizViewState extends State<_ProjectModulesQuizView> {
 }
 
 class _ProjectModulesDialog extends StatelessWidget {
-  const _ProjectModulesDialog(this._controller);
-  final TaskController _controller;
+  const _ProjectModulesDialog(this._tc);
+  final TaskController _tc;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(pageTitle: loc.project_modules_title),
       body: _ProjectModulesBody(
-        _controller.projectModulesController,
+        _tc,
         footer: MTButton.main(
           titleText: loc.action_save_title,
           margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
           onTap: () async {
             Navigator.of(context).pop();
-            await _controller.projectModulesController.setup();
+            await _tc.setupProjectModules();
             tasksMainController.refreshUI();
           },
         ),

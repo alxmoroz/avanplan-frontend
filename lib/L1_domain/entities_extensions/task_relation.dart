@@ -1,10 +1,13 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+
 import '../entities/task.dart';
 import '../entities/task_relation.dart';
 
 extension TaskRelatedTasksExtension on Task {
   bool isRelated(int taskId) => relations.any((r) => r.contains(taskId));
+  TaskRelation? relationOfTask(int dstId) => relations.firstWhereOrNull((r) => r.relatedTaskId(id!) == dstId);
 }
 
 extension TaskRelationExtension on TaskRelation {

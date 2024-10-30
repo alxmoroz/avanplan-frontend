@@ -1,7 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:collection/collection.dart';
-
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_relation.dart';
 import '../../../extra/services.dart';
@@ -20,7 +18,7 @@ extension ProjectModulesUC on RelationsController {
   }
 
   Future deleteRelationFromTask(Task dst) async {
-    final r = relations.firstWhereOrNull((r) => r.relatedTaskId(taskId) == dst.id);
+    final r = task.relationOfTask(dst.id!);
     if (r != null) {
       final relation = await relationsUC.deleteRelation(r);
       if (relation != null) {

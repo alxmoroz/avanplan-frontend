@@ -24,7 +24,7 @@ abstract class _Base with Store, Loadable {
   late final TaskController tc;
   Task get task => tc.task;
   int get wsId => tc.taskDescriptor.wsId;
-  int get taskId => tc.taskDescriptor.id!;
+  int get _taskId => tc.taskDescriptor.id!;
 
   @observable
   ObservableList<TaskRelation> relations = ObservableList();
@@ -42,7 +42,7 @@ abstract class _Base with Store, Loadable {
   void reload() => relations = ObservableList.of(task.relations);
 
   @computed
-  Iterable<Task> get _relatedTasks => relations.map((r) => (TaskController()..init(wsId, r.relatedTaskId(taskId))).task);
+  Iterable<Task> get _relatedTasks => relations.map((r) => (TaskController()..init(wsId, r.relatedTaskId(_taskId))).task);
   @computed
   Iterable<int> get relatedTasksIds => _relatedTasks.map((t) => t.id!);
 

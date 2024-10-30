@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import '../../../../L1_domain/entities_extensions/task_relation.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/button.dart';
@@ -34,15 +35,22 @@ extension DeleteUC on TaskController {
 
   Future<bool> delete({bool pop = false}) async {
     bool res = false;
-    if (task.isCheckItem || await _confirmDelete) {
+    final t = task;
+    if (t.isCheckItem || await _confirmDelete) {
       if (pop) router.pop();
 
       await editWrapper(() async {
         final changes = await taskUC.delete(taskDescriptor);
         if (changes != null) {
           tasksMainController.upsertTasks(changes.affected);
-          tasksMainController.removeTask(task);
+          tasksMainController.removeTask(t);
 
+          for (var r in t.relations) {
+            final relatedTask = tasksMainController.task(t.wsId, r.relatedTaskId(t.id!));
+            if (relatedTask?.filled == true) {
+              relatedTask!.relations.remove(r);
+            }
+          }
           res = true;
         }
       });

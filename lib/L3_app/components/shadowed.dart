@@ -58,7 +58,7 @@ class MTShadowed extends StatelessWidget {
           data: mq.copyWith(
             padding: mqPadding.copyWith(
               top: mqPadding.top + (topIndent ?? 0),
-              bottom: mqPadding.bottom + (bottomIndent ?? P6),
+              bottom: mqPadding.bottom + (bottomIndent ?? (bottomShadow ? P6 : 0)),
             ),
           ),
           child: child,

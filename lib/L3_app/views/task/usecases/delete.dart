@@ -42,6 +42,7 @@ extension DeleteUC on TaskController {
         if (changes != null) {
           tasksMainController.upsertTasks(changes.affected);
           tasksMainController.removeTask(task);
+
           res = true;
         }
       });

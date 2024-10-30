@@ -28,7 +28,11 @@ class WSRelationsRepo extends AbstractWSRelationsRepo {
 
   @override
   Future<TaskRelation?> delete(TaskRelation data) async {
-    final response = await _api.deleteRelation(wsId: data.wsId, relationId: data.id!);
+    final response = await _api.deleteRelation(
+      wsId: data.wsId,
+      taskId: data.srcId,
+      relationId: data.id!,
+    );
     return response.data == true ? data : null;
   }
 

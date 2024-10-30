@@ -53,17 +53,20 @@ class NoteCard extends StatelessWidget {
                   children: [
                     const SizedBox(height: P2),
                     if (!mine)
-                      BaseText.medium(
-                        authorName,
-                        padding: const EdgeInsets.symmetric(horizontal: P2),
-                        maxLines: 1,
-                        color: f2Color,
+                      SizedBox(
+                        height: P6,
+                        child: BaseText.medium(
+                          authorName,
+                          padding: const EdgeInsets.symmetric(horizontal: P2),
+                          maxLines: 1,
+                          color: f2Color,
+                        ),
                       ),
                     const Spacer(),
                     if (_tc.canComment && mine)
                       MTButton.icon(
                         const MenuIcon(size: P4),
-                        padding: const EdgeInsets.only(left: P3, right: P_2, top: P, bottom: P),
+                        padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P3, right: P_2),
                         onTap: () => noteMenuDialog(_tc, _note),
                       ),
                   ],

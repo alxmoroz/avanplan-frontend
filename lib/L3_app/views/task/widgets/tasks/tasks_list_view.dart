@@ -11,6 +11,7 @@ import 'card.dart';
 class TasksListView extends StatelessWidget {
   const TasksListView(
     this.groups, {
+    this.parent,
     this.extra,
     this.adaptive = true,
     this.delIconData,
@@ -21,6 +22,7 @@ class TasksListView extends StatelessWidget {
   });
   final List<MapEntry<TaskState, List<Task>>> groups;
   final Widget? extra;
+  final Task? parent;
   final bool adaptive;
   final IconData? delIconData;
   final String? deleteActionLabel;
@@ -55,6 +57,7 @@ class TasksListView extends StatelessWidget {
               return TaskCard(
                 t,
                 key: ObjectKey(t),
+                showParent: parent != null && parent!.parentId != t.parentId,
                 showStateMark: true,
                 bottomDivider: index < tasks.length - 1,
                 deleteIconData: delIconData,

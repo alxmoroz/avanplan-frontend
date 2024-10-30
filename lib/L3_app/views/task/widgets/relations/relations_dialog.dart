@@ -80,6 +80,7 @@ class _RelationsDialog extends StatelessWidget {
       body: _rc.hasRelations
           ? TasksListView(
               _rc.tasksGroups,
+              parent: _rc.task,
               adaptive: false,
               extra: forbiddenCount > 0
                   ? SmallText(

@@ -10,47 +10,24 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
 import '../../../views/_base/loadable.dart';
-import '../widgets/relations/create_relation_dialog.dart';
 import 'task_controller.dart';
 
 part 'relations_controller.g.dart';
 
 class RelationsController extends _Base with _$RelationsController {
   RelationsController(TaskController tcIn) {
-    _tc = tcIn;
-  }
-
-  void startCreateRelation() => createRelationDialog(_tc);
-
-  Future reloadRelatedTasks() async {
-    await load(() async {
-      final forbiddenTasksCount = await tasksMainController.loadTasksIfAbsent(wsId, _relatedTasksIds);
-      setForbiddenRelatedTasksCount(forbiddenTasksCount);
-      reload();
-    });
-  }
-
-  Future deleteRelationFromTask(Task dst) async {
-    final r = _relations.firstWhereOrNull((r) => r.relatedTaskId(_taskId) == dst.id);
-    if (r != null) {
-      final relation = await relationsUC.deleteRelation(r);
-      if (relation != null) {
-        task.relations.remove(relation);
-        reload();
-        dst.relations.remove(relation);
-      }
-    }
+    tc = tcIn;
   }
 }
 
 abstract class _Base with Store, Loadable {
-  late final TaskController _tc;
-  Task get task => _tc.task;
-  int get wsId => _tc.taskDescriptor.wsId;
-  int get _taskId => _tc.taskDescriptor.id!;
+  late final TaskController tc;
+  Task get task => tc.task;
+  int get wsId => tc.taskDescriptor.wsId;
+  int get taskId => tc.taskDescriptor.id!;
 
   @observable
-  ObservableList<TaskRelation> _relations = ObservableList();
+  ObservableList<TaskRelation> relations = ObservableList();
 
   @observable
   int forbiddenRelatedTasksCount = 0;
@@ -59,15 +36,15 @@ abstract class _Base with Store, Loadable {
   void setForbiddenRelatedTasksCount(int count) => forbiddenRelatedTasksCount = count;
 
   @computed
-  bool get hasRelations => _relations.isNotEmpty;
+  bool get hasRelations => relations.isNotEmpty;
 
   @action
-  void reload() => _relations = ObservableList.of(task.relations);
+  void reload() => relations = ObservableList.of(task.relations);
 
   @computed
-  Iterable<Task> get _relatedTasks => _relations.map((r) => (TaskController()..init(wsId, r.relatedTaskId(_taskId))).task);
+  Iterable<Task> get _relatedTasks => relations.map((r) => (TaskController()..init(wsId, r.relatedTaskId(taskId))).task);
   @computed
-  Iterable<int> get _relatedTasksIds => _relatedTasks.map((t) => t.id!);
+  Iterable<int> get relatedTasksIds => _relatedTasks.map((t) => t.id!);
 
   @computed
   List<Task> get _sortedRelatedTasks => _relatedTasks.sorted((t1, t2) => t1.compareTo(t2));
@@ -80,5 +57,5 @@ abstract class _Base with Store, Loadable {
   @computed
   String get relationsStr => _sortedRelatedTasks.map((t) => t.title.isNotEmpty ? t.title : t.viewTitle).take(_visibleTitlesCount).join(', ');
   @computed
-  String get relationsCountMoreStr => _relations.length > _visibleTitlesCount ? loc.more_count(_relations.length - _visibleTitlesCount) : '';
+  String get relationsCountMoreStr => relations.length > _visibleTitlesCount ? loc.more_count(relations.length - _visibleTitlesCount) : '';
 }

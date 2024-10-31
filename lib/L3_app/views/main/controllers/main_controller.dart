@@ -18,26 +18,7 @@ import '../../../views/task/widgets/team/host_project_dialog.dart';
 
 part 'main_controller.g.dart';
 
-class MainController extends _MainControllerBase with _$MainController {}
-
-abstract class _MainControllerBase with Store, Loadable {
-  @computed
-  List<MapEntry<TaskState, List<NextTaskOrEvent>>> get nextTasksOrEventsDateGroups {
-    final nextTasksOrEvents = [
-      ...tasksMainController.myTasks.map((t) => NextTaskOrEvent(t.dueDate, t)),
-      ...calendarController.events.map((e) => NextTaskOrEvent(e.startDate, e)),
-    ].sorted((n1, n2) => n1.compareTo(n2));
-
-    final ge = groupBy<NextTaskOrEvent, TaskState>(nextTasksOrEvents, (nte) => nte.state);
-    return ge.entries.sortedBy<num>((g) => g.key.index);
-  }
-
-  @observable
-  DateTime? _updatedDate;
-
-  @action
-  void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
-
+class MainController extends _MainControllerBase with _$MainController {
   Future _reloadData() async {
     setLoaderScreenLoading();
     await myAccountController.reload();
@@ -50,22 +31,16 @@ abstract class _MainControllerBase with Store, Loadable {
     _setUpdateDate(now);
   }
 
+  Future reload() async => await load(_reloadData);
+
   @override
   startLoading() {
     setLoaderScreenLoading();
     super.startLoading();
   }
 
-  Future reload() async => await load(_reloadData);
-
-  @observable
-  MTRoute? currentRoute;
-  @action
-  void setRoute(MTRoute? route) => currentRoute = route;
-
   // static const _updatePeriod = Duration(hours: 1);
 
-  @action
   Future startup() async {
     await appController.startup();
 
@@ -126,4 +101,26 @@ abstract class _MainControllerBase with Store, Loadable {
 
     _setUpdateDate(null);
   }
+
+  List<MapEntry<TaskState, List<NextTaskOrEvent>>> get nextTasksOrEventsDateGroups {
+    final nextTasksOrEvents = [
+      ...tasksMainController.myTasks.map((t) => NextTaskOrEvent(t.dueDate, t)),
+      ...calendarController.events.map((e) => NextTaskOrEvent(e.startDate, e)),
+    ].sorted((n1, n2) => n1.compareTo(n2));
+
+    final ge = groupBy<NextTaskOrEvent, TaskState>(nextTasksOrEvents, (nte) => nte.state);
+    return ge.entries.sortedBy<num>((g) => g.key.index);
+  }
+}
+
+abstract class _MainControllerBase with Store, Loadable {
+  @observable
+  DateTime? _updatedDate;
+  @action
+  void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
+
+  @observable
+  MTRoute? currentRoute;
+  @action
+  void setRoute(MTRoute? route) => currentRoute = route;
 }

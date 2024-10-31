@@ -38,6 +38,7 @@ class _PromoFeaturesDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [PromoFeatures(ws)],
       ),
+      minBottomPadding: P3,
     );
   }
 }
@@ -83,11 +84,14 @@ class PromoFeatures extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: P6),
-            MTButton.secondary(titleText: loc.later, onTap: () => _later(context)),
             MTButton.main(
               titleText: loc.promo_features_subscribe_title,
-              margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
               onTap: () => _subscribe(context),
+            ),
+            MTButton.secondary(
+              titleText: loc.later,
+              margin: const EdgeInsets.only(top: P3),
+              onTap: () => _later(context),
             ),
           ],
         ),

@@ -165,11 +165,12 @@ class _ProjectModulesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(pageTitle: loc.project_modules_title),
+      minBottomPadding: P3,
       body: _ProjectModulesBody(
         _tc,
         footer: MTButton.main(
           titleText: loc.action_save_title,
-          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          margin: const EdgeInsets.only(top: P3),
           onTap: () async {
             Navigator.of(context).pop();
             await _tc.setupProjectModules();

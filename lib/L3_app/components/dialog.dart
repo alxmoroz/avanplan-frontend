@@ -115,8 +115,11 @@ class MTDialog extends StatelessWidget {
   Widget get _center {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
+      final mqPaddingBottom = mq.padding.bottom;
+      final needBottomPadding = _hasBottombar || (mqPaddingBottom == 0 && !isBigScreen(context));
+      final bottomPadding = minBottomPadding ?? (needBottomPadding ? DEF_DIALOG_BOTTOM_PADDING : 0);
       final mqPadding = mq.padding.copyWith(
-        bottom: max(mq.padding.bottom, minBottomPadding ?? (_hasBottombar ? DEF_DIALOG_BOTTOM_PADDING : 0)),
+        bottom: max(mqPaddingBottom, bottomPadding),
       );
 
       return MediaQuery(

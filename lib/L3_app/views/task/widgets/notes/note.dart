@@ -49,17 +49,20 @@ class NoteCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                /// заголовок - автор (при наличии) и кнопка меню
                 Row(
                   children: [
                     const SizedBox(height: P2),
                     if (!mine)
                       SizedBox(
-                        height: P6,
-                        child: BaseText.medium(
-                          authorName,
-                          padding: const EdgeInsets.symmetric(horizontal: P2),
-                          maxLines: 1,
-                          color: f2Color,
+                        height: P5,
+                        child: Align(
+                          child: SmallText(
+                            authorName,
+                            padding: const EdgeInsets.symmetric(horizontal: P2),
+                            maxLines: 1,
+                            weight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     const Spacer(),
@@ -73,7 +76,7 @@ class NoteCard extends StatelessWidget {
                 ),
                 if (_note.text.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P_2),
+                    padding: const EdgeInsets.symmetric(horizontal: P2),
                     child: MTLinkify(
                       _note.text,
                       maxLines: 42,

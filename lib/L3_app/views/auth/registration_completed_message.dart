@@ -46,11 +46,10 @@ class RegistrationCompletedMessage extends StatelessWidget {
           titleText: loc.ok,
           onTap: router.pop,
         ),
-        const SizedBox(height: P6),
+        const SizedBox(height: P3),
         SmallText(loc.register_troubleshooting_hint, align: TextAlign.center),
         MTButton(
-          middle: SmallText(loc.action_email_us_title.toLowerCase(), color: mainColor),
-          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          middle: SmallText(loc.action_email_support_title.toLowerCase(), color: mainColor),
           onTap: mailUs,
         ),
       ],

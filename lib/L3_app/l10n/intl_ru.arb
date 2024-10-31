@@ -10,6 +10,7 @@
   "action_close_title": "Завершить",
   "action_delete_title": "Удалить",
   "action_disconnect_title": "Отключить",
+  "action_email_support_title": "Сообщить о проблеме",
   "action_email_us_title": "Написать на почту",
   "action_goto_app_settings_title": "Перейти к настройкам",
   "action_goto_task_title": "Перейти к задаче",
@@ -316,7 +317,7 @@
   "register_completed_description": "Это нужно для подтверждения вашей почты",
   "register_completed_hint": "Перейдите по ссылке из письма",
   "register_completed_title": "Заявка на регистрацию принята",
-  "register_troubleshooting_hint": "Нет письма? Проверьте папку \"Спам\" или",
+  "register_troubleshooting_hint": "Нет письма? Проверьте папку \"Спам\" или можете",
   "register_action_title": "Создать учётную запись",
   "register_title": "Регистрация",
 

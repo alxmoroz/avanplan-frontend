@@ -123,11 +123,12 @@ class _TransactionEditDialog extends StatelessWidget {
           for (final code in [TransactionFCode.category, TransactionFCode.description]) _tf(code),
           MTButton.main(
             titleText: loc.action_save_title,
-            margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+            margin: const EdgeInsets.only(top: P3),
             onTap: canSave ? () => _save(context) : null,
           ),
         ],
       ),
+      minBottomPadding: P3,
     );
   }
 

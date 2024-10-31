@@ -1,10 +1,11 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import 'colors.dart';
 
-const _baseFontSize = 18.0;
+const _baseFontSize = kIsWeb ? 17.0 : 18.0;
 
 class BaseText extends StatelessWidget {
   const BaseText(

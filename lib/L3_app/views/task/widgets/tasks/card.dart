@@ -77,7 +77,8 @@ class _State extends State<TaskCard> {
   IconData? get _delIconData => widget.deleteIconData ?? const DeleteIcon().iconData;
 
   Task get _t => widget.task;
-  bool get _inactive => widget.readOnly || _t.closed || _t.isImportingProject;
+  bool get _ro => widget.readOnly || _t.isImportingProject;
+  bool get _inactive => _ro || _t.closed;
   bool get _canDelete => widget.onDelete != null && _t.canDelete;
 
   void _tap(Task task) => widget.onTap != null ? widget.onTap!(task) : router.goTask(task);
@@ -109,7 +110,7 @@ class _State extends State<TaskCard> {
             widget.trailing!
           else if (_canDelete && isWeb)
             _deleteButton
-          else if (!isWeb && !widget.board && !_t.isImportingProject)
+          else if (!isWeb && !widget.board && !_ro)
             const ChevronIcon(),
         ],
       );
@@ -245,7 +246,7 @@ class _State extends State<TaskCard> {
       margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
       padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
       loading: _t.loading,
-      onTap: _inactive || widget.dragging ? null : () => _tap(_t),
+      onTap: _ro || widget.dragging ? null : () => _tap(_t),
       child: _taskContent(false),
     );
   }
@@ -260,8 +261,8 @@ class _State extends State<TaskCard> {
           bottomDivider: widget.bottomDivider,
           dividerIndent: showStateMark ? P6 : P3,
           loading: _deleting || _t.loading,
-          onHover: !_inactive && isWeb ? (hover) => setState(() => _cardHover = hover) : null,
-          onTap: _inactive || widget.dragging ? null : () => _tap(_t),
+          onHover: !_ro && isWeb ? (hover) => setState(() => _cardHover = hover) : null,
+          onTap: _ro || widget.dragging ? null : () => _tap(_t),
         ),
         if (showStateMark)
           Positioned(
@@ -276,7 +277,7 @@ class _State extends State<TaskCard> {
       ],
     );
 
-    return _inactive || isWeb || !_canDelete
+    return _ro || isWeb || !_canDelete
         ? content
         : Slidable(
             key: ObjectKey(_t),

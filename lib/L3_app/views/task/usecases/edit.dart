@@ -71,12 +71,13 @@ extension TaskEditUC on TaskController {
   }
 
   Future reload({bool? closed}) async {
-    task.filled = false;
+    final t = task;
+    t.filled = false;
 
     await editWrapper(() async {
       setLoaderScreenLoading();
-      final filteredSubtasks = task.filteredSubtasks.toList();
-      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: task.isProjectWithGoalsAndFilters);
+      final filteredSubtasks = t.filteredSubtasks.toList();
+      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: t.isProjectWithGoalsAndFilters);
       if (taskNode != null) {
         // удаление дерева подзадач
         for (final t in filteredSubtasks) {
@@ -108,13 +109,13 @@ extension TaskEditUC on TaskController {
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
               loading: loading,
               bottomDivider: false,
-              onTap: () => reload(closed: true),
+              onTap: reload,
             )
           : MTButton.secondary(
               titleText: loc.action_show_closed_title,
               margin: const EdgeInsets.only(top: P3),
               loading: loading,
-              onTap: () => reload(closed: true),
+              onTap: reload,
             )
       : null;
 

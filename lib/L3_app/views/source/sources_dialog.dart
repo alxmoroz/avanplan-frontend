@@ -58,11 +58,12 @@ class _SourcesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
+      final hasSources = _ws.sources.isNotEmpty;
       return MTDialog(
         topBar: MTTopBar(
           pageTitle: loc.source_list_title,
           parentPageTitle: _ws.title,
-          trailing: _ws.sources.isNotEmpty && _ws.hpSourceCreate
+          trailing: hasSources && _ws.hpSourceCreate
               ? MTButton.icon(
                   const PlusIcon(circled: true, size: P5),
                   padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
@@ -70,13 +71,14 @@ class _SourcesDialog extends StatelessWidget {
                 )
               : null,
         ),
-        body: _ws.sources.isEmpty
-            ? NoSources(_ws)
-            : ListView.builder(
+        body: hasSources
+            ? ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _sourceBuilder,
                 itemCount: _ws.sources.length,
-              ),
+              )
+            : NoSources(_ws),
+        minBottomPadding: hasSources ? null : P3,
       );
     });
   }

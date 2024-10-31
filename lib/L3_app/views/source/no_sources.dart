@@ -28,7 +28,7 @@ class NoSources extends StatelessWidget {
         MTButton.main(
           leading: const PlusIcon(color: mainBtnTitleColor),
           titleText: loc.source_create_action_title,
-          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          margin: const EdgeInsets.only(top: P3),
           onTap: () => startAddSource(_ws),
         ),
       ],

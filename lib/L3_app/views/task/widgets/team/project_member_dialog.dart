@@ -173,7 +173,7 @@ class _ProjectMemberDialog extends StatelessWidget {
                   ),
                 ],
               ),
-              minBottomPadding: isBigScreen(context) ? null : P3,
+              forceBottomPadding: !isBigScreen(context),
             ),
     );
   }

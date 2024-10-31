@@ -177,7 +177,7 @@ class _ProjectModulesDialog extends StatelessWidget {
           },
         ),
       ),
-      minBottomPadding: P3,
+      forceBottomPadding: true,
     );
   }
 }

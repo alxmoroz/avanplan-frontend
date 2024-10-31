@@ -39,7 +39,7 @@ class _NotificationDialog extends StatelessWidget {
               const SizedBox(height: P),
               SmallText('${nf.scheduledDate.date.strMedium} ${nf.scheduledDate.strTime}', maxLines: 1, align: TextAlign.right),
               if (nf.url != null && Uri.tryParse(nf.url!) != null)
-                MTButton.secondary(
+                MTButton(
                   margin: const EdgeInsets.only(top: P3),
                   titleText: loc.details,
                   trailing: const ChevronIcon(),

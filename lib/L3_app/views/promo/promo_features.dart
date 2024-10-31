@@ -38,7 +38,7 @@ class _PromoFeaturesDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [PromoFeatures(ws)],
       ),
-      minBottomPadding: P3,
+      forceBottomPadding: true,
     );
   }
 }
@@ -88,7 +88,7 @@ class PromoFeatures extends StatelessWidget {
               titleText: loc.promo_features_subscribe_title,
               onTap: () => _subscribe(context),
             ),
-            MTButton.secondary(
+            MTButton(
               titleText: loc.later,
               margin: const EdgeInsets.only(top: P3),
               onTap: () => _later(context),

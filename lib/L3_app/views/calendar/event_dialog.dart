@@ -108,12 +108,13 @@ class _EventDialog extends StatelessWidget {
           if (event.sourceLink.isNotEmpty) ...[
             MTButton.main(
               titleText: loc.task_go2source_title,
-              margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+              margin: const EdgeInsets.only(top: P3),
               onTap: () => launchUrlString(event.sourceLink),
             ),
           ],
         ],
       ),
+      forceBottomPadding: true,
     );
   }
 }

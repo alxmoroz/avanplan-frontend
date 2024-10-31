@@ -58,7 +58,7 @@ class _WSEditDialog extends StatelessWidget {
                   ),
                 ],
               ),
-              minBottomPadding: P3,
+              forceBottomPadding: true,
             ),
     );
   }

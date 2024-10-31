@@ -78,7 +78,7 @@ class _SourcesDialog extends StatelessWidget {
                 itemCount: _ws.sources.length,
               )
             : NoSources(_ws),
-        minBottomPadding: hasSources ? null : P3,
+        forceBottomPadding: !hasSources,
       );
     });
   }

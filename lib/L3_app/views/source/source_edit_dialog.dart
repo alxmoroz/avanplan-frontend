@@ -152,7 +152,7 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                   ),
                 ],
               ),
-              minBottomPadding: P3,
+              forceBottomPadding: true,
             ),
     );
   }

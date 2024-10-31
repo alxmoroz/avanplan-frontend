@@ -86,7 +86,7 @@ class MTDialog extends StatelessWidget {
     required this.body,
     this.topBar = const MTTopBar(),
     this.bottomBar,
-    this.minBottomPadding,
+    this.forceBottomPadding = false,
     this.bottomBarColor,
     this.rightBar,
     this.bgColor,
@@ -101,7 +101,7 @@ class MTDialog extends StatelessWidget {
   final PreferredSizeWidget? topBar;
   final PreferredSizeWidget? rightBar;
   final PreferredSizeWidget? bottomBar;
-  final double? minBottomPadding;
+  final bool forceBottomPadding;
   final Color? bottomBarColor;
   final Color? bgColor;
   final BorderRadiusGeometry? borderRadius;
@@ -116,10 +116,10 @@ class MTDialog extends StatelessWidget {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
       final mqPaddingBottom = mq.padding.bottom;
-      final needBottomPadding = _hasBottombar || (mqPaddingBottom == 0 && !isBigScreen(context));
-      final bottomPadding = minBottomPadding ?? (needBottomPadding ? DEF_DIALOG_BOTTOM_PADDING : 0);
+      final needBottomPadding = forceBottomPadding || _hasBottombar || (mqPaddingBottom == 0 && !isBigScreen(context));
+      final minBottomPadding = needBottomPadding ? DEF_DIALOG_BOTTOM_PADDING : 0.0;
       final mqPadding = mq.padding.copyWith(
-        bottom: max(mqPaddingBottom, bottomPadding),
+        bottom: max(mqPaddingBottom, minBottomPadding),
       );
 
       return MediaQuery(

@@ -57,7 +57,7 @@ class _RegistrationDialogState extends State<_RegistrationDialog> {
                           ),
                         ],
                       ),
-                minBottomPadding: P3,
+                forceBottomPadding: true,
               ),
       );
 }

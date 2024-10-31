@@ -29,11 +29,12 @@ class _TariffConfirmExpensesDialog extends StatelessWidget {
           TariffExpenses(_ws, tariff: _tariff),
           MTButton.main(
             titleText: loc.action_subscribe_title,
-            margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+            margin: const EdgeInsets.only(top: P3),
             onTap: () => Navigator.of(context).pop(true),
           ),
         ],
       ),
+      forceBottomPadding: true,
     );
   }
 }

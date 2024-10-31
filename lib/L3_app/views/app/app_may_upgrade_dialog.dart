@@ -20,7 +20,7 @@ class _AppMayUpgradeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: P3, horizontal: P8),
+        padding: const EdgeInsets.symmetric(horizontal: P8),
         child: ListView(
           shrinkWrap: true,
           children: [
@@ -40,12 +40,13 @@ class _AppMayUpgradeDialog extends StatelessWidget {
             ),
             MTButton(
               titleText: loc.later,
-              margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+              margin: const EdgeInsets.only(top: P3),
               onTap: router.pop,
             ),
           ],
         ),
       ),
+      forceBottomPadding: true,
     );
   }
 }

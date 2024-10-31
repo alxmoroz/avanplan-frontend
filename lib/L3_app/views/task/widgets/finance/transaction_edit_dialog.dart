@@ -128,7 +128,7 @@ class _TransactionEditDialog extends StatelessWidget {
           ),
         ],
       ),
-      minBottomPadding: P3,
+      forceBottomPadding: true,
     );
   }
 

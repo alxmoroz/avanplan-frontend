@@ -43,10 +43,11 @@ class _MTSnackbarDialog extends StatelessWidget {
             color: b3Color,
             align: TextAlign.center,
             maxLines: 5,
-            padding: const EdgeInsets.all(P3).copyWith(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+            padding: const EdgeInsets.all(P3).copyWith(bottom: 0),
           ),
         ],
       ),
+      forceBottomPadding: true,
     );
   }
 }

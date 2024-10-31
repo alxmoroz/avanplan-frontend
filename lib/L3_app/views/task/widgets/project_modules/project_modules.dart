@@ -165,7 +165,6 @@ class _ProjectModulesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(pageTitle: loc.project_modules_title),
-      minBottomPadding: P3,
       body: _ProjectModulesBody(
         _tc,
         footer: MTButton.main(
@@ -178,6 +177,7 @@ class _ProjectModulesDialog extends StatelessWidget {
           },
         ),
       ),
+      minBottomPadding: P3,
     );
   }
 }

@@ -15,7 +15,7 @@ class PhoneParser extends UriParser {
   const PhoneParser();
 
   static final _phoneRe = RegExp(
-    r'^(.*?)((?:tel:\+[1-9]\d{10,14})|(?:(?:\+?[1-9]{1,4}[ ]?)?(?:\d{1,3}|\(?\d{1,5}\))+(?:\-?[ ]?\d){6,14}))',
+    r'^(.*?)(tel:\+[1-9]\d{10,14}|(?:\+?[1-9]{1,4}[ ]?)?(?:\d{1,3}|\(?\d{1,5}\))+(?:-?[ ]?\d){6,14})',
     dotAll: true,
   );
 

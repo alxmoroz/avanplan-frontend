@@ -94,27 +94,6 @@ class _State extends State<TaskCard> {
 
   Widget get _parentTitle => SmallText(_t.parent!.title, maxLines: 1);
 
-  Widget get _deleteButton => Opacity(
-      opacity: _cardHover ? 1 : 0,
-      child: MTButton.icon(
-        MTIcon(_delIconData, color: _delBtnHover ? dangerColor : f2Color, size: P5),
-        padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P),
-        onHover: (hover) => setState(() => _delBtnHover = hover),
-        onTap: _delete,
-      ));
-
-  Widget get _title => Row(
-        children: [
-          Expanded(child: BaseText(_t.title, maxLines: 2, color: _textColor)),
-          if (widget.trailing != null)
-            widget.trailing!
-          else if (_canDelete && isWeb)
-            _deleteButton
-          else if (!isWeb && !widget.board && !_ro)
-            const ChevronIcon(),
-        ],
-      );
-
   Widget _error(String errText) => Row(children: [
         const ErrorIcon(),
         const SizedBox(width: P_2),
@@ -173,15 +152,46 @@ class _State extends State<TaskCard> {
         child: MTCircle(size: 4, color: f2Color),
       );
 
+  Widget get _deleteButton => Opacity(
+        opacity: _cardHover ? 1 : 0,
+        child: MTButton.icon(
+          MTIcon(_delIconData, color: _delBtnHover ? dangerColor : f2Color, size: P4),
+          padding: const EdgeInsets.only(left: P, right: P_2),
+          onHover: (hover) => setState(() => _delBtnHover = hover),
+          onTap: _delete,
+        ),
+      );
+
   Widget _taskContent(bool withDetails) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (widget.showParent && _t.parent != null) ...[
-            _parentTitle,
-            const SizedBox(height: P_2),
-          ],
-          _title,
+          // Хлебная крошка, название, шеврон / иконка удаления
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.showParent && _t.parent != null) ...[
+                      _parentTitle,
+                      const SizedBox(height: P_2),
+                    ],
+                    BaseText(_t.title, maxLines: 2, color: _textColor),
+                  ],
+                ),
+              ),
+              if (widget.trailing != null)
+                widget.trailing!
+              else if (_canDelete && isWeb && _t.isTask)
+                _deleteButton
+              else if (!isWeb && !widget.board && !_ro)
+                const ChevronIcon(),
+            ],
+          ),
+
           // ошибки
           if (_t.error != null)
             _error(_t.error!.message)

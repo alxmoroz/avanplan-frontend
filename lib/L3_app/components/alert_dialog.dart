@@ -77,9 +77,9 @@ class _MTAlertDialog extends StatelessWidget {
               constrained: true,
               onTap: () => _tap(context, a),
             ),
-          if (actions.isNotEmpty && MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
       ),
+      forceBottomPadding: actions.isNotEmpty,
     );
   }
 }

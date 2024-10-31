@@ -70,7 +70,7 @@ class TariffExpenses extends StatelessWidget {
         /// информация о тарифе - ссылка
         MTButton(
           middle: BaseText(loc.tariff_details_action_title, color: mainColor, maxLines: 1),
-          margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+          margin: const EdgeInsets.only(top: P3),
           onTap: () => launchUrlString(_tariff.detailsUri),
         ),
       ],

@@ -118,12 +118,13 @@ class _State extends State<_MyAccountDialog> {
                   /// Выход из системы
                   MTListTile(
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                    margin: EdgeInsets.only(top: P6, bottom: !isBigScreen(context) && MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                    margin: const EdgeInsets.only(top: P6),
                     bottomDivider: false,
                     onTap: authController.signOut,
                   ),
                 ],
               ),
+              forceBottomPadding: !isBigScreen(context),
             ),
     );
   }

@@ -19,6 +19,7 @@ class _WSExpensesDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTTopBar(pageTitle: '${loc.tariff_current_expenses_title} ${loc.per_month_suffix}'),
       body: TariffExpenses(_ws),
+      forceBottomPadding: true,
     );
   }
 }

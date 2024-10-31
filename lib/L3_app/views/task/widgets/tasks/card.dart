@@ -85,6 +85,7 @@ class _State extends State<TaskCard> {
   Future<bool> _delete() async {
     setState(() => _deleting = true);
     widget.onDelete!(_t);
+    setState(() => _deleting = false);
     return false;
   }
 
@@ -92,10 +93,24 @@ class _State extends State<TaskCard> {
 
   Widget get _parentTitle => SmallText(_t.parent!.title, maxLines: 1);
 
+  Widget get _deleteButton => Opacity(
+      opacity: _cardHover ? 1 : 0,
+      child: MTButton.icon(
+        MTIcon(_delIconData, color: _delBtnHover ? dangerColor : f2Color, size: P5),
+        padding: const EdgeInsets.symmetric(vertical: P).copyWith(left: P),
+        onHover: (hover) => setState(() => _delBtnHover = hover),
+        onTap: _delete,
+      ));
+
   Widget get _title => Row(
         children: [
           Expanded(child: BaseText(_t.title, maxLines: 2, color: _textColor)),
-          if (widget.trailing != null) widget.trailing! else if (!isWeb && !widget.board && !_t.isImportingProject) const ChevronIcon(),
+          if (widget.trailing != null)
+            widget.trailing!
+          else if (_canDelete && isWeb)
+            _deleteButton
+          else if (!isWeb && !widget.board && !_t.isImportingProject)
+            const ChevronIcon(),
         ],
       );
 
@@ -258,20 +273,6 @@ class _State extends State<TaskCard> {
               width: P,
             ),
           ),
-        if (_canDelete && isWeb)
-          Positioned(
-            right: 0,
-            child: Opacity(
-              opacity: _cardHover ? 1 : 0,
-              child: MTButton.icon(
-                MTIcon(_delIconData, color: _delBtnHover ? dangerColor : f2Color, size: P4),
-                padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
-                margin: const EdgeInsets.only(left: P2),
-                onHover: (hover) => setState(() => _delBtnHover = hover),
-                onTap: _delete,
-              ),
-            ),
-          )
       ],
     );
 

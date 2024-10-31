@@ -167,12 +167,13 @@ class _ProjectMemberDialog extends StatelessWidget {
                   /// Отключение от проекта
                   MTListTile(
                     middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
-                    margin: EdgeInsets.only(top: P6, bottom: !isBigScreen(context) && MediaQuery.paddingOf(context).bottom == 0 ? P3 : 0),
+                    margin: const EdgeInsets.only(top: P6),
                     bottomDivider: false,
                     onTap: () => _unlinkMember(context),
                   ),
                 ],
               ),
+              minBottomPadding: isBigScreen(context) ? null : P3,
             ),
     );
   }

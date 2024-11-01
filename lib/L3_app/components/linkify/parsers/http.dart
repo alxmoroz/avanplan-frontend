@@ -53,7 +53,7 @@ class HttpParser extends UriParser {
   const HttpParser();
 
   static final _urlRe = RegExp(
-    r'^(.*?)((?:https?://)?(?:www\.)?[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_+.~#?&/=]*)?)',
+    r'^(.*?)((?:https?://)?(?:www\.)?[-\w0-9@:%_+.~#?&/=]{2,191}\.\w{2,61}(?::\d{1,5})?/?#?\??(?:[^\x00-\x7F]|[\w0-9@:%_+.~&/=])*)',
     caseSensitive: false,
     dotAll: true,
   );

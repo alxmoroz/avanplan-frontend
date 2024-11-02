@@ -23,6 +23,8 @@ extension TaskTreeUC on Task {
   Workspace get ws => wsMainController.ws(wsId) ?? Workspace.dummy;
   Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId && t.wsId == wsId);
   Task get project => (isProject || isInbox) ? this : parent!.project;
+  Task? get goal => isGoal ? this : parent?.goal;
+  Task? get backlog => isBacklog ? this : parent?.backlog;
 
   Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
 

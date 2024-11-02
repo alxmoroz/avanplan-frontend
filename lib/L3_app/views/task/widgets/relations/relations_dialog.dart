@@ -43,7 +43,7 @@ class _RelationsDialog extends StatelessWidget {
       if (context.mounted) Navigator.of(context).pop();
 
       // Переходим к целевой задаче
-      router.goTaskFromTask(t, _rc.task);
+      router.goTaskSameRoute(t, _rc.task);
     }
   }
 

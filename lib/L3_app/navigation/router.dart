@@ -39,7 +39,7 @@ final router = GoRouter(
     initialExtra: 'local',
     navigatorKey: _rootKey,
     onException: (_, state, r) {
-      if (kDebugMode) print('GoRouter onException -> $state');
+      if (kDebugMode) print('GoRouter onException -> ${state.uri}');
       r.goMain();
     });
 
@@ -52,6 +52,32 @@ extension MTRouterHelper on GoRouter {
   MTRoute get currentRoute => _currentConfig.last.route as MTRoute;
 
   bool get isDeepLink => _currentConfig.extra == null;
+
+  void setTaskPathParameters(Task t) {
+    final tt = t.type.toLowerCase();
+
+    _currentConfig.pathParameters.updateAll((k, v) {
+      if (k == tt) {
+        return '${t.id!}';
+      } else {
+        switch (k) {
+          case 'wsId':
+            v = '${t.wsId}';
+            break;
+          case 'projectId':
+            v = '${t.project.id}';
+            break;
+          case 'goalId':
+            v = '${t.goal?.id}';
+            break;
+          case 'backlogId':
+            v = '${t.backlog?.id}';
+            break;
+        }
+      }
+      return v;
+    });
+  }
 
   void _go(String location, {Object? extra = 'local'}) => go(location, extra: extra);
 
@@ -96,8 +122,10 @@ extension MTRouterHelper on GoRouter {
     }
   }
 
-  void goTaskFromTask(Task toTask, Task fromTask) {
+  void goTaskSameRoute(Task toTask, Task fromTask) {
     RouteMatchList rConfig = _currentConfig;
+    final tt = toTask.type.toLowerCase();
+    final ttIdKey = '${tt}Id';
     // Выходим из исходной задачи
     // Поднимаемся на один уровень, если родители совпадают (проект или цель)
     // ...а также, когда задача открыта с главной
@@ -114,12 +142,12 @@ extension MTRouterHelper on GoRouter {
     }
 
     final pp = rConfig.pathParameters;
-    pp.addAll({'taskId': '${toTask.id!}'});
+    pp.addAll({ttIdKey: '${toTask.id!}'});
     if (!pp.containsKey('wsId')) {
       pp.addAll({'wsId': '${toTask.wsId}'});
     }
 
-    pushReplacementNamed('${rConfig.last.route.name}/task', pathParameters: pp, extra: 'local');
+    pushReplacementNamed('${rConfig.last.route.name}/$tt', pathParameters: pp, extra: 'local');
   }
 
   // 404 для задач

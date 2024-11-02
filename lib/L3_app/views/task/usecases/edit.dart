@@ -70,17 +70,24 @@ extension TaskEditUC on TaskController {
     tasksMainController.refreshUI();
   }
 
+  void _update(Task root, Iterable<Task> updatedTasks) {
+    tasksMainController.upsertTasks([root, ...updatedTasks]);
+    taskDescriptor = root;
+    setupFields();
+    reloadContentControllers();
+  }
+
   Future reload({bool? closed}) async {
     final t = task;
     t.filled = false;
 
     await editWrapper(() async {
       setLoaderScreenLoading();
-      final filteredSubtasks = t.filteredSubtasks.toList();
       final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: t.isProjectWithGoalsAndFilters);
       if (taskNode != null) {
         // удаление дерева подзадач
-        for (final t in filteredSubtasks) {
+        // NB!: тут нужен новый массив, чтобы можно было удалить их
+        for (final t in [...t.filteredSubtasks]) {
           tasksMainController.removeTask(t);
         }
 
@@ -88,16 +95,14 @@ extension TaskEditUC on TaskController {
         // сама задача / цель / проект
         final root = taskNode.root;
         root.filled = true;
-        final newTasks = [root, ...taskNode.subtasks];
+
+        final updatedTasks = [...taskNode.subtasks, ...taskNode.parents];
         // мои задачи из проекта, если обновляем проект с целями
         if (root.isProject && root.hmGoals) {
-          newTasks.addAll(await wsMyUC.myTasks(root.wsId, projectId: root.id!));
+          updatedTasks.addAll(await wsMyUC.myTasks(root.wsId, projectId: root.id!));
         }
-        tasksMainController.upsertTasks([...newTasks, ...taskNode.parents]);
-        taskDescriptor = root;
 
-        setupFields();
-        reloadContentControllers();
+        _update(root, updatedTasks);
       }
     });
   }
@@ -146,6 +151,7 @@ extension TaskEditUC on TaskController {
 
   Future move(Task dst) async => await editWrapper(() async {
         setLoaderScreenSaving();
+        final src = task;
         // перенос внутри одного РП - просто меняем родителя
         // перенос между РП - новая задача в новом месте, старая удаляется
         final sameWS = dst.wsId == taskDescriptor.wsId;
@@ -154,22 +160,24 @@ extension TaskEditUC on TaskController {
 
         if (sameWS) {
           // статус в другом проекте
-          int? dstProjectStatusId = task.projectStatusId;
-          if (dst.project.id != task.project.id) {
+          int? dstProjectStatusId = src.projectStatusId;
+          if (dst.project.id != src.project.id) {
             final psc = TaskController(taskIn: dst).projectStatusesController;
             psc.reload();
             dstProjectStatusId = psc.firstOpenedStatusId;
           }
-          changes = await taskUC.save(task.copyWith(parentId: dst.id, projectStatusId: dstProjectStatusId));
+          changes = await taskUC.save(src.copyWith(parentId: dst.id, projectStatusId: dstProjectStatusId));
         } else {
-          changes = await taskUC.move(taskDescriptor, dst);
+          changes = await taskUC.move(src, dst);
         }
 
         if (changes != null) {
-          // changes.updated.filled = true;
-          tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
-          if (!sameWS) tasksMainController.removeTask(task);
-          taskDescriptor = changes.updated;
+          final root = changes.updated;
+          root.filled = src.filled;
+          // удаление задачи вместе с деревом подзадач
+          if (!sameWS) tasksMainController.removeTask(src);
+          _update(root, changes.affected);
+          router.setTaskPathParameters(root);
         }
       });
 }

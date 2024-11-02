@@ -3,14 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/note.dart';
-import '../../../components/constants.dart';
-import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../usecases/attachments.dart';
-import '../widgets/notes/note_edit_dialog.dart';
 
 final _fNoteIndex = TaskFCode.note.index;
 
@@ -84,16 +81,17 @@ extension NoteEditUC on TaskController {
         Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
       }
     }
+    notesController.setCurrentNote(null);
   }
 
   Future editNote(Note note) async {
     _te.text = note.text;
-    if (await showMTDialog<bool?>(NoteEditDialog(this, note: note), maxWidth: SCR_M_WIDTH) == true) {
-      // добавление или редактирование
-      await saveNote(note);
-    } else if (!note.isNew) {
-      _te.text = '';
-    }
+    notesController.setCurrentNote(note);
+  }
+
+  void resetNoteEdit() {
+    _te.text = '';
+    notesController.setCurrentNote(null);
   }
 
   Future createNote() async {

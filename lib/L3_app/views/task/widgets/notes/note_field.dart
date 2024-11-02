@@ -19,26 +19,27 @@ import '../../usecases/note.dart';
 import '../attachments/upload_dialog.dart';
 
 class NoteField extends StatelessWidget {
-  const NoteField(this._controller, {super.key, this.note, this.standalone = false, this.maxLines});
-  final TaskController _controller;
-  final Note? note;
-  final bool standalone;
+  const NoteField(this._tc, {super.key, this.maxLines});
+  final TaskController _tc;
   final int? maxLines;
 
-  int get fIndex => TaskFCode.note.index;
-  MTFieldData get _fd => _controller.fData(fIndex);
-  FocusNode? get _fn => _controller.focusNode(fIndex);
-  TextEditingController get _tc => _controller.teController(fIndex)!;
+  Note? get _note => _tc.notesController.currentNote;
+  bool get _hasNote => _note != null;
 
-  bool get _isNewNote => note == null || note!.isNew;
-  bool get _hasFiles => _isNewNote && _controller.attachmentsController.selectedFiles.isNotEmpty;
+  int get _fIndex => TaskFCode.note.index;
+  MTFieldData get _fd => _tc.fData(_fIndex);
+  FocusNode? get _fn => _tc.focusNode(_fIndex);
+  TextEditingController get _tec => _tc.teController(_fIndex)!;
+
+  bool get _isNewNote => _note == null || _note!.isNew;
+  bool get _hasFiles => _isNewNote && _tc.attachmentsController.selectedFiles.isNotEmpty;
   bool get _canSubmit => _fd.text.trim().isNotEmpty || _hasFiles;
 
   Future _submit(BuildContext context) async {
-    if (standalone) {
-      await _controller.createNote();
+    if (_note == null) {
+      await _tc.createNote();
     } else {
-      Navigator.of(context).pop(true);
+      await _tc.saveNote(_note!);
     }
   }
 
@@ -56,17 +57,21 @@ class NoteField extends StatelessWidget {
                   MTButton.icon(
                     const AttachmentIcon(),
                     padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
-                    onTap: _controller.attachmentsController.startUpload,
+                    onTap: _tc.attachmentsController.startUpload,
                   )
                 else
-                  const SizedBox(width: P2),
+                  MTButton.icon(
+                    const CloseIcon(),
+                    padding: const EdgeInsets.all(P2),
+                    onTap: _tc.resetNoteEdit,
+                  ),
                 Expanded(
                   child: MTTextField(
                     hint: loc.task_note_title,
                     focusNode: _fn,
-                    controller: _tc,
+                    controller: _tec,
                     margin: EdgeInsets.zero,
-                    autofocus: !standalone,
+                    autofocus: _hasNote,
                     padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
                     maxLines: maxLines,
                   ),
@@ -82,7 +87,7 @@ class NoteField extends StatelessWidget {
                 ),
               ],
             ),
-            if (_hasFiles) UploadDetails(_controller.attachmentsController),
+            if (_hasFiles) UploadDetails(_tc.attachmentsController),
           ],
         );
       },

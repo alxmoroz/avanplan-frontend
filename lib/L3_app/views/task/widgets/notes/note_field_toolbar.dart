@@ -11,13 +11,13 @@ import '../notes/note_field.dart';
 
 class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
   const NoteFieldToolbar(
-    this._controller,
+    this._tc,
     this._tvController, {
     super.key,
     this.extraHeight = 0.0,
     this.ignoreBottomInsets = false,
   });
-  final TaskController _controller;
+  final TaskController _tc;
   final TaskViewController _tvController;
   final double extraHeight;
   final bool ignoreBottomInsets;
@@ -40,27 +40,27 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
   static double _extraPadding(BuildContext context, bool ignoreBottomInsets) =>
       !ignoreBottomInsets && MediaQuery.viewInsetsOf(context).bottom > 0 ? P2 : 0;
 
-  static int _maxLines(BuildContext context, TaskController controller, TaskViewController tvc, bool ignoreBottomInsets) {
+  static int _maxLines(BuildContext context, TaskController tc, TaskViewController tvc, bool ignoreBottomInsets) {
     final viewInsets = MediaQuery.viewInsetsOf(context).bottom;
     final viewPadding = MediaQuery.paddingOf(context);
     final maxHeight = tvc.centerConstraints.maxHeight -
-        _footerHeight(context, controller, ignoreBottomInsets) -
+        _footerHeight(context, tc, ignoreBottomInsets) -
         _topPadding -
         (ignoreBottomInsets ? P4 : (P12 + viewInsets + (viewInsets > 0 ? viewPadding.top : viewPadding.vertical)));
     return maxHeight ~/ _prefLineHeight(context, const BaseText('').style(context));
   }
 
-  static double calculateExtraHeight(BuildContext context, TaskController controller, TaskViewController tvController, bool ignoreBottomInsets) {
-    final ml = _maxLines(context, controller, tvController, ignoreBottomInsets);
+  static double calculateExtraHeight(BuildContext context, TaskController tc, TaskViewController tvController, bool ignoreBottomInsets) {
+    final ml = _maxLines(context, tc, tvController, ignoreBottomInsets);
     final style = const BaseText('').style(context);
     final tp = TextPainter(
-      text: TextSpan(text: controller.fData(TaskFCode.note.index).text, style: style),
+      text: TextSpan(text: tc.fData(TaskFCode.note.index).text, style: style),
       maxLines: ml,
       textDirection: TextDirection.ltr,
     );
     tp.layout(maxWidth: tvController.centerConstraints.maxWidth - 141);
 
-    return tp.height - tp.preferredLineHeight + _footerHeight(context, controller, ignoreBottomInsets) + _extraPadding(context, ignoreBottomInsets);
+    return tp.height - tp.preferredLineHeight + _footerHeight(context, tc, ignoreBottomInsets) + _extraPadding(context, ignoreBottomInsets);
   }
 
   @override
@@ -71,7 +71,10 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
       ignoreBottomInsets: ignoreBottomInsets,
       innerHeight: innerHeight,
       topPadding: _topPadding,
-      middle: NoteField(_controller, standalone: true, maxLines: _maxLines(context, _controller, _tvController, ignoreBottomInsets)),
+      middle: NoteField(
+        _tc,
+        maxLines: _maxLines(context, _tc, _tvController, ignoreBottomInsets),
+      ),
     );
   }
 }

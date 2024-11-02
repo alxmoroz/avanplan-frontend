@@ -12,7 +12,6 @@ import '../../navigation/router.dart';
 import '../../presenters/task_tree.dart';
 import '../../presenters/task_type.dart';
 import '../quiz/abstract_task_quiz_controller.dart';
-import 'controllers/create_goal_quiz_controller.dart';
 import 'controllers/create_project_quiz_controller.dart';
 import 'controllers/task_controller.dart';
 import 'task_view.dart';
@@ -58,8 +57,8 @@ abstract class BaseTaskRoute extends MTRoute {
   GoRouterWidgetBuilder? get builder => (_, state) {
         // шаг квиза?
         AbstractTaskQuizController? quizController = (state.extra is AbstractTaskQuizController) ? state.extra as AbstractTaskQuizController : null;
-        if (quizController == null && td.creating && (td.isProject || td.isGoal)) {
-          quizController = td.isProject ? CreateProjectQuizController(_tc) : CreateGoalQuizController(_tc);
+        if (quizController == null && td.creating && (td.isProject)) {
+          quizController = CreateProjectQuizController(_tc);
         }
         final qcTD = quizController?.taskController.taskDescriptor;
 

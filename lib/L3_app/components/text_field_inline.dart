@@ -58,7 +58,7 @@ class MTTextFieldInline extends StatelessWidget {
             autofocus: autofocus,
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
-            maxLines: maxLines,
+            maxLines: hasFocus ? maxLines : 1,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.zero,

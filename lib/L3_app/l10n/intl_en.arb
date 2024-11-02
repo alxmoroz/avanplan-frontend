@@ -479,7 +479,9 @@
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
   "task_count_genitive": "{count, plural, one{{count} task} other{{count} tasks}}",
 
-  "task_dates": "Dates and repeat settings",
+  "task_dates": "Dates settings",
+  "task_dates_repeat": "Dates and repeat settings",
+
   "task_delete_dialog_group_title": "Delete along with subtasks?",
 
   "task_due_date_label": "Deadline",

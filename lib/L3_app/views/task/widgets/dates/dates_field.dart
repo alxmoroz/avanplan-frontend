@@ -55,7 +55,7 @@ class TaskDatesField extends StatelessWidget {
     return MTField(
       MTFieldData(
         -1,
-        placeholder: loc.task_dates,
+        placeholder: _tc.canShowRepeatField ? loc.task_dates_repeat : loc.task_dates,
         label: dueDate == null
             ? loc.task_start_date_label
             : startDate == null

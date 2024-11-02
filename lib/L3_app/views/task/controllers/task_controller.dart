@@ -206,6 +206,9 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get canAssign => !_isPreview && task.canAssign;
   bool get canShowAssigneeField => task.hasAssignee || canAssign;
   bool get canShowDateField => task.hasDates || canEdit;
+  bool get canShowDueDateField => task.hasDueDate || canEdit;
+  bool get canShowStartDateField => task.hasStartDate || canEdit;
+  bool get canShowRepeatField => task.hasRepeat || (task.isTask && canEdit);
   bool get canEstimate => !_isPreview && task.canEstimate;
   bool get canShowEstimateField => task.canShowEstimate || canEstimate;
   bool get canShowAttachmentsField => !_isPreview && task.attachments.isNotEmpty;

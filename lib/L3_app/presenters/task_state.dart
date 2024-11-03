@@ -223,7 +223,7 @@ extension TaskStatePresenter on Task {
               ? TaskState.BACKLOG
               : isTask
                   ? leafState
-                  : hmAnalytics
+                  : hmAnalytics || closed
                       ? state
                       : TaskState.NO_ANALYTICS;
 

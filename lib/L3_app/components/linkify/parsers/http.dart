@@ -42,7 +42,7 @@ class HttpElement extends UriElement {
       } else {
         final longPath = u.pathSegments.length > 2 || u.hasQuery;
         final path = u.pathSegments.take(3).join('/');
-        text = '${u.host}$path${longPath ? '...' : ''}';
+        text = '${u.host}${path.isNotEmpty ? '/' : ''}$path${longPath ? '...' : ''}';
       }
     }
   }
@@ -55,7 +55,7 @@ class HttpParser extends UriParser {
   const HttpParser();
 
   static final _urlRe = RegExp(
-    r'^(.*?)((?:https?://)?(?:www\.)?[-\w0-9@:%_+.~#?&/=]{2,191}\.\w{2,61}(?::\d{1,5})?[\\#?]?(?:[^\x00-\x7F]|[\w-0-9@:%_+.~&?/=])*)',
+    r'^(.*?)((?:https?://)?(?:[-\w0-9_]{2,63}\.){1,3}\w{2,61}(?::\d{1,5})?(?:[/#?](?:[^\x00-\x7F]|[\w-0-9@:%_+.~&?/=])*)?)',
     caseSensitive: false,
     dotAll: true,
   );

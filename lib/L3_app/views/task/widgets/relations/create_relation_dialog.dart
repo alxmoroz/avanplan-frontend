@@ -38,7 +38,7 @@ class _CreateRelationDialog extends StatelessWidget {
     return TaskCard(
       t,
       bottomDivider: index < crc.dstTasks.length - 1,
-      trailing: isRelated ? const DoneIcon(true, circled: false, size: P3, color: f3Color) : const LinkIcon(size: P4),
+      trailing: isRelated ? const DoneIcon(true, circled: false, size: P3, color: f3Color) : const SizedBox(),
       readOnly: isRelated,
       onTap: crc.createRelation,
     );

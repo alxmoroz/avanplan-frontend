@@ -40,7 +40,9 @@ class HttpElement extends UriElement {
           }
         }
       } else {
-        text = u.host;
+        final longPath = u.pathSegments.length > 2 || u.hasQuery;
+        final path = u.pathSegments.take(3).join('/');
+        text = '${u.host}$path${longPath ? '...' : ''}';
       }
     }
   }

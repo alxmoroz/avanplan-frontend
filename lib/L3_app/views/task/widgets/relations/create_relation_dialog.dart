@@ -27,20 +27,20 @@ Future createRelationDialog(TaskController tc) async {
 }
 
 class _CreateRelationDialog extends StatelessWidget {
-  const _CreateRelationDialog(this.crc);
-  final CreateRelationsController crc;
+  const _CreateRelationDialog(this._crc);
+  final CreateRelationsController _crc;
 
-  Task? get _dstGroup => crc.dstGroup;
+  Task? get _dstGroup => _crc.dstGroup;
 
   Widget _taskItem(BuildContext context, int index) {
-    final t = crc.dstTasks[index];
-    final isRelated = crc.task.isRelated(t.id!);
+    final t = _crc.dstTasks[index];
+    final isRelated = _crc.srcTask.isRelated(t.id!);
     return TaskCard(
       t,
-      bottomDivider: index < crc.dstTasks.length - 1,
+      bottomDivider: index < _crc.dstTasks.length - 1,
       trailing: isRelated ? const DoneIcon(true, circled: false, size: P3, color: f3Color) : const SizedBox(),
       readOnly: isRelated,
-      onTap: crc.createRelation,
+      onTap: _crc.createRelation,
     );
   }
 
@@ -49,24 +49,26 @@ class _CreateRelationDialog extends StatelessWidget {
         builder: (_) => MTDialog(
           topBar: MTTopBar(
             pageTitle: loc.relation_create_dialog_title,
-            parentPageTitle: crc.task.title,
-            innerHeight: P * 19,
+            parentPageTitle: _crc.srcTask.title,
+            innerHeight: P * 14 + (_crc.singleSourceFlag ? 0 : P5),
             bottomWidget: MTListTile(
-              margin: const EdgeInsets.only(top: P),
-              middle: BaseText.medium(crc.dstSelected ? '$_dstGroup' : loc.task_transfer_source_hint, maxLines: 1, color: f2Color),
-              trailing: const SizedBox(
+              middle: BaseText.medium(_crc.dstSelected ? '$_dstGroup' : loc.task_transfer_source_hint, maxLines: 1, color: f2Color),
+              trailing: SizedBox(
                 width: P4,
-                child: Align(child: CaretIcon(size: Size(P2, P2), color: mainColor)),
+                child: Align(child: CaretIcon(size: const Size(P2, P2), color: _crc.singleSourceFlag ? f3Color : mainColor)),
               ),
+              margin: EdgeInsets.only(top: _crc.singleSourceFlag ? 0 : P),
+              padding: EdgeInsets.symmetric(vertical: _crc.singleSourceFlag ? 0 : P2, horizontal: P3),
+              color: _crc.singleSourceFlag ? Colors.transparent : null,
               bottomDivider: false,
-              onTap: crc.selectDstGroup,
+              onTap: _crc.singleSourceFlag ? null : _crc.selectDstGroup,
             ),
           ),
           body: MTShadowed(
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: _taskItem,
-              itemCount: crc.dstTasks.length,
+              itemCount: _crc.dstTasks.length,
             ),
           ),
         ),

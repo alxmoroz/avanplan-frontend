@@ -28,26 +28,28 @@ class _NotificationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasDetails = nf.url != null && Uri.tryParse(nf.url!) != null;
     return MTDialog(
       topBar: MTTopBar(pageTitle: nf.title),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: P3),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              BaseText(nf.description, maxLines: 100),
-              const SizedBox(height: P),
-              SmallText('${nf.scheduledDate.date.strMedium} ${nf.scheduledDate.strTime}', maxLines: 1, align: TextAlign.right),
-              if (nf.url != null && Uri.tryParse(nf.url!) != null)
-                MTButton(
-                  margin: const EdgeInsets.only(top: P3),
-                  titleText: loc.details,
-                  trailing: const ChevronIcon(),
-                  onTap: () => _goToLink(context),
-                ),
-              if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
-            ],
-          )),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            BaseText(nf.description, maxLines: 100),
+            const SizedBox(height: P),
+            SmallText('${nf.scheduledDate.date.strMedium} ${nf.scheduledDate.strTime}', maxLines: 1, align: TextAlign.right),
+            if (hasDetails)
+              MTButton(
+                margin: const EdgeInsets.only(top: P3),
+                titleText: loc.details,
+                trailing: const ChevronIcon(),
+                onTap: () => _goToLink(context),
+              ),
+          ],
+        ),
+      ),
+      forceBottomPadding: true,
     );
   }
 }

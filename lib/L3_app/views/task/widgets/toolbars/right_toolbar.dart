@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -25,48 +24,48 @@ import 'action_item.dart';
 import 'popup_menu.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskRightToolbar(this._taskController, this._controller, {super.key});
-  final TaskController _taskController;
-  final VerticalToolbarController _controller;
+  const TaskRightToolbar(this._tc, this._vtc, {super.key});
+  final TaskController _tc;
+  final VerticalToolbarController _vtc;
 
-  Task get _task => _taskController.task;
-  bool get _compact => _controller.compact;
+  bool get _compact => _vtc.compact;
 
   @override
-  Size get preferredSize => Size.fromWidth(_controller.width);
+  Size get preferredSize => Size.fromWidth(_vtc.width);
 
   Widget _actions(BuildContext context) {
+    final t = _tc.task;
     return Column(
       children: [
         /// параметры задачи
-        TaskDetails(_taskController, compact: _compact),
+        TaskDetails(_tc, compact: _compact),
         const Spacer(),
 
         /// контекстные быстрые действия
-        if (_task.canEditViewSettings) TasksViewSettingsButton(_taskController, compact: _compact),
-        if (_task.canCreateSubtask) CreateTaskButton(_taskController, compact: _compact),
-        if (_task.canLocalImport)
+        if (t.canEditViewSettings) TasksViewSettingsButton(_tc, compact: _compact),
+        if (t.canCreateSubtask) CreateTaskButton(_tc, compact: _compact),
+        if (t.canLocalImport)
           MTListTile(
             leading: const LocalImportIcon(circled: true, size: P6),
             middle: _compact ? null : BaseText(loc.task_transfer_import_action_title, color: mainColor, maxLines: 1),
             bottomDivider: false,
-            onTap: () => localImportDialog(_taskController),
+            onTap: () => localImportDialog(_tc),
           ),
 
         /// быстрые действия с задачей
-        if (_task.quickActions.isNotEmpty) ...[
+        if (t.quickActions.isNotEmpty) ...[
           const MTDivider(verticalIndent: P2),
-          for (final ta in _task.quickActions)
+          for (final ta in t.quickActions)
             TaskActionItem(
               ta,
               compact: _compact,
               inPopup: false,
-              onTap: () => _taskController.taskAction(context, ta),
+              onTap: () => _tc.taskAction(context, ta),
             ),
         ],
 
         /// остальные действия с задачей
-        if (_task.otherActions.isNotEmpty) TaskPopupMenu(_taskController, _task.otherActions, compact: _compact),
+        if (t.otherActions.isNotEmpty) TaskPopupMenu(_tc, t.otherActions, compact: _compact),
       ],
     );
   }
@@ -74,11 +73,11 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _controller.hidden
+      builder: (_) => _vtc.hidden
           ? const SizedBox()
           : VerticalToolbar(
-              _controller,
-              child: _task.isTask
+              _vtc,
+              child: _tc.task.isTask
                   ? MediaQuery(
                       data: MediaQuery.of(context).copyWith(
                         padding: MediaQuery.paddingOf(context).add(const EdgeInsets.only(bottom: P2)) as EdgeInsets,

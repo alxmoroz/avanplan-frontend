@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities_extensions/notification.dart';
-import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
@@ -51,19 +50,44 @@ class _NotificationsDialog extends StatelessWidget {
   Widget _itemBuilder(BuildContext context, int index) {
     if (index < _controller.notifications.length) {
       final n = _controller.notifications[index];
-      final date = n.scheduledDate.date.strMedium;
+      final date = n.scheduledDate.strMedium;
       final time = n.scheduledDate.strTime;
       final title = n.title;
       return MTListTile(
-        middle: SmallText('$date $time', maxLines: 1),
-        subtitle: Column(
+        middle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            BaseText(title, weight: !n.hasDetails || n.isRead ? null : FontWeight.w500, maxLines: 1),
-            if (n.description.isNotEmpty) SmallText(n.description, maxLines: 5, padding: const EdgeInsets.only(top: P)),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SmallText(title, weight: FontWeight.w500, maxLines: 1),
+                      if (n.description.isNotEmpty)
+                        BaseText(
+                          n.description,
+                          maxLines: 3,
+                          weight: !n.hasDetails || n.isRead ? null : FontWeight.w500,
+                          padding: const EdgeInsets.only(top: P),
+                        ),
+                    ],
+                  ),
+                ),
+                if (n.hasDetails) const ChevronIcon(),
+              ],
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: SmallText(
+                '$date $time',
+                color: f3Color,
+                maxLines: 1,
+                padding: const EdgeInsets.only(top: P),
+              ),
+            ),
           ],
         ),
-        trailing: n.hasDetails ? const ChevronIcon() : null,
         bottomDivider: index < _controller.notifications.length - 1,
         onTap: n.hasDetails ? () => _controller.showNotification(context, n: n) : null,
       );
@@ -104,8 +128,8 @@ class _NotificationsDialog extends StatelessWidget {
                   if (!isWeb && !_controller.pushAuthorized)
                     MTListTile(
                       margin: const EdgeInsets.only(bottom: P3),
-                      leading: const BellIcon(),
-                      middle: BaseText(loc.notification_push_ios_denied_btn_title, maxLines: 2),
+                      leading: const BellIcon(size: P5),
+                      middle: SmallText(loc.notification_push_ios_denied_btn_title, maxLines: 2),
                       trailing: const ChevronIcon(),
                       bottomDivider: false,
                       onTap: _showGotoSystemSettingsDialog,

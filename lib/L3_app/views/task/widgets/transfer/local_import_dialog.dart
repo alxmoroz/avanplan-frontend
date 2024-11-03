@@ -18,8 +18,8 @@ import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 import 'local_import_controller.dart';
 
-Future localImportDialog(TaskController taskController) async {
-  final lic = LocalImportController(taskController);
+Future localImportDialog(TaskController tc) async {
+  final lic = LocalImportController(tc);
   await lic.selectSourceForMove();
   if (lic.srcSelected) {
     await showMTDialog(_LocalImportDialog(lic));
@@ -27,22 +27,22 @@ Future localImportDialog(TaskController taskController) async {
 }
 
 class _LocalImportDialog extends StatelessWidget {
-  const _LocalImportDialog(this.controller);
-  final LocalImportController controller;
+  const _LocalImportDialog(this._lic);
+  final LocalImportController _lic;
 
-  Task? get _src => controller.srcGroup;
-  Task get _dst => controller.dstGroup;
+  Task? get _src => _lic.srcGroup;
+  Task get _dst => _lic.dstGroup;
 
-  bool get _showSelectAll => controller.srcTasks.length > 2;
+  bool get _showSelectAll => _lic.srcTasks.length > 2;
 
   Widget _taskItem(BuildContext context, int index) {
-    final t = controller.srcTasks[index];
+    final t = _lic.srcTasks[index];
     return MTCheckBoxTile(
       title: t.title,
       description: t.description,
-      value: controller.checks[index] == true,
-      bottomDivider: index < controller.checks.length - 1,
-      onChanged: (bool? value) => controller.checkTask(index, value),
+      value: _lic.checks[index] == true,
+      bottomDivider: index < _lic.checks.length - 1,
+      onChanged: (bool? value) => _lic.checkTask(index, value),
     );
   }
 
@@ -52,50 +52,48 @@ class _LocalImportDialog extends StatelessWidget {
           topBar: MTTopBar(
             pageTitle: loc.task_transfer_title,
             parentPageTitle: _dst.title,
-            innerHeight: P * 19 + (_showSelectAll ? P8 : 0),
+            innerHeight: P * 14 + (_lic.singleSourceFlag ? 0 : P5) + (_showSelectAll ? P8 : 0),
             bottomWidget: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 MTListTile(
-                  middle: BaseText.medium(
-                    controller.srcSelected ? '$_src' : loc.task_transfer_source_hint,
-                    color: f2Color,
-                    maxLines: 1,
-                  ),
-                  trailing: const SizedBox(
+                  middle: BaseText.medium(_lic.srcSelected ? '$_src' : loc.task_transfer_source_hint, color: f2Color, maxLines: 1),
+                  trailing: SizedBox(
                     width: P4,
-                    child: Align(child: CaretIcon(size: Size(P2, P2), color: mainColor)),
+                    child: Align(child: CaretIcon(size: const Size(P2, P2), color: _lic.singleSourceFlag ? f3Color : mainColor)),
                   ),
-                  margin: const EdgeInsets.only(top: P),
+                  margin: EdgeInsets.only(top: _lic.singleSourceFlag ? 0 : P),
+                  padding: EdgeInsets.symmetric(vertical: _lic.singleSourceFlag ? 0 : P2, horizontal: P3),
+                  color: _lic.singleSourceFlag ? Colors.transparent : null,
                   bottomDivider: false,
-                  onTap: controller.selectSourceForMove,
+                  onTap: _lic.singleSourceFlag ? null : _lic.selectSourceForMove,
                 ),
                 if (_showSelectAll)
                   MTCheckBoxTile(
-                    title: '${loc.action_select_all_title} (${controller.checks.length})',
+                    title: '${loc.action_select_all_title} (${_lic.checks.length})',
                     titleColor: mainColor,
                     color: b2Color,
-                    value: controller.selectedAll,
+                    value: _lic.selectedAll,
                     bottomDivider: false,
-                    onChanged: controller.toggleAll,
+                    onChanged: _lic.toggleAll,
                   )
               ],
             ),
           ),
           body: MTShadowed(
-            bottomShadow: controller.srcSelected,
+            bottomShadow: _lic.srcSelected,
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: _taskItem,
-              itemCount: controller.checks.length,
+              itemCount: _lic.checks.length,
             ),
           ),
-          bottomBar: controller.srcSelected
+          bottomBar: _lic.srcSelected
               ? MTBottomBar(
                   middle: MTButton.main(
-                    leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
+                    leading: LocalImportIcon(color: _lic.validated ? mainBtnTitleColor : f2Color),
                     titleText: loc.task_transfer_import_confirm_action_title,
-                    onTap: controller.validated ? controller.moveTasks : null,
+                    onTap: _lic.validated ? _lic.moveTasks : null,
                   ),
                 )
               : null,

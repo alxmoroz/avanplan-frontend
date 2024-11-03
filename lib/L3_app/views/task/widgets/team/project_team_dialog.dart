@@ -10,5 +10,6 @@ Future showProjectTeamDialog(TaskController controller) async => await showMTDia
       MTDialog(
         topBar: MTTopBar(pageTitle: loc.team_title, parentPageTitle: controller.task.title),
         body: ProjectTeam(controller),
+        forceBottomPadding: true,
       ),
     );

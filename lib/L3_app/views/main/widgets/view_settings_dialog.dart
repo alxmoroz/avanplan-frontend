@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/calendar_source.dart';
 import '../../../components/button.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../components/icons.dart';
@@ -48,17 +47,17 @@ class _ViewSettingsDialog extends StatelessWidget {
                     const SizedBox(height: P3),
                   ],
                   Align(
-                    child: MTButton.main(
-                      leading: const PlusIcon(color: mainBtnTitleColor),
+                    child: MTButton.secondary(
+                      leading: const PlusIcon(),
                       titleText: loc.calendar_connect_action_google_title,
                       padding: const EdgeInsets.symmetric(horizontal: P5),
                       constrained: false,
                       onTap: calendarController.authenticateGoogleCalendar,
                     ),
                   ),
-                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                 ],
               ),
+              forceBottomPadding: true,
             ),
     );
   }

@@ -28,7 +28,6 @@ class NoMembers extends StatelessWidget {
         if (_task.canInviteMembers) ...[
           const SizedBox(height: P3),
           InvitationButton(_task),
-          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ]
       ],
     );

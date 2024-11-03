@@ -80,7 +80,6 @@ class TasksSelectorDialog extends StatelessWidget {
                         MTImage(ImageName.no_info.name),
                         H3(_emptyText, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
                         MTButton.secondary(titleText: loc.ok, onTap: () => Navigator.of(context).pop()),
-                        if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
                       ],
                     )
                   : ListView.builder(
@@ -88,6 +87,7 @@ class TasksSelectorDialog extends StatelessWidget {
                       itemCount: _tsc.groups.length,
                       itemBuilder: _groupBuilder,
                     ),
+              forceBottomPadding: empty,
             );
     });
   }

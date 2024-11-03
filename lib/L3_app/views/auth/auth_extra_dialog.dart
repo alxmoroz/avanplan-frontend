@@ -50,11 +50,12 @@ class _AuthExtraDialog extends StatelessWidget {
             constrained: true,
             middle: BaseText.medium(loc.register_action_title, color: f1Color),
             color: b3Color,
-            margin: EdgeInsets.only(top: P3, bottom: MediaQuery.paddingOf(context).bottom == 0 ? P6 : 0),
+            margin: const EdgeInsets.only(top: P3),
             onTap: () => _register(context),
           ),
         ],
       ),
+      forceBottomPadding: true,
     );
   }
 }

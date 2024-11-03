@@ -108,14 +108,8 @@ class _TariffSelectorDialog extends StatelessWidget {
               topBar: MTTopBar(pageTitle: loc.tariff_list_title),
 
               /// тут нужна SafeArea
-              body: SafeArea(
-                left: false,
-                right: false,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom == 0 ? P2 : 0),
-                  child: _tariffPages(context),
-                ),
-              ),
+              body: SafeArea(left: false, right: false, child: _tariffPages(context)),
+              forceBottomPadding: true,
             ),
     );
   }

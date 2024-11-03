@@ -88,9 +88,9 @@ class _AboutDialog extends StatelessWidget {
           DSmallText('© ${now.date.year} Moroz Team', color: f3Color, align: TextAlign.center),
           const SizedBox(height: P_2),
           DSmallText('© ${now.date.year} ${loc.app_title}', color: f3Color, align: TextAlign.center),
-          if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
         ],
       ),
+      forceBottomPadding: true,
     );
   }
 }

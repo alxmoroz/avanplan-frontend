@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
-import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -28,16 +26,14 @@ Future<bool?> replenishBalanceDialog(WSController wsController, {String reason =
 }
 
 class _StoreDialog extends StatelessWidget {
-  const _StoreDialog(this.wsController, this.reason, this.controller);
+  const _StoreDialog(this._wsc, this._reason, this._iapC);
 
-  final WSController wsController;
-  final String reason;
-  final IAPController controller;
-
-  Workspace get ws => wsController.ws;
+  final WSController _wsc;
+  final String _reason;
+  final IAPController _iapC;
 
   Widget _payButton(BuildContext context, int index) {
-    final p = controller.products[index];
+    final p = _iapC.products[index];
     final hasPrice = p.price.isNotEmpty;
     return MTButton.secondary(
       middle: Row(
@@ -49,7 +45,7 @@ class _StoreDialog extends StatelessWidget {
       margin: const EdgeInsets.only(top: P3),
       onTap: () async {
         Navigator.of(context).pop(true);
-        await controller.pay(ws, p);
+        await _iapC.pay(_wsc.ws, p);
       },
     );
   }
@@ -57,31 +53,29 @@ class _StoreDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.loading
-          ? LoaderScreen(controller, isDialog: true)
+      builder: (_) => _iapC.loading
+          ? LoaderScreen(_iapC, isDialog: true)
           : MTDialog(
               topBar: MTTopBar(pageTitle: loc.balance_replenish_store_title),
               body: ListView(
                 shrinkWrap: true,
                 children: [
-                  if (reason.isNotEmpty) BaseText(reason, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
-                  if (!controller.paymentMethodSelected) ...[
+                  if (_reason.isNotEmpty) BaseText(_reason, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
+                  if (!_iapC.paymentMethodSelected) ...[
                     const SizedBox(height: P2),
-                    MTButton.secondary(titleText: 'AppStore', onTap: controller.getAppStoreProducts),
+                    MTButton.secondary(titleText: 'AppStore', onTap: _iapC.getAppStoreProducts),
                     const SizedBox(height: P3),
-                    MTButton.secondary(titleText: 'ЮMoney', onTap: controller.getYMProducts),
+                    MTButton.secondary(titleText: 'ЮMoney', onTap: _iapC.getYMProducts),
                   ] else
-                    controller.loading
-                        ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress()))
-                        : ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: _payButton,
-                            itemCount: controller.products.length,
-                          ),
-                  if (MediaQuery.paddingOf(context).bottom == 0) const SizedBox(height: P3),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: _payButton,
+                      itemCount: _iapC.products.length,
+                    ),
                 ],
               ),
+              forceBottomPadding: true,
             ),
     );
   }

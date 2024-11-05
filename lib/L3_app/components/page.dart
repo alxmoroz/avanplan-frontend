@@ -99,9 +99,7 @@ class MTPage extends StatelessWidget {
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Container(
-        decoration: BoxDecoration(
-          color: b2Color.resolve(context),
-        ),
+        decoration: BoxDecoration(color: b2Color.resolve(context)),
         child: Stack(
           children: [
             hasLeftBar || hasRightBar

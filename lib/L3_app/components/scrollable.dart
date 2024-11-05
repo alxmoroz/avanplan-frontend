@@ -6,7 +6,6 @@ import 'shadowed.dart';
 
 class MTScrollable extends StatefulWidget {
   const MTScrollable({
-    super.key,
     required this.scrollController,
     required this.child,
     required this.scrollOffsetTop,
@@ -14,6 +13,7 @@ class MTScrollable extends StatefulWidget {
     this.topIndent,
     this.bottomShadow = false,
     this.onScrolled,
+    super.key,
   });
   final ScrollController scrollController;
   final double scrollOffsetTop;
@@ -24,11 +24,17 @@ class MTScrollable extends StatefulWidget {
   final Function(bool)? onScrolled;
 
   @override
-  State<StatefulWidget> createState() => _MTScrollableState();
+  State<StatefulWidget> createState() => _State();
 }
 
-class _MTScrollableState extends State<MTScrollable> {
+class _State extends State<MTScrollable> {
   bool _hasScrolled = false;
+
+  void _onScrolled() {
+    if (widget.onScrolled != null) {
+      widget.onScrolled!(_hasScrolled);
+    }
+  }
 
   void _listener() {
     final triggerOffset = widget.scrollOffsetTop;
@@ -37,9 +43,7 @@ class _MTScrollableState extends State<MTScrollable> {
     if ((!_hasScrolled && offset >= triggerOffset) || (_hasScrolled && offset <= triggerOffset)) {
       setState(() {
         _hasScrolled = !_hasScrolled;
-        if (widget.onScrolled != null) {
-          widget.onScrolled!(_hasScrolled);
-        }
+        _onScrolled();
       });
     }
   }
@@ -65,7 +69,13 @@ class _MTScrollableState extends State<MTScrollable> {
       topIndent: widget.topIndent,
       child: PrimaryScrollController(
         controller: widget.scrollController,
-        child: widget.child,
+        child: NotificationListener<ScrollMetricsNotification>(
+          onNotification: (_) {
+            _listener();
+            return false;
+          },
+          child: widget.child,
+        ),
       ),
     );
   }

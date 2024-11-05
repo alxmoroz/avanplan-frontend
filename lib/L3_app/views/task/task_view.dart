@@ -208,14 +208,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    final dialog = _isTaskDialog;
+    final isDialog = _isTaskDialog;
     final big = isBigScreen(context);
 
     return Observer(builder: (_) {
       final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
       return tc.loading && !task.filled
-          ? LoaderScreen(tc, isDialog: dialog)
-          : dialog
+          ? LoaderScreen(tc, isDialog: isDialog)
+          : isDialog
               ? Observer(
                   builder: (_) => MTDialog(
                     topBar: MTTopBar(middle: toolbarTitle),

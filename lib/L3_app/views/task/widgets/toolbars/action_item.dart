@@ -12,13 +12,12 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 
 class TaskActionItem extends StatelessWidget {
-  const TaskActionItem(this._ta, {super.key, this.compact = false, this.inPopup = true, this.onTap});
+  const TaskActionItem(this._ta, {super.key, this.compact = false, this.onTap});
   final TaskAction _ta;
   final bool compact;
-  final bool inPopup;
   final Function()? onTap;
 
-  double _iconSize(BuildContext context) => isBigScreen(context) ? P6 : P4;
+  double _iconSize(BuildContext context) => isBigScreen(context) ? DEF_TAPPABLE_ICON_SIZE : P4;
 
   Widget _tile(BuildContext context, {Widget? leading, String? title, Color? color}) => MTListTile(
         leading: leading,
@@ -39,20 +38,20 @@ class TaskActionItem extends StatelessWidget {
       case TaskAction.reopen:
         return _tile(context, leading: DoneIcon(false, size: iconSize), title: loc.task_reopen_action_title);
       case TaskAction.localExport:
-        return _tile(context, leading: LocalExportIcon(size: iconSize, circled: !inPopup), title: loc.action_transfer_title);
+        return _tile(context, leading: LocalExportIcon(size: iconSize), title: loc.action_transfer_title);
       case TaskAction.duplicate:
-        return _tile(context, leading: DuplicateIcon(size: iconSize, circled: !inPopup), title: loc.task_duplicate_action_title);
+        return _tile(context, leading: DuplicateIcon(size: iconSize), title: loc.task_duplicate_action_title);
       // case TaskActionType.go2source:
       //   return _task.go2SourceTitle;
       case TaskAction.unlink:
         return _tile(
           context,
-          leading: LinkOffIcon(size: iconSize, circled: !inPopup),
+          leading: LinkOffIcon(size: iconSize),
           title: loc.action_unlink_tasksource_title,
           color: dangerColor,
         );
       case TaskAction.delete:
-        return _tile(context, leading: DeleteIcon(size: iconSize, circled: !inPopup), title: loc.action_delete_title, color: dangerColor);
+        return _tile(context, leading: DeleteIcon(size: iconSize), title: loc.action_delete_title, color: dangerColor);
       default:
         return BaseText('$_ta');
     }

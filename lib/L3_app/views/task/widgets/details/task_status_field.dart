@@ -24,7 +24,7 @@ class TaskStatusField extends StatelessWidget {
 
     return MTField(
       _tc.fData(TaskFCode.status.index),
-      leading: BoardIcon(size: P5, color: ro ? f3Color : mainColor),
+      leading: BoardIcon(size: DEF_TAPPABLE_ICON_SIZE - P_2, color: ro ? f3Color : mainColor),
       value: BaseText('${t.status}', color: ro ? f2Color : null),
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),

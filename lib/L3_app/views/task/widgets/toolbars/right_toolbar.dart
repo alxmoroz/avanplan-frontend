@@ -46,7 +46,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         if (t.canCreateSubtask) CreateTaskButton(_tc, compact: _compact),
         if (t.canLocalImport)
           MTListTile(
-            leading: const LocalImportIcon(circled: true, size: DEF_TAPPABLE_ICON_SIZE),
+            leading: const LocalImportIcon(size: DEF_TAPPABLE_ICON_SIZE),
             middle: _compact ? null : BaseText(loc.action_transfer_import_tasks_title, color: mainColor, maxLines: 1),
             bottomDivider: false,
             onTap: () => localImportDialog(_tc),
@@ -59,7 +59,6 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
             TaskActionItem(
               ta,
               compact: _compact,
-              inPopup: false,
               onTap: () => _tc.taskAction(context, ta),
             ),
         ],

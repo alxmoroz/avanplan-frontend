@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'constants.dart';
 import 'field_data.dart';
+import 'icons.dart';
 import 'list_tile.dart';
 import 'text.dart';
 
@@ -27,6 +27,7 @@ class MTField extends StatelessWidget {
     this.onTap,
     this.onHover,
     this.compact = false,
+    this.showLabel = false,
   });
 
   final MTFieldData fd;
@@ -46,16 +47,17 @@ class MTField extends StatelessWidget {
   final CrossAxisAlignment? crossAxisAlignment;
   final bool loading;
   final bool compact;
+  final bool showLabel;
 
   bool get _hasValue => value != null;
 
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: leading != null ? Container(width: P6, alignment: Alignment.center, child: leading) : null,
+      leading: leading != null ? Container(width: DEF_TAPPABLE_ICON_SIZE, alignment: Alignment.center, child: leading) : null,
       middle: compact
           ? null
-          : _hasValue && fd.label.isNotEmpty
+          : _hasValue && showLabel && fd.label.isNotEmpty
               ? SmallText(fd.label, color: f3Color, maxLines: 1)
               : null,
       subtitle: compact

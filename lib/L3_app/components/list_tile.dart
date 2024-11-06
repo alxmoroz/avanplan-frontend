@@ -6,6 +6,7 @@ import 'button.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'divider.dart';
+import 'icons.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
 import 'text.dart';
@@ -103,7 +104,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
                     child: Row(
                       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: minHeight ?? P6),
+                        SizedBox(height: minHeight ?? DEF_TAPPABLE_ICON_SIZE),
                         if (leading != null) ...[
                           leading!,
                           if (hasMiddle || hasSubtitle) const SizedBox(width: P2),

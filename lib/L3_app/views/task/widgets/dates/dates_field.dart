@@ -62,6 +62,7 @@ class TaskDatesField extends StatelessWidget {
                 ? loc.task_due_date_label
                 : '',
       ),
+      showLabel: true,
       leading: CalendarIcon(color: ro ? f3Color : mainColor),
       value: startDate != null || dueDate != null || repeat != null
           ? Column(

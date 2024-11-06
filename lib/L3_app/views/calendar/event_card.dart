@@ -45,7 +45,7 @@ class EventCard extends StatelessWidget {
   Color get _datesColor => event.startDate.isBefore(tomorrow) ? stateColor(event.state) : _textColor ?? f2Color;
   Widget get _dates => Row(
         children: [
-          CalendarIcon(color: _datesColor, size: P3, endMark: true),
+          CalendarIcon(color: _datesColor, size: P3),
           const SizedBox(width: P_2),
           SmallText(event.startDate.strMedium, color: _datesColor, maxLines: 1),
           if (event.days > 0) SmallText(' - ${event.endDate.strMedium}', color: _datesColor, maxLines: 1),

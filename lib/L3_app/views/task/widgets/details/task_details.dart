@@ -67,7 +67,7 @@ class TaskDetails extends StatelessWidget {
           /// Статус
           if (t.canShowStatus) TaskStatusField(_tc, compact: compact, hasMargin: hasMargins),
 
-          /// Назначенный
+          /// Ответственный
           if (_tc.canShowAssigneeField) TaskAssigneeField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Даты
@@ -92,7 +92,7 @@ class TaskDetails extends StatelessWidget {
             MTField(
               _tc.fData(TaskFCode.projectModules.index),
               margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
-              leading: SettingsIcon(color: t.canEditProjectModules ? mainColor : f3Color),
+              leading: FeaturesIcon(color: t.canEditProjectModules ? mainColor : f3Color),
               value: BaseText(t.localizedModules, maxLines: 1),
               compact: compact,
               onTap: t.canEditProjectModules ? () => projectModulesDialog(_tc) : null,
@@ -102,7 +102,7 @@ class TaskDetails extends StatelessWidget {
           if (t.didImported)
             MTListTile(
               margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
-              leading: t.source?.type.icon(size: P6),
+              leading: t.source?.type.icon(size: DEF_TAPPABLE_ICON_SIZE),
               titleText: !compact ? loc.task_go2source_title : null,
               trailing: !compact ? const LinkOutIcon() : null,
               bottomDivider: false,

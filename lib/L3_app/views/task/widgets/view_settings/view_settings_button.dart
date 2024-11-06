@@ -23,12 +23,11 @@ class TasksViewSettingsButton extends StatelessWidget {
   void _tap() => showTasksViewSettingsDialog(_controller);
 
   Widget _icon(BuildContext context) {
-    final circled = isBigScreen(context);
-    final size = isBigScreen(context) ? P6 : P4;
+    final size = isBigScreen(context) ? DEF_TAPPABLE_ICON_SIZE : P4;
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        SettingsIcon(circled: circled, size: size),
+        SettingsIcon(size: size),
         if (_controller.task.viewSettings.hasFilters) MTCircle(color: mainColor, size: size / 2),
       ],
     );

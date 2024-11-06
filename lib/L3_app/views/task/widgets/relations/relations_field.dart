@@ -26,7 +26,7 @@ class TaskRelationsField extends StatelessWidget {
     return MTField(
       _tc.fData(TaskFCode.relation.index),
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-      leading: LinkIcon(size: P6, color: canEdit ? mainColor : f3Color),
+      leading: LinkIcon(size: DEF_TAPPABLE_ICON_SIZE, color: canEdit ? mainColor : f3Color),
       value: _rc.hasRelations
           ? Row(children: [
               Flexible(child: BaseText(_rc.relationsStr, maxLines: 1, color: canEdit ? null : f2Color)),

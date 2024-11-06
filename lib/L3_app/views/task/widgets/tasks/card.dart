@@ -105,7 +105,7 @@ class _State extends State<TaskCard> {
 
   Widget get _date => Row(
         children: [
-          CalendarIcon(color: _dateColor, size: P3, endMark: true),
+          CalendarIcon(color: _dateColor, size: P3),
           const SizedBox(width: P_2),
           SmallText(_t.dueDate!.strMedium, color: _dateColor, maxLines: 1),
         ],

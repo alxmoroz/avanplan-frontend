@@ -87,38 +87,7 @@ class BoardIcon extends MTIcon {
 }
 
 class CalendarIcon extends MTIcon {
-  const CalendarIcon({
-    super.key,
-    this.startMark = false,
-    this.endMark = false,
-    super.color,
-    super.size = DEF_TAPPABLE_ICON_SIZE,
-  }) : super(CupertinoIcons.calendar);
-  final bool startMark;
-  final bool endMark;
-
-  @override
-  Widget build(BuildContext context) {
-    final markSize = size / 2;
-    final rColor = color.resolve(context);
-    final markColor = rColor.withAlpha(180);
-    return Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        MTIcon(iconData, color: rColor, size: size),
-        if (startMark)
-          Container(
-            padding: EdgeInsets.only(top: size / 7, left: size / 8),
-            child: Icon(CupertinoIcons.arrowtriangle_right_fill, size: markSize, color: markColor),
-          ),
-        if (endMark)
-          Container(
-            padding: EdgeInsets.only(top: size / 7, left: size - markSize - size / 8),
-            child: Icon(CupertinoIcons.arrowtriangle_left_fill, size: markSize, color: markColor),
-          ),
-      ],
-    );
-  }
+  const CalendarIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.calendar);
 }
 
 class CameraIcon extends MTIcon {

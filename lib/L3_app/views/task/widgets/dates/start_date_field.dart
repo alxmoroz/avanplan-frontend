@@ -24,7 +24,8 @@ class TaskStartDateField extends StatelessWidget {
 
     return MTField(
       _tc.fData(TaskFCode.startDate.index),
-      leading: CalendarIcon(color: canEdit ? mainColor : f2Color, startMark: true),
+      showLabel: true,
+      leading: CalendarIcon(color: canEdit ? mainColor : f2Color),
       value: date != null
           ? Row(
               children: [

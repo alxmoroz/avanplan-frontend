@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -148,8 +149,8 @@ class _ProjectMemberDialog extends StatelessWidget {
                     margin: const EdgeInsets.only(top: P3),
                     leading: const PersonIcon(),
                     middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
-                    trailing: const ChevronIcon(),
-                    dividerIndent: P11,
+                    trailing: kIsWeb ? null : const ChevronIcon(),
+                    dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
                     onTap: () => _assigneeFilterSet(context),
                   ),
 

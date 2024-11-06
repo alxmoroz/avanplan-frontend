@@ -12,9 +12,8 @@ import '../../controllers/task_controller.dart';
 import '../../usecases/status.dart';
 
 class TaskDoneButton extends StatefulWidget {
-  const TaskDoneButton(this._tc, {super.key, this.size, this.onTap});
+  const TaskDoneButton(this._tc, {super.key, this.onTap});
   final TaskController _tc;
-  final double? size;
   final Function()? onTap;
 
   @override
@@ -38,7 +37,7 @@ class _TaskDoneButtonState extends State<TaskDoneButton> {
     return MTButton.icon(
       DoneIcon(
         _t.closed,
-        size: widget.size ?? P6,
+        size: DEF_TAPPABLE_ICON_SIZE,
         color: !_tc.canEdit
             ? f3Color
             : _t.closed
@@ -46,7 +45,7 @@ class _TaskDoneButtonState extends State<TaskDoneButton> {
                 : (hover ? greenColor : mainColor),
         solid: _t.closed,
       ),
-      padding: const EdgeInsets.symmetric(vertical: P),
+      padding: const EdgeInsets.symmetric(vertical: (P8 - DEF_TAPPABLE_ICON_SIZE) / 2),
       onHover: _tc.canEdit ? (h) => setState(() => hover = h) : null,
       onTap: _tc.canEdit ? tap : null,
     );

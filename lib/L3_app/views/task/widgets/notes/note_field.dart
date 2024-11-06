@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
-import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field_data.dart';
@@ -56,7 +55,7 @@ class NoteField extends StatelessWidget {
                 if (_isNewNote)
                   MTButton.icon(
                     const AttachmentIcon(),
-                    padding: const EdgeInsets.only(left: P2, right: P, bottom: P),
+                    padding: const EdgeInsets.only(left: P2, right: P2, bottom: P),
                     onTap: _tc.attachmentsController.startUpload,
                   )
                 else
@@ -77,12 +76,8 @@ class NoteField extends StatelessWidget {
                   ),
                 ),
                 MTButton.icon(
-                  MTCircle(
-                    color: _canSubmit ? mainColor : b1Color,
-                    size: P6,
-                    child: const SubmitIcon(color: mainBtnTitleColor),
-                  ),
-                  margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
+                  SubmitIcon(color: _canSubmit ? mainColor : b1Color),
+                  padding: const EdgeInsets.only(left: P2, right: P2, bottom: P),
                   onTap: _canSubmit ? () => _submit(context) : null,
                 ),
               ],

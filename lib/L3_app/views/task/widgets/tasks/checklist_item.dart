@@ -151,7 +151,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _item,
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: _t.isCheckItem ? P11 : P3,
+      dividerIndent: _t.isCheckItem ? (P5 + DEF_TAPPABLE_ICON_SIZE) : P3,
       dividerEndIndent: P3,
       bottomDivider: widget.bottomDivider,
       onHover: !_ro && isWeb ? (hover) => setState(() => _fieldHover = hover) : null,

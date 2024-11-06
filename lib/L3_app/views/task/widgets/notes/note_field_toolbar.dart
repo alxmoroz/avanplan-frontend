@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../controllers/task_controller.dart';
@@ -58,7 +59,7 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
       maxLines: ml,
       textDirection: TextDirection.ltr,
     );
-    tp.layout(maxWidth: tvController.centerConstraints.maxWidth - 141);
+    tp.layout(maxWidth: tvController.centerConstraints.maxWidth - (DEF_TAPPABLE_ICON_SIZE * 2 + P2 * 6 + P_2));
 
     return tp.height - tp.preferredLineHeight + _footerHeight(context, tc, ignoreBottomInsets) + _extraPadding(context, ignoreBottomInsets);
   }

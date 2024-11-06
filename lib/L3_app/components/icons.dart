@@ -382,7 +382,7 @@ class StarIcon extends MTIcon {
 }
 
 class SubmitIcon extends MTIcon {
-  const SubmitIcon({super.key, super.color, super.size}) : super(CupertinoIcons.arrow_up);
+  const SubmitIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.paperplane_fill);
 }
 
 class TasksIcon extends MTIcon {

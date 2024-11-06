@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../presenters/mime_type.dart';
@@ -10,6 +11,8 @@ import 'circle.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'painters.dart';
+
+const DEF_TAPPABLE_ICON_SIZE = kIsWeb ? P5 : P6;
 
 class MTIcon extends StatelessWidget {
   const MTIcon(
@@ -52,19 +55,19 @@ class MTIcon extends StatelessWidget {
 }
 
 class AnalyticsIcon extends MTIcon {
-  const AnalyticsIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.chart_bar);
+  const AnalyticsIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.chart_bar);
 }
 
 class AttachmentIcon extends MTIcon {
-  const AttachmentIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.paperclip);
+  const AttachmentIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.paperclip);
 }
 
 class BankCardIcon extends MTIcon {
-  const BankCardIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.creditcard);
+  const BankCardIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.creditcard);
 }
 
 class BellIcon extends MTIcon {
-  const BellIcon({super.key, super.color, super.size = P6, this.hasUnread = false}) : super(CupertinoIcons.bell);
+  const BellIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, this.hasUnread = false}) : super(CupertinoIcons.bell);
   final bool hasUnread;
 
   @override
@@ -89,7 +92,7 @@ class CalendarIcon extends MTIcon {
     this.startMark = false,
     this.endMark = false,
     super.color,
-    super.size = P6,
+    super.size = DEF_TAPPABLE_ICON_SIZE,
   }) : super(CupertinoIcons.calendar);
   final bool startMark;
   final bool endMark;
@@ -119,7 +122,7 @@ class CalendarIcon extends MTIcon {
 }
 
 class CameraIcon extends MTIcon {
-  const CameraIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.camera);
+  const CameraIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.camera);
 }
 
 class CaretIcon extends StatelessWidget {
@@ -153,7 +156,7 @@ class ChevronIcon extends MTIcon {
 }
 
 class ChevronCircleIcon extends MTIcon {
-  const ChevronCircleIcon({super.key, super.color, super.size = P6, required this.left})
+  const ChevronCircleIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, required this.left})
       : super(
           left ? CupertinoIcons.chevron_left_circle : CupertinoIcons.chevron_right_circle,
         );
@@ -189,11 +192,11 @@ class DeleteIcon extends MTIcon {
 }
 
 class DescriptionIcon extends MTIcon {
-  const DescriptionIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.text_justifyleft);
+  const DescriptionIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.text_justifyleft);
 }
 
 class DocumentIcon extends MTIcon {
-  const DocumentIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.doc_plaintext);
+  const DocumentIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.doc_plaintext);
 }
 
 class DoneIcon extends MTIcon {
@@ -225,7 +228,7 @@ class ErrorIcon extends MTIcon {
 }
 
 class EstimateIcon extends MTIcon {
-  const EstimateIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.rectangle_on_rectangle_angled);
+  const EstimateIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.rectangle_on_rectangle_angled);
   @override
   Widget build(BuildContext context) => RotatedBox(
         quarterTurns: -1,
@@ -241,25 +244,16 @@ class EyeIcon extends MTIcon {
   final bool open;
 }
 
-class ExitIcon extends MTIcon {
-  const ExitIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.square_arrow_left);
-  @override
-  Widget build(BuildContext context) => RotatedBox(
-        quarterTurns: 2,
-        child: MTIcon(iconData, color: color, size: size),
-      );
-}
-
 class FeaturesIcon extends MTIcon {
-  const FeaturesIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.square_grid_2x2);
+  const FeaturesIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.square_grid_2x2);
 }
 
 class FeedbackIcon extends MTIcon {
-  const FeedbackIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.hand_thumbsup);
+  const FeedbackIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.hand_thumbsup);
 }
 
 class FileStorageIcon extends MTIcon {
-  const FileStorageIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cube);
+  const FileStorageIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.cube);
 }
 
 class FilterIcon extends MTIcon {
@@ -267,7 +261,7 @@ class FilterIcon extends MTIcon {
 }
 
 class FinanceIcon extends MTIcon {
-  const FinanceIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.money_rubl, circled: true);
+  const FinanceIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.money_rubl, circled: true);
 }
 
 class FinanceExpensesIcon extends MTIcon {
@@ -279,11 +273,11 @@ class FinanceIncomeIcon extends MTIcon {
 }
 
 class HomeIcon extends MTIcon {
-  const HomeIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.house_alt);
+  const HomeIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.house_alt);
 }
 
 class ImportIcon extends MTIcon {
-  const ImportIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.cloud_download);
+  const ImportIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.cloud_download);
 }
 
 class InboxAddIcon extends MTIcon {
@@ -291,7 +285,7 @@ class InboxAddIcon extends MTIcon {
 }
 
 class InboxIcon extends MTIcon {
-  const InboxIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.tray);
+  const InboxIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.tray);
 }
 
 class InfoIcon extends MTIcon {
@@ -327,7 +321,7 @@ class LocationIcon extends MTIcon {
 }
 
 class MailIcon extends MTIcon {
-  const MailIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.envelope);
+  const MailIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.envelope);
 }
 
 class MemberAddIcon extends MTIcon {
@@ -339,16 +333,16 @@ class MenuIcon extends MTIcon {
 }
 
 class MimeTypeIcon extends MTIcon {
-  MimeTypeIcon(this.mimeType, {super.key, super.color, super.size = P6}) : super(mimeType.iconData);
+  MimeTypeIcon(this.mimeType, {super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(mimeType.iconData);
   final String mimeType;
 }
 
 class MoveLeftIcon extends MTIcon {
-  const MoveLeftIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_left);
+  const MoveLeftIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.arrow_left);
 }
 
 class MoveRightIcon extends MTIcon {
-  const MoveRightIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.arrow_right);
+  const MoveRightIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.arrow_right);
 }
 
 class NoteAddIcon extends MTIcon {
@@ -367,15 +361,15 @@ class NoteMarkIcon extends MTIcon {
 }
 
 class PersonIcon extends MTIcon {
-  const PersonIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_circle);
+  const PersonIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.person_circle);
 }
 
 class PersonNoAvatarIcon extends MTIcon {
-  const PersonNoAvatarIcon({super.key, super.color, super.size = P6, super.circled}) : super(CupertinoIcons.person);
+  const PersonNoAvatarIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.person);
 }
 
 class PhoneIcon extends MTIcon {
-  const PhoneIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.phone);
+  const PhoneIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.phone);
 }
 
 class PlusIcon extends MTIcon {
@@ -383,31 +377,31 @@ class PlusIcon extends MTIcon {
 }
 
 class PeopleIcon extends MTIcon {
-  const PeopleIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.person_2);
+  const PeopleIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.person_2);
 }
 
 class PrivacyIcon extends MTIcon {
-  const PrivacyIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.lock_shield);
+  const PrivacyIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.lock_shield);
 }
 
 class ProjectsIcon extends MTIcon {
-  const ProjectsIcon({super.key, super.color = f2Color, super.size = P6}) : super(CupertinoIcons.folder);
+  const ProjectsIcon({super.key, super.color = f2Color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.folder);
 }
 
 class RepeatIcon extends MTIcon {
-  const RepeatIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.repeat);
+  const RepeatIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.repeat);
 }
 
 class QuestionIcon extends MTIcon {
-  const QuestionIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.question_circle);
+  const QuestionIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.question_circle);
 }
 
 class ReleaseNotesIcon extends MTIcon {
-  const ReleaseNotesIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.time);
+  const ReleaseNotesIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.time);
 }
 
 class SettingsIcon extends MTIcon {
-  const SettingsIcon({super.key, super.color, super.circled, super.size = P6}) : super(CupertinoIcons.slider_horizontal_3);
+  const SettingsIcon({super.key, super.color, super.circled, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.slider_horizontal_3);
 }
 
 class ShareIcon extends MTIcon {
@@ -415,7 +409,7 @@ class ShareIcon extends MTIcon {
 }
 
 class StarIcon extends MTIcon {
-  const StarIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.star);
+  const StarIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.star);
 }
 
 class SubmitIcon extends MTIcon {
@@ -423,19 +417,19 @@ class SubmitIcon extends MTIcon {
 }
 
 class TasksIcon extends MTIcon {
-  const TasksIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.checkmark, solid: false, circled: true);
+  const TasksIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.checkmark, solid: false, circled: true);
 }
 
 class TemplateIcon extends MTIcon {
-  const TemplateIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.collections);
+  const TemplateIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.collections);
 }
 
 class WebIcon extends MTIcon {
-  const WebIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.globe);
+  const WebIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.globe);
 }
 
 class WSPublicIcon extends MTIcon {
-  const WSPublicIcon({super.key, super.color, super.size = P6}) : super(CupertinoIcons.building_2_fill);
+  const WSPublicIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.building_2_fill);
 }
 
 Widget get appleIcon => Image.asset('assets/icons/apple_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);

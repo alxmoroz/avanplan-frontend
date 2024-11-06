@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
@@ -21,10 +22,10 @@ class AccountButton extends StatelessWidget {
     final name = '$me';
     final mail = me?.email ?? '';
     return MTListTile(
-      leading: me?.icon(P5),
+      leading: me?.icon(kIsWeb ? P4 + P_2 : P5),
       middle: H3(name, maxLines: 2),
       subtitle: mail != name ? BaseText.f2(mail, maxLines: 1) : null,
-      trailing: const ChevronIcon(),
+      trailing: kIsWeb ? null : const ChevronIcon(),
       bottomDivider: false,
       onTap: () {
         Navigator.of(context).pop();

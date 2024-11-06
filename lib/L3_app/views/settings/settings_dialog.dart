@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -49,7 +50,7 @@ class _SettingsDialog extends StatelessWidget {
         leading: const QuestionIcon(),
         titleText: loc.about_service_title,
         margin: const EdgeInsets.only(top: P3),
-        trailing: const ChevronIcon(),
+        trailing: kIsWeb ? null : const ChevronIcon(),
         bottomDivider: false,
         onTap: () => showAboutServiceDialog(),
       );

@@ -33,7 +33,10 @@ class MyAccountRoute extends MTRoute {
       : super(
           baseName: staticBaseName,
           path: staticBaseName,
-          builder: (_, __) => const _MyAccountDialog(),
+          builder: (_, __) {
+            myAccountController.loadContacts();
+            return const _MyAccountDialog();
+          },
         );
 
   @override
@@ -43,21 +46,10 @@ class MyAccountRoute extends MTRoute {
   String title(GoRouterState state) => loc.my_account_title;
 }
 
-class _MyAccountDialog extends StatefulWidget {
+class _MyAccountDialog extends StatelessWidget {
   const _MyAccountDialog();
 
-  @override
-  State<_MyAccountDialog> createState() => _State();
-}
-
-class _State extends State<_MyAccountDialog> {
   User? get _me => myAccountController.me;
-
-  @override
-  void initState() {
-    myAccountController.loadContacts();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +93,7 @@ class _State extends State<_MyAccountDialog> {
                         middle: c.hasDescription ? SmallText(c.description, maxLines: 1) : value,
                         subtitle: c.hasDescription ? value : null,
                         trailing: const EditIcon(),
-                        dividerIndent: P11,
+                        dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
                         loading: c.loading,
                         onTap: () => showMyContactEditDialog(contact: c),
                       );
@@ -109,7 +101,7 @@ class _State extends State<_MyAccountDialog> {
                   ),
 
                   MTListTile(
-                    leading: const PlusIcon(circled: true, size: P6),
+                    leading: const PlusIcon(circled: true, size: DEF_TAPPABLE_ICON_SIZE),
                     middle: BaseText('${loc.action_add_title} ${loc.person_contact_title.toLowerCase()}', maxLines: 1, color: mainColor),
                     bottomDivider: false,
                     onTap: showMyContactEditDialog,

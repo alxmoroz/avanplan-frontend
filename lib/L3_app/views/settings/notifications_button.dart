@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/constants.dart';
@@ -24,7 +25,7 @@ class NotificationsButton extends StatelessWidget {
             padding: const EdgeInsets.only(right: P),
             maxLines: 1,
           ),
-        const ChevronIcon(),
+        if (!kIsWeb) const ChevronIcon(),
       ]),
       bottomDivider: false,
       onTap: () {

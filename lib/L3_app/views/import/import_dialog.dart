@@ -26,28 +26,28 @@ import 'import_controller.dart';
 
 // старт сценария по импорту задач
 Future importTasks(Workspace ws) async {
-  final controller = await ImportController().init(ws);
-  controller.ws.checkSources();
-  await showMTDialog(_ImportDialog(controller));
+  final ic = await ImportController().init(ws);
+  ic.ws.checkSources();
+  await showMTDialog(_ImportDialog(ic));
 }
 
 class _ImportDialog extends StatelessWidget {
-  const _ImportDialog(this.controller);
-  final ImportController controller;
+  const _ImportDialog(this.ic);
+  final ImportController ic;
 
-  bool get _hasProjects => controller.projects.isNotEmpty;
-  bool get _hasError => controller.errorCode != null;
-  bool get _validated => controller.validated;
-  bool get _selectedAll => controller.selectedAll;
-  bool get _sourceSelected => controller.selectedSourceId != null;
-  bool get _hasSources => controller.ws.sources.isNotEmpty;
-  bool get _showSelectAll => controller.projects.length > 2;
+  bool get _hasProjects => ic.projects.isNotEmpty;
+  bool get _hasError => ic.errorCode != null;
+  bool get _validated => ic.validated;
+  bool get _selectedAll => ic.selectedAll;
+  bool get _sourceSelected => ic.selectedSourceId != null;
+  bool get _hasSources => ic.ws.sources.isNotEmpty;
+  bool get _showSelectAll => ic.projects.length > 2;
 
   Widget get _sourceDropdown => MTDropdown<RemoteSource>(
-        onChanged: controller.selectSource,
-        value: controller.selectedSourceId,
+        onChanged: ic.selectSource,
+        value: ic.selectedSourceId,
         ddItems: [
-          for (final s in controller.ws.sortedSources)
+          for (final s in ic.ws.sortedSources)
             DropdownMenuItem<int>(
               value: s.id,
               child: Padding(
@@ -67,7 +67,7 @@ class _ImportDialog extends StatelessWidget {
           Row(
             children: [
               Expanded(child: _sourceDropdown),
-              MTPlusButton(() async => await startAddSource(controller.ws), type: ButtonType.secondary),
+              MTPlusButton(() async => await startAddSource(ic.ws), type: ButtonType.secondary),
             ],
           ),
           if (_sourceSelected) ...[
@@ -75,11 +75,11 @@ class _ImportDialog extends StatelessWidget {
             if (_hasProjects) ...[
               if (_showSelectAll)
                 MTCheckBoxTile(
-                  title: '${loc.action_select_all_title} (${controller.selectableProjects.length})',
+                  title: '${loc.action_select_all_title} (${ic.selectableProjects.length})',
                   titleColor: mainColor,
                   color: b2Color,
                   value: _selectedAll,
-                  onChanged: controller.toggleSelectedAll,
+                  onChanged: ic.toggleSelectedAll,
                   bottomDivider: false,
                 ),
             ]
@@ -88,15 +88,15 @@ class _ImportDialog extends StatelessWidget {
       );
 
   Widget _projectItemBuilder(BuildContext context, int index) {
-    final project = controller.projects[index];
+    final project = ic.projects[index];
     final value = project.selected;
-    final importing = controller.isImporting(project);
+    final importing = ic.isImporting(project);
     return MTCheckBoxTile(
       title: project.title,
       description: importing ? loc.state_importing_label : null,
       value: value,
-      bottomDivider: index < controller.projects.length - 1,
-      onChanged: importing ? null : (bool? value) => controller.selectProject(project, value),
+      bottomDivider: index < ic.projects.length - 1,
+      onChanged: importing ? null : (bool? value) => ic.selectProject(project, value),
     );
   }
 
@@ -105,7 +105,7 @@ class _ImportDialog extends StatelessWidget {
           shrinkWrap: true,
           children: [
             BaseText.medium(
-              _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
+              _hasError ? Intl.message(ic.errorCode!) : loc.import_list_empty_title,
               align: TextAlign.center,
               color: _hasError ? dangerColor : f2Color,
             ),
@@ -117,19 +117,19 @@ class _ImportDialog extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _projectItemBuilder,
-                itemCount: controller.projects.length,
+                itemCount: ic.projects.length,
               ),
             )
-          : NoSources(controller.ws);
+          : NoSources(ic.ws);
 
-  String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
+  String get _importBtnCountHint => ic.selectedProjects.isNotEmpty ? ' (${ic.selectedProjects.length})' : '';
 
   PreferredSizeWidget? _bottomBar(BuildContext context) => _hasProjects
       ? MTBottomBar(
           middle: MTButton.main(
             padding: const EdgeInsets.symmetric(horizontal: P3),
             titleText: '${loc.import_action_title}$_importBtnCountHint',
-            onTap: _validated ? () => controller.startImport(context) : null,
+            onTap: _validated ? () => ic.startImport(context) : null,
           ),
         )
       : null;
@@ -137,13 +137,13 @@ class _ImportDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.loading
-          ? LoaderScreen(controller, isDialog: true)
+      builder: (_) => ic.loading
+          ? LoaderScreen(ic, isDialog: true)
           : MTDialog(
               topBar: MTTopBar(
                 innerHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
                 pageTitle: loc.import_title,
-                parentPageTitle: controller.ws.title,
+                parentPageTitle: ic.ws.title,
                 bottomWidget: _hasSources ? _header : null,
               ),
               body: _body(context),

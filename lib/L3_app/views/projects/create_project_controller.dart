@@ -27,7 +27,7 @@ abstract class _CreateProjectControllerBase with Store {
   Future _selectWS() async => _canSelectWS ? await selectWS() : wsMainController.myWS;
 
   Future startCreate() async {
-    final methodCode = await selectCreationMethod();
+    final methodCode = await selectProjectCreationMethod();
     if (methodCode != null) {
       final ws = await _selectWS();
       if (ws != null) {

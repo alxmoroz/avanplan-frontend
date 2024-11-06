@@ -10,14 +10,14 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 
-Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<CreationMethod?>(const _CreationMethodSelector());
+Future<CreationMethod?> selectProjectCreationMethod() async => await showMTDialog<CreationMethod?>(const _ProjectCreationMethodDialog());
 
 enum CreationMethod { create, template, import }
 
-class _CreationMethodSelector extends StatelessWidget {
-  const _CreationMethodSelector();
+class _ProjectCreationMethodDialog extends StatelessWidget {
+  const _ProjectCreationMethodDialog();
 
-  static const _dividerIndent = P11;
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
   @override
   Widget build(BuildContext context) {
     return MTDialog(
@@ -26,7 +26,7 @@ class _CreationMethodSelector extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MTListTile(
-            leading: const PlusIcon(size: P6, circled: true),
+            leading: const PlusIcon(size: DEF_TAPPABLE_ICON_SIZE, circled: true),
             titleText: loc.create_from_scratch_action_title,
             dividerIndent: _dividerIndent,
             subtitle: SmallText(loc.create_from_scratch_action_description),

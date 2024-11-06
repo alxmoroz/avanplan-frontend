@@ -86,42 +86,42 @@ class _SourceEditDialog extends StatefulWidget {
 }
 
 class _SourceEditDialogState extends State<_SourceEditDialog> {
-  late final SourceEditController controller;
+  late final SourceEditController _sec;
 
-  bool get _isNew => controller.source == null;
-  bool get _canSave => controller.validated;
-  String get _sourceCode => controller.selectedType != null ? controller.selectedType!.code : '';
+  bool get _isNew => _sec.source == null;
+  bool get _canSave => _sec.validated;
+  String get _sourceCode => _sec.selectedType != null ? _sec.selectedType!.code : '';
   String get _sourceEditHelperAddress => '$docsPath/import/$_sourceCode';
 
   @override
   void initState() {
-    controller = SourceEditController(widget.ws, widget.src?.id, widget.sType);
-    controller.stopLoading();
+    _sec = SourceEditController(widget.ws, widget.src?.id, widget.sType);
+    _sec.stopLoading();
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _sec.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.loading
-          ? LoaderScreen(controller, isDialog: true)
+      builder: (_) => _sec.loading
+          ? LoaderScreen(_sec, isDialog: true)
           : MTDialog(
               topBar: MTTopBar(
                 middle: Row(mainAxisSize: MainAxisSize.min, children: [
-                  if (wsMainController.multiWS) BaseText.f3('${controller.ws.codeStr} ', maxLines: 1),
+                  if (wsMainController.multiWS) BaseText.f3('${_sec.ws.codeStr} ', maxLines: 1),
                   if (_isNew) BaseText.medium('${loc.source_title_new} ', maxLines: 1, color: f2Color),
-                  controller.selectedType!.iconTitle(size: P4),
+                  _sec.selectedType!.iconTitle(size: P4),
                 ]),
-                trailing: controller.canEdit
+                trailing: _sec.canEdit
                     ? MTButton.icon(
                         const DeleteIcon(),
-                        onTap: () => controller.delete(context),
+                        onTap: () => _sec.delete(context),
                         padding: const EdgeInsets.all(P2),
                       )
                     : null,
@@ -129,26 +129,28 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
               body: ListView(
                 shrinkWrap: true,
                 children: [
-                  if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
-                  if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
-                  if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
-                  if (controller.selectedType?.hasApiKey == true) ...[
-                    controller.selectedType?.isTrello == true
-                        ? MTButton.secondary(
+                  if (_sec.showUrl) _sec.tf(SourceFCode.url, first: true),
+                  if (_sec.showUsername) _sec.tf(SourceFCode.username, first: !_sec.showUrl),
+                  if (_sec.showUrl || _sec.showUsername) const SizedBox(height: P3),
+                  if (_sec.selectedType?.hasApiKey == true) ...[
+                    _sec.selectedType?.isTrello == true
+                        ? MTButton(
                             titleText: loc.source_get_token_action,
-                            onTap: controller.getTrelloToken,
+                            trailing: const LinkOutIcon(),
+                            onTap: _sec.getTrelloToken,
                           )
-                        : MTButton.secondary(
+                        : MTButton(
                             titleText: loc.source_get_token_help_action,
+                            trailing: const LinkOutIcon(),
                             onTap: () => launchUrlString(_sourceEditHelperAddress),
                           ),
-                    controller.tf(SourceFCode.apiKey),
+                    _sec.tf(SourceFCode.apiKey),
                   ],
-                  controller.tf(SourceFCode.description),
+                  _sec.tf(SourceFCode.description),
                   MTButton.main(
                     titleText: loc.action_save_title,
                     margin: const EdgeInsets.only(top: P3),
-                    onTap: _canSave ? () => controller.save(context) : null,
+                    onTap: _canSave ? () => _sec.save(context) : null,
                   ),
                 ],
               ),

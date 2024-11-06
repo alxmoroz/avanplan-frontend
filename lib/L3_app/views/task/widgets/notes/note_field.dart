@@ -72,7 +72,7 @@ class NoteField extends StatelessWidget {
                     controller: _tec,
                     margin: EdgeInsets.zero,
                     autofocus: _hasNote,
-                    padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
+                    contentPadding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
                     maxLines: maxLines,
                   ),
                 ),

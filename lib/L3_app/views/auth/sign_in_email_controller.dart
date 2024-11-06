@@ -41,7 +41,7 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword, color: mainColor), onTap: _toggleShowPassword, uf: false) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
-      margin: tfPadding.copyWith(top: first ? P : tfPadding.top),
+      margin: tfMargin.copyWith(top: first ? P : tfMargin.top),
     );
   }
 

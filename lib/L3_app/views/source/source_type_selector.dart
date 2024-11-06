@@ -2,6 +2,7 @@
 
 import '../../../L1_domain/entities/remote_source_type.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/select_dialog.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -11,6 +12,7 @@ Future<RemoteSourceType?> selectSourceType({int? selectedId}) async => await sho
       refsController.sourceTypes,
       selectedId,
       loc.source_type_selector_title,
-      leadingBuilder: (_, st) => st.icon(size: P6),
+      dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
+      leadingBuilder: (_, st) => st.icon(size: DEF_TAPPABLE_ICON_SIZE),
       subtitleBuilder: (_, st) => st.description.isNotEmpty ? SmallText(st.description, maxLines: 1) : null,
     );

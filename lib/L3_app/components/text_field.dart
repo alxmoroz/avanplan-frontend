@@ -15,7 +15,7 @@ InputDecoration tfDecoration(
   String? error,
   Widget? prefixIcon,
   Widget? suffixIcon,
-  EdgeInsets? padding,
+  EdgeInsets? contentPadding,
   TextStyle? hintStyle,
   bool readOnly = false,
 }) {
@@ -36,7 +36,7 @@ InputDecoration tfDecoration(
     errorText: error,
     errorStyle: const SmallText('', color: dangerColor).style(context),
     errorMaxLines: 3,
-    contentPadding: padding,
+    contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P3),
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: border,
@@ -52,7 +52,7 @@ InputDecoration tfDecoration(
   );
 }
 
-EdgeInsets get tfPadding => const EdgeInsets.fromLTRB(P2, P3, P2, 0);
+EdgeInsets get tfMargin => const EdgeInsets.fromLTRB(P2, P3, P2, 0);
 
 class MTTextField extends StatelessWidget {
   const MTTextField({
@@ -67,7 +67,7 @@ class MTTextField extends StatelessWidget {
     this.maxLines,
     this.autofocus = true,
     this.margin,
-    this.padding,
+    this.contentPadding,
     this.obscureText = false,
     this.capitalization,
     this.autocorrect = true,
@@ -95,7 +95,7 @@ class MTTextField extends StatelessWidget {
     this.helper,
     this.error,
     this.margin,
-    this.padding,
+    this.contentPadding,
     this.prefixIcon,
     this.suffixIcon,
     this.onTap,
@@ -128,7 +128,7 @@ class MTTextField extends StatelessWidget {
   final int? maxLines;
   final bool autofocus;
   final EdgeInsets? margin;
-  final EdgeInsets? padding;
+  final EdgeInsets? contentPadding;
   final bool obscureText;
   final TextCapitalization? capitalization;
   final bool autocorrect;
@@ -150,7 +150,7 @@ class MTTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? tfPadding,
+      padding: margin ?? tfMargin,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -169,7 +169,7 @@ class MTTextField extends StatelessWidget {
                 prefixIcon: prefixIcon,
                 suffixIcon: suffixIcon,
                 readOnly: readOnly,
-                padding: padding,
+                contentPadding: contentPadding,
                 hintStyle: hintStyle,
               ),
           cursorColor: (cursorColor ?? mainColor).resolve(context),

@@ -31,7 +31,7 @@ class _WSEditDialog extends StatelessWidget {
     return MTTextField(
       controller: _controller.teController(code.index),
       label: fd.label,
-      margin: tfPadding.copyWith(top: code == WSFCode.code ? P : tfPadding.top),
+      margin: tfMargin.copyWith(top: code == WSFCode.code ? P : tfMargin.top),
     );
   }
 

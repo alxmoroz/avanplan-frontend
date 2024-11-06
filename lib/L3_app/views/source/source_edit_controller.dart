@@ -26,7 +26,7 @@ part 'source_edit_controller.g.dart';
 
 enum SourceFCode { url, username, apiKey, password, description }
 
-class SourceEditController extends _SourceEditControllerBase with _$SourceEditController {
+class SourceEditController extends _Base with _$SourceEditController {
   SourceEditController(Workspace wsIn, int? srcIdIn, RemoteSourceType? sType) {
     ws = wsIn;
     srcId = srcIdIn;
@@ -47,7 +47,7 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
   }
 }
 
-abstract class _SourceEditControllerBase extends EditController with Store, Loadable {
+abstract class _Base extends EditController with Store, Loadable {
   late final Workspace ws;
   late final int? srcId;
 
@@ -133,7 +133,7 @@ abstract class _SourceEditControllerBase extends EditController with Store, Load
       obscureText: code == SourceFCode.password,
       maxLines: 1,
       capitalization: TextCapitalization.none,
-      margin: tfPadding.copyWith(top: first ? P : tfPadding.top),
+      margin: tfMargin.copyWith(top: first ? P : tfMargin.top),
     );
   }
 

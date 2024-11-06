@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -27,17 +28,20 @@ import 'ws_controller.dart';
 import 'ws_expenses_dialog.dart';
 import 'ws_features_dialog.dart';
 
-Future showWSTariff(WSController controller) async => await showMTDialog(_WSTariffDialog(controller));
+Future showWSTariff(WSController wsc) async => await showMTDialog(_WSTariffDialog(wsc));
 
 class _WSTariffDialog extends StatelessWidget {
-  const _WSTariffDialog(this._controller);
-  final WSController _controller;
-  Workspace get _ws => _controller.ws;
+  const _WSTariffDialog(this._wsc);
+  final WSController _wsc;
+  Workspace get _ws => _wsc.ws;
   Iterable<TariffOption> get _subscribedFeatures => _ws.subscribedFeatures;
   Tariff get _tariff => _ws.tariff;
 
   num get _expectedDailyCharge => _ws.expectedDailyCharge;
   bool get _hasExpenses => _expectedDailyCharge != 0;
+
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
+  Widget? get _chevronMaybe => kIsWeb ? null : const ChevronIcon();
 
   Widget get _features => MTListTile(
         leading: const FeaturesIcon(),
@@ -45,10 +49,10 @@ class _WSTariffDialog extends StatelessWidget {
         subtitle: SmallText(
           _subscribedFeatures.isNotEmpty ? _subscribedFeatures.map((mo) => mo.title).join(', ') : loc.tariff_features_no_subscriptions,
         ),
-        trailing: const ChevronIcon(),
+        trailing: _chevronMaybe,
         bottomDivider: true,
-        dividerIndent: P11,
-        onTap: () => wsFeatures(_controller),
+        dividerIndent: _dividerIndent,
+        onTap: () => wsFeatures(_wsc),
       );
 
   Widget get _tariffExpenses => MTListTile(
@@ -57,7 +61,7 @@ class _WSTariffDialog extends StatelessWidget {
         subtitle: _hasExpenses
             ? DSmallText('${_expectedDailyCharge.currency} $CURRENCY_SYMBOL_ROUBLE ${loc.per_day_suffix}', align: TextAlign.left, color: f2Color)
             : SmallText(loc.tariff_current_expenses_zero_title, maxLines: 1),
-        trailing: const ChevronIcon(),
+        trailing: _chevronMaybe,
         bottomDivider: false,
         onTap: () => showWSExpenses(_ws),
       );
@@ -65,8 +69,8 @@ class _WSTariffDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _controller.loading
-          ? LoaderScreen(_controller, isDialog: true)
+      builder: (_) => _wsc.loading
+          ? LoaderScreen(_wsc, isDialog: true)
           : MTDialog(
               topBar: MTTopBar(pageTitle: loc.tariff_title),
               body: ListView(
@@ -89,7 +93,7 @@ class _WSTariffDialog extends StatelessWidget {
                             titleText: loc.tariff_change_action_title,
                             padding: const EdgeInsets.symmetric(horizontal: P6),
                             constrained: false,
-                            onTap: () => selectTariff(_controller),
+                            onTap: () => selectTariff(_wsc),
                           ),
                           bottomDivider: false,
                         ),

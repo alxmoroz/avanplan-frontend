@@ -8,6 +8,7 @@ import '../../extra/services.dart';
 import '../../navigation/route.dart';
 import '../../navigation/router.dart';
 import '../source/sources_dialog.dart';
+import 'usecases/edit.dart';
 import 'ws_controller.dart';
 import 'ws_dialog.dart';
 import 'ws_users_dialog.dart';
@@ -40,6 +41,7 @@ class WSRoute extends MTRoute {
   @override
   GoRouterRedirect? get redirect => (_, state) {
         _wsc.init(state.pathParamInt('wsId')!);
+        if (!_wsc.ws.filled) _wsc.reload();
         return null;
       };
 

@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../L1_domain/utils/dates.dart';
 import '../../components/button.dart';
@@ -23,6 +24,9 @@ Future showAboutServiceDialog() async => await showMTDialog(const _AboutDialog()
 class _AboutDialog extends StatelessWidget {
   const _AboutDialog();
 
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
+  static const _contactIconSize = kIsWeb ? P6 : P8;
+
   @override
   Widget build(BuildContext context) {
     return MTDialog(
@@ -38,14 +42,14 @@ class _AboutDialog extends StatelessWidget {
           MTListTile(
             leading: const DocumentIcon(),
             titleText: loc.app_legal_rules_title,
-            trailing: const ChevronIcon(),
-            dividerIndent: P11,
+            trailing: const LinkOutIcon(),
+            dividerIndent: _dividerIndent,
             onTap: go2LegalRules,
           ),
           MTListTile(
             leading: const PrivacyIcon(),
             titleText: loc.app_legal_privacy_policy_title,
-            trailing: const ChevronIcon(),
+            trailing: const LinkOutIcon(),
             bottomDivider: false,
             onTap: go2LegalConfidential,
           ),
@@ -55,14 +59,14 @@ class _AboutDialog extends StatelessWidget {
           MTListTile(
             leading: const ReleaseNotesIcon(),
             titleText: loc.app_release_notes_title,
-            trailing: const ChevronIcon(),
-            dividerIndent: P11,
+            trailing: const LinkOutIcon(),
+            dividerIndent: _dividerIndent,
             onTap: go2ReleaseNotes,
           ),
           MTListTile(
             leading: const FeedbackIcon(),
             titleText: loc.app_feedback_action_title,
-            trailing: const ChevronIcon(),
+            trailing: const LinkOutIcon(),
             bottomDivider: false,
             onTap: go2Feedback,
           ),
@@ -72,13 +76,13 @@ class _AboutDialog extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MTButton.icon(MTImage(ImageName.telegram_icon.name, width: P8, height: P8), onTap: go2Telegram),
+              MTButton.icon(MTImage(ImageName.telegram_icon.name, width: _contactIconSize, height: _contactIconSize), onTap: go2Telegram),
               const SizedBox(width: P3),
-              MTButton.icon(MTImage(ImageName.mail_icon.name, width: P8, height: P8), onTap: mailUs),
+              MTButton.icon(MTImage(ImageName.mail_icon.name, width: _contactIconSize, height: _contactIconSize), onTap: mailUs),
               const SizedBox(width: P3),
-              MTButton.icon(MTImage(ImageName.vk_icon.name, width: P8, height: P8), onTap: go2VK),
+              MTButton.icon(MTImage(ImageName.vk_icon.name, width: _contactIconSize, height: _contactIconSize), onTap: go2VK),
               const SizedBox(width: P3),
-              MTButton.icon(MTImage(ImageName.web_icon.name, width: P8, height: P8), onTap: go2Homepage),
+              MTButton.icon(MTImage(ImageName.web_icon.name, width: _contactIconSize, height: _contactIconSize), onTap: go2Homepage),
             ],
           ),
           const SizedBox(height: P),

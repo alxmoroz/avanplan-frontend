@@ -27,23 +27,16 @@ import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../_base/loader_screen.dart';
 import '../iap/iap_dialog.dart';
-import 'usecases/edit.dart';
 import 'ws_controller.dart';
 import 'ws_edit_dialog.dart';
 import 'ws_tariff_dialog.dart';
 
-class WSDialog extends StatefulWidget {
-  const WSDialog(this._controller, {super.key});
-  final WSController _controller;
+class WSDialog extends StatelessWidget {
+  const WSDialog(this._wsc, {super.key});
+  final WSController _wsc;
 
-  @override
-  State<WSDialog> createState() => _WSDialogState();
-}
-
-class _WSDialogState extends State<WSDialog> {
-  WSController get controller => widget._controller;
-  Workspace get ws => controller.ws;
-  Workspace get wsd => controller.wsDescriptor;
+  Workspace get ws => _wsc.ws;
+  Workspace get wsd => _wsc.wsDescriptor;
 
   num get _expensesPerDay => ws.expectedDailyCharge;
   bool get _hasExpenses => _expensesPerDay != 0;
@@ -52,12 +45,6 @@ class _WSDialogState extends State<WSDialog> {
   num get _fsVolume => ws.fsVolume;
 
   static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
-
-  @override
-  void initState() {
-    if (!wsd.filled) controller.reload();
-    super.initState();
-  }
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -84,7 +71,7 @@ class _WSDialogState extends State<WSDialog> {
   Widget get _balanceCard => MTAdaptive.xxs(
         child: MTCardButton(
           margin: const EdgeInsets.only(top: P3),
-          onTap: () => replenishBalanceDialog(controller),
+          onTap: () => replenishBalanceDialog(_wsc),
           child: Column(
             children: [
               BaseText.f2(loc.balance_amount_title),
@@ -124,7 +111,7 @@ class _WSDialogState extends State<WSDialog> {
         subtitle: SmallText(ws.tariff.title, maxLines: 1),
         trailing: _chevronMaybe,
         bottomDivider: false,
-        onTap: () => showWSTariff(controller),
+        onTap: () => showWSTariff(_wsc),
       );
 
   Widget get _wsMembers {
@@ -188,15 +175,15 @@ class _WSDialogState extends State<WSDialog> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      return controller.loading && !ws.filled
-          ? LoaderScreen(controller, isDialog: true)
+      return _wsc.loading && !ws.filled
+          ? LoaderScreen(_wsc, isDialog: true)
           : MTDialog(
               topBar: MTTopBar(
                   pageTitle: loc.workspace_title,
                   trailing: ws.hpInfoUpdate
                       ? MTButton.icon(
                           const EditIcon(),
-                          onTap: () => showWSEditDialog(controller),
+                          onTap: () => showWSEditDialog(_wsc),
                           margin: const EdgeInsets.only(right: P2),
                         )
                       : null),

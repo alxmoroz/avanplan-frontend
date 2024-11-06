@@ -52,7 +52,7 @@ class _CreateRelationDialog extends StatelessWidget {
             parentPageTitle: _crc.srcTask.title,
             innerHeight: P * 14 + (_crc.singleSourceFlag ? 0 : P5),
             bottomWidget: MTListTile(
-              middle: BaseText.medium(_crc.dstSelected ? '$_dstGroup' : loc.task_transfer_source_hint, maxLines: 1, color: f2Color),
+              middle: BaseText.medium(_crc.dstSelected ? '$_dstGroup' : loc.transfer_select_source_hint, maxLines: 1, color: f2Color),
               trailing: SizedBox(
                 width: P4,
                 child: Align(child: CaretIcon(size: const Size(P2, P2), color: _crc.singleSourceFlag ? f3Color : mainColor)),

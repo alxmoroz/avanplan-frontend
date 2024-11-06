@@ -17,6 +17,7 @@
   "action_no_dont_close_title": "No, don't close",
   "action_no_dont_delete_title": "No, don't delete",
   "action_no_dont_disconnect_title": "No, don't disconnect",
+  "action_no_dont_transfer_title": "No, don't transfer",
   "action_no_dont_unsubscribe_title": "No, don't unsubscribe",
   "action_no_i_dont_allow": "I don't allow",
   "action_save_title": "Save",
@@ -24,11 +25,15 @@
   "action_show_closed_title": "Show closed",
   "action_skip_title": "Skip",
   "action_subscribe_title": "Subscribe",
+  "action_transfer_import_tasks_title": "Transfer tasks",
+  "action_transfer_title": "Transfer",
   "action_unlink_title": "Unlink",
+  "action_unlink_tasksource_title": "Delete source link",
   "action_yes_title": "Yes",
   "action_yes_close_all_title": "Yes, close all",
   "action_yes_delete_title": "Yes, delete",
   "action_yes_delete_all_title": "Yes, delete all",
+  "action_yes_transfer_unlink_title": "Yes, transfer and unlink",
   "action_yes_unsubscribe_and_delete_title": "Yes, unsubscribe and delete",
 
   "analytics_title": "Analytics",
@@ -532,30 +537,19 @@
   "task_repeat_period_monthly_last_day": "Last day of the month",
   "task_repeat_period_monthly_last_day_short": "last day",
 
-
   "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start Date",
   "task_status_select_placeholder": "Status",
 
   "task_title": "Task",
 
-  "task_transfer_destination_hint": "Select where to transfer",
-  "task_transfer_export_action_title": "Transfer",
-  "task_transfer_export_empty_title": "No suitable places to transfer",
-  "task_transfer_import_action_title": "Transfer tasks",
-  "task_transfer_import_confirm_action_title": "Transfer",
-  "task_transfer_import_empty_title": "There are no tasks to transfer",
-  "task_transfer_source_hint": "Select where to transfer from",
-  "task_transfer_title": "Transfer tasks",
-
-  "task_unlink_action_title": "Delete link",
-  "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",
-  "task_unlink_dialog_title": "Unlink a source?",
-
   "tasks_forbidden_view_suffix": "{count, plural, one{is} other{are}} not available for viewing",
 
   "tasks_view_mode_board": "Board",
   "tasks_view_mode_list": "List",
+
+  "tasksource_unlink_dialog_hint": "You will not be able to download updates. Changes will not be upload to the source",
+  "tasksource_unlink_dialog_title": "Unlink a source?",
 
   "team_empty_hint": "Invite members to collaborate effectively",
   "team_empty_title": "The team is waiting for an invitation",
@@ -571,6 +565,14 @@
   "today_title": "Today",
   "tomorrow_title": "Tomorrow",
   "total_title": "Total",
+
+  "transfer_unlink_relations_dialog_title": "Transfer and unlink tasks?",
+  "transfer_unlink_relations_dialog_hint": "Tasks can be linked within the same workspace. When transferred, the links will be lost",
+  "transfer_select_destination_hint": "Select where to transfer",
+  "transfer_export_empty_title": "No suitable places to transfer",
+  "transfer_import_empty_title": "There are no tasks to transfer",
+  "transfer_select_source_hint": "Select where to transfer from",
+  "transfer_tasks_title": "Transfer tasks",
 
   "validation_empty_text": "Should not be empty",
 

@@ -26,15 +26,15 @@ extension TaskLinkUC on Task {
 extension LinkUC on TaskController {
   Future unlink() async {
     final confirm = await showMTAlertDialog(
-      title: loc.task_unlink_dialog_title,
-      description: loc.task_unlink_dialog_description,
+      title: loc.tasksource_unlink_dialog_title,
+      description: loc.tasksource_unlink_dialog_hint,
       actions: [
-        MTDialogAction(title: loc.task_unlink_action_title, type: ButtonType.danger, result: true),
+        MTDialogAction(title: loc.action_unlink_tasksource_title, type: ButtonType.danger, result: true),
         MTDialogAction(onTap: task.go2source, result: false),
       ],
     );
 
-    if (confirm == true && await taskDescriptor.ws.checkBalance(loc.task_unlink_action_title)) {
+    if (confirm == true && await taskDescriptor.ws.checkBalance(loc.action_unlink_tasksource_title)) {
       router.pop();
       await editWrapper(() async {
         if (await taskUC.unlink(taskDescriptor)) {

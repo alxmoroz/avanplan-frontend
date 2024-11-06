@@ -39,7 +39,7 @@ class TaskActionItem extends StatelessWidget {
       case TaskAction.reopen:
         return _tile(context, leading: DoneIcon(false, size: iconSize), title: loc.task_reopen_action_title);
       case TaskAction.localExport:
-        return _tile(context, leading: LocalExportIcon(size: iconSize, circled: !inPopup), title: loc.task_transfer_export_action_title);
+        return _tile(context, leading: LocalExportIcon(size: iconSize, circled: !inPopup), title: loc.action_transfer_title);
       case TaskAction.duplicate:
         return _tile(context, leading: DuplicateIcon(size: iconSize, circled: !inPopup), title: loc.task_duplicate_action_title);
       // case TaskActionType.go2source:
@@ -48,7 +48,7 @@ class TaskActionItem extends StatelessWidget {
         return _tile(
           context,
           leading: LinkOffIcon(size: iconSize, circled: !inPopup),
-          title: loc.task_unlink_action_title,
+          title: loc.action_unlink_tasksource_title,
           color: dangerColor,
         );
       case TaskAction.delete:

@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -15,6 +16,7 @@ import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
 import '../tasks/tasks_selector_controller.dart';
 import '../tasks/tasks_selector_dialog.dart';
+import 'transfer_unlink_relations_confirm_dialog.dart';
 
 part 'local_import_controller.g.dart';
 
@@ -26,7 +28,7 @@ class LocalImportController extends _Base with _$LocalImportController {
   Future selectSourceForMove() async {
     final dst = dstGroup;
     // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
-    if (await dst.ws.checkBalance(loc.task_transfer_export_action_title)) {
+    if (await dst.ws.checkBalance(loc.action_transfer_title)) {
       final tsc = TasksSelectorController();
       tsc.load(() async {
         final groups = <Task>[];
@@ -46,8 +48,8 @@ class LocalImportController extends _Base with _$LocalImportController {
 
       final srcGroup = await showMTDialog<Task>(TasksSelectorDialog(
         tsc,
-        loc.task_transfer_source_hint,
-        loc.task_transfer_import_empty_title,
+        loc.transfer_select_source_hint,
+        loc.transfer_import_empty_title,
       ));
 
       if (srcGroup != null) {
@@ -57,11 +59,13 @@ class LocalImportController extends _Base with _$LocalImportController {
   }
 
   Future moveTasks() async {
-    router.pop();
-    for (int index = 0; index < checks.length; index++) {
-      if (checks[index]) {
-        final src = srcTasks[index];
-        await TaskController(taskIn: src).move(dstGroup);
+    if (!hasInterWSWithRelations || await confirmTransferAndUnlinkRelations) {
+      router.pop();
+      for (int index = 0; index < checks.length; index++) {
+        if (checks[index]) {
+          final src = srcTasks[index];
+          await TaskController(taskIn: src).move(dstGroup);
+        }
       }
     }
   }
@@ -103,6 +107,10 @@ abstract class _Base with Store, Loadable {
 
   @computed
   bool get selectedAll => !checks.contains(false);
+
+  @computed
+  bool get hasInterWSWithRelations =>
+      srcGroup?.wsId != dstGroup.wsId && checks.whereIndexed((index, check) => check && (srcTasks[index].relationsCount ?? 0) > 0).isNotEmpty;
 
   @action
   void toggleAll(bool? value) => checks = ObservableList.of([for (var _ in srcTasks) value == true]);

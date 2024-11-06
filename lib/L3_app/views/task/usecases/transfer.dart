@@ -11,6 +11,7 @@ import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/tasks/tasks_selector_controller.dart';
 import '../widgets/tasks/tasks_selector_dialog.dart';
+import '../widgets/transfer/transfer_unlink_relations_confirm_dialog.dart';
 import 'edit.dart';
 
 extension LocalTransferUC on TaskController {
@@ -28,13 +29,17 @@ extension LocalTransferUC on TaskController {
       tsc.setTasks(tasks);
     });
 
-    final destination = await showMTDialog<Task>(TasksSelectorDialog(
+    final dst = await showMTDialog<Task>(TasksSelectorDialog(
       tsc,
-      loc.task_transfer_destination_hint,
-      loc.task_transfer_export_empty_title,
+      loc.transfer_select_destination_hint,
+      loc.transfer_export_empty_title,
     ));
 
     // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
-    if (destination != null && (await destination.ws.checkBalance(loc.task_transfer_export_action_title))) await move(destination);
+    if (dst != null &&
+        await dst.ws.checkBalance(loc.action_transfer_title) &&
+        (src.relations.isEmpty || dst.wsId == src.wsId || await confirmTransferAndUnlinkRelations)) {
+      await move(dst);
+    }
   }
 }

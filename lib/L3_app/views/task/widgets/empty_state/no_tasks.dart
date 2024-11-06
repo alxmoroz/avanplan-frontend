@@ -69,7 +69,7 @@ class NoTasks extends StatelessWidget {
               MTButton.secondary(
                 margin: const EdgeInsets.only(top: P3),
                 leading: const LocalImportIcon(),
-                titleText: loc.task_transfer_import_action_title,
+                titleText: loc.action_transfer_import_tasks_title,
                 onTap: () => localImportDialog(_controller),
               ),
             if (_parent.canCreate)

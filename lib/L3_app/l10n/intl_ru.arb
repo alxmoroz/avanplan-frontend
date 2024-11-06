@@ -17,6 +17,7 @@
   "action_no_dont_close_title": "Не завершать",
   "action_no_dont_delete_title": "Не удалять",
   "action_no_dont_disconnect_title": "Не отключать",
+  "action_no_dont_transfer_title": "Не переносить",
   "action_no_dont_unsubscribe_title": "Не отключать",
   "action_no_i_dont_allow": "Не разрешаю",
   "action_save_title": "Сохранить",
@@ -24,11 +25,15 @@
   "action_show_closed_title": "Показать выполненные",
   "action_skip_title": "Пропустить",
   "action_subscribe_title": "Подключить",
+  "action_transfer_import_tasks_title": "Перенести задачи",
+  "action_transfer_title": "Перенести",
   "action_unlink_title": "Отвязать",
+  "action_unlink_tasksource_title": "Удалить связь с источником",
   "action_yes_title": "Да",
   "action_yes_close_all_title": "Да, завершить все",
   "action_yes_delete_title": "Да, удалить",
   "action_yes_delete_all_title": "Да, удалить все",
+  "action_yes_transfer_unlink_title": "Да, перенести и отвязать",
   "action_yes_unsubscribe_and_delete_title": "Да, отключить и удалить",
 
   "analytics_title": "Аналитика",
@@ -481,6 +486,7 @@
 
   "task_dates": "Даты",
   "task_dates_repeat": "Даты и повтор",
+
   "task_delete_dialog_group_title": "Удалить вместе с подзадачами?",
 
   "task_due_date_label": "Срок",
@@ -537,23 +543,13 @@
 
   "task_title": "Задача",
 
-  "task_transfer_destination_hint": "Выберите, куда перенести",
-  "task_transfer_export_action_title": "Перенести",
-  "task_transfer_export_empty_title": "Нет подходящих мест для переноса",
-  "task_transfer_import_action_title": "Перенести задачи",
-  "task_transfer_import_confirm_action_title": "Перенести",
-  "task_transfer_import_empty_title": "Нечего переносить",
-  "task_transfer_source_hint": "Выберите, откуда перенести",
-  "task_transfer_title": "Перенос задач",
-
-  "task_unlink_action_title": "Удалить связь",
-  "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
-  "task_unlink_dialog_title": "Удалить связь с источником?",
-
   "tasks_forbidden_view_suffix": "{count, plural, one{недоступна} few{недоступны} other{недоступно}} для просмотра",
 
   "tasks_view_mode_board": "Доска",
   "tasks_view_mode_list": "Список",
+
+  "tasksource_unlink_dialog_title": "Удалить связь с источником?",
+  "tasksource_unlink_dialog_hint": "Вы не сможете загружать обновления. Изменения не попадут в источник",
 
   "team_empty_hint": "Пригласите участников для эффективной совместной работы",
   "team_empty_title": "Команда ждёт приглашения",
@@ -569,6 +565,14 @@
   "today_title": "Сегодня",
   "tomorrow_title": "Завтра",
   "total_title": "Итого",
+
+  "transfer_export_empty_title": "Нет подходящих мест для переноса",
+  "transfer_import_empty_title": "Нечего переносить",
+  "transfer_select_destination_hint": "Выберите, куда перенести",
+  "transfer_select_source_hint": "Выберите, откуда перенести",
+  "transfer_tasks_title": "Перенос задач",
+  "transfer_unlink_relations_dialog_title": "Перенести и отвязать задачи?",
+  "transfer_unlink_relations_dialog_hint": "Связывать можно задачи внутри одного рабочего пространства. При переносе связи будут потеряны",
 
   "validation_empty_text": "Нужно заполнить",
 

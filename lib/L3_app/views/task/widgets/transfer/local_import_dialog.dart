@@ -50,14 +50,14 @@ class _LocalImportDialog extends StatelessWidget {
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTDialog(
           topBar: MTTopBar(
-            pageTitle: loc.task_transfer_title,
+            pageTitle: loc.transfer_tasks_title,
             parentPageTitle: _dst.title,
             innerHeight: P * 14 + (_lic.singleSourceFlag ? 0 : P5) + (_showSelectAll ? P8 : 0),
             bottomWidget: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 MTListTile(
-                  middle: BaseText.medium(_lic.srcSelected ? '$_src' : loc.task_transfer_source_hint, color: f2Color, maxLines: 1),
+                  middle: BaseText.medium(_lic.srcSelected ? '$_src' : loc.transfer_select_source_hint, color: f2Color, maxLines: 1),
                   trailing: SizedBox(
                     width: P4,
                     child: Align(child: CaretIcon(size: const Size(P2, P2), color: _lic.singleSourceFlag ? f3Color : mainColor)),
@@ -92,7 +92,7 @@ class _LocalImportDialog extends StatelessWidget {
               ? MTBottomBar(
                   middle: MTButton.main(
                     leading: LocalImportIcon(color: _lic.validated ? mainBtnTitleColor : f2Color),
-                    titleText: loc.task_transfer_import_confirm_action_title,
+                    titleText: loc.action_transfer_title,
                     onTap: _lic.validated ? _lic.moveTasks : null,
                   ),
                 )

@@ -1,7 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
@@ -38,9 +37,9 @@ class InboxAddTaskButton extends StatelessWidget {
     return isBigScreen(context) && !standalone
         ? MTListTile(
             leading: const MTCircle(
-              size: kIsWeb ? P5 : P6,
+              size: DEF_TAPPABLE_ICON_SIZE,
               color: mainColor,
-              child: InboxAddIcon(size: kIsWeb ? P3 : P4, color: mainBtnTitleColor),
+              child: InboxAddIcon(size: DEF_TAPPABLE_ICON_SIZE - P2, color: mainBtnTitleColor),
             ),
             middle: compact ? null : BaseText(addSubtaskActionTitle(_inbox), color: mainColor, maxLines: 1),
             bottomDivider: false,

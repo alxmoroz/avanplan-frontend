@@ -25,7 +25,7 @@ class CreateProjectButton extends StatelessWidget {
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
         color: type == ButtonType.main ? mainBtnTitleColor : mainColor,
-        size: type != null ? P4 : P6,
+        size: type != null ? P4 : DEF_TAPPABLE_ICON_SIZE,
         circled: canShowVerticalBars(context) && type == null,
       );
 

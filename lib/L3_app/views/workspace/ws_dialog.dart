@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -50,6 +51,8 @@ class _WSDialogState extends State<WSDialog> {
   num get _tasksCount => ws.tasksCount;
   num get _fsVolume => ws.fsVolume;
 
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
+
   @override
   void initState() {
     if (!wsd.filled) controller.reload();
@@ -62,9 +65,8 @@ class _WSDialogState extends State<WSDialog> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Flexible(child: H2(ws.title, maxLines: 1)),
+                Flexible(child: H3(ws.title, maxLines: 1)),
                 if (ws.codeStr.isNotEmpty) H3(' ${ws.codeStr}', color: f3Color, maxLines: 1),
               ],
             ),
@@ -104,6 +106,8 @@ class _WSDialogState extends State<WSDialog> {
         ),
       );
 
+  Widget? get _chevronMaybe => kIsWeb ? null : const ChevronIcon();
+
   Widget get _tariffRow => MTListTile(
         leading: const StarIcon(),
         middle: Row(
@@ -118,7 +122,7 @@ class _WSDialogState extends State<WSDialog> {
           ],
         ),
         subtitle: SmallText(ws.tariff.title, maxLines: 1),
-        trailing: const ChevronIcon(),
+        trailing: _chevronMaybe,
         bottomDivider: false,
         onTap: () => showWSTariff(controller),
       );
@@ -142,41 +146,39 @@ class _WSDialogState extends State<WSDialog> {
             padding: const EdgeInsets.only(left: P),
           )
       ]),
-      trailing: const ChevronIcon(),
-      dividerIndent: P11,
+      trailing: _chevronMaybe,
+      dividerIndent: _dividerIndent,
       onTap: () => router.goWSUsers(wsd.id!),
     );
   }
 
   Widget get _tasks => MTListTile(
-        leading: const TasksIcon(),
+        leading: const TasksIcon(color: f2Color),
         middle: Row(
           children: [
             BaseText(_tasksCount.humanValueStr, maxLines: 1),
             BaseText.f2(' ${loc.task_plural(_tasksCount)}', maxLines: 1),
           ],
         ),
-        trailing: const SizedBox(width: P3),
-        dividerIndent: P11,
+        dividerIndent: _dividerIndent,
       );
 
   Widget get _storage => MTListTile(
-        leading: const FileStorageIcon(),
+        leading: const FileStorageIcon(color: f2Color),
         middle: Row(
           children: [
             BaseText(_fsVolume.humanBytesStr, maxLines: 1),
             BaseText.f2(' ${loc.tariff_option_file_storage_suffix}', maxLines: 1),
           ],
         ),
-        trailing: const SizedBox(width: P3),
-        dividerIndent: P11,
+        dividerIndent: _dividerIndent,
         bottomDivider: ws.hpSourceCreate,
       );
 
   Widget get _sources => MTListTile(
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${ws.sources.isNotEmpty ? '(${ws.sources.length})' : ''}',
-      trailing: const ChevronIcon(),
+      trailing: _chevronMaybe,
       bottomDivider: false,
       onTap: () {
         ws.checkSources();

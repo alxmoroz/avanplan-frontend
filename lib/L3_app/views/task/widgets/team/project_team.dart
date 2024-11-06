@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
@@ -40,9 +41,9 @@ class ProjectTeam extends StatelessWidget {
       leading: projectMember.icon(_iconSize / 2),
       middle: BaseText('$projectMember', maxLines: 1),
       subtitle: SmallText(projectMember.rolesTitles, maxLines: 1),
-      trailing: const ChevronIcon(),
-      dividerIndent: _iconSize + P5,
-      bottomDivider: index < _activeMembers.length - 1 || _project.canInviteMembers,
+      trailing: kIsWeb ? null : const ChevronIcon(),
+      dividerIndent: P5 + _iconSize,
+      bottomDivider: index < _activeMembers.length - 1,
       onTap: () async => await _memberTap(context, projectMember.id!),
     );
   }
@@ -61,7 +62,7 @@ class ProjectTeam extends StatelessWidget {
                   itemBuilder: _projectMemberBuilder,
                   itemCount: _activeMembers.length,
                 ),
-                if (_project.canInviteMembers) InvitationButton(_project, inList: true),
+                if (_project.canInviteMembers) InvitationButton(_project),
               ],
             )
           : NoMembers(_project),

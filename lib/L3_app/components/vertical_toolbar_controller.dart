@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
 import 'constants.dart';
@@ -11,7 +11,7 @@ class VerticalToolbarController extends _VerticalToolbarControllerBase with _$Ve
   VerticalToolbarController({bool isCompact = false, double wideWidth = 278.0}) {
     compact = isCompact;
     _wideWidth = wideWidth;
-    _compactWidth = P12;
+    _compactWidth = kIsWeb ? P11 : P12;
   }
 }
 

@@ -16,46 +16,43 @@ import '../../usecases/edit.dart';
 
 class CreateTaskButton extends StatelessWidget {
   const CreateTaskButton(
-    TaskController parentTaskController, {
+    this._parentTaskController, {
+    this.compact = false,
+    this.margin,
+    this.type,
     super.key,
-    bool compact = false,
-    EdgeInsets? margin,
-    ButtonType? type,
-  })  : _parentTaskController = parentTaskController,
-        _type = type,
-        _compact = compact,
-        _margin = margin;
+  });
 
   final TaskController _parentTaskController;
-  final bool _compact;
-  final EdgeInsets? _margin;
-  final ButtonType? _type;
+  final bool compact;
+  final EdgeInsets? margin;
+  final ButtonType? type;
 
   Task get _parent => _parentTaskController.task;
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
-        color: _type == ButtonType.main ? mainBtnTitleColor : mainColor,
-        size: _type != null ? P4 : P6,
-        circled: isBigScreen(context) && _type == null,
+        color: type == ButtonType.main ? mainBtnTitleColor : mainColor,
+        size: type != null ? P4 : DEF_TAPPABLE_ICON_SIZE,
+        circled: isBigScreen(context) && type == null,
       );
 
   @override
   Widget build(BuildContext context) {
     final plusIcon = _plusIcon(context);
-    return isBigScreen(context) && _type == null
+    return isBigScreen(context) && type == null
         ? MTListTile(
             leading: plusIcon,
-            middle: !_compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
+            middle: !compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
             onTap: _parentTaskController.addSubtask,
           )
         : MTButton(
-            leading: _compact ? null : plusIcon,
-            margin: _margin,
-            type: _type ?? ButtonType.main,
-            titleText: _compact ? null : addSubtaskActionTitle(_parent),
-            middle: _compact ? plusIcon : null,
-            constrained: !_compact,
+            leading: compact ? null : plusIcon,
+            margin: margin,
+            type: type ?? ButtonType.main,
+            titleText: compact ? null : addSubtaskActionTitle(_parent),
+            middle: compact ? plusIcon : null,
+            constrained: !compact,
             onTap: _parentTaskController.addSubtask,
           );
   }

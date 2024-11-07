@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
@@ -26,7 +27,7 @@ class WSUserTile extends StatelessWidget {
       leading: _user.icon(_iconSize / 2),
       middle: BaseText('$_user', maxLines: 1),
       subtitle: SmallText(_user.rolesTitles, maxLines: 1),
-      trailing: const ChevronIcon(),
+      trailing: kIsWeb ? null : const ChevronIcon(),
       bottomDivider: bottomBorder,
       dividerIndent: _iconSize + P5,
       onTap: () => wsUserDialog(_ws, _user),

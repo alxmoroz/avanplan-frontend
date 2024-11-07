@@ -89,7 +89,7 @@ class _EventDialog extends StatelessWidget {
 
   Widget get _location => MTField(
         MTFieldData(-1, label: loc.calendar_event_location_title),
-        leading: const LocationIcon(color: f2Color, size: P6),
+        leading: const LocationIcon(color: f2Color),
         value: BaseText(event.location, maxLines: 3),
         margin: const EdgeInsets.only(top: P3),
       );

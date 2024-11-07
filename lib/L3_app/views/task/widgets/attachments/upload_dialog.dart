@@ -32,7 +32,7 @@ Future<List<XFile>> selectFilesDialog() async {
                   MTListTile(
                     leading: MimeTypeIcon('image'),
                     middle: BaseText(loc.file_source_gallery_title, color: mainColor, maxLines: 1),
-                    dividerIndent: P6 + P5,
+                    dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
                     onTap: () => Navigator.of(context).pop(_FileSource.gallery),
                   ),
                   MTListTile(

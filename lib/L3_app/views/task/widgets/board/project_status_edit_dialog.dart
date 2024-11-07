@@ -27,28 +27,29 @@ class _ProjectStatusEditDialog extends StatefulWidget {
   final ProjectStatusesController _statusesController;
 
   @override
-  State<StatefulWidget> createState() => _ProjectStatusEditDialogState();
+  State<StatefulWidget> createState() => _State();
 }
 
-class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
-  late final ProjectStatusEditController _controller;
+class _State extends State<_ProjectStatusEditDialog> {
+  late final ProjectStatusEditController _psec;
 
-  ProjectStatus get _status => _controller.status;
+  ProjectStatus get _status => _psec.status;
 
   @override
   void initState() {
-    _controller = ProjectStatusEditController(widget._statusesController);
-    _controller.init(widget._status);
+    _psec = ProjectStatusEditController(widget._statusesController);
+    _psec.init(widget._status);
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _psec.dispose();
     super.dispose();
   }
 
-  bool get _used => _controller.usedInTasks;
+  bool get _used => _psec.usedInTasks;
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
 
   @override
   Widget build(BuildContext context) {
@@ -59,55 +60,55 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
           shrinkWrap: true,
           children: [
             MTField(
-              _controller.fData(StatusFCode.title.index),
+              _psec.fData(StatusFCode.title.index),
               value: MTTextField(
-                controller: _controller.teController(StatusFCode.title.index),
+                controller: _psec.teController(StatusFCode.title.index),
                 autofocus: true,
                 margin: EdgeInsets.zero,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  errorText: _controller.codeError,
+                  errorText: _psec.codeError,
                   errorStyle: const SmallText('', color: dangerColor, maxLines: 1).style(context),
                   errorMaxLines: 1,
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
-                  hintText: _controller.codePlaceholder,
+                  hintText: _psec.codePlaceholder,
                   hintStyle: const H1('', color: f3Color, maxLines: 2).style(context),
                 ),
                 style: const H1('', maxLines: 2).style(context),
-                onChanged: _controller.editTitle,
+                onChanged: _psec.editTitle,
               ),
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
               color: b2Color,
             ),
-            if (_controller.canMoveLeft)
+            if (_psec.canMoveLeft)
               MTListTile(
                 leading: const MoveLeftIcon(),
                 middle: BaseText.medium(loc.status_move_left_action_title, maxLines: 1, color: mainColor),
-                subtitle: SmallText('${_controller.leftStatus}', maxLines: 1),
-                bottomDivider: _controller.canMoveRight || !_used,
-                dividerIndent: P11,
-                loading: _controller.fData(StatusFCode.position.index).loading,
-                onTap: _controller.moveLeft,
+                subtitle: SmallText('${_psec.leftStatus}', maxLines: 1),
+                bottomDivider: _psec.canMoveRight || !_used,
+                dividerIndent: _dividerIndent,
+                loading: _psec.fData(StatusFCode.position.index).loading,
+                onTap: _psec.moveLeft,
               ),
-            if (_controller.canMoveRight)
+            if (_psec.canMoveRight)
               MTListTile(
                 leading: const MoveRightIcon(),
                 middle: BaseText.medium(loc.status_move_right_action_title, maxLines: 1, color: mainColor),
-                subtitle: SmallText('${_controller.rightStatus}', maxLines: 1),
+                subtitle: SmallText('${_psec.rightStatus}', maxLines: 1),
                 bottomDivider: !_used,
-                dividerIndent: P11,
-                loading: _controller.fData(StatusFCode.position.index).loading,
-                onTap: _controller.moveRight,
+                dividerIndent: _dividerIndent,
+                loading: _psec.fData(StatusFCode.position.index).loading,
+                onTap: _psec.moveRight,
               ),
             if (_used)
               BaseText.f2(
-                loc.status_used_in_tasks_label(_controller.tasksWithStatusCount),
+                loc.status_used_in_tasks_label(_psec.tasksWithStatusCount),
                 maxLines: 1,
                 padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
               ),
             MTListTile(
-              leading: DoneIcon(true, color: _used ? f3Color : mainColor, size: P6),
+              leading: DoneIcon(true, color: _used ? f3Color : mainColor, size: DEF_TAPPABLE_ICON_SIZE),
               middle: BaseText.medium(
                 loc.status_means_closed_title,
                 maxLines: 1,
@@ -118,18 +119,18 @@ class _ProjectStatusEditDialogState extends State<_ProjectStatusEditDialog> {
                 activeColor: mainColor,
                 thumbColor: b3Color,
                 trackColor: b1Color,
-                onChanged: _used ? null : (_) => _controller.toggleClosed(),
+                onChanged: _used ? null : (_) => _psec.toggleClosed(),
               ),
               bottomDivider: true,
-              dividerIndent: P11,
-              loading: _controller.loading || _controller.fData(StatusFCode.closed.index).loading,
-              onTap: _used ? null : _controller.toggleClosed,
+              dividerIndent: _dividerIndent,
+              loading: _psec.loading || _psec.fData(StatusFCode.closed.index).loading,
+              onTap: _used ? null : _psec.toggleClosed,
             ),
             MTListTile(
-              leading: DeleteIcon(size: P6, color: _used ? f3Color : dangerColor),
+              leading: DeleteIcon(size: DEF_TAPPABLE_ICON_SIZE, color: _used ? f3Color : dangerColor),
               middle: BaseText.medium(loc.action_delete_title, maxLines: 1, color: _used ? f3Color : dangerColor),
               bottomDivider: false,
-              onTap: _used ? null : () => _controller.delete(context),
+              onTap: _used ? null : () => _psec.delete(context),
             ),
           ],
         ),

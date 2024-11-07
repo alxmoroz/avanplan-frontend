@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:avanplan/L3_app/components/icons.dart';
+
 import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/constants.dart';
@@ -34,7 +36,7 @@ extension AssigneeUC on TaskController {
       parentPageTitle: task.title,
       leadingBuilder: (_, member) => member.icon(P3),
       valueBuilder: (_, member) => BaseText('$member', maxLines: 1),
-      dividerIndent: P6 + P5,
+      dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
       onReset: task.canAssign ? _reset : null,
     );
 

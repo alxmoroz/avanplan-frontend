@@ -23,6 +23,8 @@ class _PersonContactsDialog extends StatelessWidget {
   final String _personName;
   final List<AbstractContact> _contacts;
 
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
+
   void _tap(BuildContext context, AbstractContact contact) {
     Navigator.of(context).pop();
     if (contact.other) {
@@ -51,7 +53,7 @@ class _PersonContactsDialog extends StatelessWidget {
             subtitle: c.hasDescription ? value : null,
             trailing: c.other ? const CopyIcon() : const LinkOutIcon(),
             bottomDivider: index < _contacts.length - 1,
-            dividerIndent: P11,
+            dividerIndent: _dividerIndent,
             onTap: () => _tap(context, c),
           );
         },

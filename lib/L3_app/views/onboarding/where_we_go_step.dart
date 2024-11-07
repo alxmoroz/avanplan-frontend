@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
@@ -54,7 +55,7 @@ class WhereWeGoStep extends StatelessWidget {
                   const ProjectsIcon(color: mainColor),
                   const SizedBox(width: P2),
                   Expanded(child: H3(loc.onboarding_start_with_project_title)),
-                  const ChevronIcon(),
+                  if (!kIsWeb) const ChevronIcon(),
                 ]),
                 const SizedBox(height: P2),
                 BaseText(loc.onboarding_start_with_project_text, align: TextAlign.left, maxLines: 3),
@@ -68,10 +69,10 @@ class WhereWeGoStep extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(children: [
-                  const DoneIcon(true, size: P6),
+                  const DoneIcon(true, size: DEF_TAPPABLE_ICON_SIZE),
                   const SizedBox(width: P2),
                   Expanded(child: H3(loc.onboarding_start_with_tasks_title)),
-                  const ChevronIcon(),
+                  if (!kIsWeb) const ChevronIcon(),
                 ]),
                 const SizedBox(height: P2),
                 BaseText(loc.onboarding_start_with_tasks_text, align: TextAlign.left, maxLines: 3),
@@ -89,10 +90,10 @@ class WhereWeGoStep extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(children: [
-                    const MemberAddIcon(size: P6),
+                    const MemberAddIcon(size: DEF_TAPPABLE_ICON_SIZE),
                     const SizedBox(width: P2),
                     Expanded(child: H3(loc.onboarding_start_with_host_project_action_title)),
-                    const ChevronIcon(),
+                    if (!kIsWeb) const ChevronIcon(),
                   ]),
                   const SizedBox(height: P2),
                   BaseText(

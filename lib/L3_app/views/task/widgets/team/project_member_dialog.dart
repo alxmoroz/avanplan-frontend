@@ -107,7 +107,8 @@ class _ProjectMemberDialog extends StatelessWidget {
           _pmc.onlyOthers
               ? MTButton(
                   titleText: loc.person_contacts_title,
-                  trailing: const ChevronIcon(),
+                  trailing: kIsWeb ? null : const ChevronIcon(),
+                  padding: const EdgeInsets.symmetric(horizontal: P2),
                   margin: const EdgeInsets.only(right: P3),
                   onTap: _showAllContacts,
                 )

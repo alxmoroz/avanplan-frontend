@@ -49,7 +49,7 @@ class _SourcesDialog extends StatelessWidget {
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];
     return s.listTile(
-      iconSize: P6,
+      iconSize: DEF_TAPPABLE_ICON_SIZE,
       bottomBorder: index < _ws.sortedSources.length - 1,
       onTap: () => editSource(_ws, src: s),
     );

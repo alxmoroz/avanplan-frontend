@@ -54,7 +54,7 @@ extension RemoteSourcePresenter on RemoteSource {
                       ? dangerColor
                       : f2Color,
               size: _connectionIndicatorSize),
-      dividerIndent: (iconSize ?? P6) + P5,
+      dividerIndent: P5 + (iconSize ?? DEF_TAPPABLE_ICON_SIZE),
       bottomDivider: bottomBorder,
       minHeight: standAlone ? null : 0,
       onTap: onTap,

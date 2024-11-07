@@ -36,7 +36,7 @@ class _AttachmentsDialog extends StatelessWidget {
                 leading: MimeTypeIcon(a.type),
                 titleText: a.title,
                 subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
-                dividerIndent: P6 + P5,
+                dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
                 bottomDivider: index < _controller.sortedAttachments.length - 1,
                 onTap: () async {
                   if (_controller.sortedAttachments.length < 2) Navigator.of(context).pop();

@@ -10,14 +10,12 @@ import '../../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
@@ -93,12 +91,10 @@ class _ProjectModulesBody extends StatelessWidget {
             },
           ),
           if (!_project.ws.allProjectOptionsUsed)
-            MTListTile(
-              leading: const FeaturesIcon(size: _iconSize),
-              middle: BaseText.medium(loc.promo_features_subscribe_title, color: mainColor),
-              trailing: const ChevronIcon(),
+            MTButton.secondary(
+              leading: const FeaturesIcon(),
+              titleText: loc.promo_features_subscribe_title,
               margin: const EdgeInsets.only(top: P3),
-              bottomDivider: false,
               onTap: _selectFeatures,
             ),
           if (footer != null) footer!,

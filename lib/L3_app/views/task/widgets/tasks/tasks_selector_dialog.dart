@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -52,7 +53,7 @@ class TasksSelectorDialog extends StatelessWidget {
               leading: t.isInbox ? const InboxIcon(color: f2Color, size: P5) : null,
               titleText: t.title,
               subtitle: t.description.isNotEmpty ? SmallText(t.description, maxLines: 1) : null,
-              trailing: const ChevronIcon(),
+              trailing: kIsWeb ? null : const ChevronIcon(),
               bottomDivider: index < tasks.length - 1,
               onTap: () => Navigator.of(context).pop(t),
             );

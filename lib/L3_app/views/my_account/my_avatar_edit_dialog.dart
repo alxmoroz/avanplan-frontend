@@ -19,6 +19,8 @@ enum _FileSource { gallery, camera, files }
 Future showMyAvatarEditDialog() async => await showMTDialog(_MyAvatarEditDialog());
 
 class _MyAvatarEditDialog extends StatelessWidget {
+  static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
+
   Future _upload(BuildContext context, _FileSource fSource) async {
     Navigator.of(context).pop();
 
@@ -53,13 +55,13 @@ class _MyAvatarEditDialog extends StatelessWidget {
             MTListTile(
               leading: MimeTypeIcon('image'),
               middle: BaseText(loc.file_source_gallery_title, color: mainColor, maxLines: 1),
-              dividerIndent: P11,
+              dividerIndent: _dividerIndent,
               onTap: () => _upload(context, _FileSource.gallery),
             ),
           MTListTile(
             leading: const ProjectsIcon(color: mainColor),
             middle: BaseText(loc.file_source_files_title, color: mainColor, maxLines: 1),
-            dividerIndent: P11,
+            dividerIndent: _dividerIndent,
             bottomDivider: !isWeb,
             onTap: () => _upload(context, _FileSource.files),
           ),
@@ -72,7 +74,7 @@ class _MyAvatarEditDialog extends StatelessWidget {
             ),
           if (myAccountController.me!.hasAvatar)
             MTListTile(
-              leading: const DeleteIcon(size: P6),
+              leading: const DeleteIcon(size: DEF_TAPPABLE_ICON_SIZE),
               middle: BaseText(loc.action_delete_title, color: dangerColor),
               margin: const EdgeInsets.only(top: P3),
               bottomDivider: false,

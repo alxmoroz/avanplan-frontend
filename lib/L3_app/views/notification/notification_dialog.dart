@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/notification.dart';
@@ -43,7 +44,7 @@ class _NotificationDialog extends StatelessWidget {
               MTButton(
                 margin: const EdgeInsets.only(top: P3),
                 titleText: loc.details,
-                trailing: const ChevronIcon(),
+                trailing: kIsWeb ? null : const ChevronIcon(),
                 onTap: () => _goToLink(context),
               ),
           ],

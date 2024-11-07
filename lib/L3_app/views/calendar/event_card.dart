@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/calendar_event.dart';
@@ -86,7 +87,7 @@ class EventCard extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(width: P_2),
-                const ChevronIcon(),
+                if (!kIsWeb) const ChevronIcon(),
               ],
             ),
             bottomDivider: bottomDivider,

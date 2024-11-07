@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
@@ -43,7 +44,7 @@ class _WSUserDialog extends StatelessWidget {
           /// Права в РП
           const SizedBox(height: P3),
           MTListTile(
-            leading: const PrivacyIcon(),
+            leading: const PrivacyIcon(color: f2Color),
             middle: BaseText(loc.role_title, maxLines: 1),
             subtitle: SmallText(_user.rolesTitles, maxLines: 1),
             bottomDivider: false,

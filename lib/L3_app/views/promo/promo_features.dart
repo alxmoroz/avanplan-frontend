@@ -77,7 +77,7 @@ class PromoFeatures extends StatelessWidget {
                 padding: const EdgeInsets.only(top: P3),
                 child: Row(
                   children: [
-                    const StarIcon(size: P6),
+                    const StarIcon(size: DEF_TAPPABLE_ICON_SIZE),
                     const SizedBox(width: P2),
                     Expanded(child: BaseText(t, maxLines: 2)),
                   ],

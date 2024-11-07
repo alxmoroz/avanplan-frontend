@@ -566,13 +566,13 @@
   "tomorrow_title": "Tomorrow",
   "total_title": "Total",
 
-  "transfer_unlink_relations_dialog_title": "Transfer and unlink tasks?",
-  "transfer_unlink_relations_dialog_hint": "Tasks can be linked within the same workspace. When transferred, the links will be lost",
   "transfer_select_destination_hint": "Select where to transfer",
   "transfer_export_empty_title": "No suitable places to transfer",
   "transfer_import_empty_title": "There are no tasks to transfer",
   "transfer_select_source_hint": "Select where to transfer from",
   "transfer_tasks_title": "Transfer tasks",
+  "transfer_unlink_relations_dialog_title": "Transfer and unlink tasks?",
+  "transfer_unlink_relations_dialog_hint": "Tasks can be related within the same workspace. When transferred, the relations will be lost",
 
   "validation_empty_text": "Should not be empty",
 

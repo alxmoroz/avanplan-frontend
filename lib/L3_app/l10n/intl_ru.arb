@@ -572,7 +572,7 @@
   "transfer_select_source_hint": "Выберите, откуда перенести",
   "transfer_tasks_title": "Перенос задач",
   "transfer_unlink_relations_dialog_title": "Перенести и отвязать задачи?",
-  "transfer_unlink_relations_dialog_hint": "Связывать можно задачи внутри одного рабочего пространства. При переносе связи будут потеряны",
+  "transfer_unlink_relations_dialog_hint": "Задачи можно связывать внутри одного рабочего пространства. При переносе связи будут потеряны",
 
   "validation_empty_text": "Нужно заполнить",
 

@@ -382,7 +382,15 @@ class StarIcon extends MTIcon {
 }
 
 class SubmitIcon extends MTIcon {
-  const SubmitIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.paperplane_fill);
+  const SubmitIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.arrow_up);
+  @override
+  Widget build(BuildContext context) => Stack(
+        alignment: Alignment.center,
+        children: [
+          MTCircle(color: color, size: size),
+          MTIcon(iconData, color: mainBtnTitleColor, size: size * 0.7),
+        ],
+      );
 }
 
 class TasksIcon extends MTIcon {

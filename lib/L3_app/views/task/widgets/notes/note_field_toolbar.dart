@@ -59,7 +59,7 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
       maxLines: ml,
       textDirection: TextDirection.ltr,
     );
-    tp.layout(maxWidth: tvController.centerConstraints.maxWidth - (DEF_TAPPABLE_ICON_SIZE * 2 + P2 * 6 + P_2));
+    tp.layout(maxWidth: tvController.centerConstraints.maxWidth - (DEF_TAPPABLE_ICON_SIZE * 2 + P2 * 5 + P_2));
 
     return tp.height - tp.preferredLineHeight + _footerHeight(context, tc, ignoreBottomInsets) + _extraPadding(context, ignoreBottomInsets);
   }

@@ -55,13 +55,13 @@ class NoteField extends StatelessWidget {
                 if (_isNewNote)
                   MTButton.icon(
                     const AttachmentIcon(),
-                    padding: const EdgeInsets.only(left: P2, right: P2, bottom: P),
+                    padding: const EdgeInsets.only(left: P2, right: P, bottom: P, top: P),
                     onTap: _tc.attachmentsController.startUpload,
                   )
                 else
                   MTButton.icon(
-                    const CloseIcon(),
-                    padding: const EdgeInsets.all(P2),
+                    const CloseIcon(size: DEF_TAPPABLE_ICON_SIZE - P),
+                    padding: const EdgeInsets.only(left: P2 + P_2, right: P + P_2, bottom: P + P_2, top: P + P_2),
                     onTap: _tc.resetNoteEdit,
                   ),
                 Expanded(
@@ -77,7 +77,7 @@ class NoteField extends StatelessWidget {
                 ),
                 MTButton.icon(
                   SubmitIcon(color: _canSubmit ? mainColor : b1Color),
-                  padding: const EdgeInsets.only(left: P2, right: P2, bottom: P),
+                  padding: const EdgeInsets.only(left: P, right: P2, bottom: P, top: P),
                   onTap: _canSubmit ? () => _submit(context) : null,
                 ),
               ],

@@ -43,14 +43,12 @@ abstract class _Base with Store, Loadable {
 
   @computed
   Iterable<Task> get _relatedTasks => relations.map((r) => (TaskController()..init(wsId, r.relatedTaskId(_taskId))).task);
+
   @computed
   Iterable<int> get relatedTasksIds => _relatedTasks.map((t) => t.id!);
 
   @computed
   List<Task> get _sortedRelatedTasks => _relatedTasks.sorted((t1, t2) => t1.compareTo(t2));
-
-  @computed
-  List<MapEntry<TaskState, List<Task>>> get tasksGroups => groups(_sortedRelatedTasks);
 
   static const _visibleTitlesCount = 1;
 
@@ -58,4 +56,11 @@ abstract class _Base with Store, Loadable {
   String get relationsStr => _sortedRelatedTasks.map((t) => t.title.isNotEmpty ? t.title : t.viewTitle).take(_visibleTitlesCount).join(', ');
   @computed
   String get relationsCountMoreStr => relations.length > _visibleTitlesCount ? loc.more_count(relations.length - _visibleTitlesCount) : '';
+
+  @computed
+  Iterable<Task> get _availableTasks =>
+      _relatedTasks.where((rt) => tasksMainController.task(rt.wsId, rt.id) != null).sorted((t1, t2) => t1.compareTo(t2));
+
+  @computed
+  List<MapEntry<TaskState, List<Task>>> get availableTasksGroups => groups(_availableTasks);
 }

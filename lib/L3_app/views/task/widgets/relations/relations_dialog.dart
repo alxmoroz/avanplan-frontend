@@ -79,7 +79,7 @@ class _RelationsDialog extends StatelessWidget {
       topBar: MTTopBar(pageTitle: loc.relations_title, parentPageTitle: _rc.task.title),
       body: _rc.hasRelations
           ? TasksListView(
-              _rc.tasksGroups,
+              _rc.availableTasksGroups,
               parent: _rc.task,
               adaptive: false,
               extra: forbiddenCount > 0

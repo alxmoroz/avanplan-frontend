@@ -25,20 +25,20 @@ Future showTransactionEditDialog(Task task, TransactionEditController trEditCont
 }
 
 class _TransactionEditDialog extends StatelessWidget {
-  const _TransactionEditDialog(this._task, this._controller);
-  final Task _task;
-  final TransactionEditController _controller;
+  const _TransactionEditDialog(this._t, this._trEditC);
+  final Task _t;
+  final TransactionEditController _trEditC;
 
-  bool get canSave => _controller.validated;
-  bool get canDelete => !_controller.transaction.isNew;
+  bool get canSave => _trEditC.validated;
+  bool get canDelete => !_trEditC.transaction.isNew;
 
   Widget _tf(TransactionFCode code) {
-    final fd = _controller.fData(code.index);
-    return MTTextField(controller: _controller.teController(code.index), label: fd.label);
+    final fd = _trEditC.fData(code.index);
+    return MTTextField(controller: _trEditC.teController(code.index), label: fd.label);
   }
 
   Future _save(BuildContext context) async {
-    await _controller.save();
+    await _trEditC.save();
     if (context.mounted) Navigator.of(context).pop();
   }
 
@@ -52,7 +52,10 @@ class _TransactionEditDialog extends StatelessWidget {
           ],
         ) ==
         true) {
-      await _controller.delete();
+      await _trEditC.delete();
+      // TODO: костыль из-за проблемы перезаписи транзакций в методе refill
+      _t.transactions.remove(_trEditC.transaction);
+
       if (context.mounted) Navigator.of(context).pop();
     }
   }
@@ -61,19 +64,19 @@ class _TransactionEditDialog extends StatelessWidget {
     final seps = NumberSeparators();
     final groupSep = seps.groupSep;
     final decimalSep = seps.decimalSep;
-    final textColor = _controller.sign > 0 ? greenColor : dangerColor;
+    final textColor = _trEditC.sign > 0 ? greenColor : dangerColor;
     return MTDialog(
       topBar: MTTopBar(
         pageTitle:
-            '${_controller.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_controller.transaction.createdOn?.strMedium}',
-        parentPageTitle: _task.title,
+            '${_trEditC.sign > 0 ? loc.finance_transactions_income_title(1) : loc.finance_transactions_expenses_title(1)} ${_trEditC.transaction.createdOn?.strMedium}',
+        parentPageTitle: _t.title,
         trailing: canDelete ? MTButton.icon(const DeleteIcon(), onTap: () => _delete(context), padding: const EdgeInsets.all(P2)) : null,
       ),
       body: ListView(
         shrinkWrap: true,
         children: [
           MTTextField(
-            controller: _controller.teController(TransactionFCode.amount.index),
+            controller: _trEditC.teController(TransactionFCode.amount.index),
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: '0',
@@ -104,7 +107,7 @@ class _TransactionEditDialog extends StatelessWidget {
               }),
               TextInputFormatter.withFunction((oldValue, newValue) {
                 if (newValue.text.isNotEmpty) {
-                  String formattedValue = _controller.valueFromText(newValue.text).currencySharp;
+                  String formattedValue = _trEditC.valueFromText(newValue.text).currencySharp;
                   final formattedIsFloat = formattedValue.lastIndexOf(decimalSep) > -1;
                   if (newValue.text.contains(decimalSep) && !formattedIsFloat) {
                     formattedValue += decimalSep + newValue.text.split(decimalSep).last;
@@ -135,7 +138,7 @@ class _TransactionEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _controller.loading ? LoaderScreen(_controller, isDialog: true) : _dialog(context),
+      builder: (_) => _trEditC.loading ? LoaderScreen(_trEditC, isDialog: true) : _dialog(context),
     );
   }
 }

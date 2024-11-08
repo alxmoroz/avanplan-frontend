@@ -17,14 +17,14 @@ import '../../usecases/note.dart';
 void noteMenuDialog(TaskController taskController, Note note) => showMTDialog(_NoteMenuDialog(taskController, note));
 
 class _NoteMenuDialog extends StatelessWidget {
-  const _NoteMenuDialog(this._taskController, this._note);
-  final TaskController _taskController;
+  const _NoteMenuDialog(this._tc, this._note);
+  final TaskController _tc;
   final Note _note;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(pageTitle: loc.task_note_title, parentPageTitle: _taskController.task.title),
+      topBar: MTTopBar(pageTitle: loc.task_note_title, parentPageTitle: _tc.task.title),
       body: ListView(
         shrinkWrap: true,
         children: [
@@ -34,7 +34,7 @@ class _NoteMenuDialog extends StatelessWidget {
             dividerIndent: P4 + P5,
             onTap: () {
               Navigator.of(context).pop();
-              _taskController.editNote(_note);
+              _tc.editNote(_note);
             },
           ),
           MTListTile(
@@ -43,7 +43,7 @@ class _NoteMenuDialog extends StatelessWidget {
             bottomDivider: false,
             onTap: () async {
               Navigator.of(context).pop();
-              _taskController.deleteNote(_note);
+              _tc.deleteNote(_note);
             },
           ),
         ],

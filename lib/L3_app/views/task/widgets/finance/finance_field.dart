@@ -11,6 +11,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
 import '../../controllers/task_controller.dart';
+import '../../controllers/task_transactions_controller.dart';
 import 'transactions_dialog.dart';
 
 class FinanceField extends StatelessWidget {
@@ -25,31 +26,35 @@ class FinanceField extends StatelessWidget {
   //     ? FinanceExpensesIcon(size: trIconSize, color: _task.balanceColor)
   //     : FinanceIncomeIcon(size: trIconSize, color: _task.balanceColor);
 
+  TaskTransactionsController get _trc => _tc.transactionsController;
+
+  Widget get _balance {
+    final t = _tc.task;
+    return DText(
+      '$CURRENCY_SYMBOL_ROUBLE ${t.balance.abs().humanValueStr}',
+      color: t.balanceColor,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final t = _tc.task;
-    final trController = _tc.transactionsController;
-    final hasTransactions = trController.hasTransactions;
+    final hasTransactions = _trc.hasTransactions;
     final canEdit = _tc.canEditFinance;
+
     return MTField(
       _tc.fData(TaskFCode.finance.index),
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
       leading: FinanceIcon(color: canEdit ? mainColor : f3Color),
       value: hasTransactions
           ? BaseText(
-              loc.finance_transactions_count(trController.transactionsCount),
+              loc.finance_transactions_count(_trc.transactionsCount),
               maxLines: 1,
               color: canEdit ? null : f2Color,
             )
           : null,
-      trailing: hasTransactions
-          ? DText(
-              '$CURRENCY_SYMBOL_ROUBLE ${t.balance.abs().humanValueStr}',
-              color: t.balanceColor,
-            )
-          : null,
+      trailing: hasTransactions ? _balance : null,
       compact: compact,
-      onTap: canEdit ? () => transactionsDialog(trController) : null,
+      onTap: canEdit ? () => transactionsDialog(_trc) : null,
     );
   }
 }

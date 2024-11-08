@@ -13,22 +13,22 @@ import 'task_controller.dart';
 part 'task_transactions_controller.g.dart';
 
 class TaskTransactionsController extends _Base with _$TaskTransactionsController {
-  TaskTransactionsController(this.taskController);
-  final TaskController taskController;
+  TaskTransactionsController(this._tc);
+  final TaskController _tc;
 
-  Task get task => taskController.task;
+  Task get t => _tc.task;
 
-  void reload() => _reloadTransactions(task.transactions);
+  void reload() => _reloadTransactions(t.transactions);
 
   Future _editTransaction(TaskTransaction transaction, num sign) async {
     final trEditController = TransactionEditController(transaction, sign);
-    await showTransactionEditDialog(task, trEditController);
+    await showTransactionEditDialog(t, trEditController);
     reload();
   }
 
   TaskTransaction get _newTransaction => TaskTransaction(
-        wsId: task.wsId,
-        taskId: task.id!,
+        wsId: t.wsId,
+        taskId: t.id!,
         createdOn: now,
         amount: 0.0,
         category: '',

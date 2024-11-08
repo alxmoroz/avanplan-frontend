@@ -9,6 +9,7 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
+import '../../../../components/linkify/linkify.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../presenters/task_actions.dart';
@@ -32,6 +33,7 @@ class TaskHeader extends StatelessWidget {
       builder: (_) {
         final t = _tc.task;
         final roText = H1(t.title, color: !_tc.canEdit ? f2Color : null);
+        final roStyle = roText.style(context);
         final header = Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -53,10 +55,10 @@ class TaskHeader extends StatelessWidget {
                         hintText: _tc.titlePlaceholder,
                         hintStyle: const H1('', color: f3Color).style(context),
                       ),
-                      style: roText.style(context),
+                      style: roStyle,
                       onChanged: _tc.setTitle,
                     )
-                  : Container(height: _minHeight, alignment: Alignment.centerLeft, child: roText),
+                  : MTLinkify(t.title, style: roStyle),
               padding: EdgeInsets.zero,
               crossAxisAlignment: CrossAxisAlignment.start,
               color: Colors.transparent,

@@ -20,6 +20,7 @@ enum ImageName {
   mail_icon,
   network_error,
   no_info,
+  not_found,
   notifications,
   ok,
   ok_blue,

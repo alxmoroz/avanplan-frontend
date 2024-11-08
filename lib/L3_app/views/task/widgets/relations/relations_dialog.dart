@@ -55,21 +55,25 @@ class _RelationsDialog extends StatelessWidget {
         onTap: _rc.startCreateRelation,
       );
 
-  Widget get _emptyRelationsScreen => ListView(
+  Widget _emptyRelationsScreen(BuildContext context) => ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          MTImage(ImageName.relations.name),
+          MTImage((_onlyOneTaskInWS ? ImageName.not_found : ImageName.relations).name),
           H2(
             _onlyOneTaskInWS ? loc.relations_only_one_task_title : loc.relations_empty_title,
             padding: const EdgeInsets.all(P3),
             align: TextAlign.center,
           ),
-          if (!_onlyOneTaskInWS) ...[
-            BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-            const SizedBox(height: P3),
-            _createRelationButton,
-          ],
+          BaseText(_onlyOneTaskInWS ? loc.relations_only_one_task_hint : loc.relations_empty_hint,
+              align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+          const SizedBox(height: P3),
+          _onlyOneTaskInWS
+              ? MTButton.secondary(
+                  titleText: loc.ok,
+                  onTap: () => Navigator.of(context).pop(),
+                )
+              : _createRelationButton,
         ],
       );
 
@@ -94,7 +98,7 @@ class _RelationsDialog extends StatelessWidget {
               onTaskTap: (t) => _showTask(context, t),
               onTaskDelete: _rc.deleteRelationFromTask,
             )
-          : _emptyRelationsScreen,
+          : _emptyRelationsScreen(context),
       forceBottomPadding: !_rc.hasRelations && !_onlyOneTaskInWS,
       bottomBar: _rc.hasRelations
           ? MTBottomBar(

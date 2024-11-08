@@ -78,8 +78,8 @@ class TasksSelectorDialog extends StatelessWidget {
                   ? ListView(
                       shrinkWrap: true,
                       children: [
-                        MTImage(ImageName.no_info.name),
-                        H3(_emptyText, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
+                        MTImage(ImageName.not_found.name),
+                        H2(_emptyText, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
                         MTButton.secondary(titleText: loc.ok, onTap: () => Navigator.of(context).pop()),
                       ],
                     )

@@ -18,7 +18,6 @@ class MTLinkify extends StatelessWidget {
     this.linkStyle,
     this.textAlign,
     this.paddingLines = 0,
-    this.enableInteractiveSelection = true,
     this.onTap,
     super.key,
   });
@@ -28,7 +27,6 @@ class MTLinkify extends StatelessWidget {
   final TextStyle? linkStyle;
   final TextAlign? textAlign;
   final int paddingLines;
-  final bool enableInteractiveSelection;
   final Function()? onTap;
 
   Future _openLink(Uri uri) async {
@@ -59,6 +57,7 @@ class MTLinkify extends StatelessWidget {
           if (elements.isNotEmpty && paddingLines > 0) TextSpan(text: '\n' * paddingLines),
         ],
       ),
+      scrollPhysics: const NeverScrollableScrollPhysics(),
       textAlign: textAlign,
       minLines: 1,
       maxLines: maxLines,
@@ -66,7 +65,6 @@ class MTLinkify extends StatelessWidget {
         anchors: state.contextMenuAnchors,
         buttonItems: state.contextMenuButtonItems,
       ),
-      enableInteractiveSelection: enableInteractiveSelection,
       onTap: onTap,
     );
   }

@@ -76,7 +76,6 @@ class MTTextFieldInline extends StatelessWidget {
             maxLines: maxLines,
             style: textStyle,
             paddingLines: paddingLines,
-            enableInteractiveSelection: paddingLines == 0,
             onTap: onTap,
           ),
       ],

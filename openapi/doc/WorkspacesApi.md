@@ -41,7 +41,7 @@ Method | HTTP request | Description
 [**startImport**](WorkspacesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
 [**statusTasksCount**](WorkspacesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [**taskNode**](WorkspacesApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
-[**tasksList**](WorkspacesApi.md#taskslist) | **GET** /v1/workspaces/{ws_id}/tasks | Tasks List
+[**tasksList**](WorkspacesApi.md#taskslist) | **POST** /v1/workspaces/{ws_id}/tasks/list | Tasks List
 [**unlinkTask**](WorkspacesApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
 [**updateWorkspace**](WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Upsert
 [**uploadAttachment**](WorkspacesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment

@@ -99,7 +99,7 @@ class _RelationsDialog extends StatelessWidget {
               onTaskDelete: _rc.deleteRelationFromTask,
             )
           : _emptyRelationsScreen(context),
-      forceBottomPadding: !_rc.hasRelations && !_onlyOneTaskInWS,
+      forceBottomPadding: !_rc.hasRelations,
       bottomBar: _rc.hasRelations
           ? MTBottomBar(
               middle: _onlyOneTaskInWS

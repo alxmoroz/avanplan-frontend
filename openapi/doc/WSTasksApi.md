@@ -24,7 +24,7 @@ Method | HTTP request | Description
 [**setupProjectModules**](WSTasksApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [**statusTasksCount**](WSTasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [**taskNode**](WSTasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
-[**tasksList**](WSTasksApi.md#taskslist) | **GET** /v1/workspaces/{ws_id}/tasks | Tasks List
+[**tasksList**](WSTasksApi.md#taskslist) | **POST** /v1/workspaces/{ws_id}/tasks/list | Tasks List
 [**unlinkTask**](WSTasksApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
 [**uploadAttachment**](WSTasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
 [**upsertNote**](WSTasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert

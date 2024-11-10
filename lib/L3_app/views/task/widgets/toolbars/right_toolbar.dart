@@ -53,18 +53,13 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
           ),
 
         /// быстрые действия с задачей
-        if (t.quickActions.isNotEmpty) ...[
+        if (_tc.quickActions.isNotEmpty) ...[
           const MTDivider(verticalIndent: P2),
-          for (final ta in t.quickActions)
-            TaskActionItem(
-              ta,
-              compact: _compact,
-              onTap: () => _tc.taskAction(context, ta),
-            ),
+          for (final ta in _tc.quickActions) TaskActionItem(ta, _tc, compact: _compact),
         ],
 
         /// остальные действия с задачей
-        if (t.otherActions.isNotEmpty) TaskPopupMenu(_tc, t.otherActions, compact: _compact),
+        TaskPopupMenu(_tc, extended: true, compact: _compact),
       ],
     );
   }

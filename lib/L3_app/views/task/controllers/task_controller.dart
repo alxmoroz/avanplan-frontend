@@ -8,22 +8,16 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_dates.dart';
-import '../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/field_data.dart';
 import '../../../extra/services.dart';
 import '../../../navigation/route.dart';
 import '../../../navigation/router.dart';
 import '../../../presenters/task_actions.dart';
+import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_status.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../../_base/loadable.dart';
-import '../usecases/delete.dart';
-import '../usecases/duplicate.dart';
-import '../usecases/link.dart';
-import '../usecases/status.dart';
-import '../usecases/transfer.dart';
-import '../widgets/details/task_details.dart';
 import 'attachments_controller.dart';
 import 'notes_controller.dart';
 import 'project_modules_controller.dart';
@@ -139,36 +133,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     projectStatusesController.reload();
   }
 
-  Future taskAction(BuildContext context, TaskAction? actionType) async {
-    switch (actionType) {
-      case TaskAction.details:
-        await showDetailsDialog(this);
-        break;
-      case TaskAction.close:
-        await setClosed(context, true);
-        break;
-      case TaskAction.reopen:
-        await setClosed(context, false);
-        break;
-      case TaskAction.localExport:
-        await localExport();
-        break;
-      case TaskAction.duplicate:
-        await duplicate();
-        break;
-      // case TaskAction.go2source:
-      //   await _task.go2source();
-      //   break;
-      case TaskAction.unlink:
-        await unlink();
-        break;
-      case TaskAction.delete:
-        await delete(pop: true);
-        break;
-      default:
-    }
-  }
-
   @override
   void parseError(Exception e) {
     // 404
@@ -200,23 +164,63 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   late final bool _isPreview;
   bool get isPreview => _isPreview;
   bool get canEdit => !_isPreview && task.canEdit;
+  bool get _canClose => !_isPreview && task.canClose;
+  bool get _canReopen => !_isPreview && task.canReopen;
+  bool get _canLocalExport => !_isPreview && task.canLocalExport;
+  bool get _canDuplicate => !_isPreview && task.canDuplicate;
   bool get canDelete => !_isPreview && task.canDelete;
   bool get canCreateChecklist => !_isPreview && task.canCreateChecklist;
   bool get canSetStatus => !_isPreview && task.canSetStatus;
   bool get canAssign => !_isPreview && task.canAssign;
-  bool get canShowAssigneeField => task.hasAssignee || canAssign;
   bool get canShowDateField => task.hasDates || canEdit;
   bool get canShowDueDateField => task.hasDueDate || canEdit;
   bool get canShowStartDateField => task.hasStartDate || canEdit;
   bool get canShowRepeatField => task.hasRepeat || (task.isTask && canEdit);
   bool get canEstimate => !_isPreview && task.canEstimate;
-  bool get canShowEstimateField => task.canShowEstimate || canEstimate;
   bool get canShowAttachmentsField => !_isPreview && task.attachments.isNotEmpty;
   bool get canEditFinance => !_isPreview && task.canEditFinance;
-  bool get canShowFinanceField => transactionsController.hasTransactions || canEditFinance;
   bool get canEditRelations => !_isPreview && task.canEditRelations;
-  bool get canShowRelationsField => relationsController.hasRelations || canEditRelations;
   bool get canComment => !_isPreview && task.canComment;
+
+  Iterable<TaskAction> actions(BuildContext context, {bool extended = false}) {
+    final t = task;
+    final canShowDetails = !extended && t.canShowDetails(context);
+
+    final paramsActions = [
+      if (canAssign) TaskAction.assignee,
+      if (canEstimate) TaskAction.estimate,
+      if (canEditFinance) TaskAction.finance,
+      if (canEditRelations) TaskAction.relations,
+    ];
+
+    final canClose = _canClose && (!extended || !t.isTask);
+    final canReopen = _canReopen && (!extended || !t.isTask);
+    final canLocalExport = _canLocalExport && (!extended || !t.isInboxTask);
+    final canDuplicate = _canDuplicate;
+
+    final hasActions = canClose || canReopen || canLocalExport || canDuplicate;
+    final canDelete = this.canDelete;
+
+    return [
+      if (canShowDetails) TaskAction.details,
+      //
+      if (paramsActions.isNotEmpty && canShowDetails) TaskAction.divider,
+      ...paramsActions,
+      //
+      if (hasActions && (canShowDetails || paramsActions.isNotEmpty)) TaskAction.divider,
+      if (canClose) TaskAction.close,
+      if (canReopen) TaskAction.reopen,
+      if (canLocalExport) TaskAction.localExport,
+      if (canDuplicate) TaskAction.duplicate,
+      //
+      if (canDelete && (canShowDetails || hasActions || paramsActions.isNotEmpty)) TaskAction.divider,
+      if (canDelete) TaskAction.delete,
+    ];
+  }
+
+  Iterable<TaskAction> get quickActions => [
+        if (task.isInboxTask && _canLocalExport) TaskAction.localExport,
+      ];
 }
 
 abstract class _TaskControllerBase extends EditController with Store, Loadable {}

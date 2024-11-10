@@ -17,12 +17,21 @@ import 'task_tree.dart';
 
 enum TaskAction {
   details,
+
+  assignee,
+  finance,
+  estimate,
+  relations,
+
   close,
   reopen,
   localExport,
   duplicate,
-  unlink,
+
   delete,
+  divider;
+
+  bool get isDivider => this == divider;
 }
 
 extension TaskActionsUC on Task {
@@ -50,7 +59,7 @@ extension TaskActionsUC on Task {
   bool get canDelete => !isInbox && ((isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete));
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => !closed && canEdit;
-  bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
+  // bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
 
   bool canShowDetails(BuildContext context) => !isBigScreen(context) && isProjectOrGoal;
 
@@ -84,28 +93,4 @@ extension TaskActionsUC on Task {
   bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
 
   bool get canEditRelations => _canEditTask;
-
-  Iterable<TaskAction> actions(BuildContext context) => [
-        if (canShowDetails(context)) TaskAction.details,
-        if (canClose) TaskAction.close,
-        if (canReopen) TaskAction.reopen,
-        if (canLocalExport) TaskAction.localExport,
-        if (canDuplicate) TaskAction.duplicate,
-        // if (didImported) TaskAction.go2source,
-        if (canUnlink) TaskAction.unlink,
-        if (canDelete) TaskAction.delete,
-      ];
-
-  Iterable<TaskAction> get quickActions => [
-        if (isInboxTask && canLocalExport) TaskAction.localExport,
-      ];
-
-  Iterable<TaskAction> get otherActions => [
-        if (!isTask && canClose) TaskAction.close,
-        if (!isTask && canReopen) TaskAction.reopen,
-        if (!isInboxTask && canLocalExport) TaskAction.localExport,
-        if (canDuplicate) TaskAction.duplicate,
-        if (canUnlink) TaskAction.unlink,
-        if (canDelete) TaskAction.delete,
-      ];
 }

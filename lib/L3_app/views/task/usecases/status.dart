@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
@@ -17,6 +16,7 @@ import '../../../components/images.dart';
 import '../../../components/select_dialog.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
+import '../../../navigation/router.dart';
 import '../../../presenters/task_actions.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
@@ -66,7 +66,7 @@ extension StatusUC on TaskController {
     }
   }
 
-  Future setStatus(Task t, {int? stId, bool? closed, BuildContext? context}) async {
+  Future setStatus(Task t, {int? stId, bool? closed, bool? canPop}) async {
     if (!await taskDescriptor.ws.checkBalance(loc.edit_action_title) || (closed == true && t.hasOpenedSubtasks && await _closeTreeDialog() != true)) {
       return;
     }
@@ -79,8 +79,8 @@ extension StatusUC on TaskController {
       }
 
       // тут надо проверять контекст, чтобы понять, что был вызов из диалога, а не внутренний
-      if (context != null && context.mounted) {
-        context.pop();
+      if (canPop == true) {
+        router.pop();
       }
     }
 
@@ -88,9 +88,9 @@ extension StatusUC on TaskController {
     await _setTaskTreeStatus(t, stId: stId, closed: closed);
   }
 
-  Future setClosed(BuildContext context, bool closed) async => await setStatus(task, closed: closed, context: context);
+  Future setClosed(bool closed, {bool? canPop}) async => await setStatus(task, closed: closed, canPop: canPop);
 
-  Future selectStatus(BuildContext context) async {
+  Future selectStatus() async {
     final selectedStatus = await showMTSelectDialog<ProjectStatus>(
       projectStatusesController.sortedStatuses,
       task.projectStatusId,
@@ -113,7 +113,7 @@ extension StatusUC on TaskController {
     );
 
     if (selectedStatus != null && selectedStatus.id != null) {
-      setStatus(task, stId: selectedStatus.id, context: context.mounted ? context : null);
+      setStatus(task, stId: selectedStatus.id, canPop: true);
     }
   }
 }

@@ -47,8 +47,6 @@ class _RelationsDialog extends StatelessWidget {
     }
   }
 
-  bool get _onlyOneTaskInWS => tasksMainController.tasks.where((t) => t.wsId == _rc.wsId).length == 1;
-
   Widget get _createRelationButton => MTButton.secondary(
         leading: const PlusIcon(),
         titleText: '${loc.action_add_title} ${loc.relation_title.toLowerCase()}',
@@ -59,21 +57,15 @@ class _RelationsDialog extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          MTImage((_onlyOneTaskInWS ? ImageName.not_found : ImageName.relations).name),
+          MTImage(ImageName.relations.name),
           H2(
-            _onlyOneTaskInWS ? loc.relations_only_one_task_title : loc.relations_empty_title,
+            loc.relations_empty_title,
             padding: const EdgeInsets.all(P3),
             align: TextAlign.center,
           ),
-          BaseText(_onlyOneTaskInWS ? loc.relations_only_one_task_hint : loc.relations_empty_hint,
-              align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+          BaseText(loc.relations_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
           const SizedBox(height: P3),
-          _onlyOneTaskInWS
-              ? MTButton.secondary(
-                  titleText: loc.ok,
-                  onTap: () => Navigator.of(context).pop(),
-                )
-              : _createRelationButton,
+          _createRelationButton,
         ],
       );
 
@@ -100,12 +92,7 @@ class _RelationsDialog extends StatelessWidget {
             )
           : _emptyRelationsScreen(context),
       forceBottomPadding: !_rc.hasRelations,
-      bottomBar: _rc.hasRelations
-          ? MTBottomBar(
-              middle: _onlyOneTaskInWS
-                  ? SmallText(loc.relations_only_one_task_title, padding: const EdgeInsets.symmetric(horizontal: P3), align: TextAlign.center)
-                  : _createRelationButton)
-          : null,
+      bottomBar: _rc.hasRelations ? MTBottomBar(middle: _createRelationButton) : null,
     );
   }
 

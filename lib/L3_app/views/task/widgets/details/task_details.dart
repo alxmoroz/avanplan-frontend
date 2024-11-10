@@ -33,10 +33,10 @@ import 'assignee_field.dart';
 import 'estimate_field.dart';
 import 'task_status_field.dart';
 
-Future showDetailsDialog(TaskController controller) async => await showMTDialog(
+Future showDetailsDialog(TaskController tc) async => await showMTDialog(
       MTDialog(
-        topBar: MTTopBar(pageTitle: loc.details, parentPageTitle: controller.task.title),
-        body: TaskDetails(controller, standalone: true),
+        topBar: MTTopBar(pageTitle: loc.details, parentPageTitle: tc.task.title),
+        body: TaskDetails(tc, standalone: true),
       ),
     );
 
@@ -68,23 +68,23 @@ class TaskDetails extends StatelessWidget {
           if (t.canShowStatus) TaskStatusField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Ответственный
-          if (_tc.canShowAssigneeField) TaskAssigneeField(_tc, compact: compact, hasMargin: hasMargins),
+          if (t.hasAssignee) TaskAssigneeField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Даты
           if (_tc.canShowDateField) TaskDatesField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Оценки
-          if (_tc.canShowEstimateField) TaskEstimateField(_tc, compact: compact, hasMargin: hasMargins),
+          if (t.canShowEstimate) TaskEstimateField(_tc, compact: compact, hasMargin: hasMargins),
 
           if (!isTaskDialog) ...[
             /// Вложения
             if (_tc.canShowAttachmentsField) TaskAttachmentsField(_tc, hasMargin: hasMargins),
 
             /// Финансы
-            if (_tc.canShowFinanceField) FinanceField(_tc, hasMargin: hasMargins),
+            if (t.transactions.isNotEmpty) FinanceField(_tc, hasMargin: hasMargins),
 
             /// Связи
-            if (_tc.canShowRelationsField) TaskRelationsField(_tc, hasMargin: hasMargins),
+            if (_tc.relationsController.hasRelations) TaskRelationsField(_tc, hasMargin: hasMargins),
           ],
 
           /// Модули проекта

@@ -41,14 +41,15 @@ class TaskHeader extends StatelessWidget {
             if (t.parent != null) TaskParentTitle(_tc),
 
             /// Название
-            MTField(
-              _tc.fData(titleIndex),
-              leading: t.isTask ? TaskDoneButton(_tc) : null,
-              value: _tc.canEdit
-                  ? MTTextField(
+            _tc.canEdit
+                ? MTField(
+                    _tc.fData(titleIndex),
+                    leading: t.isTask ? TaskDoneButton(_tc) : null,
+                    value: MTTextField(
                       controller: _tc.teController(titleIndex),
                       autofocus: t.creating,
                       margin: EdgeInsets.zero,
+                      readOnly: !_tc.canEdit,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.zero,
@@ -57,13 +58,17 @@ class TaskHeader extends StatelessWidget {
                       ),
                       style: roStyle,
                       onChanged: _tc.setTitle,
-                    )
-                  : MTLinkify(t.title, style: roStyle),
-              padding: EdgeInsets.zero,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              color: Colors.transparent,
-              minHeight: _minHeight,
-            ),
+                    ),
+                    padding: EdgeInsets.zero,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    color: Colors.transparent,
+                    minHeight: _minHeight,
+                  )
+                : Container(
+                    height: P8,
+                    alignment: Alignment.centerLeft,
+                    child: MTLinkify(t.title, style: roStyle),
+                  ),
           ],
         );
         return t.isTask

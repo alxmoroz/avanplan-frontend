@@ -232,8 +232,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
               : Observer(
                   builder: (_) {
                     final bigGroup = _isBigGroup;
-                    final actions = tc.loading ? <TaskAction>[] : task.actions(context);
-
                     PreferredSizeWidget? bottomToolBar;
                     if (_showNoteField(hasKB)) {
                       bottomToolBar = NoteFieldToolbar(tc, _tvController, extraHeight: _extraHeight(context));
@@ -253,7 +251,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                               fullScreen: !big,
                               color: big ? b2Color : navbarColor,
                               middle: toolbarTitle,
-                              trailing: !bigGroup && tc.loading != true && actions.isNotEmpty ? TaskPopupMenu(tc, actions) : null,
+                              trailing: !bigGroup && tc.loading != true ? TaskPopupMenu(tc) : null,
                             ),
                       leftBar: big ? LeftMenu(leftMenuController) : null,
                       body: _bodyContent,

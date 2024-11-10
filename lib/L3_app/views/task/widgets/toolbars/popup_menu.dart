@@ -15,29 +15,29 @@ import '../../controllers/task_controller.dart';
 import 'action_item.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
-  const TaskPopupMenu(this._controller, this._actions, {super.key, this.compact = false});
-  final TaskController _controller;
-  final Iterable<TaskAction> _actions;
+  const TaskPopupMenu(this._tc, {this.extended = false, this.compact = false, super.key});
+  final TaskController _tc;
   final bool compact;
+  final bool extended;
 
-  void _toggle(MenuController menuController) {
-    if (menuController.isOpen) {
-      menuController.close();
+  void _toggle(MenuController mc) {
+    if (mc.isOpen) {
+      mc.close();
     } else {
-      menuController.open();
+      mc.open();
     }
   }
 
   static const _menuWidth = 230.0;
 
-  @override
-  Widget build(BuildContext context) {
-    final menuController = MenuController();
+  Widget _menu(BuildContext context, Iterable<TaskAction> actions) {
+    final mc = MenuController();
     final big = isBigScreen(context);
     final offset = -_menuWidth + (big ? (compact ? P10 : _menuWidth - P4) : P6);
     return MenuAnchor(
-      controller: menuController,
+      controller: mc,
       style: MenuStyle(
+        backgroundColor: WidgetStateProperty.all(b2Color.resolve(context)),
         shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS))),
         padding: WidgetStateProperty.all(EdgeInsets.zero),
         fixedSize: WidgetStateProperty.all(const Size.fromWidth(_menuWidth)),
@@ -45,29 +45,26 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
       ),
       crossAxisUnconstrained: false,
       alignmentOffset: Offset(offset, 0),
-      menuChildren: [
-        for (final ta in _actions)
-          TaskActionItem(
-            ta,
-            onTap: () {
-              menuController.close();
-              _controller.taskAction(context, ta);
-            },
-          )
-      ],
+      menuChildren: [for (final ta in actions) ta.isDivider ? const SizedBox(height: P2) : TaskActionItem(ta, _tc, menuController: mc)],
       onOpen: FocusManager.instance.primaryFocus?.unfocus,
-      builder: (_, MenuController menuController, Widget? child) => big
+      builder: (_, MenuController mc, Widget? child) => big
           ? MTListTile(
               leading: const MenuIcon(circled: true, size: DEF_TAPPABLE_ICON_SIZE),
               middle: compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor, maxLines: 1),
               bottomDivider: false,
-              onTap: () => _toggle(menuController),
+              onTap: () => _toggle(mc),
             )
           : MTButton.icon(
               const MenuIcon(),
               padding: const EdgeInsets.symmetric(horizontal: P2),
-              onTap: () => _toggle(menuController),
+              onTap: () => _toggle(mc),
             ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final actions = _tc.actions(context, extended: extended);
+    return actions.isNotEmpty ? _menu(context, actions) : const SizedBox();
   }
 }

@@ -28,7 +28,7 @@ class TaskStatusField extends StatelessWidget {
       value: BaseText('${t.status}', color: ro ? f2Color : null),
       compact: compact,
       margin: EdgeInsets.only(top: hasMargin ? P3 : 0),
-      onTap: _tc.canSetStatus ? () => _tc.selectStatus(context) : null,
+      onTap: _tc.canSetStatus ? _tc.selectStatus : null,
     );
   }
 }

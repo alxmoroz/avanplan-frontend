@@ -21,11 +21,6 @@ class FinanceField extends StatelessWidget {
   final bool compact;
   final bool hasMargin;
 
-  static const trIconSize = P3;
-  // Widget get _trIcon => _task.balance < 0
-  //     ? FinanceExpensesIcon(size: trIconSize, color: _task.balanceColor)
-  //     : FinanceIncomeIcon(size: trIconSize, color: _task.balanceColor);
-
   TaskTransactionsController get _trc => _tc.transactionsController;
 
   Widget get _balance {

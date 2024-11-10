@@ -26,9 +26,9 @@ class _TaskDoneButtonState extends State<TaskDoneButton> {
 
   bool hover = false;
 
-  Future tap() async {
+  Future _tap() async {
     if (_t.parent?.closed == false || !_t.closed) {
-      await _tc.setClosed(context, !_t.closed);
+      await _tc.setClosed(!_t.closed, canPop: true);
     }
   }
 
@@ -47,7 +47,7 @@ class _TaskDoneButtonState extends State<TaskDoneButton> {
       ),
       padding: const EdgeInsets.symmetric(vertical: (P8 - DEF_TAPPABLE_ICON_SIZE) / 2),
       onHover: _tc.canEdit ? (h) => setState(() => hover = h) : null,
-      onTap: _tc.canEdit ? tap : null,
+      onTap: _tc.canEdit ? _tap : null,
     );
   }
 }

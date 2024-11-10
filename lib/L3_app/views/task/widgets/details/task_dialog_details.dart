@@ -34,10 +34,10 @@ class TaskDialogDetails extends StatelessWidget {
           if (_tc.canShowAttachmentsField) TaskAttachmentsField(_tc, hasMargin: true),
 
           /// Финансы
-          if (_tc.canShowFinanceField) FinanceField(_tc, hasMargin: true),
+          if (t.transactions.isNotEmpty) FinanceField(_tc, hasMargin: true),
 
           /// Связи
-          if (_tc.canShowRelationsField) TaskRelationsField(_tc, hasMargin: true),
+          if (_tc.relationsController.hasRelations) TaskRelationsField(_tc, hasMargin: true),
 
           /// Комментарии
           if (_tc.notesController.sortedNotesDates.isNotEmpty) Notes(_tc),

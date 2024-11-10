@@ -330,8 +330,6 @@
   "relations_empty_title": "There are no related tasks yet",
   "relation_create_dialog_title": "Select a task for the relation",
   "relations_empty_hint": "Add relations to track dependencies and determine order of tasks",
-  "relations_only_one_task_title": "Nothing to relate with",
-  "relations_only_one_task_hint": "Oops! There is only one task in the workspace, so there is nothing to relate it to",
   "relation_title": "Relation",
   "relations_title": "Relations",
 

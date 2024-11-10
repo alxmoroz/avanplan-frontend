@@ -11,7 +11,7 @@ _flutter.buildConfig = {"engineRevision":"db49896cf25ceabc44096d5f088d86414e05a7
 
 _flutter.loader.load({
   serviceWorkerSettings: {
-    serviceWorkerVersion: "4160026228",
+    serviceWorkerVersion: "3190933593",
   },
   onEntrypointLoaded: async function(engineInitializer) {
     // Firebase

@@ -13,8 +13,8 @@ class LSStringCode {
   // static const UTM_VALUES = 'UTM_VALUES';
 }
 
-class LocalSettings extends LocalPersistable {
-  LocalSettings({
+class LocalAppSettings extends LocalPersistable {
+  LocalAppSettings({
     super.id = 'settings',
     this.launchCount = 0,
     this.version = '',

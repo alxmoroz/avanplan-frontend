@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 import '../../../L1_domain/entities/base_entity.dart';
-import '../../../L1_domain/entities/local_settings.dart';
+import '../../../L1_domain/entities/local_app_settings.dart';
 import '../../../L1_domain/repositories/abs_db_repo.dart';
 import '../../L1_domain/entities/local_auth.dart';
 import '../models/base.dart';
@@ -77,7 +77,7 @@ abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends A
   }
 }
 
-class LocalSettingsRepo extends DBRepo<LocalSettingsHO, LocalSettings> {
+class LocalSettingsRepo extends DBRepo<LocalSettingsHO, LocalAppSettings> {
   LocalSettingsRepo() : super('LocalSettings', () => LocalSettingsHO());
 }
 

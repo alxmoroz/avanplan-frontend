@@ -4,13 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/local_settings.dart';
+import '../../L1_domain/entities/local_app_settings.dart';
 import 'environment.dart';
 import 'platform.dart';
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
-Map<String, dynamic> _headers(LocalSettings settings) {
+Map<String, dynamic> _headers(LocalAppSettings settings) {
   return <String, dynamic>{
     'avanplan-client-platform': platformCode,
     'avanplan-client-version': settings.version,
@@ -18,7 +18,7 @@ Map<String, dynamic> _headers(LocalSettings settings) {
   };
 }
 
-Future<Openapi> setupApi(Iterable<Interceptor>? interceptors, LocalSettings settings) async {
+Future<Openapi> setupApi(Iterable<Interceptor>? interceptors, LocalAppSettings settings) async {
   return Openapi(basePathOverride: apiUri.toString())
     ..dio.options.connectTimeout = const Duration(minutes: 1)
     ..dio.options.receiveTimeout = const Duration(minutes: 10)

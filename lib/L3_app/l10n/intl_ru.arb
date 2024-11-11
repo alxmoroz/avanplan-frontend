@@ -289,8 +289,6 @@
   "project_member_unlink_dialog_title": "Отключить участника от проекта?",
   "project_member_unlink_dialog_description": "Участник потеряет доступ к проекту",
 
-  "project_modules_always_on_label": "Подключены всегда",
-  "project_modules_available_label": "Доступны на вашем тарифе",
   "project_modules_label": "Модули",
   "project_modules_quiz_title": "Выберите модули проекта",
   "project_modules_title": "Модули проекта",
@@ -444,12 +442,6 @@
 
   "tariff_option_goals_title": "Цели",
   "tariff_option_goals_subtitle": "Задачи добавляются к целям",
-
-  "tariff_option_taskboard_title": "Доска задач",
-  "tariff_option_taskboard_subtitle": "Привычный вид как в Trello",
-
-  "tariff_option_tasks_title": "Список задач",
-  "tariff_option_tasks_subtitle": "Управление задачами",
 
   "tariff_option_team_title": "Команда",
   "tariff_option_team_subtitle": "Совместная работа над задачами",

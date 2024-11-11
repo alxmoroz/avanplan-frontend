@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/local_settings.dart';
+import '../../../L1_domain/entities/local_app_settings.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../extra/services.dart';
@@ -25,7 +25,7 @@ class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalS
 
 abstract class _LocalSettingsControllerBase with Store {
   @observable
-  LocalSettings settings = LocalSettings();
+  LocalAppSettings settings = LocalAppSettings();
 
   @observable
   String oldVersion = '';

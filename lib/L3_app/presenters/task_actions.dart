@@ -67,8 +67,8 @@ extension TaskActionsUC on Task {
   bool get canEditMembers => isProject && hmTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
 
-  bool get canShowStatus => hmTaskboard && hasStatus;
-  bool get canSetStatus => hmTaskboard && project.projectStatuses.isNotEmpty && _canEditTask;
+  bool get canShowStatus => hasStatus && project.projectStatuses.length > 2;
+  bool get canSetStatus => project.projectStatuses.isNotEmpty && _canEditTask;
 
   bool get canAssign => hmTeam && canEdit && activeMembers.isNotEmpty;
 
@@ -87,9 +87,9 @@ extension TaskActionsUC on Task {
   bool get canShowProjectModules => isProject && _hpProjectInfoRead;
   bool get canEditProjectModules => isProject && _hpProjectInfoUpdate;
 
-  bool get canEditProjectStatuses => hmTaskboard && _hpProjectInfoUpdate;
+  bool get canEditProjectStatuses => _hpProjectInfoUpdate;
 
-  bool get canShowBoard => (isGoal || (isProject && !hmGoals)) && hmTaskboard;
+  bool get canShowBoard => isGoal || (isProject && !hmGoals);
   bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
 
   bool get canEditRelations => _canEditTask;

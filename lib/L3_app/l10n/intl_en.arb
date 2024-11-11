@@ -289,8 +289,6 @@
   "project_member_unlink_dialog_title": "Unlink member from project?",
   "project_member_unlink_dialog_description": "The member will lose access to the project",
 
-  "project_modules_always_on_label": "Always On",
-  "project_modules_available_label": "Available on your tariff plan",
   "project_modules_label": "Modules",
   "project_modules_quiz_title": "Select project modules",
   "project_modules_title": "Project Modules",
@@ -447,9 +445,6 @@
 
   "tariff_option_taskboard_title": "Task Board",
   "tariff_option_taskboard_subtitle": "Familiar look like in Trello",
-
-  "tariff_option_tasks_title": "Task List",
-  "tariff_option_tasks_subtitle": "Task management",
 
   "tariff_option_team_title": "Team",
   "tariff_option_team_subtitle": "Collaborate on tasks",

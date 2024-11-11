@@ -1,25 +1,25 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/local_settings.dart';
+import '../entities/local_app_settings.dart';
 import '../repositories/abs_db_repo.dart';
 
 class LocalSettingsUC {
   LocalSettingsUC(this.repo);
 
-  final AbstractDBRepo<AbstractDBModel, LocalSettings> repo;
+  final AbstractDBRepo<AbstractDBModel, LocalAppSettings> repo;
 
-  Future<LocalSettings> settings() async => await repo.getOne() ?? LocalSettings();
+  Future<LocalAppSettings> settings() async => await repo.getOne() ?? LocalAppSettings();
 
-  Future<LocalSettings> updateSettingsFromLaunch(String version) async {
-    final settings = await repo.getOne() ?? LocalSettings();
+  Future<LocalAppSettings> updateSettingsFromLaunch(String version) async {
+    final settings = await repo.getOne() ?? LocalAppSettings();
     settings.version = version;
     settings.launchCount++;
     await repo.update(settings);
     return settings;
   }
 
-  Future<LocalSettings> setDate(String code, DateTime? date) async {
-    final settings = await repo.getOne() ?? LocalSettings();
+  Future<LocalAppSettings> setDate(String code, DateTime? date) async {
+    final settings = await repo.getOne() ?? LocalAppSettings();
     if (date != null) {
       settings.setDate(code, date);
     } else {
@@ -30,8 +30,8 @@ class LocalSettingsUC {
     return settings;
   }
 
-  Future<LocalSettings> setString(String code, String? string) async {
-    final settings = await repo.getOne() ?? LocalSettings();
+  Future<LocalAppSettings> setString(String code, String? string) async {
+    final settings = await repo.getOne() ?? LocalAppSettings();
     if (string != null) {
       settings.setString(code, string);
     } else {

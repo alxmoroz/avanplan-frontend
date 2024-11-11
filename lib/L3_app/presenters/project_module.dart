@@ -3,11 +3,10 @@
 import '../../L1_domain/entities/tariff_option.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/ws_tariff.dart';
-import '../extra/services.dart';
 import '../presenters/task_tree.dart';
 
 extension ProjectModulePresenter on Task {
-  String get localizedModules => [loc.tariff_option_tasks_title, ...selectedProjectOptions.map((fs) => fs.title)].join(', ');
+  String get localizedModules => selectedProjectOptions.map((fs) => fs.title).join(', ');
 
   // TODO: перенести в computed в контроллер
   Iterable<TariffOption> get selectedProjectOptions =>
@@ -20,7 +19,5 @@ extension ProjectModulePresenter on Task {
   bool get hmTeam => hm(TOCode.TEAM);
   bool get hmAnalytics => hm(TOCode.ANALYTICS);
   bool get hmFinance => hm(TOCode.FINANCE);
-
   bool get hmGoals => hm(TOCode.GOALS);
-  bool get hmTaskboard => hm(TOCode.TASKBOARD);
 }

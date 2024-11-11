@@ -13,7 +13,6 @@ class TOCode {
   static const ANALYTICS = 'ANALYTICS';
   static const FINANCE = 'FINANCE';
   static const GOALS = 'GOALS';
-  static const TASKBOARD = 'TASKBOARD';
 }
 
 class TariffOption extends Codable {

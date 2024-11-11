@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../../../components/adaptive.dart';
@@ -14,7 +13,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
-import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
@@ -64,15 +62,6 @@ class _ProjectModulesBody extends StatelessWidget {
       builder: (_) => ListView(
         shrinkWrap: true,
         children: [
-          MTListGroupTitle(titleText: loc.project_modules_always_on_label),
-          MTCheckBoxTile(
-            leading: _image(TOCode.TASKS),
-            title: loc.tariff_option_tasks_title,
-            description: loc.tariff_option_tasks_subtitle,
-            value: true,
-            bottomDivider: false,
-          ),
-          MTListGroupTitle(titleText: loc.project_modules_available_label),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

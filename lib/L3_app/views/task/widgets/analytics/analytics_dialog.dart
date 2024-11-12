@@ -15,19 +15,20 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/project_module.dart';
-import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
+import '../../controllers/task_controller.dart';
+import '../../usecases/state.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future analyticsDialog(Task task) async => await showMTDialog(_AnalyticsDialog(task));
+Future analyticsDialog(TaskController tc) async => await showMTDialog(_AnalyticsDialog(tc));
 
 class _AnalyticsDialog extends StatelessWidget {
-  const _AnalyticsDialog(this._task);
-  final Task _task;
+  const _AnalyticsDialog(this._tc);
+  final TaskController _tc;
 
   Widget _details(String t1, String t2, {String? unit, Color? color, bool divider = true}) => MTListTile(
         middle: BaseText.f3(t1, maxLines: 1),
@@ -41,11 +42,8 @@ class _AnalyticsDialog extends StatelessWidget {
         bottomDivider: divider,
       );
 
-  int get _timeDelta => _task.leftPeriod!.inDays;
-  num get _hVelocity => (_task.project.velocity * DAYS_IN_MONTH).round();
-  num get _closedVolume => (_task.closedVolume ?? 0).round();
-  num get _totalVolume => _task.totalVolume.round();
-  String get _velocityUnit => loc.chart_velocity_unit_mo(_task.hmAnalytics ? _task.ws.estimateUnitCode : loc.task_plural(_hVelocity));
+  num _hVelocity(Task t) => (t.project.velocity * DAYS_IN_MONTH).round();
+  String _velocityUnit(Task t) => loc.chart_velocity_unit_mo(t.hmAnalytics ? t.ws.estimateUnitCode : loc.task_plural(_hVelocity(t)));
 
   Widget _chartCard(Widget child) => Container(
         alignment: Alignment.topLeft,
@@ -53,69 +51,79 @@ class _AnalyticsDialog extends StatelessWidget {
         child: MTCard(elevation: 0, padding: const EdgeInsets.all(P2), child: child),
       );
 
+  Widget _totalVolumeDetails(Task t) {
+    final totalVolume = t.totalVolume.round();
+    final closedVolume = (t.closedVolume ?? 0).round();
+    return _details(
+      loc.state_closed,
+      '$closedVolume / $totalVolume',
+      unit: t.hmAnalytics ? t.ws.estimateUnitCode : loc.task_plural(totalVolume),
+      divider: false,
+    );
+  }
+
+  Widget _leftPeriodDetails(Task t) {
+    int timeDelta = t.leftPeriod!.inDays;
+    return _details(
+      timeDelta >= 0 ? loc.chart_timing_left_label : loc.state_overdue_title,
+      loc.days_count(timeDelta.abs()),
+      color: timeDelta > 0 ? null : warningColor,
+      divider: t.etaPeriod != null,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final t = _tc.task;
     return MTDialog(
-      topBar: MTTopBar(pageTitle: loc.analytics_title, parentPageTitle: _task.title),
+      topBar: MTTopBar(pageTitle: loc.analytics_title, parentPageTitle: t.title),
       body: ListView(
         shrinkWrap: true,
         children: [
-          H2(_task.overallStateTitle, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P3)),
-          if (_task.canShowVelocityVolumeCharts) ...[
+          H2(_tc.overallStateTitle, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P3)),
+          if (t.canShowVelocityVolumeCharts) ...[
             /// объем
-            _chartCard(TaskVolumeChart(_task)),
+            _chartCard(TaskVolumeChart(t)),
             const SizedBox(height: P3),
-            _details(
-              loc.state_closed,
-              '$_closedVolume / $_totalVolume',
-              unit: _task.hmAnalytics ? _task.ws.estimateUnitCode : loc.task_plural(_totalVolume),
-              divider: false,
-            ),
-            // _details(loc.state_opened, '${(task.openedVolume ?? 0).round()}', divider: false),
+            _totalVolumeDetails(t),
 
             /// скорость
             const SizedBox(height: P6),
-            _chartCard(VelocityChart(_task)),
-            if (_task.state != TaskState.LOW_START) ...[
+            _chartCard(VelocityChart(t)),
+            if (t.state != TaskState.LOW_START) ...[
               const SizedBox(height: P3),
               _details(
                 loc.chart_velocity_project_label,
-                '$_hVelocity',
-                unit: _velocityUnit,
-                divider: _task.requiredVelocity != null,
+                '${_hVelocity(t)}',
+                unit: _velocityUnit(t),
+                divider: t.requiredVelocity != null,
               ),
-              if (_task.requiredVelocity != null)
+              if (t.requiredVelocity != null)
                 _details(
                   loc.chart_velocity_required_label,
-                  '${(_task.requiredVelocity! * DAYS_IN_MONTH).round()}',
-                  unit: _velocityUnit,
+                  '${(t.requiredVelocity! * DAYS_IN_MONTH).round()}',
+                  unit: _velocityUnit(t),
                   divider: false,
                 ),
             ],
           ],
 
           /// срок, время
-          if (_task.canShowTimeChart) ...[
+          if (t.canShowTimeChart) ...[
             const SizedBox(height: P6),
-            _chartCard(TimingChart(_task)),
+            _chartCard(TimingChart(_tc)),
             const SizedBox(height: P3),
-            if (!_task.isFuture)
+            if (!t.isFuture)
               _details(
                 loc.chart_timing_elapsed_label,
-                loc.days_count(_task.elapsedPeriod?.inDays ?? 0),
-                divider: _task.leftPeriod != null || _task.etaPeriod != null,
+                loc.days_count(t.elapsedPeriod?.inDays ?? 0),
+                divider: t.leftPeriod != null || t.etaPeriod != null,
               ),
-            if (_task.leftPeriod != null)
-              _details(
-                _timeDelta >= 0 ? loc.chart_timing_left_label : loc.state_overdue_title,
-                loc.days_count(_timeDelta.abs()),
-                color: _timeDelta > 0 ? null : warningColor,
-                divider: _task.etaPeriod != null,
-              ),
-            if (_task.etaPeriod != null)
+            if (t.leftPeriod != null) _leftPeriodDetails(t),
+            if (t.etaPeriod != null)
               _details(
                 loc.chart_timing_eta_title,
-                loc.days_count(_task.etaPeriod!.inDays),
+                loc.days_count(t.etaPeriod!.inDays),
                 divider: false,
               ),
           ],

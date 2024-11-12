@@ -2,7 +2,7 @@
 
 import 'package:go_router/go_router.dart';
 
-import '../../L1_domain/entities/local_app_settings.dart';
+import '../../L1_domain/entities/app_local_settings.dart';
 import '../../L2_data/services/environment.dart';
 import '../extra/services.dart';
 import '../views/auth/auth_view.dart';
@@ -13,7 +13,7 @@ final registrationTokenRoute = MTRoute(
   path: '/register',
   baseName: 'register',
   redirect: (_, GoRouterState state) async {
-    await localSettingsController.parseQueryParameter(state.uri, 't', LSStringCode.REGISTRATION_TOKEN);
+    await localSettingsController.parseQueryParameter(state.uri, 't', ALSStringCode.REGISTRATION_TOKEN);
     return authRoute.path;
   },
 );
@@ -22,7 +22,7 @@ final invitationTokenRoute = MTRoute(
   path: '/invite',
   baseName: 'invite',
   redirect: (_, GoRouterState state) async {
-    await localSettingsController.parseQueryParameter(state.uri, 't', LSStringCode.INVITATION_TOKEN);
+    await localSettingsController.parseQueryParameter(state.uri, 't', ALSStringCode.INVITATION_TOKEN);
     return mainRoute.path;
   },
 );

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_dates.dart';
-import '../../L1_domain/entities_extensions/task_state.dart';
-import '../../L1_domain/entities_extensions/task_type.dart';
 import '../components/circle.dart';
 import '../components/circular_progress.dart';
 import '../components/colors.dart';
@@ -13,7 +11,6 @@ import '../components/constants.dart';
 import '../components/images.dart';
 import '../extra/services.dart';
 import 'duration.dart';
-import 'project_module.dart';
 import 'task_tree.dart';
 import 'task_type.dart';
 
@@ -128,23 +125,9 @@ String groupStateTitle(TaskState groupState) {
   }
 }
 
-TaskState attentionalState(List<MapEntry<TaskState, List<Task>>> groups) => groups.isNotEmpty ? groups.first.key : TaskState.NO_SUBTASKS;
-List<Task> attentionalTasks(List<MapEntry<TaskState, List<Task>>> groups) => groups.isNotEmpty &&
-        [
-          TaskState.OVERDUE,
-          TaskState.RISK,
-          TaskState.OK,
-          TaskState.AHEAD,
-        ].contains(groups.first.key)
-    ? groups.first.value
-    : [];
-
 extension TaskStatePresenter on Task {
   bool get projectLowStart => project.state == TaskState.LOW_START;
   double? get projectVelocity => project.velocity;
-
-  List<Task> get attentionalSubtasks => attentionalTasks(filteredSubtaskGroups);
-  TaskState get subtasksState => attentionalState(filteredSubtaskGroups);
 
   String _subjects(int count, {bool dative = true}) {
     String res = '';
@@ -158,9 +141,8 @@ extension TaskStatePresenter on Task {
   String get _lowStartDetails => loc.state_low_start_duration(appController.lowStartThreshold.localizedString);
   String get _noProgressDetails => loc.state_no_progress_details;
 
-  String get _subtasksStateTitle {
-    final count = attentionalSubtasks.isNotEmpty ? attentionalSubtasks.length : 0;
-    switch (subtasksState) {
+  String subtasksStateTitle(int count, TaskState stState) {
+    switch (stState) {
       case TaskState.OVERDUE:
         return '${loc.state_overdue_title}${_subjects(count)}';
       case TaskState.RISK:
@@ -214,18 +196,4 @@ extension TaskStatePresenter on Task {
   }
 
   Duration? get projectStartEtaCalcPeriod => project.calculatedStartDate.add(appController.lowStartThreshold).difference(DateTime.now());
-
-  TaskState get overallState => isImportingProject
-      ? TaskState.IMPORTING
-      : attentionalSubtasks.isNotEmpty && !hasDueDate
-          ? subtasksState
-          : isBacklog
-              ? TaskState.BACKLOG
-              : isTask
-                  ? leafState
-                  : hmAnalytics || closed
-                      ? state
-                      : TaskState.NO_ANALYTICS;
-
-  String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
 }

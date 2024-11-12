@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -73,7 +72,7 @@ class TaskHeader extends StatelessWidget {
         );
         return t.isTask
             ? Padding(padding: const EdgeInsets.symmetric(horizontal: P3), child: header)
-            : t.canShowBoard && t.showBoard && !t.creating
+            : t.canShowBoard && _tc.settingsController.showBoard && !t.creating
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: P3),
                     child: header,

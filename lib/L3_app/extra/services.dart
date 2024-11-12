@@ -21,6 +21,7 @@ import '../../L1_domain/usecases/project_status_uc.dart';
 import '../../L1_domain/usecases/release_note_uc.dart';
 import '../../L1_domain/usecases/remote_sources_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
+import '../../L1_domain/usecases/task_local_settings_uc.dart';
 import '../../L1_domain/usecases/task_repeat_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/transaction_uc.dart';
@@ -65,6 +66,7 @@ import '../views/app/local_settings_controller.dart';
 import '../views/auth/auth_controller.dart';
 import '../views/calendar/calendar_controller.dart';
 import '../views/main/controllers/main_controller.dart';
+import '../views/main/controllers/tasks_local_settings_controller.dart';
 import '../views/main/controllers/tasks_main_controller.dart';
 import '../views/main/controllers/ws_main_controller.dart';
 import '../views/my_account/my_account_controller.dart';
@@ -76,6 +78,8 @@ S get loc => S.current;
 GetIt getIt = GetIt.instance;
 
 LocalSettingsController get localSettingsController => GetIt.I<LocalSettingsController>();
+TasksLocalSettingsController get tasksLocalSettingsController => GetIt.I<TasksLocalSettingsController>();
+
 AppController get appController => GetIt.I<AppController>();
 MainController get mainController => GetIt.I<MainController>();
 WSMainController get wsMainController => GetIt.I<WSMainController>();
@@ -87,6 +91,7 @@ NotificationController get notificationController => GetIt.I<NotificationControl
 CalendarController get calendarController => GetIt.I<CalendarController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
+TasksLocalSettingsUC get tasksLocalSettingsUC => GetIt.I<TasksLocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 
@@ -133,6 +138,7 @@ void setup() {
     localDBAuthRepo: LocalAuthRepo(),
   ));
   getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
+  getIt.registerSingleton<TasksLocalSettingsUC>(TasksLocalSettingsUC(TaskLocalSettingsRepo()));
 
   getIt.registerSingleton<MyUC>(MyUC(MyRepo()));
   getIt.registerSingleton<MyCalendarUC>(MyCalendarUC(MyCalendarRepo()));
@@ -161,8 +167,9 @@ void setup() {
   getIt.registerSingleton<AttachmentsUC>(AttachmentsUC(AttachmentsRepo()));
 
   /// global state controllers
-  // первый контроллер
+  // первые контроллеры
   getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
+  getIt.registerSingletonAsync<TasksLocalSettingsController>(() async => TasksLocalSettingsController().init(), dependsOn: [HiveStorage]);
 
   // Openapi
   getIt.registerSingletonAsync<Openapi>(

@@ -30,16 +30,17 @@ class RelatedTaskPreview extends TaskView {
 class _State extends TaskViewState<RelatedTaskPreview> {
   @override
   Widget build(BuildContext context) {
+    final t = tc.task;
     return Observer(
       builder: (_) => tc.loading
           ? LoaderScreen(tc, isDialog: true)
           : MTDialog(
               key: widget.key,
-              topBar: MTTopBar(middle: toolbarTitle),
+              topBar: MTTopBar(middle: toolbarTitle(t)),
               body: ListView(
                 children: [
                   TaskHeader(tc),
-                  if (task.hasDescription) TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
+                  if (t.hasDescription) TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
                   MTAdaptive(child: TaskDetails(tc)),
                 ],
               ),

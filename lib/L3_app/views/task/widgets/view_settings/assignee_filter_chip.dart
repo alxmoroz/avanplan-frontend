@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -13,16 +11,14 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import 'view_settings_controller.dart';
 
 class TaskAssigneeFilterChip extends StatelessWidget {
-  const TaskAssigneeFilterChip(this._controller, {super.key});
-  final TaskController _controller;
-
-  Task get _task => _controller.task;
+  const TaskAssigneeFilterChip(this._tc, {super.key});
+  final TaskController _tc;
 
   @override
   Widget build(BuildContext context) {
+    final t = _tc.task;
     final content = Align(
       alignment: Alignment.centerLeft,
       child: MTButton(
@@ -36,19 +32,19 @@ class TaskAssigneeFilterChip extends StatelessWidget {
             const FilterIcon(color: f2Color),
             const SizedBox(width: P_2),
             SmallText('${loc.task_assignee_label.toLowerCase()}: ', maxLines: 1),
-            Flexible(child: SmallText(_task.filteredAssigneesStr, maxLines: 1, weight: FontWeight.w500)),
+            Flexible(child: SmallText(_tc.settingsController.filteredAssigneesStr, maxLines: 1, weight: FontWeight.w500)),
             const SizedBox(width: P),
             const CloseIcon(color: f2Color, size: P3),
             const SizedBox(width: P_2),
           ],
         ),
-        onTap: TaskViewSettingsController(_controller).resetAssigneesFilter,
+        onTap: _tc.settingsController.resetAssigneesFilter,
       ),
     );
 
     final padding = const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3);
 
-    return _task.canShowBoard && _task.showBoard
+    return t.canShowBoard && _tc.settingsController.showBoard
         ? Padding(
             padding: padding,
             child: content,

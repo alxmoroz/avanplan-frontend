@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../components/colors.dart';
@@ -13,6 +12,8 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/task_state.dart';
+import '../../controllers/task_controller.dart';
+import '../../usecases/state.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});
@@ -22,8 +23,8 @@ class _DateBarData {
 }
 
 class TimingChart extends StatelessWidget {
-  const TimingChart(this._task, {super.key, this.showDueLabel = true});
-  final Task _task;
+  const TimingChart(this._tc, {super.key, this.showDueLabel = true});
+  final TaskController _tc;
   final bool showDueLabel;
 
   static const _barHeight = P4;
@@ -32,22 +33,23 @@ class TimingChart extends StatelessWidget {
   static const _markSize = Size(P2, P2);
   static const _barColor = mainColor;
 
-  Color get _etaMarkColor => stateColor(_task.overallState, defaultColor: mainColor);
+  Color get _etaMarkColor => stateColor(_tc.overallState, defaultColor: mainColor);
 
   Iterable<_DateBarData> get _dateBarData {
+    final t = _tc.task;
     final now = DateTime.now();
     final res = <_DateBarData>[
       /// старт
-      _DateBarData(date: _task.calculatedStartDate),
+      _DateBarData(date: t.calculatedStartDate),
 
       /// сегодня
-      if (!_task.isFuture) _DateBarData(date: now, color: _task.hasOverdue ? _etaMarkColor : _barColor),
+      if (!t.isFuture) _DateBarData(date: now, color: t.hasOverdue ? _etaMarkColor : _barColor),
 
       /// срок
-      if (_task.hasDueDate)
+      if (t.hasDueDate)
         _DateBarData(
-          date: _task.dueDate!,
-          color: _task.dueDate!.isBefore(now) ? _barColor : null,
+          date: t.dueDate!,
+          color: t.dueDate!.isBefore(now) ? _barColor : null,
           mark: showDueLabel
               ? MTProgressMark(
                   const CaretIcon(size: _markSize),
@@ -57,9 +59,9 @@ class TimingChart extends StatelessWidget {
         ),
 
       /// прогноз
-      if (_task.hasEtaDate)
+      if (t.hasEtaDate)
         _DateBarData(
-          date: _task.etaDate!,
+          date: t.etaDate!,
           mark: MTProgressMark(
             CaretIcon(color: _etaMarkColor, size: _markSize, up: true),
             size: Size(_markSize.width, _barHeight),
@@ -150,15 +152,16 @@ class TimingChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = _tc.task;
     return Column(children: [
-      if (_task.hasDueDate && showDueLabel) ...[
-        _dateLabel(context, date: _task.dueDate!, label: loc.task_due_date_label, color: f2Color),
+      if (t.hasDueDate && showDueLabel) ...[
+        _dateLabel(context, date: t.dueDate!, label: loc.task_due_date_label, color: f2Color),
         SizedBox(height: _markSize.height + P_2),
       ],
       _timeChart(context),
-      if (_task.hasEtaDate) ...[
+      if (t.hasEtaDate) ...[
         SizedBox(height: _markSize.height + P_2),
-        _dateLabel(context, date: _task.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor),
+        _dateLabel(context, date: t.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor),
       ]
     ]);
   }

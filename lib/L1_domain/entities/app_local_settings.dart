@@ -2,20 +2,19 @@
 
 import '../entities/base_entity.dart';
 
-class LSDateCode {
+class ALSDateCode {
   static const APP_UPGRADE_PROPOSAL = 'APP_UPGRADE_PROPOSAL';
 }
 
-class LSStringCode {
+class ALSStringCode {
   static const INVITATION_TOKEN = 'INVITATION_TOKEN';
   static const REGISTRATION_TOKEN = 'REGISTRATION_TOKEN';
   static const UTM_QUERY = 'UTM_QUERY';
   // static const UTM_VALUES = 'UTM_VALUES';
 }
 
-class LocalAppSettings extends LocalPersistable {
-  LocalAppSettings({
-    super.id = 'settings',
+class AppLocalSettings extends LocalPersistable {
+  AppLocalSettings({
     this.launchCount = 0,
     this.version = '',
     this.flags,

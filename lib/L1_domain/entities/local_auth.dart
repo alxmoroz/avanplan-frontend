@@ -4,7 +4,6 @@ import 'base_entity.dart';
 
 class LocalAuth extends LocalPersistable {
   LocalAuth({
-    super.id = 'local_auth',
     this.accessToken = '',
     this.signinDate,
   });

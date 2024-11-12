@@ -23,10 +23,10 @@ class LocalAuthHO extends BaseModel<LocalAuth> {
       );
 
   @override
-  Future update(LocalAuth entity) async {
-    id = entity.id;
+  Future<LocalAuthHO> update(LocalAuth entity) async {
     authToken = entity.accessToken;
     signinDate = entity.signinDate;
     await save();
+    return this;
   }
 }

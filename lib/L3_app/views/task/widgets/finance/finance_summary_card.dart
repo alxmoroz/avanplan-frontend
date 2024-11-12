@@ -13,17 +13,17 @@ import '../../../../presenters/task_finance.dart';
 import 'finance_summary_dialog.dart';
 
 class FinanceSummaryCard extends StatelessWidget {
-  const FinanceSummaryCard(this._task, {super.key});
-  final Task _task;
+  const FinanceSummaryCard(this._t, {super.key});
+  final Task _t;
 
   @override
   Widget build(BuildContext context) {
-    final hasTransactions = _task.hasTransactions;
-    final title = BaseText(_task.summaryTitle, align: TextAlign.center, maxLines: 2, color: hasTransactions ? f2Color : f3Color);
+    final hasTransactions = _t.hasTransactions;
+    final title = BaseText(_t.summaryTitle, align: TextAlign.center, maxLines: 2, color: hasTransactions ? f2Color : f3Color);
     return MTButton(
       type: ButtonType.card,
       padding: const EdgeInsets.all(P2),
-      onTap: () => financeSummaryDialog(_task),
+      onTap: () => financeSummaryDialog(_t),
       middle: Container(
         constraints: const BoxConstraints(maxWidth: 250),
         child: hasTransactions
@@ -31,7 +31,7 @@ class FinanceSummaryCard extends StatelessWidget {
                 children: [
                   title,
                   const SizedBox(height: P3),
-                  D3.medium('$CURRENCY_SYMBOL_ROUBLE ${_task.balance.abs().humanValueStr}', color: _task.balanceColor),
+                  D3.medium('$CURRENCY_SYMBOL_ROUBLE ${_t.balance.abs().humanValueStr}', color: _t.balanceColor),
                   const SizedBox(height: P2),
                 ],
               )

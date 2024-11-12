@@ -3,13 +3,16 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../models/app_local_settings.dart';
 import '../models/local_auth.dart';
-import '../models/local_settings.dart';
+import '../models/task_local_settings.dart';
 import '../services/platform.dart';
 
 class HType {
-  static const LOCAL_SETTINGS = 1;
+  static const APP_LOCAL_SETTINGS = 1;
   static const LOCAL_AUTH = 2;
+  static const TASK_LOCAL_SETTINGS = 3;
+  static const TASK_VIEW_FILTER = 4;
 }
 
 class HiveStorage {
@@ -22,8 +25,10 @@ class HiveStorage {
       Hive.init('');
     }
 
-    Hive.registerAdapter(LocalSettingsHOAdapter());
+    Hive.registerAdapter(AppLocalSettingsHOAdapter());
     Hive.registerAdapter(LocalAuthHOAdapter());
+    Hive.registerAdapter(TaskViewFilterHOAdapter());
+    Hive.registerAdapter(TaskLocalSettingsHOAdapter());
 
     return this;
   }

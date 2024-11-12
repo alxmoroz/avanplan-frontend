@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/colors.dart';
@@ -13,33 +11,27 @@ import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/ws_member.dart';
-import 'assignee_filter_controller.dart';
-import 'view_settings_controller.dart';
+import '../../controllers/task_settings_controller.dart';
 
-Future showTaskAssigneeFilterDialog(TaskViewSettingsController vsController) async {
-  final afc = TaskViewAssigneeFilterController(vsController);
-  await showMTDialog(_TaskAssigneeFilterDialog(afc), maxWidth: SCR_XS_WIDTH);
-}
+Future showTaskAssigneeFilterDialog(TaskSettingsController tsc) async => await showMTDialog(_TaskAssigneeFilterDialog(tsc), maxWidth: SCR_XS_WIDTH);
 
 class _TaskAssigneeFilterDialog extends StatelessWidget {
-  const _TaskAssigneeFilterDialog(this._afController);
-  final TaskViewAssigneeFilterController _afController;
-
-  Task get _task => _afController.task;
+  const _TaskAssigneeFilterDialog(this._tsc);
+  final TaskSettingsController _tsc;
 
   Future _save(BuildContext context) async {
-    _afController.save();
+    _tsc.saveAssigneeFilter();
     Navigator.of(context).pop();
   }
 
   Widget _item(BuildContext context, index) {
-    final member = _afController.activeMembers[index];
+    final member = _tsc.activeMembers[index];
     return MTCheckBoxTile(
       leading: member.icon(P3, borderColor: mainColor),
       title: '$member',
-      value: _afController.checks[index] == true,
-      onChanged: (bool? value) => _afController.check(index, value),
-      bottomDivider: index < _task.activeMembers.length - 1,
+      value: _tsc.membersChecks[index] == true,
+      onChanged: (bool? value) => _tsc.checkMember(index, value),
+      bottomDivider: index < _tsc.activeMembers.length - 1,
     );
   }
 
@@ -47,13 +39,13 @@ class _TaskAssigneeFilterDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTTopBar(pageTitle: '${loc.view_filter_title} - ${loc.task_assignee_label}', parentPageTitle: _task.title),
+        topBar: MTTopBar(pageTitle: '${loc.view_filter_title} - ${loc.task_assignee_label}', parentPageTitle: _tsc.task.title),
         body: ListView(
           shrinkWrap: true,
           children: [
             ListView.builder(
               shrinkWrap: true,
-              itemCount: _afController.checks.length,
+              itemCount: _tsc.membersChecks.length,
               itemBuilder: _item,
             ),
           ],

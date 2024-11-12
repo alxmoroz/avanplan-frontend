@@ -16,11 +16,11 @@ import '../../controllers/task_controller.dart';
 import 'view_settings_dialog.dart';
 
 class TasksViewSettingsButton extends StatelessWidget {
-  const TasksViewSettingsButton(this._controller, {super.key, this.compact = false});
-  final TaskController _controller;
+  const TasksViewSettingsButton(this._tc, {super.key, this.compact = false});
+  final TaskController _tc;
   final bool compact;
 
-  void _tap() => showTasksViewSettingsDialog(_controller);
+  void _tap() => showTaskSettingsDialog(_tc);
 
   Widget _icon(BuildContext context) {
     final size = isBigScreen(context) ? DEF_TAPPABLE_ICON_SIZE : P4;
@@ -28,7 +28,7 @@ class TasksViewSettingsButton extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         SettingsIcon(size: size),
-        if (_controller.task.viewSettings.hasFilters) MTCircle(color: mainColor, size: size / 2),
+        if (_tc.settingsController.hasFilters) MTCircle(color: mainColor, size: size / 2),
       ],
     );
   }

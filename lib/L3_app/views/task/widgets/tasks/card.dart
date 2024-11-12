@@ -31,6 +31,8 @@ import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_status.dart';
+import '../../controllers/task_controller.dart';
+import '../../usecases/state.dart';
 import '../analytics/state_title.dart';
 
 class TaskCard extends StatefulWidget {
@@ -80,6 +82,16 @@ class _State extends State<TaskCard> {
   bool get _ro => widget.readOnly || _t.isImportingProject;
   bool get _inactive => _ro || _t.closed;
   bool get _canDelete => widget.onDelete != null && _t.canDelete;
+
+  late final TaskController _tc;
+
+  @override
+  void initState() {
+    _tc = TaskController(taskIn: _t);
+    super.initState();
+  }
+
+  TaskState get _overallState => _tc.overallState;
 
   void _tap(Task task) => widget.onTap != null ? widget.onTap!(task) : router.goTask(task);
 
@@ -200,7 +212,7 @@ class _State extends State<TaskCard> {
             const SizedBox(height: P_2),
             Row(
               children: [
-                if (_t.hasAnalytics) TaskStateTitle(_t, place: StateTitlePlace.card),
+                if (_t.hasAnalytics) StateTitle(_overallState, _tc.overallStateTitle, place: StateTitlePlace.card),
                 const Spacer(),
                 if (_showAttachmentsMark) ...[_attachmentsMark],
                 if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
@@ -280,7 +292,7 @@ class _State extends State<TaskCard> {
             top: 0,
             bottom: 0,
             child: Container(
-              decoration: BoxDecoration(gradient: stateGradient(context, _t.overallState)),
+              decoration: BoxDecoration(gradient: stateGradient(context, _overallState)),
               width: P,
             ),
           ),

@@ -29,7 +29,7 @@ class AuthUC {
     final la = await getLocalAuth();
     la.accessToken = token;
     la.signinDate = token.isNotEmpty ? DateTime.now() : null;
-    await localDBAuthRepo.update(la);
+    await localDBAuthRepo.update((_) => true, la);
     _updateOAuth(token);
     return token.isNotEmpty;
   }

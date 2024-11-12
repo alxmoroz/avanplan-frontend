@@ -18,6 +18,7 @@ import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
+import '../../usecases/tree.dart';
 import '../tasks/card.dart';
 
 class _ItemTarget extends StatelessWidget {
@@ -51,89 +52,94 @@ class _Column extends MTBoardColumn {
 }
 
 class TaskBoardColumn {
-  TaskBoardColumn(this._taskController, this._index);
-  final TaskController _taskController;
+  TaskBoardColumn(this._tc, this._index);
+  final TaskController _tc;
   final int _index;
 
-  Task get _parent => _taskController.task;
-  ProjectStatus get _status => _taskController.projectStatusesController.sortedStatuses.elementAt(_index);
-  List<Task> get _tasks => _parent.subtasksForStatus(_status.id!);
+  ProjectStatus get _status => _tc.projectStatusesController.sortedStatuses.elementAt(_index);
 
-  Widget _taskItem(Task t, {bool dragging = false}) {
+  Widget _taskItem(Task t, int parentId, {bool dragging = false}) {
     return TaskCard(
       t,
       board: true,
-      showParent: _parent.id != t.parent?.id,
+      showParent: parentId != t.parent?.id,
       dragging: dragging,
     );
   }
 
-  MTDragNDropItem _taskBuilder(Task t) => MTDragNDropItem(
-        child: _taskItem(t),
+  MTDragNDropItem _taskBuilder(Task t, int parentId) => MTDragNDropItem(
+        child: _taskItem(t, parentId),
         feedbackWidget: Transform(
           transform: Matrix4.rotationZ(-0.03),
-          child: _taskItem(t, dragging: true),
+          child: _taskItem(t, parentId, dragging: true),
         ),
         canDrag: t.canSetStatus,
       );
 
-  Widget get _header => Observer(
-        builder: (_) => Row(
-          children: [
-            if (_parent.canEditProjectStatuses) const SizedBox(width: P6),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_status.closed) const DoneIcon(true, color: f2Color, size: P3),
-                  Flexible(
-                    child: BaseText.medium(
-                      '$_status',
-                      align: TextAlign.center,
-                      color: f2Color,
-                      maxLines: 2,
-                      padding: const EdgeInsets.symmetric(horizontal: P),
-                    ),
+  Widget _header(Task parent) {
+    final canEditProjectStatuses = parent.canEditProjectStatuses;
+    return Observer(
+      builder: (_) => Row(
+        children: [
+          if (canEditProjectStatuses) const SizedBox(width: P6),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (_status.closed) const DoneIcon(true, color: f2Color, size: P3),
+                Flexible(
+                  child: BaseText.medium(
+                    '$_status',
+                    align: TextAlign.center,
+                    color: f2Color,
+                    maxLines: 2,
+                    padding: const EdgeInsets.symmetric(horizontal: P),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            if (_parent.canEditProjectStatuses) ...[
-              MTButton.icon(
-                const MenuIcon(),
-                padding: const EdgeInsets.all(P),
-                onTap: () => _taskController.projectStatusesController.edit(_status),
-              ),
-            ],
+          ),
+          if (canEditProjectStatuses) ...[
+            MTButton.icon(
+              const MenuIcon(),
+              padding: const EdgeInsets.all(P),
+              onTap: () => _tc.projectStatusesController.edit(_status),
+            ),
           ],
-        ),
-      );
+        ],
+      ),
+    );
+  }
 
-  Widget? get _footer => _status.closed
-      ? _taskController.loadClosedButton(board: true)
-      : _parent.canCreate
+  Widget? _footer(Task parent) => _status.closed
+      ? _tc.loadClosedButton(board: true)
+      : parent.canCreate
           ? MTListTile(
               middle: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const PlusIcon(size: P3),
                   const SizedBox(width: P),
-                  BaseText.medium(addSubtaskActionTitle(_parent), color: mainColor, maxLines: 1),
+                  BaseText.medium(addSubtaskActionTitle(parent), color: mainColor, maxLines: 1),
                 ],
               ),
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
               bottomDivider: false,
-              onTap: () => _taskController.addSubtask(statusId: _status.id!),
+              onTap: () => _tc.addSubtask(statusId: _status.id!),
             )
           : null;
 
-  MTBoardColumn builder(BuildContext context) => _Column(
-        _status,
-        header: _header,
-        children: [for (final t in _tasks) _taskBuilder(t)],
-        canDrag: false,
-        contentsWhenEmpty: Container(),
-        lastTarget: _tasks.isEmpty ? const _ItemTarget() : null,
-        footer: _footer,
-      );
+  MTBoardColumn builder(BuildContext context) {
+    final tasks = _tc.subtasksForStatus(_status.id!);
+    final parent = _tc.task;
+    return _Column(
+      _status,
+      header: _header(parent),
+      children: [for (final t in tasks) _taskBuilder(t, parent.id!)],
+      canDrag: false,
+      contentsWhenEmpty: Container(),
+      lastTarget: tasks.isEmpty ? const _ItemTarget() : null,
+      footer: _footer(parent),
+    );
+  }
 }

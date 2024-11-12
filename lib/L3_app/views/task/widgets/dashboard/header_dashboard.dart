@@ -8,7 +8,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
-import '../../../../../L1_domain/entities_extensions/task_view.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
@@ -18,10 +17,10 @@ import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
-import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/state.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
 import '../finance/finance_summary_card.dart';
@@ -30,10 +29,8 @@ import '../team/project_team_dialog.dart';
 import '../wiki/wiki_main_page.dart';
 
 class TaskHeaderDashboard extends StatelessWidget {
-  const TaskHeaderDashboard(this._controller, {super.key});
-  final TaskController _controller;
-
-  Task get _task => _controller.task;
+  const TaskHeaderDashboard(this._tc, {super.key});
+  final TaskController _tc;
 
   static const _dashboardHeight = 112.0;
 
@@ -53,9 +50,21 @@ class TaskHeaderDashboard extends StatelessWidget {
         onTap: onTap,
       );
 
+  Widget _analyticsCard(Task t) {
+    final overallStateTitle = t.canShowTimeChart ? _tc.overallStateTitle : '';
+    return _card(
+      t.canShowTimeChart ? overallStateTitle : loc.tariff_option_analytics_title,
+      body: t.canShowTimeChart
+          ? TimingChart(_tc, showDueLabel: false)
+          : BaseText.f3(overallStateTitle, maxLines: 2, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),
+      onTap: () => analyticsDialog(_tc),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
+      final t = _tc.task;
       final content = Container(
         height: _dashboardHeight,
         margin: const EdgeInsets.only(top: P2),
@@ -64,27 +73,20 @@ class TaskHeaderDashboard extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             /// Аналитика
-            if (_task.hasAnalytics)
-              _card(
-                _task.canShowTimeChart ? _task.overallStateTitle : loc.tariff_option_analytics_title,
-                body: _task.canShowTimeChart
-                    ? TimingChart(_task, showDueLabel: false)
-                    : BaseText.f3(_task.overallStateTitle, maxLines: 2, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),
-                onTap: () => analyticsDialog(_task),
-              ),
+            if (t.hasAnalytics) _analyticsCard(t),
 
             /// Финансы
-            if (_task.hasFinance) ...[
-              if (_task.hasAnalytics) const SizedBox(width: P2),
-              FinanceSummaryCard(_task),
+            if (t.hasFinance) ...[
+              if (t.hasAnalytics) const SizedBox(width: P2),
+              FinanceSummaryCard(t),
             ],
 
             /// Команда
-            if (_task.hasTeam)
+            if (t.hasTeam)
               _card(
                 loc.team_title,
-                hasLeftMargin: _task.hasAnalytics || _task.hasFinance,
-                body: _task.members.isNotEmpty
+                hasLeftMargin: t.hasAnalytics || t.hasFinance,
+                body: t.members.isNotEmpty
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -94,16 +96,16 @@ class TaskHeaderDashboard extends StatelessWidget {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: min(3, _task.activeMembers.length),
+                              itemCount: min(3, t.activeMembers.length),
                               itemBuilder: (_, index) {
                                 return Padding(
                                   padding: EdgeInsets.only(left: index > 0 ? P2 : P),
-                                  child: _task.activeMembers[index].icon(P4),
+                                  child: t.activeMembers[index].icon(P4),
                                 );
                               },
                             ),
                           ),
-                          if (_task.members.length > 3) ...[
+                          if (t.members.length > 3) ...[
                             const SizedBox(width: P3),
                             Stack(
                               alignment: Alignment.center,
@@ -113,7 +115,7 @@ class TaskHeaderDashboard extends StatelessWidget {
                                   color: Colors.transparent,
                                   border: Border.all(width: 2, color: mainColor.resolve(context)),
                                 ),
-                                D3('+${_task.members.length - 3}', color: mainColor),
+                                D3('+${t.members.length - 3}', color: mainColor),
                               ],
                             ),
                           ],
@@ -121,24 +123,24 @@ class TaskHeaderDashboard extends StatelessWidget {
                         ],
                       )
                     : const MemberAddIcon(size: P8),
-                onTap: _task.members.isEmpty ? () => invite(_task) : () => showProjectTeamDialog(_controller),
+                onTap: t.members.isEmpty ? () => invite(t) : () => showProjectTeamDialog(_tc),
               ),
 
             /// Описание
-            if (_task.hasDescription || _task.canEdit)
+            if (t.hasDescription || _tc.canEdit)
               _card(
-                _task.hasDescription ? '' : loc.description,
-                hasLeftMargin: _task.hasAnalytics || _task.hasFinance || _task.hasTeam,
-                body: _task.hasDescription
-                    ? Container(constraints: const BoxConstraints(minWidth: 200), child: BaseText.f2(_task.description, maxLines: 4))
+                t.hasDescription ? '' : loc.description,
+                hasLeftMargin: t.hasAnalytics || t.hasFinance || t.hasTeam,
+                body: t.hasDescription
+                    ? Container(constraints: const BoxConstraints(minWidth: 200), child: BaseText.f2(t.description, maxLines: 4))
                     : const DescriptionIcon(),
-                onTap: () => showWikiMainPageDialog(_controller),
+                onTap: () => showWikiMainPageDialog(_tc),
               ),
           ],
         ),
       );
 
-      return _task.canShowBoard && _task.showBoard
+      return t.canShowBoard && _tc.settingsController.showBoard
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: P3),
               child: content,

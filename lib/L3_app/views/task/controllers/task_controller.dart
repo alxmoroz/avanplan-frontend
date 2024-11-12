@@ -24,6 +24,7 @@ import 'project_modules_controller.dart';
 import 'project_statuses_controller.dart';
 import 'relations_controller.dart';
 import 'subtasks_controller.dart';
+import 'task_settings_controller.dart';
 import 'task_transactions_controller.dart';
 
 part 'task_controller.g.dart';
@@ -65,6 +66,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     subtasksController = SubtasksController(this);
     projectModulesController = ProjectModulesController(this);
     projectStatusesController = ProjectStatusesController(this);
+    settingsController = TaskSettingsController(this);
 
     setupFields();
 
@@ -131,6 +133,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     subtasksController.reload();
     projectModulesController.reload();
     projectStatusesController.reload();
+    settingsController.reload();
   }
 
   @override
@@ -154,6 +157,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   late final SubtasksController subtasksController;
   late final ProjectModulesController projectModulesController;
   late final ProjectStatusesController projectStatusesController;
+  late final TaskSettingsController settingsController;
 
   Task get task => tasksMainController.task(taskDescriptor.wsId, taskDescriptor.id) ?? taskDescriptor;
 

@@ -14,9 +14,9 @@ import '../../../extra/services.dart';
 import '../../../navigation/router.dart';
 import '../../../presenters/project_module.dart';
 import '../../../presenters/task_tree.dart';
-import '../../../presenters/task_view.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
+import '../usecases/tree.dart';
 import '../widgets/create/create_task_dialog.dart';
 
 extension TaskUC on Task {
@@ -43,10 +43,6 @@ extension TaskUC on Task {
 
       et.filled = true;
     }
-
-    // сохраняем настройки отображения доска / список
-    // TODO: работает только до тех пор, пока не будет полная перезагрузка на главном экране
-    et.viewSettings = viewSettings;
 
     return et;
   }
@@ -83,11 +79,12 @@ extension TaskEditUC on TaskController {
 
     await editWrapper(() async {
       setLoaderScreenLoading();
-      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: t.isProjectWithGoalsAndFilters);
+      final fullTree = settingsController.isProjectWithGoalsAndFilters;
+      final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: fullTree);
       if (taskNode != null) {
         // удаление дерева подзадач
         // NB!: тут нужен новый массив, чтобы можно было удалить их
-        for (final t in [...t.filteredSubtasks]) {
+        for (final t in [...filteredSubtasks]) {
           tasksMainController.removeTask(t);
         }
 
@@ -107,22 +104,26 @@ extension TaskEditUC on TaskController {
     });
   }
 
-  Widget? loadClosedButton({bool board = false}) => task.closedSubtasksCount > task.closedSubtasks.length
-      ? board
-          ? MTListTile(
-              middle: BaseText.medium(loc.action_show_closed_title, color: mainColor, align: TextAlign.center),
-              padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-              loading: loading,
-              bottomDivider: false,
-              onTap: reload,
-            )
-          : MTButton.secondary(
-              titleText: loc.action_show_closed_title,
-              margin: const EdgeInsets.only(top: P3),
-              loading: loading,
-              onTap: reload,
-            )
-      : null;
+  Widget? loadClosedButton({bool board = false}) {
+    final t = task;
+    final hasNotLoadedTasks = t.closedSubtasksCount > t.closedSubtasks.length;
+    return hasNotLoadedTasks
+        ? board
+            ? MTListTile(
+                middle: BaseText.medium(loc.action_show_closed_title, color: mainColor, align: TextAlign.center),
+                padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                loading: loading,
+                bottomDivider: false,
+                onTap: reload,
+              )
+            : MTButton.secondary(
+                titleText: loc.action_show_closed_title,
+                margin: const EdgeInsets.only(top: P3),
+                loading: loading,
+                onTap: reload,
+              )
+        : null;
+  }
 
   Future<TaskController?> addSubtask({int? statusId, bool noGo = false}) async {
     final newTC = await createTask(

@@ -16,24 +16,24 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_tree.dart';
 import '../../controllers/project_statuses_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
 import '../../usecases/status.dart';
+import '../../usecases/tree.dart';
 import 'column.dart';
 
 class TasksBoard extends StatelessWidget {
-  const TasksBoard(this._taskController, {super.key, this.scrollController});
-  final TaskController _taskController;
-  ProjectStatusesController get _psController => _taskController.projectStatusesController;
+  const TasksBoard(this._tc, {super.key, this.scrollController});
+  final TaskController _tc;
+  ProjectStatusesController get _psController => _tc.projectStatusesController;
   final ScrollController? scrollController;
 
   Future _itemReorder(int oldRowIndex, int oldColumnIndex, int newRowIndex, int newColumnIndex) async {
     final oldStatusId = _psController.projectStatusId(oldColumnIndex);
     final newStatusId = _psController.projectStatusId(newColumnIndex);
-    final targetStatusTasks = _taskController.task.subtasksForStatus(newStatusId);
-    final incomingTask = _taskController.task.subtasksForStatus(oldStatusId)[oldRowIndex];
+    final targetStatusTasks = _tc.subtasksForStatus(newStatusId);
+    final incomingTask = _tc.subtasksForStatus(oldStatusId)[oldRowIndex];
 
     final sameCol = oldColumnIndex == newColumnIndex;
 
@@ -67,7 +67,7 @@ class TasksBoard extends StatelessWidget {
 
     // смена колонки, статуса
     if (oldColumnIndex != newColumnIndex) {
-      _taskController.setStatus(incomingTask, stId: newStatusId);
+      _tc.setStatus(incomingTask, stId: newStatusId);
     }
     // перемещение внутри одной колонки
     else if (oldRowIndex != newRowIndex) {
@@ -117,7 +117,7 @@ class TasksBoard extends StatelessWidget {
     return Observer(
       builder: (_) => MTBoard(
         children: [
-          for (var i = 0; i < _psController.sortedStatuses.length; i++) TaskBoardColumn(_taskController, i).builder(context),
+          for (var i = 0; i < _psController.sortedStatuses.length; i++) TaskBoardColumn(_tc, i).builder(context),
           _statusAddButton,
         ],
         scrollController: scrollController,

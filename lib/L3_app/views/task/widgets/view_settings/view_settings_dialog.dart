@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities/task_view_settings.dart';
+import '../../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/grid_button.dart';
@@ -15,31 +14,30 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../../controllers/task_settings_controller.dart';
 import 'assignee_filter_field.dart';
-import 'view_settings_controller.dart';
 
-Future showTasksViewSettingsDialog(TaskController tc) async {
+Future showTaskSettingsDialog(TaskController tc) async {
   await showMTDialog(
-    _TasksViewSettingsDialog(TaskViewSettingsController(tc)),
+    _TaskSettingsDialog(tc.settingsController),
     maxWidth: SCR_XS_WIDTH,
   );
 }
 
-class _TasksViewSettingsDialog extends StatelessWidget {
-  const _TasksViewSettingsDialog(this._vsController);
-  final TaskViewSettingsController _vsController;
-
-  Task get _task => _vsController.task;
+class _TaskSettingsDialog extends StatelessWidget {
+  const _TaskSettingsDialog(this._tsc);
+  final TaskSettingsController _tsc;
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTDialog(
-        topBar: MTTopBar(pageTitle: loc.view_settings_title, parentPageTitle: _task.title),
+    return Observer(builder: (_) {
+      final t = _tsc.task;
+      return MTDialog(
+        topBar: MTTopBar(pageTitle: loc.view_settings_title, parentPageTitle: t.title),
         body: ListView(
           shrinkWrap: true,
           children: [
-            if (_task.canShowBoard) ...[
+            if (t.canShowBoard) ...[
               MTListGroupTitle(titleText: loc.view_mode_title),
               MTGridButton(
                 [
@@ -51,15 +49,15 @@ class _TasksViewSettingsDialog extends StatelessWidget {
                     ),
                 ],
                 padding: const EdgeInsets.symmetric(horizontal: P3),
-                value: _vsController.viewMode.name,
-                onChanged: _vsController.setViewMode,
+                value: _tsc.viewMode.name,
+                onChanged: _tsc.setViewMode,
               ),
             ],
-            MTListGroupTitle(titleText: loc.view_filters_title, topMargin: _task.canShowBoard ? null : 0),
-            TasksAssigneeFilterField(_vsController),
+            MTListGroupTitle(titleText: loc.view_filters_title, topMargin: t.canShowBoard ? null : 0),
+            TasksAssigneeFilterField(_tsc),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

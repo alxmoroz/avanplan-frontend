@@ -2,14 +2,14 @@
 
 import 'package:hive/hive.dart';
 
-import '../../L1_domain/entities/local_app_settings.dart';
+import '../../L1_domain/entities/app_local_settings.dart';
 import '../services/db.dart';
 import 'base.dart';
 
-part 'local_settings.g.dart';
+part 'app_local_settings.g.dart';
 
-@HiveType(typeId: HType.LOCAL_SETTINGS)
-class LocalSettingsHO extends BaseModel<LocalAppSettings> {
+@HiveType(typeId: HType.APP_LOCAL_SETTINGS)
+class AppLocalSettingsHO extends BaseModel<AppLocalSettings> {
   @HiveField(3, defaultValue: '')
   String version = '';
 
@@ -26,7 +26,7 @@ class LocalSettingsHO extends BaseModel<LocalAppSettings> {
   Map<String, String>? strings = {};
 
   @override
-  LocalAppSettings toEntity() => LocalAppSettings(
+  AppLocalSettings toEntity() => AppLocalSettings(
         version: version,
         launchCount: launchCount,
         flags: flags,
@@ -35,13 +35,13 @@ class LocalSettingsHO extends BaseModel<LocalAppSettings> {
       );
 
   @override
-  Future update(LocalAppSettings entity) async {
-    id = entity.id;
+  Future<AppLocalSettingsHO> update(AppLocalSettings entity) async {
     version = entity.version;
     launchCount = entity.launchCount;
     flags = entity.flags;
     dates = entity.dates;
     strings = entity.strings;
     await save();
+    return this;
   }
 }

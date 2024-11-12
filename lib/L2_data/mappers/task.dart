@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_state.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import 'attachment.dart';
 import 'note.dart';
@@ -54,7 +53,7 @@ extension TaskMapper on api.TaskGet {
       taskSource: taskSource?.taskSource,
       parentId: parentId,
       wsId: wsId,
-      state: tStateFromStr(state ?? ''),
+      state: TaskState.fromString(state ?? ''),
       velocity: velocity?.toDouble() ?? 0,
       requiredVelocity: requiredVelocity?.toDouble(),
       progress: progress?.toDouble() ?? 0,

@@ -11,8 +11,8 @@ import '../../../../presenters/task_state.dart';
 
 enum StateTitlePlace { groupHeader, card }
 
-class _StateTitle extends StatelessWidget {
-  const _StateTitle(this.state, this.text, {this.place});
+class StateTitle extends StatelessWidget {
+  const StateTitle(this.state, this.text, {this.place, super.key});
   final TaskState state;
   final String text;
   final StateTitlePlace? place;
@@ -37,17 +37,6 @@ class GroupStateTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P2) : EdgeInsets.zero),
-        child: _StateTitle(groupState, groupStateTitle(groupState), place: place),
+        child: StateTitle(groupState, groupStateTitle(groupState), place: place),
       );
-}
-
-class TaskStateTitle extends StatelessWidget {
-  const TaskStateTitle(this.task, {super.key, this.place});
-  final Task task;
-  final StateTitlePlace? place;
-
-  @override
-  Widget build(BuildContext context) {
-    return _StateTitle(task.overallState, place == StateTitlePlace.card ? task.overallStateTitle : task.stateTitle, place: place);
-  }
 }

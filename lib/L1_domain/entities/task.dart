@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+
 import '../entities_extensions/task_dates.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
@@ -10,7 +12,6 @@ import 'task_relation.dart';
 import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
-import 'task_view_settings.dart';
 import 'ws_member.dart';
 
 class TType {
@@ -41,7 +42,9 @@ enum TaskState {
   BACKLOG,
   IMPORTING,
   NO_ANALYTICS,
-  CLOSED,
+  CLOSED;
+
+  static TaskState fromString(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
 }
 
 class TaskDescriptor extends Titleable {
@@ -181,8 +184,6 @@ class Task extends Project {
   num? estimate;
 
   bool creating = false;
-
-  TaskViewSettings viewSettings = TaskViewSettings();
 
   @override
   int compareTo(t2) {

@@ -1,44 +1,44 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/local_app_settings.dart';
+import '../entities/app_local_settings.dart';
 import '../repositories/abs_db_repo.dart';
 
 class LocalSettingsUC {
   LocalSettingsUC(this.repo);
 
-  final AbstractDBRepo<AbstractDBModel, LocalAppSettings> repo;
+  final AbstractDBRepo<AbstractDBModel, AppLocalSettings> repo;
 
-  Future<LocalAppSettings> settings() async => await repo.getOne() ?? LocalAppSettings();
+  Future<AppLocalSettings> settings() async => await repo.getOne() ?? AppLocalSettings();
 
-  Future<LocalAppSettings> updateSettingsFromLaunch(String version) async {
-    final settings = await repo.getOne() ?? LocalAppSettings();
+  Future<AppLocalSettings> updateSettingsFromLaunch(String version) async {
+    final settings = await repo.getOne() ?? AppLocalSettings();
     settings.version = version;
     settings.launchCount++;
-    await repo.update(settings);
+    await repo.update((_) => true, settings);
     return settings;
   }
 
-  Future<LocalAppSettings> setDate(String code, DateTime? date) async {
-    final settings = await repo.getOne() ?? LocalAppSettings();
+  Future<AppLocalSettings> setDate(String code, DateTime? date) async {
+    final settings = await repo.getOne() ?? AppLocalSettings();
     if (date != null) {
       settings.setDate(code, date);
     } else {
       settings.removeDate(code);
     }
 
-    await repo.update(settings);
+    await repo.update((_) => true, settings);
     return settings;
   }
 
-  Future<LocalAppSettings> setString(String code, String? string) async {
-    final settings = await repo.getOne() ?? LocalAppSettings();
+  Future<AppLocalSettings> setString(String code, String? string) async {
+    final settings = await repo.getOne() ?? AppLocalSettings();
     if (string != null) {
       settings.setString(code, string);
     } else {
       settings.removeString(code);
     }
 
-    await repo.update(settings);
+    await repo.update((_) => true, settings);
     return settings;
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/local_app_settings.dart';
+import '../../../L1_domain/entities/app_local_settings.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../extra/services.dart';
@@ -25,7 +25,7 @@ class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalS
 
 abstract class _LocalSettingsControllerBase with Store {
   @observable
-  LocalAppSettings settings = LocalAppSettings();
+  AppLocalSettings settings = AppLocalSettings();
 
   @observable
   String oldVersion = '';
@@ -40,15 +40,15 @@ abstract class _LocalSettingsControllerBase with Store {
 
   /// Дата предложения обновиться (неделя), если не обновился ещё
   @computed
-  DateTime? get _appUpgradeProposalDate => settings.getDate(LSDateCode.APP_UPGRADE_PROPOSAL);
+  DateTime? get _appUpgradeProposalDate => settings.getDate(ALSDateCode.APP_UPGRADE_PROPOSAL);
   @computed
   bool get canProposeAppUpgrade => _appUpgradeProposalDate == null || _appUpgradeProposalDate!.isBefore(lastWeek);
 
   @action
-  Future setAppUpgradeProposalDate() async => settings = await localSettingsUC.setDate(LSDateCode.APP_UPGRADE_PROPOSAL, now);
+  Future setAppUpgradeProposalDate() async => settings = await localSettingsUC.setDate(ALSDateCode.APP_UPGRADE_PROPOSAL, now);
 
   @action
-  Future resetAppUpgradeProposalDate() async => settings = await localSettingsUC.setDate(LSDateCode.APP_UPGRADE_PROPOSAL, null);
+  Future resetAppUpgradeProposalDate() async => settings = await localSettingsUC.setDate(ALSDateCode.APP_UPGRADE_PROPOSAL, null);
 
   /// Обработка диплинков
   @action
@@ -63,31 +63,31 @@ abstract class _LocalSettingsControllerBase with Store {
   Future parseMainQuery(Uri uri) async {
     final params = uri.queryParameters;
     if (params.keys.any((k) => k.startsWith('utm'))) {
-      settings = await localSettingsUC.setString(LSStringCode.UTM_QUERY, uri.query);
+      settings = await localSettingsUC.setString(ALSStringCode.UTM_QUERY, uri.query);
     }
   }
 
   /// Реклама
   @computed
-  String? get utmQuery => settings.getString(LSStringCode.UTM_QUERY);
+  String? get utmQuery => settings.getString(ALSStringCode.UTM_QUERY);
   @computed
   bool get hasUTM => utmQuery != null && utmQuery!.isNotEmpty;
   @action
-  Future deleteUTM() async => settings = await localSettingsUC.setString(LSStringCode.UTM_QUERY, null);
+  Future deleteUTM() async => settings = await localSettingsUC.setString(ALSStringCode.UTM_QUERY, null);
 
   /// Токен приглашения в проект
   @computed
-  String? get invitationToken => settings.getString(LSStringCode.INVITATION_TOKEN);
+  String? get invitationToken => settings.getString(ALSStringCode.INVITATION_TOKEN);
   @computed
   bool get hasInvitation => invitationToken != null && invitationToken!.isNotEmpty;
   @action
-  Future deleteInvitationToken() async => settings = await localSettingsUC.setString(LSStringCode.INVITATION_TOKEN, null);
+  Future deleteInvitationToken() async => settings = await localSettingsUC.setString(ALSStringCode.INVITATION_TOKEN, null);
 
   /// Токен регистрации
   @computed
-  String? get registrationToken => settings.getString(LSStringCode.REGISTRATION_TOKEN);
+  String? get registrationToken => settings.getString(ALSStringCode.REGISTRATION_TOKEN);
   @computed
   bool get hasRegistration => registrationToken != null && registrationToken!.isNotEmpty;
   @action
-  Future deleteRegistrationToken() async => settings = await localSettingsUC.setString(LSStringCode.REGISTRATION_TOKEN, null);
+  Future deleteRegistrationToken() async => settings = await localSettingsUC.setString(ALSStringCode.REGISTRATION_TOKEN, null);
 }

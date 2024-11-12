@@ -1,12 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:collection/collection.dart';
-
 import '../entities/task.dart';
 import '../utils/dates.dart';
 import 'task_dates.dart';
-
-TaskState tStateFromStr(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
 
 extension TaskStateExtension on Task {
   bool get hasOverdue => hasDueDate && dueDate!.isBefore(today);

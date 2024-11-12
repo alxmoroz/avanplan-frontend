@@ -3,7 +3,6 @@
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_dates.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
-import '../../L1_domain/entities_extensions/task_view.dart';
 import 'project_module.dart';
 import 'task_actions.dart';
 
@@ -14,6 +13,4 @@ extension TaskViewPresenter on Task {
 
   bool get canShowTimeChart => hasAnalytics && (hasDueDate || hasEtaDate);
   bool get canShowVelocityVolumeCharts => hasAnalytics;
-
-  bool get isProjectWithGoalsAndFilters => isProject && hmGoals && hasFilteredAssignees;
 }

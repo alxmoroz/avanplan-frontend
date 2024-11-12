@@ -12,7 +12,6 @@ import '../../../../extra/services.dart';
 import '../../../_base/loadable.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/members.dart';
-import '../view_settings/view_settings_controller.dart';
 
 part 'project_member_controller.g.dart';
 
@@ -23,7 +22,7 @@ class ProjectMemberController extends _Base with _$ProjectMemberController {
     reload();
   }
 
-  void setAssigneeFilter() => TaskViewSettingsController(_tc).setAssigneeFilter(_memberId);
+  void setAssigneeFilter() => _tc.settingsController.setAssigneeFilter(_memberId);
   Future assignRole(int roleId) async => await _tc.assignMemberRoles(_memberId, [roleId]);
   Future unlinkRole() async => await _tc.assignMemberRoles(_memberId, []);
 }

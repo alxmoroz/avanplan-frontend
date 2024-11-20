@@ -23,7 +23,7 @@ extension TaskMapper on api.TaskGet {
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
       title: title.trim(),
-      type: type ?? TType.TASK,
+      type: TType.fromString(type),
       position: position,
       category: category,
       icon: icon,
@@ -62,6 +62,7 @@ extension TaskMapper on api.TaskGet {
       closedVolume: closedVolume,
       subtasksCountIn: subtasksCount,
       closedSubtasksCountIn: closedSubtasksCount,
+      hasSubgroupsIn: hasSubgroups ?? false,
     );
 
     if (mappedTask.isBacklog || mappedTask.isInbox) {

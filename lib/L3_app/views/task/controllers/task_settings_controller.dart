@@ -7,9 +7,9 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/project_module.dart';
+import '../../../presenters/task_actions.dart';
+import '../../../presenters/task_tree.dart';
 import '../usecases/edit.dart';
 import 'task_controller.dart';
 
@@ -60,7 +60,7 @@ class TaskSettingsController extends _Base with _$TaskSettingsController {
     _saveSettings(filters: filters);
 
     // обновляем проект с целями при включении фильтрации
-    if (hasChanges && isProjectWithGoalsAndFilters) _tc.reload(closed: false);
+    if (hasChanges && isProjectWithGroupsAndFilters) _tc.reload(closed: false);
   }
 
   void setViewMode(String? name) {
@@ -81,7 +81,7 @@ abstract class _Base with Store {
   TaskViewMode get viewMode => settings.viewMode;
 
   @computed
-  bool get showBoard => viewMode == TaskViewMode.BOARD;
+  bool get showBoard => viewMode == TaskViewMode.BOARD && task.canShowBoard;
 
   @computed
   bool get hasFilters => settings.filters?.isNotEmpty == true;
@@ -105,9 +105,9 @@ abstract class _Base with Store {
   String get filteredAssigneesStr => _filteredAssignees.map((m) => '$m').join(', ');
 
   @computed
-  bool get isProjectWithGoalsAndFilters {
+  bool get isProjectWithGroupsAndFilters {
     final t = task;
-    return t.isProject && t.hmGoals && hasFilteredAssignees;
+    return t.isProjectWSubgroups && hasFilteredAssignees;
   }
 
   void _reloadChecks() {
@@ -116,8 +116,7 @@ abstract class _Base with Store {
 
   @action
   void reload() {
-    final t = task;
-    settings = tasksLocalSettingsController.taskSettings(t);
+    settings = tasksLocalSettingsController.taskSettings(task);
     _reloadChecks();
   }
 

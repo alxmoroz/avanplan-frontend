@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/task_tree.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
@@ -16,43 +17,50 @@ import '../../usecases/edit.dart';
 
 class CreateTaskButton extends StatelessWidget {
   const CreateTaskButton(
-    this._parentTaskController, {
+    this._tc, {
+    this.type,
     this.compact = false,
     this.margin,
-    this.type,
+    this.buttonType,
     super.key,
   });
 
-  final TaskController _parentTaskController;
+  final TaskController _tc;
   final bool compact;
+  final TType? type;
   final EdgeInsets? margin;
-  final ButtonType? type;
+  final ButtonType? buttonType;
 
-  Task get _parent => _parentTaskController.task;
+  Task get _parent => _tc.task;
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
-        color: type == ButtonType.main ? mainBtnTitleColor : mainColor,
-        size: type != null ? P4 : DEF_TAPPABLE_ICON_SIZE,
+        color: buttonType == ButtonType.main ? mainBtnTitleColor : mainColor,
+        size: buttonType != null ? P4 : DEF_TAPPABLE_ICON_SIZE,
       );
+
+  TType? get _type => type ?? (_parent.isProjectWSubgroups ? TType.GOAL : null);
+
+  void _addSubtask() => _tc.addSubtask(type: _type);
 
   @override
   Widget build(BuildContext context) {
     final plusIcon = _plusIcon(context);
-    return isBigScreen(context) && type == null
+    final title = addSubtaskActionTitle(_parent, type: _type);
+    return isBigScreen(context) && buttonType == null
         ? MTListTile(
             leading: plusIcon,
-            middle: !compact ? BaseText(addSubtaskActionTitle(_parent), maxLines: 1, color: mainColor) : null,
+            middle: !compact ? BaseText(title, maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
-            onTap: _parentTaskController.addSubtask,
+            onTap: _addSubtask,
           )
         : MTButton(
             leading: compact ? null : plusIcon,
             margin: margin,
-            type: type ?? ButtonType.main,
-            titleText: compact ? null : addSubtaskActionTitle(_parent),
+            type: buttonType ?? ButtonType.main,
+            titleText: compact ? null : title,
             middle: compact ? plusIcon : null,
             constrained: !compact,
-            onTap: _parentTaskController.addSubtask,
+            onTap: _addSubtask,
           );
   }
 }

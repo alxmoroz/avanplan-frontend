@@ -78,13 +78,13 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     setLoaderScreenLoading();
   }
 
-  void init(int wsId, int taskId, {String? type, MTRoute? route}) {
+  void init(int wsId, int taskId, {TType type = TType.TASK, MTRoute? route}) {
     initWithTask(
       tasksMainController.task(wsId, taskId) ??
           Task(
             wsId: wsId,
             id: taskId,
-            type: type ?? TType.TASK,
+            type: type,
             title: '',
             startDate: null,
             closed: false,
@@ -168,6 +168,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   late final bool _isPreview;
   bool get isPreview => _isPreview;
   bool get canEdit => !_isPreview && task.canEdit;
+  bool get canCreate => !_isPreview && task.canCreate;
   bool get _canClose => !_isPreview && task.canClose;
   bool get _canReopen => !_isPreview && task.canReopen;
   bool get _canLocalExport => !_isPreview && task.canLocalExport;

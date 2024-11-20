@@ -13,5 +13,5 @@ class WSTransferUC {
       await repo.createFromTemplate(srcWsId, srcProjectId, dstWsId);
 
   Future<Iterable<Task>> sourcesForMove(int wsId) async => await repo.sourcesForMove(wsId);
-  Future<Iterable<Task>> destinationsForMove(int wsId, String taskType) async => await repo.destinationsForMove(wsId, taskType);
+  Future<Iterable<Task>> destinationsForMove(int wsId, TType type) async => await repo.destinationsForMove(wsId, type);
 }

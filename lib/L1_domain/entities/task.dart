@@ -14,13 +14,19 @@ import 'task_source.dart';
 import 'task_transaction.dart';
 import 'ws_member.dart';
 
-class TType {
-  static const PROJECT = 'PROJECT';
-  static const INBOX = 'INBOX';
-  static const GOAL = 'GOAL';
-  static const BACKLOG = 'BACKLOG';
-  static const TASK = 'TASK';
-  static const CHECKLIST_ITEM = 'CHECKLIST_ITEM';
+enum TType {
+  PROJECT,
+  INBOX,
+  GOAL,
+  BACKLOG,
+  TASK,
+  FORBIDDEN_TASK,
+  CHECKLIST_ITEM;
+
+  static TType fromString(String? name) => TType.values.firstWhereOrNull((s) => s.name == name?.toUpperCase()) ?? TType.TASK;
+
+  @override
+  String toString() => name.toLowerCase();
 }
 
 enum TaskState {
@@ -61,7 +67,7 @@ class TaskDescriptor extends Titleable {
     this.position,
   });
 
-  final String type;
+  final TType type;
   int wsId;
   final String? category;
   final String? icon;
@@ -83,7 +89,10 @@ class Project extends TaskDescriptor {
     super.category,
     super.icon,
     super.position,
+    this.hasSubgroupsIn = false,
   });
+
+  final bool hasSubgroupsIn;
 }
 
 class Task extends Project {
@@ -97,6 +106,7 @@ class Task extends Project {
     super.position,
     super.category,
     super.icon,
+    super.hasSubgroupsIn,
     required this.startDate,
     this.dueDate,
     this.repeat,

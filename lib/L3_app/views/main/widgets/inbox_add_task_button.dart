@@ -27,7 +27,7 @@ class InboxAddTaskButton extends StatelessWidget {
 
   Future _onTap() async {
     if (_inbox != null) {
-      final newTC = await createTask(_inbox!.ws, _inbox!);
+      final newTC = await createTask(_inbox!.ws, parent: _inbox!);
       if (newTC != null) router.goTask(newTC.taskDescriptor);
     }
   }

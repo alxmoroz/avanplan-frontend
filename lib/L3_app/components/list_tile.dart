@@ -166,7 +166,7 @@ class MTListGroupTitle extends StatelessWidget {
     return MTListTile(
       minHeight: 0,
       leading: leading,
-      middle: middle ?? BaseText.f2(titleText ?? ''),
+      middle: middle ?? BaseText.f2(titleText ?? '', maxLines: 1),
       trailing: trailing,
       padding: padding ?? const EdgeInsets.symmetric(horizontal: P3, vertical: P),
       margin: margin ?? EdgeInsets.only(top: topMargin ?? P2),

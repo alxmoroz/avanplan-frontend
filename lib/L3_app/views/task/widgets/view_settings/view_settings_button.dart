@@ -22,8 +22,8 @@ class TasksViewSettingsButton extends StatelessWidget {
 
   void _tap() => showTaskSettingsDialog(_tc);
 
-  Widget _icon(BuildContext context) {
-    final size = isBigScreen(context) ? DEF_TAPPABLE_ICON_SIZE : P4;
+  Widget _icon(bool big) {
+    final size = big ? DEF_TAPPABLE_ICON_SIZE : P4;
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
@@ -35,27 +35,17 @@ class TasksViewSettingsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => isBigScreen(context)
+    return Observer(builder: (_) {
+      final big = isBigScreen(context);
+      final icon = _icon(big);
+      return big
           ? MTListTile(
-              leading: _icon(context),
-              middle: compact
-                  ? null
-                  : Observer(
-                      builder: (_) => BaseText(
-                        loc.view_settings_title,
-                        color: mainColor,
-                        maxLines: 1,
-                      ),
-                    ),
+              leading: icon,
+              middle: compact ? null : BaseText(loc.view_settings_title, color: mainColor, maxLines: 1),
               bottomDivider: false,
               onTap: _tap,
             )
-          : MTButton.secondary(
-              middle: _icon(context),
-              onTap: _tap,
-              constrained: false,
-            ),
-    );
+          : MTButton.secondary(middle: icon, onTap: _tap, constrained: false);
+    });
   }
 }

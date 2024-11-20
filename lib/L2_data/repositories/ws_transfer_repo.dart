@@ -39,8 +39,8 @@ class WSTransferRepo extends AbstractWSTransferRepo {
   }
 
   @override
-  Future<Iterable<Task>> destinationsForMove(int wsId, String taskType) async {
-    final response = await _api.destinationsForMove(wsId: wsId, taskType: taskType);
+  Future<Iterable<Task>> destinationsForMove(int wsId, TType type) async {
+    final response = await _api.destinationsForMove(wsId: wsId, taskType: type.name);
     return response.data?.map((t) => t.task(wsId)) ?? [];
   }
 }

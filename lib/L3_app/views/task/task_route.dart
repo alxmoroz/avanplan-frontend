@@ -39,7 +39,7 @@ abstract class BaseTaskRoute extends MTRoute {
   String title(GoRouterState state) => td.viewTitle;
 
   @override
-  bool isDialog(BuildContext context) => isBigScreen(context) && baseName == TType.TASK.toLowerCase();
+  bool isDialog(BuildContext context) => isBigScreen(context) && baseName == '${TType.TASK}';
 
   TaskController get _tc => controller as TaskController;
   Task get td => _tc.taskDescriptor;
@@ -48,7 +48,7 @@ abstract class BaseTaskRoute extends MTRoute {
   GoRouterRedirect? get redirect => (_, state) async {
         final wsId = state.pathParamInt('wsId')!;
         final taskId = state.pathParamInt('${baseName}Id')!;
-        _tc.init(wsId, taskId, type: baseName.toUpperCase(), route: this);
+        _tc.init(wsId, taskId, type: TType.fromString(baseName), route: this);
 
         return null;
       };
@@ -70,13 +70,13 @@ abstract class BaseTaskRoute extends MTRoute {
 }
 
 class TaskRoute extends BaseTaskRoute {
-  static String get staticBaseName => TType.TASK.toLowerCase();
+  static String get staticBaseName => '${TType.TASK}';
 
   TaskRoute({super.parent}) : super(baseName: staticBaseName);
 }
 
 class GoalRoute extends BaseTaskRoute {
-  static String get staticBaseName => TType.GOAL.toLowerCase();
+  static String get staticBaseName => '${TType.GOAL}';
 
   GoalRoute({super.parent}) : super(baseName: staticBaseName);
 
@@ -88,7 +88,7 @@ class GoalRoute extends BaseTaskRoute {
 }
 
 class BacklogRoute extends BaseTaskRoute {
-  static String get staticBaseName => TType.BACKLOG.toLowerCase();
+  static String get staticBaseName => '${TType.BACKLOG}';
 
   BacklogRoute({super.parent}) : super(baseName: staticBaseName);
 
@@ -100,7 +100,7 @@ class BacklogRoute extends BaseTaskRoute {
 }
 
 class InboxRoute extends BaseTaskRoute {
-  static String get staticBaseName => TType.INBOX.toLowerCase();
+  static String get staticBaseName => '${TType.INBOX}';
 
   InboxRoute({super.parent}) : super(baseName: staticBaseName);
 
@@ -112,7 +112,7 @@ class InboxRoute extends BaseTaskRoute {
 }
 
 class ProjectRoute extends BaseTaskRoute {
-  static String get staticBaseName => TType.PROJECT.toLowerCase();
+  static String get staticBaseName => '${TType.PROJECT}';
 
   ProjectRoute({super.parent}) : super(baseName: staticBaseName);
 

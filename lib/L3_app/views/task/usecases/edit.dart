@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../L1_domain/entities_extensions/task_copy.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/button.dart';
@@ -12,7 +13,6 @@ import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../navigation/router.dart';
-import '../../../presenters/project_module.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
@@ -79,7 +79,7 @@ extension TaskEditUC on TaskController {
 
     await editWrapper(() async {
       setLoaderScreenLoading();
-      final fullTree = settingsController.isProjectWithGoalsAndFilters;
+      final fullTree = settingsController.isProjectWithGroupsAndFilters;
       final taskNode = await taskUC.taskNode(taskDescriptor.wsId, taskDescriptor.id!, closed: closed, fullTree: fullTree);
       if (taskNode != null) {
         // удаление дерева подзадач
@@ -95,7 +95,7 @@ extension TaskEditUC on TaskController {
 
         final updatedTasks = [...taskNode.subtasks, ...taskNode.parents];
         // мои задачи из проекта, если обновляем проект с целями
-        if (root.isProject && root.hmGoals) {
+        if (root.isProjectWSubgroups) {
           updatedTasks.addAll(await wsMyUC.myTasks(root.wsId, projectId: root.id!));
         }
 
@@ -125,13 +125,24 @@ extension TaskEditUC on TaskController {
         : null;
   }
 
-  Future<TaskController?> addSubtask({int? statusId, bool noGo = false}) async {
+  Future<TaskController?> addSubtask({TType? type, int? statusId, bool noGo = false}) async {
+    final parent = task;
+    type ??= parent.isTask ? TType.CHECKLIST_ITEM : TType.TASK;
+    statusId ??= ([TType.GOAL, TType.CHECKLIST_ITEM].contains(type) || parent.isInbox ? null : projectStatusesController.firstOpenedStatusId);
     final newTC = await createTask(
-      task.ws,
-      task,
-      statusId: statusId ?? ((task.isProject && task.hmGoals) || task.isTask || task.isInbox ? null : projectStatusesController.firstOpenedStatusId),
+      parent.ws,
+      type: type,
+      parent: parent,
+      statusId: statusId,
     );
-    if (newTC != null && !noGo) router.goTask(newTC.taskDescriptor);
+    if (newTC != null) {
+      // проект, в котором не было задач
+      if (parent.isProject && !parent.hasSubtasks) {
+        // добавили цель - переключаем на список, если задачу, то - на доску
+        settingsController.setViewMode(type == TType.GOAL ? TaskViewMode.LIST.name : TaskViewMode.BOARD.name);
+      }
+      if (!noGo) router.goTask(newTC.taskDescriptor);
+    }
     return newTC;
   }
 
@@ -139,8 +150,9 @@ extension TaskEditUC on TaskController {
     Task? et;
     await editWrapper(() async {
       setLoaderScreenSaving();
-      if (await task.ws.checkBalance(loc.edit_action_title)) {
-        final changes = await taskUC.save(task);
+      final t = task;
+      if (await t.ws.checkBalance(loc.edit_action_title)) {
+        final changes = await taskUC.save(t);
         if (changes != null) {
           tasksMainController.upsertTasks([changes.updated, ...changes.affected]);
           et = changes.updated;

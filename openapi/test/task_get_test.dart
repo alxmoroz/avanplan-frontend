@@ -97,6 +97,11 @@ void main() {
       // TODO
     });
 
+    // bool hasSubgroups (default value: false)
+    test('to test the property `hasSubgroups`', () async {
+      // TODO
+    });
+
     // String state
     test('to test the property `state`', () async {
       // TODO

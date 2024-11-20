@@ -4,31 +4,25 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
-import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/dialog.dart';
 import '../../../../navigation/router.dart';
-import '../../../../presenters/project_module.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/task/controllers/task_controller.dart';
 import '../../../../views/task/usecases/edit.dart';
 
-Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) async {
+Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, Task? parent, int? statusId}) async {
   TaskController? tc;
 
-  if (await ws.checkBalance(addSubtaskActionTitle(parent))) {
+  if (await ws.checkBalance(addSubtaskActionTitle(parent, type: type))) {
     tc = TaskController();
     tc.setLoaderScreenSaving();
 
     showMTDialog(LoaderScreen(tc, isDialog: true));
 
-    final newProject = parent == null;
-    final newGoal = parent != null && parent.isProject && parent.hmGoals;
-    final newCheckItem = parent != null && parent.isTask;
-
     final taskData = Task(
-      title: newSubtaskTitle(parent),
+      title: '',
       projectStatusId: statusId,
       closed: false,
       parentId: parent?.id,
@@ -43,16 +37,10 @@ Future<TaskController?> createTask(Workspace ws, Task? parent, {int? statusId}) 
       projectModules: [],
       wsId: ws.id!,
       startDate: null,
-      // startDate: DateTime.now(),
-      type: newProject
-          ? TType.PROJECT
-          : newGoal
-              ? TType.GOAL
-              : newCheckItem
-                  ? TType.CHECKLIST_ITEM
-                  : TType.TASK,
+      type: type,
     )..creating = true;
 
+    taskData.title = taskData.defaultTitle;
     tc.initWithTask(taskData);
     final savedTask = await tc.save();
     if (!tc.loading && globalContext.mounted) Navigator.of(globalContext).pop();

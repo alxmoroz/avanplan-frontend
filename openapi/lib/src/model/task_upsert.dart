@@ -29,6 +29,7 @@ part 'task_upsert.g.dart';
 /// * [authorId] 
 /// * [projectStatusId] 
 /// * [taskSourceId] 
+/// * [hasSubgroups] 
 @BuiltValue()
 abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -85,6 +86,9 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
 
+  @BuiltValueField(wireName: r'has_subgroups')
+  bool? get hasSubgroups;
+
   TaskUpsert._();
 
   factory TaskUpsert([void updates(TaskUpsertBuilder b)]) = _$TaskUpsert;
@@ -92,7 +96,8 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskUpsertBuilder b) => b
       ..type = 'TASK'
-      ..closed = false;
+      ..closed = false
+      ..hasSubgroups = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskUpsert> get serializer => _$TaskUpsertSerializer();
@@ -232,6 +237,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield serializers.serialize(
         object.taskSourceId,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.hasSubgroups != null) {
+      yield r'has_subgroups';
+      yield serializers.serialize(
+        object.hasSubgroups,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -382,6 +394,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.taskSourceId = valueDes;
+          break;
+        case r'has_subgroups':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hasSubgroups = valueDes;
           break;
         default:
           unhandled.add(key);

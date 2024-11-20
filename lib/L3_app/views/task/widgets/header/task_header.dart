@@ -13,6 +13,7 @@ import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
+import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
 import '../toolbars/done_button.dart';
@@ -52,7 +53,7 @@ class TaskHeader extends StatelessWidget {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.zero,
-                        hintText: _tc.titlePlaceholder,
+                        hintText: t.defaultTitle,
                         hintStyle: const H1('', color: f3Color).style(context),
                       ),
                       style: roStyle,

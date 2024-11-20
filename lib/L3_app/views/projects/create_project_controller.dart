@@ -2,6 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../extra/services.dart';
 import '../../navigation/router.dart';
 import '../../usecases/ws_actions.dart';
@@ -33,7 +34,7 @@ abstract class _CreateProjectControllerBase with Store {
       if (ws != null) {
         switch (methodCode) {
           case CreationMethod.create:
-            final newTC = await createTask(ws!, null);
+            final newTC = await createTask(ws!, type: TType.PROJECT);
             if (newTC != null) router.goTask(newTC.taskDescriptor);
             break;
           case CreationMethod.template:

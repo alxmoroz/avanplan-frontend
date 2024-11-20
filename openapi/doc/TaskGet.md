@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **authorId** | **int** |  | [optional] 
 **projectStatusId** | **int** |  | [optional] 
 **taskSourceId** | **int** |  | [optional] 
+**hasSubgroups** | **bool** |  | [optional] [default to false]
 **state** | **String** |  | [optional] 
 **velocity** | **num** |  | [optional] 
 **requiredVelocity** | **num** |  | [optional] 

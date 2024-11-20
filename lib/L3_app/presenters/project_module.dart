@@ -19,5 +19,4 @@ extension ProjectModulePresenter on Task {
   bool get hmTeam => hm(TOCode.TEAM);
   bool get hmAnalytics => hm(TOCode.ANALYTICS);
   bool get hmFinance => hm(TOCode.FINANCE);
-  bool get hmGoals => hm(TOCode.GOALS);
 }

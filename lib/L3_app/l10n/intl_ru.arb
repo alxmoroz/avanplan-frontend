@@ -73,6 +73,7 @@
   "avatar_edit_action_title": "Изменить фото",
 
   "backlog": "Бэклог",
+  "backlog_new_title": "Новый бэклог",
   "backlog_plural_accusative": "{count, plural, one{бэклог} few{бэклога} other{бэклогов}}",
 
   "balance_amount_title": "Баланс",
@@ -173,12 +174,9 @@
   "for_": "за",
   "for_dative": "по",
 
-  "goal_create_quiz_title": "Поставьте цель",
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
   "goal_count_dative": "{count, plural, one{{count} цели} other{{count} целям}}",
   "goal_for_orphaned_tasks": "Задачи без целей",
-  "goal_list_empty_hint": "Время отдохнуть или поставить новые цели",
-  "goal_list_empty_title": "Отдыхаем от целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
   "goal_plural_accusative": "{count, plural, one{цель} few{цели} other{целей}}",
@@ -306,9 +304,6 @@
   "promo_features_title": "Расширяйте возможности с выгодой",
   "promo_features_text": "Безлимитное количество участников\nУчёт доходов и расходов, расчёт прибыли\nСтатистика и прогнозирование срока проекта",
 
-  "recommendation_add_goals_hint": "Поставьте первую цель",
-  "recommendation_add_goals_title": "Добавим цели в проект",
-  "recommendation_add_tasks_hint": "Определите шаги для достижения цели",
   "recommendation_add_tasks_title": "Добавим задачи",
   "recommendation_close_tasks_hint": "Закройте задачу и узнайте прогноз завершения проекта",
   "recommendation_close_tasks_title": "Сделаем первый шаг",
@@ -493,8 +488,7 @@
   "task_go2source_title": "Перейти к источнику",
 
   "task_list_empty_hint": "Добавьте задачи, чтобы начать работу",
-  "task_list_empty_local_import_hint": "Добавьте или перенесите задачи из другой цели или проекта",
-  "task_list_empty_overview_title": "Приступим к достижению цели",
+  "task_list_empty_in_project_hint": "Группируйте задачи в цели или просто работайте со списком задач",
   "task_list_empty_title": "Отдыхаем от дел",
   "task_list_schedule_action_title": "Запланировать",
   "task_list_schedule_hint": "Запланируйте задачи, чтобы продолжить работу",

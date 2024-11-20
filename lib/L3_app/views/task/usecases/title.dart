@@ -3,39 +3,37 @@
 import 'dart:async';
 
 import '../../../components/constants.dart';
-import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
 import '../controllers/task_controller.dart';
 import 'edit.dart';
 
 extension TitleUC on TaskController {
-  /// название
-  String get titlePlaceholder => newSubtaskTitle(task.parent);
-
   void setFocus(int index) => focusNode(index)?.requestFocus();
 
   Future _setTitle(String str) async {
+    final t = task;
     str = str.trim();
-    final oldValue = task.title;
+    final oldValue = t.title;
     if (oldValue != str) {
       if (str.isEmpty) {
-        str = titlePlaceholder;
+        str = t.defaultTitle;
       }
-      task.title = str;
+      t.title = str;
       if (!(await saveField(TaskFCode.title))) {
-        task.title = oldValue;
+        t.title = oldValue;
       }
     }
   }
 
   Future _setDescription(String str) async {
+    final t = task;
     final newValue = str.trim();
-    final oldValue = task.description;
+    final oldValue = t.description;
 
-    if (task.description != newValue) {
-      task.description = newValue;
+    if (oldValue != newValue) {
+      t.description = newValue;
       if (!(await saveField(TaskFCode.description))) {
-        task.description = oldValue;
+        t.description = oldValue;
       }
     }
   }

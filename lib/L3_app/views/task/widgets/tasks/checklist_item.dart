@@ -12,6 +12,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
+import '../../../../presenters/task_type.dart';
 import '../../../../components/text_field_inline.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
@@ -76,7 +77,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                         ? f2Color
                         : null)
             .style(context),
-        hintText: _tc.titlePlaceholder,
+        hintText: _t.defaultTitle,
         fNode: fNode,
         autofocus: _t.creating,
         readOnly: _ro,

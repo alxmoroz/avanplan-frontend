@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
@@ -15,40 +14,39 @@ import '../transfer/local_import_dialog.dart';
 import '../view_settings/view_settings_button.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskBottomToolbar(this._controller, {super.key});
-  final TaskController _controller;
-
-  Task get _task => _controller.task;
+  const TaskBottomToolbar(this._tc, {super.key});
+  final TaskController _tc;
 
   @override
   Size get preferredSize => const Size.fromHeight(P10);
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTBottomBar(
+    return Observer(builder: (_) {
+      final t = _tc.task;
+      return MTBottomBar(
         innerHeight: preferredSize.height - P2,
         middle: Row(
           children: [
-            if (_task.canEditViewSettings) ...[
+            if (t.canEditViewSettings) ...[
               const SizedBox(width: P2),
-              TasksViewSettingsButton(_controller, compact: true),
+              TasksViewSettingsButton(_tc, compact: true),
             ],
             const Spacer(),
-            if (_task.canLocalImport)
+            if (t.canLocalImport)
               MTButton.secondary(
                 middle: const LocalImportIcon(),
                 constrained: false,
-                onTap: () => localImportDialog(_controller),
+                onTap: () => localImportDialog(_tc),
               ),
-            if (_task.canCreateSubtask) ...[
+            if (t.canCreateSubtask) ...[
               const SizedBox(width: P2),
-              CreateTaskButton(_controller, compact: true, type: ButtonType.secondary),
+              CreateTaskButton(_tc, compact: true, buttonType: ButtonType.secondary),
             ],
             const SizedBox(width: P2),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

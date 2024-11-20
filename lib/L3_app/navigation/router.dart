@@ -54,10 +54,8 @@ extension MTRouterHelper on GoRouter {
   bool get isDeepLink => _currentConfig.extra == null;
 
   void setTaskPathParameters(Task t) {
-    final tt = t.type.toLowerCase();
-
     _currentConfig.pathParameters.updateAll((k, v) {
-      if (k == tt) {
+      if (k == '${t.type}') {
         return '${t.id!}';
       } else {
         switch (k) {
@@ -109,7 +107,7 @@ extension MTRouterHelper on GoRouter {
 
   // Задачи
   void goTask(TaskDescriptor td, {bool direct = false}) {
-    final tt = td.type.toLowerCase();
+    final tt = td.type;
     final currentPP = _currentConfig.pathParameters;
     final ttIdKey = '${tt}Id';
 
@@ -124,7 +122,7 @@ extension MTRouterHelper on GoRouter {
 
   void goTaskSameRoute(Task toTask, Task fromTask) {
     RouteMatchList rConfig = _currentConfig;
-    final tt = toTask.type.toLowerCase();
+    final tt = toTask.type;
     final ttIdKey = '${tt}Id';
     // Выходим из исходной задачи
     // Поднимаемся на один уровень, если родители совпадают (проект или цель)
@@ -135,7 +133,7 @@ extension MTRouterHelper on GoRouter {
     // ...если родители не совпадают, поднимаемся до уровня общего проекта или корня
     else {
       final sameProject = toTask.project == fromTask.project;
-      final prjType = TType.PROJECT.toLowerCase();
+      final prjType = '${TType.PROJECT}';
       while (rConfig.matches.length > 1 && (!sameProject || (rConfig.last.route as MTRoute).baseName != prjType)) {
         rConfig = rConfig.remove(rConfig.last);
       }
@@ -182,10 +180,9 @@ extension MTRouterHelper on GoRouter {
   }
 
   // Выход из квиза создания цели или проекта
-  void popToTaskTypeOrMain(String type) {
+  void popToTaskTypeOrMain(TType type) {
     RouteMatchList rConfig = _currentConfig;
-    type = type.toLowerCase();
-    while (rConfig.matches.length > 1 && (rConfig.last.route as MTRoute).baseName != type) {
+    while (rConfig.matches.length > 1 && (rConfig.last.route as MTRoute).baseName != '$type') {
       rConfig = rConfig.remove(rConfig.last);
     }
     _go(rConfig.last.matchedLocation);

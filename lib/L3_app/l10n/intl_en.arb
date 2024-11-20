@@ -73,6 +73,7 @@
   "avatar_edit_action_title": "Change Photo",
 
   "backlog": "Backlog",
+  "backlog_new_title": "New Backlog",
   "backlog_plural_accusative": "{count, plural, one{backlog} other{backlogs}}",
 
   "balance_amount_title": "Account Balance",
@@ -173,12 +174,9 @@
   "for_": "for",
   "for_dative": "for",
 
-  "goal_create_quiz_title": "Set a goal",
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
   "goal_count_dative": "{count, plural, one{{count} goal} other{{count} goals}}",
   "goal_for_orphaned_tasks": "Tasks without goals",
-  "goal_list_empty_hint": "Time to relax or set new goals",
-  "goal_list_empty_title": "Taking a break from goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New Goal",
   "goal_plural_accusative": "{count, plural, one{goal} other{goals}}",
@@ -306,9 +304,6 @@
   "promo_features_title": "Expand the capabilities of the service with benefits",
   "promo_features_text": "Unlimited users and members\nStatistics and project duration forecasting\nAccounting of profit, income and expenses",
 
-  "recommendation_add_goals_hint": "Set the first goal of the project",
-  "recommendation_add_goals_title": "Let's add goals to the project",
-  "recommendation_add_tasks_hint": "Determine the steps to achieve this goal",
   "recommendation_add_tasks_title": "Let's add tasks",
   "recommendation_close_tasks_hint": "Close the task and find out the project completion estimation",
   "recommendation_close_tasks_title": "Let's take the first step",
@@ -443,9 +438,6 @@
   "tariff_option_goals_title": "Goals",
   "tariff_option_goals_subtitle": "Grouping tasks by goals",
 
-  "tariff_option_taskboard_title": "Task Board",
-  "tariff_option_taskboard_subtitle": "Familiar look like in Trello",
-
   "tariff_option_team_title": "Team",
   "tariff_option_team_subtitle": "Collaborate on tasks",
   "tariff_option_team_description": "Unlimited number of members\nInvitations to projects\nAssigning tasks",
@@ -496,8 +488,7 @@
   "task_go2source_title": "Go to Source",
 
   "task_list_empty_hint": "Add tasks to get started",
-  "task_list_empty_local_import_hint": "Add tasks or transfer them from another goal or project",
-  "task_list_empty_overview_title": "Let's start achieving the goal",
+  "task_list_empty_in_project_hint": "Group tasks into goals or just work with a task list",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_schedule_action_title": "Schedule",
   "task_list_schedule_hint": "Schedule tasks to keep working",

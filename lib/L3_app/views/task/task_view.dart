@@ -122,7 +122,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       : MTAdaptive(child: TaskDetails(tc))
 
                   /// Группа
-                  : !t.hasSubtasks && (!t.canShowBoard || !tc.settingsController.showBoard)
+                  : !t.hasSubtasks
 
                       /// Группа без подзадач
                       ? NoTasks(tc)
@@ -172,7 +172,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget? toolbarTitle(Task t) {
     return _isBigGroup
-        ? t.canShowBoard && tc.settingsController.showBoard
+        ? t.hasSubtasks && t.canShowBoard && tc.settingsController.showBoard
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 child: _bigGroupTitle(t),
@@ -218,7 +218,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
     PreferredSizeWidget? bottomToolBar;
     if (showNoteField) {
       bottomToolBar = NoteFieldToolbar(tc, _tvController, extraHeight: _extraHeight(context));
-    } else if (!hasKB && !bigGroup && ((t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask)) || t.canShowBoard)) {
+    } else if (!hasKB && !bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
       bottomToolBar = TaskBottomToolbar(tc);
     }
 

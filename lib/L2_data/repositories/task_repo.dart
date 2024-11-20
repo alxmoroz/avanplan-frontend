@@ -58,7 +58,7 @@ class TaskRepo extends AbstractTaskRepo {
       ..startDate = data.startDate?.toUtc()
       ..closedDate = data.closedDate?.toUtc()
       ..dueDate = data.dueDate?.toUtc()
-      ..type = data.type;
+      ..type = data.type.name;
 
     final changes = (await api.upsertTask(
       taskUpsert: qBuilder.build(),

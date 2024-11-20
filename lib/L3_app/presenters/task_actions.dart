@@ -50,8 +50,8 @@ extension TaskActionsUC on Task {
   /// доступные действия
 
   bool get canCreate => !closed && isLocal && _hpCreate;
-  bool get canCreateSubtask => canCreate && !isTask;
-  bool get canCreateChecklist => canCreate && isTask;
+  bool get canCreateSubtask => !isTask && canCreate;
+  bool get canCreateChecklist => isTask && canCreate;
 
   bool get canDuplicate => !isInbox && canCreate;
   bool get canEdit => !isInbox && isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
@@ -80,7 +80,7 @@ extension TaskActionsUC on Task {
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
   bool get canLocalExport => canEdit && !isProject && !isInbox;
-  bool get canLocalImport => canEdit && (isGoal || isBacklog || (isProject && !hmGoals));
+  bool get canLocalImport => canEdit && (isGoal || isBacklog || (isProject && !hasSubgroups));
 
   bool get canComment => !closed && _canEditTask;
 
@@ -89,7 +89,7 @@ extension TaskActionsUC on Task {
 
   bool get canEditProjectStatuses => _hpProjectInfoUpdate;
 
-  bool get canShowBoard => isGoal || (isProject && !hmGoals);
+  bool get canShowBoard => isGoal || (isProject && !hasSubgroups);
   bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
 
   bool get canEditRelations => _canEditTask;

@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/task_tree.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -43,7 +44,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
         /// контекстные быстрые действия
         if (t.canEditViewSettings) TasksViewSettingsButton(_tc, compact: _compact),
-        if (t.canCreateSubtask) CreateTaskButton(_tc, compact: _compact),
+        if (t.canCreateSubtask && t.hasSubtasks) CreateTaskButton(_tc, compact: _compact),
         if (t.canLocalImport)
           MTListTile(
             leading: const LocalImportIcon(size: DEF_TAPPABLE_ICON_SIZE),

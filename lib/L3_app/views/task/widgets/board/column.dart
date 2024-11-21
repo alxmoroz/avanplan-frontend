@@ -120,7 +120,7 @@ class TaskBoardColumn {
                 children: [
                   const PlusIcon(size: P3),
                   const SizedBox(width: P),
-                  BaseText.medium(addSubtaskActionTitle(parent), color: mainColor, maxLines: 1),
+                  BaseText.medium(addTaskActionTitle(), color: mainColor, maxLines: 1),
                 ],
               ),
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),

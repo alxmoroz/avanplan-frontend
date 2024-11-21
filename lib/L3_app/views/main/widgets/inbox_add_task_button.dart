@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
 import '../../../components/circle.dart';
@@ -23,11 +22,10 @@ class InboxAddTaskButton extends StatelessWidget {
   final bool standalone;
   final bool compact;
 
-  Task? get _inbox => tasksMainController.inbox;
-
   Future _onTap() async {
-    if (_inbox != null) {
-      final newTC = await createTask(_inbox!.ws, parent: _inbox!);
+    final inbox = tasksMainController.inbox;
+    if (inbox != null) {
+      final newTC = await createTask(inbox.ws, parent: inbox);
       if (newTC != null) router.goTask(newTC.taskDescriptor);
     }
   }
@@ -41,7 +39,7 @@ class InboxAddTaskButton extends StatelessWidget {
               color: mainColor,
               child: InboxAddIcon(size: DEF_TAPPABLE_ICON_SIZE - P2, color: mainBtnTitleColor),
             ),
-            middle: compact ? null : BaseText(addSubtaskActionTitle(_inbox), color: mainColor, maxLines: 1),
+            middle: compact ? null : BaseText(addTaskActionTitle(), color: mainColor, maxLines: 1),
             bottomDivider: false,
             onTap: _onTap,
           )

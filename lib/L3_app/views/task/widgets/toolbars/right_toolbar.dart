@@ -1,25 +1,19 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/task_tree.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/divider.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../components/vertical_toolbar.dart';
 import '../../../../components/vertical_toolbar_controller.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
+import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
 import '../details/task_details.dart';
-import '../transfer/local_import_dialog.dart';
 import '../view_settings/view_settings_button.dart';
 import 'action_item.dart';
 import 'popup_menu.dart';
@@ -42,25 +36,18 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         TaskDetails(_tc, compact: _compact),
         const Spacer(),
 
-        /// контекстные быстрые действия
+        /// Постоянные быстрые действия
         if (t.canEditViewSettings) TasksViewSettingsButton(_tc, compact: _compact),
-        if (t.canCreateSubtask && t.hasSubtasks) CreateTaskButton(_tc, compact: _compact),
-        if (t.canLocalImport)
-          MTListTile(
-            leading: const LocalImportIcon(size: DEF_TAPPABLE_ICON_SIZE),
-            middle: _compact ? null : BaseText(loc.action_transfer_import_tasks_title, color: mainColor, maxLines: 1),
-            bottomDivider: false,
-            onTap: () => localImportDialog(_tc),
-          ),
+        if (t.canCreateSubtask && t.hasSubtasks) ToolbarCreateTaskButton(_tc, compact: _compact),
 
-        /// быстрые действия с задачей
+        /// Динамические быстрые действия с задачей
         if (_tc.quickActions.isNotEmpty) ...[
           const MTDivider(verticalIndent: P2),
           for (final ta in _tc.quickActions) TaskActionItem(ta, _tc, compact: _compact),
         ],
 
-        /// остальные действия с задачей
-        TaskPopupMenu(_tc, extended: true, compact: _compact),
+        /// остальные действия с задачей (меню)
+        TaskPopupMenu(_tc, inToolbar: true, compact: _compact),
       ],
     );
   }

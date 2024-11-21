@@ -107,7 +107,7 @@ abstract class _Base with Store {
   @computed
   bool get isProjectWithGroupsAndFilters {
     final t = task;
-    return t.isProjectWSubgroups && hasFilteredAssignees;
+    return t.isProjectWithSubgroups && hasFilteredAssignees;
   }
 
   void _reloadChecks() {

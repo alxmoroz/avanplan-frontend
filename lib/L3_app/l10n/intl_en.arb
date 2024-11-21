@@ -488,7 +488,7 @@
   "task_go2source_title": "Go to Source",
 
   "task_list_empty_hint": "Add tasks to get started",
-  "task_list_empty_in_project_hint": "Group tasks into goals or just work with a task list",
+  "task_list_empty_in_project_hint": "Group tasks into goals, work with a list of tasks, or move them from another goal or project",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_schedule_action_title": "Schedule",
   "task_list_schedule_hint": "Schedule tasks to keep working",

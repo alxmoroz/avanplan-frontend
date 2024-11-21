@@ -172,6 +172,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get _canClose => !_isPreview && task.canClose;
   bool get _canReopen => !_isPreview && task.canReopen;
   bool get _canLocalExport => !_isPreview && task.canLocalExport;
+  bool get _canLocalImport => !_isPreview && task.canLocalImport;
   bool get _canDuplicate => !_isPreview && task.canDuplicate;
   bool get canDelete => !_isPreview && task.canDelete;
   bool get canCreateChecklist => !_isPreview && task.canCreateChecklist;
@@ -187,9 +188,9 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get canEditRelations => !_isPreview && task.canEditRelations;
   bool get canComment => !_isPreview && task.canComment;
 
-  Iterable<TaskAction> actions(BuildContext context, {bool extended = false}) {
+  Iterable<TaskAction> actions(BuildContext context, {bool inToolbar = false}) {
     final t = task;
-    final canShowDetails = !extended && t.canShowDetails(context);
+    final showDetails = !inToolbar && t.canShowDetails(context);
 
     final paramsActions = [
       if (canAssign) TaskAction.assignee,
@@ -198,28 +199,31 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       if (canEditRelations) TaskAction.relations,
     ];
 
-    final canClose = _canClose && (!extended || !t.isTask);
-    final canReopen = _canReopen && (!extended || !t.isTask);
-    final canLocalExport = _canLocalExport && (!extended || !t.isInboxTask);
-    final canDuplicate = _canDuplicate;
+    // задачу можно закрыть / переоткрыть через кружочек, поэтому для задачи в меню нет Закрыть / Переоткрыть, а для групп - есть
+    final showClose = !t.isTask && _canClose;
+    final showReopen = !t.isTask && _canReopen;
+    final showLocalExport = _canLocalExport;
+    final showLocalImport = _canLocalImport;
+    final showDuplicate = _canDuplicate;
+    final hasActions = showClose || showReopen || showLocalExport || showLocalImport || showDuplicate;
 
-    final hasActions = canClose || canReopen || canLocalExport || canDuplicate;
-    final canDelete = this.canDelete;
+    final showDelete = canDelete;
 
     return [
-      if (canShowDetails) TaskAction.details,
+      if (showDetails) TaskAction.details,
       //
-      if (paramsActions.isNotEmpty && canShowDetails) TaskAction.divider,
+      if (paramsActions.isNotEmpty && showDetails) TaskAction.divider,
       ...paramsActions,
       //
-      if (hasActions && (canShowDetails || paramsActions.isNotEmpty)) TaskAction.divider,
-      if (canClose) TaskAction.close,
-      if (canReopen) TaskAction.reopen,
-      if (canLocalExport) TaskAction.localExport,
-      if (canDuplicate) TaskAction.duplicate,
+      if (hasActions && (showDetails || paramsActions.isNotEmpty)) TaskAction.divider,
+      if (showClose) TaskAction.close,
+      if (showReopen) TaskAction.reopen,
+      if (showLocalExport) TaskAction.localExport,
+      if (showLocalImport) TaskAction.localImport,
+      if (showDuplicate) TaskAction.duplicate,
       //
-      if (canDelete && (canShowDetails || hasActions || paramsActions.isNotEmpty)) TaskAction.divider,
-      if (canDelete) TaskAction.delete,
+      if (showDelete && (showDetails || hasActions || paramsActions.isNotEmpty)) TaskAction.divider,
+      if (showDelete) TaskAction.delete,
     ];
   }
 

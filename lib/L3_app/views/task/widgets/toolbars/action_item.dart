@@ -19,6 +19,7 @@ import '../../usecases/transfer.dart';
 import '../details/task_details.dart';
 import '../finance/transactions_dialog.dart';
 import '../relations/relations_dialog.dart';
+import '../transfer/local_import_dialog.dart';
 
 class TaskActionItem extends StatelessWidget {
   const TaskActionItem(this._ta, this._tc, {this.menuController, super.key, this.compact = false});
@@ -90,6 +91,12 @@ class TaskActionItem extends StatelessWidget {
           leading: const LocalExportIcon(size: _iconSize),
           title: loc.action_transfer_title,
           onTap: _tc.localExport,
+        );
+      case TaskAction.localImport:
+        return _tile(
+          leading: const LocalImportIcon(size: _iconSize),
+          title: loc.action_transfer_import_tasks_title,
+          onTap: () => localImportDialog(_tc),
         );
       case TaskAction.duplicate:
         return _tile(

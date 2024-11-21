@@ -15,7 +15,7 @@ import '../../../../views/task/usecases/edit.dart';
 Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, Task? parent, int? statusId}) async {
   TaskController? tc;
 
-  if (await ws.checkBalance(addSubtaskActionTitle(parent, type: type))) {
+  if (await ws.checkBalance(addTaskActionTitle(type))) {
     tc = TaskController();
     tc.setLoaderScreenSaving();
 

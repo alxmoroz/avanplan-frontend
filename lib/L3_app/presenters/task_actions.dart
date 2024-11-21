@@ -26,6 +26,7 @@ enum TaskAction {
   close,
   reopen,
   localExport,
+  localImport,
   duplicate,
 
   delete,
@@ -80,7 +81,7 @@ extension TaskActionsUC on Task {
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
   bool get canLocalExport => canEdit && !isProject && !isInbox;
-  bool get canLocalImport => canEdit && (isGoal || isBacklog || (isProject && !hasSubgroups));
+  bool get canLocalImport => canEdit && (isGoal || isBacklog || isProjectWithoutSubgroups);
 
   bool get canComment => !closed && _canEditTask;
 
@@ -89,7 +90,7 @@ extension TaskActionsUC on Task {
 
   bool get canEditProjectStatuses => _hpProjectInfoUpdate;
 
-  bool get canShowBoard => isGoal || (isProject && !hasSubgroups);
+  bool get canShowBoard => isGoal || isProjectWithoutSubgroups;
   bool get canEditViewSettings => canShowBoard || (isGroup && hmTeam);
 
   bool get canEditRelations => _canEditTask;

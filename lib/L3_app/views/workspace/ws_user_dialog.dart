@@ -1,11 +1,11 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/avatar.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';

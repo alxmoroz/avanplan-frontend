@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L2_data/mappers/task_relation.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
@@ -11,6 +10,7 @@ import 'attachment.dart';
 import 'note.dart';
 import 'project_module.dart';
 import 'project_status.dart';
+import 'task_relation.dart';
 import 'task_repeat.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';

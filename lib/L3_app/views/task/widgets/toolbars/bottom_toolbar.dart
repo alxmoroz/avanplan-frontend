@@ -5,12 +5,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/icons.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
-import '../transfer/local_import_dialog.dart';
 import '../view_settings/view_settings_button.dart';
 
 class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
@@ -33,15 +31,9 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
               TasksViewSettingsButton(_tc, compact: true),
             ],
             const Spacer(),
-            if (t.canLocalImport)
-              MTButton.secondary(
-                middle: const LocalImportIcon(),
-                constrained: false,
-                onTap: () => localImportDialog(_tc),
-              ),
             if (t.canCreateSubtask) ...[
               const SizedBox(width: P2),
-              CreateTaskButton(_tc, compact: true, buttonType: ButtonType.secondary),
+              ToolbarCreateTaskButton(_tc, compact: true, buttonType: ButtonType.secondary),
             ],
             const SizedBox(width: P2),
           ],

@@ -15,10 +15,10 @@ import '../../controllers/task_controller.dart';
 import 'action_item.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
-  const TaskPopupMenu(this._tc, {this.extended = false, this.compact = false, super.key});
+  const TaskPopupMenu(this._tc, {this.inToolbar = false, this.compact = false, super.key});
   final TaskController _tc;
   final bool compact;
-  final bool extended;
+  final bool inToolbar;
 
   void _toggle(MenuController mc) {
     if (mc.isOpen) {
@@ -64,7 +64,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
 
   @override
   Widget build(BuildContext context) {
-    final actions = _tc.actions(context, extended: extended);
+    final actions = _tc.actions(context, inToolbar: inToolbar);
     return actions.isNotEmpty ? _menu(context, actions) : const SizedBox();
   }
 }

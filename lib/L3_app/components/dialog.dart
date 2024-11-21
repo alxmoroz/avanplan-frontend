@@ -2,7 +2,6 @@
 
 import 'dart:math';
 
-import 'package:avanplan/L3_app/components/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -12,6 +11,7 @@ import 'colors.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 import 'scrollable.dart';
+import 'toolbar.dart';
 
 BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final mq = MediaQuery.of(context);

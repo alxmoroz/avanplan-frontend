@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/task/widgets/relations/relations_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -28,6 +27,7 @@ import '../dates/dates_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
 import '../project_modules/project_modules.dart';
+import '../relations/relations_field.dart';
 import '../tasks/checklist.dart';
 import 'assignee_field.dart';
 import 'estimate_field.dart';

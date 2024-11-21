@@ -6,22 +6,7 @@ import '../extra/services.dart';
 import 'task_tree.dart';
 import 'workspace.dart';
 
-String addSubtaskActionTitle(Task? parent, {TType? type}) {
-  final taskPlAcc = loc.task_plural_accusative(1);
-
-  String objTitle = type != null
-      ? type.typeNameAccusative(1)
-      : {
-            'ROOT': loc.project_plural(1),
-            TType.PROJECT: (parent?.hasSubgroups == true) ? loc.goal_plural_accusative(1) : taskPlAcc,
-            TType.INBOX: taskPlAcc,
-            TType.GOAL: taskPlAcc,
-            TType.BACKLOG: taskPlAcc,
-          }[parent?.type ?? 'ROOT'] ??
-          loc.subtask_plural_accusative(1);
-
-  return '${loc.action_add_title} $objTitle';
-}
+String addTaskActionTitle([TType type = TType.TASK]) => '${loc.action_add_title} ${type.typeNameAccusative(1)}';
 
 extension TaskTypeStrPresenter on TType {
   String get typeName =>

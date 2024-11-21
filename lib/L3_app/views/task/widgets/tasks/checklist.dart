@@ -27,7 +27,7 @@ class TaskChecklist extends StatelessWidget {
         const MTFieldData(-1),
         leading: const PlusIcon(circled: true, size: P6),
         value: BaseText(
-          _t.hasSubtasks ? addSubtaskActionTitle(_t) : '${loc.action_add_title} ${loc.checklist.toLowerCase()}',
+          _t.hasSubtasks ? addTaskActionTitle(TType.CHECKLIST_ITEM) : '${loc.action_add_title} ${loc.checklist.toLowerCase()}',
           color: mainColor,
         ),
         onTap: _stc.add,

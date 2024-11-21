@@ -278,11 +278,11 @@ class ListIcon extends MTIcon {
 }
 
 class LocalExportIcon extends MTIcon {
-  const LocalExportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.arrow_up);
+  const LocalExportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.shift);
 }
 
 class LocalImportIcon extends MTIcon {
-  const LocalImportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.arrow_down);
+  const LocalImportIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.arrow_down_right_square);
 }
 
 class LocationIcon extends MTIcon {

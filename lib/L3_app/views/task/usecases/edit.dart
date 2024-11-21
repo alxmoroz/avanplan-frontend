@@ -95,7 +95,7 @@ extension TaskEditUC on TaskController {
 
         final updatedTasks = [...taskNode.subtasks, ...taskNode.parents];
         // мои задачи из проекта, если обновляем проект с целями
-        if (root.isProjectWSubgroups) {
+        if (root.isProjectWithSubgroups) {
           updatedTasks.addAll(await wsMyUC.myTasks(root.wsId, projectId: root.id!));
         }
 

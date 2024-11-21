@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -32,10 +33,11 @@ class CreateProjectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final plusIcon = _plusIcon(context);
+    final title = addTaskActionTitle(TType.PROJECT);
     return canShowVerticalBars(context) && type == null
         ? MTListTile(
             leading: plusIcon,
-            middle: !compact ? BaseText(addSubtaskActionTitle(null), maxLines: 1, color: mainColor) : null,
+            middle: !compact ? BaseText(title, maxLines: 1, color: mainColor) : null,
             bottomDivider: false,
             onTap: _controller.startCreate,
           )
@@ -43,7 +45,7 @@ class CreateProjectButton extends StatelessWidget {
             margin: EdgeInsets.only(right: compact ? P2 : 0),
             type: type ?? ButtonType.main,
             leading: compact ? null : plusIcon,
-            titleText: compact ? null : addSubtaskActionTitle(null),
+            titleText: compact ? null : title,
             middle: compact ? plusIcon : null,
             constrained: !compact,
             onTap: _controller.startCreate,

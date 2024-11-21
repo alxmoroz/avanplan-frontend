@@ -7,16 +7,12 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
-import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/project_module.dart';
 import '../../../../presenters/remote_source.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_source.dart';
@@ -26,7 +22,6 @@ import '../attachments/attachments_field.dart';
 import '../dates/dates_field.dart';
 import '../finance/finance_field.dart';
 import '../notes/notes.dart';
-import '../project_modules/project_modules.dart';
 import '../relations/relations_field.dart';
 import '../tasks/checklist.dart';
 import 'assignee_field.dart';
@@ -86,17 +81,6 @@ class TaskDetails extends StatelessWidget {
             /// Связи
             if (_tc.relationsController.hasRelations) TaskRelationsField(_tc, hasMargin: hasMargins),
           ],
-
-          /// Модули проекта
-          if (t.canShowProjectModules)
-            MTField(
-              _tc.fData(TaskFCode.projectModules.index),
-              margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
-              leading: FeaturesIcon(color: t.canEditProjectModules ? mainColor : f3Color),
-              value: BaseText(t.localizedModules, maxLines: 1),
-              compact: compact,
-              onTap: t.canEditProjectModules ? () => projectModulesDialog(_tc) : null,
-            ),
 
           /// Связь с источником импорта
           if (t.didImported)

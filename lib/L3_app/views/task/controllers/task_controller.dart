@@ -20,7 +20,6 @@ import '../../../views/_base/edit_controller.dart';
 import '../../_base/loadable.dart';
 import 'attachments_controller.dart';
 import 'notes_controller.dart';
-import 'project_modules_controller.dart';
 import 'project_statuses_controller.dart';
 import 'relations_controller.dart';
 import 'subtasks_controller.dart';
@@ -40,7 +39,6 @@ enum TaskFCode {
   repeat,
   estimate,
   author,
-  projectModules,
   note,
   attachment,
   finance,
@@ -64,7 +62,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     notesController = NotesController(this);
     transactionsController = TaskTransactionsController(this);
     subtasksController = SubtasksController(this);
-    projectModulesController = ProjectModulesController(this);
     projectStatusesController = ProjectStatusesController(this);
     settingsController = TaskSettingsController(this);
 
@@ -97,7 +94,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
             expenses: 0,
             members: [],
             projectStatuses: [],
-            projectModules: [],
           ),
     );
     this.route = route;
@@ -118,7 +114,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
           placeholder: loc.task_estimate_placeholder,
         ),
         MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
-        MTFieldData(TaskFCode.projectModules.index, label: loc.project_modules_label),
         MTFieldData(TaskFCode.note.index),
         MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
         MTFieldData(TaskFCode.finance.index, label: loc.tariff_option_finance_title, placeholder: loc.tariff_option_finance_title),
@@ -131,7 +126,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     notesController.reload();
     transactionsController.reload();
     subtasksController.reload();
-    projectModulesController.reload();
     projectStatusesController.reload();
     settingsController.reload();
   }
@@ -155,7 +149,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   late final NotesController notesController;
   late final TaskTransactionsController transactionsController;
   late final SubtasksController subtasksController;
-  late final ProjectModulesController projectModulesController;
   late final ProjectStatusesController projectStatusesController;
   late final TaskSettingsController settingsController;
 

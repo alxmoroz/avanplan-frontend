@@ -19,17 +19,19 @@ extension WSTariff on Workspace {
 
   num? finalPrice(String code) => ad(code)?.finalPrice;
   DateTime? consumedEndDate(String code) => ad(code)?.endDate;
-  num serviceAmount(String code) => ad(code)?.serviceAmount ?? 0;
-  bool hasExpense(String code) => serviceAmount(code) > 0;
+  num _serviceAmount(String code) => ad(code)?.serviceAmount ?? 0;
+  bool hasExpense(String code) => _serviceAmount(code) > 0;
+
+  bool get hfTeam => hasExpense(TOCode.TEAM);
+  bool get hfAnalytics => hasExpense(TOCode.ANALYTICS);
+  bool get hfFinance => hasExpense(TOCode.FINANCE);
 
   // TODO: перенести в computed в контроллер
-  Iterable<TariffOption> get availableProjectModulesOptions => tariff.projectModulesOptions;
-  Iterable<TariffOption> get enabledProjectModulesOptions => availableProjectModulesOptions.where((o) => !o.userManageable || hasExpense(o.code));
   List<TariffOption> get expensiveOptions => tariff.consumableOptions.where((o) => hasExpense(o.code)).toList();
   List<TariffOption> get expensiveFeatures => tariff.features.where((o) => hasExpense(o.code)).toList();
 
   num overdraft(String code, Tariff tariff) {
-    final diff = max(0, serviceAmount(code) - tariff.freeLimit(code));
+    final diff = max(0, _serviceAmount(code) - tariff.freeLimit(code));
     return (diff / tariff.tariffQuantity(code)).ceil();
   }
 
@@ -46,11 +48,9 @@ extension WSTariff on Workspace {
 
   num get expectedDailyCharge => overallExpectedMonthlyCharge(tariff) / DAYS_IN_MONTH;
 
-  bool get allProjectOptionsUsed => enabledProjectModulesOptions.length == availableProjectModulesOptions.length;
-
   Iterable<TariffOption> get subscribedFeatures => tariff.features.where((o) => hasExpense(o.code));
 
   // TODO: deprecated TASKS_COUNT, FS_VOLUME как только не останется старых тарифов
-  num get consumedTasks => serviceAmount(TOCode.TASKS) + serviceAmount("TASKS_COUNT");
-  num get consumedFileStorage => serviceAmount(TOCode.FILE_STORAGE) + serviceAmount('FS_VOLUME');
+  num get consumedTasks => _serviceAmount(TOCode.TASKS) + _serviceAmount("TASKS_COUNT");
+  num get consumedFileStorage => _serviceAmount(TOCode.FILE_STORAGE) + _serviceAmount('FS_VOLUME');
 }

@@ -14,7 +14,6 @@ import '../views/my_account/my_account_dialog.dart';
 import '../views/notification/notifications_dialog.dart';
 import '../views/onboarding/onboarding_view.dart';
 import '../views/projects/projects_view.dart';
-import '../views/quiz/abstract_task_quiz_controller.dart';
 import '../views/source/sources_dialog.dart';
 import '../views/task/widgets/empty_state/task_404_dialog.dart';
 import '../views/workspace/ws_route.dart';
@@ -162,31 +161,6 @@ extension MTRouterHelper on GoRouter {
 
   // главный онбординг
   Future pushOnboarding({TaskDescriptor? hostProject}) async => await pushNamed(onboardingRoute.name, extra: hostProject ?? 'local');
-
-  // шаги квиза создания цели / проекта
-  Future pushTaskQuizStep(
-    String stepName,
-    AbstractTaskQuizController qc, {
-    bool needAppendPath = false,
-    Map<String, String> pathParameters = const <String, String>{},
-  }) async {
-    final stepIndex = qc.stepIndex;
-    needAppendPath = needAppendPath || stepIndex < 2;
-    final parentName = needAppendPath ? currentRoute.name : currentRoute.parent!.name;
-    final pp = _currentConfig.pathParameters;
-    pp.addAll(pathParameters);
-
-    await pushNamed('$parentName/$stepName', pathParameters: pp, extra: qc);
-  }
-
-  // Выход из квиза создания цели или проекта
-  void popToTaskTypeOrMain(TType type) {
-    RouteMatchList rConfig = _currentConfig;
-    while (rConfig.matches.length > 1 && (rConfig.last.route as MTRoute).baseName != '$type') {
-      rConfig = rConfig.remove(rConfig.last);
-    }
-    _go(rConfig.last.matchedLocation);
-  }
 
   Future goInner(Uri uri) async {
     String location = uri.path;

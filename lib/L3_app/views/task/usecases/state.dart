@@ -6,8 +6,8 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../presenters/project_module.dart';
 import '../../../presenters/task_state.dart';
+import '../../../presenters/task_view.dart';
 import '../controllers/task_controller.dart';
 import 'tree.dart';
 
@@ -41,7 +41,7 @@ extension StateUC on TaskController {
                 ? TaskState.BACKLOG
                 : t.isTask
                     ? t.leafState
-                    : t.hmAnalytics || t.closed
+                    : t.hasAnalytics || t.closed
                         ? t.state
                         : TaskState.NO_ANALYTICS;
   }

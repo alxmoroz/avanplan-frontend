@@ -6,7 +6,6 @@ import '../entities_extensions/task_dates.dart';
 import 'attachment.dart';
 import 'base_entity.dart';
 import 'note.dart';
-import 'project_module.dart';
 import 'project_status.dart';
 import 'task_relation.dart';
 import 'task_repeat.dart';
@@ -124,7 +123,6 @@ class Task extends Project {
     required this.expenses,
     required this.members,
     required this.projectStatuses,
-    required this.projectModules,
     required super.wsId,
     required super.type,
     this.taskSource,
@@ -183,7 +181,6 @@ class Task extends Project {
   final num expenses;
 
   Iterable<WSMember> members;
-  Iterable<ProjectModule> projectModules;
   TaskSource? taskSource;
 
   final int? subtasksCountIn;

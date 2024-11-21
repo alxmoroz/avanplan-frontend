@@ -151,7 +151,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
       child: ListView(
         controller: isWeb ? _scrollController : null,
         children: [
-          _bigTitle,
+          if (!_freshStart) _bigTitle,
           _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
         ],
       ),
@@ -165,7 +165,7 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
           : MTTopBar(
               color: navbarColor,
               leading: myAccountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P10),
-              pageTitle: _hasScrolled ? loc.my_tasks_upcoming_title : '',
+              pageTitle: _hasScrolled && !_freshStart ? loc.my_tasks_upcoming_title : '',
               trailing: isWeb ? null : _appBarTrailing,
             ),
       body: body,

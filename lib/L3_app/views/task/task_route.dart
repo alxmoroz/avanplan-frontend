@@ -4,21 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_type.dart';
 import '../../components/adaptive.dart';
 import '../../components/constants.dart';
 import '../../navigation/route.dart';
 import '../../navigation/router.dart';
-import '../../presenters/task_tree.dart';
 import '../../presenters/task_type.dart';
-import '../quiz/abstract_task_quiz_controller.dart';
-import 'controllers/create_project_quiz_controller.dart';
 import 'controllers/task_controller.dart';
 import 'task_view.dart';
-import 'widgets/create/create_task_quiz_view.dart';
 import 'widgets/empty_state/task_404_dialog.dart';
-import 'widgets/project_modules/project_modules.dart';
-import 'widgets/team/project_team_quiz_view.dart';
 
 abstract class BaseTaskRoute extends MTRoute {
   BaseTaskRoute({
@@ -54,19 +47,7 @@ abstract class BaseTaskRoute extends MTRoute {
       };
 
   @override
-  GoRouterWidgetBuilder? get builder => (_, state) {
-        // шаг квиза?
-        AbstractTaskQuizController? quizController = (state.extra is AbstractTaskQuizController) ? state.extra as AbstractTaskQuizController : null;
-        if (quizController == null && td.creating && (td.isProject)) {
-          quizController = CreateProjectQuizController(_tc);
-        }
-        final qcTD = quizController?.taskController.taskDescriptor;
-
-        final key = ValueKey('${td.wsId}_${td.id}');
-        return quizController != null && (qcTD == td || qcTD == td.parent)
-            ? CreateTaskQuizView(_tc, quizController, key: key)
-            : TaskView(_tc, key: key);
-      };
+  GoRouterWidgetBuilder? get builder => (_, __) => TaskView(_tc, key: ValueKey('${td.wsId}_${td.id}'));
 }
 
 class TaskRoute extends BaseTaskRoute {
@@ -118,8 +99,6 @@ class ProjectRoute extends BaseTaskRoute {
 
   @override
   List<RouteBase> get routes => [
-        ProjectModulesQuizRoute(parent: this),
-        ProjectTeamQuizRoute(parent: this),
         GoalRoute(parent: this),
         BacklogRoute(parent: this),
         TaskRoute(parent: this),

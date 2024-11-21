@@ -22,7 +22,6 @@ class TariffOption extends Codable {
     required this.tariffQuantity,
     required this.freeLimit,
     required this.userManageable,
-    required this.projectRelated,
     required this.promoAction,
   });
 
@@ -30,7 +29,6 @@ class TariffOption extends Codable {
   final num tariffQuantity;
   final num freeLimit;
   final bool userManageable;
-  final bool projectRelated;
   final PromoAction? promoAction;
 
   String get title => Intl.message('tariff_option_${code.toLowerCase()}_title');

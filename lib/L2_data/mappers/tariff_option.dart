@@ -13,7 +13,6 @@ extension TariffOptionMapper on api.TariffOptionGet {
         tariffQuantity: tariffQuantity ?? 1,
         freeLimit: freeLimit ?? 0,
         userManageable: userManageable ?? false,
-        projectRelated: projectRelated ?? false,
         promoAction: promoAction?.promoAction,
       );
 }

@@ -14,7 +14,6 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/project_module.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
@@ -43,7 +42,7 @@ class _AnalyticsDialog extends StatelessWidget {
       );
 
   num _hVelocity(Task t) => (t.project.velocity * DAYS_IN_MONTH).round();
-  String _velocityUnit(Task t) => loc.chart_velocity_unit_mo(t.hmAnalytics ? t.ws.estimateUnitCode : loc.task_plural(_hVelocity(t)));
+  String _velocityUnit(Task t) => loc.chart_velocity_unit_mo(t.hasAnalytics ? t.ws.estimateUnitCode : loc.task_plural(_hVelocity(t)));
 
   Widget _chartCard(Widget child) => Container(
         alignment: Alignment.topLeft,
@@ -57,7 +56,7 @@ class _AnalyticsDialog extends StatelessWidget {
     return _details(
       loc.state_closed,
       '$closedVolume / $totalVolume',
-      unit: t.hmAnalytics ? t.ws.estimateUnitCode : loc.task_plural(totalVolume),
+      unit: t.hasAnalytics ? t.ws.estimateUnitCode : loc.task_plural(totalVolume),
       divider: false,
     );
   }

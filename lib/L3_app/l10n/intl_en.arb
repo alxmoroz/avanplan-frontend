@@ -287,10 +287,6 @@
   "project_member_unlink_dialog_title": "Unlink member from project?",
   "project_member_unlink_dialog_description": "The member will lose access to the project",
 
-  "project_modules_label": "Modules",
-  "project_modules_quiz_title": "Select project modules",
-  "project_modules_title": "Project Modules",
-
   "project_new_title": "New Project",
   "project_plural": "{count, plural, one{project} other{projects}}",
   "project_plural_accusative": "{count, plural, one{project} other{projects}}",
@@ -538,7 +534,6 @@
 
   "team_empty_hint": "Invite members to collaborate effectively",
   "team_empty_title": "The team is waiting for an invitation",
-  "team_quiz_title": "Invite members",
   "team_title": "Team",
 
   "title": "Title",

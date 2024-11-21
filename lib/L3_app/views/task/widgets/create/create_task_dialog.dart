@@ -34,7 +34,6 @@ Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, Task?
       income: 0,
       expenses: 0,
       projectStatuses: [],
-      projectModules: [],
       wsId: ws.id!,
       startDate: null,
       type: type,

@@ -16,7 +16,6 @@ import '../../L1_domain/usecases/my_contacts_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
 import '../../L1_domain/usecases/project_members_uc.dart';
-import '../../L1_domain/usecases/project_module_uc.dart';
 import '../../L1_domain/usecases/project_status_uc.dart';
 import '../../L1_domain/usecases/release_note_uc.dart';
 import '../../L1_domain/usecases/remote_sources_uc.dart';
@@ -44,7 +43,6 @@ import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/notes_repo.dart';
 import '../../L2_data/repositories/project_invitations_repo.dart';
 import '../../L2_data/repositories/project_members_repo.dart';
-import '../../L2_data/repositories/project_modules_repo.dart';
 import '../../L2_data/repositories/project_statuses_repo.dart';
 import '../../L2_data/repositories/release_notes_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
@@ -110,7 +108,6 @@ InvitationUC get invitationUC => GetIt.I<InvitationUC>();
 
 ProjectStatusesUC get projectStatusesUC => GetIt.I<ProjectStatusesUC>();
 ProjectMembersUC get projectMembersUC => GetIt.I<ProjectMembersUC>();
-ProjectModulesUC get projectModulesUC => GetIt.I<ProjectModulesUC>();
 
 TaskUC get taskUC => GetIt.I<TaskUC>();
 TaskTransactionsUC get taskTransactionsUC => GetIt.I<TaskTransactionsUC>();
@@ -156,7 +153,6 @@ void setup() {
   getIt.registerSingleton<ServiceSettingsUC>(ServiceSettingsUC(ServiceSettingsRepo()));
   getIt.registerSingleton<InvitationUC>(InvitationUC(ProjectInvitationsRepo()));
   getIt.registerSingleton<InAppPurchaseUC>(InAppPurchaseUC(IAPRepo()));
-  getIt.registerSingleton<ProjectModulesUC>(ProjectModulesUC(ProjectModulesRepo()));
   getIt.registerSingleton<ReleaseNotesUC>(ReleaseNotesUC(ReleaseNotesRepo()));
 
   getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));

@@ -287,10 +287,6 @@
   "project_member_unlink_dialog_title": "Отключить участника от проекта?",
   "project_member_unlink_dialog_description": "Участник потеряет доступ к проекту",
 
-  "project_modules_label": "Модули",
-  "project_modules_quiz_title": "Выберите модули проекта",
-  "project_modules_title": "Модули проекта",
-
   "project_new_title": "Новый проект",
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_plural_accusative": "{count, plural, one{проект} few{проекта} other{проектов}}",
@@ -538,7 +534,6 @@
 
   "team_empty_hint": "Пригласите участников для эффективной совместной работы",
   "team_empty_title": "Команда ждёт приглашения",
-  "team_quiz_title": "Пригласите участников",
   "team_title": "Команда",
 
   "title": "Название",

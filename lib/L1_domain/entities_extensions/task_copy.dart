@@ -33,7 +33,6 @@ extension TaskCopyExtension on Task {
         assigneeId: assigneeId,
         members: members,
         projectStatuses: projectStatuses,
-        projectModules: projectModules,
         taskSource: taskSource,
         wsId: wsId,
         state: state,

@@ -7,7 +7,7 @@ import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../extra/services.dart';
-import 'project_module.dart';
+import 'task_view.dart';
 
 extension TaskTreeUC on Task {
   // TODO: попробовать вынести в computed в один из контроллеров
@@ -37,5 +37,5 @@ extension TaskTreeUC on Task {
   bool get hasSubtasks => subtasksCount > 0 || closedSubtasksCount > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
-  bool get assignedToMe => (assignee != null && assignee!.userId == myAccountController.me!.id) || !hmTeam;
+  bool get assignedToMe => (assignee != null && assignee!.userId == myAccountController.me!.id) || !hasTeam;
 }

@@ -5,43 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
-import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../my_account/usecases/onboarding.dart';
 import '../workspace/ws_controller.dart';
 import '../workspace/ws_features_dialog.dart';
-
-// NB! Этот диалог вызывается только из квиза создания проекта
-// NB! Для онбординга проверка наличия включенных функций не нужна, т.к. пользователь в своём РП их ещё точно не включил.
-Future showPromoFeatures(Workspace ws) async {
-  if (!ws.allProjectOptionsUsed && !myAccountController.promoFeaturesViewed) {
-    await showMTDialog(_PromoFeaturesDialog(ws));
-    myAccountController.registerPromoFeaturesViewed();
-  }
-}
-
-class _PromoFeaturesDialog extends StatelessWidget {
-  const _PromoFeaturesDialog(this.ws);
-  final Workspace ws;
-
-  @override
-  Widget build(BuildContext context) {
-    return MTDialog(
-      body: ListView(
-        shrinkWrap: true,
-        children: [PromoFeatures(ws)],
-      ),
-      forceBottomPadding: true,
-    );
-  }
-}
 
 class PromoFeatures extends StatelessWidget {
   const PromoFeatures(this.ws, {super.key, this.onLater});

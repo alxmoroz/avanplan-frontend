@@ -22,7 +22,6 @@ import '../../../../extra/services.dart';
 import '../../../../navigation/router.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
-import '../../../../presenters/project_module.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_estimate.dart';
 import '../../../../presenters/task_state.dart';
@@ -125,7 +124,7 @@ class _State extends State<TaskCard> {
   bool get _showStatus => _t.canShowStatus && !widget.board && !_t.closed;
 
   Widget get _status => SmallText('${_t.status}', color: _textColor, maxLines: 1);
-  bool get _showAssignee => _t.hmTeam && _t.hasAssignee && widget.showAssignee;
+  bool get _showAssignee => _t.hasTeam && _t.hasAssignee && widget.showAssignee;
 
   Widget get _assignee => _t.assignee!.icon(P2 + P_2);
   bool get _showChecklistMark => !_t.closed && _t.isCheckList;
@@ -155,7 +154,7 @@ class _State extends State<TaskCard> {
           ),
         ],
       );
-  bool get _showEstimate => _t.hmAnalytics && _t.hasEstimate;
+  bool get _showEstimate => _t.hasAnalytics && _t.hasEstimate;
 
   Widget get _estimate => SmallText(_t.estimateStr, color: _textColor, maxLines: 1);
 

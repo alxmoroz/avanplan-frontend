@@ -5,8 +5,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
-import '../../../components/constants.dart';
 import '../../../components/colors.dart';
+import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/images.dart';
 import '../../../components/text.dart';
@@ -34,7 +34,7 @@ class NoTasks extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            const SizedBox(height: P12),
+            const SizedBox(height: P12 + P6),
             MTImage((_freshStart
                     ? ImageName.ok_blue
                     : _isAllProjectsClosed
@@ -62,15 +62,13 @@ class NoTasks extends StatelessWidget {
             ],
             if (_freshStart) ...[
               const SizedBox(height: P7),
-              BaseText(
-                loc.my_tasks_add_action_hint,
-                align: TextAlign.center,
-                maxLines: 2,
-              ),
-              const SizedBox(height: P2),
-              const LocalImportIcon(size: P6, color: f2Color),
+              BaseText(loc.my_tasks_add_action_hint, align: TextAlign.center, maxLines: 2),
               const SizedBox(height: P3),
-              if (big) const Align(child: InboxAddTaskButton(standalone: true)),
+              const ArrowDownIcon(size: P6, color: f2Color),
+              if (big) ...[
+                const SizedBox(height: P3),
+                const Align(child: InboxAddTaskButton(standalone: true)),
+              ],
             ]
           ],
         );

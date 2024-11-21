@@ -17,7 +17,7 @@ class QuizStep {
   final bool awaiting;
 }
 
-abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
+abstract class AbstractQuizController extends _Base with _$AbstractQuizController {
   void back() {
     if (step.awaiting) {
       router.pop();
@@ -43,7 +43,7 @@ abstract class AbstractQuizController extends _QuizControllerBase with _$Abstrac
   }
 }
 
-abstract class _QuizControllerBase with Store {
+abstract class _Base with Store {
   Iterable<QuizStep> get steps => [];
   int get stepsCount => steps.length;
 

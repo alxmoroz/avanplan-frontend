@@ -9,10 +9,10 @@ import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_params.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
+import '../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../components/adaptive.dart';
 import '../extra/services.dart';
 import '../usecases/ws_actions.dart';
-import 'project_module.dart';
 import 'task_tree.dart';
 
 enum TaskAction {
@@ -45,7 +45,7 @@ extension TaskActionsUC on Task {
   bool get _hpCreate => me?.hp('TASK_CREATE') == true || ws.hpProjectContentUpdate;
   bool get _hpUpdate => me?.hp('TASK_UPDATE') == true || ws.hpProjectContentUpdate;
   bool get _hpDelete => me?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
-  bool get _hpProjectInfoRead => me?.hp('PROJECT_INFO_READ') == true || ws.hpProjectContentUpdate;
+  // bool get _hpProjectInfoRead => me?.hp('PROJECT_INFO_READ') == true || ws.hpProjectContentUpdate;
   bool get _hpProjectInfoUpdate => me?.hp('PROJECT_INFO_UPDATE') == true || ws.hpProjectContentUpdate;
 
   /// доступные действия
@@ -64,19 +64,19 @@ extension TaskActionsUC on Task {
 
   bool canShowDetails(BuildContext context) => !isBigScreen(context) && isProjectOrGoal;
 
-  bool get canShowMembers => isProject && hmTeam && _hpMemberRead;
-  bool get canEditMembers => isProject && hmTeam && _hpMemberUpdate;
+  bool get canShowMembers => isProject && ws.hfTeam && _hpMemberRead;
+  bool get canEditMembers => isProject && ws.hfTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
 
   bool get canShowStatus => hasStatus && project.projectStatuses.length > 2;
   bool get canSetStatus => project.projectStatuses.isNotEmpty && _canEditTask;
 
-  bool get canAssign => hmTeam && canEdit && activeMembers.isNotEmpty;
+  bool get canAssign => ws.hfTeam && canEdit && activeMembers.isNotEmpty;
 
-  bool get canShowEstimate => hmAnalytics && isTask && hasEstimate;
-  bool get canEstimate => hmAnalytics && _canEditTask && ws.estimateValues.isNotEmpty;
+  bool get canShowEstimate => ws.hfAnalytics && isTask && hasEstimate;
+  bool get canEstimate => ws.hfAnalytics && _canEditTask && ws.estimateValues.isNotEmpty;
 
-  bool get canEditFinance => hmFinance && _canEditTask;
+  bool get canEditFinance => ws.hfFinance && _canEditTask;
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
 
@@ -85,13 +85,10 @@ extension TaskActionsUC on Task {
 
   bool get canComment => !closed && _canEditTask;
 
-  bool get canShowProjectModules => isProject && _hpProjectInfoRead;
-  bool get canEditProjectModules => isProject && _hpProjectInfoUpdate;
-
   bool get canEditProjectStatuses => _hpProjectInfoUpdate;
 
   bool get canShowBoard => hasSubtasks && (isGoal || isProjectWithoutGroups);
-  bool get canShowAssigneeFilter => hasSubtasks && hmTeam && activeMembers.isNotEmpty;
+  bool get canShowAssigneeFilter => hasSubtasks && ws.hfTeam && activeMembers.isNotEmpty;
   bool get canEditViewSettings => canShowBoard || canShowAssigneeFilter;
 
   bool get canEditRelations => _canEditTask;

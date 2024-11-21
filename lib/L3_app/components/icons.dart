@@ -58,6 +58,10 @@ class AnalyticsIcon extends MTIcon {
   const AnalyticsIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.chart_bar);
 }
 
+class ArrowDownIcon extends MTIcon {
+  const ArrowDownIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.arrow_down);
+}
+
 class AttachmentIcon extends MTIcon {
   const AttachmentIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE, super.circled}) : super(CupertinoIcons.paperclip);
 }
@@ -174,10 +178,6 @@ class DoneIcon extends MTIcon {
           done ? CupertinoIcons.checkmark : null,
         );
   final bool done;
-}
-
-class DownloadIcon extends MTIcon {
-  const DownloadIcon({super.key, super.color, super.size}) : super(CupertinoIcons.arrow_down_to_line);
 }
 
 class DropdownIcon extends MTIcon {

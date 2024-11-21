@@ -187,13 +187,6 @@ void main() {
       // TODO
     });
 
-    // Setup Project Modules
-    //
-    //Future<BuiltList<ProjectModuleGet>> setupProjectModules(int taskId, int wsId, BuiltList<String> requestBody) async
-    test('test setupProjectModules', () async {
-      // TODO
-    });
-
     // Sign
     //
     //Future<InvoiceGet> sign(int tariffId, int wsId) async

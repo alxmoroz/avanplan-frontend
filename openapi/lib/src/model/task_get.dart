@@ -60,8 +60,8 @@ part 'task_get.g.dart';
 /// * [attachments] 
 /// * [attachmentsCount] 
 /// * [projectStatuses] 
-/// * [projectModules] 
 /// * [transactions] 
+/// * [projectModules] 
 /// * [subtasksCount] 
 /// * [position] 
 /// * [hasSubgroups] 
@@ -184,11 +184,11 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'project_statuses')
   BuiltList<ProjectStatusGet>? get projectStatuses;
 
-  @BuiltValueField(wireName: r'project_modules')
-  BuiltList<ProjectModuleGet>? get projectModules;
-
   @BuiltValueField(wireName: r'transactions')
   BuiltList<TaskTransactionGet>? get transactions;
+
+  @BuiltValueField(wireName: r'project_modules')
+  BuiltList<ProjectModuleGet>? get projectModules;
 
   @BuiltValueField(wireName: r'subtasks_count')
   int? get subtasksCount;
@@ -491,18 +491,18 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
       );
     }
-    if (object.projectModules != null) {
-      yield r'project_modules';
-      yield serializers.serialize(
-        object.projectModules,
-        specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
-      );
-    }
     if (object.transactions != null) {
       yield r'transactions';
       yield serializers.serialize(
         object.transactions,
         specifiedType: const FullType(BuiltList, [FullType(TaskTransactionGet)]),
+      );
+    }
+    if (object.projectModules != null) {
+      yield r'project_modules';
+      yield serializers.serialize(
+        object.projectModules,
+        specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
       );
     }
     if (object.subtasksCount != null) {
@@ -822,19 +822,19 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<ProjectStatusGet>;
           result.projectStatuses.replace(valueDes);
           break;
-        case r'project_modules':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
-          ) as BuiltList<ProjectModuleGet>;
-          result.projectModules.replace(valueDes);
-          break;
         case r'transactions':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList, [FullType(TaskTransactionGet)]),
           ) as BuiltList<TaskTransactionGet>;
           result.transactions.replace(valueDes);
+          break;
+        case r'project_modules':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(ProjectModuleGet)]),
+          ) as BuiltList<ProjectModuleGet>;
+          result.projectModules.replace(valueDes);
           break;
         case r'subtasks_count':
           final valueDes = serializers.deserialize(

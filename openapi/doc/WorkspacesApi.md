@@ -34,7 +34,6 @@ Method | HTTP request | Description
 [**projectTemplates**](WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [**repeatTask**](WorkspacesApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [**requestType**](WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
-[**setupProjectModules**](WorkspacesApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [**sign**](WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [**sourcesForMoveTasks**](WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [**sourcesForRelations**](WorkspacesApi.md#sourcesforrelations) | **GET** /v1/workspaces/{ws_id}/relations/sources | Sources For Relations
@@ -1306,57 +1305,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **bool**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **setupProjectModules**
-> BuiltList<ProjectModuleGet> setupProjectModules(taskId, wsId, requestBody)
-
-Setup Project Modules
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
-final int taskId = 56; // int | 
-final int wsId = 56; // int | 
-final BuiltList<String> requestBody = ; // BuiltList<String> | 
-
-try {
-    final response = api.setupProjectModules(taskId, wsId, requestBody);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->setupProjectModules: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **taskId** | **int**|  | 
- **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;String&gt;**](String.md)|  | 
-
-### Return type
-
-[**BuiltList&lt;ProjectModuleGet&gt;**](ProjectModuleGet.md)
 
 ### Authorization
 

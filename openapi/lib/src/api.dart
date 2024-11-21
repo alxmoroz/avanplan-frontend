@@ -20,7 +20,6 @@ import 'package:openapi/src/api/my_notifications_api.dart';
 import 'package:openapi/src/api/my_push_tokens_api.dart';
 import 'package:openapi/src/api/payments_api.dart';
 import 'package:openapi/src/api/project_members_api.dart';
-import 'package:openapi/src/api/project_modules_api.dart';
 import 'package:openapi/src/api/project_statuses_api.dart';
 import 'package:openapi/src/api/release_notes_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
@@ -155,12 +154,6 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   ProjectMembersApi getProjectMembersApi() {
     return ProjectMembersApi(dio, serializers);
-  }
-
-  /// Get ProjectModulesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  ProjectModulesApi getProjectModulesApi() {
-    return ProjectModulesApi(dio, serializers);
   }
 
   /// Get ProjectStatusesApi instance, base route and serializer can be overridden by a given but be careful,

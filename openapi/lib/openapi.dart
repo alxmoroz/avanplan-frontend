@@ -20,7 +20,6 @@ export 'package:openapi/src/api/my_notifications_api.dart';
 export 'package:openapi/src/api/my_push_tokens_api.dart';
 export 'package:openapi/src/api/payments_api.dart';
 export 'package:openapi/src/api/project_members_api.dart';
-export 'package:openapi/src/api/project_modules_api.dart';
 export 'package:openapi/src/api/project_statuses_api.dart';
 export 'package:openapi/src/api/release_notes_api.dart';
 export 'package:openapi/src/api/settings_api.dart';

@@ -51,7 +51,6 @@ doc/PermissionRoleGet.md
 doc/ProjectGet.md
 doc/ProjectMembersApi.md
 doc/ProjectModuleGet.md
-doc/ProjectModulesApi.md
 doc/ProjectStatusGet.md
 doc/ProjectStatusUpsert.md
 doc/ProjectStatusesApi.md
@@ -112,7 +111,6 @@ lib/src/api/my_notifications_api.dart
 lib/src/api/my_push_tokens_api.dart
 lib/src/api/payments_api.dart
 lib/src/api/project_members_api.dart
-lib/src/api/project_modules_api.dart
 lib/src/api/project_statuses_api.dart
 lib/src/api/release_notes_api.dart
 lib/src/api/settings_api.dart
@@ -257,7 +255,6 @@ test/permission_role_get_test.dart
 test/project_get_test.dart
 test/project_members_api_test.dart
 test/project_module_get_test.dart
-test/project_modules_api_test.dart
 test/project_status_get_test.dart
 test/project_status_upsert_test.dart
 test/project_statuses_api_test.dart

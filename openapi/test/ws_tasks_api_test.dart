@@ -92,13 +92,6 @@ void main() {
       // TODO
     });
 
-    // Setup Project Modules
-    //
-    //Future<BuiltList<ProjectModuleGet>> setupProjectModules(int taskId, int wsId, BuiltList<String> requestBody) async
-    test('test setupProjectModules', () async {
-      // TODO
-    });
-
     // Status Tasks Count
     //
     //Future<int> statusTasksCount(int wsId, int taskId, int projectStatusId) async

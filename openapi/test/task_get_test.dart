@@ -202,13 +202,13 @@ void main() {
       // TODO
     });
 
-    // BuiltList<ProjectModuleGet> projectModules
-    test('to test the property `projectModules`', () async {
+    // BuiltList<TaskTransactionGet> transactions
+    test('to test the property `transactions`', () async {
       // TODO
     });
 
-    // BuiltList<TaskTransactionGet> transactions
-    test('to test the property `transactions`', () async {
+    // BuiltList<ProjectModuleGet> projectModules
+    test('to test the property `projectModules`', () async {
       // TODO
     });
 

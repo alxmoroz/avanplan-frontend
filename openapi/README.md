@@ -89,7 +89,6 @@ Class | Method | HTTP request | Description
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectMembersApi*](doc/ProjectMembersApi.md) | [**assignProjectMemberRoles**](doc/ProjectMembersApi.md#assignprojectmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
 [*ProjectMembersApi*](doc/ProjectMembersApi.md) | [**projectMemberContacts**](doc/ProjectMembersApi.md#projectmembercontacts) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
-[*ProjectModulesApi*](doc/ProjectModulesApi.md) | [**setupProjectModules**](doc/ProjectModulesApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**deleteStatus**](doc/ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**statusTasksCount**](doc/ProjectStatusesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**upsertStatus**](doc/ProjectStatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
@@ -131,7 +130,6 @@ Class | Method | HTTP request | Description
 [*WSTasksApi*](doc/WSTasksApi.md) | [**moveTask**](doc/WSTasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
 [*WSTasksApi*](doc/WSTasksApi.md) | [**projectMemberContacts**](doc/WSTasksApi.md#projectmembercontacts) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
 [*WSTasksApi*](doc/WSTasksApi.md) | [**repeatTask**](doc/WSTasksApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
-[*WSTasksApi*](doc/WSTasksApi.md) | [**setupProjectModules**](doc/WSTasksApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [*WSTasksApi*](doc/WSTasksApi.md) | [**statusTasksCount**](doc/WSTasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
 [*WSTasksApi*](doc/WSTasksApi.md) | [**taskNode**](doc/WSTasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
 [*WSTasksApi*](doc/WSTasksApi.md) | [**tasksList**](doc/WSTasksApi.md#taskslist) | **POST** /v1/workspaces/{ws_id}/tasks/list | Tasks List
@@ -171,7 +169,6 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**projectTemplates**](doc/WorkspacesApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**repeatTask**](doc/WorkspacesApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**requestType**](doc/WorkspacesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupProjectModules**](doc/WorkspacesApi.md#setupprojectmodules) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/project_modules | Setup Project Modules
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sign**](doc/WorkspacesApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForMoveTasks**](doc/WorkspacesApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**sourcesForRelations**](doc/WorkspacesApi.md#sourcesforrelations) | **GET** /v1/workspaces/{ws_id}/relations/sources | Sources For Relations

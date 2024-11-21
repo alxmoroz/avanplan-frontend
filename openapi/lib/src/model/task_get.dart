@@ -39,7 +39,6 @@ part 'task_get.g.dart';
 /// * [authorId] 
 /// * [projectStatusId] 
 /// * [taskSourceId] 
-/// * [hasSubgroups] 
 /// * [state] 
 /// * [velocity] 
 /// * [requiredVelocity] 
@@ -65,6 +64,7 @@ part 'task_get.g.dart';
 /// * [transactions] 
 /// * [subtasksCount] 
 /// * [position] 
+/// * [hasSubgroups] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -120,9 +120,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
-
-  @BuiltValueField(wireName: r'has_subgroups')
-  bool? get hasSubgroups;
 
   @BuiltValueField(wireName: r'state')
   String? get state;
@@ -199,6 +196,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'position')
   String? get position;
 
+  @BuiltValueField(wireName: r'has_subgroups')
+  bool? get hasSubgroups;
+
   TaskGet._();
 
   factory TaskGet([void updates(TaskGetBuilder b)]) = _$TaskGet;
@@ -207,7 +207,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   static void _defaults(TaskGetBuilder b) => b
       ..type = 'TASK'
       ..closed = false
-      ..hasSubgroups = false
       ..income = 0.0
       ..expenses = 0.0;
 
@@ -343,13 +342,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.taskSourceId,
         specifiedType: const FullType(int),
-      );
-    }
-    if (object.hasSubgroups != null) {
-      yield r'has_subgroups';
-      yield serializers.serialize(
-        object.hasSubgroups,
-        specifiedType: const FullType(bool),
       );
     }
     if (object.state != null) {
@@ -527,6 +519,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(String),
       );
     }
+    if (object.hasSubgroups != null) {
+      yield r'has_subgroups';
+      yield serializers.serialize(
+        object.hasSubgroups,
+        specifiedType: const FullType(bool),
+      );
+    }
   }
 
   @override
@@ -675,13 +674,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.taskSourceId = valueDes;
-          break;
-        case r'has_subgroups':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.hasSubgroups = valueDes;
           break;
         case r'state':
           final valueDes = serializers.deserialize(
@@ -857,6 +849,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.position = valueDes;
+          break;
+        case r'has_subgroups':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hasSubgroups = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -96,10 +96,5 @@ void main() {
     test('to test the property `taskSourceId`', () async {
       // TODO
     });
-
-    // bool hasSubgroups (default value: false)
-    test('to test the property `hasSubgroups`', () async {
-      // TODO
-    });
   });
 }

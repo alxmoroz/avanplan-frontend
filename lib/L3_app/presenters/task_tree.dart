@@ -31,8 +31,8 @@ extension TaskTreeUC on Task {
   int get closedSubtasksCount => closedSubtasksCountIn ?? closedSubtasks.length;
 
   bool get hasSubgroups => subtasks.any((st) => st.isGroup) || hasSubgroupsIn;
-  bool get isProjectWithSubgroups => isProject && hasSubgroups;
-  bool get isProjectWithoutSubgroups => isProject && !hasSubgroups;
+  bool get isProjectWithGroups => isProject && hasSubgroups;
+  bool get isProjectWithoutGroups => isProject && !hasSubgroups;
 
   bool get hasSubtasks => subtasksCount > 0 || closedSubtasksCount > 0;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;

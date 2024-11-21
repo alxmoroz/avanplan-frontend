@@ -14,6 +14,7 @@ extension ProjectModulePresenter on Task {
 
   Iterable<String> get _selectedCodes => selectedProjectOptions.map((o) => o.code);
 
+  // TODO: заменить на проверку наличия подключенной функции
   bool hm(String code) => _selectedCodes.contains(code);
 
   bool get hmTeam => hm(TOCode.TEAM);

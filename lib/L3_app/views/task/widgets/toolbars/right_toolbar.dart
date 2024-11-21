@@ -30,6 +30,8 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _actions(BuildContext context) {
     final t = _tc.task;
+    final showViewSettingsButton = t.canEditViewSettings;
+    final showCreateTaskButton = t.canCreateSubtask && t.hasSubtasks;
     return Column(
       children: [
         /// параметры задачи
@@ -37,13 +39,13 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
         const Spacer(),
 
         /// Постоянные быстрые действия
-        if (t.canEditViewSettings) TasksViewSettingsButton(_tc, compact: _compact),
-        if (t.canCreateSubtask && t.hasSubtasks) ToolbarCreateTaskButton(_tc, compact: _compact),
+        if (showViewSettingsButton) TasksViewSettingsButton(_tc, compact: _compact),
+        if (showCreateTaskButton) ToolbarCreateTaskButton(_tc, compact: _compact),
 
         /// Динамические быстрые действия с задачей
         if (_tc.quickActions.isNotEmpty) ...[
-          const MTDivider(verticalIndent: P2),
-          for (final ta in _tc.quickActions) TaskActionItem(ta, _tc, compact: _compact),
+          if (showViewSettingsButton || showCreateTaskButton) const MTDivider(verticalIndent: P2),
+          for (final ta in _tc.quickActions) TaskActionItem(ta, _tc, compact: _compact, inToolbar: true),
         ],
 
         /// остальные действия с задачей (меню)

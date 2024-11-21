@@ -32,12 +32,14 @@ class _TaskSettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final t = _tsc.task;
+      final showBoard = t.canShowBoard;
+      final showAssigneeFilter = t.canShowAssigneeFilter;
       return MTDialog(
         topBar: MTTopBar(pageTitle: loc.view_settings_title, parentPageTitle: t.title),
         body: ListView(
           shrinkWrap: true,
           children: [
-            if (t.canShowBoard) ...[
+            if (showBoard) ...[
               MTListGroupTitle(titleText: loc.view_mode_title),
               MTGridButton(
                 [
@@ -53,10 +55,13 @@ class _TaskSettingsDialog extends StatelessWidget {
                 onChanged: _tsc.setViewMode,
               ),
             ],
-            MTListGroupTitle(titleText: loc.view_filters_title, topMargin: t.canShowBoard ? null : 0),
-            TasksAssigneeFilterField(_tsc),
+            if (showAssigneeFilter) ...[
+              MTListGroupTitle(titleText: loc.view_filters_title, topMargin: showBoard ? null : 0),
+              TasksAssigneeFilterField(_tsc),
+            ]
           ],
         ),
+        forceBottomPadding: !showAssigneeFilter,
       );
     });
   }

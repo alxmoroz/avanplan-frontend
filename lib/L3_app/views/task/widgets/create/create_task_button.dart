@@ -31,7 +31,7 @@ class ToolbarCreateTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final parent = _tc.task;
-    final resolvedType = type ?? (parent.isProjectWithSubgroups ? TType.GOAL : TType.TASK);
+    final resolvedType = type ?? (parent.isProjectWithGroups ? TType.GOAL : TType.TASK);
     final plusIcon = PlusIcon(
       color: buttonType == ButtonType.main ? mainBtnTitleColor : mainColor,
       size: buttonType != null ? P4 : DEF_TAPPABLE_ICON_SIZE,

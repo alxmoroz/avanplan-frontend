@@ -9,7 +9,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskAssigneeFilterChip extends StatelessWidget {
@@ -18,7 +17,6 @@ class TaskAssigneeFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = _tc.task;
     final content = Align(
       alignment: Alignment.centerLeft,
       child: MTButton(
@@ -44,7 +42,7 @@ class TaskAssigneeFilterChip extends StatelessWidget {
 
     final padding = const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3);
 
-    return t.canShowBoard && _tc.settingsController.showBoard
+    return _tc.settingsController.showBoard
         ? Padding(
             padding: padding,
             child: content,

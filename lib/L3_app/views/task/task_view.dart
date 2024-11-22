@@ -129,7 +129,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
                       /// Группа с задачами
                       : Observer(
-                          builder: (_) => t.canShowBoard && tc.settingsController.showBoard
+                          builder: (_) => tc.settingsController.showBoard
 
                               /// Доска
                               ? Container(
@@ -172,7 +172,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget? toolbarTitle(Task t) {
     return _isBigGroup
-        ? t.hasSubtasks && t.canShowBoard && tc.settingsController.showBoard
+        ? t.hasSubtasks && tc.settingsController.showBoard
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 child: _bigGroupTitle(t),

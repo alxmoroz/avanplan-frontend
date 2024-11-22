@@ -16,7 +16,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../controllers/task_controller.dart';
@@ -140,7 +139,7 @@ class TaskHeaderDashboard extends StatelessWidget {
         ),
       );
 
-      return t.canShowBoard && _tc.settingsController.showBoard
+      return _tc.settingsController.showBoard
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: P3),
               child: content,

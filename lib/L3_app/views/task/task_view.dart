@@ -8,13 +8,16 @@ import '../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
+import '../../components/barrier.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/page.dart';
+import '../../components/page_title.dart';
 import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../components/toolbar_controller.dart';
 import '../../presenters/task_actions.dart';
 import '../../presenters/task_tree.dart';
 import '../../presenters/task_view.dart';
@@ -35,6 +38,7 @@ import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/header/parent_title.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/notes/note_field_toolbar.dart';
+import 'widgets/notes/note_field_toolbar_controller.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 import 'widgets/toolbars/bottom_toolbar.dart';
 import 'widgets/toolbars/popup_menu.dart';
@@ -49,10 +53,10 @@ class TaskView extends StatefulWidget {
   State<TaskView> createState() => TaskViewState();
 }
 
-class TaskViewState<T extends TaskView> extends State<T> {
+class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObserver {
   late final ScrollController scrollController;
   late final ScrollController _boardScrollController;
-  late final TaskViewController _tvController;
+  late final TaskViewController _tvc;
 
   TaskController get tc => widget._tc;
   bool _hasScrolled = false;
@@ -65,17 +69,62 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   double get _scrollOffsetTop => _isTaskDialog || !isBigScreen(context) ? headerHeight : P4;
 
+  double _prevBottomInset = 0;
+  bool hasKB = false;
+
+  bool get _noteFieldFocused => tc.focusNode(TaskFCode.note.index)?.hasFocus == true;
+  bool get _descriptionFieldFocused => tc.focusNode(TaskFCode.description.index)?.hasFocus == true;
+  bool get _titleFieldFocused => tc.focusNode(TaskFCode.title.index)?.hasFocus == true;
+  bool get _showKBBarrier => hasKB && (_titleFieldFocused || _descriptionFieldFocused);
+
+  late final MTToolbarController _bottomTBController;
+  late final MTToolbarController _rightTBController;
+
   @override
   void initState() {
     scrollController = ScrollController();
     _boardScrollController = ScrollController();
-    _tvController = TaskViewController();
+    _tvc = TaskViewController();
 
-    if (td.isGroup && tc.task.creating) taskGroupToolbarController.setCompact(false);
+    if (td.isGroup && tc.task.creating) groupRightToolbarController.setCompact(false);
 
     if (!td.filled) tc.reload(closed: false);
 
+    _rightTBController = td.isTask
+        ? taskRightToolbarController
+        : td.isInbox
+            ? rightToolbarController
+            : groupRightToolbarController;
+
+    _bottomTBController = tc.canComment ? NFToolbarController(tc, _tvc) : MTToolbarController();
+
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void _toggleToolbars(bool hidden) {
+    leftMenuController.setHidden(hidden);
+    _rightTBController.setHidden(hidden);
+    _bottomTBController.setHidden(hidden && !(tc.canComment && _noteFieldFocused));
+  }
+
+  @override
+  void didChangeMetrics() {
+    final bottomInset = WidgetsBinding.instance.platformDispatcher.views.first.viewInsets.bottom;
+    // в движении - inset меньше или больше предыдущего
+    // inset равен предыдущему -> остановилась
+    if (bottomInset != _prevBottomInset) {
+      if (!hasKB && bottomInset > _prevBottomInset) {
+        setState(() => hasKB = true);
+        _toggleToolbars(true);
+      } else if (hasKB && bottomInset < _prevBottomInset) {
+        setState(() => hasKB = false);
+        _toggleToolbars(false);
+      }
+    }
+
+    // выставляем после блока сравнений
+    _prevBottomInset = bottomInset;
   }
 
   @override
@@ -84,6 +133,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
     scrollController.dispose();
     _boardScrollController.dispose();
+
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -96,9 +147,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget _bodyContent(Task t) => MTRefresh(
         onRefresh: () => tc.reload(closed: false),
-        child: LayoutBuilder(builder: (ctx, constraints) {
+        child: LayoutBuilder(builder: (ctx, bodySizeConstraints) {
           // доступная высота для полей ввода
-          _tvController.setCenterConstraints(constraints.copyWith(maxHeight: constraints.maxHeight - headerHeight));
+          _tvc.setCenterConstraints(bodySizeConstraints.copyWith(maxHeight: bodySizeConstraints.maxHeight - headerHeight));
 
           return ListView(
             controller: isWeb ? scrollController : null,
@@ -110,48 +161,57 @@ class TaskViewState<T extends TaskView> extends State<T> {
               if (t.isTask && (t.hasDescription || t.canEdit))
                 TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
 
-              /// Дашборд (аналитика, финансы, команда)
-              if (t.isGroup || t.hasAnalytics || t.hasFinance || t.hasTeam) TaskHeaderDashboard(tc),
+              MTBarrier(
+                visible: _showKBBarrier,
+                margin: EdgeInsets.only(top: td.isTask ? P3 : 0),
+                child: Column(
+                  children: [
+                    /// Дашборд (аналитика, финансы, команда)
+                    if (t.isGroup || t.hasAnalytics || t.hasFinance || t.hasTeam) TaskHeaderDashboard(tc),
 
-              if (tc.settingsController.hasFilteredAssignees) TaskAssigneeFilterChip(tc),
+                    if (tc.settingsController.hasFilteredAssignees) TaskAssigneeFilterChip(tc),
 
-              /// Задача (лист)
-              td.isTask
-                  ? _isTaskDialog
-                      ? TaskDialogDetails(tc)
-                      : MTAdaptive(child: TaskDetails(tc))
+                    /// Задача (лист)
+                    td.isTask
+                        ? _isTaskDialog
+                            ? TaskDialogDetails(tc)
+                            : MTAdaptive(child: TaskDetails(tc))
 
-                  /// Группа
-                  : !t.hasSubtasks
+                        /// Группа
+                        : !t.hasSubtasks
 
-                      /// Группа без подзадач
-                      ? NoTasks(tc)
+                            /// Группа без подзадач
+                            ? NoTasks(tc)
 
-                      /// Группа с задачами
-                      : Observer(
-                          builder: (_) => tc.settingsController.showBoard
+                            /// Группа с задачами
+                            : Observer(
+                                builder: (_) => tc.settingsController.showBoard
 
-                              /// Доска
-                              ? Container(
-                                  height:
-                                      constraints.maxHeight - MediaQuery.paddingOf(ctx).vertical - (isBigScreen(context) ? _scrollOffsetTop : -P2),
-                                  padding: const EdgeInsets.only(top: P3),
-                                  child: isWeb
-                                      ? Scrollbar(
-                                          controller: _boardScrollController,
-                                          thumbVisibility: true,
-                                          child: _board,
-                                        )
-                                      : _board,
-                                )
+                                    /// Доска
+                                    ? Container(
+                                        height: bodySizeConstraints.maxHeight -
+                                            MediaQuery.paddingOf(ctx).vertical -
+                                            (isBigScreen(context) ? _scrollOffsetTop : -P2),
+                                        padding: const EdgeInsets.only(top: P3),
+                                        child: isWeb
+                                            ? Scrollbar(
+                                                controller: _boardScrollController,
+                                                thumbVisibility: true,
+                                                child: _board,
+                                              )
+                                            : _board,
+                                      )
 
-                              /// Список
-                              : TasksListView(
-                                  tc.filteredSubtaskGroups,
-                                  onTaskDelete: (t) async => await TaskController(taskIn: t).delete(),
-                                  extra: tc.loadClosedButton(),
-                                ),
-                        ),
+                                    /// Список
+                                    : TasksListView(
+                                        tc.filteredSubtaskGroups,
+                                        onTaskDelete: (t) async => await TaskController(taskIn: t).delete(),
+                                        extra: tc.loadClosedButton(),
+                                      ),
+                              ),
+                  ],
+                ),
+              ),
             ],
           );
         }),
@@ -170,7 +230,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         ],
       );
 
-  Widget? toolbarTitle(Task t) {
+  Widget? topBarTitle(Task t) {
     return _isBigGroup
         ? t.hasSubtasks && tc.settingsController.showBoard
             ? Padding(
@@ -183,46 +243,39 @@ class TaskViewState<T extends TaskView> extends State<T> {
               )
         : Opacity(
             opacity: _hasScrolled ? 1 : 0,
-            child: SubpageTitle(t.title, parentPageTitle: t.parent?.title),
+            child: PageTitle(t.title, parentPageTitle: t.parent?.title),
           );
   }
 
-  PreferredSizeWidget _rightToolbar(bool hasKB) {
-    final tbController = td.isTask
-        ? taskToolbarController
-        : td.isInbox
-            ? rightToolbarController
-            : taskGroupToolbarController;
-    tbController.setHidden(hasKB);
-
-    return TaskRightToolbar(tc, tbController);
-  }
-
-  double _extraHeight(BuildContext context) => NoteFieldToolbar.calculateExtraHeight(context, tc, _tvController, _isTaskDialog);
-
-  Widget _dialog(Task t, bool hasKB, bool showNoteField) {
+  Widget _dialog(BuildContext context, Task t) {
+    PreferredSizeWidget? bottomToolBar;
+    if (tc.canComment) {
+      final tbc = _bottomTBController as NFToolbarController;
+      tbc.calculateHeight(context, ignoreBottomInsets: true);
+      bottomToolBar = NoteFieldToolbar(tc, tbc);
+    }
     return MTDialog(
-      topBar: MTTopBar(middle: toolbarTitle(t)),
+      topBar: MTTopBar(middle: topBarTitle(t)),
       body: _bodyContent(t),
-      rightBar: _rightToolbar(hasKB),
-      bottomBar: showNoteField ? NoteFieldToolbar(tc, _tvController, ignoreBottomInsets: true, extraHeight: _extraHeight(context)) : null,
+      rightBar: TaskRightToolbar(tc, _rightTBController),
+      bottomBar: bottomToolBar,
       scrollController: scrollController,
       scrollOffsetTop: _scrollOffsetTop,
       onScrolled: onScrolled,
     );
   }
 
-  Widget _page(Task t, bool hasKB, bool showNoteField) {
+  Widget _page(BuildContext context, Task t) {
     final big = isBigScreen(context);
     final bigGroup = _isBigGroup;
     PreferredSizeWidget? bottomToolBar;
-    if (showNoteField) {
-      bottomToolBar = NoteFieldToolbar(tc, _tvController, extraHeight: _extraHeight(context));
-    } else if (!hasKB && !bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
-      bottomToolBar = TaskBottomToolbar(tc);
+    if (tc.canComment) {
+      final tbc = _bottomTBController as NFToolbarController;
+      tbc.calculateHeight(context);
+      bottomToolBar = NoteFieldToolbar(tc, tbc);
+    } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
+      bottomToolBar = TaskBottomToolbar(tc, _bottomTBController);
     }
-
-    leftMenuController.setHidden(hasKB);
 
     return MTPage(
       key: widget.key,
@@ -233,14 +286,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
               leading: bigGroup ? const SizedBox() : null,
               fullScreen: !big,
               color: big ? b2Color : navbarColor,
-              middle: toolbarTitle(t),
+              middle: topBarTitle(t),
               trailing: !bigGroup && tc.loading != true ? TaskPopupMenu(tc) : null,
             ),
       leftBar: big ? LeftMenu(leftMenuController) : null,
       body: _bodyContent(t),
       bottomBar: bottomToolBar,
       // панель справа - для проекта и цели. Для инбокса только если он не пустой
-      rightBar: bigGroup && (!td.isInbox || t.hasSubtasks) ? _rightToolbar(hasKB) : null,
+      rightBar: bigGroup && (!td.isInbox || t.hasSubtasks) ? TaskRightToolbar(tc, _rightTBController) : null,
       scrollController: scrollController,
       scrollOffsetTop: _scrollOffsetTop,
       onScrolled: onScrolled,
@@ -250,11 +303,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget _content(BuildContext context, bool isDialog) {
     return Observer(builder: (_) {
       final t = tc.task;
-      final hasKB = MediaQuery.viewInsetsOf(context).bottom > 0;
-      final noteFieldFocused = tc.focusNode(TaskFCode.note.index)?.hasFocus == true;
-      final showNoteField = t.canComment && (!hasKB || noteFieldFocused);
-
-      return isDialog ? _dialog(t, hasKB, showNoteField) : _page(t, hasKB, showNoteField);
+      return isDialog ? _dialog(context, t) : _page(context, t);
     });
   }
 

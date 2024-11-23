@@ -41,6 +41,7 @@ const double SCR_XL_WIDTH = 960;
 const double SCR_XXL_WIDTH = 1280;
 
 const TEXT_SAVE_DELAY_DURATION = Duration(milliseconds: 500);
+const KB_RELATED_ANIMATION_DURATION = Duration(milliseconds: 200);
 
 double get cardElevation => isWeb ? 3 : 1;
 double get buttonElevation => isWeb ? 3 : 1;

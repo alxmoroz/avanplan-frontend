@@ -36,7 +36,7 @@ class _State extends TaskViewState<RelatedTaskPreview> {
           ? LoaderScreen(tc, isDialog: true)
           : MTDialog(
               key: widget.key,
-              topBar: MTTopBar(middle: toolbarTitle(t)),
+              topBar: MTTopBar(middle: topBarTitle(t)),
               body: ListView(
                 children: [
                   TaskHeader(tc),

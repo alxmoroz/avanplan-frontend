@@ -47,6 +47,7 @@ class TaskHeader extends StatelessWidget {
                     leading: t.isTask ? TaskDoneButton(_tc) : null,
                     value: MTTextField(
                       controller: _tc.teController(titleIndex),
+                      focusNode: _tc.focusNode(titleIndex),
                       autofocus: t.creating,
                       margin: EdgeInsets.zero,
                       readOnly: !_tc.canEdit,

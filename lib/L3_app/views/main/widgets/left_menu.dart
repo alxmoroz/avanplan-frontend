@@ -9,8 +9,8 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
+import '../../../components/toolbar_controller.dart';
 import '../../../components/vertical_toolbar.dart';
-import '../../../components/vertical_toolbar_controller.dart';
 import '../../../extra/services.dart';
 import '../../../navigation/router.dart';
 import '../../../presenters/user.dart';
@@ -20,12 +20,13 @@ import '../../task/task_route.dart';
 import '../main_view.dart';
 
 class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
-  const LeftMenu(this._controller, {super.key});
-  final VerticalToolbarController _controller;
-  bool get _compact => _controller.compact;
+  const LeftMenu(this._tbc, {super.key});
+  final MTToolbarController _tbc;
+
+  bool get _compact => _tbc.compact;
 
   @override
-  Size get preferredSize => Size.fromWidth(_controller.width);
+  Size get preferredSize => Size.fromWidth(_tbc.width);
 
   BoxDecoration _selectedDecoration(BuildContext context) {
     final topShadowColor = b1Color.resolve(context);
@@ -94,10 +95,10 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
     return Observer(builder: (_) {
       final route = mainController.currentRoute;
       final me = myAccountController.me;
-      return _controller.hidden
+      return _tbc.hidden
           ? const SizedBox()
           : VerticalToolbar(
-              _controller,
+              _tbc,
               rightSide: false,
               child: Column(
                 children: [

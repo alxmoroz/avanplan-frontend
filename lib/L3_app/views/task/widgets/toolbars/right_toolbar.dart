@@ -7,8 +7,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/divider.dart';
+import '../../../../components/toolbar_controller.dart';
 import '../../../../components/vertical_toolbar.dart';
-import '../../../../components/vertical_toolbar_controller.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
@@ -19,14 +19,14 @@ import 'action_item.dart';
 import 'popup_menu.dart';
 
 class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const TaskRightToolbar(this._tc, this._vtc, {super.key});
+  const TaskRightToolbar(this._tc, this._tbc, {super.key});
   final TaskController _tc;
-  final VerticalToolbarController _vtc;
+  final MTToolbarController _tbc;
 
-  bool get _compact => _vtc.compact;
+  bool get _compact => _tbc.compact;
 
   @override
-  Size get preferredSize => Size.fromWidth(_vtc.width);
+  Size get preferredSize => Size.fromWidth(_tbc.width);
 
   Widget _actions(BuildContext context) {
     final t = _tc.task;
@@ -57,10 +57,10 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _vtc.hidden
+      builder: (_) => _tbc.hidden
           ? const SizedBox()
           : VerticalToolbar(
-              _vtc,
+              _tbc,
               child: _tc.task.isTask
                   ? MediaQuery(
                       data: MediaQuery.of(context).copyWith(

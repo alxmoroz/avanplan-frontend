@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'adaptive.dart';
 import 'colors.dart';
 import 'constants.dart';
+import 'gesture.dart';
 import 'icons.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
@@ -14,40 +14,7 @@ import 'text.dart';
 
 enum ButtonType { text, main, secondary, danger, safe, icon, card }
 
-enum FeedbackType { light, medium, heavy, vibrate, selection }
-
-mixin FocusManaging {
-  Future tapAction(bool uf, Function action, {FeedbackType? fbType}) async {
-    if (uf) {
-      FocusManager.instance.primaryFocus?.unfocus();
-    }
-
-    if (fbType != null) {
-      switch (fbType) {
-        case FeedbackType.light:
-          await HapticFeedback.lightImpact();
-          break;
-        case FeedbackType.medium:
-          await SystemSound.play(SystemSoundType.click);
-          await HapticFeedback.mediumImpact();
-          break;
-        case FeedbackType.heavy:
-          await HapticFeedback.heavyImpact();
-          break;
-        case FeedbackType.vibrate:
-          await HapticFeedback.vibrate();
-          break;
-        case FeedbackType.selection:
-          await HapticFeedback.selectionClick();
-          break;
-      }
-    }
-
-    await action();
-  }
-}
-
-class MTButton extends StatelessWidget with FocusManaging {
+class MTButton extends StatelessWidget with GestureManaging {
   const MTButton({
     super.key,
     this.titleText,

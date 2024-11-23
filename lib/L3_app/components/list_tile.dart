@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-import 'button.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'divider.dart';
+import 'gesture.dart';
 import 'icons.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
 import 'text.dart';
 
-class MTListTile extends StatelessWidget with FocusManaging {
+class MTListTile extends StatelessWidget with GestureManaging {
   const MTListTile({
     super.key,
     this.leading,

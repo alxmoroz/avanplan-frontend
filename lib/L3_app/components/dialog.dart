@@ -9,6 +9,7 @@ import '../navigation/router.dart';
 import 'adaptive.dart';
 import 'colors.dart';
 import 'constants.dart';
+import 'gesture.dart';
 import 'material_wrapper.dart';
 import 'scrollable.dart';
 import 'toolbar.dart';
@@ -165,9 +166,8 @@ class MTDialog extends StatelessWidget {
 
     // final hasKB = mq.viewInsets.bottom != 0;
 
-    return GestureDetector(
-      onTap: FocusManager.instance.primaryFocus?.unfocus,
-      child: Padding(
+    return FocusDroppable(
+      Padding(
         padding: EdgeInsets.only(bottom: mq.viewInsets.bottom),
         child: Container(
           clipBehavior: Clip.hardEdge,

@@ -8,16 +8,16 @@ import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'list_tile.dart';
-import 'vertical_toolbar_controller.dart';
+import 'toolbar_controller.dart';
 
 class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
-  const VerticalToolbar(this._controller, {super.key, required this.child, this.rightSide = true});
-  final VerticalToolbarController _controller;
+  const VerticalToolbar(this._tbc, {super.key, required this.child, this.rightSide = true});
+  final MTToolbarController _tbc;
   final Widget child;
   final bool rightSide;
 
   @override
-  Size get preferredSize => Size.fromWidth(_controller.width);
+  Size get preferredSize => Size.fromWidth(_tbc.width);
 
   double get _tgBtnSize => isWeb ? P6 : P7;
   double get _btnDx => _tgBtnSize * 0.2;
@@ -59,7 +59,8 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
 
     return Observer(builder: (_) {
       /// Панель инструментов с тенью
-      final panel = Container(
+      final panel = AnimatedContainer(
+        duration: KB_RELATED_ANIMATION_DURATION,
         padding: EdgeInsets.only(top: _tgBtnSize),
         width: paneWidth,
         decoration: BoxDecoration(
@@ -80,7 +81,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
       /// Кнопка для сворачивания / разворачивания
       final icon = ChevronCaretIcon(
         size: Size(_tgBtnSize / 5, _tgBtnSize / 9),
-        left: rightSide ? _controller.compact : !_controller.compact,
+        left: rightSide ? _tbc.compact : !_tbc.compact,
       );
       final tgBtn = _btnContainer(
         context,
@@ -92,7 +93,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.transparent,
           leading: rightSide ? icon : null,
           trailing: rightSide ? null : icon,
-          onTap: _controller.toggleWidth,
+          onTap: _tbc.toggleWidth,
         ),
       );
 

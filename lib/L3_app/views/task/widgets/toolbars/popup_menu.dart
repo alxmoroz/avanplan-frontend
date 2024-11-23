@@ -6,6 +6,7 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/gesture.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -14,7 +15,7 @@ import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'action_item.dart';
 
-class TaskPopupMenu extends StatelessWidget with FocusManaging {
+class TaskPopupMenu extends StatelessWidget {
   const TaskPopupMenu(this._tc, {this.inToolbar = false, this.compact = false, super.key});
   final TaskController _tc;
   final bool compact;
@@ -46,7 +47,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
       crossAxisUnconstrained: false,
       alignmentOffset: Offset(offset, 0),
       menuChildren: [for (final ta in actions) ta.isDivider ? const SizedBox(height: P2) : TaskActionItem(ta, _tc, menuController: mc)],
-      onOpen: FocusManager.instance.primaryFocus?.unfocus,
+      onOpen: unfocusAll,
       builder: (_, MenuController mc, Widget? child) => big
           ? MTListTile(
               leading: const MenuIcon(circled: true, size: DEF_TAPPABLE_ICON_SIZE),

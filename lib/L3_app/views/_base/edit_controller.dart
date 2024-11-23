@@ -24,12 +24,21 @@ abstract class _EditControllerBase with Store {
   Map<int, FocusNode> _focusNodes = {};
   FocusNode? focusNode(int code) => _focusNodes[code];
 
+  TextEditingController _makeTEController(int code) {
+    final fd = fData(code);
+    final teController = TextEditingController(text: '$fd');
+    teController.addListener(() => _updateData(code, teController));
+    return teController;
+  }
+
+  FocusNode _makeFocusNode(int code) => FocusNode()..addListener(() => updateField(code));
+
   @mustCallSuper
   @action
   void initState({List<MTFieldData>? fds}) {
     _fdMap = ObservableMap.of({for (var fd in fds ?? <MTFieldData>[]) fd.code: fd});
     _teControllers = {for (var fd in _fdMap.values) fd.code: _makeTEController(fd.code)};
-    _focusNodes = {for (var fd in _fdMap.values) fd.code: FocusNode()};
+    _focusNodes = {for (var fd in _fdMap.values) fd.code: _makeFocusNode(fd.code)};
   }
 
   @mustCallSuper
@@ -54,13 +63,6 @@ abstract class _EditControllerBase with Store {
     if (!skip) {
       _fdMap[code] = fd.copyWith(text: te.text);
     }
-  }
-
-  TextEditingController _makeTEController(int code) {
-    final fd = fData(code);
-    final teController = TextEditingController(text: '$fd');
-    teController.addListener(() => _updateData(code, teController));
-    return teController;
   }
 
   @computed

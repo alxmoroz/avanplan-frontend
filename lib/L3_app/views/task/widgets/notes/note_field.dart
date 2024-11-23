@@ -25,7 +25,7 @@ class NoteField extends StatelessWidget {
   Note? get _note => _tc.notesController.currentNote;
   bool get _hasNote => _note != null;
 
-  int get _fIndex => TaskFCode.note.index;
+  static final int _fIndex = TaskFCode.note.index;
   MTFieldData get _fd => _tc.fData(_fIndex);
   FocusNode? get _fn => _tc.focusNode(_fIndex);
   TextEditingController get _tec => _tc.teController(_fIndex)!;

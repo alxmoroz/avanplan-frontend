@@ -1,47 +1,18 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../navigation/router.dart';
 import 'adaptive.dart';
 import 'close_dialog_button.dart';
 import 'colors.dart';
 import 'constants.dart';
-import 'text.dart';
+import 'page_title.dart';
+import 'toolbar_controller.dart';
 
-class SubpageTitle extends StatelessWidget {
-  const SubpageTitle(this.pageTitle, {super.key, this.parentPageTitle});
-
-  final String? parentPageTitle;
-  final String pageTitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: P8,
-      padding: const EdgeInsets.symmetric(horizontal: P6),
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (parentPageTitle != null)
-            SmallText(
-              parentPageTitle!,
-              align: TextAlign.center,
-              maxLines: 1,
-              color: f3Color,
-              padding: const EdgeInsets.only(bottom: P_2),
-            ),
-          BaseText.medium(pageTitle, align: TextAlign.center, color: f2Color, maxLines: 1),
-        ],
-      ),
-    );
-  }
-}
-
-class _ToolBar extends StatelessWidget {
-  const _ToolBar({
+class _ToolbarContent extends StatelessWidget {
+  const _ToolbarContent({
     this.pageTitle,
     this.parentPageTitle,
     this.leading,
@@ -65,7 +36,7 @@ class _ToolBar extends StatelessWidget {
         Stack(
           alignment: Alignment.center,
           children: [
-            if (middle != null) middle! else if (pageTitle != null) SubpageTitle(pageTitle!, parentPageTitle: parentPageTitle),
+            if (middle != null) middle! else if (pageTitle != null) PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
             Row(children: [
               if (leading != null) leading!,
               const Spacer(),
@@ -94,6 +65,7 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
     this.bottomPadding = 0,
     this.ignoreBottomInsets = false,
     this.fullScreen = false,
+    this.toolbarController,
     super.key,
   });
 
@@ -114,11 +86,13 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
 
   final bool ignoreBottomInsets;
   final bool fullScreen;
+  final MTToolbarController? toolbarController;
 
   double get _innerHeight => innerHeight ?? P8;
+  bool get _hidden => toolbarController?.hidden == true;
 
   @override
-  Size get preferredSize => Size.fromHeight(topPadding + _innerHeight + bottomPadding);
+  Size get preferredSize => Size.fromHeight(_hidden ? 0 : (topPadding + _innerHeight + bottomPadding));
 
   Widget? get _leading =>
       leading ??
@@ -128,17 +102,7 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
               : const MTCloseDialogButton()
           : null);
 
-  Widget get _toolbar => _ToolBar(
-        pageTitle: pageTitle,
-        parentPageTitle: parentPageTitle,
-        leading: _leading,
-        middle: middle,
-        trailing: trailing,
-        bottom: bottomWidget,
-      );
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _toolbar(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
 
@@ -152,6 +116,16 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
         preferredSize.height;
 
     final flat = big || isBottom;
+
+    final toolbarContent = _ToolbarContent(
+      pageTitle: pageTitle,
+      parentPageTitle: parentPageTitle,
+      leading: _leading,
+      middle: middle,
+      trailing: trailing,
+      bottom: bottomWidget,
+    );
+
     return Container(
       height: h,
       color: flat ? color.resolve(context) : null,
@@ -160,17 +134,29 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
           ? SafeArea(
               top: !isBottom,
               bottom: isBottom,
-              child: _toolbar,
+              child: toolbarContent,
             )
           : CupertinoNavigationBar(
               automaticallyImplyLeading: false,
               automaticallyImplyMiddle: false,
               padding: EdgeInsetsDirectional.only(top: topPadding, bottom: bottomPadding, start: 0, end: 0),
-              leading: _toolbar,
+              leading: toolbarContent,
               backgroundColor: color,
               border: null,
             ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tb = _toolbar(context);
+    return toolbarController != null
+        ? Observer(
+            builder: (_) {
+              return _hidden ? const SizedBox() : tb;
+            },
+          )
+        : tb;
   }
 }
 
@@ -213,6 +199,7 @@ class MTBottomBar extends _MTAppBar {
     super.topPadding = P2,
     super.bottomPadding,
     super.ignoreBottomInsets,
+    super.toolbarController,
     super.key,
   }) : super(isBottom: true);
 }

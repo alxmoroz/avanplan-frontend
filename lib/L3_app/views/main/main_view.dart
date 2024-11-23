@@ -14,7 +14,7 @@ import '../../components/page.dart';
 import '../../components/refresh.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../components/vertical_toolbar_controller.dart';
+import '../../components/toolbar_controller.dart';
 import '../../extra/services.dart';
 import '../../navigation/route.dart';
 import '../../presenters/user.dart';
@@ -35,10 +35,10 @@ import 'widgets/no_tasks.dart';
 import 'widgets/right_toolbar.dart';
 import 'widgets/view_settings_dialog.dart';
 
-late VerticalToolbarController leftMenuController;
-late VerticalToolbarController rightToolbarController;
-late VerticalToolbarController taskGroupToolbarController;
-late VerticalToolbarController taskToolbarController;
+late MTToolbarController leftMenuController;
+late MTToolbarController rightToolbarController;
+late MTToolbarController groupRightToolbarController;
+late MTToolbarController taskRightToolbarController;
 
 class MainRoute extends MTRoute {
   MainRoute()
@@ -94,10 +94,10 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController();
 
-    rightToolbarController = VerticalToolbarController(isCompact: true, wideWidth: 220);
-    taskGroupToolbarController = VerticalToolbarController(isCompact: true);
-    taskToolbarController = VerticalToolbarController();
-    leftMenuController = VerticalToolbarController(wideWidth: 242.0);
+    rightToolbarController = MTToolbarController(isCompact: true, wideWidth: 220);
+    groupRightToolbarController = MTToolbarController(isCompact: true);
+    taskRightToolbarController = MTToolbarController();
+    leftMenuController = MTToolbarController(wideWidth: 242.0);
 
     super.initState();
   }

@@ -26,10 +26,10 @@ class TaskDescriptionField extends StatefulWidget {
   final EdgeInsets? padding;
 
   @override
-  State<StatefulWidget> createState() => _TaskDescriptionFieldState();
+  State<StatefulWidget> createState() => _State();
 }
 
-class _TaskDescriptionFieldState extends State<TaskDescriptionField> {
+class _State extends State<TaskDescriptionField> {
   static final _fIndex = TaskFCode.description.index;
   static final _readOnlyMaxLines = isWeb ? 15 : 7;
   static const _expandButtonHeight = P6;

@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-import 'button.dart';
 import 'constants.dart';
+import 'gesture.dart';
 
-class MTRefresh extends StatelessWidget with FocusManaging {
+class MTRefresh extends StatelessWidget with GestureManaging {
   const MTRefresh({super.key, required this.onRefresh, required this.child});
 
   final Widget child;

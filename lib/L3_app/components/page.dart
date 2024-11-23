@@ -9,6 +9,7 @@ import 'adaptive.dart';
 import 'background.dart';
 import 'colors.dart';
 import 'constants.dart';
+import 'gesture.dart';
 import 'material_wrapper.dart';
 import 'scrollable.dart';
 
@@ -48,6 +49,7 @@ class MTPage extends StatelessWidget {
       final big = isBigScreen(ctx);
 
       final scrollable = scrollOffsetTop != null && scrollController != null;
+      final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
 
       return MTBackgroundWrapper(
         PrimaryScrollController(
@@ -60,7 +62,7 @@ class MTPage extends StatelessWidget {
                   data: mq.copyWith(
                     padding: mqPadding.copyWith(
                       top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
-                      bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + (bottomBar?.preferredSize.height ?? 0),
+                      bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + bottomBarHeight,
                     ),
                   ),
                   child: SafeArea(
@@ -71,7 +73,7 @@ class MTPage extends StatelessWidget {
                             scrollController: scrollController!,
                             scrollOffsetTop: scrollOffsetTop!,
                             onScrolled: onScrolled,
-                            bottomShadow: bottomBar != null,
+                            bottomShadow: bottomBarHeight > 0,
                             topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
                             child: body,
                           )
@@ -96,9 +98,8 @@ class MTPage extends StatelessWidget {
     final hasLeftBar = leftBar != null;
     final hasRightBar = rightBar != null;
 
-    return GestureDetector(
-      onTap: FocusManager.instance.primaryFocus?.unfocus,
-      child: Container(
+    return FocusDroppable(
+      Container(
         decoration: BoxDecoration(color: b2Color.resolve(context)),
         child: Stack(
           children: [

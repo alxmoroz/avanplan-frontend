@@ -20,17 +20,17 @@ class _SignInEmailDialog extends StatefulWidget {
 }
 
 class _SignInEmailDialogState extends State<_SignInEmailDialog> {
-  late final SignInEmailController controller;
+  late final SignInEmailController sec;
 
   @override
   void initState() {
-    controller = SignInEmailController();
+    sec = SignInEmailController();
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    sec.dispose();
     super.dispose();
   }
 
@@ -41,16 +41,17 @@ class _SignInEmailDialogState extends State<_SignInEmailDialog> {
           builder: (_) => ListView(
             shrinkWrap: true,
             children: [
-              controller.tf(SigninFCode.email, first: true),
-              controller.tf(SigninFCode.password),
+              sec.tf(SigninFCode.email, first: true),
+              sec.tf(SigninFCode.password),
               MTButton.main(
                 titleText: loc.auth_sign_in_email_action_title,
                 margin: const EdgeInsets.only(top: P3),
-                onTap: controller.validated ? () => controller.signIn(context) : null,
+                onTap: sec.validated ? () => sec.signIn(context) : null,
               ),
             ],
           ),
         ),
         forceBottomPadding: true,
+        hasKBInput: true,
       );
 }

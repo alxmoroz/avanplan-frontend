@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/toolbar.dart';
 import '../../controllers/task_controller.dart';
@@ -18,17 +17,13 @@ class NoteFieldToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        return MTBottomBar(
-          toolbarController: _tbc,
-          ignoreBottomInsets: _tbc.ignoreBottomInsets,
-          innerHeight: _tbc.height - _tbc.topPadding,
-          topPadding: _tbc.topPadding,
-          middle: NoteField(_tc, maxLines: _tbc.maxLines),
-          key: const ValueKey('NoteFieldToolbar'),
-        );
-      },
+    return MTBottomBar(
+      toolbarController: _tbc,
+      ignoreBottomInsets: _tbc.ignoreBottomInsets,
+      innerHeight: _tbc.height - _tbc.topPadding,
+      topPadding: _tbc.topPadding,
+      middle: NoteField(_tc, maxLines: _tbc.maxLines),
+      key: const ValueKey('NoteFieldToolbar'),
     );
   }
 }

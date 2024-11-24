@@ -19,16 +19,21 @@ BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final big = isBigScreen(context);
   return BoxConstraints(
     maxWidth: big ? min(mq.size.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
-    maxHeight: big ? mq.size.height - mq.padding.vertical - P6 : double.infinity,
+    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - P6 : double.infinity,
   );
 }
 
-Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) => UnconstrainedBox(
-      child: Container(
-        constraints: _dialogConstrains(context, maxWidth),
+Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) {
+  return UnconstrainedBox(
+    child: ConstrainedBox(
+      constraints: _dialogConstrains(context, maxWidth),
+      child: SafeArea(
+        maintainBottomViewPadding: true,
         child: material(child),
       ),
-    );
+    ),
+  );
+}
 
 class MTDialogPage<T> extends Page<T> {
   const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth, super.key, super.restorationId});
@@ -40,6 +45,7 @@ class MTDialogPage<T> extends Page<T> {
   Route<T> createRoute(BuildContext context) => isBigScreen(context)
       ? DialogRoute(
           context: context,
+          useSafeArea: false,
           barrierColor: defaultBarrierColor.resolve(context),
           settings: this,
           builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
@@ -66,7 +72,7 @@ Future<T?> showMTDialog<T>(
           context: globalContext,
           barrierColor: (barrierColor ?? defaultBarrierColor).resolve(globalContext),
           useRootNavigator: false,
-          useSafeArea: true,
+          useSafeArea: false,
           builder: (_) => _constrainedDialog(globalContext, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
@@ -88,6 +94,7 @@ class MTDialog extends StatelessWidget {
     this.topBar = const MTTopBar(),
     this.bottomBar,
     this.forceBottomPadding = false,
+    this.hasKBInput = false,
     this.bottomBarColor,
     this.rightBar,
     this.bgColor,
@@ -103,6 +110,7 @@ class MTDialog extends StatelessWidget {
   final PreferredSizeWidget? rightBar;
   final PreferredSizeWidget? bottomBar;
   final bool forceBottomPadding;
+  final bool hasKBInput;
   final Color? bottomBarColor;
   final Color? bgColor;
   final BorderRadiusGeometry? borderRadius;
@@ -111,17 +119,16 @@ class MTDialog extends StatelessWidget {
   final double? scrollOffsetTop;
   final Function(bool)? onScrolled;
 
-  bool get _hasBottombar => bottomBar != null;
-
   Widget get _center {
     return Builder(builder: (context) {
       final mq = MediaQuery.of(context);
-      final mqPaddingBottom = mq.padding.bottom;
-      final needBottomPadding = forceBottomPadding || _hasBottombar || (mqPaddingBottom == 0 && !isBigScreen(context));
+      final big = isBigScreen(context);
+      final mqPaddingBottom = max(mq.padding.bottom, big ? 0.0 : mq.viewPadding.bottom);
+      final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
+      final hasBottomBar = bottomBar != null;
+      final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
       final minBottomPadding = needBottomPadding ? DEF_DIALOG_BOTTOM_PADDING : 0.0;
-      final mqPadding = mq.padding.copyWith(
-        bottom: max(mqPaddingBottom, minBottomPadding),
-      );
+      final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
 
       return MediaQuery(
         data: mq.copyWith(padding: mqPadding),
@@ -131,7 +138,7 @@ class MTDialog extends StatelessWidget {
               data: mq.copyWith(
                 padding: mqPadding.copyWith(
                   top: (topBar?.preferredSize.height ?? 0),
-                  bottom: mqPadding.bottom + (bottomBar?.preferredSize.height ?? 0),
+                  bottom: mqPadding.bottom + bottomBarHeight,
                 ),
               ),
               child: SafeArea(
@@ -141,14 +148,14 @@ class MTDialog extends StatelessWidget {
                         scrollController: scrollController!,
                         scrollOffsetTop: scrollOffsetTop!,
                         onScrolled: onScrolled,
-                        bottomShadow: _hasBottombar,
+                        bottomShadow: bottomBarHeight > 0,
                         child: body,
                       )
                     : body,
               ),
             ),
             if (topBar != null) topBar!,
-            if (_hasBottombar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
+            if (hasBottomBar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
           ],
         ),
       );
@@ -164,11 +171,9 @@ class MTDialog extends StatelessWidget {
 
     final big = isBigScreen(context);
 
-    // final hasKB = mq.viewInsets.bottom != 0;
-
     return FocusDroppable(
       Padding(
-        padding: EdgeInsets.only(bottom: mq.viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: hasKBInput ? mq.viewInsets.bottom : 0),
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(

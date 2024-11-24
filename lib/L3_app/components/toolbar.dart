@@ -1,7 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../navigation/router.dart';
 import 'adaptive.dart';
@@ -63,7 +64,7 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
     this.innerHeight,
     this.topPadding = 0,
     this.bottomPadding = 0,
-    this.ignoreBottomInsets = false,
+    this.ignoreBottomInsets = true,
     this.fullScreen = false,
     this.toolbarController,
     super.key,
@@ -89,10 +90,9 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
   final MTToolbarController? toolbarController;
 
   double get _innerHeight => innerHeight ?? P8;
-  bool get _hidden => toolbarController?.hidden == true;
 
   @override
-  Size get preferredSize => Size.fromHeight(_hidden ? 0 : (topPadding + _innerHeight + bottomPadding));
+  Size get preferredSize => Size.fromHeight(toolbarController != null ? toolbarController!.height : (topPadding + _innerHeight + bottomPadding));
 
   Widget? get _leading =>
       leading ??
@@ -102,18 +102,14 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
               : const MTCloseDialogButton()
           : null);
 
-  Widget _toolbar(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     final mqPadding = MediaQuery.paddingOf(context);
     final big = isBigScreen(context);
 
     final bottomInsets = ignoreBottomInsets ? 0.0 : MediaQuery.viewInsetsOf(context).bottom;
 
-    final h = (isBottom
-            ? bottomInsets > 0
-                ? bottomInsets
-                : mqPadding.bottom
-            : mqPadding.top) +
-        preferredSize.height;
+    final h = (isBottom ? max(bottomInsets, mqPadding.bottom) : mqPadding.top) + preferredSize.height;
 
     final flat = big || isBottom;
 
@@ -145,18 +141,6 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
               border: null,
             ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final tb = _toolbar(context);
-    return toolbarController != null
-        ? Observer(
-            builder: (_) {
-              return _hidden ? const SizedBox() : tb;
-            },
-          )
-        : tb;
   }
 }
 

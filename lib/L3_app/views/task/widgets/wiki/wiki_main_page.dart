@@ -21,7 +21,6 @@ class _WikiMainPageDialog extends StatelessWidget {
       topBar: MTTopBar(pageTitle: loc.description, parentPageTitle: _controller.task.title),
       body: SafeArea(
         bottom: false,
-        minimum: const EdgeInsets.only(bottom: P3),
         child: ListView(
           shrinkWrap: true,
           children: [
@@ -29,6 +28,8 @@ class _WikiMainPageDialog extends StatelessWidget {
           ],
         ),
       ),
+      hasKBInput: true,
+      forceBottomPadding: true,
     );
   }
 }

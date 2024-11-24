@@ -137,6 +137,7 @@ class _RepeatDialog extends StatelessWidget {
                   ],
                 ),
               ),
+              hasKBInput: true,
             ),
     );
   }

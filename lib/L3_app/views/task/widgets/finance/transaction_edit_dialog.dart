@@ -132,6 +132,7 @@ class _TransactionEditDialog extends StatelessWidget {
         ],
       ),
       forceBottomPadding: true,
+      hasKBInput: true,
     );
   }
 

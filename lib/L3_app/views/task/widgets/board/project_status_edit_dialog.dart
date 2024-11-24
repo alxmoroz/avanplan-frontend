@@ -134,6 +134,7 @@ class _State extends State<_ProjectStatusEditDialog> {
             ),
           ],
         ),
+        hasKBInput: true,
       ),
     );
   }

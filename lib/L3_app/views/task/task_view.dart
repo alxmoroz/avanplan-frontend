@@ -53,7 +53,7 @@ class TaskView extends StatefulWidget {
   State<TaskView> createState() => TaskViewState();
 }
 
-class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObserver {
+class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObserver, TickerProviderStateMixin {
   late final ScrollController scrollController;
   late final ScrollController _boardScrollController;
   late final TaskViewController _tvc;
@@ -69,13 +69,12 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
 
   double get _scrollOffsetTop => _isTaskDialog || !isBigScreen(context) ? headerHeight : P4;
 
-  double _prevBottomInset = 0;
-  bool hasKB = false;
+  bool _hasKB = false;
 
-  bool get _noteFieldFocused => tc.focusNode(TaskFCode.note.index)?.hasFocus == true;
-  bool get _descriptionFieldFocused => tc.focusNode(TaskFCode.description.index)?.hasFocus == true;
   bool get _titleFieldFocused => tc.focusNode(TaskFCode.title.index)?.hasFocus == true;
-  bool get _showKBBarrier => hasKB && (_titleFieldFocused || _descriptionFieldFocused);
+  bool get _descriptionFieldFocused => tc.focusNode(TaskFCode.description.index)?.hasFocus == true;
+  bool get _noteFieldFocused => tc.focusNode(TaskFCode.note.index)?.hasFocus == true;
+  bool get _showKBBarrier => _hasKB && (_titleFieldFocused || (_descriptionFieldFocused && !_isBigGroup));
 
   late final MTToolbarController _bottomTBController;
   late final MTToolbarController _rightTBController;
@@ -96,35 +95,40 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
             ? rightToolbarController
             : groupRightToolbarController;
 
+    _rightTBController.hidden = false;
+
     _bottomTBController = tc.canComment ? NFToolbarController(tc, _tvc) : MTToolbarController();
+    _bottomTBController.setupAnimation(this, () => setState(() {}));
 
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
 
-  void _toggleToolbars(bool hidden) {
-    leftMenuController.setHidden(hidden);
-    _rightTBController.setHidden(hidden);
-    _bottomTBController.setHidden(hidden && !(tc.canComment && _noteFieldFocused));
-  }
+  bool _ignoreMetrics = false;
+  double _prevBottomInset = 0;
 
   @override
   void didChangeMetrics() {
-    final bottomInset = WidgetsBinding.instance.platformDispatcher.views.first.viewInsets.bottom;
     // в движении - inset меньше или больше предыдущего
     // inset равен предыдущему -> остановилась
+    final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
     if (bottomInset != _prevBottomInset) {
-      if (!hasKB && bottomInset > _prevBottomInset) {
-        setState(() => hasKB = true);
-        _toggleToolbars(true);
-      } else if (hasKB && bottomInset < _prevBottomInset) {
-        setState(() => hasKB = false);
-        _toggleToolbars(false);
+      if (!_ignoreMetrics) {
+        if (!_hasKB && bottomInset > _prevBottomInset) {
+          setState(() => _hasKB = true);
+          _toggleToolbars(true);
+        } else if (_hasKB && bottomInset < _prevBottomInset) {
+          setState(() => _hasKB = false);
+          _toggleToolbars(false);
+        }
       }
+      // выставляем после блока сравнений
+      _prevBottomInset = bottomInset;
+    } else {
+      _ignoreMetrics = ModalRoute.of(context)?.isCurrent != true;
     }
 
-    // выставляем после блока сравнений
-    _prevBottomInset = bottomInset;
+    super.didChangeDependencies();
   }
 
   @override
@@ -133,9 +137,16 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
 
     scrollController.dispose();
     _boardScrollController.dispose();
+    _bottomTBController.dispose();
 
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  void _toggleToolbars(bool hidden) {
+    if (!_isTaskDialog) leftMenuController.setHidden(hidden);
+    _rightTBController.setHidden(hidden);
+    if (!(tc.canComment && _noteFieldFocused)) _bottomTBController.setHidden(hidden);
   }
 
   void onScrolled(bool scrolled) => setState(() => _hasScrolled = scrolled);
@@ -150,7 +161,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
         child: LayoutBuilder(builder: (ctx, bodySizeConstraints) {
           // доступная высота для полей ввода
           _tvc.setCenterConstraints(bodySizeConstraints.copyWith(maxHeight: bodySizeConstraints.maxHeight - headerHeight));
-
+          final isTaskDialog = _isTaskDialog;
           return ListView(
             controller: isWeb ? scrollController : null,
             children: [
@@ -163,6 +174,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
 
               MTBarrier(
                 visible: _showKBBarrier,
+                inDialog: isTaskDialog,
                 margin: EdgeInsets.only(top: td.isTask ? P3 : 0),
                 child: Column(
                   children: [
@@ -173,7 +185,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
 
                     /// Задача (лист)
                     td.isTask
-                        ? _isTaskDialog
+                        ? isTaskDialog
                             ? TaskDialogDetails(tc)
                             : MTAdaptive(child: TaskDetails(tc))
 
@@ -260,8 +272,9 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
       rightBar: TaskRightToolbar(tc, _rightTBController),
       bottomBar: bottomToolBar,
       scrollController: scrollController,
-      scrollOffsetTop: _scrollOffsetTop,
+      scrollOffsetTop: headerHeight,
       onScrolled: onScrolled,
+      hasKBInput: true,
     );
   }
 
@@ -271,7 +284,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
     PreferredSizeWidget? bottomToolBar;
     if (tc.canComment) {
       final tbc = _bottomTBController as NFToolbarController;
-      tbc.calculateHeight(context);
+      tbc.calculateHeight(context, ignoreBottomInsets: false);
       bottomToolBar = NoteFieldToolbar(tc, tbc);
     } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
       bottomToolBar = TaskBottomToolbar(tc, _bottomTBController);

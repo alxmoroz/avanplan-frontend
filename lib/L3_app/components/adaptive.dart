@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'constants.dart';
 
 Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
-EdgeInsets screenPadding(BuildContext context) => MediaQuery.paddingOf(context);
 bool _smallLandscape(BuildContext context) =>
     screenSize(context).height < SCR_XS_HEIGHT && MediaQuery.orientationOf(context) == Orientation.landscape;
 

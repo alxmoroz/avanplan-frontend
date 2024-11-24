@@ -13,9 +13,8 @@ import '../../controllers/task_view_controller.dart';
 part 'note_field_toolbar_controller.g.dart';
 
 class NFToolbarController extends _Base with _$NFToolbarController {
-  NFToolbarController(this._tc, this._tvc) {
-    // _tc.teController(_fIndex)?.addListener(listener);
-  }
+  NFToolbarController(this._tc, this._tvc);
+
   final TaskController _tc;
   final TaskViewController _tvc;
 

@@ -59,8 +59,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
 
     return Observer(builder: (_) {
       /// Панель инструментов с тенью
-      final panel = AnimatedContainer(
-        duration: KB_RELATED_ANIMATION_DURATION,
+      final panel = Container(
         padding: EdgeInsets.only(top: _tgBtnSize),
         width: paneWidth,
         decoration: BoxDecoration(
@@ -74,6 +73,7 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
         child: SafeArea(
           left: !rightSide,
           right: rightSide,
+          maintainBottomViewPadding: true,
           child: child,
         ),
       );

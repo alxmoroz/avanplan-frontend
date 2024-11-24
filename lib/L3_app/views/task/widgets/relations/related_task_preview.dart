@@ -28,41 +28,44 @@ class RelatedTaskPreview extends TaskView {
 }
 
 class _State extends TaskViewState<RelatedTaskPreview> {
+  Widget _dialog() {
+    final t = tc.task;
+    return MTDialog(
+      key: widget.key,
+      topBar: MTTopBar(middle: topBarTitle(t)),
+      body: ListView(
+        children: [
+          TaskHeader(tc),
+          if (t.hasDescription) TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
+          MTAdaptive(child: TaskDetails(tc)),
+        ],
+      ),
+      bottomBar: MTBottomBar(
+        innerHeight: 100,
+        middle: Column(children: [
+          MTListGroupTitle(
+            leading: const InfoIcon(color: warningColor),
+            middle: SmallText(loc.related_task_preview_hint),
+            padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P2),
+            margin: EdgeInsets.zero,
+          ),
+          MTButton.secondary(
+            titleText: loc.action_goto_task_title,
+            onTap: () => Navigator.of(context).pop(true),
+          ),
+        ]),
+      ),
+      scrollController: scrollController,
+      scrollOffsetTop: headerHeight,
+      onScrolled: onScrolled,
+      // hasKBInput: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final t = tc.task;
     return Observer(
-      builder: (_) => tc.loading
-          ? LoaderScreen(tc, isDialog: true)
-          : MTDialog(
-              key: widget.key,
-              topBar: MTTopBar(middle: topBarTitle(t)),
-              body: ListView(
-                children: [
-                  TaskHeader(tc),
-                  if (t.hasDescription) TaskDescriptionField(tc, padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2)),
-                  MTAdaptive(child: TaskDetails(tc)),
-                ],
-              ),
-              bottomBar: MTBottomBar(
-                innerHeight: 100,
-                middle: Column(children: [
-                  MTListGroupTitle(
-                    leading: const InfoIcon(color: warningColor),
-                    middle: SmallText(loc.related_task_preview_hint),
-                    padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P2),
-                    margin: EdgeInsets.zero,
-                  ),
-                  MTButton.secondary(
-                    titleText: loc.action_goto_task_title,
-                    onTap: () => Navigator.of(context).pop(true),
-                  ),
-                ]),
-              ),
-              scrollController: scrollController,
-              scrollOffsetTop: headerHeight,
-              onScrolled: onScrolled,
-            ),
+      builder: (_) => tc.loading ? LoaderScreen(tc, isDialog: true) : _dialog(),
     );
   }
 }

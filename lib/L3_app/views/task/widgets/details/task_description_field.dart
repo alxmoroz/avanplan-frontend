@@ -39,7 +39,7 @@ class _State extends State<TaskDescriptionField> {
   TextEditingController get _teController => _tc.teController(_fIndex)!;
   MTFieldData get _fd => _tc.fData(_fIndex);
 
-  FocusNode? _fNode;
+  FocusNode? get _fNode => _tc.focusNode(_fIndex);
   bool _expanded = false;
   bool get _hasFocus => _fNode?.hasFocus == true;
 
@@ -50,7 +50,6 @@ class _State extends State<TaskDescriptionField> {
   @override
   void initState() {
     if (_tc.canEdit) {
-      _fNode = _tc.focusNode(_fIndex);
       _fNode?.addListener(_fNodeListener);
     }
     super.initState();

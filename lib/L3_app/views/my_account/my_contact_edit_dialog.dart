@@ -84,6 +84,7 @@ class _MyContactEditDialog extends StatelessWidget {
             ),
           ],
         ),
+        hasKBInput: true,
       ),
     );
   }

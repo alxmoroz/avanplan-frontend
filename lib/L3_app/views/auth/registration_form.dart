@@ -58,6 +58,7 @@ class _RegistrationDialogState extends State<_RegistrationDialog> {
                         ],
                       ),
                 forceBottomPadding: true,
+                hasKBInput: true,
               ),
       );
 }

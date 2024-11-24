@@ -94,7 +94,13 @@ const defaultBarrierColor = CupertinoDynamicColor.withBrightness(
 );
 
 /// фон барьера клавиатуры
-const defaultKBBarrierColor = CupertinoDynamicColor.withBrightness(
+
+const b1BarrierColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(200, _b1R, _b1G, _b1B),
+  darkColor: Color.fromARGB(200, _b1R_d, _b1G_d, _b1B_d),
+);
+
+const b2BarrierColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(200, _b2R, _b2G, _b2B),
   darkColor: Color.fromARGB(200, _b2R_d, _b2G_d, _b2B_d),
 );

@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
@@ -18,11 +19,47 @@ class MTToolbarController extends _Base with _$MTToolbarController {
     _wideWidth = wideWidth;
     _compactWidth = kIsWeb ? P11 : P12;
   }
+
+  void setupAnimation(TickerProvider vsync, VoidCallback animationListener) {
+    if (_ac == null) {
+      _ac = AnimationController(
+        value: 1.0,
+        vsync: vsync,
+        duration: KB_RELATED_ANIMATION_DURATION,
+        reverseDuration: KB_RELATED_ANIMATION_DURATION,
+      );
+
+      _ac!.addListener(() {
+        _updateAnimationValue();
+        animationListener();
+      });
+    }
+  }
+
+  void setHidden(bool hide) {
+    _setHidden(hide);
+    if (_ac != null) {
+      if (hide) {
+        _ac!.reverse();
+      } else {
+        _ac!.forward();
+      }
+    }
+  }
+
+  void dispose() => _ac?.dispose();
 }
 
 abstract class _Base with Store {
   late final double _wideWidth;
   late final double _compactWidth;
+
+  AnimationController? _ac;
+
+  @observable
+  double? _animationValue;
+  @action
+  void _updateAnimationValue() => _animationValue = _ac?.value;
 
   @observable
   bool compact = false;
@@ -32,7 +69,7 @@ abstract class _Base with Store {
   @observable
   bool hidden = false;
   @action
-  void setHidden(bool value) => hidden = value;
+  void _setHidden(bool value) => hidden = value;
 
   @observable
   double _height = 0;
@@ -47,7 +84,7 @@ abstract class _Base with Store {
           : _wideWidth;
 
   @computed
-  double get height => hidden ? 0 : _height;
+  double get height => _height * (_animationValue ?? 1);
 
   @mustCallSuper
   @action

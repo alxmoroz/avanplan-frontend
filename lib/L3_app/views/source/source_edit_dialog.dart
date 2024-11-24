@@ -155,6 +155,7 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                 ],
               ),
               forceBottomPadding: true,
+              hasKBInput: true,
             ),
     );
   }

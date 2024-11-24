@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
@@ -20,10 +19,12 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(_tbc.height);
 
-  Widget _content() {
-    return Observer(builder: (_) {
-      final t = _tc.task;
-      return Row(
+  @override
+  Widget build(BuildContext context) {
+    final t = _tc.task;
+    return MTBottomBar(
+      toolbarController: _tbc,
+      middle: Row(
         children: [
           if (t.canEditViewSettings) ...[
             const SizedBox(width: P2),
@@ -36,15 +37,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
           ],
           const SizedBox(width: P2),
         ],
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MTBottomBar(
-      toolbarController: _tbc,
-      middle: _content(),
+      ),
     );
   }
 }

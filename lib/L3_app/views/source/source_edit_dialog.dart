@@ -51,8 +51,8 @@ Future<RemoteSource?> addSource(Workspace ws, {required RemoteSourceType sType})
         title: loc.source_type_request_dialog_title('$sType'),
         description: loc.source_type_request_dialog_description,
         actions: [
-          MTDialogAction(title: loc.action_email_us_title, type: ButtonType.main, onTap: _emailUsCustomImport),
-          MTDialogAction(title: loc.later, type: ButtonType.text),
+          MTDialogAction(title: loc.action_email_us_title, type: MTButtonType.main, onTap: _emailUsCustomImport),
+          MTDialogAction(title: loc.later, type: MTButtonType.text),
         ],
       );
     }

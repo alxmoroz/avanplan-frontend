@@ -239,6 +239,7 @@
   "my_tasks_upcoming_title": "Upcoming Tasks",
 
   "next_action_title": "Next",
+  "next_price_prefix": "then",
   "new_title": "New",
 
   "notification_list_empty_title": "No Notifications",
@@ -277,6 +278,9 @@
   "person_contact_description_placeholder": "Comment",
   "person_contacts_title": "Contact Methods",
 
+  "price_duration_prefix": "{duration} for",
+  "price_duration_suffix": "for another {duration}",
+
   "project_creation_method_selector_title": "Choose how to create a project",
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
@@ -292,9 +296,6 @@
   "project_plural_accusative": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
   "projects_group_other_title": "Other Projects",
-
-  "promo_duration": "for {duration}",
-  "promo_end_duration": "{duration} left",
 
   "promo_features_subscribe_title": "Subscribe to features",
   "promo_features_title": "Expand the capabilities of the service with benefits",
@@ -423,21 +424,21 @@
 
   "tariff_option_analytics_title": "Analytics",
   "tariff_option_analytics_subtitle": "Dates prediction, Estimates and Statistics",
-  "tariff_option_analytics_description": "Dates prediction\nProject statuses\nEstimating Task Difficulty",
+  "tariff_option_analytics_description": "Track the progress and forecast of completion of projects and goals. Estimate tasks",
 
   "tariff_option_file_storage_title": "File Storage",
   "tariff_option_file_storage_suffix": "files",
 
   "tariff_option_finance_title": "Finance",
   "tariff_option_finance_subtitle": "Income and Expense Accounting",
-  "tariff_option_finance_description": "Income and Expense Accounting\nProfit and loss calculation",
+  "tariff_option_finance_description": "Analyze profit and loss by projects and goals. Consider income and expenses",
 
   "tariff_option_goals_title": "Goals",
   "tariff_option_goals_subtitle": "Grouping tasks by goals",
 
   "tariff_option_team_title": "Team",
   "tariff_option_team_subtitle": "Collaborate on tasks",
-  "tariff_option_team_description": "Unlimited number of members\nInvitations to projects\nAssigning tasks",
+  "tariff_option_team_description": "Invite to projects without limits and restrictions. Assign tasks",
   "tariff_option_team_unsubscribe_dialog_title": "Unsubscribe from the Team feature and delete all members?",
   "tariff_option_team_unsubscribe_dialog_description": "All members except the workspace owner will be deleted.\nTheir information will be restored if you invite them again,",
 

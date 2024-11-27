@@ -107,7 +107,7 @@ class _ProjectsViewState extends State<ProjectsView> {
         bottomBar: _showProjects
             ? canShowVerticalBars(context)
                 ? null
-                : MTBottomBar(trailing: CreateProjectButton(_createProjectController, compact: true, type: ButtonType.secondary))
+                : MTBottomBar(trailing: CreateProjectButton(_createProjectController, compact: true, type: MTButtonType.secondary))
             : null,
         rightBar: _showProjects
             ? canShowVerticalBars(context)

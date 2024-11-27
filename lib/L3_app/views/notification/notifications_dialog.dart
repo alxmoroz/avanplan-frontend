@@ -107,8 +107,8 @@ class _NotificationsDialog extends StatelessWidget {
       title: loc.notification_push_ios_denied_dialog_title,
       description: loc.notification_push_ios_denied_dialog_description,
       actions: [
-        MTDialogAction(title: loc.action_goto_app_settings_title, type: ButtonType.main),
-        MTDialogAction(title: loc.action_no_i_dont_allow, type: ButtonType.text),
+        MTDialogAction(title: loc.action_goto_app_settings_title, type: MTButtonType.main),
+        MTDialogAction(title: loc.action_no_i_dont_allow, type: MTButtonType.text),
       ],
     );
     if (gotoSettings == true) {

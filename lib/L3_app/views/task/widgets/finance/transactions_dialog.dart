@@ -82,7 +82,7 @@ class _TransactionsDialog extends StatelessWidget {
                 MTButton(
                   leading: const PlusIcon(color: dangerColor),
                   titleText: loc.finance_transactions_expenses_title(1),
-                  type: ButtonType.secondary,
+                  type: MTButtonType.secondary,
                   titleColor: dangerColor,
                   padding: const EdgeInsets.symmetric(horizontal: P7),
                   onTap: _trc.addExpense,
@@ -91,7 +91,7 @@ class _TransactionsDialog extends StatelessWidget {
                 MTButton(
                   leading: const PlusIcon(color: greenColor),
                   titleText: loc.finance_transactions_income_title(1),
-                  type: ButtonType.secondary,
+                  type: MTButtonType.secondary,
                   titleColor: greenColor,
                   padding: const EdgeInsets.symmetric(horizontal: P7),
                   onTap: _trc.addIncome,

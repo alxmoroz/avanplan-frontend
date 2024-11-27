@@ -29,7 +29,7 @@ extension LinkUC on TaskController {
       title: loc.tasksource_unlink_dialog_title,
       description: loc.tasksource_unlink_dialog_hint,
       actions: [
-        MTDialogAction(title: loc.action_unlink_tasksource_title, type: ButtonType.danger, result: true),
+        MTDialogAction(title: loc.action_unlink_tasksource_title, type: MTButtonType.danger, result: true),
         MTDialogAction(onTap: task.go2source, result: false),
       ],
     );

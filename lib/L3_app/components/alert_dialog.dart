@@ -12,14 +12,14 @@ class MTDialogAction<T> {
   MTDialogAction({
     this.result,
     this.title,
-    this.type = ButtonType.secondary,
+    this.type = MTButtonType.secondary,
     this.onTap,
   });
 
   final String? title;
   final T? result;
   VoidCallback? onTap;
-  final ButtonType type;
+  final MTButtonType type;
 }
 
 Future<T?> showMTAlertDialog<T>({

@@ -15,10 +15,10 @@ Future startWithHostProjectDialog(TaskDescriptor hostProject) async {
     actions: [
       MTDialogAction(
         title: loc.start_with_host_project_action_title,
-        type: ButtonType.main,
+        type: MTButtonType.main,
         onTap: () => router.goTask(hostProject),
       ),
-      MTDialogAction(title: loc.later, type: ButtonType.text),
+      MTDialogAction(title: loc.later, type: MTButtonType.text),
     ],
   );
 }

@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/date.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/invoice_detail.dart';
@@ -11,7 +12,6 @@ import '../../components/price.dart';
 import '../../components/text.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
-import '../../presenters/tariff_option.dart';
 
 class TariffExpenseTile extends StatelessWidget {
   const TariffExpenseTile(this._to, this._d, {this.bottomDivider = true, super.key});
@@ -46,10 +46,10 @@ class TariffExpenseTile extends StatelessWidget {
         children: [
           if (_price > 0) DSmallText('$overdraftQuantityStr x ', color: f2Color, align: TextAlign.left),
           MTPrice(_price, color: f2Color, size: AdaptiveSize.xs),
-          if (_d.endDate != null) DSmallText(' ${_to.priceTerm(_d.endDate)}', color: f2Color, align: TextAlign.left),
+          if (_d.endDate != null) DSmallText(' ${_d.endDate!.priceDurationSuffix}', color: f2Color, align: TextAlign.left),
         ],
       ),
-      trailing: DText('${_expense.currency} $CURRENCY_SYMBOL_ROUBLE'),
+      trailing: DText(_expense.currencyRouble),
       bottomDivider: bottomDivider,
     );
   }

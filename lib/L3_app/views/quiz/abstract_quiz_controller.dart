@@ -9,11 +9,11 @@ import '../../navigation/router.dart';
 part 'abstract_quiz_controller.g.dart';
 
 class QuizStep {
-  QuizStep(this.code, this.title, {this.nextButtonTitle, this.nextButtonType = ButtonType.main, this.awaiting = true});
+  QuizStep(this.code, this.title, {this.nextButtonTitle, this.nextButtonType = MTButtonType.main, this.awaiting = true});
   final String code;
   final String title;
   final String? nextButtonTitle;
-  final ButtonType nextButtonType;
+  final MTButtonType nextButtonType;
   final bool awaiting;
 }
 

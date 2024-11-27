@@ -24,7 +24,7 @@ extension DeleteUC on TaskController {
           actions: [
             MTDialogAction(
               title: hasSubtasks ? loc.action_yes_delete_all_title : loc.action_yes_delete_title,
-              type: ButtonType.danger,
+              type: MTButtonType.danger,
               result: true,
             ),
             MTDialogAction(title: loc.action_no_dont_delete_title, result: false),

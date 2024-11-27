@@ -19,6 +19,7 @@ class NumberSeparators {
 extension NumberFormatterPresenter on num {
   String get percents => NumberFormat("#%").format(this);
   String get currency => NumberFormat('#,###').format(this);
+  String get currencyRouble => '$currency$CURRENCY_SYMBOL_ROUBLE';
   String get currencySharp => NumberFormat('#,###.##').format(this);
   String get financeTransaction => NumberFormat('+#,###.00;-#,###.00').format(this);
 

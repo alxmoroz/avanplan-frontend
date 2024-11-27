@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/date.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -41,7 +42,8 @@ class TariffOptions extends StatelessWidget {
           itemBuilder: (_, index) {
             final f = _tariff.features[index];
             final actualPrice = _ws.finalPrice(f.code) ?? f.finalPrice;
-            final term = f.priceTerm(_ws.consumedEndDate(f.code));
+            final endDate = _ws.consumedEndDate(f.code);
+            final term = endDate != null ? endDate.priceDurationSuffix : f.priceDurationSuffix;
 
             return MTListTile(
               leading: f.icon,

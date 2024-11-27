@@ -48,7 +48,7 @@ class NoProjects extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: P6),
           ),
           const SizedBox(height: P3),
-          CreateProjectButton(_controller, type: ButtonType.main),
+          CreateProjectButton(_controller, type: MTButtonType.main),
         ],
       ),
     );

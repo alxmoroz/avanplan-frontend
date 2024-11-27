@@ -12,7 +12,7 @@ import 'loader.dart';
 import 'material_wrapper.dart';
 import 'text.dart';
 
-enum ButtonType { text, main, secondary, danger, safe, icon, card }
+enum MTButtonType { text, main, secondary, danger, safe, icon, card }
 
 class MTButton extends StatelessWidget with GestureManaging {
   const MTButton({
@@ -30,7 +30,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.constrained = false,
     this.elevation,
     this.loading,
-    this.type = ButtonType.text,
+    this.type = MTButtonType.text,
     this.uf = true,
     this.minSize,
     this.borderSide,
@@ -48,7 +48,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.margin,
     this.loading,
     this.minSize,
-  })  : type = ButtonType.main,
+  })  : type = MTButtonType.main,
         titleColor = null,
         color = null,
         elevation = null,
@@ -68,7 +68,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.margin,
     this.loading,
     this.minSize,
-  })  : type = ButtonType.secondary,
+  })  : type = MTButtonType.secondary,
         titleColor = null,
         color = null,
         elevation = null,
@@ -88,7 +88,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.margin,
     this.loading,
     this.minSize,
-  })  : type = ButtonType.danger,
+  })  : type = MTButtonType.danger,
         titleColor = null,
         color = null,
         elevation = null,
@@ -108,7 +108,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.margin,
     this.loading,
     this.minSize,
-  })  : type = ButtonType.safe,
+  })  : type = MTButtonType.safe,
         titleColor = null,
         color = null,
         elevation = null,
@@ -128,7 +128,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.onHover,
     this.uf = true,
     this.minSize,
-  })  : type = ButtonType.icon,
+  })  : type = MTButtonType.icon,
         middle = icon,
         titleText = null,
         leading = null,
@@ -137,7 +137,7 @@ class MTButton extends StatelessWidget with GestureManaging {
         constrained = false,
         borderSide = null;
 
-  final ButtonType type;
+  final MTButtonType type;
   final String? titleText;
   final Function()? onTap;
   final Function(bool)? onHover;
@@ -157,26 +157,26 @@ class MTButton extends StatelessWidget with GestureManaging {
   final Size? minSize;
 
   bool get _enabled => loading != true && onTap != null;
-  bool get _custom => [ButtonType.card].contains(type);
+  bool get _custom => [MTButtonType.card].contains(type);
   Color get _titleColor => _enabled || _custom
       ? (titleColor ??
-          (type == ButtonType.main
+          (type == MTButtonType.main
               ? mainBtnTitleColor
-              : [ButtonType.danger, ButtonType.safe].contains(type)
+              : [MTButtonType.danger, MTButtonType.safe].contains(type)
                   ? b3Color
                   : mainColor))
       : f2Color;
   Size get _minSize => minSize ?? const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT);
-  double get _radius => (type == ButtonType.card ? DEF_BORDER_RADIUS : _minSize.height / 2);
+  double get _radius => (type == MTButtonType.card ? DEF_BORDER_RADIUS : _minSize.height / 2);
 
   ButtonStyle _style(BuildContext context) {
     final btnColor = (_enabled || _custom
             ? (color ??
-                (type == ButtonType.main
+                (type == MTButtonType.main
                     ? mainColor
-                    : type == ButtonType.danger
+                    : type == MTButtonType.danger
                         ? dangerColor
-                        : type == ButtonType.safe
+                        : type == MTButtonType.safe
                             ? greenColor
                             : b3Color))
             : b1Color)
@@ -190,7 +190,7 @@ class MTButton extends StatelessWidget with GestureManaging {
       disabledBackgroundColor: btnColor,
       minimumSize: _minSize,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_radius)),
-      side: borderSide ?? (type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none),
+      side: borderSide ?? (type == MTButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none),
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
       shadowColor: b1Color.resolve(context),
@@ -213,11 +213,11 @@ class MTButton extends StatelessWidget with GestureManaging {
     );
 
     return [
-      ButtonType.main,
-      ButtonType.secondary,
-      ButtonType.danger,
-      ButtonType.safe,
-      ButtonType.card,
+      MTButtonType.main,
+      MTButtonType.secondary,
+      MTButtonType.danger,
+      MTButtonType.safe,
+      MTButtonType.card,
     ].contains(type)
         ? OutlinedButton(
             onPressed: _onPressed,
@@ -260,20 +260,20 @@ class MTButton extends StatelessWidget with GestureManaging {
         ],
       ),
     );
-    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.xxs(child: btn);
+    return type == MTButtonType.icon || !constrained ? btn : MTAdaptive.xxs(child: btn);
   }
 }
 
 class MTPlusButton extends StatelessWidget {
-  const MTPlusButton(this.onTap, {super.key, this.type = ButtonType.main});
+  const MTPlusButton(this.onTap, {super.key, this.type = MTButtonType.main});
   final VoidCallback? onTap;
-  final ButtonType type;
+  final MTButtonType type;
 
   @override
   Widget build(BuildContext context) {
     return MTButton(
       type: type,
-      middle: PlusIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
+      middle: PlusIcon(color: type == MTButtonType.main ? mainBtnTitleColor : mainColor),
       margin: const EdgeInsets.only(right: P2),
       onTap: onTap,
     );
@@ -310,7 +310,7 @@ class MTCardButton extends StatelessWidget {
     return MTButton(
       borderSide: borderSide,
       elevation: elevation,
-      type: ButtonType.card,
+      type: MTButtonType.card,
       middle: Expanded(child: child),
       constrained: false,
       margin: margin ?? EdgeInsets.zero,

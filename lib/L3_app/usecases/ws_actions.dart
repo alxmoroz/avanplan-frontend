@@ -34,10 +34,7 @@ extension WSActionsUC on Workspace {
     if (lack > 0) {
       final hasSelectPay = await replenishBalanceDialog(
         WSController(wsIn: this),
-        reason: loc.error_insufficient_funds_for_operation(
-          '${lack.ceil().currency}$CURRENCY_SYMBOL_ROUBLE',
-          operation.toLowerCase(),
-        ),
+        reason: loc.error_insufficient_funds_for_operation(lack.ceil().currencyRouble, operation.toLowerCase()),
       );
       if (hasSelectPay == true) {
         // TODO: проверить навигацию. Не получится ли обновление в фоне а на текущей странице не будет изменений?

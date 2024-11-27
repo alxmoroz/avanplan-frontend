@@ -68,5 +68,3 @@ class MTAdaptive extends StatelessWidget {
     return force ? UnconstrainedBox(child: _constrained(context)) : _constrained(context);
   }
 }
-
-double defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));

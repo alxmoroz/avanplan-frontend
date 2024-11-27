@@ -25,7 +25,7 @@ class MTPrice extends StatelessWidget {
   final MainAxisAlignment rowAlign;
 
   Widget get _actualPrice {
-    final text = '${value.currency}$CURRENCY_SYMBOL_ROUBLE';
+    final text = value.currencyRouble;
     return {
           AdaptiveSize.xs: DSmallText(text, color: color),
           AdaptiveSize.s: D3(text, color: color),
@@ -35,7 +35,7 @@ class MTPrice extends StatelessWidget {
   }
 
   Widget get _originalPrice {
-    final text = '${originalValue!.currency}$CURRENCY_SYMBOL_ROUBLE';
+    final text = originalValue!.currencyRouble;
     const decoration = TextDecoration.lineThrough;
     return Padding(
       padding: const EdgeInsets.only(left: P, bottom: P_2),

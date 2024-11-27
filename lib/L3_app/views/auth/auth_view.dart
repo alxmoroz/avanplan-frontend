@@ -68,7 +68,7 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
     double? titleLeftPadding,
   }) =>
       MTButton(
-        type: ButtonType.main,
+        type: MTButtonType.main,
         constrained: true,
         leading: leading,
         middle: H3(titleText, color: _titleColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
@@ -128,7 +128,7 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                             authController.signInYandex,
                           ),
                           MTButton(
-                            type: ButtonType.main,
+                            type: MTButtonType.main,
                             constrained: true,
                             middle: BaseText.medium(loc.auth_sign_in_extra_title, color: _titleColor),
                             color: b3Color.color,

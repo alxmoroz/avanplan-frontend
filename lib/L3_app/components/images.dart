@@ -1,8 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
 
-import 'adaptive.dart';
+import 'package:flutter/cupertino.dart';
 
 enum ImageName {
   app_icon,
@@ -46,6 +46,8 @@ String _assetPath(String name, BuildContext context) {
   return 'assets/images/$name${dark ? '_dark' : ''}.png';
 }
 
+double _defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));
+
 class MTImage extends StatelessWidget {
   const MTImage(this.name, {super.key, this.height, this.width, this.fallbackName});
   final String? name;
@@ -55,7 +57,7 @@ class MTImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final h = height ?? defaultImageHeight(context);
+    final h = height ?? _defaultImageHeight(context);
     final w = width ?? h;
 
     return SizedBox(

@@ -58,7 +58,7 @@ class NoTasks extends StatelessWidget {
               ),
             if (!_hasOpenedProjects) ...[
               const SizedBox(height: P3),
-              CreateProjectButton(_controller, type: ButtonType.main),
+              CreateProjectButton(_controller, type: MTButtonType.main),
             ],
             if (_freshStart) ...[
               const SizedBox(height: P7),

@@ -71,7 +71,7 @@ class _ProjectMemberDialog extends StatelessWidget {
       title: loc.project_member_unlink_dialog_title,
       description: loc.project_member_unlink_dialog_description,
       actions: [
-        MTDialogAction(title: loc.action_disconnect_title, type: ButtonType.danger, result: true),
+        MTDialogAction(title: loc.action_disconnect_title, type: MTButtonType.danger, result: true),
         MTDialogAction(title: loc.action_no_dont_disconnect_title, result: false),
       ],
     );

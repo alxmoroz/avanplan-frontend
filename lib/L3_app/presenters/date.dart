@@ -17,4 +17,8 @@ extension DateFormatterPresenter on DateTime {
               : thisYear
                   ? DateFormat.MMMMd().format(this)
                   : DateFormat.yMMMMd().format(this);
+
+  String get _daysFromNow => loc.days_count(difference(now).inDays);
+  String get priceDurationPrefix => loc.price_duration_prefix(_daysFromNow);
+  String get priceDurationSuffix => loc.price_duration_suffix(_daysFromNow);
 }

@@ -67,7 +67,7 @@ class _ImportDialog extends StatelessWidget {
           Row(
             children: [
               Expanded(child: _sourceDropdown),
-              MTPlusButton(() async => await startAddSource(ic.ws), type: ButtonType.secondary),
+              MTPlusButton(() async => await startAddSource(ic.ws), type: MTButtonType.secondary),
             ],
           ),
           if (_sourceSelected) ...[

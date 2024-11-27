@@ -33,7 +33,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
           const Spacer(),
           if (t.canCreateSubtask) ...[
             const SizedBox(width: P2),
-            ToolbarCreateTaskButton(_tc, compact: true, buttonType: ButtonType.secondary),
+            ToolbarCreateTaskButton(_tc, compact: true, buttonType: MTButtonType.secondary),
           ],
           const SizedBox(width: P2),
         ],

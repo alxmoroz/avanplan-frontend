@@ -45,7 +45,7 @@ class _FinanceSummaryDialog extends StatelessWidget {
               MTListTile(
                 leading: const FinanceIncomeIcon(),
                 titleText: loc.finance_transactions_income_title(2),
-                trailing: DText('${_task.income.currency} $CURRENCY_SYMBOL_ROUBLE', color: greenColor),
+                trailing: DText(_task.income.currencyRouble, color: greenColor),
                 dividerIndent: P4 + P5,
                 bottomDivider: hasExpenses,
               ),
@@ -53,13 +53,13 @@ class _FinanceSummaryDialog extends StatelessWidget {
               MTListTile(
                 leading: const FinanceExpensesIcon(),
                 titleText: loc.finance_transactions_expenses_title(2),
-                trailing: DText('${_task.expenses.abs().currency} $CURRENCY_SYMBOL_ROUBLE', color: dangerColor),
+                trailing: DText(_task.expenses.abs().currencyRouble, color: dangerColor),
                 bottomDivider: false,
               ),
             if (_task.hasProfitOrLoss)
               MTListTile(
                 middle: BaseText.medium(_task.summaryTitle),
-                trailing: D3.medium('${_task.balance.abs().currency} $CURRENCY_SYMBOL_ROUBLE', color: _task.balanceColor),
+                trailing: D3.medium(_task.balance.abs().currencyRouble, color: _task.balanceColor),
                 margin: const EdgeInsets.only(top: P3),
                 bottomDivider: false,
               ),

@@ -26,14 +26,14 @@ class ToolbarCreateTaskButton extends StatelessWidget {
   final TaskController _tc;
   final bool compact;
   final TType? type;
-  final ButtonType? buttonType;
+  final MTButtonType? buttonType;
 
   @override
   Widget build(BuildContext context) {
     final parent = _tc.task;
     final resolvedType = type ?? (parent.isProjectWithGroups ? TType.GOAL : TType.TASK);
     final plusIcon = PlusIcon(
-      color: buttonType == ButtonType.main ? mainBtnTitleColor : mainColor,
+      color: buttonType == MTButtonType.main ? mainBtnTitleColor : mainColor,
       size: buttonType != null ? P4 : DEF_TAPPABLE_ICON_SIZE,
     );
     final title = addTaskActionTitle(resolvedType);
@@ -46,7 +46,7 @@ class ToolbarCreateTaskButton extends StatelessWidget {
           )
         : MTButton(
             leading: compact ? null : plusIcon,
-            type: buttonType ?? ButtonType.main,
+            type: buttonType ?? MTButtonType.main,
             titleText: compact ? null : title,
             middle: compact ? plusIcon : null,
             constrained: !compact,

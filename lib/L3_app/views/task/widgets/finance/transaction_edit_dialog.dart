@@ -47,7 +47,7 @@ class _TransactionEditDialog extends StatelessWidget {
           title: loc.finance_transactions_delete_dialog_title,
           description: loc.delete_dialog_description,
           actions: [
-            MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
+            MTDialogAction(title: loc.action_yes_delete_title, type: MTButtonType.danger, result: true),
             MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
           ],
         ) ==

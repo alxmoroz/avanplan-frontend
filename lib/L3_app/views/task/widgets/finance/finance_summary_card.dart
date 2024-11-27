@@ -21,7 +21,7 @@ class FinanceSummaryCard extends StatelessWidget {
     final hasTransactions = _t.hasTransactions;
     final title = BaseText(_t.summaryTitle, align: TextAlign.center, maxLines: 2, color: hasTransactions ? f2Color : f3Color);
     return MTButton(
-      type: ButtonType.card,
+      type: MTButtonType.card,
       padding: const EdgeInsets.all(P2),
       onTap: () => financeSummaryDialog(_t),
       middle: Container(

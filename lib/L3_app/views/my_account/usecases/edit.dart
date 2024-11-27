@@ -15,7 +15,7 @@ extension AccountEditUC on MyAccountController {
           title: loc.my_account_delete_dialog_title,
           description: loc.my_account_delete_dialog_description,
           actions: [
-            MTDialogAction(title: loc.action_yes_delete_title, type: ButtonType.danger, result: true),
+            MTDialogAction(title: loc.action_yes_delete_title, type: MTButtonType.danger, result: true),
             MTDialogAction(title: loc.action_no_dont_delete_title, result: false),
           ],
         )) ==

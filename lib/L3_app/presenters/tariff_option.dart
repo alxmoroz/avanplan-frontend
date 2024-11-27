@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/tariff_option.dart';
-import '../../L1_domain/utils/dates.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/images.dart';
 import '../extra/services.dart';
+import '../presenters/number.dart';
 
 const FEATURE_IMAGE_SIZE = P8;
 
@@ -28,9 +28,10 @@ extension TariffOptionPresenter on TariffOption {
 
   Widget get image => MTImage('fs_${code.toLowerCase()}', width: FEATURE_IMAGE_SIZE, height: FEATURE_IMAGE_SIZE);
 
-  String priceTerm(DateTime? endDate) => endDate != null
-      ? loc.promo_end_duration(loc.days_count(endDate.difference(now).inDays))
-      : promoAction?.durationDays != null
-          ? loc.promo_duration(loc.days_count(promoAction!.durationDays))
-          : loc.per_month_suffix;
+  String get priceDurationSuffix =>
+      promoAction?.durationDays != null ? loc.price_duration_suffix(loc.days_count(promoAction!.durationDays)) : loc.per_month_suffix;
+
+  String get priceDurationPrefix => promoAction?.durationDays != null ? loc.price_duration_prefix(loc.days_count(promoAction!.durationDays)) : '';
+
+  String get nextPriceLocalizedString => ', ${loc.next_price_prefix} ${price.currencyRouble} ${loc.per_month_suffix}';
 }

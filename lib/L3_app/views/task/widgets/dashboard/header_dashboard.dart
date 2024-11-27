@@ -36,7 +36,7 @@ class TaskHeaderDashboard extends StatelessWidget {
   Widget _card(String title, {Widget? body, bool hasLeftMargin = false, Function()? onTap}) => MTButton(
         margin: EdgeInsets.only(left: hasLeftMargin ? P2 : 0),
         padding: const EdgeInsets.all(P2),
-        type: ButtonType.card,
+        type: MTButtonType.card,
         middle: Container(
           constraints: const BoxConstraints(maxWidth: 250),
           child: Column(

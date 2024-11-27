@@ -22,10 +22,10 @@ class CreateProjectButton extends StatelessWidget {
   });
   final CreateProjectController _controller;
   final bool compact;
-  final ButtonType? type;
+  final MTButtonType? type;
 
   Widget _plusIcon(BuildContext context) => PlusIcon(
-        color: type == ButtonType.main ? mainBtnTitleColor : mainColor,
+        color: type == MTButtonType.main ? mainBtnTitleColor : mainColor,
         size: type != null ? P4 : DEF_TAPPABLE_ICON_SIZE,
         circled: canShowVerticalBars(context) && type == null,
       );
@@ -43,7 +43,7 @@ class CreateProjectButton extends StatelessWidget {
           )
         : MTButton(
             margin: EdgeInsets.only(right: compact ? P2 : 0),
-            type: type ?? ButtonType.main,
+            type: type ?? MTButtonType.main,
             leading: compact ? null : plusIcon,
             titleText: compact ? null : title,
             middle: compact ? plusIcon : null,

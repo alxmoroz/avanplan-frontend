@@ -20,7 +20,7 @@ class TaskAssigneeFilterChip extends StatelessWidget {
     final content = Align(
       alignment: Alignment.centerLeft,
       child: MTButton(
-        type: ButtonType.card,
+        type: MTButtonType.card,
         color: b1Color,
         minSize: const Size(0, P5),
         leading: Row(

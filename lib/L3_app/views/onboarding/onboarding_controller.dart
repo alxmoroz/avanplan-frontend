@@ -51,7 +51,7 @@ abstract class _OnboardingControllerBase extends AbstractQuizController with Sto
             OnboardingStepCode.promo_features.name,
             '',
             awaiting: false,
-            nextButtonType: ButtonType.secondary,
+            nextButtonType: MTButtonType.secondary,
             nextButtonTitle: loc.later,
           ),
         // показываем шаг с выбором финального действия для создания проекта или задачи

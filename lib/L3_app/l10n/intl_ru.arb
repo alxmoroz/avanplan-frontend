@@ -410,6 +410,7 @@
   "tariff_estimated_expenses_title": "Расчётная стоимость",
 
   "tariff_feature_subscribe_action_title": "Подключить",
+  "tariff_feature_subscribed_title": "Подключена",
   "tariff_feature_unsubscribe_action_title": "Отключить",
   "tariff_features_no_subscriptions": "Нет подключенных",
   "tariff_features_title": "Функции",

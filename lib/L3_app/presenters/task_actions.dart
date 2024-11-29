@@ -18,6 +18,9 @@ import 'task_tree.dart';
 enum TaskAction {
   details,
 
+  analytics,
+  team,
+
   assignee,
   finance,
   estimate,
@@ -64,20 +67,17 @@ extension TaskActionsUC on Task {
 
   bool canShowDetails(BuildContext context) => !isBigScreen(context) && isProjectOrGoal;
 
-  bool get canShowTeam => isProject && _hpMemberRead && ws.hfTeam;
-  bool get canEditTeam => canShowTeam && _hpMemberUpdate;
+  bool get canEditTeam => isProject && _hpMemberUpdate && ws.hfTeam;
   bool get canInviteMember => canEditTeam && ws.roles.isNotEmpty;
+  bool get _canReadMembers => _hpMemberRead && ws.hfTeam;
+  bool get canShowAssignee => hasAssignee && _canReadMembers;
 
   bool get canShowStatus => hasStatus && project.projectStatuses.length > 2;
   bool get canSetStatus => project.projectStatuses.isNotEmpty && _canEditTask;
 
-  bool get canShowEstimate => ws.hfAnalytics && isTask && hasEstimate;
-  bool get canEstimate => ws.hfAnalytics && _canEditTask && ws.estimateValues.isNotEmpty;
-
+  bool get canShowEstimate => isTask && hasEstimate && ws.hfAnalytics;
   bool get canEditFinance => ws.hfFinance && _canEditTask;
-
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
-
   bool get canLocalExport => canEdit && !isProject && !isInbox;
   bool get canLocalImport => canEdit && (isGoal || isBacklog || isProjectWithoutGroups);
 

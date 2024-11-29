@@ -1,10 +1,13 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../controllers/task_controller.dart';
+import '../widgets/team/invitation_dialog.dart';
+import '../widgets/team/project_team_dialog.dart';
 import 'edit.dart';
 
 extension TaskMemberLinkUC on Task {
@@ -19,6 +22,18 @@ extension TaskMemberLinkUC on Task {
 }
 
 extension TaskMembersUC on TaskController {
+  Future showTeam() async {
+    final t = task;
+    // проверка наличия функции
+    if (await t.ws.checkFeature(TOCode.TEAM)) {
+      if (t.members.isEmpty) {
+        await invite(t);
+      } else {
+        await showProjectTeamDialog(this);
+      }
+    }
+  }
+
   Future assignMemberRoles(int memberId, Iterable<int> rolesIds) async {
     if (await task.ws.checkBalance(loc.member_edit_action_title)) {
       await editWrapper(() async {

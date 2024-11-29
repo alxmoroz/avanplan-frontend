@@ -10,10 +10,12 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import '../../usecases/analytics.dart';
 import '../../usecases/assignee.dart';
 import '../../usecases/delete.dart';
 import '../../usecases/duplicate.dart';
 import '../../usecases/estimate.dart';
+import '../../usecases/members.dart';
 import '../../usecases/status.dart';
 import '../../usecases/transfer.dart';
 import '../details/task_details.dart';
@@ -50,11 +52,23 @@ class TaskActionItem extends StatelessWidget {
           title: loc.details,
           onTap: () => showDetailsDialog(_tc),
         );
+      case TaskAction.team:
+        return _tile(
+          leading: PersonIcon(size: iconSize),
+          title: loc.team_title,
+          onTap: _tc.showTeam,
+        );
       case TaskAction.assignee:
         return _tile(
           leading: PersonIcon(size: iconSize),
           title: loc.task_assignee_label,
           onTap: _tc.startAssign,
+        );
+      case TaskAction.analytics:
+        return _tile(
+          leading: AnalyticsIcon(size: iconSize),
+          title: loc.analytics_title,
+          onTap: _tc.showAnalytics,
         );
       case TaskAction.estimate:
         return _tile(

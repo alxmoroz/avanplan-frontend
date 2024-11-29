@@ -176,7 +176,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get canShowDueDateField => task.hasDueDate || canEdit;
   bool get canShowStartDateField => task.hasStartDate || canEdit;
   bool get canShowRepeatField => task.hasRepeat || (task.isTask && canEdit);
-  bool get canEstimate => !_isPreview && task.canEstimate;
+  bool get canEstimate => canEdit && task.ws.estimateValues.isNotEmpty;
   bool get canShowAttachmentsField => !_isPreview && task.attachments.isNotEmpty;
   bool get canEditFinance => !_isPreview && task.canEditFinance;
   bool get canEditRelations => !_isPreview && task.canEditRelations;
@@ -186,12 +186,14 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     final t = task;
     final showDetails = !inToolbar && t.canShowDetails(context);
 
-    final paramsActions = [
-      TaskAction.assignee,
-      if (t.isTask) TaskAction.estimate,
-      TaskAction.finance,
-      if (t.isTask) TaskAction.relations,
-    ];
+    final paramsActions = t.isInbox || t.isBacklog
+        ? []
+        : [
+            if (t.isProject) TaskAction.team else TaskAction.assignee,
+            TaskAction.finance,
+            if (t.isTask) TaskAction.estimate else TaskAction.analytics,
+            if (t.isTask) TaskAction.relations,
+          ];
 
     // задачу можно закрыть / переоткрыть через кружочек, поэтому для задачи в меню нет Закрыть / Переоткрыть, а для групп - есть
     final showClose = !t.isTask && _canClose;

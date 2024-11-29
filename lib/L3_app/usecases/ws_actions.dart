@@ -4,10 +4,12 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
+import '../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../extra/services.dart';
 import '../presenters/number.dart';
 import '../views/iap/iap_dialog.dart';
 import '../views/workspace/ws_controller.dart';
+import '../views/workspace/ws_feature_dialog.dart';
 
 extension WSActionsUC on Workspace {
   User get me => users.firstWhereOrNull((u) => u.id == myAccountController.me?.id) ?? User.dummy;
@@ -42,5 +44,15 @@ extension WSActionsUC on Workspace {
       }
     }
     return lack <= 0;
+  }
+
+  Future<bool> checkFeature(String toCode) async {
+    bool hf = hasExpense(toCode);
+    if (!hf) {
+      final wsc = WSController(wsIn: this);
+      await wsFeature(wsc, toCode: toCode);
+      hf = hasExpense(toCode);
+    }
+    return hf;
   }
 }

@@ -63,7 +63,7 @@ class TaskDetails extends StatelessWidget {
           if (t.canShowStatus) TaskStatusField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Ответственный
-          if (t.hasAssignee) TaskAssigneeField(_tc, compact: compact, hasMargin: hasMargins),
+          if (t.canShowAssignee) TaskAssigneeField(_tc, compact: compact, hasMargin: hasMargins),
 
           /// Даты
           if (_tc.canShowDateField) TaskDatesField(_tc, compact: compact, hasMargin: hasMargins),

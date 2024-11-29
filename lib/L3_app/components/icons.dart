@@ -47,7 +47,7 @@ class MTIcon extends StatelessWidget {
           Icon(
             iconData,
             color: rColor,
-            size: size - (circled == true ? ((size / 3) + 2) : 0),
+            size: size - (circled == true ? (sqrt(size * size / 8)) : 0),
           ),
       ],
     );
@@ -330,7 +330,7 @@ class NoteMarkIcon extends MTIcon {
 }
 
 class PersonIcon extends MTIcon {
-  const PersonIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.person_circle);
+  const PersonIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.person_fill, circled: true);
 }
 
 class PersonNoAvatarIcon extends MTIcon {

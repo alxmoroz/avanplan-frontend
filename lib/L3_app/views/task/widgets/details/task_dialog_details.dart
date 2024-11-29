@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/constants.dart';
+import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
@@ -34,7 +35,7 @@ class TaskDialogDetails extends StatelessWidget {
           if (_tc.canShowAttachmentsField) TaskAttachmentsField(_tc, hasMargin: true),
 
           /// Финансы
-          if (t.transactions.isNotEmpty) FinanceField(_tc, hasMargin: true),
+          if (t.canShowFinance) FinanceField(_tc, hasMargin: true),
 
           /// Связи
           if (_tc.relationsController.hasRelations) TaskRelationsField(_tc, hasMargin: true),

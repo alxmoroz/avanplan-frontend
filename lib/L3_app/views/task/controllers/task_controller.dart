@@ -189,9 +189,9 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     final paramsActions = t.isInbox || t.isBacklog
         ? []
         : [
-            if (t.isProject) TaskAction.team else TaskAction.assignee,
-            TaskAction.finance,
             if (t.isTask) TaskAction.estimate else TaskAction.analytics,
+            TaskAction.finance,
+            if (t.isProject) TaskAction.team else TaskAction.assignee,
             if (t.isTask) TaskAction.relations,
           ];
 

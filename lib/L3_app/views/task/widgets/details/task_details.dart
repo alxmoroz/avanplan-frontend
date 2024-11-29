@@ -76,7 +76,7 @@ class TaskDetails extends StatelessWidget {
             if (_tc.canShowAttachmentsField) TaskAttachmentsField(_tc, hasMargin: hasMargins),
 
             /// Финансы
-            if (t.transactions.isNotEmpty) FinanceField(_tc, hasMargin: hasMargins),
+            if (t.canShowFinance) FinanceField(_tc, hasMargin: hasMargins),
 
             /// Связи
             if (_tc.relationsController.hasRelations) TaskRelationsField(_tc, hasMargin: hasMargins),

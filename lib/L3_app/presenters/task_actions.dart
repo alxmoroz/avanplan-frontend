@@ -76,7 +76,10 @@ extension TaskActionsUC on Task {
   bool get canSetStatus => project.projectStatuses.isNotEmpty && _canEditTask;
 
   bool get canShowEstimate => isTask && hasEstimate && ws.hfAnalytics;
-  bool get canEditFinance => ws.hfFinance && _canEditTask;
+
+  bool get canShowFinance => transactions.isNotEmpty && ws.hfFinance;
+  bool get canEditFinance => _canEditTask && ws.hfFinance;
+
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
   bool get canLocalExport => canEdit && !isProject && !isInbox;
   bool get canLocalImport => canEdit && (isGoal || isBacklog || isProjectWithoutGroups);

@@ -15,11 +15,11 @@ import '../../usecases/assignee.dart';
 import '../../usecases/delete.dart';
 import '../../usecases/duplicate.dart';
 import '../../usecases/estimate.dart';
+import '../../usecases/finance.dart';
 import '../../usecases/members.dart';
 import '../../usecases/status.dart';
 import '../../usecases/transfer.dart';
 import '../details/task_details.dart';
-import '../finance/transactions_dialog.dart';
 import '../relations/relations_dialog.dart';
 import '../transfer/local_import_dialog.dart';
 
@@ -52,18 +52,6 @@ class TaskActionItem extends StatelessWidget {
           title: loc.details,
           onTap: () => showDetailsDialog(_tc),
         );
-      case TaskAction.team:
-        return _tile(
-          leading: PersonIcon(size: iconSize),
-          title: loc.team_title,
-          onTap: _tc.showTeam,
-        );
-      case TaskAction.assignee:
-        return _tile(
-          leading: PersonIcon(size: iconSize),
-          title: loc.task_assignee_label,
-          onTap: _tc.startAssign,
-        );
       case TaskAction.analytics:
         return _tile(
           leading: AnalyticsIcon(size: iconSize),
@@ -78,9 +66,22 @@ class TaskActionItem extends StatelessWidget {
         );
       case TaskAction.finance:
         return _tile(
-            leading: FinanceIcon(size: iconSize),
-            title: loc.tariff_option_finance_title,
-            onTap: () => transactionsDialog(_tc.transactionsController));
+          leading: FinanceIcon(size: iconSize),
+          title: loc.tariff_option_finance_title,
+          onTap: _tc.showFinance,
+        );
+      case TaskAction.team:
+        return _tile(
+          leading: PeopleIcon(size: iconSize),
+          title: loc.team_title,
+          onTap: _tc.showTeam,
+        );
+      case TaskAction.assignee:
+        return _tile(
+          leading: PersonIcon(size: iconSize),
+          title: loc.task_assignee_label,
+          onTap: _tc.startAssign,
+        );
       case TaskAction.relations:
         return _tile(
           leading: LinkIcon(size: iconSize),

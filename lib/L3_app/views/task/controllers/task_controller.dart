@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_dates.dart';
+import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/field_data.dart';
 import '../../../extra/services.dart';
@@ -170,7 +171,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get canDelete => !_isPreview && task.canDelete;
   bool get canCreateChecklist => !_isPreview && task.canCreateChecklist;
   bool get canSetStatus => !_isPreview && task.canSetStatus;
-  bool get canAssign => !_isPreview && task.canAssign;
+  bool get canAssign => canEdit && task.activeMembers.isNotEmpty;
   bool get canShowDateField => task.hasDates || canEdit;
   bool get canShowDueDateField => task.hasDueDate || canEdit;
   bool get canShowStartDateField => task.hasStartDate || canEdit;
@@ -186,10 +187,10 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     final showDetails = !inToolbar && t.canShowDetails(context);
 
     final paramsActions = [
-      if (canAssign) TaskAction.assignee,
-      if (canEstimate) TaskAction.estimate,
-      if (canEditFinance) TaskAction.finance,
-      if (canEditRelations) TaskAction.relations,
+      TaskAction.assignee,
+      if (t.isTask) TaskAction.estimate,
+      TaskAction.finance,
+      if (t.isTask) TaskAction.relations,
     ];
 
     // задачу можно закрыть / переоткрыть через кружочек, поэтому для задачи в меню нет Закрыть / Переоткрыть, а для групп - есть

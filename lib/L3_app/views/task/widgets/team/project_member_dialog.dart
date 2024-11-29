@@ -160,10 +160,10 @@ class _ProjectMemberDialog extends StatelessWidget {
                     leading: const PrivacyIcon(),
                     middle: BaseText(loc.role_title, maxLines: 1),
                     subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
-                    trailing: _project.canEditMembers ? const EditIcon() : null,
+                    trailing: _project.canEditTeam ? const EditIcon() : null,
                     bottomDivider: false,
                     loading: _project.loading,
-                    onTap: _project.canEditMembers ? () => _editRoles(context) : null,
+                    onTap: _project.canEditTeam ? () => _editRoles(context) : null,
                   ),
 
                   /// Отключение от проекта

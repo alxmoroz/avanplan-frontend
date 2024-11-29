@@ -179,7 +179,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
                 child: Column(
                   children: [
                     /// Дашборд (аналитика, финансы, команда)
-                    if (t.isGroup || t.hasAnalytics || t.hasFinance || t.hasTeam) TaskHeaderDashboard(tc),
+                    if (t.isGroup || t.hasAnalytics || t.hasFinance || t.isProject) TaskHeaderDashboard(tc),
 
                     if (tc.settingsController.hasFilteredAssignees) TaskAssigneeFilterChip(tc),
 

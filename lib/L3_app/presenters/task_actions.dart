@@ -64,14 +64,12 @@ extension TaskActionsUC on Task {
 
   bool canShowDetails(BuildContext context) => !isBigScreen(context) && isProjectOrGoal;
 
-  bool get canShowMembers => isProject && ws.hfTeam && _hpMemberRead;
-  bool get canEditMembers => isProject && ws.hfTeam && _hpMemberUpdate;
-  bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
+  bool get canShowTeam => isProject && _hpMemberRead && ws.hfTeam;
+  bool get canEditTeam => canShowTeam && _hpMemberUpdate;
+  bool get canInviteMember => canEditTeam && ws.roles.isNotEmpty;
 
   bool get canShowStatus => hasStatus && project.projectStatuses.length > 2;
   bool get canSetStatus => project.projectStatuses.isNotEmpty && _canEditTask;
-
-  bool get canAssign => ws.hfTeam && canEdit && activeMembers.isNotEmpty;
 
   bool get canShowEstimate => ws.hfAnalytics && isTask && hasEstimate;
   bool get canEstimate => ws.hfAnalytics && _canEditTask && ws.estimateValues.isNotEmpty;

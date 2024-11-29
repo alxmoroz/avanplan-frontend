@@ -17,9 +17,11 @@ class Tariff extends Codable {
   final Map<String, TariffOption> optionsMap;
   Iterable<TariffOption> get _options => optionsMap.values;
 
-  num freeLimit(String code) => optionsMap[code]?.freeLimit ?? 0;
-  num tariffQuantity(String code) => optionsMap[code]?.tariffQuantity ?? 1;
-  num price(String code) => optionsMap[code]?.price ?? 0;
+  TariffOption? option(String code) => optionsMap[code];
+
+  num freeLimit(String code) => option(code)?.freeLimit ?? 0;
+  num tariffQuantity(String code) => option(code)?.tariffQuantity ?? 1;
+  num price(String code) => option(code)?.price ?? 0;
 
   bool get hasFeatures => _options.any((o) => o.userManageable);
   List<TariffOption> get features => _options.where((o) => o.userManageable).toList();

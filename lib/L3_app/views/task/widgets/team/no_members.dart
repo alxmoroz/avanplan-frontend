@@ -25,7 +25,7 @@ class NoMembers extends StatelessWidget {
         H2(loc.team_empty_title, align: TextAlign.center),
         const SizedBox(height: P),
         BaseText(loc.team_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-        if (_task.canInviteMembers) ...[
+        if (_task.canInviteMember) ...[
           const SizedBox(height: P3),
           InvitationButton(_task),
         ]

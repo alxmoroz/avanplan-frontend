@@ -52,7 +52,7 @@ class _WSFeaturesDialog extends StatelessWidget {
               trailing: kIsWeb ? null : const ChevronIcon(),
               dividerIndent: FEATURE_IMAGE_SIZE + P5,
               bottomDivider: index < features.length - 1,
-              onTap: () => wsFeature(_wsc, index),
+              onTap: () => wsFeature(_wsc, index: index),
             );
           },
         ),

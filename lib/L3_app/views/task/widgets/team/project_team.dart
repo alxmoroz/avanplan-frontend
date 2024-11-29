@@ -62,7 +62,7 @@ class ProjectTeam extends StatelessWidget {
                   itemBuilder: _projectMemberBuilder,
                   itemCount: _activeMembers.length,
                 ),
-                if (_project.canInviteMembers) InvitationButton(_project),
+                if (_project.canInviteMember) InvitationButton(_project),
               ],
             )
           : NoMembers(_project),

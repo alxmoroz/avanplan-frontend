@@ -19,6 +19,7 @@ extension WSTariffUC on WSController {
   Future changeTariff(BuildContext context, Tariff tariff) async {
     // TODO: неверная логика перехода с тарифа, где были включены функции
     // TODO: сначала нужно отключить платные функции, потом уже проверять наличие средств для перехода
+    final ws = this.ws;
     // информация о предстоящих тратах при переходе на тариф, где будут затраты с учётом текущего потребления услуг
     if (ws.expectedDailyCharge == 0 || await tariffConfirmExpenses(ws, tariff) == true) {
       // проверка, что хватит денег на один день после смены
@@ -37,11 +38,13 @@ extension WSTariffUC on WSController {
   }
 
   Future toggleFeatureSubscription(BuildContext context, TariffOption f) async {
+    final ws = this.ws;
+
     bool needDeleteTeam = false;
     bool? deleteTeamGranted = false;
-    final subscribed = ws.hasExpense(f.code);
 
     // Подключение функции
+    final subscribed = ws.hasExpense(f.code);
     if (!subscribed) {
       // проверка, что хватит денег на один день после подключения
       if (!await ws.checkBalance(loc.promo_features_subscribe_title, extraMoney: ws.expectedDailyCharge)) return;

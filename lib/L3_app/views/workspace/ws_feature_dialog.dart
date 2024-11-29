@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/tariff_option.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -19,17 +20,29 @@ import '../_base/loader_screen.dart';
 import 'usecases/tariff.dart';
 import 'ws_controller.dart';
 
-Future wsFeature(WSController wsc, int index) async => await showMTDialog(_WSFeatureDialog(wsc, index));
+Future wsFeature(WSController wsc, {int? index, String? toCode, bool autoClose = true}) async => await showMTDialog(
+      _WSFeatureDialog(wsc, index: index, toCode: toCode, autoClose: autoClose),
+    );
 
 class _WSFeatureDialog extends StatelessWidget {
-  const _WSFeatureDialog(this._wsc, this._index);
+  const _WSFeatureDialog(this._wsc, {this.index, this.toCode, required this.autoClose}) : assert(index != null || toCode != null);
   final WSController _wsc;
-  final int _index;
+  final bool autoClose;
+  final int? index;
+  final String? toCode;
+
+  Future _toggleSubscription(BuildContext context, TariffOption f) async {
+    await _wsc.toggleFeatureSubscription(context, f);
+    if (autoClose && context.mounted) {
+      Navigator.of(context).pop();
+    }
+  }
 
   Widget _dialog(BuildContext context) {
     final ws = _wsc.ws;
     final tariff = ws.tariff;
-    final f = tariff.features[_index];
+    // TODO: второй случай не обработана возможная ошибка
+    final f = index != null ? tariff.features[index!] : tariff.option(toCode!)!;
 
     final subscribed = ws.hasExpense(f.code);
     final nominalPrice = f.price;
@@ -78,7 +91,7 @@ class _WSFeatureDialog extends StatelessWidget {
                     titleText: subscribed ? loc.tariff_feature_unsubscribe_action_title : loc.tariff_feature_subscribe_action_title,
                     margin: const EdgeInsets.only(top: P3),
                     constrained: true,
-                    onTap: () => _wsc.toggleFeatureSubscription(context, f),
+                    onTap: () => _toggleSubscription(context, f),
                   ),
                 ],
               ),

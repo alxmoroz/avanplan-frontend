@@ -45,7 +45,10 @@ class _WSFeaturesDialog extends StatelessWidget {
               middle: Row(
                 children: [
                   Expanded(child: BaseText(f.title, maxLines: 1)),
-                  if (subscribed) SmallText(loc.tariff_feature_subscribed_title, color: greenColor),
+                  SmallText(
+                    subscribed ? loc.tariff_feature_subscribed_title : loc.tariff_feature_no_subscribed_title,
+                    color: subscribed ? greenColor : f3Color,
+                  ),
                 ],
               ),
               subtitle: SmallText(f.subtitle, maxLines: 1),

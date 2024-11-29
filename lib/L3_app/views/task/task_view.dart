@@ -77,6 +77,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
   bool get _showKBBarrier => _hasKB && (_titleFieldFocused || (_descriptionFieldFocused && !_isBigGroup));
 
   late final MTToolbarController _bottomTBController;
+  late final NFToolbarController _bottomTBNFController;
   late final MTToolbarController _rightTBController;
 
   @override
@@ -97,7 +98,10 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
 
     _rightTBController.hidden = false;
 
-    _bottomTBController = tc.canComment ? NFToolbarController(tc, _tvc) : MTToolbarController();
+    _bottomTBNFController = NFToolbarController(tc, _tvc);
+    _bottomTBNFController.setupAnimation(this, () => setState(() {}));
+
+    _bottomTBController = MTToolbarController();
     _bottomTBController.setupAnimation(this, () => setState(() {}));
 
     super.initState();
@@ -138,6 +142,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
     scrollController.dispose();
     _boardScrollController.dispose();
     _bottomTBController.dispose();
+    _bottomTBNFController.dispose();
 
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -146,7 +151,8 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
   void _toggleToolbars(bool hidden) {
     if (!_isTaskDialog) leftMenuController.setHidden(hidden);
     _rightTBController.setHidden(hidden);
-    if (!(tc.canComment && _noteFieldFocused)) _bottomTBController.setHidden(hidden);
+    _bottomTBController.setHidden(hidden);
+    if (!_noteFieldFocused) _bottomTBNFController.setHidden(hidden);
   }
 
   void onScrolled(bool scrolled) => setState(() => _hasScrolled = scrolled);
@@ -259,64 +265,61 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
           );
   }
 
-  Widget _dialog(BuildContext context, Task t) {
-    PreferredSizeWidget? bottomToolBar;
-    if (tc.canComment) {
-      final tbc = _bottomTBController as NFToolbarController;
-      tbc.calculateHeight(context, ignoreBottomInsets: true);
-      bottomToolBar = NoteFieldToolbar(tc, tbc);
-    }
-    return MTDialog(
-      topBar: MTTopBar(middle: topBarTitle(t)),
-      body: _bodyContent(t),
-      rightBar: TaskRightToolbar(tc, _rightTBController),
-      bottomBar: bottomToolBar,
-      scrollController: scrollController,
-      scrollOffsetTop: headerHeight,
-      onScrolled: onScrolled,
-      hasKBInput: true,
-    );
-  }
-
-  Widget _page(BuildContext context, Task t) {
-    final big = isBigScreen(context);
-    final bigGroup = _isBigGroup;
-    PreferredSizeWidget? bottomToolBar;
-    if (tc.canComment) {
-      final tbc = _bottomTBController as NFToolbarController;
-      tbc.calculateHeight(context, ignoreBottomInsets: false);
-      bottomToolBar = NoteFieldToolbar(tc, tbc);
-    } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
-      bottomToolBar = TaskBottomToolbar(tc, _bottomTBController);
-    }
-
-    return MTPage(
-      key: widget.key,
-      navBar: big && !_hasScrolled
-          ? null
-          : MTTopBar(
-              innerHeight: big ? headerHeight : null,
-              leading: bigGroup ? const SizedBox() : null,
-              fullScreen: !big,
-              color: big ? b2Color : navbarColor,
-              middle: topBarTitle(t),
-              trailing: !bigGroup && tc.loading != true ? TaskPopupMenu(tc) : null,
-            ),
-      leftBar: big ? LeftMenu(leftMenuController) : null,
-      body: _bodyContent(t),
-      bottomBar: bottomToolBar,
-      // панель справа - для проекта и цели. Для инбокса только если он не пустой
-      rightBar: bigGroup && (!td.isInbox || t.hasSubtasks) ? TaskRightToolbar(tc, _rightTBController) : null,
-      scrollController: scrollController,
-      scrollOffsetTop: _scrollOffsetTop,
-      onScrolled: onScrolled,
-    );
-  }
-
-  Widget _content(BuildContext context, bool isDialog) {
+  Widget _dialog(BuildContext context) {
     return Observer(builder: (_) {
       final t = tc.task;
-      return isDialog ? _dialog(context, t) : _page(context, t);
+      PreferredSizeWidget? bottomToolBar;
+      if (tc.canComment) {
+        _bottomTBNFController.calculateHeight(context, ignoreBottomInsets: true);
+        bottomToolBar = NoteFieldToolbar(tc, _bottomTBNFController);
+      }
+      return MTDialog(
+        topBar: MTTopBar(middle: topBarTitle(t)),
+        body: _bodyContent(t),
+        rightBar: TaskRightToolbar(tc, _rightTBController),
+        bottomBar: bottomToolBar,
+        scrollController: scrollController,
+        scrollOffsetTop: headerHeight,
+        onScrolled: onScrolled,
+        hasKBInput: true,
+      );
+    });
+  }
+
+  Widget _page(BuildContext context) {
+    return Observer(builder: (_) {
+      final t = tc.task;
+      final big = isBigScreen(context);
+      final bigGroup = _isBigGroup;
+      PreferredSizeWidget? bottomToolBar;
+      if (tc.canComment) {
+        _bottomTBNFController.calculateHeight(context, ignoreBottomInsets: false);
+        bottomToolBar = NoteFieldToolbar(tc, _bottomTBNFController);
+      } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
+        bottomToolBar = TaskBottomToolbar(tc, _bottomTBController);
+      }
+
+      return MTPage(
+        key: widget.key,
+        navBar: big && !_hasScrolled
+            ? null
+            : MTTopBar(
+                innerHeight: big ? headerHeight : null,
+                leading: bigGroup ? const SizedBox() : null,
+                fullScreen: !big,
+                color: big ? b2Color : navbarColor,
+                middle: topBarTitle(t),
+                trailing: !bigGroup && tc.loading != true ? TaskPopupMenu(tc) : null,
+              ),
+        leftBar: big ? LeftMenu(leftMenuController) : null,
+        body: _bodyContent(t),
+        bottomBar: bottomToolBar,
+        // панель справа - для проекта и цели. Для инбокса только если он не пустой
+        rightBar: bigGroup && (!td.isInbox || t.hasSubtasks) ? TaskRightToolbar(tc, _rightTBController) : null,
+        scrollController: scrollController,
+        scrollOffsetTop: _scrollOffsetTop,
+        onScrolled: onScrolled,
+      );
     });
   }
 
@@ -324,7 +327,11 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final isDialog = _isTaskDialog;
-      return tc.loading && !tc.task.filled ? LoaderScreen(tc, isDialog: isDialog) : _content(context, isDialog);
+      return tc.loading && !tc.task.filled
+          ? LoaderScreen(tc, isDialog: isDialog)
+          : isDialog
+              ? _dialog(context)
+              : _page(context);
     });
   }
 }

@@ -50,11 +50,11 @@ class TaskHeaderDashboard extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             /// Аналитика
-            if (t.hasAnalytics) _analyticsCard(t),
+            if (t.hasGroupAnalytics) _analyticsCard(t),
 
             /// Финансы
-            if (t.hasFinance) ...[
-              if (t.hasAnalytics) const SizedBox(width: P2),
+            if (t.hasGroupFinance) ...[
+              if (t.hasGroupAnalytics) const SizedBox(width: P2),
               FinanceSummaryCard(t),
             ],
 
@@ -65,7 +65,7 @@ class TaskHeaderDashboard extends StatelessWidget {
             if (t.hasDescription || _tc.canEdit)
               MTDashboardCard(
                 t.hasDescription ? '' : loc.description,
-                hasLeftMargin: t.hasAnalytics || t.hasFinance || t.isProject,
+                hasLeftMargin: t.hasGroupAnalytics || t.hasGroupFinance,
                 body: t.hasDescription
                     ? Container(constraints: const BoxConstraints(minWidth: 200), child: BaseText.f2(t.description, maxLines: 4))
                     : const DescriptionIcon(),

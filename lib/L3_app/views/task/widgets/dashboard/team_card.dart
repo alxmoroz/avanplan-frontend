@@ -27,7 +27,7 @@ class MTDashboardTeamCard extends StatelessWidget {
 
     return MTDashboardCard(
       loc.team_title,
-      hasLeftMargin: t.hasAnalytics || t.hasFinance,
+      hasLeftMargin: t.hasGroupAnalytics || t.hasGroupFinance,
       body: t.members.isNotEmpty
           ? Row(
               mainAxisSize: MainAxisSize.min,

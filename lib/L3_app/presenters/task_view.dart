@@ -7,9 +7,9 @@ import '../../L1_domain/entities_extensions/ws_tariff.dart';
 import 'task_tree.dart';
 
 extension TaskViewPresenter on Task {
-  bool get hasAnalytics => isProjectOrGoal && ws.hfAnalytics;
-  bool get hasFinance => isProjectOrGoal && ws.hfFinance;
+  bool get hasGroupAnalytics => isProjectOrGoal && ws.hfAnalytics;
+  bool get hasGroupFinance => isProjectOrGoal && ws.hfFinance;
 
-  bool get canShowTimeChart => hasAnalytics && (hasDueDate || hasEtaDate);
-  bool get canShowVelocityVolumeCharts => hasAnalytics;
+  bool get canShowTimeChart => hasGroupAnalytics && (hasDueDate || hasEtaDate);
+  bool get canShowVelocityVolumeCharts => hasGroupAnalytics;
 }

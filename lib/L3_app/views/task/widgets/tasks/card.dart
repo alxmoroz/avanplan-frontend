@@ -5,7 +5,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
 import '../../../../../../L1_domain/entities_extensions/task_dates.dart';
-import '../../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
@@ -110,10 +109,11 @@ class _State extends State<TaskCard> {
         const SizedBox(width: P_2),
         SmallText(errText, color: _textColor, maxLines: 1),
       ]);
+
+  /// даты
   bool get _showRepeat => _t.hasRepeat;
   bool get _showDate => _t.hasDueDate && !_t.closed && _t.isTask && (_t.leafState != TaskState.TODAY || widget.board);
   Color get _dateColor => _t.dueDate!.isBefore(tomorrow) ? stateColor(_t.leafState) : _textColor ?? f2Color;
-
   Widget get _date => Row(
         children: [
           CalendarIcon(color: _dateColor, size: P3),
@@ -121,30 +121,35 @@ class _State extends State<TaskCard> {
           SmallText(_t.dueDate!.strMedium, color: _dateColor, maxLines: 1),
         ],
       );
+
+  /// статус
   bool get _showStatus => _t.canShowStatus && !widget.board && !_t.closed;
-
   Widget get _status => SmallText('${_t.status}', color: _textColor, maxLines: 1);
+
+  /// назначенный
   bool get _showAssignee => _t.canShowAssignee && widget.showAssignee;
-
   Widget get _assignee => _t.assignee!.icon(P2 + P_2);
-  bool get _showChecklistMark => !_t.closed && _t.isCheckList;
 
+  /// чеклист
+  bool get _showChecklistMark => !_t.closed && _t.isCheckList;
   Widget get _checklistMark => Row(
         children: [
           SmallText('${_t.closedSubtasksCount}/${_t.subtasksCount} ', color: f2Color, maxLines: 1),
           const CheckboxIcon(true, size: P3, color: f2Color),
         ],
       );
-  bool get _showAttachmentsMark => !_t.closed && _t.attachmentsCount > 0;
 
+  /// вложения
+  bool get _showAttachmentsMark => !_t.closed && _t.attachmentsCount > 0;
   Widget get _attachmentsMark => Row(
         children: [
           SmallText('${_t.attachmentsCount} ', color: f2Color, maxLines: 1),
           const AttachmentIcon(size: P3, color: f2Color),
         ],
       );
-  bool get _showNotesMark => !_t.closed && _t.notesCount > 0;
 
+  /// комментарии
+  bool get _showNotesMark => !_t.closed && _t.notesCount > 0;
   Widget get _notesMark => Row(
         children: [
           SmallText('${_t.notesCount} ', color: f2Color, maxLines: 1),
@@ -154,13 +159,14 @@ class _State extends State<TaskCard> {
           ),
         ],
       );
-  bool get _showEstimate => _t.hasAnalytics && _t.hasEstimate;
 
+  /// оценка
+  bool get _showEstimate => _t.canShowEstimate;
   Widget get _estimate => SmallText(_t.estimateStr, color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: P),
-        child: MTCircle(size: 4, color: f2Color),
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        child: MTCircle(size: 4, color: f3Color),
       );
 
   Widget get _deleteButton => Opacity(
@@ -207,11 +213,11 @@ class _State extends State<TaskCard> {
           if (_t.error != null)
             _error(_t.error!.message)
           // проекты, цели или группы задач: интегральная оценка, метка связанного проекта, вложений и комментариев
-          else if (_t.isGroup && (_t.hasAnalytics || _showAttachmentsMark || _showNotesMark || _t.isLinkedProject || _t.wsCode.isNotEmpty)) ...[
+          else if (_t.isGroup && (_t.hasGroupAnalytics || _showAttachmentsMark || _showNotesMark || _t.isLinkedProject || _t.wsCode.isNotEmpty)) ...[
             const SizedBox(height: P_2),
             Row(
               children: [
-                if (_t.hasAnalytics) StateTitle(_overallState, _tc.overallStateTitle, place: StateTitlePlace.card),
+                if (_t.hasGroupAnalytics) StateTitle(_overallState, _tc.overallStateTitle, place: StateTitlePlace.card),
                 const Spacer(),
                 if (_showAttachmentsMark) ...[_attachmentsMark],
                 if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
@@ -238,13 +244,13 @@ class _State extends State<TaskCard> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const SizedBox(width: P2),
+                      if (_showChecklistMark) _checklistMark,
                       if (withDetails) ...[
-                        if (_showChecklistMark) ...[_checklistMark],
                         if (_showAttachmentsMark) ...[if (_showChecklistMark) _divider, _attachmentsMark],
                         if (_showNotesMark) ...[if (_showChecklistMark || _showAttachmentsMark) _divider, _notesMark],
                       ],
                       if (_showEstimate) ...[
-                        if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark)) _divider,
+                        if (_showChecklistMark || (withDetails && (_showAttachmentsMark || _showNotesMark))) _divider,
                         _estimate,
                       ],
                       if (_showStatus) ...[

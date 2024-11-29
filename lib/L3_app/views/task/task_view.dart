@@ -20,7 +20,6 @@ import '../../components/toolbar.dart';
 import '../../components/toolbar_controller.dart';
 import '../../presenters/task_actions.dart';
 import '../../presenters/task_tree.dart';
-import '../../presenters/task_view.dart';
 import '../_base/loader_screen.dart';
 import '../main/main_view.dart';
 import '../main/widgets/left_menu.dart';
@@ -184,8 +183,8 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
                 margin: EdgeInsets.only(top: td.isTask ? P3 : 0),
                 child: Column(
                   children: [
-                    /// Дашборд (аналитика, финансы, команда)
-                    if (t.isGroup || t.hasAnalytics || t.hasFinance || t.isProject) TaskHeaderDashboard(tc),
+                    /// Дашборд (аналитика, финансы, команда, вики-описание)
+                    if (t.isGroup) TaskHeaderDashboard(tc),
 
                     if (tc.settingsController.hasFilteredAssignees) TaskAssigneeFilterChip(tc),
 

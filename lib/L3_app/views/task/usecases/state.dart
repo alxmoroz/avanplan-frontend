@@ -41,7 +41,7 @@ extension StateUC on TaskController {
                 ? TaskState.BACKLOG
                 : t.isTask
                     ? t.leafState
-                    : t.hasAnalytics || t.closed
+                    : t.hasGroupAnalytics || t.closed
                         ? t.state
                         : TaskState.NO_ANALYTICS;
   }

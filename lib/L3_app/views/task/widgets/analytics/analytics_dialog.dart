@@ -42,7 +42,7 @@ class _AnalyticsDialog extends StatelessWidget {
       );
 
   num _hVelocity(Task t) => (t.project.velocity * DAYS_IN_MONTH).round();
-  String _velocityUnit(Task t) => loc.chart_velocity_unit_mo(t.hasAnalytics ? t.ws.estimateUnitCode : loc.task_plural(_hVelocity(t)));
+  String _velocityUnit(Task t) => loc.chart_velocity_unit_mo(t.ws.estimateUnitCode);
 
   Widget _chartCard(Widget child) => Container(
         alignment: Alignment.topLeft,
@@ -56,7 +56,7 @@ class _AnalyticsDialog extends StatelessWidget {
     return _details(
       loc.state_closed,
       '$closedVolume / $totalVolume',
-      unit: t.hasAnalytics ? t.ws.estimateUnitCode : loc.task_plural(totalVolume),
+      unit: t.ws.estimateUnitCode,
       divider: false,
     );
   }

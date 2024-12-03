@@ -69,6 +69,12 @@ const _f1R_d = _f2R_d + _fDC;
 const _f1G_d = _f2G_d + _fDC;
 const _f1B_d = _f2B_d + _fDC;
 
+/// Белый - черный
+const bwColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, _b3R, _b3G, _b3B),
+  darkColor: Color.fromARGB(255, _b0R_d, _b0G_d, _b0B_d),
+);
+
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, _b3R, _b3G, _b3B),

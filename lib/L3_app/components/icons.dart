@@ -301,6 +301,10 @@ class MenuIcon extends MTIcon {
   const MenuIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.ellipsis_vertical);
 }
 
+class MenuHorizontalIcon extends MTIcon {
+  const MenuHorizontalIcon({super.key, super.color, super.size, super.circled}) : super(CupertinoIcons.ellipsis);
+}
+
 class MimeTypeIcon extends MTIcon {
   MimeTypeIcon(this.mimeType, {super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(mimeType.iconData);
   final String mimeType;
@@ -409,6 +413,5 @@ class WSPublicIcon extends MTIcon {
   const WSPublicIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.building_2_fill);
 }
 
-Widget get appleIcon => Image.asset('assets/icons/apple_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);
-Widget get googleIcon => Image.asset('assets/icons/google_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);
-Widget get yandexIcon => Image.asset('assets/icons/yandex_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);
+Widget get googleIcon => Image.asset('assets/icons/google_icon.png', width: P6, height: P6);
+Widget get yandexIcon => Image.asset('assets/icons/yandex_icon.png', width: P6, height: P6);

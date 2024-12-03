@@ -57,26 +57,14 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  static final Color _titleColor = f1Color.color;
-  static const Color _btnColor = Color(0xFFFFFFFF);
-
-  Widget _authBtn(
-    Widget leading,
-    String titleText,
-    double iconSize,
-    VoidCallback? onTap, {
-    double? titleLeftPadding,
-  }) =>
-      MTButton(
-        type: MTButtonType.main,
-        constrained: true,
-        leading: leading,
-        middle: H3(titleText, color: _titleColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
-        trailing: SizedBox(width: iconSize / 2),
-        color: _btnColor,
-        titleColor: _btnColor,
+  Widget _authBtn(Widget icon, VoidCallback? onTap) => MTButton(
+        type: MTButtonType.card,
+        minSize: const Size.square(P12),
+        margin: const EdgeInsets.symmetric(horizontal: P + P_2),
+        constrained: false,
+        middle: icon,
+        color: bwColor,
         onTap: onTap,
-        margin: const EdgeInsets.only(top: P2),
       );
 
   @override
@@ -95,60 +83,63 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                   ),
                   body: SafeArea(
                     child: Center(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          // ColorsDemo(),
-                          // TextDemo(),
-                          MTImage(ImageName.hello.name),
-                          BaseText(
-                            loc.auth_sign_in_with_title,
-                            align: TextAlign.center,
-                            padding: const EdgeInsets.only(top: P2),
-                          ),
-                          const SizedBox(height: P),
-                          _authBtn(
-                            googleIcon,
-                            loc.auth_sign_in_google_title,
-                            MIN_BTN_HEIGHT - 2,
-                            authController.signInGoogle,
-                          ),
-                          // для Андроида не показываем SignInWithApple
-                          if (authController.signInWithAppleIsAvailable && !isAndroid)
-                            _authBtn(
-                              appleIcon,
-                              loc.auth_sign_in_apple_title,
-                              MIN_BTN_HEIGHT - 2,
-                              authController.signInApple,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            // ColorsDemo(),
+                            // TextDemo(),
+                            MTImage(ImageName.hello.name, height: 300),
+                            const SizedBox(height: P2),
+                            BaseText.medium(
+                              loc.auth_sign_in_with_title,
+                              align: TextAlign.center,
+                              color: f2Color,
+                              padding: const EdgeInsets.all(P3),
                             ),
-                          _authBtn(
-                            yandexIcon,
-                            'Яндекс ID',
-                            MIN_BTN_HEIGHT - 2,
-                            authController.signInYandex,
-                          ),
-                          MTButton(
-                            type: MTButtonType.main,
-                            constrained: true,
-                            middle: BaseText.medium(loc.auth_sign_in_extra_title, color: _titleColor),
-                            color: b3Color.color,
-                            margin: const EdgeInsets.only(top: P2),
-                            onTap: authExtraDialog,
-                          ),
-                          const SizedBox(height: P4),
-                          MTButton(
-                            leading: SmallText('${loc.auth_help_title}?'),
-                            middle: SmallText(loc.action_email_support_title, color: mainColor),
-                            onTap: () => mailUs(subject: loc.auth_help_title),
-                          ),
-                          const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3, verticalIndent: P2)),
-                          MTButton(
-                            middle: SmallText(loc.about_service_title, color: mainColor),
-                            onTap: showAboutServiceDialog,
-                          ),
-                        ],
+                            MTAdaptive.xs(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _authBtn(googleIcon, authController.signInGoogle),
+                                  // для Андроида не показываем SignInWithApple
+                                  if (authController.signInWithAppleIsAvailable && !isAndroid)
+                                    _authBtn(const MTImage('apple_icon', height: P6, width: P6), authController.signInApple),
+                                  _authBtn(yandexIcon, authController.signInYandex),
+                                  const MTButton(
+                                    type: MTButtonType.card,
+                                    constrained: false,
+                                    minSize: Size.square(P12),
+                                    middle: MenuHorizontalIcon(size: P6),
+                                    margin: EdgeInsets.symmetric(horizontal: P + P_2),
+                                    color: bwColor,
+                                    onTap: authExtraDialog,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: P4),
+                            MTButton(
+                              leading: SmallText('${loc.auth_help_title}?'),
+                              middle: SmallText.medium(loc.action_email_support_title, color: mainColor),
+                              onTap: () => mailUs(subject: loc.auth_help_title),
+                            ),
+                            const SizedBox(height: P4),
+                          ],
+                        ),
                       ),
                     ),
+                  ),
+                  bottomBar: MTBottomBar(
+                    topPadding: 0,
+                    innerHeight: P6,
+                    middle: Column(children: [
+                      const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3)),
+                      const SizedBox(height: P2),
+                      MTButton(
+                        middle: SmallText.medium(loc.about_service_title, color: mainColor),
+                        onTap: showAboutServiceDialog,
+                      ),
+                    ]),
                   ),
                 ),
     );

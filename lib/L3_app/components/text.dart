@@ -106,16 +106,11 @@ class H1 extends BaseText {
     super.text, {
     super.key,
     super.color,
-    int? maxLines,
-    double? height,
+    super.maxLines = 2,
+    super.height = 1.1,
     super.align,
     super.padding,
-  }) : super(
-          weight: FontWeight.w300,
-          sizeScale: 28 / _baseFontSize,
-          maxLines: maxLines ?? 2,
-          height: height ?? 1.1,
-        );
+  }) : super(weight: FontWeight.w300, sizeScale: 28 / _baseFontSize);
 }
 
 class H2 extends BaseText {
@@ -123,48 +118,48 @@ class H2 extends BaseText {
     super.text, {
     super.key,
     super.color,
-    int? maxLines,
-    double? height,
+    super.maxLines = 3,
+    super.height = 1.1,
     super.align,
     super.padding,
-  }) : super(
-          sizeScale: 25 / _baseFontSize,
-          maxLines: maxLines ?? 3,
-          height: height ?? 1.1,
-        );
+  }) : super(sizeScale: 25 / _baseFontSize);
 }
 
 class H3 extends BaseText {
   const H3(
     super.text, {
     super.key,
-    int? maxLines,
-    double? height,
+    super.maxLines = 5,
+    super.height = 1.2,
     super.color,
     super.align,
     super.padding,
-  }) : super(
-          sizeScale: 21 / _baseFontSize,
-          maxLines: maxLines ?? 5,
-          height: height ?? 1.2,
-        );
+  }) : super(sizeScale: 21 / _baseFontSize);
 }
 
 class SmallText extends BaseText {
+  static const _scale = 15 / _baseFontSize;
+
   const SmallText(
     super.text, {
     super.key,
-    int? maxLines,
+    super.maxLines = 9,
     super.height,
-    Color? color,
+    super.color = f2Color,
     super.align,
     super.padding,
     super.weight,
-  }) : super(
-          color: color ?? f2Color,
-          sizeScale: 15 / _baseFontSize,
-          maxLines: maxLines ?? 9,
-        );
+  }) : super(sizeScale: _scale);
+
+  const SmallText.medium(
+    super.text, {
+    super.key,
+    super.maxLines = 9,
+    super.height,
+    super.color = f2Color,
+    super.align,
+    super.padding,
+  }) : super(sizeScale: _scale, weight: FontWeight.w500);
 }
 
 /// Цифры
@@ -180,7 +175,6 @@ class DText extends BaseText {
     super.decoration,
     super.maxLines = 1,
     super.align = TextAlign.center,
-    super.weight = FontWeight.w400,
   });
 
   const DText.medium(
@@ -192,8 +186,7 @@ class DText extends BaseText {
     super.decoration,
     super.maxLines = 1,
     super.align = TextAlign.center,
-    super.weight = FontWeight.w500,
-  });
+  }) : super(weight: FontWeight.w500);
 
   const DText.bold(
     super.text, {
@@ -204,8 +197,7 @@ class DText extends BaseText {
     super.decoration,
     super.maxLines = 1,
     super.align = TextAlign.center,
-    super.weight = FontWeight.w700,
-  });
+  }) : super(weight: FontWeight.w700);
 
   @override
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'MontserratAvanplan');
@@ -218,15 +210,13 @@ class D2 extends DText {
 
 class D3 extends DText {
   static const _scale = 26 / _baseFontSize;
-  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
-      : super(sizeScale: _scale);
+  const D3(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.decoration}) : super(sizeScale: _scale);
   const D3.medium(super.text, {super.key, super.color, super.padding, super.align, super.decoration}) : super.medium(sizeScale: _scale);
 }
 
 class DSmallText extends DText {
   static const _scale = 16 / _baseFontSize;
-  const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.weight, super.decoration})
-      : super(sizeScale: _scale);
+  const DSmallText(super.text, {super.key, super.color, super.padding, super.maxLines, super.align, super.decoration}) : super(sizeScale: _scale);
   const DSmallText.bold(super.text, {super.key, super.color, super.padding, super.align}) : super.bold(sizeScale: _scale);
 }
 

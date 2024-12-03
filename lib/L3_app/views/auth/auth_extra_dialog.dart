@@ -38,9 +38,9 @@ class _AuthExtraDialog extends StatelessWidget {
           MTButton(
             type: MTButtonType.main,
             constrained: true,
-            leading: const MailIcon(color: f1Color, size: P4),
-            middle: BaseText.medium(loc.auth_sign_in_email_title, color: f1Color),
-            color: b3Color,
+            leading: const MailIcon(color: mainColor, size: P4),
+            middle: BaseText.medium(loc.auth_sign_in_email_title, color: mainColor),
+            color: bwColor,
             margin: const EdgeInsets.only(top: P3),
             trailing: const SizedBox(width: P2),
             onTap: () => _mail(context),
@@ -48,8 +48,8 @@ class _AuthExtraDialog extends StatelessWidget {
           MTButton(
             type: MTButtonType.main,
             constrained: true,
-            middle: BaseText.medium(loc.register_action_title, color: f1Color),
-            color: b3Color,
+            middle: BaseText.medium(loc.register_action_title, color: mainColor),
+            color: bwColor,
             margin: const EdgeInsets.only(top: P3),
             onTap: () => _register(context),
           ),

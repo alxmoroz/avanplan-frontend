@@ -18,16 +18,16 @@ class LoaderScreen extends StatelessWidget {
   final Loadable _l;
   LoadableState get _ls => _l.loaderState;
 
-  Widget get _title => H2(
+  Widget get _title => H3(
         _ls.titleText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: P3),
+        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
       );
 
   Widget get _description => BaseText(
         _ls.descriptionText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: P3),
+        padding: const EdgeInsets.symmetric(horizontal: P5).copyWith(top: P3),
         maxLines: 5,
       );
 

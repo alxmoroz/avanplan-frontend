@@ -131,6 +131,7 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                   ),
                   bottomBar: MTBottomBar(
                     topPadding: 0,
+                    color: navbarColor,
                     innerHeight: P6,
                     middle: Column(children: [
                       const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3)),

@@ -6,7 +6,6 @@ import 'colors.dart';
 import 'constants.dart';
 import 'divider.dart';
 import 'gesture.dart';
-import 'icons.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
 import 'text.dart';

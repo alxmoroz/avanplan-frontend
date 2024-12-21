@@ -13,7 +13,6 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = 'team.moroz.avanplan'
-
     compileSdk = flutter.compileSdkVersion
 
     compileOptions {

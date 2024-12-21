@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../presenters/mime_type.dart';
@@ -11,8 +10,6 @@ import 'circle.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'painters.dart';
-
-const DEF_TAPPABLE_ICON_SIZE = kIsWeb ? P5 : P6;
 
 class MTIcon extends StatelessWidget {
   const MTIcon(

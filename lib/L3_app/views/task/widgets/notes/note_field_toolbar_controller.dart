@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../components/constants.dart';
-import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar_controller.dart';
 import '../../controllers/task_controller.dart';

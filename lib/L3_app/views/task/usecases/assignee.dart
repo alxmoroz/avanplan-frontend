@@ -6,7 +6,6 @@ import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons.dart';
 import '../../../components/select_dialog.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';

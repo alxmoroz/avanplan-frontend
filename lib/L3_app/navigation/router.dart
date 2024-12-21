@@ -21,9 +21,6 @@ import '../views/workspace/ws_users_dialog.dart';
 import 'deep_links_routes.dart';
 import 'route.dart';
 
-final _rootKey = GlobalKey<NavigatorState>();
-BuildContext get globalContext => _rootKey.currentContext!;
-
 final router = GoRouter(
     // debugLogDiagnostics: true,
     routes: [
@@ -36,11 +33,12 @@ final router = GoRouter(
     ],
     initialLocation: '/',
     initialExtra: 'local',
-    navigatorKey: _rootKey,
     onException: (_, state, r) {
       if (kDebugMode) print('GoRouter onException -> ${state.uri}');
       r.goMain();
     });
+
+BuildContext get globalContext => router.routerDelegate.navigatorKey.currentContext!;
 
 extension MTPathParametersHelper on GoRouterState {
   int? pathParamInt(String param) => int.tryParse(pathParameters[param] ?? '');

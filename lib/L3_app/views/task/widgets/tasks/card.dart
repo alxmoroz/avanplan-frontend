@@ -100,20 +100,21 @@ class _State extends State<TaskCard> {
     return false;
   }
 
-  Color? get _textColor => _inactive ? f2Color : null;
+  Color? get _titleColor => _inactive ? f2Color : null;
+  Color get _subtitleColor => _inactive ? f3Color : f2Color;
 
   Widget get _parentTitle => SmallText(_t.parent!.title, maxLines: 1);
 
   Widget _error(String errText) => Row(children: [
         const ErrorIcon(),
         const SizedBox(width: P_2),
-        SmallText(errText, color: _textColor, maxLines: 1),
+        SmallText(errText, color: _subtitleColor, maxLines: 1),
       ]);
 
   /// даты
   bool get _showRepeat => _t.hasRepeat;
   bool get _showDate => _t.hasDueDate && !_t.closed && _t.isTask && (_t.leafState != TaskState.TODAY || widget.board);
-  Color get _dateColor => _t.dueDate!.isBefore(tomorrow) ? stateColor(_t.leafState) : _textColor ?? f2Color;
+  Color get _dateColor => _t.dueDate!.isBefore(tomorrow) ? stateColor(_t.leafState) : _titleColor ?? _subtitleColor;
   Widget get _date => Row(
         children: [
           CalendarIcon(color: _dateColor, size: P3),
@@ -124,7 +125,7 @@ class _State extends State<TaskCard> {
 
   /// статус
   bool get _showStatus => _t.canShowStatus && !widget.board && !_t.closed;
-  Widget get _status => SmallText('${_t.status}', color: _textColor, maxLines: 1);
+  Widget get _status => SmallText('${_t.status}', color: _subtitleColor, maxLines: 1);
 
   /// назначенный
   bool get _showAssignee => _t.canShowAssignee && widget.showAssignee;
@@ -134,8 +135,8 @@ class _State extends State<TaskCard> {
   bool get _showChecklistMark => !_t.closed && _t.isCheckList;
   Widget get _checklistMark => Row(
         children: [
-          SmallText('${_t.closedSubtasksCount}/${_t.subtasksCount} ', color: f2Color, maxLines: 1),
-          const CheckboxIcon(true, size: P3, color: f2Color),
+          SmallText('${_t.closedSubtasksCount}/${_t.subtasksCount} ', color: _subtitleColor, maxLines: 1),
+          CheckboxIcon(true, size: P3, color: _subtitleColor),
         ],
       );
 
@@ -143,8 +144,8 @@ class _State extends State<TaskCard> {
   bool get _showAttachmentsMark => !_t.closed && _t.attachmentsCount > 0;
   Widget get _attachmentsMark => Row(
         children: [
-          SmallText('${_t.attachmentsCount} ', color: f2Color, maxLines: 1),
-          const AttachmentIcon(size: P3, color: f2Color),
+          SmallText('${_t.attachmentsCount} ', color: _subtitleColor, maxLines: 1),
+          AttachmentIcon(size: P3, color: _subtitleColor),
         ],
       );
 
@@ -152,17 +153,18 @@ class _State extends State<TaskCard> {
   bool get _showNotesMark => !_t.closed && _t.notesCount > 0;
   Widget get _notesMark => Row(
         children: [
-          SmallText('${_t.notesCount} ', color: f2Color, maxLines: 1),
+          SmallText('${_t.notesCount} ', color: _subtitleColor, maxLines: 1),
           NoteMarkIcon(
-            mine: _t.notes.any((n) => n.isMine(_t)),
-            theirs: _t.notes.any((n) => !n.isMine(_t)),
+              mine: _t.notes.any((n) => n.isMine(_t)),
+              theirs: _t.notes.any((n) => !n.isMine(_t)),
+              color: _subtitleColor,
           ),
         ],
       );
 
   /// оценка
   bool get _showEstimate => _t.canShowEstimate;
-  Widget get _estimate => SmallText(_t.estimateStr, color: _textColor, maxLines: 1);
+  Widget get _estimate => SmallText(_t.estimateStr, color: _subtitleColor, maxLines: 1);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: 4),
@@ -196,7 +198,7 @@ class _State extends State<TaskCard> {
                       _parentTitle,
                       const SizedBox(height: P_2),
                     ],
-                    BaseText(_t.title, maxLines: 2, color: _textColor),
+                    BaseText(_t.title, maxLines: 2, color: _titleColor),
                   ],
                 ),
               ),
@@ -213,15 +215,13 @@ class _State extends State<TaskCard> {
           if (_t.error != null)
             _error(_t.error!.message)
           // проекты, цели или группы задач: интегральная оценка, метка связанного проекта, вложений и комментариев
-          else if (_t.isGroup && (_t.hasGroupAnalytics || _showAttachmentsMark || _showNotesMark || _t.isLinkedProject || _t.wsCode.isNotEmpty)) ...[
+          else if (_t.isGroup && (_t.hasGroupAnalytics || _t.isLinkedProject || _t.wsCode.isNotEmpty)) ...[
             const SizedBox(height: P_2),
             Row(
               children: [
                 if (_t.hasGroupAnalytics) StateTitle(_overallState, _tc.overallStateTitle, place: StateTitlePlace.card),
                 const Spacer(),
-                if (_showAttachmentsMark) ...[_attachmentsMark],
-                if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
-                if (_t.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],
+                if (_t.isLinkedProject) LinkIcon(color: _subtitleColor),
                 if (_t.wsCode.isNotEmpty) SmallText(_t.wsCode, color: f3Color, maxLines: 1),
               ],
             ),
@@ -238,7 +238,7 @@ class _State extends State<TaskCard> {
             Row(
               children: [
                 if (_showDate) _date,
-                if (_showRepeat) ...[if (_showDate) const SizedBox(width: P), const RepeatIcon(size: P2 + P_2, color: f2Color)],
+                if (_showRepeat) ...[if (_showDate) const SizedBox(width: P), RepeatIcon(size: P2 + P_2, color: _subtitleColor)],
                 Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -254,7 +254,7 @@ class _State extends State<TaskCard> {
                         _estimate,
                       ],
                       if (_showStatus) ...[
-                        if (withDetails && (_showChecklistMark || _showAttachmentsMark || _showNotesMark) || _showEstimate) _divider,
+                        if (_showChecklistMark || (withDetails && (_showAttachmentsMark || _showNotesMark || _showEstimate))) _divider,
                         Flexible(child: _status),
                       ],
                       if (_showAssignee) ...[const SizedBox(width: P), _assignee],

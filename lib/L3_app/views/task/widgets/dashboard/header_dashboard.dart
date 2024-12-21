@@ -65,7 +65,7 @@ class TaskHeaderDashboard extends StatelessWidget {
             if (t.hasDescription || _tc.canEdit)
               MTDashboardCard(
                 t.hasDescription ? '' : loc.description,
-                hasLeftMargin: t.hasGroupAnalytics || t.hasGroupFinance,
+                hasLeftMargin: t.isProject || t.hasGroupAnalytics || t.hasGroupFinance,
                 body: t.hasDescription
                     ? Container(constraints: const BoxConstraints(minWidth: 200), child: BaseText.f2(t.description, maxLines: 4))
                     : const DescriptionIcon(),

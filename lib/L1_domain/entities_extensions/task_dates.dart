@@ -9,7 +9,10 @@ extension TaskDatesExt on Task {
   bool get hasDueDate => dueDate != null;
   bool get hasStartDate => startDate != null;
 
-  bool get hasDates => hasStartDate || hasDueDate || hasRepeat;
+  bool get hasDates => hasStartDate || hasDueDate;
+  bool get hasDatesOrRepeat => hasDates || hasRepeat;
+  bool get onlyStartDate => startDate != null && dueDate == null;
+  bool get onlyDueDate => startDate == null && dueDate != null;
 
   bool get hasEtaDate => etaDate != null;
   bool get hasClosedDate => closedDate != null;

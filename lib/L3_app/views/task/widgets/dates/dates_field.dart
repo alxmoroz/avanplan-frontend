@@ -1,5 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_dates.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -56,21 +57,21 @@ class TaskDatesField extends StatelessWidget {
       MTFieldData(
         -1,
         placeholder: _tc.canShowRepeatField ? loc.task_dates_repeat : loc.task_dates,
-        label: dueDate == null
+        label: t.onlyStartDate
             ? loc.task_start_date_label
-            : startDate == null
+            : t.onlyDueDate
                 ? loc.task_due_date_label
                 : '',
       ),
       showLabel: true,
       leading: CalendarIcon(color: ro ? f3Color : mainColor),
-      value: startDate != null || dueDate != null || repeat != null
+      value: t.hasDatesOrRepeat
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 dates,
                 if (repeat != null) ...[
-                  const SizedBox(height: P),
+                  if (t.hasDates) const SizedBox(height: P),
                   Row(
                     children: [
                       const RepeatIcon(size: P3, color: f2Color),

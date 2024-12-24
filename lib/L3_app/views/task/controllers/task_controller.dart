@@ -186,14 +186,22 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     final t = task;
     final showDetails = !inToolbar && t.canShowDetails(context);
 
-    final paramsActions = t.isInbox || t.isBacklog
-        ? []
-        : [
-            if (t.isTask) TaskAction.estimate else TaskAction.analytics,
+    final paramsActions = t.isProjectOrGoal
+        //в проекте или цели показывать: аналитика, финансы, команда (для цели ответственный)
+        ? [
+            TaskAction.analytics,
             TaskAction.finance,
             if (t.isProject) TaskAction.team else TaskAction.assignee,
-            if (t.isTask) TaskAction.relations,
-          ];
+          ]
+        //в задаче: ответственный, оценка, финансы, связи
+        : t.isTask
+            ? [
+                TaskAction.assignee,
+                TaskAction.estimate,
+                TaskAction.finance,
+                TaskAction.relations,
+              ]
+            : [];
 
     // задачу можно закрыть / переоткрыть через кружочек, поэтому для задачи в меню нет Закрыть / Переоткрыть, а для групп - есть
     final showClose = !t.isTask && _canClose;

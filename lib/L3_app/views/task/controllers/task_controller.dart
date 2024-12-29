@@ -172,7 +172,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get canCreateChecklist => !_isPreview && task.canCreateChecklist;
   bool get canSetStatus => !_isPreview && task.canSetStatus;
   bool get canAssign => canEdit && task.activeMembers.isNotEmpty;
-  bool get canShowDateField => task.hasDates || canEdit;
+  bool get canShowDateField => task.hasDatesOrRepeat || canEdit;
   bool get canShowDueDateField => task.hasDueDate || canEdit;
   bool get canShowStartDateField => task.hasStartDate || canEdit;
   bool get canShowRepeatField => task.hasRepeat || (task.isTask && canEdit);

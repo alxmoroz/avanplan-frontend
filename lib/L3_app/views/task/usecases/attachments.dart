@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../L1_domain/entities/attachment.dart';
 import '../../../../L1_domain/entities/note.dart';
 import '../../../../L2_data/services/api.dart';
-import '../../../extra/services.dart';
+import '../../app/services.dart';
 import '../controllers/attachments_controller.dart';
 import '../widgets/attachments/upload_dialog.dart';
 

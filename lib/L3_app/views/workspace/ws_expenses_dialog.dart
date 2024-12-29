@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 import '../tariff/tariff_expenses.dart';
 
 Future showWSExpenses(Workspace ws) async => await showMTDialog(_WSExpensesDialog(ws));

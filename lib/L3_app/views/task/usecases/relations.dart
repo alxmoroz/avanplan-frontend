@@ -2,7 +2,7 @@
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_relation.dart';
-import '../../../extra/services.dart';
+import '../../app/services.dart';
 import '../controllers/relations_controller.dart';
 import '../widgets/relations/create_relation_dialog.dart';
 

@@ -15,9 +15,9 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/task_state.dart';
+import '../app/services.dart';
 import 'event_dialog.dart';
 
 class EventCard extends StatelessWidget {

@@ -9,9 +9,9 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/progress.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/task_state.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/state.dart';
 

@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/app_local_settings.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../extra/services.dart';
+import 'services.dart';
 
 part 'local_settings_controller.g.dart';
 

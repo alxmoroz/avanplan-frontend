@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/utils/dates.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 const _DAYS_IN_YEAR = 365.0;
 const _DAYS_IN_WEEK = 7.0;

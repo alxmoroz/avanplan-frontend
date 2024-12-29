@@ -1,7 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import '../../../../L1_domain/entities/user_contact.dart';
-import '../../../extra/services.dart';
+import '../../app/services.dart';
 import '../my_account_controller.dart';
 
 extension ContactsUC on MyAccountController {

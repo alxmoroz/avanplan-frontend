@@ -8,6 +8,8 @@ import '../services/environment.dart';
 import 'auth_base_repo.dart';
 
 class AuthYandexRepo extends AbstractOAuthRepo with AuthMixin {
+  AuthYandexRepo(super.lsRepo);
+
   @override
   Future<bool> signInIsAvailable() async => true;
 

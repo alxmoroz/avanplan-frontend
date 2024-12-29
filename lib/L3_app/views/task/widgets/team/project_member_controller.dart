@@ -8,8 +8,8 @@ import '../../../../../L1_domain/entities/ws_member.dart';
 import '../../../../../L1_domain/entities/ws_member_contact.dart';
 import '../../../../../L1_domain/entities_extensions/contact.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../extra/services.dart';
 import '../../../_base/loadable.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/members.dart';
 

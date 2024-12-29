@@ -2,7 +2,7 @@
 
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import 'project_team.dart';
 

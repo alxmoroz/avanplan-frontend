@@ -6,8 +6,8 @@ import '../components/button.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
-import '../extra/services.dart';
 import '../usecases/communications.dart';
+import '../views/app/services.dart';
 
 String get appIdentifier => '${loc.app_title} ${localSettingsController.settings.version}';
 

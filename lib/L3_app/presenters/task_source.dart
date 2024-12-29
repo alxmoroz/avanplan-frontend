@@ -8,7 +8,7 @@ import '../../L1_domain/entities_extensions/remote_source.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/text.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 import 'remote_source.dart';
 import 'task_tree.dart';
 

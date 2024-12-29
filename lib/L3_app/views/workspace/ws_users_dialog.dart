@@ -7,9 +7,9 @@ import 'package:go_router/go_router.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../navigation/route.dart';
 import '../../presenters/workspace.dart';
+import '../app/services.dart';
 import 'ws_controller.dart';
 import 'ws_user_tile.dart';
 

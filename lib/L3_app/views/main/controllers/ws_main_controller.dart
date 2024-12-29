@@ -6,8 +6,8 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/workspace.dart';
-import '../../../extra/services.dart';
 import '../../../usecases/ws_actions.dart';
+import '../../app/services.dart';
 
 part 'ws_main_controller.g.dart';
 

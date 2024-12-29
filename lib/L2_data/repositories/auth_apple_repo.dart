@@ -10,6 +10,8 @@ import '../services/environment.dart';
 import 'auth_base_repo.dart';
 
 class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
+  AuthAppleRepo(super.lsRepo);
+
   @override
   Future<bool> signInIsAvailable() async => await SignInWithApple.isAvailable();
 

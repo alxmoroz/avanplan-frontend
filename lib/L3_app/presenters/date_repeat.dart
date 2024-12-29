@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../L1_domain/entities/task_repeat.dart';
 import '../../L1_domain/utils/dates.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension RepeatPresenter on TaskRepeat {
   String get prefix => Intl.message('task_repeat_period_${periodType.toLowerCase()}_prefix', args: [periodLength]);

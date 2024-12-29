@@ -6,7 +6,7 @@ import '../../../L2_data/services/environment.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
+import 'services.dart';
 
 class AppVersion extends StatelessWidget {
   const AppVersion({super.key});

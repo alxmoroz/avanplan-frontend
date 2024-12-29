@@ -12,8 +12,8 @@ import '../../../components/icons.dart';
 import '../../../components/images.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
-import '../../../extra/services.dart';
 import '../../../views/_base/loader_screen.dart';
+import '../../app/services.dart';
 
 Future showViewSettingsDialog() async => await showMTDialog(const _ViewSettingsDialog());
 

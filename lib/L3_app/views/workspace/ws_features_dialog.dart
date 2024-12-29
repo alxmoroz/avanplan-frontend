@@ -15,8 +15,8 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../presenters/tariff_option.dart';
+import '../app/services.dart';
 import 'ws_controller.dart';
 import 'ws_feature_dialog.dart';
 

@@ -12,11 +12,11 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/number.dart';
 import '../../presenters/tariff_option.dart';
 import '../_base/loader_screen.dart';
+import '../app/services.dart';
 import 'usecases/tariff.dart';
 import 'ws_controller.dart';
 

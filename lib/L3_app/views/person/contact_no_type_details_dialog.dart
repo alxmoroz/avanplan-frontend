@@ -5,7 +5,7 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
-import '../../extra/clipboard.dart';
+import '../app/clipboard.dart';
 
 class PersonContactNoTypeDetailsDialog extends StatelessWidget {
   const PersonContactNoTypeDetailsDialog(this._contact, {super.key});

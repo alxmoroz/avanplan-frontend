@@ -9,10 +9,10 @@ import '../../components/constants.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 import '../../presenters/tariff_option.dart';
+import '../app/services.dart';
 
 class TariffOptionTile extends StatelessWidget {
   const TariffOptionTile(this._to, {super.key});

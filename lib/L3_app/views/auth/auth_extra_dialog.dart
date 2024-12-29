@@ -9,7 +9,7 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 import 'registration_form.dart';
 import 'sign_in_email_dialog.dart';
 

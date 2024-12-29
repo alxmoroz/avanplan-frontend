@@ -22,13 +22,13 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/select_dialog.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/contact.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/person/contacts_dialog.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import 'project_member_controller.dart';
 

@@ -14,12 +14,12 @@ import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../navigation/route.dart';
 import '../../usecases/communications.dart';
 import '../_base/loader_screen.dart';
 import '../app/about_dialog.dart';
 import '../app/app_title.dart';
+import '../app/services.dart';
 import 'auth_extra_dialog.dart';
 
 final authRoute = MTRoute(

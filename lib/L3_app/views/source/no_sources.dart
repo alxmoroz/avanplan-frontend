@@ -9,8 +9,8 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
 import '../../views/source/source_edit_dialog.dart';
+import '../app/services.dart';
 
 class NoSources extends StatelessWidget {
   const NoSources(this._ws, {super.key});

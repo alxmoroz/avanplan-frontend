@@ -8,7 +8,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 
 Future<CreationMethod?> selectProjectCreationMethod() async => await showMTDialog<CreationMethod?>(const _ProjectCreationMethodDialog());
 

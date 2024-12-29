@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../../../L1_domain/entities/workspace.dart';
-import '../../../extra/services.dart';
+import '../../app/services.dart';
 import '../ws_controller.dart';
 
 extension WSEditUC on WSController {

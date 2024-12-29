@@ -10,7 +10,7 @@ import '../../../components/list_tile.dart';
 import '../../../components/text.dart';
 import '../../../components/toolbar_controller.dart';
 import '../../../components/vertical_toolbar.dart';
-import '../../../extra/services.dart';
+import '../../app/services.dart';
 import 'inbox_add_task_button.dart';
 import 'view_settings_dialog.dart';
 

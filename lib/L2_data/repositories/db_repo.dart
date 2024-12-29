@@ -15,7 +15,7 @@ import '../models/task_local_settings.dart';
 
 typedef ModelCreator<T> = T Function();
 
-abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends AbstractDBRepo<M, E> {
+abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends AbstractLocalStorageRepo<M, E> {
   DBRepo(this.boxName, this.modelCreator);
 
   final String boxName;

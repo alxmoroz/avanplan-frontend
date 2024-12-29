@@ -2,7 +2,7 @@
 
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../L3_app/extra/services.dart';
+import '../../L3_app/views/app/services.dart';
 import '../services/platform.dart';
 
 const _host = 'https://moroz.team';

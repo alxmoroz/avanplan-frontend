@@ -11,7 +11,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 import '../workspace/ws_controller.dart';
 import '../workspace/ws_features_dialog.dart';
 

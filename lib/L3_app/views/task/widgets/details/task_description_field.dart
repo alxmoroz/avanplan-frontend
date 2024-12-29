@@ -15,7 +15,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field_inline.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
 

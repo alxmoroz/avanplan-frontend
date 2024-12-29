@@ -9,8 +9,8 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../extra/services.dart';
 import '../../navigation/router.dart';
+import '../app/services.dart';
 import 'notification_dialog.dart';
 
 part 'notification_controller.g.dart';

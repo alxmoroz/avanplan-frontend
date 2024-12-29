@@ -10,9 +10,9 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/pie_chart.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/duration.dart';
 import '../../../../presenters/task_state.dart';
+import '../../../app/services.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this._task, {super.key});

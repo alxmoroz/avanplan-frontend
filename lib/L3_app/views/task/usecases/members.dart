@@ -2,9 +2,9 @@
 
 import '../../../../L1_domain/entities/tariff_option.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
+import '../../app/services.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/team/invitation_dialog.dart';
 import '../widgets/team/project_team_dialog.dart';

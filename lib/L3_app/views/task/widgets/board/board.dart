@@ -15,7 +15,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import '../../controllers/project_statuses_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';

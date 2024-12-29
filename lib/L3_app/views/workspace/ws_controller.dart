@@ -5,9 +5,9 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/field_data.dart';
-import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
+import '../app/services.dart';
 
 part 'ws_controller.g.dart';
 

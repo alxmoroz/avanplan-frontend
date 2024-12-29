@@ -6,7 +6,7 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension TaskTreeUC on Task {
   // TODO: попробовать вынести в computed в один из контроллеров

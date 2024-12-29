@@ -15,8 +15,8 @@ import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../../_base/loader_screen.dart';
+import '../../../app/services.dart';
 import 'tasks_selector_controller.dart';
 
 class TasksSelectorDialog extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../extra/services.dart';
+import '../app/services.dart';
 
 final apiInterceptor = InterceptorsWrapper(onRequest: (options, handler) {
   if (options.path.contains('auth')) {

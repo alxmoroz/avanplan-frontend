@@ -10,8 +10,8 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/bytes.dart';
+import '../../../app/services.dart';
 import '../../controllers/attachments_controller.dart';
 import '../../usecases/attachments.dart';
 

@@ -10,8 +10,8 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
 import '../../usecases/communications.dart';
+import '../app/services.dart';
 
 class RequestTariffCard extends StatelessWidget {
   const RequestTariffCard({super.key});

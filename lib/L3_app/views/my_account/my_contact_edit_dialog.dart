@@ -13,7 +13,7 @@ import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../components/text_field.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 import 'my_contact_edit_controller.dart';
 
 Future showMyContactEditDialog({UserContact? contact}) async {

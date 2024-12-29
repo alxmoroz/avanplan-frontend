@@ -6,7 +6,7 @@ import '../repositories/abs_db_repo.dart';
 class LocalSettingsUC {
   LocalSettingsUC(this.repo);
 
-  final AbstractDBRepo<AbstractDBModel, AppLocalSettings> repo;
+  final AbstractLocalStorageRepo<AbstractDBModel, AppLocalSettings> repo;
 
   Future<AppLocalSettings> settings() async => await repo.getOne() ?? AppLocalSettings();
 

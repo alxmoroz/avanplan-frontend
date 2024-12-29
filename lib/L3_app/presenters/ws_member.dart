@@ -7,7 +7,7 @@ import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/entities_extensions/ws_users.dart';
 import '../components/avatar.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension WSMemberPresenter on WSMember {
   User? get user => userId != null ? wsMainController.ws(wsId)?.userForId(userId!) : null;

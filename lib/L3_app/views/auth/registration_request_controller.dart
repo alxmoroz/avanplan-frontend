@@ -10,9 +10,9 @@ import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/icons.dart';
 import '../../components/text_field.dart';
-import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
+import '../app/services.dart';
 
 part 'registration_request_controller.g.dart';
 

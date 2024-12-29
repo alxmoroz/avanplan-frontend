@@ -9,7 +9,7 @@ abstract class AbstractDBModel<E extends LocalPersistable> {
 
 typedef Filter<E extends LocalPersistable> = bool Function(E e);
 
-abstract class AbstractDBRepo<M extends AbstractDBModel, E extends LocalPersistable> {
+abstract class AbstractLocalStorageRepo<M extends AbstractDBModel, E extends LocalPersistable> {
   Future<Iterable<E>> getAll([Filter<E>? filter]);
   Future<E?> getOne([Filter<E>? filter]);
   Future update(Filter<E> filter, E entity);

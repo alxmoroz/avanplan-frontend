@@ -20,8 +20,8 @@ import '../../components/linkify/linkify.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../presenters/date.dart';
+import '../app/services.dart';
 
 Future showEventDialog(CalendarEvent event) async => await showMTDialog(_EventDialog(event));
 

@@ -6,7 +6,7 @@ import '../../L1_domain/entities/estimate_value.dart';
 import '../../L1_domain/entities/remote_source.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension WSPresenter on Workspace {
   List<RemoteSource> get sortedSources => sources.sorted((s1, s2) => s1.url.compareTo(s2.url));

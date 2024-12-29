@@ -11,7 +11,7 @@ import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/list_tile.dart';
 import '../components/text.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension RemoteSourceTypePresenter on RemoteSourceType {
   Widget icon({double? size}) => custom ? MailIcon(size: size ?? P4) : Image.asset('assets/icons/${code}_icon.png', height: size ?? P4);

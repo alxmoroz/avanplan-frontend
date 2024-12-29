@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/remote_source.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension SourceUC on RemoteSource {
   Future<bool> checkConnection() async {

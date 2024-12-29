@@ -3,8 +3,8 @@
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L2_data/repositories/communications_repo.dart';
-import '../extra/services.dart';
 import '../presenters/communications.dart';
+import '../views/app/services.dart';
 
 Future<bool> mailUs({String? subject, String? text}) async {
   return await sendMail(

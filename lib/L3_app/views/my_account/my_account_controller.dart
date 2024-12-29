@@ -7,9 +7,9 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
 import '../../../L1_domain/entities/user_contact.dart';
-import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
+import '../app/services.dart';
 
 part 'my_account_controller.g.dart';
 

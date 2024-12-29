@@ -7,7 +7,7 @@ import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 import 'sign_in_email_controller.dart';
 
 Future signInEmailDialog() async => await showMTDialog(const _SignInEmailDialog());

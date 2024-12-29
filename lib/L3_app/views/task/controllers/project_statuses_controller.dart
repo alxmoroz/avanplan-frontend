@@ -5,9 +5,9 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../_base/loadable.dart';
+import '../../app/services.dart';
 import '../widgets/board/project_status_edit_dialog.dart';
 import 'task_controller.dart';
 

@@ -7,7 +7,7 @@ import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 
 class TransactionsEmptyInfo extends StatelessWidget {
   const TransactionsEmptyInfo(this._task, {super.key});

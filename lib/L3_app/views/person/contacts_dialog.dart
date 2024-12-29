@@ -10,9 +10,9 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/clipboard.dart';
-import '../../extra/services.dart';
 import '../../presenters/contact.dart';
+import '../app/clipboard.dart';
+import '../app/services.dart';
 
 Future showPersonContactsDialog(String personName, List<AbstractContact> contacts) async {
   await showMTDialog(_PersonContactsDialog(personName, contacts));

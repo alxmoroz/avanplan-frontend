@@ -18,9 +18,9 @@ import '../../components/images.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../navigation/route.dart';
 import '../../presenters/date.dart';
+import '../app/services.dart';
 import 'notification_controller.dart';
 
 class NotificationsRoute extends MTRoute {

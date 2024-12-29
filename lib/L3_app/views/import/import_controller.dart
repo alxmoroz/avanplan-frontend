@@ -11,11 +11,11 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/remote_source.dart';
 import '../../components/images.dart';
-import '../../extra/services.dart';
 import '../../presenters/remote_source.dart';
 import '../../usecases/source.dart';
 import '../../usecases/ws_actions.dart';
 import '../_base/loadable.dart';
+import '../app/services.dart';
 import '../source/source_edit_dialog.dart';
 import '../source/source_type_selector.dart';
 

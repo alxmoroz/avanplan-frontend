@@ -10,7 +10,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/note.dart';
 

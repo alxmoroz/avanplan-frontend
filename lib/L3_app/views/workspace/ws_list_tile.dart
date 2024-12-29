@@ -9,8 +9,8 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
+import '../app/services.dart';
 
 class WSListTile extends StatelessWidget {
   const WSListTile(

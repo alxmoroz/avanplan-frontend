@@ -5,7 +5,7 @@ import 'package:intl/number_symbols.dart';
 import 'package:intl/number_symbols_data.dart';
 
 import '../../L2_data/services/platform.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 const CURRENCY_SYMBOL_ROUBLE = '₽';
 

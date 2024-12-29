@@ -1,35 +1,31 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import '../../L2_data/services/api.dart';
 import '../entities/local_auth.dart';
 import '../entities/registration.dart';
 import '../repositories/abs_auth_repo.dart';
-import '../repositories/abs_db_repo.dart';
+import '../repositories/abs_network_repo.dart';
 
 class AuthUC {
   AuthUC({
-    required this.localDBAuthRepo,
     required this.googleRepo,
     required this.appleRepo,
     required this.yandexRepo,
     required this.authAvanplanRepo,
+    required this.networkRepo,
   }) : _currentRepo = authAvanplanRepo;
 
   final AbstractOAuthRepo googleRepo;
   final AbstractOAuthRepo appleRepo;
   final AbstractOAuthRepo yandexRepo;
   final AbstractAuthAvanplanRepo authAvanplanRepo;
-  final AbstractDBRepo<AbstractDBModel, LocalAuth> localDBAuthRepo;
+  final AbstractNetworkRepo networkRepo;
 
   AbstractAuthRepo _currentRepo;
 
-  void _updateOAuth(String token) => openAPI.setOAuthToken('OAuth2PasswordBearer', token);
+  void _updateOAuth(String token) => networkRepo.setOauthToken(token);
 
   Future<bool> _setToken(String token) async {
-    final la = await getLocalAuth();
-    la.accessToken = token;
-    la.signinDate = token.isNotEmpty ? DateTime.now() : null;
-    await localDBAuthRepo.update((_) => true, la);
+    await _currentRepo.setToken(token);
     _updateOAuth(token);
     return token.isNotEmpty;
   }
@@ -37,7 +33,7 @@ class AuthUC {
   Future<bool> refreshToken() async => await _setToken(await authAvanplanRepo.refreshToken());
 
   Future<LocalAuth> getLocalAuth() async {
-    final la = await localDBAuthRepo.getOne() ?? LocalAuth();
+    final la = await _currentRepo.getLocalAuth();
     _updateOAuth(la.accessToken);
     return la;
   }

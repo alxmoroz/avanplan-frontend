@@ -12,10 +12,10 @@ import '../../components/images.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../navigation/router.dart';
 import '../../usecases/ws_actions.dart';
 import '../_base/loader_screen.dart';
+import '../app/services.dart';
 import 'template_controller.dart';
 
 Future createFromTemplate(Workspace ws) async {

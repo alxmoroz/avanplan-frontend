@@ -7,6 +7,8 @@ import '../../L1_domain/repositories/abs_auth_repo.dart';
 import 'auth_base_repo.dart';
 
 class AuthAvanplanRepo extends AbstractAuthAvanplanRepo with AuthMixin {
+  AuthAvanplanRepo(super.lsRepo);
+
   @override
   Future<String> signInWithPassword({String? email, String? pwd}) async {
     final response = await authApi.passwordToken(

@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 extension BytesFormatterPresenter on num {
   static const kb = 1024;

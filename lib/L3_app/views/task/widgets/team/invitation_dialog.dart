@@ -15,10 +15,10 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/clipboard.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
+import '../../../app/clipboard.dart';
+import '../../../app/services.dart';
 import 'invitation_controller.dart';
 
 Future invite(Task task) async {

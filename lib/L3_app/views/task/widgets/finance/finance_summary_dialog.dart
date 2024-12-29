@@ -12,10 +12,10 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
+import '../../../app/services.dart';
 import 'transactions_empty_info.dart';
 
 Future financeSummaryDialog(Task task) async => await showMTDialog(_FinanceSummaryDialog(task));

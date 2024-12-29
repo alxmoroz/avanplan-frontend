@@ -6,8 +6,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
+import '../app/services.dart';
 import 'ws_list_tile.dart';
 
 Future<Workspace?> selectWS() async => await showMTDialog<Workspace?>(const _WSSelectDialog());

@@ -1,6 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import '../extra/services.dart';
+import '../views/app/services.dart';
 
 class MTFieldData {
   const MTFieldData(

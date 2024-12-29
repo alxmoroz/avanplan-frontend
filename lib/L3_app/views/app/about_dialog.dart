@@ -14,10 +14,10 @@ import '../../components/images.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import 'app_title.dart';
 import 'app_version.dart';
+import 'services.dart';
 
 Future showAboutServiceDialog() async => await showMTDialog(const _AboutDialog(), maxWidth: SCR_XS_WIDTH);
 

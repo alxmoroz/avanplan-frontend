@@ -28,6 +28,8 @@ GoogleSignIn gSI({Iterable<String> scopes = const []}) => GoogleSignIn(
 GoogleSignIn mainGSI = gSI();
 
 class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
+  AuthGoogleRepo(super.lsRepo);
+
   @override
   Future<bool> signInIsAvailable() async {
     //TODO: костыль для возможности открывать popup для гугловой авторизации при первом посещении accounts.google.com в вебе

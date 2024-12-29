@@ -18,12 +18,12 @@ import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../presenters/remote_source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/communications.dart';
 import '../../usecases/source.dart';
 import '../../views/_base/loader_screen.dart';
+import '../app/services.dart';
 import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 

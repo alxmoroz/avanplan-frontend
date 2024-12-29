@@ -6,7 +6,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import 'invitation_dialog.dart';
 
 class InvitationButton extends StatelessWidget {

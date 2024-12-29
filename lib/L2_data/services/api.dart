@@ -18,6 +18,7 @@ Map<String, dynamic> _headers(AppLocalSettings settings) {
   };
 }
 
+// TODO: здесь Future для инициализации в setup, чтобы задержать эту инициализацию до получения настроек из локального хранилища
 Future<Openapi> setupApi(Iterable<Interceptor>? interceptors, AppLocalSettings settings) async {
   return Openapi(basePathOverride: apiUri.toString())
     ..dio.options.connectTimeout = const Duration(minutes: 1)

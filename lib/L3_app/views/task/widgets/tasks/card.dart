@@ -17,7 +17,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
 import '../../../../navigation/router.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
@@ -29,6 +28,7 @@ import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_member.dart';
 import '../../../../usecases/task_status.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/state.dart';
 import '../analytics/state_title.dart';
@@ -155,9 +155,9 @@ class _State extends State<TaskCard> {
         children: [
           SmallText('${_t.notesCount} ', color: _subtitleColor, maxLines: 1),
           NoteMarkIcon(
-              mine: _t.notes.any((n) => n.isMine(_t)),
-              theirs: _t.notes.any((n) => !n.isMine(_t)),
-              color: _subtitleColor,
+            mine: _t.notes.any((n) => n.isMine(_t)),
+            theirs: _t.notes.any((n) => !n.isMine(_t)),
+            color: _subtitleColor,
           ),
         ],
       );

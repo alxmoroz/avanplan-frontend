@@ -7,8 +7,8 @@ import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
-import '../../extra/services.dart';
 import '../../views/_base/loader_screen.dart';
+import '../app/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_request_controller.dart';
 

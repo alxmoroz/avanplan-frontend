@@ -6,9 +6,9 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
-import '../../extra/services.dart';
 import '../../usecases/ws_actions.dart';
 import '../../views/_base/loadable.dart';
+import '../app/services.dart';
 import '../workspace/ws_controller.dart';
 
 part 'tariff_selector_controller.g.dart';

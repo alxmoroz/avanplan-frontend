@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/attachment.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../extra/services.dart';
+import '../../app/services.dart';
 import 'task_controller.dart';
 
 part 'attachments_controller.g.dart';

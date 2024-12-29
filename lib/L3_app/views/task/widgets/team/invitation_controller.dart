@@ -9,9 +9,9 @@ import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../../L2_data/services/platform.dart';
-import '../../../../extra/clipboard.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/task_tree.dart';
+import '../../../app/clipboard.dart';
+import '../../../app/services.dart';
 
 part 'invitation_controller.g.dart';
 

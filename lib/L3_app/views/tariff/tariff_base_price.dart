@@ -8,7 +8,7 @@ import '../../components/constants.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
+import '../app/services.dart';
 
 class TariffBasePrice extends StatelessWidget {
   const TariffBasePrice(this._tariff, {super.key});

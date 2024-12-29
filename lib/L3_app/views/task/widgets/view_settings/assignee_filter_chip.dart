@@ -8,7 +8,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskAssigneeFilterChip extends StatelessWidget {

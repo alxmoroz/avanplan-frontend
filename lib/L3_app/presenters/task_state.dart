@@ -9,7 +9,7 @@ import '../components/circular_progress.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/images.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 import 'duration.dart';
 import 'task_tree.dart';
 import 'task_type.dart';

@@ -7,9 +7,9 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_actions.dart';
 import '../../../presenters/task_tree.dart';
+import '../../app/services.dart';
 import '../usecases/edit.dart';
 import 'task_controller.dart';
 

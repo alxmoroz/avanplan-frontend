@@ -10,9 +10,9 @@ import '../components/adaptive.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/dialog.dart';
-import '../extra/services.dart';
 import '../views/_base/loadable.dart';
 import '../views/_base/loader_screen.dart';
+import '../views/app/services.dart';
 
 class MTRoute extends GoRoute {
   MTRoute({

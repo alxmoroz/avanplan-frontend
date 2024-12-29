@@ -10,10 +10,10 @@ import '../../../../L1_domain/entities_extensions/ws_estimates.dart';
 import '../../../components/constants.dart';
 import '../../../components/select_dialog.dart';
 import '../../../components/text.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/workspace.dart';
 import '../../../usecases/ws_actions.dart';
+import '../../app/services.dart';
 import '../controllers/task_controller.dart';
 import 'edit.dart';
 

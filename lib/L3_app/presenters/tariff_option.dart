@@ -6,8 +6,8 @@ import '../../L1_domain/entities/tariff_option.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/images.dart';
-import '../extra/services.dart';
 import '../presenters/number.dart';
+import '../views/app/services.dart';
 
 const FEATURE_IMAGE_SIZE = P8;
 

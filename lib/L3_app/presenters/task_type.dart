@@ -2,7 +2,7 @@
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
-import '../extra/services.dart';
+import '../views/app/services.dart';
 import 'task_tree.dart';
 import 'workspace.dart';
 

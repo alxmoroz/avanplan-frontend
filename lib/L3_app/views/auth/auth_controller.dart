@@ -7,13 +7,13 @@ import '../../../L2_data/services/environment.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/images.dart';
 import '../../components/webview_dialog.dart';
-import '../../extra/services.dart';
 import '../../navigation/router.dart';
 import '../../views/_base/loadable.dart';
+import '../app/services.dart';
 
 part 'auth_controller.g.dart';
 
-class AuthController extends _AuthControllerBase with _$AuthController {
+class AuthController extends _Base with _$AuthController {
   AuthController() {
     stopLoading();
   }
@@ -28,7 +28,7 @@ class AuthController extends _AuthControllerBase with _$AuthController {
   }
 }
 
-abstract class _AuthControllerBase with Store, Loadable {
+abstract class _Base with Store, Loadable {
   @observable
   bool signInWithAppleIsAvailable = false;
 

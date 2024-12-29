@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../details/task_description_field.dart';
 

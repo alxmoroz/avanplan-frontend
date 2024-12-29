@@ -11,8 +11,8 @@ import '../../../../L1_domain/entities/task_source.dart';
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
+import '../../app/services.dart';
 import '../../task/usecases/edit.dart';
 import '../../task/usecases/state.dart';
 

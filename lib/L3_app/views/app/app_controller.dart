@@ -8,11 +8,11 @@ import '../../../L1_domain/entities/service_settings.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
 import '../../components/images.dart';
-import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import '../_base/loadable.dart';
 import 'app_may_upgrade_dialog.dart';
 import 'release_notes_dialog.dart';
+import 'services.dart';
 
 part 'app_controller.g.dart';
 

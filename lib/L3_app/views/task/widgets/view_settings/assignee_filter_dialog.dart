@@ -9,8 +9,8 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/ws_member.dart';
+import '../../../app/services.dart';
 import '../../controllers/task_settings_controller.dart';
 
 Future showTaskAssigneeFilterDialog(TaskSettingsController tsc) async => await showMTDialog(_TaskAssigneeFilterDialog(tsc), maxWidth: SCR_XS_WIDTH);

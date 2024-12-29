@@ -6,7 +6,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/images.dart';
 import '../../components/text.dart';
-import '../../extra/services.dart';
+import 'services.dart';
 
 class AppTitle extends StatelessWidget {
   const AppTitle({super.key, this.compact = false});

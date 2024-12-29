@@ -3,7 +3,7 @@
 import '../../../../components/alert_dialog.dart';
 import '../../../../components/button.dart';
 import '../../../../components/images.dart';
-import '../../../../extra/services.dart';
+import '../../../app/services.dart';
 
 Future<bool> get confirmTransferAndUnlinkRelations async =>
     await showMTAlertDialog(

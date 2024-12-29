@@ -8,43 +8,43 @@ void main() {
   group(WSSourcesApi, () {
     // Check Connection
     //
-    //Future<bool> checkConnection(int wsId, int sourceId) async
-    test('test checkConnection', () async {
+    //Future<bool> checkConnection_0(int wsId, int sourceId) async
+    test('test checkConnection_0', () async {
       // TODO
     });
 
     // Delete
     //
-    //Future<bool> deleteSource(int sourceId, int wsId) async
-    test('test deleteSource', () async {
+    //Future<bool> deleteSource_0(int sourceId, int wsId) async
+    test('test deleteSource_0', () async {
       // TODO
     });
 
     // Get Projects
     //
-    //Future<BuiltList<TaskRemote>> getProjects(int wsId, int sourceId) async
-    test('test getProjects', () async {
+    //Future<BuiltList<TaskRemote>> getProjects_0(int wsId, int sourceId) async
+    test('test getProjects_0', () async {
       // TODO
     });
 
     // Request Type
     //
-    //Future<bool> requestType(int wsId, BodyRequestType bodyRequestType) async
-    test('test requestType', () async {
+    //Future<bool> requestType_0(int wsId, BodyRequestType bodyRequestType) async
+    test('test requestType_0', () async {
       // TODO
     });
 
     // Start Import
     //
-    //Future<bool> startImport(int wsId, int sourceId, BodyStartImport bodyStartImport) async
-    test('test startImport', () async {
+    //Future<bool> startImport_0(int wsId, int sourceId, BodyStartImport bodyStartImport) async
+    test('test startImport_0', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<SourceGet> upsertSource(int wsId, SourceUpsert sourceUpsert) async
-    test('test upsertSource', () async {
+    //Future<SourceGet> upsertSource_0(int wsId, SourceUpsert sourceUpsert) async
+    test('test upsertSource_0', () async {
       // TODO
     });
   });

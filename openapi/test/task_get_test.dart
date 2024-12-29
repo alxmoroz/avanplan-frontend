@@ -147,7 +147,7 @@ void main() {
       // TODO
     });
 
-    // BuiltList<TaskRelationGet> relations
+    // BuiltList<TaskRelationGet> relations (default value: ListBuilder())
     test('to test the property `relations`', () async {
       // TODO
     });
@@ -172,12 +172,12 @@ void main() {
       // TODO
     });
 
-    // BuiltList<MemberGet> members
+    // BuiltList<MemberGet> members (default value: ListBuilder())
     test('to test the property `members`', () async {
       // TODO
     });
 
-    // BuiltList<NoteGet> notes
+    // BuiltList<NoteGet> notes (default value: ListBuilder())
     test('to test the property `notes`', () async {
       // TODO
     });
@@ -187,7 +187,7 @@ void main() {
       // TODO
     });
 
-    // BuiltList<AttachmentGet> attachments
+    // BuiltList<AttachmentGet> attachments (default value: ListBuilder())
     test('to test the property `attachments`', () async {
       // TODO
     });
@@ -197,17 +197,17 @@ void main() {
       // TODO
     });
 
-    // BuiltList<ProjectStatusGet> projectStatuses
+    // BuiltList<ProjectStatusGet> projectStatuses (default value: ListBuilder())
     test('to test the property `projectStatuses`', () async {
       // TODO
     });
 
-    // BuiltList<TaskTransactionGet> transactions
+    // BuiltList<TaskTransactionGet> transactions (default value: ListBuilder())
     test('to test the property `transactions`', () async {
       // TODO
     });
 
-    // BuiltList<ProjectModuleGet> projectModules
+    // BuiltList<ProjectModuleGet> projectModules (default value: ListBuilder())
     test('to test the property `projectModules`', () async {
       // TODO
     });

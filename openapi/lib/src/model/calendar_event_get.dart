@@ -61,7 +61,8 @@ abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEvent
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CalendarEventGetBuilder b) => b
-      ..allDay = false;
+      ..allDay = false
+      ..attendees = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<CalendarEventGet> get serializer => _$CalendarEventGetSerializer();

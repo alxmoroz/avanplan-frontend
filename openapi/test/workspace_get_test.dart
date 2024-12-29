@@ -42,17 +42,17 @@ void main() {
       // TODO
     });
 
-    // BuiltList<User> users
+    // BuiltList<User> users (default value: ListBuilder())
     test('to test the property `users`', () async {
       // TODO
     });
 
-    // BuiltList<MemberGet> members
+    // BuiltList<MemberGet> members (default value: ListBuilder())
     test('to test the property `members`', () async {
       // TODO
     });
 
-    // BuiltList<RoleGet> roles
+    // BuiltList<RoleGet> roles (default value: ListBuilder())
     test('to test the property `roles`', () async {
       // TODO
     });
@@ -72,12 +72,12 @@ void main() {
       // TODO
     });
 
-    // BuiltList<EstimateValueGet> estimateValues
+    // BuiltList<EstimateValueGet> estimateValues (default value: ListBuilder())
     test('to test the property `estimateValues`', () async {
       // TODO
     });
 
-    // BuiltList<SourceGet> sources
+    // BuiltList<SourceGet> sources (default value: ListBuilder())
     test('to test the property `sources`', () async {
       // TODO
     });

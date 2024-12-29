@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **endDate** | [**DateTime**](DateTime.md) |  | 
 **allDay** | **bool** |  | [optional] [default to false]
 **location** | **String** |  | [optional] 
-**attendees** | [**BuiltList&lt;CalendarEventAttendee&gt;**](CalendarEventAttendee.md) |  | [optional] 
+**attendees** | [**BuiltList&lt;CalendarEventAttendee&gt;**](CalendarEventAttendee.md) |  | [optional] [default to ListBuilder()]
 **sourceCode** | **String** |  | [optional] 
 **sourceLink** | **String** |  | [optional] 
 

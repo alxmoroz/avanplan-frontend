@@ -52,7 +52,7 @@ void main() {
       // TODO
     });
 
-    // BuiltList<String> permissionCodes
+    // BuiltSet<String> permissionCodes
     test('to test the property `permissionCodes`', () async {
       // TODO
     });

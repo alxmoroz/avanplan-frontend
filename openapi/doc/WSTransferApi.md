@@ -9,14 +9,14 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createFromTemplate**](WSTransferApi.md#createfromtemplate) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
-[**destinationsForMove**](WSTransferApi.md#destinationsformove) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
-[**projectTemplates**](WSTransferApi.md#projecttemplates) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
-[**sourcesForMoveTasks**](WSTransferApi.md#sourcesformovetasks) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
+[**createFromTemplate_0**](WSTransferApi.md#createfromtemplate_0) | **POST** /v1/workspaces/{ws_id}/transfer/create_from_template | Create From Template
+[**destinationsForMove_0**](WSTransferApi.md#destinationsformove_0) | **GET** /v1/workspaces/{ws_id}/transfer/destinations_for_move | Destinations For Move
+[**projectTemplates_0**](WSTransferApi.md#projecttemplates_0) | **GET** /v1/workspaces/{ws_id}/transfer/project_templates | Project Templates
+[**sourcesForMoveTasks_0**](WSTransferApi.md#sourcesformovetasks_0) | **GET** /v1/workspaces/{ws_id}/transfer/sources_for_move | Sources For Move
 
 
-# **createFromTemplate**
-> TasksChanges createFromTemplate(wsId, srcProjectId, srcWsId, srcTaskId, taskId)
+# **createFromTemplate_0**
+> TasksChanges createFromTemplate_0(wsId, srcProjectId, srcWsId, srcTaskId, taskId)
 
 Create From Template
 
@@ -38,10 +38,10 @@ final int srcTaskId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.createFromTemplate(wsId, srcProjectId, srcWsId, srcTaskId, taskId);
+    final response = api.createFromTemplate_0(wsId, srcProjectId, srcWsId, srcTaskId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTransferApi->createFromTemplate: $e\n');
+    print('Exception when calling WSTransferApi->createFromTemplate_0: $e\n');
 }
 ```
 
@@ -70,8 +70,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **destinationsForMove**
-> BuiltList<TaskGet> destinationsForMove(wsId, taskType, taskId)
+# **destinationsForMove_0**
+> BuiltList<TaskGet> destinationsForMove_0(wsId, taskType, taskId)
 
 Destinations For Move
 
@@ -91,10 +91,10 @@ final String taskType = taskType_example; // String |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.destinationsForMove(wsId, taskType, taskId);
+    final response = api.destinationsForMove_0(wsId, taskType, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTransferApi->destinationsForMove: $e\n');
+    print('Exception when calling WSTransferApi->destinationsForMove_0: $e\n');
 }
 ```
 
@@ -121,8 +121,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **projectTemplates**
-> BuiltList<ProjectGet> projectTemplates(wsId)
+# **projectTemplates_0**
+> BuiltList<ProjectGet> projectTemplates_0(wsId)
 
 Project Templates
 
@@ -140,10 +140,10 @@ final api = Openapi().getWSTransferApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.projectTemplates(wsId);
+    final response = api.projectTemplates_0(wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTransferApi->projectTemplates: $e\n');
+    print('Exception when calling WSTransferApi->projectTemplates_0: $e\n');
 }
 ```
 
@@ -168,8 +168,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **sourcesForMoveTasks**
-> BuiltList<TaskGet> sourcesForMoveTasks(wsId, taskId)
+# **sourcesForMoveTasks_0**
+> BuiltList<TaskGet> sourcesForMoveTasks_0(wsId, taskId)
 
 Sources For Move
 
@@ -188,10 +188,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.sourcesForMoveTasks(wsId, taskId);
+    final response = api.sourcesForMoveTasks_0(wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTransferApi->sourcesForMoveTasks: $e\n');
+    print('Exception when calling WSTransferApi->sourcesForMoveTasks_0: $e\n');
 }
 ```
 

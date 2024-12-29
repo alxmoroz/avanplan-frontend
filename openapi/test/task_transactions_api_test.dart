@@ -8,15 +8,15 @@ void main() {
   group(TaskTransactionsApi, () {
     // Delete
     //
-    //Future<TasksChanges> deleteTransaction(int wsId, int taskId, int transactionId) async
-    test('test deleteTransaction', () async {
+    //Future<TasksChanges> deleteTransaction_1(int wsId, int taskId, int transactionId) async
+    test('test deleteTransaction_1', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<TasksChanges> upsertTransaction(int wsId, int taskId, TaskTransactionUpsert taskTransactionUpsert) async
-    test('test upsertTransaction', () async {
+    //Future<TasksChanges> upsertTransaction_1(int wsId, int taskId, TaskTransactionUpsert taskTransactionUpsert) async
+    test('test upsertTransaction_1', () async {
       // TODO
     });
   });

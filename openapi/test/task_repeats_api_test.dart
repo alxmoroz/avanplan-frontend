@@ -8,15 +8,15 @@ void main() {
   group(TaskRepeatsApi, () {
     // Delete
     //
-    //Future<bool> deleteRepeat(int wsId, int taskId, int repeatId) async
-    test('test deleteRepeat', () async {
+    //Future<bool> deleteRepeat_1(int wsId, int taskId, int repeatId) async
+    test('test deleteRepeat_1', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<TaskRepeatGet> upsertRepeat(int wsId, int taskId, TaskRepeatUpsert taskRepeatUpsert) async
-    test('test upsertRepeat', () async {
+    //Future<TaskRepeatGet> upsertRepeat_1(int wsId, int taskId, TaskRepeatUpsert taskRepeatUpsert) async
+    test('test upsertRepeat_1', () async {
       // TODO
     });
   });

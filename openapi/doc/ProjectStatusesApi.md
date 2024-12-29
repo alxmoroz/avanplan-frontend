@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteStatus**](ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
-[**statusTasksCount**](ProjectStatusesApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
-[**upsertStatus**](ProjectStatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
+[**deleteStatus_1**](ProjectStatusesApi.md#deletestatus_1) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
+[**statusTasksCount_1**](ProjectStatusesApi.md#statustaskscount_1) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
+[**upsertStatus_1**](ProjectStatusesApi.md#upsertstatus_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 
 
-# **deleteStatus**
-> bool deleteStatus(statusId, wsId, taskId)
+# **deleteStatus_1**
+> bool deleteStatus_1(statusId, wsId, taskId)
 
 Delete
 
@@ -35,10 +35,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteStatus(statusId, wsId, taskId);
+    final response = api.deleteStatus_1(statusId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectStatusesApi->deleteStatus: $e\n');
+    print('Exception when calling ProjectStatusesApi->deleteStatus_1: $e\n');
 }
 ```
 
@@ -65,8 +65,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **statusTasksCount**
-> int statusTasksCount(wsId, taskId, projectStatusId)
+# **statusTasksCount_1**
+> int statusTasksCount_1(wsId, taskId, projectStatusId)
 
 Status Tasks Count
 
@@ -86,10 +86,10 @@ final int taskId = 56; // int |
 final int projectStatusId = 56; // int | 
 
 try {
-    final response = api.statusTasksCount(wsId, taskId, projectStatusId);
+    final response = api.statusTasksCount_1(wsId, taskId, projectStatusId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectStatusesApi->statusTasksCount: $e\n');
+    print('Exception when calling ProjectStatusesApi->statusTasksCount_1: $e\n');
 }
 ```
 
@@ -116,8 +116,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertStatus**
-> ProjectStatusGet upsertStatus(wsId, taskId, projectStatusUpsert)
+# **upsertStatus_1**
+> ProjectStatusGet upsertStatus_1(wsId, taskId, projectStatusUpsert)
 
 Upsert
 
@@ -137,10 +137,10 @@ final int taskId = 56; // int |
 final ProjectStatusUpsert projectStatusUpsert = ; // ProjectStatusUpsert | 
 
 try {
-    final response = api.upsertStatus(wsId, taskId, projectStatusUpsert);
+    final response = api.upsertStatus_1(wsId, taskId, projectStatusUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectStatusesApi->upsertStatus: $e\n');
+    print('Exception when calling ProjectStatusesApi->upsertStatus_1: $e\n');
 }
 ```
 

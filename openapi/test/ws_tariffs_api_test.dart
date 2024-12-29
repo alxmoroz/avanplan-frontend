@@ -8,22 +8,22 @@ void main() {
   group(WSTariffsApi, () {
     // Available Tariffs
     //
-    //Future<BuiltList<TariffGet>> availableTariffs(int wsId) async
-    test('test availableTariffs', () async {
+    //Future<BuiltList<TariffGet>> availableTariffs_0(int wsId) async
+    test('test availableTariffs_0', () async {
       // TODO
     });
 
     // Sign
     //
-    //Future<InvoiceGet> sign(int tariffId, int wsId) async
-    test('test sign', () async {
+    //Future<InvoiceGet> sign_0(int tariffId, int wsId) async
+    test('test sign_0', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async
-    test('test upsertOption', () async {
+    //Future<InvoiceGet> upsertOption_0(int wsId, int tariffId, int optionId, bool subscribe) async
+    test('test upsertOption_0', () async {
       // TODO
     });
   });

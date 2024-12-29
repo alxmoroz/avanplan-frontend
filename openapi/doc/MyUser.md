@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **hasAvatar** | **bool** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **roleCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
-**permissionCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
+**permissionCodes** | **BuiltSet&lt;String&gt;** |  | [optional] 
 **wsIds** | **BuiltList&lt;int&gt;** |  | [optional] 
 **activities** | [**BuiltList&lt;UActivityGet&gt;**](UActivityGet.md) |  | 
 

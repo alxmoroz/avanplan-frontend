@@ -42,7 +42,7 @@ void main() {
       // TODO
     });
 
-    // BuiltList<CalendarEventAttendee> attendees
+    // BuiltList<CalendarEventAttendee> attendees (default value: ListBuilder())
     test('to test the property `attendees`', () async {
       // TODO
     });

@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**upsertOption**](WSTariffOptionsApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
+[**upsertOption_1**](WSTariffOptionsApi.md#upsertoption_1) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
 
 
-# **upsertOption**
-> InvoiceGet upsertOption(wsId, tariffId, optionId, subscribe)
+# **upsertOption_1**
+> InvoiceGet upsertOption_1(wsId, tariffId, optionId, subscribe)
 
 Upsert
 
@@ -34,10 +34,10 @@ final int optionId = 56; // int |
 final bool subscribe = true; // bool | 
 
 try {
-    final response = api.upsertOption(wsId, tariffId, optionId, subscribe);
+    final response = api.upsertOption_1(wsId, tariffId, optionId, subscribe);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTariffOptionsApi->upsertOption: $e\n');
+    print('Exception when calling WSTariffOptionsApi->upsertOption_1: $e\n');
 }
 ```
 

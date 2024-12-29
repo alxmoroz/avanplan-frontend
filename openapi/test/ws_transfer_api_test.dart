@@ -8,29 +8,29 @@ void main() {
   group(WSTransferApi, () {
     // Create From Template
     //
-    //Future<TasksChanges> createFromTemplate(int wsId, int srcProjectId, int srcWsId, { int srcTaskId, int taskId }) async
-    test('test createFromTemplate', () async {
+    //Future<TasksChanges> createFromTemplate_0(int wsId, int srcProjectId, int srcWsId, { int srcTaskId, int taskId }) async
+    test('test createFromTemplate_0', () async {
       // TODO
     });
 
     // Destinations For Move
     //
-    //Future<BuiltList<TaskGet>> destinationsForMove(int wsId, String taskType, { int taskId }) async
-    test('test destinationsForMove', () async {
+    //Future<BuiltList<TaskGet>> destinationsForMove_0(int wsId, String taskType, { int taskId }) async
+    test('test destinationsForMove_0', () async {
       // TODO
     });
 
     // Project Templates
     //
-    //Future<BuiltList<ProjectGet>> projectTemplates(int wsId) async
-    test('test projectTemplates', () async {
+    //Future<BuiltList<ProjectGet>> projectTemplates_0(int wsId) async
+    test('test projectTemplates_0', () async {
       // TODO
     });
 
     // Sources For Move
     //
-    //Future<BuiltList<TaskGet>> sourcesForMoveTasks(int wsId, { int taskId }) async
-    test('test sourcesForMoveTasks', () async {
+    //Future<BuiltList<TaskGet>> sourcesForMoveTasks_0(int wsId, { int taskId }) async
+    test('test sourcesForMoveTasks_0', () async {
       // TODO
     });
   });

@@ -9,32 +9,32 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignProjectMemberRoles**](WSTasksApi.md#assignprojectmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
-[**createInvitation**](WSTasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
-[**deleteNote**](WSTasksApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
-[**deleteRepeat**](WSTasksApi.md#deleterepeat) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
-[**deleteStatus**](WSTasksApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
-[**deleteTask**](WSTasksApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
-[**deleteTransaction**](WSTasksApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
-[**duplicateTask**](WSTasksApi.md#duplicatetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
-[**getInvitations**](WSTasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
-[**moveTask**](WSTasksApi.md#movetask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
-[**projectMemberContacts**](WSTasksApi.md#projectmembercontacts) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
-[**repeatTask**](WSTasksApi.md#repeattask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
-[**statusTasksCount**](WSTasksApi.md#statustaskscount) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
-[**taskNode**](WSTasksApi.md#tasknode) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
-[**tasksList**](WSTasksApi.md#taskslist) | **POST** /v1/workspaces/{ws_id}/tasks/list | Tasks List
-[**unlinkTask**](WSTasksApi.md#unlinktask) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
-[**uploadAttachment**](WSTasksApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
-[**upsertNote**](WSTasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
-[**upsertRepeat**](WSTasksApi.md#upsertrepeat) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats | Upsert
-[**upsertStatus**](WSTasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
-[**upsertTask**](WSTasksApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
-[**upsertTransaction**](WSTasksApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
+[**assignProjectMemberRoles_0**](WSTasksApi.md#assignprojectmemberroles_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
+[**createInvitation_0**](WSTasksApi.md#createinvitation_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
+[**deleteNote_0**](WSTasksApi.md#deletenote_0) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
+[**deleteRepeat_0**](WSTasksApi.md#deleterepeat_0) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
+[**deleteStatus_0**](WSTasksApi.md#deletestatus_0) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
+[**deleteTask_0**](WSTasksApi.md#deletetask_0) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
+[**deleteTransaction_0**](WSTasksApi.md#deletetransaction_0) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
+[**duplicateTask_0**](WSTasksApi.md#duplicatetask_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/duplicate | Duplicate
+[**getInvitations_0**](WSTasksApi.md#getinvitations_0) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
+[**moveTask_0**](WSTasksApi.md#movetask_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/move | Move
+[**projectMemberContacts_0**](WSTasksApi.md#projectmembercontacts_0) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
+[**repeatTask_0**](WSTasksApi.md#repeattask_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeat | Repeat
+[**statusTasksCount_0**](WSTasksApi.md#statustaskscount_0) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Status Tasks Count
+[**taskNode_0**](WSTasksApi.md#tasknode_0) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id} | Task Node
+[**tasksList_0**](WSTasksApi.md#taskslist_0) | **POST** /v1/workspaces/{ws_id}/tasks/list | Tasks List
+[**unlinkTask_0**](WSTasksApi.md#unlinktask_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/unlink | Unlink
+[**uploadAttachment_0**](WSTasksApi.md#uploadattachment_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
+[**upsertNote_0**](WSTasksApi.md#upsertnote_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[**upsertRepeat_0**](WSTasksApi.md#upsertrepeat_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats | Upsert
+[**upsertStatus_0**](WSTasksApi.md#upsertstatus_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
+[**upsertTask_0**](WSTasksApi.md#upserttask_0) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert
+[**upsertTransaction_0**](WSTasksApi.md#upserttransaction_0) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
-# **assignProjectMemberRoles**
-> BuiltList<MemberGet> assignProjectMemberRoles(taskId, memberId, wsId, requestBody)
+# **assignProjectMemberRoles_0**
+> BuiltList<MemberGet> assignProjectMemberRoles_0(taskId, memberId, wsId, requestBody)
 
 Assign Project Member Roles
 
@@ -55,10 +55,10 @@ final int wsId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignProjectMemberRoles(taskId, memberId, wsId, requestBody);
+    final response = api.assignProjectMemberRoles_0(taskId, memberId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->assignProjectMemberRoles: $e\n');
+    print('Exception when calling WSTasksApi->assignProjectMemberRoles_0: $e\n');
 }
 ```
 
@@ -86,8 +86,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **createInvitation**
-> InvitationGet createInvitation(wsId, taskId, invitation)
+# **createInvitation_0**
+> InvitationGet createInvitation_0(wsId, taskId, invitation)
 
 Create
 
@@ -107,10 +107,10 @@ final int taskId = 56; // int |
 final Invitation invitation = ; // Invitation | 
 
 try {
-    final response = api.createInvitation(wsId, taskId, invitation);
+    final response = api.createInvitation_0(wsId, taskId, invitation);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->createInvitation: $e\n');
+    print('Exception when calling WSTasksApi->createInvitation_0: $e\n');
 }
 ```
 
@@ -137,8 +137,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteNote**
-> bool deleteNote(wsId, noteId, taskId)
+# **deleteNote_0**
+> bool deleteNote_0(wsId, noteId, taskId)
 
 Delete
 
@@ -158,10 +158,10 @@ final int noteId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteNote(wsId, noteId, taskId);
+    final response = api.deleteNote_0(wsId, noteId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->deleteNote: $e\n');
+    print('Exception when calling WSTasksApi->deleteNote_0: $e\n');
 }
 ```
 
@@ -188,8 +188,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteRepeat**
-> bool deleteRepeat(wsId, taskId, repeatId)
+# **deleteRepeat_0**
+> bool deleteRepeat_0(wsId, taskId, repeatId)
 
 Delete
 
@@ -209,10 +209,10 @@ final int taskId = 56; // int |
 final int repeatId = 56; // int | 
 
 try {
-    final response = api.deleteRepeat(wsId, taskId, repeatId);
+    final response = api.deleteRepeat_0(wsId, taskId, repeatId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->deleteRepeat: $e\n');
+    print('Exception when calling WSTasksApi->deleteRepeat_0: $e\n');
 }
 ```
 
@@ -239,8 +239,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteStatus**
-> bool deleteStatus(statusId, wsId, taskId)
+# **deleteStatus_0**
+> bool deleteStatus_0(statusId, wsId, taskId)
 
 Delete
 
@@ -260,10 +260,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteStatus(statusId, wsId, taskId);
+    final response = api.deleteStatus_0(statusId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->deleteStatus: $e\n');
+    print('Exception when calling WSTasksApi->deleteStatus_0: $e\n');
 }
 ```
 
@@ -290,8 +290,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteTask**
-> TasksChanges deleteTask(wsId, taskId)
+# **deleteTask_0**
+> TasksChanges deleteTask_0(wsId, taskId)
 
 Delete
 
@@ -310,10 +310,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteTask(wsId, taskId);
+    final response = api.deleteTask_0(wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->deleteTask: $e\n');
+    print('Exception when calling WSTasksApi->deleteTask_0: $e\n');
 }
 ```
 
@@ -339,8 +339,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteTransaction**
-> TasksChanges deleteTransaction(wsId, taskId, transactionId)
+# **deleteTransaction_0**
+> TasksChanges deleteTransaction_0(wsId, taskId, transactionId)
 
 Delete
 
@@ -360,10 +360,10 @@ final int taskId = 56; // int |
 final int transactionId = 56; // int | 
 
 try {
-    final response = api.deleteTransaction(wsId, taskId, transactionId);
+    final response = api.deleteTransaction_0(wsId, taskId, transactionId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->deleteTransaction: $e\n');
+    print('Exception when calling WSTasksApi->deleteTransaction_0: $e\n');
 }
 ```
 
@@ -390,8 +390,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **duplicateTask**
-> TasksChanges duplicateTask(wsId, taskId, srcWsId, srcTaskId)
+# **duplicateTask_0**
+> TasksChanges duplicateTask_0(wsId, taskId, srcWsId, srcTaskId)
 
 Duplicate
 
@@ -412,10 +412,10 @@ final int srcWsId = 56; // int |
 final int srcTaskId = 56; // int | 
 
 try {
-    final response = api.duplicateTask(wsId, taskId, srcWsId, srcTaskId);
+    final response = api.duplicateTask_0(wsId, taskId, srcWsId, srcTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->duplicateTask: $e\n');
+    print('Exception when calling WSTasksApi->duplicateTask_0: $e\n');
 }
 ```
 
@@ -443,8 +443,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getInvitations**
-> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId)
+# **getInvitations_0**
+> BuiltList<InvitationGet> getInvitations_0(taskId, wsId, roleId)
 
 Invitations
 
@@ -464,10 +464,10 @@ final int wsId = 56; // int |
 final int roleId = 56; // int | 
 
 try {
-    final response = api.getInvitations(taskId, wsId, roleId);
+    final response = api.getInvitations_0(taskId, wsId, roleId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->getInvitations: $e\n');
+    print('Exception when calling WSTasksApi->getInvitations_0: $e\n');
 }
 ```
 
@@ -494,8 +494,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **moveTask**
-> TasksChanges moveTask(wsId, taskId, srcTaskId, srcWsId)
+# **moveTask_0**
+> TasksChanges moveTask_0(wsId, taskId, srcTaskId, srcWsId)
 
 Move
 
@@ -516,10 +516,10 @@ final int srcTaskId = 56; // int |
 final int srcWsId = 56; // int | 
 
 try {
-    final response = api.moveTask(wsId, taskId, srcTaskId, srcWsId);
+    final response = api.moveTask_0(wsId, taskId, srcTaskId, srcWsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->moveTask: $e\n');
+    print('Exception when calling WSTasksApi->moveTask_0: $e\n');
 }
 ```
 
@@ -547,8 +547,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **projectMemberContacts**
-> BuiltList<MemberContactGet> projectMemberContacts(memberId, wsId, taskId)
+# **projectMemberContacts_0**
+> BuiltList<MemberContactGet> projectMemberContacts_0(memberId, wsId, taskId)
 
 Project Member Contacts
 
@@ -570,10 +570,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.projectMemberContacts(memberId, wsId, taskId);
+    final response = api.projectMemberContacts_0(memberId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->projectMemberContacts: $e\n');
+    print('Exception when calling WSTasksApi->projectMemberContacts_0: $e\n');
 }
 ```
 
@@ -600,8 +600,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **repeatTask**
-> TasksChanges repeatTask(wsId, taskId, srcWsId, srcTaskId)
+# **repeatTask_0**
+> TasksChanges repeatTask_0(wsId, taskId, srcWsId, srcTaskId)
 
 Repeat
 
@@ -622,10 +622,10 @@ final int srcWsId = 56; // int |
 final int srcTaskId = 56; // int | 
 
 try {
-    final response = api.repeatTask(wsId, taskId, srcWsId, srcTaskId);
+    final response = api.repeatTask_0(wsId, taskId, srcWsId, srcTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->repeatTask: $e\n');
+    print('Exception when calling WSTasksApi->repeatTask_0: $e\n');
 }
 ```
 
@@ -653,8 +653,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **statusTasksCount**
-> int statusTasksCount(wsId, taskId, projectStatusId)
+# **statusTasksCount_0**
+> int statusTasksCount_0(wsId, taskId, projectStatusId)
 
 Status Tasks Count
 
@@ -674,10 +674,10 @@ final int taskId = 56; // int |
 final int projectStatusId = 56; // int | 
 
 try {
-    final response = api.statusTasksCount(wsId, taskId, projectStatusId);
+    final response = api.statusTasksCount_0(wsId, taskId, projectStatusId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->statusTasksCount: $e\n');
+    print('Exception when calling WSTasksApi->statusTasksCount_0: $e\n');
 }
 ```
 
@@ -704,8 +704,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **taskNode**
-> TaskNode taskNode(taskId, wsId, closed, fullTree)
+# **taskNode_0**
+> TaskNode taskNode_0(taskId, wsId, closed, fullTree)
 
 Task Node
 
@@ -726,10 +726,10 @@ final bool closed = true; // bool |
 final bool fullTree = true; // bool | 
 
 try {
-    final response = api.taskNode(taskId, wsId, closed, fullTree);
+    final response = api.taskNode_0(taskId, wsId, closed, fullTree);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->taskNode: $e\n');
+    print('Exception when calling WSTasksApi->taskNode_0: $e\n');
 }
 ```
 
@@ -757,8 +757,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **tasksList**
-> BuiltList<TaskGet> tasksList(wsId, requestBody, taskId)
+# **tasksList_0**
+> BuiltList<TaskGet> tasksList_0(wsId, requestBody, taskId)
 
 Tasks List
 
@@ -778,10 +778,10 @@ final BuiltList<int> requestBody = ; // BuiltList<int> |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.tasksList(wsId, requestBody, taskId);
+    final response = api.tasksList_0(wsId, requestBody, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->tasksList: $e\n');
+    print('Exception when calling WSTasksApi->tasksList_0: $e\n');
 }
 ```
 
@@ -808,8 +808,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **unlinkTask**
-> bool unlinkTask(taskId, wsId)
+# **unlinkTask_0**
+> bool unlinkTask_0(taskId, wsId)
 
 Unlink
 
@@ -828,10 +828,10 @@ final int taskId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.unlinkTask(taskId, wsId);
+    final response = api.unlinkTask_0(taskId, wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->unlinkTask: $e\n');
+    print('Exception when calling WSTasksApi->unlinkTask_0: $e\n');
 }
 ```
 
@@ -857,8 +857,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **uploadAttachment**
-> AttachmentGet uploadAttachment(wsId, taskId, noteId, file)
+# **uploadAttachment_0**
+> AttachmentGet uploadAttachment_0(wsId, taskId, noteId, file)
 
 Upload Attachment
 
@@ -879,10 +879,10 @@ final int noteId = 56; // int |
 final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
 
 try {
-    final response = api.uploadAttachment(wsId, taskId, noteId, file);
+    final response = api.uploadAttachment_0(wsId, taskId, noteId, file);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->uploadAttachment: $e\n');
+    print('Exception when calling WSTasksApi->uploadAttachment_0: $e\n');
 }
 ```
 
@@ -910,8 +910,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertNote**
-> NoteGet upsertNote(wsId, taskId, noteUpsert)
+# **upsertNote_0**
+> NoteGet upsertNote_0(wsId, taskId, noteUpsert)
 
 Upsert
 
@@ -931,10 +931,10 @@ final int taskId = 56; // int |
 final NoteUpsert noteUpsert = ; // NoteUpsert | 
 
 try {
-    final response = api.upsertNote(wsId, taskId, noteUpsert);
+    final response = api.upsertNote_0(wsId, taskId, noteUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->upsertNote: $e\n');
+    print('Exception when calling WSTasksApi->upsertNote_0: $e\n');
 }
 ```
 
@@ -961,8 +961,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertRepeat**
-> TaskRepeatGet upsertRepeat(wsId, taskId, taskRepeatUpsert)
+# **upsertRepeat_0**
+> TaskRepeatGet upsertRepeat_0(wsId, taskId, taskRepeatUpsert)
 
 Upsert
 
@@ -982,10 +982,10 @@ final int taskId = 56; // int |
 final TaskRepeatUpsert taskRepeatUpsert = ; // TaskRepeatUpsert | 
 
 try {
-    final response = api.upsertRepeat(wsId, taskId, taskRepeatUpsert);
+    final response = api.upsertRepeat_0(wsId, taskId, taskRepeatUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->upsertRepeat: $e\n');
+    print('Exception when calling WSTasksApi->upsertRepeat_0: $e\n');
 }
 ```
 
@@ -1012,8 +1012,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertStatus**
-> ProjectStatusGet upsertStatus(wsId, taskId, projectStatusUpsert)
+# **upsertStatus_0**
+> ProjectStatusGet upsertStatus_0(wsId, taskId, projectStatusUpsert)
 
 Upsert
 
@@ -1033,10 +1033,10 @@ final int taskId = 56; // int |
 final ProjectStatusUpsert projectStatusUpsert = ; // ProjectStatusUpsert | 
 
 try {
-    final response = api.upsertStatus(wsId, taskId, projectStatusUpsert);
+    final response = api.upsertStatus_0(wsId, taskId, projectStatusUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->upsertStatus: $e\n');
+    print('Exception when calling WSTasksApi->upsertStatus_0: $e\n');
 }
 ```
 
@@ -1063,8 +1063,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertTask**
-> TasksChanges upsertTask(wsId, taskUpsert, prevPosition, nextPosition, taskId)
+# **upsertTask_0**
+> TasksChanges upsertTask_0(wsId, taskUpsert, prevPosition, nextPosition, taskId)
 
 Upsert
 
@@ -1086,10 +1086,10 @@ final String nextPosition = nextPosition_example; // String |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.upsertTask(wsId, taskUpsert, prevPosition, nextPosition, taskId);
+    final response = api.upsertTask_0(wsId, taskUpsert, prevPosition, nextPosition, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->upsertTask: $e\n');
+    print('Exception when calling WSTasksApi->upsertTask_0: $e\n');
 }
 ```
 
@@ -1118,8 +1118,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertTransaction**
-> TasksChanges upsertTransaction(wsId, taskId, taskTransactionUpsert)
+# **upsertTransaction_0**
+> TasksChanges upsertTransaction_0(wsId, taskId, taskTransactionUpsert)
 
 Upsert
 
@@ -1139,10 +1139,10 @@ final int taskId = 56; // int |
 final TaskTransactionUpsert taskTransactionUpsert = ; // TaskTransactionUpsert | 
 
 try {
-    final response = api.upsertTransaction(wsId, taskId, taskTransactionUpsert);
+    final response = api.upsertTransaction_0(wsId, taskId, taskTransactionUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTasksApi->upsertTransaction: $e\n');
+    print('Exception when calling WSTasksApi->upsertTransaction_0: $e\n');
 }
 ```
 

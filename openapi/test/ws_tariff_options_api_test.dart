@@ -8,8 +8,8 @@ void main() {
   group(WSTariffOptionsApi, () {
     // Upsert
     //
-    //Future<InvoiceGet> upsertOption(int wsId, int tariffId, int optionId, bool subscribe) async
-    test('test upsertOption', () async {
+    //Future<InvoiceGet> upsertOption_1(int wsId, int tariffId, int optionId, bool subscribe) async
+    test('test upsertOption_1', () async {
       // TODO
     });
   });

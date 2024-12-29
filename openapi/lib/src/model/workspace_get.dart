@@ -96,7 +96,12 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
       ..type = 'PRIVATE'
+      ..users = ListBuilder()
+      ..members = ListBuilder()
+      ..roles = ListBuilder()
       ..balance = 0
+      ..estimateValues = ListBuilder()
+      ..sources = ListBuilder()
       ..fsVolume = 0
       ..tasksCount = 0;
 

@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteRelation**](WSRelationsApi.md#deleterelation) | **DELETE** /v1/workspaces/{ws_id}/relations/{relation_id} | Delete Relation
-[**sourcesForRelations**](WSRelationsApi.md#sourcesforrelations) | **GET** /v1/workspaces/{ws_id}/relations/sources | Sources For Relations
-[**upsertRelation**](WSRelationsApi.md#upsertrelation) | **POST** /v1/workspaces/{ws_id}/relations | Upsert Relation
+[**deleteRelation_0**](WSRelationsApi.md#deleterelation_0) | **DELETE** /v1/workspaces/{ws_id}/relations/{relation_id} | Delete Relation
+[**sourcesForRelations_0**](WSRelationsApi.md#sourcesforrelations_0) | **GET** /v1/workspaces/{ws_id}/relations/sources | Sources For Relations
+[**upsertRelation_0**](WSRelationsApi.md#upsertrelation_0) | **POST** /v1/workspaces/{ws_id}/relations | Upsert Relation
 
 
-# **deleteRelation**
-> bool deleteRelation(wsId, relationId, taskId)
+# **deleteRelation_0**
+> bool deleteRelation_0(wsId, relationId, taskId)
 
 Delete Relation
 
@@ -35,10 +35,10 @@ final int relationId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteRelation(wsId, relationId, taskId);
+    final response = api.deleteRelation_0(wsId, relationId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSRelationsApi->deleteRelation: $e\n');
+    print('Exception when calling WSRelationsApi->deleteRelation_0: $e\n');
 }
 ```
 
@@ -65,8 +65,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **sourcesForRelations**
-> BuiltList<TaskGet> sourcesForRelations(wsId, taskId)
+# **sourcesForRelations_0**
+> BuiltList<TaskGet> sourcesForRelations_0(wsId, taskId)
 
 Sources For Relations
 
@@ -85,10 +85,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.sourcesForRelations(wsId, taskId);
+    final response = api.sourcesForRelations_0(wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSRelationsApi->sourcesForRelations: $e\n');
+    print('Exception when calling WSRelationsApi->sourcesForRelations_0: $e\n');
 }
 ```
 
@@ -114,8 +114,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertRelation**
-> TaskRelationGet upsertRelation(wsId, taskRelationUpsert, taskId)
+# **upsertRelation_0**
+> TaskRelationGet upsertRelation_0(wsId, taskRelationUpsert, taskId)
 
 Upsert Relation
 
@@ -135,10 +135,10 @@ final TaskRelationUpsert taskRelationUpsert = ; // TaskRelationUpsert |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.upsertRelation(wsId, taskRelationUpsert, taskId);
+    final response = api.upsertRelation_0(wsId, taskRelationUpsert, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSRelationsApi->upsertRelation: $e\n');
+    print('Exception when calling WSRelationsApi->upsertRelation_0: $e\n');
 }
 ```
 

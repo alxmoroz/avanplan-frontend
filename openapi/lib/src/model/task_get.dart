@@ -208,7 +208,14 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
       ..type = 'TASK'
       ..closed = false
       ..income = 0.0
-      ..expenses = 0.0;
+      ..expenses = 0.0
+      ..relations = ListBuilder()
+      ..members = ListBuilder()
+      ..notes = ListBuilder()
+      ..attachments = ListBuilder()
+      ..projectStatuses = ListBuilder()
+      ..transactions = ListBuilder()
+      ..projectModules = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();

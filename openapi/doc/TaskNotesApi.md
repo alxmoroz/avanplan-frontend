@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteNote**](TaskNotesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
-[**uploadAttachment**](TaskNotesApi.md#uploadattachment) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
-[**upsertNote**](TaskNotesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[**deleteNote_1**](TaskNotesApi.md#deletenote_1) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
+[**uploadAttachment_1**](TaskNotesApi.md#uploadattachment_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments | Upload Attachment
+[**upsertNote_1**](TaskNotesApi.md#upsertnote_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 
 
-# **deleteNote**
-> bool deleteNote(wsId, noteId, taskId)
+# **deleteNote_1**
+> bool deleteNote_1(wsId, noteId, taskId)
 
 Delete
 
@@ -35,10 +35,10 @@ final int noteId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.deleteNote(wsId, noteId, taskId);
+    final response = api.deleteNote_1(wsId, noteId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskNotesApi->deleteNote: $e\n');
+    print('Exception when calling TaskNotesApi->deleteNote_1: $e\n');
 }
 ```
 
@@ -65,8 +65,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **uploadAttachment**
-> AttachmentGet uploadAttachment(wsId, taskId, noteId, file)
+# **uploadAttachment_1**
+> AttachmentGet uploadAttachment_1(wsId, taskId, noteId, file)
 
 Upload Attachment
 
@@ -87,10 +87,10 @@ final int noteId = 56; // int |
 final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
 
 try {
-    final response = api.uploadAttachment(wsId, taskId, noteId, file);
+    final response = api.uploadAttachment_1(wsId, taskId, noteId, file);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskNotesApi->uploadAttachment: $e\n');
+    print('Exception when calling TaskNotesApi->uploadAttachment_1: $e\n');
 }
 ```
 
@@ -118,8 +118,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertNote**
-> NoteGet upsertNote(wsId, taskId, noteUpsert)
+# **upsertNote_1**
+> NoteGet upsertNote_1(wsId, taskId, noteUpsert)
 
 Upsert
 
@@ -139,10 +139,10 @@ final int taskId = 56; // int |
 final NoteUpsert noteUpsert = ; // NoteUpsert | 
 
 try {
-    final response = api.upsertNote(wsId, taskId, noteUpsert);
+    final response = api.upsertNote_1(wsId, taskId, noteUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskNotesApi->upsertNote: $e\n');
+    print('Exception when calling TaskNotesApi->upsertNote_1: $e\n');
 }
 ```
 

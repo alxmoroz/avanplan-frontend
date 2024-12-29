@@ -8,8 +8,8 @@ void main() {
   group(ProjectMembersApi, () {
     // Assign Project Member Roles
     //
-    //Future<BuiltList<MemberGet>> assignProjectMemberRoles(int taskId, int memberId, int wsId, BuiltList<int> requestBody) async
-    test('test assignProjectMemberRoles', () async {
+    //Future<BuiltList<MemberGet>> assignProjectMemberRoles_1(int taskId, int memberId, int wsId, BuiltList<int> requestBody) async
+    test('test assignProjectMemberRoles_1', () async {
       // TODO
     });
 
@@ -17,8 +17,8 @@ void main() {
     //
     // Способы связи участника РП в проекте
     //
-    //Future<BuiltList<MemberContactGet>> projectMemberContacts(int memberId, int wsId, int taskId) async
-    test('test projectMemberContacts', () async {
+    //Future<BuiltList<MemberContactGet>> projectMemberContacts_1(int memberId, int wsId, int taskId) async
+    test('test projectMemberContacts_1', () async {
       // TODO
     });
   });

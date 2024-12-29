@@ -41,7 +41,7 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   BuiltList<String>? get roleCodes;
 
   @BuiltValueField(wireName: r'permission_codes')
-  BuiltList<String>? get permissionCodes;
+  BuiltSet<String>? get permissionCodes;
 
   @BuiltValueField(wireName: r'is_active')
   bool? get isActive;
@@ -111,7 +111,7 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       yield r'permission_codes';
       yield serializers.serialize(
         object.permissionCodes,
-        specifiedType: const FullType(BuiltList, [FullType(String)]),
+        specifiedType: const FullType(BuiltSet, [FullType(String)]),
       );
     }
     if (object.isActive != null) {
@@ -189,8 +189,8 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
         case r'permission_codes':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(String)]),
-          ) as BuiltList<String>;
+            specifiedType: const FullType(BuiltSet, [FullType(String)]),
+          ) as BuiltSet<String>;
           result.permissionCodes.replace(valueDes);
           break;
         case r'is_active':

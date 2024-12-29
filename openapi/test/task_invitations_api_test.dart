@@ -8,15 +8,15 @@ void main() {
   group(TaskInvitationsApi, () {
     // Create
     //
-    //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async
-    test('test createInvitation', () async {
+    //Future<InvitationGet> createInvitation_1(int wsId, int taskId, Invitation invitation) async
+    test('test createInvitation_1', () async {
       // TODO
     });
 
     // Invitations
     //
-    //Future<BuiltList<InvitationGet>> getInvitations(int taskId, int wsId, int roleId) async
-    test('test getInvitations', () async {
+    //Future<BuiltList<InvitationGet>> getInvitations_1(int taskId, int wsId, int roleId) async
+    test('test getInvitations_1', () async {
       // TODO
     });
   });

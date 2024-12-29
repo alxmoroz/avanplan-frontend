@@ -9,16 +9,16 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**checkConnection**](WSSourcesApi.md#checkconnection) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
-[**deleteSource**](WSSourcesApi.md#deletesource) | **DELETE** /v1/workspaces/{ws_id}/sources/{source_id} | Delete
-[**getProjects**](WSSourcesApi.md#getprojects) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
-[**requestType**](WSSourcesApi.md#requesttype) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
-[**startImport**](WSSourcesApi.md#startimport) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
-[**upsertSource**](WSSourcesApi.md#upsertsource) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
+[**checkConnection_0**](WSSourcesApi.md#checkconnection_0) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/check_connection | Check Connection
+[**deleteSource_0**](WSSourcesApi.md#deletesource_0) | **DELETE** /v1/workspaces/{ws_id}/sources/{source_id} | Delete
+[**getProjects_0**](WSSourcesApi.md#getprojects_0) | **GET** /v1/workspaces/{ws_id}/sources/{source_id}/projects | Get Projects
+[**requestType_0**](WSSourcesApi.md#requesttype_0) | **POST** /v1/workspaces/{ws_id}/sources/request_type | Request Type
+[**startImport_0**](WSSourcesApi.md#startimport_0) | **POST** /v1/workspaces/{ws_id}/sources/{source_id}/start_import | Start Import
+[**upsertSource_0**](WSSourcesApi.md#upsertsource_0) | **POST** /v1/workspaces/{ws_id}/sources | Upsert
 
 
-# **checkConnection**
-> bool checkConnection(wsId, sourceId)
+# **checkConnection_0**
+> bool checkConnection_0(wsId, sourceId)
 
 Check Connection
 
@@ -37,10 +37,10 @@ final int wsId = 56; // int |
 final int sourceId = 56; // int | 
 
 try {
-    final response = api.checkConnection(wsId, sourceId);
+    final response = api.checkConnection_0(wsId, sourceId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSSourcesApi->checkConnection: $e\n');
+    print('Exception when calling WSSourcesApi->checkConnection_0: $e\n');
 }
 ```
 
@@ -66,8 +66,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteSource**
-> bool deleteSource(sourceId, wsId)
+# **deleteSource_0**
+> bool deleteSource_0(sourceId, wsId)
 
 Delete
 
@@ -86,10 +86,10 @@ final int sourceId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.deleteSource(sourceId, wsId);
+    final response = api.deleteSource_0(sourceId, wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSSourcesApi->deleteSource: $e\n');
+    print('Exception when calling WSSourcesApi->deleteSource_0: $e\n');
 }
 ```
 
@@ -115,8 +115,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getProjects**
-> BuiltList<TaskRemote> getProjects(wsId, sourceId)
+# **getProjects_0**
+> BuiltList<TaskRemote> getProjects_0(wsId, sourceId)
 
 Get Projects
 
@@ -135,10 +135,10 @@ final int wsId = 56; // int |
 final int sourceId = 56; // int | 
 
 try {
-    final response = api.getProjects(wsId, sourceId);
+    final response = api.getProjects_0(wsId, sourceId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSSourcesApi->getProjects: $e\n');
+    print('Exception when calling WSSourcesApi->getProjects_0: $e\n');
 }
 ```
 
@@ -164,8 +164,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **requestType**
-> bool requestType(wsId, bodyRequestType)
+# **requestType_0**
+> bool requestType_0(wsId, bodyRequestType)
 
 Request Type
 
@@ -184,10 +184,10 @@ final int wsId = 56; // int |
 final BodyRequestType bodyRequestType = ; // BodyRequestType | 
 
 try {
-    final response = api.requestType(wsId, bodyRequestType);
+    final response = api.requestType_0(wsId, bodyRequestType);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSSourcesApi->requestType: $e\n');
+    print('Exception when calling WSSourcesApi->requestType_0: $e\n');
 }
 ```
 
@@ -213,8 +213,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **startImport**
-> bool startImport(wsId, sourceId, bodyStartImport)
+# **startImport_0**
+> bool startImport_0(wsId, sourceId, bodyStartImport)
 
 Start Import
 
@@ -234,10 +234,10 @@ final int sourceId = 56; // int |
 final BodyStartImport bodyStartImport = ; // BodyStartImport | 
 
 try {
-    final response = api.startImport(wsId, sourceId, bodyStartImport);
+    final response = api.startImport_0(wsId, sourceId, bodyStartImport);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSSourcesApi->startImport: $e\n');
+    print('Exception when calling WSSourcesApi->startImport_0: $e\n');
 }
 ```
 
@@ -264,8 +264,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertSource**
-> SourceGet upsertSource(wsId, sourceUpsert)
+# **upsertSource_0**
+> SourceGet upsertSource_0(wsId, sourceUpsert)
 
 Upsert
 
@@ -284,10 +284,10 @@ final int wsId = 56; // int |
 final SourceUpsert sourceUpsert = ; // SourceUpsert | 
 
 try {
-    final response = api.upsertSource(wsId, sourceUpsert);
+    final response = api.upsertSource_0(wsId, sourceUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSSourcesApi->upsertSource: $e\n');
+    print('Exception when calling WSSourcesApi->upsertSource_0: $e\n');
 }
 ```
 

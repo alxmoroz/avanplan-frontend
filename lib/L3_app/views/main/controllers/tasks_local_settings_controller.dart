@@ -15,11 +15,15 @@ class TasksLocalSettingsController extends _Base with _$TasksLocalSettingsContro
     return this;
   }
 
-  TaskLocalSettings taskSettings(TaskDescriptor td) {
+  TaskLocalSettings? _taskSettings(TaskDescriptor td) {
     final wsId = td.wsId;
     final taskId = td.id!;
-    return _tsMap[wsId]?[taskId] ?? TaskLocalSettings(wsId: wsId, taskId: taskId);
+    return _tsMap[wsId]?[taskId];
   }
+
+  bool exists(TaskDescriptor td) => _taskSettings(td) != null;
+
+  TaskLocalSettings taskSettings(TaskDescriptor td) => _taskSettings(td) ?? TaskLocalSettings(wsId: td.wsId, taskId: td.id!);
 }
 
 abstract class _Base with Store {

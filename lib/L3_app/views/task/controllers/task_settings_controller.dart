@@ -7,6 +7,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../presenters/task_actions.dart';
 import '../../../presenters/task_tree.dart';
 import '../../app/services.dart';
@@ -105,10 +106,7 @@ abstract class _Base with Store {
   String get filteredAssigneesStr => _filteredAssignees.map((m) => '$m').join(', ');
 
   @computed
-  bool get isProjectWithGroupsAndFilters {
-    final t = task;
-    return t.isProjectWithGroups && hasFilteredAssignees;
-  }
+  bool get isProjectWithGroupsAndFilters => task.isProjectWithGroups && hasFilteredAssignees;
 
   void _reloadChecks() {
     membersChecks = ObservableList.of([for (var m in activeMembers) _filteredAssigneeIds.contains(m.id)]);
@@ -116,12 +114,20 @@ abstract class _Base with Store {
 
   @action
   void reload() {
-    settings = tasksLocalSettingsController.taskSettings(task);
+    // зачитать из проекта, если там есть настройки и если это цель
+    final t = task;
+    final p = t.project;
+    settings = tasksLocalSettingsController.taskSettings(t.isGoal && tasksLocalSettingsController.exists(p) ? p : t);
     _reloadChecks();
   }
 
   @action
   void _saveSettings({TaskViewMode? viewMode, List<TaskViewFilter>? filters}) {
+    final t = task;
+    // если мы находимся в цели, то нужно перезаписать настройки вида в проекте
+    if (t.isGoal) {
+      settings.taskId = t.project.id!;
+    }
     settings = settings.copyWith(viewMode: viewMode, filters: filters);
     _reloadChecks();
     tasksLocalSettingsController.updateTS(settings);

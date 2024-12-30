@@ -36,7 +36,7 @@ class TaskLocalSettings extends LocalPersistable {
     this.filters,
   });
   final int wsId;
-  final int taskId;
+  int taskId;
   TaskViewMode viewMode;
   Iterable<TaskViewFilter>? filters;
 

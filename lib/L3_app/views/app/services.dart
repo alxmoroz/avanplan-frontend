@@ -175,7 +175,7 @@ void setup() {
     () async => await setupApi([apiInterceptor], localSettingsController.settings),
     dependsOn: [LocalSettingsController],
   );
-  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [AuthUC, Openapi]);
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [Openapi]);
   getIt.registerSingleton<AppController>(AppController());
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());

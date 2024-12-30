@@ -62,7 +62,11 @@ class _State extends State<TaskDescriptionField> {
   }
 
   bool _exceedROMaxLines(double maxWidth) {
-    final tp = TextPainter(text: TextSpan(text: _fd.text), maxLines: _readOnlyMaxLines, textDirection: TextDirection.ltr);
+    final tp = TextPainter(
+      text: TextSpan(text: _fd.text, style: const BaseText('').style(context)),
+      maxLines: _readOnlyMaxLines,
+      textDirection: TextDirection.ltr,
+    );
     tp.layout(maxWidth: maxWidth - (widget.padding?.horizontal ?? 0));
     return tp.didExceedMaxLines;
   }

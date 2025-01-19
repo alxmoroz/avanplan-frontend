@@ -41,10 +41,5 @@ void main() {
     test('to test the property `permissionCodes`', () async {
       // TODO
     });
-
-    // bool isActive
-    test('to test the property `isActive`', () async {
-      // TODO
-    });
   });
 }

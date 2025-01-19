@@ -19,7 +19,6 @@ part 'member_get.g.dart';
 /// * [userId] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
-/// * [isActive] 
 @BuiltValue()
 abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -42,9 +41,6 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
 
   @BuiltValueField(wireName: r'permission_codes')
   BuiltSet<String>? get permissionCodes;
-
-  @BuiltValueField(wireName: r'is_active')
-  bool? get isActive;
 
   MemberGet._();
 
@@ -112,13 +108,6 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       yield serializers.serialize(
         object.permissionCodes,
         specifiedType: const FullType(BuiltSet, [FullType(String)]),
-      );
-    }
-    if (object.isActive != null) {
-      yield r'is_active';
-      yield serializers.serialize(
-        object.isActive,
-        specifiedType: const FullType(bool),
       );
     }
   }
@@ -192,13 +181,6 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
             specifiedType: const FullType(BuiltSet, [FullType(String)]),
           ) as BuiltSet<String>;
           result.permissionCodes.replace(valueDes);
-          break;
-        case r'is_active':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.isActive = valueDes;
           break;
         default:
           unhandled.add(key);

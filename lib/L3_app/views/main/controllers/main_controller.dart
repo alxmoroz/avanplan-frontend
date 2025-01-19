@@ -18,7 +18,7 @@ import '../../app/services.dart';
 
 part 'main_controller.g.dart';
 
-class MainController extends _MainControllerBase with _$MainController {
+class MainController extends _Base with _$MainController {
   Future _reloadData() async {
     setLoaderScreenLoading();
     await myAccountController.reload();
@@ -113,7 +113,7 @@ class MainController extends _MainControllerBase with _$MainController {
   }
 }
 
-abstract class _MainControllerBase with Store, Loadable {
+abstract class _Base with Store, Loadable {
   @observable
   DateTime? _updatedDate;
   @action

@@ -79,7 +79,7 @@ abstract class _LocalSettingsControllerBase with Store {
   @computed
   String? get invitationToken => settings.getString(ALSStringCode.INVITATION_TOKEN);
   @computed
-  bool get hasInvitation => invitationToken != null && invitationToken!.isNotEmpty;
+  bool get hasInvitation => invitationToken?.isNotEmpty == true;
   @action
   Future deleteInvitationToken() async => settings = await localSettingsUC.setString(ALSStringCode.INVITATION_TOKEN, null);
 

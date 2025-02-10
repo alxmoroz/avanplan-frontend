@@ -6,4 +6,4 @@ set -e
 set -x
 
 bash ./scripts/api_rebuild.sh
-bash ./scripts/build_runner_watch.sh
+dart run build_runner watch -d

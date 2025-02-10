@@ -5,7 +5,7 @@
 cd "./openapi" || exit
 
 # flutter pub get
-bash ../scripts/build_runner_build.sh
+dart run build_runner build -d
 dart format ./**/*.dart
 
 cd ../

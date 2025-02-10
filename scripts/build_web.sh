@@ -9,7 +9,7 @@ flutter clean
 
 bash ./scripts/api_rebuild.sh
 dart run intl_utils:generate
-bash ./scripts/build_runner_build.sh
+dart run build_runner build -d
 
 echo "BUILDING FOR WEB..."
 flutter build web

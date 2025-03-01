@@ -3,10 +3,11 @@
 set -e
 set -x
 
+bash ./scripts/generate_api.sh $1
+
 flutter clean
 flutter pub get
 
-bash ./scripts/generate_api.sh $1
 bash ./scripts/build_api.sh
 
 flutter pub global activate intl_utils

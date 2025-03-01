@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/project_status.dart';
 import '../../L1_domain/repositories/abs_project_status_repo.dart';
@@ -8,7 +8,7 @@ import '../mappers/project_status.dart';
 import '../services/api.dart';
 
 class ProjectStatusesRepo extends AbstractProjectStatusesRepo {
-  o_api.ProjectStatusesApi get _api => openAPI.getProjectStatusesApi();
+  o_api.ProjectStatusesApi get _api => avanplanApi.getProjectStatusesApi();
 
   @override
   Future<int> statusTasksCount(int wsId, int projectId, int statusId) async {

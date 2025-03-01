@@ -1,8 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/calendar.dart';
 import '../../L1_domain/entities/calendar_source.dart';
@@ -15,7 +15,7 @@ import '../services/api.dart';
 import 'auth_google_repo.dart';
 
 class MyCalendarRepo extends AbstractMyCalendarRepo {
-  o_api.MyCalendarApi get _myCalendarApi => openAPI.getMyCalendarApi();
+  o_api.MyCalendarApi get _myCalendarApi => avanplanApi.getMyCalendarApi();
 
   @override
   Future<Iterable<CalendarSource>> getSources() async => (await _myCalendarApi.myCalendarSources()).data?.map((cs) => cs.source) ?? [];

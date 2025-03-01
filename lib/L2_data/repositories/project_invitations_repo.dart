@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/invitation.dart';
 import '../../L1_domain/repositories/abs_project_invitations_repo.dart';
@@ -8,7 +8,7 @@ import '../mappers/task_invitation.dart';
 import '../services/api.dart';
 
 class ProjectInvitationsRepo extends AbstractProjectInvitationsRepo {
-  o_api.TaskInvitationsApi get _api => openAPI.getTaskInvitationsApi();
+  o_api.TaskInvitationsApi get _api => avanplanApi.getTaskInvitationsApi();
 
   @override
   Future<Invitation?> create(Invitation invitation, int wsId) async {

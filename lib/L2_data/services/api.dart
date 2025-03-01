@@ -1,14 +1,14 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/app_local_settings.dart';
 import 'environment.dart';
 import 'platform.dart';
 
-Openapi get openAPI => GetIt.I<Openapi>();
+AvanplanApi get avanplanApi => GetIt.I<AvanplanApi>();
 
 Map<String, dynamic> _headers(AppLocalSettings settings) {
   return <String, dynamic>{
@@ -19,8 +19,8 @@ Map<String, dynamic> _headers(AppLocalSettings settings) {
 }
 
 // TODO: здесь Future для инициализации в setup, чтобы задержать эту инициализацию до получения настроек из локального хранилища
-Future<Openapi> setupApi(Iterable<Interceptor>? interceptors, AppLocalSettings settings) async {
-  return Openapi(basePathOverride: apiUri.toString())
+Future<AvanplanApi> setupApi(Iterable<Interceptor>? interceptors, AppLocalSettings settings) async {
+  return AvanplanApi(basePathOverride: apiUri.toString())
     ..dio.options.connectTimeout = const Duration(minutes: 1)
     ..dio.options.receiveTimeout = const Duration(minutes: 10)
     ..dio.options.headers.addAll(_headers(settings))

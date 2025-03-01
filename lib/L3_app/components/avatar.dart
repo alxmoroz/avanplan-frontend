@@ -35,7 +35,7 @@ class MTAvatar extends StatelessWidget {
   String get _salt => '${_user?.updatedOn?.millisecondsSinceEpoch ?? ''}';
   String? get _fileName => _user?.emailMD5;
   String get _gravatarUrl => 'https://www.gravatar.com/avatar/$_fileName?s=${radius * 6}&d=blank';
-  String get _avatarUrl => '${openAPI.dio.options.baseUrl}/v1/avatars/download/$_fileName?$_salt';
+  String get _avatarUrl => '${avanplanApi.dio.options.baseUrl}/v1/avatars/download/$_fileName?$_salt';
 
   static const _borderWidth = 2.0;
   Color get _noAvatarColor => _user != null ? f2Color : f3Color;

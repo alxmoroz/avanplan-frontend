@@ -1,7 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/ws_member.dart';
 import '../../L1_domain/entities/ws_member_contact.dart';
@@ -11,7 +11,7 @@ import '../../L2_data/mappers/ws_member_contact.dart';
 import '../services/api.dart';
 
 class ProjectMembersRepo extends AbstractProjectMembersRepo {
-  o_api.ProjectMembersApi get _api => openAPI.getProjectMembersApi();
+  o_api.ProjectMembersApi get _api => avanplanApi.getProjectMembersApi();
 
   @override
   Future<Iterable<WSMember>> assignProjectMemberRoles(int wsId, int taskId, int memberId, Iterable<int> rolesIds) async {

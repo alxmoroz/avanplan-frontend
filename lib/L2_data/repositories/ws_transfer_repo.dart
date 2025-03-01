@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_ws_transfer_repo.dart';
@@ -8,7 +8,7 @@ import '../mappers/task.dart';
 import '../services/api.dart';
 
 class WSTransferRepo extends AbstractWSTransferRepo {
-  o_api.WSTransferApi get _api => openAPI.getWSTransferApi();
+  o_api.WSTransferApi get _api => avanplanApi.getWSTransferApi();
 
   @override
   Future<Iterable<Project>> projectTemplates(int wsId) async {

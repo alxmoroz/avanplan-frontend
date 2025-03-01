@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/remote_source.dart';
 import '../../L1_domain/entities/remote_source_type.dart';
@@ -12,7 +12,7 @@ import '../mappers/task.dart';
 import '../services/api.dart';
 
 class WSSourcesRepo extends AbstractWSSourcesRepo {
-  o_api.WSSourcesApi get _api => openAPI.getWSSourcesApi();
+  o_api.WSSourcesApi get _api => avanplanApi.getWSSourcesApi();
 
   @override
   Future<RemoteSource?> save(RemoteSource data) async {

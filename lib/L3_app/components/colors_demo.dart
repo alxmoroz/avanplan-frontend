@@ -11,7 +11,7 @@ class ColorsDemo extends StatelessWidget {
   String _printColor(CupertinoDynamicColor cdColor) {
     final color = cdColor.color;
     final darkColor = cdColor.darkColor;
-    return '  ${color.red}.${color.green}.${color.blue}\n  ${darkColor.red}.${darkColor.green}.${darkColor.blue}';
+    return '  ${color.r}.${color.g}.${color.b}\n  ${darkColor.r}.${darkColor.g}.${darkColor.b}';
   }
 
   Widget get _fp1 => SmallText(_printColor(f1Color));

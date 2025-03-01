@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/invoice.dart';
 import '../../L1_domain/entities/tariff.dart';
@@ -10,7 +10,7 @@ import '../mappers/tariff.dart';
 import '../services/api.dart';
 
 class WSTariffsRepo extends AbstractWSTariffsRepo {
-  o_api.WSTariffsApi get _api => openAPI.getWSTariffsApi();
+  o_api.WSTariffsApi get _api => avanplanApi.getWSTariffsApi();
 
   @override
   Future<Iterable<Tariff>> availableTariffs(int wsId) async {

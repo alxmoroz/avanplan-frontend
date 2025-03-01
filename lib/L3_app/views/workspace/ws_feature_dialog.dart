@@ -63,7 +63,7 @@ class _WSFeatureDialog extends StatelessWidget {
             decoration: BoxDecoration(
                 color: b3Color.resolve(context),
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(DEF_BORDER_RADIUS)),
-                boxShadow: [BoxShadow(blurRadius: P2, offset: const Offset(0, -P2), color: b1Color.resolve(context).withOpacity(0.42))]),
+                boxShadow: [BoxShadow(blurRadius: P2, offset: const Offset(0, -P2), color: b1Color.resolve(context).withValues(alpha: 0.42))]),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

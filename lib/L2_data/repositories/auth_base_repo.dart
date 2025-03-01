@@ -1,12 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart';
 import 'package:dio/dio.dart';
-import 'package:openapi/openapi.dart';
 
 import '../services/api.dart';
 
 mixin AuthMixin {
-  AuthApi get authApi => openAPI.getAuthApi();
+  AuthApi get authApi => avanplanApi.getAuthApi();
 
   String? parseTokenResponse(Response<AuthToken> tokenResponse) => tokenResponse.data?.accessToken;
 

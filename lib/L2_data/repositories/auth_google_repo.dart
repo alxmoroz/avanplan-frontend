@@ -2,7 +2,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:openapi/openapi.dart';
+import 'package:avanplan_api/avanplan_api.dart';
 
 import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';

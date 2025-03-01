@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:openapi/openapi.dart' as api;
+import 'package:avanplan_api/avanplan_api.dart' as api;
 
 import '../../L1_domain/entities/tariff.dart';
 import 'tariff_option.dart';

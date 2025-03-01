@@ -34,7 +34,7 @@ extension AttachmentsUC on AttachmentsController {
   }
 
   Future download(Attachment attachment) async {
-    final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');
+    final urlString = Uri.encodeFull('${avanplanApi.dio.options.baseUrl}/v1/workspaces/${attachment.wsId}/attachments/download/${attachment.name}');
     if (await canLaunchUrlString(urlString)) {
       await launchUrlString(urlString);
     }

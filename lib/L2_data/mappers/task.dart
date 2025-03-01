@@ -2,7 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
-import 'package:openapi/openapi.dart' as api;
+import 'package:avanplan_api/avanplan_api.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';

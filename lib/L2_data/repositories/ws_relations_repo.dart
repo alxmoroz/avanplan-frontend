@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_relation.dart';
@@ -10,7 +10,7 @@ import '../mappers/task_relation.dart';
 import '../services/api.dart';
 
 class WSRelationsRepo extends AbstractWSRelationsRepo {
-  o_api.WSRelationsApi get _api => openAPI.getWSRelationsApi();
+  o_api.WSRelationsApi get _api => avanplanApi.getWSRelationsApi();
 
   @override
   Future<TaskRelation?> save(TaskRelation data) async {

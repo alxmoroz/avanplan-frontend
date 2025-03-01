@@ -1,7 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
 import '../../L1_domain/entities/task.dart';
@@ -14,7 +14,7 @@ import '../services/api.dart';
 import '../services/platform.dart';
 
 class MyRepo extends AbstractMyRepo {
-  o_api.MyAccountApi get _accountApi => openAPI.getMyAccountApi();
+  o_api.MyAccountApi get _accountApi => avanplanApi.getMyAccountApi();
 
   @override
   Future<User?> getAccount() async {
@@ -25,7 +25,7 @@ class MyRepo extends AbstractMyRepo {
   @override
   Future deleteAccount() async => await _accountApi.deleteAccountV1MyAccountDelete();
 
-  o_api.MyNotificationsApi get _notificationsApi => openAPI.getMyNotificationsApi();
+  o_api.MyNotificationsApi get _notificationsApi => avanplanApi.getMyNotificationsApi();
   @override
   Future<Iterable<MTNotification>> getNotifications() async {
     final response = await _notificationsApi.myNotificationsV1MyNotificationsGet();
@@ -36,7 +36,7 @@ class MyRepo extends AbstractMyRepo {
   Future markReadNotifications(Iterable<int> notificationsIds) async =>
       await _notificationsApi.markReadV1MyNotificationsPost(requestBody: BuiltList.from(notificationsIds));
 
-  o_api.MyPushTokensApi get _pushTokensApi => openAPI.getMyPushTokensApi();
+  o_api.MyPushTokensApi get _pushTokensApi => avanplanApi.getMyPushTokensApi();
 
   @override
   Future updatePushToken(String token, bool hasPermission) async {
@@ -48,7 +48,7 @@ class MyRepo extends AbstractMyRepo {
     await _pushTokensApi.updatePushTokenV1MyPushTokensPost(bodyUpdatePushTokenV1MyPushTokensPost: body);
   }
 
-  o_api.MyInvitationsApi get _invitationsApi => openAPI.getMyInvitationsApi();
+  o_api.MyInvitationsApi get _invitationsApi => avanplanApi.getMyInvitationsApi();
 
   @override
   Future<TaskDescriptor?> redeemInvitation(String? token) async {
@@ -57,7 +57,7 @@ class MyRepo extends AbstractMyRepo {
     return response.data?.project;
   }
 
-  o_api.MyActivitiesApi get _activitiesApi => openAPI.getMyActivitiesApi();
+  o_api.MyActivitiesApi get _activitiesApi => avanplanApi.getMyActivitiesApi();
 
   @override
   Future<User?> registerActivity(String code, {int? wsId}) async {

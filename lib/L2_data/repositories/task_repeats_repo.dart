@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/task_repeat.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
@@ -8,7 +8,7 @@ import '../mappers/task_repeat.dart';
 import '../services/api.dart';
 
 class TaskRepeatsRepo extends AbstractApiRepo<TaskRepeat, TaskRepeat> {
-  o_api.TaskRepeatsApi get _api => openAPI.getTaskRepeatsApi();
+  o_api.TaskRepeatsApi get _api => avanplanApi.getTaskRepeatsApi();
 
   @override
   Future<TaskRepeat?> save(TaskRepeat data) async {

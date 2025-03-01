@@ -1,0 +1,101 @@
+# avanplan_api.api.MyAccountApi
+
+## Load the API package
+```dart
+import 'package:avanplan_api/api.dart';
+```
+
+All URIs are relative to */api*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**accountV1MyAccountGet**](MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
+[**deleteAccountV1MyAccountDelete**](MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
+
+
+# **accountV1MyAccountGet**
+> MyUser accountV1MyAccountGet()
+
+Account
+
+### Example
+```dart
+import 'package:avanplan_api/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = AvanplanApi().getMyAccountApi();
+
+try {
+    final response = api.accountV1MyAccountGet();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling MyAccountApi->accountV1MyAccountGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MyUser**](MyUser.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteAccountV1MyAccountDelete**
+> bool deleteAccountV1MyAccountDelete()
+
+Delete Account
+
+### Example
+```dart
+import 'package:avanplan_api/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = AvanplanApi().getMyAccountApi();
+
+try {
+    final response = api.deleteAccountV1MyAccountDelete();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling MyAccountApi->deleteAccountV1MyAccountDelete: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

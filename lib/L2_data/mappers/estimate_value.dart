@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
+import 'package:avanplan_api/avanplan_api.dart';
 
 import '../../L1_domain/entities/estimate_value.dart';
 

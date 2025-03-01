@@ -1,7 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 import 'package:dio/dio.dart';
-import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/repositories/abs_my_avatar_repo.dart';
@@ -9,7 +9,7 @@ import '../mappers/user.dart';
 import '../services/api.dart';
 
 class MyAvatarRepo extends AbstractMyAvatarRepo {
-  o_api.MyAvatarApi get _api => openAPI.getMyAvatarApi();
+  o_api.MyAvatarApi get _api => avanplanApi.getMyAvatarApi();
 
   @override
   Future<User?> uploadAvatar(

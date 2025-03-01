@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
+import 'package:avanplan_api/avanplan_api.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:openapi/openapi.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L1_domain/entities/iap_product.dart';
@@ -75,7 +75,7 @@ class IAPRepo extends AbstractIAPRepo {
           ..operationId = purchase.purchaseID)
         .build();
 
-    return (await openAPI.getPaymentsApi().iapNotificationV1PaymentsIapNotificationPost(
+    return (await avanplanApi.getPaymentsApi().iapNotificationV1PaymentsIapNotificationPost(
               wsId: wsId,
               bodyIapNotificationV1PaymentsIapNotificationPost: body,
             ))

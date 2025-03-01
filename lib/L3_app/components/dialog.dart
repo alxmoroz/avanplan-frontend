@@ -185,7 +185,7 @@ class MTDialog extends StatelessWidget {
                   bottomLeft: big ? _radius : Radius.zero,
                   bottomRight: big ? _radius : Radius.zero,
                 ),
-            boxShadow: [BoxShadow(blurRadius: P, offset: Offset(0, big ? P_2 : -P_2), color: b0Color.resolve(context).withOpacity(0.42))],
+            boxShadow: [BoxShadow(blurRadius: P, offset: Offset(0, big ? P_2 : -P_2), color: b0Color.resolve(context).withValues(alpha: 0.42))],
           ),
           child: Stack(
             children: [

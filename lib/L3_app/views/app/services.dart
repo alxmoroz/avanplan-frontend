@@ -1,8 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../L1_domain/usecases/attachments_uc.dart';
@@ -171,11 +171,11 @@ void setup() {
   getIt.registerSingletonAsync<TasksLocalSettingsController>(() async => TasksLocalSettingsController().init(), dependsOn: [HiveStorage]);
 
   // Openapi
-  getIt.registerSingletonAsync<Openapi>(
+  getIt.registerSingletonAsync<AvanplanApi>(
     () async => await setupApi([apiInterceptor], localSettingsController.settings),
     dependsOn: [LocalSettingsController],
   );
-  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [AvanplanApi]);
   getIt.registerSingleton<AppController>(AppController());
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());

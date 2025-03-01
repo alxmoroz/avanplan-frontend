@@ -53,7 +53,7 @@ class MTRoute extends GoRoute {
           final pageTitle = title(state);
           SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
             label: '${loc.app_title}${pageTitle.isNotEmpty ? ' | $pageTitle' : ''}',
-            primaryColor: mainColor.resolve(context).value,
+            primaryColor: mainColor.resolve(context).toARGB32(),
           ));
         }
 

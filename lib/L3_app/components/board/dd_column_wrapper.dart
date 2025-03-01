@@ -222,8 +222,6 @@ class _MTDragNDropColumnWrapper extends State<MTDragNDropColumnWrapper> with Tic
         return (_containerSize.height / 2.0) - (_dragHandleSize.height / 2.0);
       case MTDragHandleVerticalAlignment.bottom:
         return _containerSize.height - _dragHandleSize.height;
-      default:
-        return 0;
     }
   }
 

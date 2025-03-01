@@ -116,9 +116,9 @@ class _State extends State<_ProjectStatusEditDialog> {
               ),
               trailing: CupertinoSwitch(
                 value: _status.closed,
-                activeColor: mainColor,
+                activeTrackColor: mainColor,
                 thumbColor: b3Color,
-                trackColor: b1Color,
+                inactiveTrackColor: b1Color,
                 onChanged: _used ? null : (_) => _psec.toggleClosed(),
               ),
               bottomDivider: true,

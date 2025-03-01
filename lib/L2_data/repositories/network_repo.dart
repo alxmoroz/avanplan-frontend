@@ -5,5 +5,5 @@ import '../services/api.dart';
 
 class NetworkRepo extends AbstractNetworkRepo {
   @override
-  void setOauthToken(String token) => openAPI.setOAuthToken('OAuth2PasswordBearer', token);
+  void setOauthToken(String token) => avanplanApi.setOAuthToken('OAuth2PasswordBearer', token);
 }

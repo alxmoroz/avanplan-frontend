@@ -1,6 +1,6 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:avanplan_api/avanplan_api.dart' as o_api;
 
 import '../../L1_domain/entities/user_contact.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
@@ -8,7 +8,7 @@ import '../mappers/user_contact.dart';
 import '../services/api.dart';
 
 class MyContactsRepo extends AbstractApiRepo<UserContact, UserContact> {
-  o_api.MyContactsApi get _myContactsApi => openAPI.getMyContactsApi();
+  o_api.MyContactsApi get _myContactsApi => avanplanApi.getMyContactsApi();
 
   @override
   Future<Iterable<UserContact>> getAll() async => (await _myContactsApi.myContacts()).data?.map((c) => c.userContact) ?? [];

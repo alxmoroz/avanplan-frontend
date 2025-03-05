@@ -136,7 +136,10 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
               automaticallyImplyLeading: false,
               automaticallyImplyMiddle: false,
               padding: EdgeInsetsDirectional.only(top: topPadding, bottom: bottomPadding, start: 0, end: 0),
-              leading: toolbarContent,
+              leading: OverflowBox(
+                maxHeight: MIN_BTN_HEIGHT,
+                child: toolbarContent,
+              ),
               backgroundColor: color,
               border: null,
             ),

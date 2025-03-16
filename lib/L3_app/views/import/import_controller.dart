@@ -112,15 +112,17 @@ abstract class _ImportControllerBase with Store, Loadable {
       }
 
       if (connected) {
-        setLoaderScreen(
-          titleText: loc.loader_source_listing,
-          descriptionText: loaderDescription,
-          imageName: ImageName.import.name,
-        );
-        try {
-          projects = (await remoteSourcesUC.getProjectsList(ws.id!, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
-        } on Exception catch (e) {
-          parseError(e);
+        if (await ws.checkBalance(loc.import_action_title)) {
+          setLoaderScreen(
+            titleText: loc.loader_source_listing,
+            descriptionText: loaderDescription,
+            imageName: ImageName.import.name,
+          );
+          try {
+            projects = (await remoteSourcesUC.getProjectsList(ws.id!, selectedSourceId!)).sorted((p1, p2) => p1.compareTo(p2));
+          } on Exception catch (e) {
+            parseError(e);
+          }
         }
       } else {
         errorCode = 'error_import_connection';

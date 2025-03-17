@@ -27,9 +27,10 @@ do
   mkdir "$service_folder"
   cd "$service_folder" || exit
 
-  curl -L "https://$STAGE.avanplan.ru/api/v1/openapi.json" > openapi.json
+  remote_schema="https://$STAGE.avanplan.ru/api/v1/openapi.json"
+#  remote_schema="http://127.0.0.1:9999/api/v1/openapi.json"
 
-  #remote_schema="http://127.0.0.1:9999/api/v1/openapi.json"
+  curl -L $remote_schema > openapi.json
 
   #openapi-generator-cli generate -i openapi.json -g dart-dio -o .
 

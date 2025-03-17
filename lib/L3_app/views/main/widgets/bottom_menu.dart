@@ -34,7 +34,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Flexible(
                 child: MTListTile(
-                  middle: const InboxIcon(color: mainColor, size: P6),
+                  middle: const InboxIcon(size: P6),
                   color: Colors.transparent,
                   padding: _btnPadding,
                   bottomDivider: false,
@@ -44,7 +44,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
               const Spacer(),
               Flexible(
                 child: MTListTile(
-                  middle: const ProjectsIcon(color: mainColor, size: P6),
+                  middle: const ProjectsIcon(size: P6),
                   color: Colors.transparent,
                   padding: _btnPadding,
                   bottomDivider: false,

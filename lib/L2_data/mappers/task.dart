@@ -1,8 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart' as api;
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
-import 'package:avanplan_api/avanplan_api.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
@@ -11,6 +11,7 @@ import 'note.dart';
 import 'project_status.dart';
 import 'task_relation.dart';
 import 'task_repeat.dart';
+import 'task_settings.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
 import 'ws_member.dart';
@@ -48,10 +49,11 @@ extension TaskMapper on api.TaskGet {
       assigneeId: assigneeId,
       members: members?.map((m) => m.wsMember(wsId)) ?? [],
       projectStatuses: projectStatuses?.map((ps) => ps.projectStatus(wsId)).sorted((s1, s2) => s1.position.compareTo(s2.position)) ?? [],
+      settings: settings?.map((s) => s.settings) ?? [],
       taskSource: taskSource?.taskSource,
       parentId: parentId,
       wsId: wsId,
-      state: TaskState.fromString(state ?? ''),
+      state: TaskState.fromString(state),
       velocity: velocity?.toDouble() ?? 0,
       requiredVelocity: requiredVelocity?.toDouble(),
       progress: progress?.toDouble() ?? 0,

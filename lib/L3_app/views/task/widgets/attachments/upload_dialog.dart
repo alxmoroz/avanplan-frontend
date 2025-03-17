@@ -36,7 +36,7 @@ Future<List<XFile>> selectFilesDialog() async {
                     onTap: () => Navigator.of(context).pop(_FileSource.gallery),
                   ),
                   MTListTile(
-                    leading: const ProjectsIcon(color: mainColor),
+                    leading: const ProjectsIcon(),
                     middle: BaseText(loc.file_source_files_title, color: mainColor, maxLines: 1),
                     bottomDivider: false,
                     onTap: () => Navigator.of(context).pop(_FileSource.files),

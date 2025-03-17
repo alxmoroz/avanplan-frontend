@@ -59,7 +59,7 @@ class _MyAvatarEditDialog extends StatelessWidget {
               onTap: () => _upload(context, _FileSource.gallery),
             ),
           MTListTile(
-            leading: const ProjectsIcon(color: mainColor),
+            leading: const ProjectsIcon(),
             middle: BaseText(loc.file_source_files_title, color: mainColor, maxLines: 1),
             dividerIndent: _dividerIndent,
             bottomDivider: !isWeb,

@@ -1064,7 +1064,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertTask_0**
-> TasksChanges upsertTask_0(wsId, taskUpsert, prevPosition, nextPosition, taskId)
+> TasksChanges upsertTask_0(wsId, taskUpsert, viewMode, prevPosition, nextPosition, taskId)
 
 Upsert
 
@@ -1081,12 +1081,13 @@ import 'package:avanplan_api/api.dart';
 final api = AvanplanApi().getWSTasksApi();
 final int wsId = 56; // int | 
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
+final String viewMode = viewMode_example; // String | 
 final String prevPosition = prevPosition_example; // String | 
 final String nextPosition = nextPosition_example; // String | 
 final int taskId = 56; // int | 
 
 try {
-    final response = api.upsertTask_0(wsId, taskUpsert, prevPosition, nextPosition, taskId);
+    final response = api.upsertTask_0(wsId, taskUpsert, viewMode, prevPosition, nextPosition, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WSTasksApi->upsertTask_0: $e\n');
@@ -1099,6 +1100,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
+ **viewMode** | **String**|  | [optional] 
  **prevPosition** | **String**|  | [optional] [default to '']
  **nextPosition** | **String**|  | [optional] [default to '']
  **taskId** | **int**|  | [optional] 

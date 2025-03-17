@@ -95,6 +95,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
             expenses: 0,
             members: [],
             projectStatuses: [],
+            settings: [],
           ),
     );
     this.route = route;

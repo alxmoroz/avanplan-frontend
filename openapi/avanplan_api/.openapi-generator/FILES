@@ -74,6 +74,7 @@ doc/TaskRemote.md
 doc/TaskRepeatGet.md
 doc/TaskRepeatUpsert.md
 doc/TaskRepeatsApi.md
+doc/TaskSettingsGet.md
 doc/TaskSource.md
 doc/TaskSourceGet.md
 doc/TaskTransactionGet.md
@@ -188,6 +189,7 @@ lib/src/model/task_relation_upsert.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_repeat_get.dart
 lib/src/model/task_repeat_upsert.dart
+lib/src/model/task_settings_get.dart
 lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
 lib/src/model/task_transaction_get.dart

@@ -8,14 +8,16 @@ enum TaskViewMode {
   LIST,
   BOARD;
 
-  static TaskViewMode fromString(String name) => TaskViewMode.values.firstWhereOrNull((s) => s.name == name) ?? TaskViewMode.BOARD;
+  bool get isBoard => this == BOARD;
+  bool get isList => this == LIST;
+
+  static TaskViewMode fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? BOARD;
 }
 
 enum TaskViewFilterType {
   ASSIGNEE;
 
-  static TaskViewFilterType fromString(String name) =>
-      TaskViewFilterType.values.firstWhereOrNull((s) => s.name == name) ?? TaskViewFilterType.ASSIGNEE;
+  static TaskViewFilterType fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? ASSIGNEE;
 }
 
 class TaskViewFilter extends LocalPersistable {

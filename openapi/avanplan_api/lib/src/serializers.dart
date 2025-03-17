@@ -69,6 +69,7 @@ import 'package:avanplan_api/src/model/task_relation_upsert.dart';
 import 'package:avanplan_api/src/model/task_remote.dart';
 import 'package:avanplan_api/src/model/task_repeat_get.dart';
 import 'package:avanplan_api/src/model/task_repeat_upsert.dart';
+import 'package:avanplan_api/src/model/task_settings_get.dart';
 import 'package:avanplan_api/src/model/task_source.dart';
 import 'package:avanplan_api/src/model/task_source_get.dart';
 import 'package:avanplan_api/src/model/task_transaction_get.dart';
@@ -142,6 +143,7 @@ part 'serializers.g.dart';
   TaskRemote,
   TaskRepeatGet,
   TaskRepeatUpsert,
+  TaskSettingsGet,
   TaskSource,
   TaskSourceGet,
   TaskTransactionGet,

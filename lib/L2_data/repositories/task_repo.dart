@@ -2,8 +2,10 @@
 
 import 'package:avanplan_api/avanplan_api.dart' as o_api;
 import 'package:built_collection/built_collection.dart';
+import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_settings.dart';
 import '../../L1_domain/repositories/abs_task_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
@@ -41,7 +43,7 @@ class TaskRepo extends AbstractTaskRepo {
 
   @override
   Future<TasksChanges?> save(Task data) async {
-    final qBuilder = o_api.TaskUpsertBuilder()
+    final taskDataBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
       ..category = data.category
       ..icon = data.icon
@@ -61,7 +63,8 @@ class TaskRepo extends AbstractTaskRepo {
       ..type = data.type.name;
 
     final changes = (await api.upsertTask(
-      taskUpsert: qBuilder.build(),
+      taskUpsert: taskDataBuilder.build(),
+      viewMode: data.settings.firstWhereOrNull((s) => s.code == TSCode.VIEW_MODE)?.value,
       wsId: data.wsId,
       taskId: data.id,
       prevPosition: data.prevPosition,

@@ -355,7 +355,7 @@ class PrivacyIcon extends MTIcon {
 }
 
 class ProjectsIcon extends MTIcon {
-  const ProjectsIcon({super.key, super.color = f2Color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.folder);
+  const ProjectsIcon({super.key, super.color, super.size = DEF_TAPPABLE_ICON_SIZE}) : super(CupertinoIcons.folder);
 }
 
 class RepeatIcon extends MTIcon {

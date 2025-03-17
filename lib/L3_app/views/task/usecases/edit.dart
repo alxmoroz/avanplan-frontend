@@ -29,6 +29,7 @@ extension TaskUC on Task {
     if (isProject) {
       if (et.members.isEmpty) et.members = members;
       if (et.projectStatuses.isEmpty) et.projectStatuses = projectStatuses;
+      if (et.settings.isEmpty) et.settings = settings;
     }
 
     if (filled) {

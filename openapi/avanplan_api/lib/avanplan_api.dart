@@ -92,6 +92,7 @@ export 'package:avanplan_api/src/model/task_relation_upsert.dart';
 export 'package:avanplan_api/src/model/task_remote.dart';
 export 'package:avanplan_api/src/model/task_repeat_get.dart';
 export 'package:avanplan_api/src/model/task_repeat_upsert.dart';
+export 'package:avanplan_api/src/model/task_settings_get.dart';
 export 'package:avanplan_api/src/model/task_source.dart';
 export 'package:avanplan_api/src/model/task_source_get.dart';
 export 'package:avanplan_api/src/model/task_transaction_get.dart';

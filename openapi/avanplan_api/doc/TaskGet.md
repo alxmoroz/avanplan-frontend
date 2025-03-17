@@ -47,6 +47,7 @@ Name | Type | Description | Notes
 **attachments** | [**BuiltList&lt;AttachmentGet&gt;**](AttachmentGet.md) |  | [optional] [default to ListBuilder()]
 **attachmentsCount** | **int** |  | [optional] 
 **projectStatuses** | [**BuiltList&lt;ProjectStatusGet&gt;**](ProjectStatusGet.md) |  | [optional] [default to ListBuilder()]
+**settings** | [**BuiltList&lt;TaskSettingsGet&gt;**](TaskSettingsGet.md) |  | [optional] [default to ListBuilder()]
 **transactions** | [**BuiltList&lt;TaskTransactionGet&gt;**](TaskTransactionGet.md) |  | [optional] [default to ListBuilder()]
 **subtasksCount** | **int** |  | [optional] 
 **position** | **String** |  | [optional] 

@@ -9,6 +9,7 @@ import 'note.dart';
 import 'project_status.dart';
 import 'task_relation.dart';
 import 'task_repeat.dart';
+import 'task_settings.dart';
 import 'task_source.dart';
 import 'task_transaction.dart';
 import 'ws_member.dart';
@@ -22,7 +23,7 @@ enum TType {
   FORBIDDEN_TASK,
   CHECKLIST_ITEM;
 
-  static TType fromString(String? name) => TType.values.firstWhereOrNull((s) => s.name == name?.toUpperCase()) ?? TType.TASK;
+  static TType fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? TASK;
 
   @override
   String toString() => name.toLowerCase();
@@ -49,7 +50,18 @@ enum TaskState {
   NO_ANALYTICS,
   CLOSED;
 
-  static TaskState fromString(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
+  static TaskState fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? NO_INFO;
+}
+
+enum TaskCreationMethod {
+  PROJECT,
+  LIST,
+  BOARD,
+  TEMPLATE,
+  IMPORT;
+
+  bool get isList => this == LIST;
+  bool get isBoard => this == BOARD;
 }
 
 class TaskDescriptor extends Titleable {
@@ -123,6 +135,7 @@ class Task extends Project {
     required this.expenses,
     required this.members,
     required this.projectStatuses,
+    required this.settings,
     required super.wsId,
     required super.type,
     this.taskSource,
@@ -166,6 +179,7 @@ class Task extends Project {
   num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
 
   List<ProjectStatus> projectStatuses;
+  Iterable<TaskSettings> settings;
 
   List<Note> notes;
   final int? notesCountIn;

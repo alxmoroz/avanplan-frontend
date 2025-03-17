@@ -52,7 +52,7 @@ class WhereWeGoStep extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(children: [
-                  const ProjectsIcon(color: mainColor),
+                  const ProjectsIcon(),
                   const SizedBox(width: P2),
                   Expanded(child: H3(loc.onboarding_start_with_project_title)),
                   if (!kIsWeb) const ChevronIcon(),

@@ -247,6 +247,7 @@ Class | Method | HTTP request | Description
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskRepeatGet](doc/TaskRepeatGet.md)
  - [TaskRepeatUpsert](doc/TaskRepeatUpsert.md)
+ - [TaskSettingsGet](doc/TaskSettingsGet.md)
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskTransactionGet](doc/TaskTransactionGet.md)

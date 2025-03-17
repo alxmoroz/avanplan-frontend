@@ -76,7 +76,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _projectsButton(BuildContext context, bool selected) => _menuButton(
         context,
-        ProjectsIcon(color: mainColor, size: selected ? _selectedSize : _unselectedSize),
+        ProjectsIcon(size: selected ? _selectedSize : _unselectedSize),
         loc.project_list_title,
         selected,
         router.goProjects,

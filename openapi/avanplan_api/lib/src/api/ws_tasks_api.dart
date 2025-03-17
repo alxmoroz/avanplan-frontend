@@ -1996,6 +1996,7 @@ class WSTasksApi {
   /// Parameters:
   /// * [wsId] 
   /// * [taskUpsert] 
+  /// * [viewMode] 
   /// * [prevPosition] 
   /// * [nextPosition] 
   /// * [taskId] 
@@ -2011,6 +2012,7 @@ class WSTasksApi {
   Future<Response<TasksChanges>> upsertTask({ 
     required int wsId,
     required TaskUpsert taskUpsert,
+    String? viewMode,
     String? prevPosition = '',
     String? nextPosition = '',
     int? taskId,
@@ -2046,6 +2048,7 @@ class WSTasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
+      if (viewMode != null) r'view_mode': encodeQueryParameter(_serializers, viewMode, const FullType(String)),
       if (prevPosition != null) r'prev_position': encodeQueryParameter(_serializers, prevPosition, const FullType(String)),
       if (nextPosition != null) r'next_position': encodeQueryParameter(_serializers, nextPosition, const FullType(String)),
       if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),

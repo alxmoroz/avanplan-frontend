@@ -1,6 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_settings.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../views/app/services.dart';
 import 'task_tree.dart';
@@ -33,14 +34,24 @@ extension TaskTypeStrPresenter on TType {
 extension TaskTypePresenter on Task {
   String get viewTitle => '${type.typeName} ${isNew ? '' : '#$id'}';
 
-  String get defaultTitle =>
-      {
-        TType.PROJECT: loc.project_new_title,
-        TType.GOAL: loc.goal_new_title,
-        TType.BACKLOG: loc.backlog_new_title,
-        TType.TASK: loc.task_new_title,
-      }[type] ??
-      loc.subtask_new_title;
+  String get _defProjectTitle {
+    final defViewMode = defaultViewMode;
+    return defViewMode.isBoard
+        ? loc.project_new_board_title
+        : defViewMode.isList
+            ? loc.project_new_list_title
+            : loc.project_new_title;
+  }
+
+  String get defaultTitle {
+    return {
+          TType.PROJECT: _defProjectTitle,
+          TType.GOAL: loc.goal_new_title,
+          TType.BACKLOG: loc.backlog_new_title,
+          TType.TASK: loc.task_new_title,
+        }[type] ??
+        loc.subtask_new_title;
+  }
 
   String get deleteDialogTitle => '${loc.action_delete_title} ${type.typeNameAccusative(1)}?';
 

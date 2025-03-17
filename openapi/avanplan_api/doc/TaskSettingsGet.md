@@ -1,4 +1,4 @@
-# avanplan_api.model.InvoiceDetailGet
+# avanplan_api.model.TaskSettingsGet
 
 ## Load the model package
 ```dart
@@ -9,13 +9,9 @@ import 'package:avanplan_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
+**taskId** | **int** |  | 
 **code** | **String** |  | 
-**startDate** | [**DateTime**](DateTime.md) |  | 
-**endDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**serviceAmount** | **num** |  | 
-**invoiceId** | **int** |  | 
-**promoActionCode** | **String** |  | [optional] 
-**finalPrice** | **num** |  | [optional] 
+**value** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

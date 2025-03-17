@@ -28,19 +28,21 @@ abstract class _CreateProjectControllerBase with Store {
   Future _selectWS() async => _canSelectWS ? await selectWS() : wsMainController.myWS;
 
   Future startCreate() async {
-    final methodCode = await selectProjectCreationMethod();
-    if (methodCode != null) {
+    final creationMethod = await selectProjectCreationMethod();
+    if (creationMethod != null) {
       final ws = await _selectWS();
       if (ws != null) {
-        switch (methodCode) {
-          case CreationMethod.create:
-            final newTC = await createTask(ws!, type: TType.PROJECT);
+        switch (creationMethod) {
+          case TaskCreationMethod.BOARD:
+          case TaskCreationMethod.LIST:
+          case TaskCreationMethod.PROJECT:
+            final newTC = await createTask(ws!, type: TType.PROJECT, creationMethod: creationMethod);
             if (newTC != null) router.goTask(newTC.taskDescriptor);
             break;
-          case CreationMethod.template:
+          case TaskCreationMethod.TEMPLATE:
             await createFromTemplate(ws!);
             break;
-          case CreationMethod.import:
+          case TaskCreationMethod.IMPORT:
             await importTasks(ws!);
             break;
         }

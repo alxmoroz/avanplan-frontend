@@ -6,6 +6,7 @@
 import 'package:avanplan_api/src/model/member_get.dart';
 import 'package:avanplan_api/src/model/task_source_get.dart';
 import 'package:avanplan_api/src/model/attachment_get.dart';
+import 'package:avanplan_api/src/model/task_settings_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:avanplan_api/src/model/task_repeat_get.dart';
 import 'package:avanplan_api/src/model/task_transaction_get.dart';
@@ -59,6 +60,7 @@ part 'task_get.g.dart';
 /// * [attachments] 
 /// * [attachmentsCount] 
 /// * [projectStatuses] 
+/// * [settings] 
 /// * [transactions] 
 /// * [subtasksCount] 
 /// * [position] 
@@ -182,6 +184,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'project_statuses')
   BuiltList<ProjectStatusGet>? get projectStatuses;
 
+  @BuiltValueField(wireName: r'settings')
+  BuiltList<TaskSettingsGet>? get settings;
+
   @BuiltValueField(wireName: r'transactions')
   BuiltList<TaskTransactionGet>? get transactions;
 
@@ -209,6 +214,7 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
       ..notes = ListBuilder()
       ..attachments = ListBuilder()
       ..projectStatuses = ListBuilder()
+      ..settings = ListBuilder()
       ..transactions = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
@@ -490,6 +496,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.projectStatuses,
         specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
+      );
+    }
+    if (object.settings != null) {
+      yield r'settings';
+      yield serializers.serialize(
+        object.settings,
+        specifiedType: const FullType(BuiltList, [FullType(TaskSettingsGet)]),
       );
     }
     if (object.transactions != null) {
@@ -815,6 +828,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
           ) as BuiltList<ProjectStatusGet>;
           result.projectStatuses.replace(valueDes);
+          break;
+        case r'settings':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TaskSettingsGet)]),
+          ) as BuiltList<TaskSettingsGet>;
+          result.settings.replace(valueDes);
           break;
         case r'transactions':
           final valueDes = serializers.deserialize(

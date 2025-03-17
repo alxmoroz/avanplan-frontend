@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task_settings.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../components/dialog.dart';
 import '../../../../navigation/router.dart';
@@ -12,7 +13,7 @@ import '../../../../views/_base/loader_screen.dart';
 import '../../../../views/task/controllers/task_controller.dart';
 import '../../../../views/task/usecases/edit.dart';
 
-Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, Task? parent, int? statusId}) async {
+Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, TaskCreationMethod? creationMethod, Task? parent, int? statusId}) async {
   TaskController? tc;
 
   if (await ws.checkBalance(addTaskActionTitle(type))) {
@@ -34,6 +35,7 @@ Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, Task?
       income: 0,
       expenses: 0,
       projectStatuses: [],
+      settings: [if (creationMethod != null) TaskSettings(taskId: -1, code: TSCode.VIEW_MODE, value: creationMethod.name)],
       wsId: ws.id!,
       startDate: null,
       type: type,

@@ -120,10 +120,14 @@
   "millions_short": "M",
   "thousands_short": "k",
 
-  "create_from_scratch_action_description": "Add an empty project",
-  "create_from_scratch_action_title": "Create from scratch",
-  "create_from_template_action_description": "Select a ready one from the library",
+  "create_board_action_description": "Status columns with tasks cards",
+  "create_list_action_description": "Simple task list",
+  "create_project_action_description": "Tasks and goals",
+
+  "create_from_scratch_title": "Create from scratch",
+  "create_from_ready_made": "Choose ready-made",
   "create_from_template_action_title": "Create from template",
+  "create_from_template_action_description": "Choose a ready-made one from the library",
 
   "dates_period": "from {date1} to {date2}",
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
@@ -281,7 +285,6 @@
   "price_duration_prefix": "{duration} for",
   "price_duration_suffix": "for another {duration}",
 
-  "project_creation_method_selector_title": "Choose how to create a project",
   "project_list_empty_title": "Add a project",
   "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
   "project_list_title": "Projects",
@@ -292,6 +295,9 @@
   "project_member_unlink_dialog_description": "The member will lose access to the project",
 
   "project_new_title": "New Project",
+  "project_new_board_title": "New board",
+  "project_new_list_title": "New task list",
+
   "project_plural": "{count, plural, one{project} other{projects}}",
   "project_plural_accusative": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",

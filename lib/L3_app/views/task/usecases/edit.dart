@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../L1_domain/entities_extensions/task_copy.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../components/button.dart';
@@ -136,11 +135,6 @@ extension TaskEditUC on TaskController {
       statusId: statusId,
     );
     if (newTC != null) {
-      // проект, в котором не было задач
-      if (parent.isProject && !parent.hasSubtasks) {
-        // добавили цель - переключаем на список, если задачу, то - на доску
-        settingsController.setViewMode(type == TType.GOAL ? TaskViewMode.LIST.name : TaskViewMode.BOARD.name);
-      }
       if (!noGo) router.goTask(newTC.taskDescriptor);
     }
     return newTC;

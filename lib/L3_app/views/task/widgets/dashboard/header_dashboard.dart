@@ -75,7 +75,7 @@ class TaskHeaderDashboard extends StatelessWidget {
         ),
       );
 
-      return _tc.settingsController.showBoard
+      return _tc.settingsController.viewMode.isBoard
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: P3),
               child: content,

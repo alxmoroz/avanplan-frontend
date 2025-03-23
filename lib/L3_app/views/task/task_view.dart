@@ -195,14 +195,14 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
                             : MTAdaptive(child: TaskDetails(tc))
 
                         /// Группа
-                        : !t.hasSubtasks
+                        : !t.hasSubtasks && (!tc.settingsController.viewMode.isBoard)
 
-                            /// Группа без подзадач
+                            /// Пустой список
                             ? NoTasks(tc)
 
-                            /// Группа с задачами
+                            /// Доска или не пустой список
                             : Observer(
-                                builder: (_) => tc.settingsController.showBoard
+                                builder: (_) => tc.settingsController.viewMode.isBoard
 
                                     /// Доска
                                     ? Container(
@@ -249,7 +249,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
 
   Widget? topBarTitle(Task t) {
     return _isBigGroup
-        ? t.hasSubtasks && tc.settingsController.showBoard
+        ? t.hasSubtasks && tc.settingsController.viewMode.isBoard
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: P3),
                 child: _bigGroupTitle(t),
@@ -294,7 +294,7 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
       if (tc.canComment) {
         _bottomTBNFController.calculateHeight(context, ignoreBottomInsets: false);
         bottomToolBar = NoteFieldToolbar(tc, _bottomTBNFController);
-      } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || t.canEditViewSettings)) {
+      } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || (t.isGroup && !tc.settingsController.viewMode.isProject))) {
         bottomToolBar = TaskBottomToolbar(tc, _bottomTBController);
       }
 

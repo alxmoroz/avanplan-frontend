@@ -22,6 +22,8 @@ Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, TaskC
 
     showMTDialog(LoaderScreen(tc, isDialog: true));
 
+    final defSettings = [if (creationMethod != null) TaskSettings(taskId: -1, code: TSCode.VIEW_MODE, value: creationMethod.name)];
+
     final taskData = Task(
       title: '',
       projectStatusId: statusId,
@@ -35,7 +37,7 @@ Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, TaskC
       income: 0,
       expenses: 0,
       projectStatuses: [],
-      settings: [if (creationMethod != null) TaskSettings(taskId: -1, code: TSCode.VIEW_MODE, value: creationMethod.name)],
+      settings: defSettings,
       wsId: ws.id!,
       startDate: null,
       type: type,
@@ -44,14 +46,17 @@ Future<TaskController?> createTask(Workspace ws, {TType type = TType.TASK, TaskC
     taskData.title = taskData.defaultTitle;
     tc.initWithTask(taskData);
     final savedTask = await tc.save();
+
     if (!tc.loading && globalContext.mounted) Navigator.of(globalContext).pop();
     if (savedTask != null) {
       savedTask.creating = true;
+      savedTask.settings = defSettings;
       savedTask.filled = true;
       tc.taskDescriptor = savedTask;
     } else {
       tc = null;
     }
   }
+
   return tc;
 }

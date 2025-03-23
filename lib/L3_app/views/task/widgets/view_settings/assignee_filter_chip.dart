@@ -42,7 +42,7 @@ class TaskAssigneeFilterChip extends StatelessWidget {
 
     final padding = const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3);
 
-    return _tc.settingsController.showBoard
+    return _tc.settingsController.viewMode.isBoard
         ? Padding(
             padding: padding,
             child: content,

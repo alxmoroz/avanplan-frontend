@@ -11,7 +11,6 @@ import '../../../../components/field.dart';
 import '../../../../components/linkify/linkify.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
 import '../../controllers/task_controller.dart';
@@ -74,7 +73,7 @@ class TaskHeader extends StatelessWidget {
         );
         return t.isTask
             ? Padding(padding: const EdgeInsets.symmetric(horizontal: P3), child: header)
-            : t.canShowBoard && _tc.settingsController.showBoard && !t.creating
+            : _tc.settingsController.viewMode.isBoard && !t.creating
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: P3),
                     child: header,

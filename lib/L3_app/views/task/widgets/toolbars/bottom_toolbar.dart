@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/toolbar.dart';
@@ -26,7 +27,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
       toolbarController: _tbc,
       middle: Row(
         children: [
-          if (t.canEditViewSettings) ...[
+          if (t.isGroup && !_tc.settingsController.viewMode.isProject) ...[
             const SizedBox(width: P2),
             TasksViewSettingsButton(_tc, compact: true),
           ],

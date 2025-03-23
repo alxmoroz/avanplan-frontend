@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../L1_domain/entities/task_local_settings.dart';
+import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/grid_button.dart';
@@ -32,18 +33,18 @@ class _TaskSettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final t = _tsc.task;
-      final showBoard = t.canShowBoard;
+      final showViewMode = t.isGroup && !_tsc.viewMode.isProject;
       final showAssigneeFilter = t.canShowAssigneeFilter;
       return MTDialog(
         topBar: MTTopBar(pageTitle: loc.view_settings_title, parentPageTitle: t.title),
         body: ListView(
           shrinkWrap: true,
           children: [
-            if (showBoard) ...[
+            if (showViewMode) ...[
               MTListGroupTitle(titleText: loc.view_mode_title),
               MTGridButton(
                 [
-                  for (TaskViewMode vm in TaskViewMode.values)
+                  for (TaskViewMode vm in [TaskViewMode.BOARD, TaskViewMode.LIST])
                     MTGridButtonItem(
                       vm.name,
                       Intl.message('tasks_view_mode_${vm.name.toLowerCase()}'),
@@ -56,7 +57,7 @@ class _TaskSettingsDialog extends StatelessWidget {
               ),
             ],
             if (showAssigneeFilter) ...[
-              MTListGroupTitle(titleText: loc.view_filters_title, topMargin: showBoard ? null : 0),
+              MTListGroupTitle(titleText: loc.view_filters_title, topMargin: showViewMode ? null : 0),
               TasksAssigneeFilterField(_tsc),
             ]
           ],

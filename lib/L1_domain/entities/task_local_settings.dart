@@ -6,12 +6,14 @@ import 'base_entity.dart';
 
 enum TaskViewMode {
   LIST,
-  BOARD;
+  BOARD,
+  PROJECT;
 
+  bool get isProject => this == PROJECT;
   bool get isBoard => this == BOARD;
   bool get isList => this == LIST;
 
-  static TaskViewMode fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? BOARD;
+  static TaskViewMode fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? PROJECT;
 }
 
 enum TaskViewFilterType {

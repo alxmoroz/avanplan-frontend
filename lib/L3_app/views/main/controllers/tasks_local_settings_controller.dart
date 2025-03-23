@@ -5,6 +5,8 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_local_settings.dart';
+import '../../../../L1_domain/entities_extensions/task_settings.dart';
+import '../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../app/services.dart';
 
 part 'tasks_local_settings_controller.g.dart';
@@ -23,7 +25,13 @@ class TasksLocalSettingsController extends _Base with _$TasksLocalSettingsContro
 
   bool exists(TaskDescriptor td) => _taskSettings(td) != null;
 
-  TaskLocalSettings taskSettings(TaskDescriptor td) => _taskSettings(td) ?? TaskLocalSettings(wsId: td.wsId, taskId: td.id!);
+  TaskLocalSettings taskSettings(Task t) =>
+      _taskSettings(t) ??
+      TaskLocalSettings(
+        wsId: t.wsId,
+        taskId: t.id!,
+        viewMode: (t.isProject || t.isInbox) ? t.defaultProjectViewMode : TaskViewMode.BOARD,
+      );
 }
 
 abstract class _Base with Store {

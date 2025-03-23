@@ -5,7 +5,9 @@ import 'package:collection/collection.dart';
 import '../entities/task.dart';
 import '../entities/task_local_settings.dart';
 import '../entities/task_settings.dart';
+import '../entities_extensions/task_type.dart';
 
 extension TaskSettingsExt on Task {
-  TaskViewMode get defaultViewMode => TaskViewMode.fromString(settings.firstWhereOrNull((s) => s.code == TSCode.VIEW_MODE)?.value);
+  TaskViewMode get defaultProjectViewMode =>
+      isInbox ? TaskViewMode.LIST : TaskViewMode.fromString(settings.firstWhereOrNull((s) => s.code == TSCode.VIEW_MODE)?.value);
 }

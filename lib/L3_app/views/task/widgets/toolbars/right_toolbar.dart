@@ -30,7 +30,7 @@ class TaskRightToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _actions(BuildContext context) {
     final t = _tc.task;
-    final showViewSettingsButton = t.canEditViewSettings;
+    final showViewSettingsButton = t.isGroup && !_tc.settingsController.viewMode.isProject;
     final showCreateTaskButton = t.canCreateSubtask && t.hasSubtasks;
     return Column(
       children: [

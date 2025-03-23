@@ -35,7 +35,7 @@ extension TaskTypePresenter on Task {
   String get viewTitle => '${type.typeName} ${isNew ? '' : '#$id'}';
 
   String get _defProjectTitle {
-    final defViewMode = defaultViewMode;
+    final defViewMode = defaultProjectViewMode;
     return defViewMode.isBoard
         ? loc.project_new_board_title
         : defViewMode.isList

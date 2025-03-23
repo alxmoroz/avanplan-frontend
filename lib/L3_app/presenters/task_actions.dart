@@ -88,9 +88,6 @@ extension TaskActionsUC on Task {
 
   bool get canEditProjectStatuses => _hpProjectInfoUpdate;
 
-  bool get canShowBoard => hasSubtasks && (isGoal || isProjectWithoutGroups);
   bool get canShowAssigneeFilter => hasSubtasks && ws.hfTeam && activeMembers.isNotEmpty;
-  bool get canEditViewSettings => isGroup && (canShowBoard || canShowAssigneeFilter);
-
   bool get canEditRelations => _canEditTask;
 }

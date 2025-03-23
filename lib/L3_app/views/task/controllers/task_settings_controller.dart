@@ -8,7 +8,6 @@ import '../../../../L1_domain/entities/task_local_settings.dart';
 import '../../../../L1_domain/entities/ws_member.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../presenters/task_actions.dart';
 import '../../../presenters/task_tree.dart';
 import '../../app/services.dart';
 import '../usecases/edit.dart';
@@ -65,7 +64,7 @@ class TaskSettingsController extends _Base with _$TaskSettingsController {
   }
 
   void setViewMode(String? name) {
-    _saveSettings(viewMode: name == TaskViewMode.LIST.name ? TaskViewMode.LIST : TaskViewMode.BOARD);
+    _saveSettings(viewMode: TaskViewMode.fromString(name));
   }
 }
 
@@ -80,9 +79,6 @@ abstract class _Base with Store {
 
   @computed
   TaskViewMode get viewMode => settings.viewMode;
-
-  @computed
-  bool get showBoard => viewMode == TaskViewMode.BOARD && task.canShowBoard;
 
   @computed
   bool get hasFilters => settings.filters?.isNotEmpty == true;

@@ -1,8 +1,10 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../navigation/router.dart';
 import 'adaptive.dart';
@@ -132,17 +134,23 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
               bottom: isBottom,
               child: toolbarContent,
             )
-          : CupertinoNavigationBar(
-              automaticallyImplyLeading: false,
-              automaticallyImplyMiddle: false,
-              padding: EdgeInsetsDirectional.only(top: topPadding, bottom: bottomPadding, start: 0, end: 0),
-              leading: OverflowBox(
-                maxHeight: MIN_BTN_HEIGHT,
-                child: toolbarContent,
-              ),
-              backgroundColor: color,
-              border: null,
-            ),
+          : Platform.isAndroid
+              ? AppBar(
+                  automaticallyImplyLeading: false,
+                  title: toolbarContent,
+                  backgroundColor: color,
+                )
+              : CupertinoNavigationBar(
+                  automaticallyImplyLeading: false,
+                  automaticallyImplyMiddle: false,
+                  padding: EdgeInsetsDirectional.only(top: topPadding, bottom: bottomPadding, start: 0, end: 0),
+                  leading: OverflowBox(
+                    maxHeight: MIN_BTN_HEIGHT,
+                    child: toolbarContent,
+                  ),
+                  backgroundColor: color,
+                  border: null,
+                ),
     );
   }
 }

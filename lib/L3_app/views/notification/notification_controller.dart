@@ -54,7 +54,10 @@ abstract class _NotificationControllerBase with Store {
   }
 
   @observable
-  bool pushAuthorized = false;
+  AuthorizationStatus _pushAuthStatus = AuthorizationStatus.notDetermined;
+
+  @computed
+  bool get pushAuthorized => _pushAuthStatus == AuthorizationStatus.authorized;
 
   Future tryNavigate(RemoteMessage msg) async {
     final data = msg.data;
@@ -67,30 +70,33 @@ abstract class _NotificationControllerBase with Store {
   @action
   Future _initPush() async {
     // Запрос разрешения на отправку уведомлений
-    final authStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
+    if (_pushAuthStatus == AuthorizationStatus.notDetermined) {
+      _pushAuthStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
+    }
 
-    // Получение токена
-    String? token;
-    if (isWeb) {
-      // TODO: на сафари вообще виснет приложение пока что
-      // token = await FirebaseMessaging.instance.getToken(
-      //   vapidKey: isWeb ? 'BCOA2mDb6-CkpUHqBhSYe5Ave8GES9JBE--Ux2LpgiQ5GyZBSaLZpHjqSH9-LDnC-K7QUtoyXM_BnaetF6pw5Xc' : null,
-      // );
-    } else {
-      try {
-        token = await FirebaseMessaging.instance.getToken();
-      } catch (e) {
-        if (kDebugMode) {
-          print(e);
+    if (pushAuthorized) {
+      // Получение токена
+      String? token;
+      if (isWeb) {
+        // TODO: на сафари вообще виснет приложение пока что
+        // token = await FirebaseMessaging.instance.getToken(
+        //   vapidKey: isWeb ? 'BCOA2mDb6-CkpUHqBhSYe5Ave8GES9JBE--Ux2LpgiQ5GyZBSaLZpHjqSH9-LDnC-K7QUtoyXM_BnaetF6pw5Xc' : null,
+        // );
+      } else {
+        try {
+          token = await FirebaseMessaging.instance.getToken();
+        } catch (e) {
+          if (kDebugMode) {
+            print(e);
+          }
         }
       }
-    }
-    final hasToken = token?.isNotEmpty == true;
-    pushAuthorized = hasToken && authStatus == AuthorizationStatus.authorized;
+      final hasToken = token?.isNotEmpty == true;
 
-    // Обновление токена на бэке
-    if (hasToken) {
-      await myUC.updatePushToken(token!, pushAuthorized);
+      // Обновление токена на бэке
+      if (hasToken) {
+        await myUC.updatePushToken(token!, pushAuthorized);
+      }
     }
   }
 
@@ -105,7 +111,9 @@ abstract class _NotificationControllerBase with Store {
   }
 
   Future setup() async {
-    await _listenMessages();
     await _initPush();
+    if (pushAuthorized) {
+      await _listenMessages();
+    }
   }
 }

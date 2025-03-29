@@ -13,7 +13,7 @@ enum TaskViewMode {
   bool get isBoard => this == BOARD;
   bool get isList => this == LIST;
 
-  static TaskViewMode fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? PROJECT;
+  static TaskViewMode fromString(String? name) => values.firstWhereOrNull((v) => v.name.toLowerCase() == name?.toLowerCase()) ?? BOARD;
 }
 
 enum TaskViewFilterType {

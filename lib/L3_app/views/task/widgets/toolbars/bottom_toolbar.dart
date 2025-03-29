@@ -27,7 +27,7 @@ class TaskBottomToolbar extends StatelessWidget implements PreferredSizeWidget {
       toolbarController: _tbc,
       middle: Row(
         children: [
-          if (t.isGroup && !_tc.settingsController.viewMode.isProject) ...[
+          if (t.isGroup && (t.canShowAssigneeFilter || !_tc.settingsController.viewMode.isProject)) ...[
             const SizedBox(width: P2),
             TasksViewSettingsButton(_tc, compact: true),
           ],

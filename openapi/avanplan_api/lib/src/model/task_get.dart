@@ -21,50 +21,50 @@ part 'task_get.g.dart';
 /// TaskGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [type] 
-/// * [category] 
-/// * [icon] 
-/// * [closed] 
-/// * [startDate] 
-/// * [dueDate] 
-/// * [closedDate] 
-/// * [estimate] 
-/// * [createdOn] 
-/// * [updatedOn] 
-/// * [parentId] 
-/// * [assigneeId] 
-/// * [authorId] 
-/// * [projectStatusId] 
-/// * [taskSourceId] 
-/// * [state] 
-/// * [velocity] 
-/// * [requiredVelocity] 
-/// * [progress] 
-/// * [etaDate] 
-/// * [openedVolume] 
-/// * [closedVolume] 
-/// * [closedSubtasksCount] 
-/// * [income] 
-/// * [expenses] 
-/// * [relations] 
-/// * [relationsCount] 
-/// * [repeat] 
-/// * [repeatsCount] 
-/// * [taskSource] 
-/// * [members] 
-/// * [notes] 
-/// * [notesCount] 
-/// * [attachments] 
-/// * [attachmentsCount] 
-/// * [projectStatuses] 
-/// * [settings] 
-/// * [transactions] 
-/// * [subtasksCount] 
-/// * [position] 
-/// * [hasSubgroups] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [type]
+/// * [category]
+/// * [icon]
+/// * [closed]
+/// * [startDate]
+/// * [dueDate]
+/// * [closedDate]
+/// * [estimate]
+/// * [createdOn]
+/// * [updatedOn]
+/// * [parentId]
+/// * [assigneeId]
+/// * [authorId]
+/// * [projectStatusId]
+/// * [taskSourceId]
+/// * [state]
+/// * [velocity]
+/// * [requiredVelocity]
+/// * [progress]
+/// * [etaDate]
+/// * [openedVolume]
+/// * [closedVolume]
+/// * [closedSubtasksCount]
+/// * [income]
+/// * [expenses]
+/// * [relations]
+/// * [relationsCount]
+/// * [repeat]
+/// * [repeatsCount]
+/// * [taskSource]
+/// * [members]
+/// * [notes]
+/// * [notesCount]
+/// * [attachments]
+/// * [attachmentsCount]
+/// * [projectStatuses]
+/// * [settings]
+/// * [transactions]
+/// * [subtasksCount]
+/// * [position]
+/// * [hasSubgroups]
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -205,17 +205,17 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskGetBuilder b) => b
-      ..type = 'TASK'
-      ..closed = false
-      ..income = 0.0
-      ..expenses = 0.0
-      ..relations = ListBuilder()
-      ..members = ListBuilder()
-      ..notes = ListBuilder()
-      ..attachments = ListBuilder()
-      ..projectStatuses = ListBuilder()
-      ..settings = ListBuilder()
-      ..transactions = ListBuilder();
+    ..type = 'TASK'
+    ..closed = false
+    ..income = 0.0
+    ..expenses = 0.0
+    ..relations = ListBuilder()
+    ..members = ListBuilder()
+    ..notes = ListBuilder()
+    ..attachments = ListBuilder()
+    ..projectStatuses = ListBuilder()
+    ..settings = ListBuilder()
+    ..transactions = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();
@@ -892,4 +892,3 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
     return result.build();
   }
 }
-

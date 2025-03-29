@@ -11,11 +11,11 @@ part 'permission_get.g.dart';
 /// PermissionGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [obj] 
-/// * [action] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [obj]
+/// * [action]
 @BuiltValue()
 abstract class PermissionGet implements Built<PermissionGet, PermissionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -171,4 +171,3 @@ class _$PermissionGetSerializer implements PrimitiveSerializer<PermissionGet> {
     return result.build();
   }
 }
-

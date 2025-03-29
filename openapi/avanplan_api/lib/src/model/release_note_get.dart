@@ -11,10 +11,10 @@ part 'release_note_get.g.dart';
 /// ReleaseNoteGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [version] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [version]
 @BuiltValue()
 abstract class ReleaseNoteGet implements Built<ReleaseNoteGet, ReleaseNoteGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -153,4 +153,3 @@ class _$ReleaseNoteGetSerializer implements PrimitiveSerializer<ReleaseNoteGet> 
     return result.build();
   }
 }
-

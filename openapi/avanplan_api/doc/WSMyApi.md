@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**myProjects_0**](WSMyApi.md#myprojects_0) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
-[**myTasks_0**](WSMyApi.md#mytasks_0) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
+[**myProjects**](WSMyApi.md#myprojects) | **GET** /v1/workspaces/{ws_id}/my/projects | Projects
+[**myTasks**](WSMyApi.md#mytasks) | **GET** /v1/workspaces/{ws_id}/my/tasks | Tasks
 
 
-# **myProjects_0**
-> BuiltList<TaskGet> myProjects_0(wsId, closed, imported, taskId)
+# **myProjects**
+> BuiltList<TaskGet> myProjects(wsId, closed, imported, taskId)
 
 Projects
 
@@ -37,10 +37,10 @@ final bool imported = true; // bool |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.myProjects_0(wsId, closed, imported, taskId);
+    final response = api.myProjects(wsId, closed, imported, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSMyApi->myProjects_0: $e\n');
+    print('Exception when calling WSMyApi->myProjects: $e\n');
 }
 ```
 
@@ -68,8 +68,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **myTasks_0**
-> BuiltList<TaskGet> myTasks_0(wsId, projectId, taskId)
+# **myTasks**
+> BuiltList<TaskGet> myTasks(wsId, projectId, taskId)
 
 Tasks
 
@@ -91,10 +91,10 @@ final int projectId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.myTasks_0(wsId, projectId, taskId);
+    final response = api.myTasks(wsId, projectId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSMyApi->myTasks_0: $e\n');
+    print('Exception when calling WSMyApi->myTasks: $e\n');
 }
 ```
 

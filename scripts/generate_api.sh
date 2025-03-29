@@ -32,14 +32,7 @@ do
 
   curl -L $remote_schema > openapi.json
 
-  #openapi-generator-cli generate -i openapi.json -g dart-dio -o .
-
-  java -ea                          \
-    ${JAVA_OPTS}                    \
-    -Xms512M                        \
-    -Xmx1024M                       \
-    -server                         \
-    -jar ../../scripts/openapi-generator-cli.jar generate \
+  openapi-generator-cli generate \
     --skip-validate-spec \
     --global-property modelTests=false,apiTests=false \
     -p pubName=$pub_name \

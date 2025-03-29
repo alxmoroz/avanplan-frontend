@@ -12,8 +12,8 @@ part 'permission_role_get.g.dart';
 /// PermissionRoleGet
 ///
 /// Properties:
-/// * [id] 
-/// * [permission] 
+/// * [id]
+/// * [permission]
 @BuiltValue()
 abstract class PermissionRoleGet implements Built<PermissionRoleGet, PermissionRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -120,4 +120,3 @@ class _$PermissionRoleGetSerializer implements PrimitiveSerializer<PermissionRol
     return result.build();
   }
 }
-

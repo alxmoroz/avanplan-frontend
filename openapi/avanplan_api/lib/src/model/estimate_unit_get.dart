@@ -11,10 +11,10 @@ part 'estimate_unit_get.g.dart';
 /// EstimateUnitGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [code] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [code]
 @BuiltValue()
 abstract class EstimateUnitGet implements Built<EstimateUnitGet, EstimateUnitGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -155,4 +155,3 @@ class _$EstimateUnitGetSerializer implements PrimitiveSerializer<EstimateUnitGet
     return result.build();
   }
 }
-

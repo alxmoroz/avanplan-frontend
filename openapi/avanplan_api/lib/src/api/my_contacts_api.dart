@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/user_contact_get.dart';
 import 'package:avanplan_api/src/model/user_contact_upsert.dart';
 import 'package:built_collection/built_collection.dart';
 
 class MyContactsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -26,7 +23,7 @@ class MyContactsApi {
   /// Удаление способа связи пользователя
   ///
   /// Parameters:
-  /// * [userContactId] 
+  /// * [userContactId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,7 +33,7 @@ class MyContactsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteMyContact({ 
+  Future<Response<bool>> deleteMyContact({
     required int userContactId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -45,7 +42,8 @@ class MyContactsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/my/contacts/{user_contact_id}'.replaceAll('{' r'user_contact_id' '}', encodeQueryParameter(_serializers, userContactId, const FullType(int)).toString());
+    final _path = r'/v1/my/contacts/{user_contact_id}'
+        .replaceAll('{' r'user_contact_id' '}', encodeQueryParameter(_serializers, userContactId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -58,7 +56,8 @@ class MyContactsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -81,7 +80,6 @@ class MyContactsApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -117,7 +115,7 @@ class MyContactsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<UserContactGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<UserContactGet>>> myContacts({ 
+  Future<Response<BuiltList<UserContactGet>>> myContacts({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -138,7 +136,8 @@ class MyContactsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -160,11 +159,12 @@ class MyContactsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(UserContactGet)]),
-      ) as BuiltList<UserContactGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(UserContactGet)]),
+            ) as BuiltList<UserContactGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -191,7 +191,7 @@ class MyContactsApi {
   /// Добавление / редактирование способа связи пользователя
   ///
   /// Parameters:
-  /// * [userContactUpsert] 
+  /// * [userContactUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -201,7 +201,7 @@ class MyContactsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [UserContactGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<UserContactGet>> upsertMyContact({ 
+  Future<Response<UserContactGet>> upsertMyContact({
     required UserContactUpsert userContactUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -223,7 +223,8 @@ class MyContactsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -239,10 +240,9 @@ class MyContactsApi {
     try {
       const _type = FullType(UserContactUpsert);
       _bodyData = _serializers.serialize(userContactUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -265,11 +265,12 @@ class MyContactsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(UserContactGet),
-      ) as UserContactGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(UserContactGet),
+            ) as UserContactGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -291,5 +292,4 @@ class MyContactsApi {
       extra: _response.extra,
     );
   }
-
 }

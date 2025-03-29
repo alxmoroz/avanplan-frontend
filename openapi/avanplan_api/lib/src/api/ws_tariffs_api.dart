@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/invoice_get.dart';
 import 'package:avanplan_api/src/model/tariff_get.dart';
 import 'package:built_collection/built_collection.dart';
 
 class WSTariffsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,10 +20,10 @@ class WSTariffsApi {
   const WSTariffsApi(this._dio, this._serializers);
 
   /// Available Tariffs
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
+  /// * [wsId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,7 +33,7 @@ class WSTariffsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TariffGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TariffGet>>> availableTariffs({ 
+  Future<Response<BuiltList<TariffGet>>> availableTariffs({
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -45,7 +42,8 @@ class WSTariffsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tariffs'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path =
+        r'/v1/workspaces/{ws_id}/tariffs'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -77,11 +75,12 @@ class WSTariffsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TariffGet)]),
-      ) as BuiltList<TariffGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TariffGet)]),
+            ) as BuiltList<TariffGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -105,11 +104,11 @@ class WSTariffsApi {
   }
 
   /// Sign
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [tariffId] 
-  /// * [wsId] 
+  /// * [tariffId]
+  /// * [wsId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -119,7 +118,7 @@ class WSTariffsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [InvoiceGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<InvoiceGet>> sign({ 
+  Future<Response<InvoiceGet>> sign({
     required int tariffId,
     required int wsId,
     CancelToken? cancelToken,
@@ -129,7 +128,9 @@ class WSTariffsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign'.replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign'
+        .replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString())
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -142,7 +143,8 @@ class WSTariffsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -164,11 +166,12 @@ class WSTariffsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(InvoiceGet),
-      ) as InvoiceGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(InvoiceGet),
+            ) as InvoiceGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -192,13 +195,13 @@ class WSTariffsApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [tariffId] 
-  /// * [optionId] 
-  /// * [subscribe] 
+  /// * [wsId]
+  /// * [tariffId]
+  /// * [optionId]
+  /// * [subscribe]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -208,7 +211,7 @@ class WSTariffsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [InvoiceGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<InvoiceGet>> upsertOption({ 
+  Future<Response<InvoiceGet>> upsertOption({
     required int wsId,
     required int tariffId,
     required int optionId,
@@ -220,7 +223,10 @@ class WSTariffsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString()).replaceAll('{' r'option_id' '}', encodeQueryParameter(_serializers, optionId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id}'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString())
+        .replaceAll('{' r'option_id' '}', encodeQueryParameter(_serializers, optionId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -233,7 +239,8 @@ class WSTariffsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -260,11 +267,12 @@ class WSTariffsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(InvoiceGet),
-      ) as InvoiceGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(InvoiceGet),
+            ) as InvoiceGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -286,5 +294,4 @@ class WSTariffsApi {
       extra: _response.extra,
     );
   }
-
 }

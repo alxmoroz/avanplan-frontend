@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteRepeat_1**](TaskRepeatsApi.md#deleterepeat_1) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
-[**upsertRepeat_1**](TaskRepeatsApi.md#upsertrepeat_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats | Upsert
+[**deleteRepeat**](TaskRepeatsApi.md#deleterepeat) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id} | Delete
+[**upsertRepeat**](TaskRepeatsApi.md#upsertrepeat) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/repeats | Upsert
 
 
-# **deleteRepeat_1**
-> bool deleteRepeat_1(wsId, taskId, repeatId)
+# **deleteRepeat**
+> bool deleteRepeat(wsId, taskId, repeatId)
 
 Delete
 
@@ -34,10 +34,10 @@ final int taskId = 56; // int |
 final int repeatId = 56; // int | 
 
 try {
-    final response = api.deleteRepeat_1(wsId, taskId, repeatId);
+    final response = api.deleteRepeat(wsId, taskId, repeatId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskRepeatsApi->deleteRepeat_1: $e\n');
+    print('Exception when calling TaskRepeatsApi->deleteRepeat: $e\n');
 }
 ```
 
@@ -64,8 +64,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertRepeat_1**
-> TaskRepeatGet upsertRepeat_1(wsId, taskId, taskRepeatUpsert)
+# **upsertRepeat**
+> TaskRepeatGet upsertRepeat(wsId, taskId, taskRepeatUpsert)
 
 Upsert
 
@@ -85,10 +85,10 @@ final int taskId = 56; // int |
 final TaskRepeatUpsert taskRepeatUpsert = ; // TaskRepeatUpsert | 
 
 try {
-    final response = api.upsertRepeat_1(wsId, taskId, taskRepeatUpsert);
+    final response = api.upsertRepeat(wsId, taskId, taskRepeatUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskRepeatsApi->upsertRepeat_1: $e\n');
+    print('Exception when calling TaskRepeatsApi->upsertRepeat: $e\n');
 }
 ```
 

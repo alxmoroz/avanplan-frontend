@@ -13,18 +13,18 @@ part 'my_user.g.dart';
 /// MyUser
 ///
 /// Properties:
-/// * [id] 
-/// * [createdOn] 
-/// * [email] 
-/// * [fullName] 
-/// * [nickName] 
-/// * [locale] 
-/// * [hasAvatar] 
-/// * [updatedOn] 
-/// * [roleCodes] 
-/// * [permissionCodes] 
-/// * [wsIds] 
-/// * [activities] 
+/// * [id]
+/// * [createdOn]
+/// * [email]
+/// * [fullName]
+/// * [nickName]
+/// * [locale]
+/// * [hasAvatar]
+/// * [updatedOn]
+/// * [roleCodes]
+/// * [permissionCodes]
+/// * [wsIds]
+/// * [activities]
 @BuiltValue()
 abstract class MyUser implements Built<MyUser, MyUserBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -68,8 +68,7 @@ abstract class MyUser implements Built<MyUser, MyUserBuilder> {
   factory MyUser([void updates(MyUserBuilder b)]) = _$MyUser;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MyUserBuilder b) => b
-      ..locale = 'ru';
+  static void _defaults(MyUserBuilder b) => b..locale = 'ru';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<MyUser> get serializer => _$MyUserSerializer();
@@ -298,4 +297,3 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
     return result.build();
   }
 }
-

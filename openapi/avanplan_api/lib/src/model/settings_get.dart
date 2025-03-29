@@ -12,8 +12,8 @@ part 'settings_get.g.dart';
 /// SettingsGet
 ///
 /// Properties:
-/// * [id] 
-/// * [estimateUnit] 
+/// * [id]
+/// * [estimateUnit]
 @BuiltValue()
 abstract class SettingsGet implements Built<SettingsGet, SettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -122,4 +122,3 @@ class _$SettingsGetSerializer implements PrimitiveSerializer<SettingsGet> {
     return result.build();
   }
 }
-

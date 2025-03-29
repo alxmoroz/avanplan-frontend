@@ -12,8 +12,8 @@ part 'body_request_registration.g.dart';
 /// BodyRequestRegistration
 ///
 /// Properties:
-/// * [registration] 
-/// * [password] 
+/// * [registration]
+/// * [password]
 @BuiltValue()
 abstract class BodyRequestRegistration implements Built<BodyRequestRegistration, BodyRequestRegistrationBuilder> {
   @BuiltValueField(wireName: r'registration')
@@ -120,4 +120,3 @@ class _$BodyRequestRegistrationSerializer implements PrimitiveSerializer<BodyReq
     return result.build();
   }
 }
-

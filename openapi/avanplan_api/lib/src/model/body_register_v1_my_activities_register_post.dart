@@ -11,10 +11,11 @@ part 'body_register_v1_my_activities_register_post.g.dart';
 /// BodyRegisterV1MyActivitiesRegisterPost
 ///
 /// Properties:
-/// * [code] 
-/// * [wsId] 
+/// * [code]
+/// * [wsId]
 @BuiltValue()
-abstract class BodyRegisterV1MyActivitiesRegisterPost implements Built<BodyRegisterV1MyActivitiesRegisterPost, BodyRegisterV1MyActivitiesRegisterPostBuilder> {
+abstract class BodyRegisterV1MyActivitiesRegisterPost
+    implements Built<BodyRegisterV1MyActivitiesRegisterPost, BodyRegisterV1MyActivitiesRegisterPostBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
@@ -23,7 +24,8 @@ abstract class BodyRegisterV1MyActivitiesRegisterPost implements Built<BodyRegis
 
   BodyRegisterV1MyActivitiesRegisterPost._();
 
-  factory BodyRegisterV1MyActivitiesRegisterPost([void updates(BodyRegisterV1MyActivitiesRegisterPostBuilder b)]) = _$BodyRegisterV1MyActivitiesRegisterPost;
+  factory BodyRegisterV1MyActivitiesRegisterPost([void updates(BodyRegisterV1MyActivitiesRegisterPostBuilder b)]) =
+      _$BodyRegisterV1MyActivitiesRegisterPost;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BodyRegisterV1MyActivitiesRegisterPostBuilder b) => b;
@@ -121,4 +123,3 @@ class _$BodyRegisterV1MyActivitiesRegisterPostSerializer implements PrimitiveSer
     return result.build();
   }
 }
-

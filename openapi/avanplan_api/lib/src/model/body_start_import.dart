@@ -13,7 +13,7 @@ part 'body_start_import.g.dart';
 /// BodyStartImport
 ///
 /// Properties:
-/// * [projects] 
+/// * [projects]
 @BuiltValue()
 abstract class BodyStartImport implements Built<BodyStartImport, BodyStartImportBuilder> {
   @BuiltValueField(wireName: r'projects')
@@ -105,4 +105,3 @@ class _$BodyStartImportSerializer implements PrimitiveSerializer<BodyStartImport
     return result.build();
   }
 }
-

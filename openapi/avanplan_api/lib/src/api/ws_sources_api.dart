@@ -4,21 +4,18 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
 import 'package:avanplan_api/src/model/body_request_type.dart';
 import 'package:avanplan_api/src/model/body_start_import.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/source_get.dart';
 import 'package:avanplan_api/src/model/source_upsert.dart';
 import 'package:avanplan_api/src/model/task_remote.dart';
 import 'package:built_collection/built_collection.dart';
 
 class WSSourcesApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -26,11 +23,11 @@ class WSSourcesApi {
   const WSSourcesApi(this._dio, this._serializers);
 
   /// Check Connection
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [sourceId] 
+  /// * [wsId]
+  /// * [sourceId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -40,7 +37,7 @@ class WSSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> checkConnection({ 
+  Future<Response<bool>> checkConnection({
     required int wsId,
     required int sourceId,
     CancelToken? cancelToken,
@@ -50,7 +47,9 @@ class WSSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}/check_connection'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}/check_connection'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -63,7 +62,8 @@ class WSSourcesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -86,7 +86,6 @@ class WSSourcesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -110,11 +109,11 @@ class WSSourcesApi {
   }
 
   /// Delete
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [sourceId] 
-  /// * [wsId] 
+  /// * [sourceId]
+  /// * [wsId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -124,7 +123,7 @@ class WSSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteSource({ 
+  Future<Response<bool>> deleteSource({
     required int sourceId,
     required int wsId,
     CancelToken? cancelToken,
@@ -134,7 +133,9 @@ class WSSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}'.replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}'
+        .replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString())
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -147,7 +148,8 @@ class WSSourcesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -170,7 +172,6 @@ class WSSourcesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -194,11 +195,11 @@ class WSSourcesApi {
   }
 
   /// Get Projects
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [sourceId] 
+  /// * [wsId]
+  /// * [sourceId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -208,7 +209,7 @@ class WSSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskRemote>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskRemote>>> getProjects({ 
+  Future<Response<BuiltList<TaskRemote>>> getProjects({
     required int wsId,
     required int sourceId,
     CancelToken? cancelToken,
@@ -218,7 +219,9 @@ class WSSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}/projects'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}/projects'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -231,7 +234,8 @@ class WSSourcesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -253,11 +257,12 @@ class WSSourcesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskRemote)]),
-      ) as BuiltList<TaskRemote>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TaskRemote)]),
+            ) as BuiltList<TaskRemote>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -281,11 +286,11 @@ class WSSourcesApi {
   }
 
   /// Request Type
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [bodyRequestType] 
+  /// * [wsId]
+  /// * [bodyRequestType]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -295,7 +300,7 @@ class WSSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> requestType({ 
+  Future<Response<bool>> requestType({
     required int wsId,
     required BodyRequestType bodyRequestType,
     CancelToken? cancelToken,
@@ -305,7 +310,8 @@ class WSSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/sources/request_type'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/sources/request_type'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -318,7 +324,8 @@ class WSSourcesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -334,10 +341,9 @@ class WSSourcesApi {
     try {
       const _type = FullType(BodyRequestType);
       _bodyData = _serializers.serialize(bodyRequestType, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -361,7 +367,6 @@ class WSSourcesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -385,12 +390,12 @@ class WSSourcesApi {
   }
 
   /// Start Import
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [sourceId] 
-  /// * [bodyStartImport] 
+  /// * [wsId]
+  /// * [sourceId]
+  /// * [bodyStartImport]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -400,7 +405,7 @@ class WSSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> startImport({ 
+  Future<Response<bool>> startImport({
     required int wsId,
     required int sourceId,
     required BodyStartImport bodyStartImport,
@@ -411,7 +416,9 @@ class WSSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}/start_import'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/sources/{source_id}/start_import'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -424,7 +431,8 @@ class WSSourcesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -440,10 +448,9 @@ class WSSourcesApi {
     try {
       const _type = FullType(BodyStartImport);
       _bodyData = _serializers.serialize(bodyStartImport, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -467,7 +474,6 @@ class WSSourcesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -491,11 +497,11 @@ class WSSourcesApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [sourceUpsert] 
+  /// * [wsId]
+  /// * [sourceUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -505,7 +511,7 @@ class WSSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [SourceGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<SourceGet>> upsertSource({ 
+  Future<Response<SourceGet>> upsertSource({
     required int wsId,
     required SourceUpsert sourceUpsert,
     CancelToken? cancelToken,
@@ -515,7 +521,8 @@ class WSSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/sources'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path =
+        r'/v1/workspaces/{ws_id}/sources'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -528,7 +535,8 @@ class WSSourcesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -544,10 +552,9 @@ class WSSourcesApi {
     try {
       const _type = FullType(SourceUpsert);
       _bodyData = _serializers.serialize(sourceUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -570,11 +577,12 @@ class WSSourcesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(SourceGet),
-      ) as SourceGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(SourceGet),
+            ) as SourceGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -596,5 +604,4 @@ class WSSourcesApi {
       extra: _response.extra,
     );
   }
-
 }

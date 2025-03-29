@@ -4,16 +4,12 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/my_user.dart';
 
 class MyAvatarApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -21,7 +17,7 @@ class MyAvatarApi {
   const MyAvatarApi(this._dio, this._serializers);
 
   /// Delete Avatar
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -33,7 +29,7 @@ class MyAvatarApi {
   ///
   /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MyUser>> deleteAvatar({ 
+  Future<Response<MyUser>> deleteAvatar({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -54,7 +50,8 @@ class MyAvatarApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -76,11 +73,12 @@ class MyAvatarApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(MyUser),
-      ) as MyUser;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(MyUser),
+            ) as MyUser;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -104,10 +102,10 @@ class MyAvatarApi {
   }
 
   /// Upload Avatar
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [file] 
+  /// * [file]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -117,7 +115,7 @@ class MyAvatarApi {
   ///
   /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MyUser>> uploadAvatar({ 
+  Future<Response<MyUser>> uploadAvatar({
     required MultipartFile file,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -139,7 +137,8 @@ class MyAvatarApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -156,10 +155,9 @@ class MyAvatarApi {
       _bodyData = FormData.fromMap(<String, dynamic>{
         r'file': file,
       });
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -182,11 +180,12 @@ class MyAvatarApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(MyUser),
-      ) as MyUser;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(MyUser),
+            ) as MyUser;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -208,5 +207,4 @@ class MyAvatarApi {
       extra: _response.extra,
     );
   }
-
 }

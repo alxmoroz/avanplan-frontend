@@ -11,11 +11,11 @@ part 'task_repeat_upsert.g.dart';
 /// TaskRepeatUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [taskId] 
-/// * [periodType] 
-/// * [periodLength] 
-/// * [daysList] 
+/// * [id]
+/// * [taskId]
+/// * [periodType]
+/// * [periodLength]
+/// * [daysList]
 @BuiltValue()
 abstract class TaskRepeatUpsert implements Built<TaskRepeatUpsert, TaskRepeatUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -169,4 +169,3 @@ class _$TaskRepeatUpsertSerializer implements PrimitiveSerializer<TaskRepeatUpse
     return result.build();
   }
 }
-

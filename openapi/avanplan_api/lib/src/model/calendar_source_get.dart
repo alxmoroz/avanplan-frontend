@@ -11,9 +11,9 @@ part 'calendar_source_get.g.dart';
 /// CalendarSourceGet
 ///
 /// Properties:
-/// * [id] 
-/// * [email] 
-/// * [type] 
+/// * [id]
+/// * [email]
+/// * [type]
 @BuiltValue()
 abstract class CalendarSourceGet implements Built<CalendarSourceGet, CalendarSourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -30,8 +30,7 @@ abstract class CalendarSourceGet implements Built<CalendarSourceGet, CalendarSou
   factory CalendarSourceGet([void updates(CalendarSourceGetBuilder b)]) = _$CalendarSourceGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(CalendarSourceGetBuilder b) => b
-      ..type = 'GOOGLE';
+  static void _defaults(CalendarSourceGetBuilder b) => b..type = 'GOOGLE';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<CalendarSourceGet> get serializer => _$CalendarSourceGetSerializer();
@@ -138,4 +137,3 @@ class _$CalendarSourceGetSerializer implements PrimitiveSerializer<CalendarSourc
     return result.build();
   }
 }
-

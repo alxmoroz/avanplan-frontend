@@ -11,11 +11,11 @@ part 'contract_get.g.dart';
 /// ContractGet
 ///
 /// Properties:
-/// * [id] 
-/// * [createdOn] 
-/// * [expiresOn] 
-/// * [terminated] 
-/// * [tariffId] 
+/// * [id]
+/// * [createdOn]
+/// * [expiresOn]
+/// * [terminated]
+/// * [tariffId]
 @BuiltValue()
 abstract class ContractGet implements Built<ContractGet, ContractGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -38,8 +38,7 @@ abstract class ContractGet implements Built<ContractGet, ContractGetBuilder> {
   factory ContractGet([void updates(ContractGetBuilder b)]) = _$ContractGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ContractGetBuilder b) => b
-      ..terminated = false;
+  static void _defaults(ContractGetBuilder b) => b..terminated = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<ContractGet> get serializer => _$ContractGetSerializer();
@@ -172,4 +171,3 @@ class _$ContractGetSerializer implements PrimitiveSerializer<ContractGet> {
     return result.build();
   }
 }
-

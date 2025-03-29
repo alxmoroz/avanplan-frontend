@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignProjectMemberRoles_1**](ProjectMembersApi.md#assignprojectmemberroles_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
-[**projectMemberContacts_1**](ProjectMembersApi.md#projectmembercontacts_1) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
+[**assignProjectMemberRoles**](ProjectMembersApi.md#assignprojectmemberroles) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles | Assign Project Member Roles
+[**projectMemberContacts**](ProjectMembersApi.md#projectmembercontacts) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts | Project Member Contacts
 
 
-# **assignProjectMemberRoles_1**
-> BuiltList<MemberGet> assignProjectMemberRoles_1(taskId, memberId, wsId, requestBody)
+# **assignProjectMemberRoles**
+> BuiltList<MemberGet> assignProjectMemberRoles(taskId, memberId, wsId, requestBody)
 
 Assign Project Member Roles
 
@@ -35,10 +35,10 @@ final int wsId = 56; // int |
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.assignProjectMemberRoles_1(taskId, memberId, wsId, requestBody);
+    final response = api.assignProjectMemberRoles(taskId, memberId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectMembersApi->assignProjectMemberRoles_1: $e\n');
+    print('Exception when calling ProjectMembersApi->assignProjectMemberRoles: $e\n');
 }
 ```
 
@@ -66,8 +66,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **projectMemberContacts_1**
-> BuiltList<MemberContactGet> projectMemberContacts_1(memberId, wsId, taskId)
+# **projectMemberContacts**
+> BuiltList<MemberContactGet> projectMemberContacts(memberId, wsId, taskId)
 
 Project Member Contacts
 
@@ -89,10 +89,10 @@ final int wsId = 56; // int |
 final int taskId = 56; // int | 
 
 try {
-    final response = api.projectMemberContacts_1(memberId, wsId, taskId);
+    final response = api.projectMemberContacts(memberId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectMembersApi->projectMemberContacts_1: $e\n');
+    print('Exception when calling ProjectMembersApi->projectMemberContacts: $e\n');
 }
 ```
 

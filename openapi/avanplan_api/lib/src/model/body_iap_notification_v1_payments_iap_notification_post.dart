@@ -11,11 +11,12 @@ part 'body_iap_notification_v1_payments_iap_notification_post.g.dart';
 /// BodyIapNotificationV1PaymentsIapNotificationPost
 ///
 /// Properties:
-/// * [amount] 
-/// * [operationId] 
-/// * [psystemCode] 
+/// * [amount]
+/// * [operationId]
+/// * [psystemCode]
 @BuiltValue()
-abstract class BodyIapNotificationV1PaymentsIapNotificationPost implements Built<BodyIapNotificationV1PaymentsIapNotificationPost, BodyIapNotificationV1PaymentsIapNotificationPostBuilder> {
+abstract class BodyIapNotificationV1PaymentsIapNotificationPost
+    implements Built<BodyIapNotificationV1PaymentsIapNotificationPost, BodyIapNotificationV1PaymentsIapNotificationPostBuilder> {
   @BuiltValueField(wireName: r'amount')
   int get amount;
 
@@ -27,14 +28,15 @@ abstract class BodyIapNotificationV1PaymentsIapNotificationPost implements Built
 
   BodyIapNotificationV1PaymentsIapNotificationPost._();
 
-  factory BodyIapNotificationV1PaymentsIapNotificationPost([void updates(BodyIapNotificationV1PaymentsIapNotificationPostBuilder b)]) = _$BodyIapNotificationV1PaymentsIapNotificationPost;
+  factory BodyIapNotificationV1PaymentsIapNotificationPost([void updates(BodyIapNotificationV1PaymentsIapNotificationPostBuilder b)]) =
+      _$BodyIapNotificationV1PaymentsIapNotificationPost;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyIapNotificationV1PaymentsIapNotificationPostBuilder b) => b
-      ..psystemCode = 'APPLE_IAP';
+  static void _defaults(BodyIapNotificationV1PaymentsIapNotificationPostBuilder b) => b..psystemCode = 'APPLE_IAP';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyIapNotificationV1PaymentsIapNotificationPost> get serializer => _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer();
+  static Serializer<BodyIapNotificationV1PaymentsIapNotificationPost> get serializer =>
+      _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer();
 }
 
 class _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer implements PrimitiveSerializer<BodyIapNotificationV1PaymentsIapNotificationPost> {
@@ -138,4 +140,3 @@ class _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer implements Pr
     return result.build();
   }
 }
-

@@ -11,10 +11,10 @@ part 'member_contact_get.g.dart';
 /// MemberContactGet
 ///
 /// Properties:
-/// * [id] 
-/// * [value] 
-/// * [description] 
-/// * [memberId] 
+/// * [id]
+/// * [value]
+/// * [description]
+/// * [memberId]
 @BuiltValue()
 abstract class MemberContactGet implements Built<MemberContactGet, MemberContactGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -153,4 +153,3 @@ class _$MemberContactGetSerializer implements PrimitiveSerializer<MemberContactG
     return result.build();
   }
 }
-

@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
 import 'package:avanplan_api/src/model/attachment_get.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/note_get.dart';
 import 'package:avanplan_api/src/model/note_upsert.dart';
 
 class TaskNotesApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,12 +20,12 @@ class TaskNotesApi {
   const TaskNotesApi(this._dio, this._serializers);
 
   /// Delete
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [noteId] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [noteId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,7 +35,7 @@ class TaskNotesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteNote({ 
+  Future<Response<bool>> deleteNote({
     required int wsId,
     required int noteId,
     required int taskId,
@@ -49,7 +46,10 @@ class TaskNotesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -62,7 +62,8 @@ class TaskNotesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -85,7 +86,6 @@ class TaskNotesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -109,13 +109,13 @@ class TaskNotesApi {
   }
 
   /// Upload Attachment
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [noteId] 
-  /// * [file] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [noteId]
+  /// * [file]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -125,7 +125,7 @@ class TaskNotesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [AttachmentGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<AttachmentGet>> uploadAttachment({ 
+  Future<Response<AttachmentGet>> uploadAttachment({
     required int wsId,
     required int taskId,
     required int noteId,
@@ -137,7 +137,10 @@ class TaskNotesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}/attachments'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString())
+        .replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -150,7 +153,8 @@ class TaskNotesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -167,10 +171,9 @@ class TaskNotesApi {
       _bodyData = FormData.fromMap(<String, dynamic>{
         r'file': file,
       });
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -193,11 +196,12 @@ class TaskNotesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(AttachmentGet),
-      ) as AttachmentGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(AttachmentGet),
+            ) as AttachmentGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -221,12 +225,12 @@ class TaskNotesApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [noteUpsert] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [noteUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -236,7 +240,7 @@ class TaskNotesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [NoteGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<NoteGet>> upsertNote({ 
+  Future<Response<NoteGet>> upsertNote({
     required int wsId,
     required int taskId,
     required NoteUpsert noteUpsert,
@@ -247,7 +251,9 @@ class TaskNotesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -260,7 +266,8 @@ class TaskNotesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -276,10 +283,9 @@ class TaskNotesApi {
     try {
       const _type = FullType(NoteUpsert);
       _bodyData = _serializers.serialize(noteUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -302,11 +308,12 @@ class TaskNotesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(NoteGet),
-      ) as NoteGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(NoteGet),
+            ) as NoteGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -328,5 +335,4 @@ class TaskNotesApi {
       extra: _response.extra,
     );
   }
-
 }

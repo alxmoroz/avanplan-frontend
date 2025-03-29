@@ -4,17 +4,14 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/release_note_get.dart';
 import 'package:built_collection/built_collection.dart';
 
 class ReleaseNotesApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -22,10 +19,10 @@ class ReleaseNotesApi {
   const ReleaseNotesApi(this._dio, this._serializers);
 
   /// Release Notes
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [oldVersion] 
+  /// * [oldVersion]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -35,7 +32,7 @@ class ReleaseNotesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<ReleaseNoteGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ReleaseNoteGet>>> releaseNotes({ 
+  Future<Response<BuiltList<ReleaseNoteGet>>> releaseNotes({
     required String oldVersion,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -81,11 +78,12 @@ class ReleaseNotesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(ReleaseNoteGet)]),
-      ) as BuiltList<ReleaseNoteGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(ReleaseNoteGet)]),
+            ) as BuiltList<ReleaseNoteGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -107,5 +105,4 @@ class ReleaseNotesApi {
       extra: _response.extra,
     );
   }
-
 }

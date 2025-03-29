@@ -11,9 +11,9 @@ part 'body_my_calendar_sources_upsert.g.dart';
 /// BodyMyCalendarSourcesUpsert
 ///
 /// Properties:
-/// * [email] 
-/// * [sourceType] 
-/// * [serverAuthCode] 
+/// * [email]
+/// * [sourceType]
+/// * [serverAuthCode]
 @BuiltValue()
 abstract class BodyMyCalendarSourcesUpsert implements Built<BodyMyCalendarSourcesUpsert, BodyMyCalendarSourcesUpsertBuilder> {
   @BuiltValueField(wireName: r'email')
@@ -135,4 +135,3 @@ class _$BodyMyCalendarSourcesUpsertSerializer implements PrimitiveSerializer<Bod
     return result.build();
   }
 }
-

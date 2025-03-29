@@ -11,10 +11,10 @@ part 'user_contact_get.g.dart';
 /// UserContactGet
 ///
 /// Properties:
-/// * [id] 
-/// * [value] 
-/// * [description] 
-/// * [userId] 
+/// * [id]
+/// * [value]
+/// * [description]
+/// * [userId]
 @BuiltValue()
 abstract class UserContactGet implements Built<UserContactGet, UserContactGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -153,4 +153,3 @@ class _$UserContactGetSerializer implements PrimitiveSerializer<UserContactGet> 
     return result.build();
   }
 }
-

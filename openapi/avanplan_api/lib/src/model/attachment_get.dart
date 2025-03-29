@@ -11,13 +11,13 @@ part 'attachment_get.g.dart';
 /// AttachmentGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [type] 
-/// * [bytes] 
-/// * [name] 
-/// * [noteId] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [type]
+/// * [bytes]
+/// * [name]
+/// * [noteId]
 @BuiltValue()
 abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -207,4 +207,3 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
     return result.build();
   }
 }
-

@@ -13,11 +13,11 @@ part 'tariff_get.g.dart';
 /// TariffGet
 ///
 /// Properties:
-/// * [id] 
-/// * [code] 
-/// * [hidden] 
-/// * [tier] 
-/// * [options] 
+/// * [id]
+/// * [code]
+/// * [hidden]
+/// * [tier]
+/// * [options]
 @BuiltValue()
 abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -169,4 +169,3 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
     return result.build();
   }
 }
-

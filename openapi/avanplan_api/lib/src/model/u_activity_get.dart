@@ -11,13 +11,13 @@ part 'u_activity_get.g.dart';
 /// UActivityGet
 ///
 /// Properties:
-/// * [id] 
-/// * [createdOn] 
-/// * [code] 
-/// * [userId] 
-/// * [platform] 
-/// * [version] 
-/// * [wsId] 
+/// * [id]
+/// * [createdOn]
+/// * [code]
+/// * [userId]
+/// * [platform]
+/// * [version]
+/// * [wsId]
 @BuiltValue()
 abstract class UActivityGet implements Built<UActivityGet, UActivityGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -201,4 +201,3 @@ class _$UActivityGetSerializer implements PrimitiveSerializer<UActivityGet> {
     return result.build();
   }
 }
-

@@ -4,19 +4,16 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/task_get.dart';
 import 'package:avanplan_api/src/model/task_relation_get.dart';
 import 'package:avanplan_api/src/model/task_relation_upsert.dart';
 import 'package:built_collection/built_collection.dart';
 
 class WSRelationsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -24,12 +21,12 @@ class WSRelationsApi {
   const WSRelationsApi(this._dio, this._serializers);
 
   /// Delete Relation
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [relationId] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [relationId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,7 +36,7 @@ class WSRelationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteRelation({ 
+  Future<Response<bool>> deleteRelation({
     required int wsId,
     required int relationId,
     int? taskId,
@@ -50,7 +47,9 @@ class WSRelationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/relations/{relation_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'relation_id' '}', encodeQueryParameter(_serializers, relationId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/relations/{relation_id}'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'relation_id' '}', encodeQueryParameter(_serializers, relationId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -63,7 +62,8 @@ class WSRelationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -91,7 +91,6 @@ class WSRelationsApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -115,11 +114,11 @@ class WSRelationsApi {
   }
 
   /// Sources For Relations
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -129,7 +128,7 @@ class WSRelationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> sourcesForRelations({ 
+  Future<Response<BuiltList<TaskGet>>> sourcesForRelations({
     required int wsId,
     int? taskId,
     CancelToken? cancelToken,
@@ -139,7 +138,8 @@ class WSRelationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/relations/sources'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/relations/sources'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -152,7 +152,8 @@ class WSRelationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -179,11 +180,12 @@ class WSRelationsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-      ) as BuiltList<TaskGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+            ) as BuiltList<TaskGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -207,12 +209,12 @@ class WSRelationsApi {
   }
 
   /// Upsert Relation
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskRelationUpsert] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [taskRelationUpsert]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -222,7 +224,7 @@ class WSRelationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [TaskRelationGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<TaskRelationGet>> upsertRelation({ 
+  Future<Response<TaskRelationGet>> upsertRelation({
     required int wsId,
     required TaskRelationUpsert taskRelationUpsert,
     int? taskId,
@@ -233,7 +235,8 @@ class WSRelationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/relations'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path =
+        r'/v1/workspaces/{ws_id}/relations'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -246,7 +249,8 @@ class WSRelationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -266,10 +270,9 @@ class WSRelationsApi {
     try {
       const _type = FullType(TaskRelationUpsert);
       _bodyData = _serializers.serialize(taskRelationUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
@@ -294,11 +297,12 @@ class WSRelationsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(TaskRelationGet),
-      ) as TaskRelationGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(TaskRelationGet),
+            ) as TaskRelationGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -320,5 +324,4 @@ class WSRelationsApi {
       extra: _response.extra,
     );
   }
-
 }

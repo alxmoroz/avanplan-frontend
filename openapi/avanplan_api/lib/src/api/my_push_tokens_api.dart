@@ -4,15 +4,12 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 
 class MyPushTokensApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -20,10 +17,10 @@ class MyPushTokensApi {
   const MyPushTokensApi(this._dio, this._serializers);
 
   /// Update Push Token
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [bodyUpdatePushTokenV1MyPushTokensPost] 
+  /// * [bodyUpdatePushTokenV1MyPushTokensPost]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -33,7 +30,7 @@ class MyPushTokensApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> updatePushTokenV1MyPushTokensPost({ 
+  Future<Response<bool>> updatePushTokenV1MyPushTokensPost({
     required BodyUpdatePushTokenV1MyPushTokensPost bodyUpdatePushTokenV1MyPushTokensPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -55,7 +52,8 @@ class MyPushTokensApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -71,10 +69,9 @@ class MyPushTokensApi {
     try {
       const _type = FullType(BodyUpdatePushTokenV1MyPushTokensPost);
       _bodyData = _serializers.serialize(bodyUpdatePushTokenV1MyPushTokensPost, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -98,7 +95,6 @@ class MyPushTokensApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -120,5 +116,4 @@ class MyPushTokensApi {
       extra: _response.extra,
     );
   }
-
 }

@@ -11,9 +11,9 @@ part 'registration.g.dart';
 /// Registration
 ///
 /// Properties:
-/// * [name] 
-/// * [email] 
-/// * [invitationToken] 
+/// * [name]
+/// * [email]
+/// * [invitationToken]
 @BuiltValue()
 abstract class Registration implements Built<Registration, RegistrationBuilder> {
   @BuiltValueField(wireName: r'name')
@@ -137,4 +137,3 @@ class _$RegistrationSerializer implements PrimitiveSerializer<Registration> {
     return result.build();
   }
 }
-

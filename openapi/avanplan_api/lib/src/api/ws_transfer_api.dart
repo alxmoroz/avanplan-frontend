@@ -4,19 +4,16 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/project_get.dart';
 import 'package:avanplan_api/src/model/task_get.dart';
 import 'package:avanplan_api/src/model/tasks_changes.dart';
 import 'package:built_collection/built_collection.dart';
 
 class WSTransferApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -24,14 +21,14 @@ class WSTransferApi {
   const WSTransferApi(this._dio, this._serializers);
 
   /// Create From Template
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [srcProjectId] 
-  /// * [srcWsId] 
-  /// * [srcTaskId] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [srcProjectId]
+  /// * [srcWsId]
+  /// * [srcTaskId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -41,7 +38,7 @@ class WSTransferApi {
   ///
   /// Returns a [Future] containing a [Response] with a [TasksChanges] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<TasksChanges>> createFromTemplate({ 
+  Future<Response<TasksChanges>> createFromTemplate({
     required int wsId,
     required int srcProjectId,
     required int srcWsId,
@@ -54,7 +51,8 @@ class WSTransferApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/transfer/create_from_template'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/transfer/create_from_template'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -67,7 +65,8 @@ class WSTransferApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -97,11 +96,12 @@ class WSTransferApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(TasksChanges),
-      ) as TasksChanges;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(TasksChanges),
+            ) as TasksChanges;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -125,12 +125,12 @@ class WSTransferApi {
   }
 
   /// Destinations For Move
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskType] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [taskType]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -140,7 +140,7 @@ class WSTransferApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> destinationsForMove({ 
+  Future<Response<BuiltList<TaskGet>>> destinationsForMove({
     required int wsId,
     required String taskType,
     int? taskId,
@@ -151,7 +151,8 @@ class WSTransferApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/transfer/destinations_for_move'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/transfer/destinations_for_move'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -164,7 +165,8 @@ class WSTransferApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -192,11 +194,12 @@ class WSTransferApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-      ) as BuiltList<TaskGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+            ) as BuiltList<TaskGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -220,10 +223,10 @@ class WSTransferApi {
   }
 
   /// Project Templates
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
+  /// * [wsId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -233,7 +236,7 @@ class WSTransferApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<ProjectGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ProjectGet>>> projectTemplates({ 
+  Future<Response<BuiltList<ProjectGet>>> projectTemplates({
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -242,7 +245,8 @@ class WSTransferApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/transfer/project_templates'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/transfer/project_templates'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -255,7 +259,8 @@ class WSTransferApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -277,11 +282,12 @@ class WSTransferApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(ProjectGet)]),
-      ) as BuiltList<ProjectGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(ProjectGet)]),
+            ) as BuiltList<ProjectGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -305,11 +311,11 @@ class WSTransferApi {
   }
 
   /// Sources For Move
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -319,7 +325,7 @@ class WSTransferApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> sourcesForMoveTasks({ 
+  Future<Response<BuiltList<TaskGet>>> sourcesForMoveTasks({
     required int wsId,
     int? taskId,
     CancelToken? cancelToken,
@@ -329,7 +335,8 @@ class WSTransferApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/transfer/sources_for_move'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/transfer/sources_for_move'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -342,7 +349,8 @@ class WSTransferApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -369,11 +377,12 @@ class WSTransferApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-      ) as BuiltList<TaskGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+            ) as BuiltList<TaskGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -395,5 +404,4 @@ class WSTransferApi {
       extra: _response.extra,
     );
   }
-
 }

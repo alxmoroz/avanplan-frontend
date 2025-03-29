@@ -11,12 +11,12 @@ part 'notification.g.dart';
 /// Notification
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [scheduledDate] 
-/// * [url] 
-/// * [isRead] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [scheduledDate]
+/// * [url]
+/// * [isRead]
 @BuiltValue()
 abstract class Notification implements Built<Notification, NotificationBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -189,4 +189,3 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
     return result.build();
   }
 }
-

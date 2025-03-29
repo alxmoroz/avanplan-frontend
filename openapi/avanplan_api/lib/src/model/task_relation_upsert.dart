@@ -11,10 +11,10 @@ part 'task_relation_upsert.g.dart';
 /// TaskRelationUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [srcId] 
-/// * [dstId] 
-/// * [type] 
+/// * [id]
+/// * [srcId]
+/// * [dstId]
+/// * [type]
 @BuiltValue()
 abstract class TaskRelationUpsert implements Built<TaskRelationUpsert, TaskRelationUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -153,4 +153,3 @@ class _$TaskRelationUpsertSerializer implements PrimitiveSerializer<TaskRelation
     return result.build();
   }
 }
-

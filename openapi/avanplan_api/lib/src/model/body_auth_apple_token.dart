@@ -11,9 +11,9 @@ part 'body_auth_apple_token.g.dart';
 /// BodyAuthAppleToken
 ///
 /// Properties:
-/// * [token] 
-/// * [name] 
-/// * [email] 
+/// * [token]
+/// * [name]
+/// * [email]
 @BuiltValue()
 abstract class BodyAuthAppleToken implements Built<BodyAuthAppleToken, BodyAuthAppleTokenBuilder> {
   @BuiltValueField(wireName: r'token')
@@ -139,4 +139,3 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
     return result.build();
   }
 }
-

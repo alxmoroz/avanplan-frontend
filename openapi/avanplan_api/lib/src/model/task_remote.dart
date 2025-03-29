@@ -12,12 +12,12 @@ part 'task_remote.g.dart';
 /// TaskRemote
 ///
 /// Properties:
-/// * [title] 
-/// * [description] 
-/// * [type] 
-/// * [category] 
-/// * [icon] 
-/// * [taskSource] 
+/// * [title]
+/// * [description]
+/// * [type]
+/// * [category]
+/// * [icon]
+/// * [taskSource]
 @BuiltValue()
 abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   @BuiltValueField(wireName: r'title')
@@ -43,8 +43,7 @@ abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   factory TaskRemote([void updates(TaskRemoteBuilder b)]) = _$TaskRemote;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TaskRemoteBuilder b) => b
-      ..type = 'TASK';
+  static void _defaults(TaskRemoteBuilder b) => b..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskRemote> get serializer => _$TaskRemoteSerializer();
@@ -193,4 +192,3 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
     return result.build();
   }
 }
-

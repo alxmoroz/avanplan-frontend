@@ -11,10 +11,10 @@ part 'calendar_event_attendee.g.dart';
 /// CalendarEventAttendee
 ///
 /// Properties:
-/// * [email] 
-/// * [fullName] 
-/// * [nickName] 
-/// * [sourceCode] 
+/// * [email]
+/// * [fullName]
+/// * [nickName]
+/// * [sourceCode]
 @BuiltValue()
 abstract class CalendarEventAttendee implements Built<CalendarEventAttendee, CalendarEventAttendeeBuilder> {
   @BuiltValueField(wireName: r'email')
@@ -157,4 +157,3 @@ class _$CalendarEventAttendeeSerializer implements PrimitiveSerializer<CalendarE
     return result.build();
   }
 }
-

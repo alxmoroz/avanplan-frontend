@@ -11,17 +11,17 @@ part 'task_source.g.dart';
 /// TaskSource
 ///
 /// Properties:
-/// * [code] 
-/// * [sourceId] 
-/// * [rootCode] 
-/// * [url] 
-/// * [state] 
-/// * [stateDetails] 
-/// * [updatedOn] 
-/// * [keepConnection] 
-/// * [parentCode] 
-/// * [versionCode] 
-/// * [skipUpdate] 
+/// * [code]
+/// * [sourceId]
+/// * [rootCode]
+/// * [url]
+/// * [state]
+/// * [stateDetails]
+/// * [updatedOn]
+/// * [keepConnection]
+/// * [parentCode]
+/// * [versionCode]
+/// * [skipUpdate]
 @BuiltValue()
 abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueField(wireName: r'code')
@@ -63,10 +63,10 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceBuilder b) => b
-      ..url = ''
-      ..state = 'UNKNOWN'
-      ..keepConnection = false
-      ..skipUpdate = false;
+    ..url = ''
+    ..state = 'UNKNOWN'
+    ..keepConnection = false
+    ..skipUpdate = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskSource> get serializer => _$TaskSourceSerializer();
@@ -283,4 +283,3 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
     return result.build();
   }
 }
-

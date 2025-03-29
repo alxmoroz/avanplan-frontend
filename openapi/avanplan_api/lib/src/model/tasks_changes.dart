@@ -13,8 +13,8 @@ part 'tasks_changes.g.dart';
 /// TasksChanges
 ///
 /// Properties:
-/// * [updatedTask] 
-/// * [affectedTasks] 
+/// * [updatedTask]
+/// * [affectedTasks]
 @BuiltValue()
 abstract class TasksChanges implements Built<TasksChanges, TasksChangesBuilder> {
   @BuiltValueField(wireName: r'updated_task')
@@ -121,4 +121,3 @@ class _$TasksChangesSerializer implements PrimitiveSerializer<TasksChanges> {
     return result.build();
   }
 }
-

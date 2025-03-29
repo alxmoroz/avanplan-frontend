@@ -4,16 +4,13 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
 import 'package:avanplan_api/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 
 class PaymentsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -21,11 +18,11 @@ class PaymentsApi {
   const PaymentsApi(this._dio, this._serializers);
 
   /// Iap Notification
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [bodyIapNotificationV1PaymentsIapNotificationPost] 
+  /// * [wsId]
+  /// * [bodyIapNotificationV1PaymentsIapNotificationPost]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -35,7 +32,7 @@ class PaymentsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [num] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<num>> iapNotificationV1PaymentsIapNotificationPost({ 
+  Future<Response<num>> iapNotificationV1PaymentsIapNotificationPost({
     required int wsId,
     required BodyIapNotificationV1PaymentsIapNotificationPost bodyIapNotificationV1PaymentsIapNotificationPost,
     CancelToken? cancelToken,
@@ -58,7 +55,8 @@ class PaymentsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -78,10 +76,9 @@ class PaymentsApi {
     try {
       const _type = FullType(BodyIapNotificationV1PaymentsIapNotificationPost);
       _bodyData = _serializers.serialize(bodyIapNotificationV1PaymentsIapNotificationPost, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
@@ -107,7 +104,6 @@ class PaymentsApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as num;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -129,5 +125,4 @@ class PaymentsApi {
       extra: _response.extra,
     );
   }
-
 }

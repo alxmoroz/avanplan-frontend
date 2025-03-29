@@ -4,17 +4,14 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/project_status_get.dart';
 import 'package:avanplan_api/src/model/project_status_upsert.dart';
 
 class ProjectStatusesApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -22,12 +19,12 @@ class ProjectStatusesApi {
   const ProjectStatusesApi(this._dio, this._serializers);
 
   /// Delete
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [statusId] 
-  /// * [wsId] 
-  /// * [taskId] 
+  /// * [statusId]
+  /// * [wsId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -37,7 +34,7 @@ class ProjectStatusesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteStatus({ 
+  Future<Response<bool>> deleteStatus({
     required int statusId,
     required int wsId,
     required int taskId,
@@ -48,7 +45,10 @@ class ProjectStatusesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id}'.replaceAll('{' r'status_id' '}', encodeQueryParameter(_serializers, statusId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id}'
+        .replaceAll('{' r'status_id' '}', encodeQueryParameter(_serializers, statusId, const FullType(int)).toString())
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -61,7 +61,8 @@ class ProjectStatusesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -84,7 +85,6 @@ class ProjectStatusesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -108,12 +108,12 @@ class ProjectStatusesApi {
   }
 
   /// Status Tasks Count
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [projectStatusId] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [projectStatusId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -123,7 +123,7 @@ class ProjectStatusesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [int] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<int>> statusTasksCount({ 
+  Future<Response<int>> statusTasksCount({
     required int wsId,
     required int taskId,
     required int projectStatusId,
@@ -134,7 +134,9 @@ class ProjectStatusesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/statuses'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/statuses'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -147,7 +149,8 @@ class ProjectStatusesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -175,7 +178,6 @@ class ProjectStatusesApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as int;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -199,12 +201,12 @@ class ProjectStatusesApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [projectStatusUpsert] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [projectStatusUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -214,7 +216,7 @@ class ProjectStatusesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [ProjectStatusGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<ProjectStatusGet>> upsertStatus({ 
+  Future<Response<ProjectStatusGet>> upsertStatus({
     required int wsId,
     required int taskId,
     required ProjectStatusUpsert projectStatusUpsert,
@@ -225,7 +227,9 @@ class ProjectStatusesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/statuses'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/statuses'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -238,7 +242,8 @@ class ProjectStatusesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -254,10 +259,9 @@ class ProjectStatusesApi {
     try {
       const _type = FullType(ProjectStatusUpsert);
       _bodyData = _serializers.serialize(projectStatusUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -280,11 +284,12 @@ class ProjectStatusesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(ProjectStatusGet),
-      ) as ProjectStatusGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(ProjectStatusGet),
+            ) as ProjectStatusGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -306,5 +311,4 @@ class ProjectStatusesApi {
       extra: _response.extra,
     );
   }
-
 }

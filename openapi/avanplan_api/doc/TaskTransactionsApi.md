@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteTransaction_1**](TaskTransactionsApi.md#deletetransaction_1) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
-[**upsertTransaction_1**](TaskTransactionsApi.md#upserttransaction_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
+[**deleteTransaction**](TaskTransactionsApi.md#deletetransaction) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id} | Delete
+[**upsertTransaction**](TaskTransactionsApi.md#upserttransaction) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/transactions | Upsert
 
 
-# **deleteTransaction_1**
-> TasksChanges deleteTransaction_1(wsId, taskId, transactionId)
+# **deleteTransaction**
+> TasksChanges deleteTransaction(wsId, taskId, transactionId)
 
 Delete
 
@@ -34,10 +34,10 @@ final int taskId = 56; // int |
 final int transactionId = 56; // int | 
 
 try {
-    final response = api.deleteTransaction_1(wsId, taskId, transactionId);
+    final response = api.deleteTransaction(wsId, taskId, transactionId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskTransactionsApi->deleteTransaction_1: $e\n');
+    print('Exception when calling TaskTransactionsApi->deleteTransaction: $e\n');
 }
 ```
 
@@ -64,8 +64,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertTransaction_1**
-> TasksChanges upsertTransaction_1(wsId, taskId, taskTransactionUpsert)
+# **upsertTransaction**
+> TasksChanges upsertTransaction(wsId, taskId, taskTransactionUpsert)
 
 Upsert
 
@@ -85,10 +85,10 @@ final int taskId = 56; // int |
 final TaskTransactionUpsert taskTransactionUpsert = ; // TaskTransactionUpsert | 
 
 try {
-    final response = api.upsertTransaction_1(wsId, taskId, taskTransactionUpsert);
+    final response = api.upsertTransaction(wsId, taskId, taskTransactionUpsert);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskTransactionsApi->upsertTransaction_1: $e\n');
+    print('Exception when calling TaskTransactionsApi->upsertTransaction: $e\n');
 }
 ```
 

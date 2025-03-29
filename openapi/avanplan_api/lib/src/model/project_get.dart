@@ -11,14 +11,14 @@ part 'project_get.g.dart';
 /// ProjectGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [type] 
-/// * [category] 
-/// * [icon] 
-/// * [wsId] 
-/// * [position] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [type]
+/// * [category]
+/// * [icon]
+/// * [wsId]
+/// * [position]
 @BuiltValue()
 abstract class ProjectGet implements Built<ProjectGet, ProjectGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -50,8 +50,7 @@ abstract class ProjectGet implements Built<ProjectGet, ProjectGetBuilder> {
   factory ProjectGet([void updates(ProjectGetBuilder b)]) = _$ProjectGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ProjectGetBuilder b) => b
-      ..type = 'TASK';
+  static void _defaults(ProjectGetBuilder b) => b..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<ProjectGet> get serializer => _$ProjectGetSerializer();
@@ -226,4 +225,3 @@ class _$ProjectGetSerializer implements PrimitiveSerializer<ProjectGet> {
     return result.build();
   }
 }
-

@@ -11,13 +11,13 @@ part 'source_upsert.g.dart';
 /// SourceUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [type] 
-/// * [url] 
-/// * [apiKey] 
-/// * [username] 
-/// * [description] 
-/// * [password] 
+/// * [id]
+/// * [type]
+/// * [url]
+/// * [apiKey]
+/// * [username]
+/// * [description]
+/// * [password]
 @BuiltValue()
 abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -209,4 +209,3 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
     return result.build();
   }
 }
-

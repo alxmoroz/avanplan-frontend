@@ -13,16 +13,16 @@ part 'calendar_event_get.g.dart';
 /// CalendarEventGet
 ///
 /// Properties:
-/// * [title] 
-/// * [description] 
-/// * [calendarId] 
-/// * [startDate] 
-/// * [endDate] 
-/// * [allDay] 
-/// * [location] 
-/// * [attendees] 
-/// * [sourceCode] 
-/// * [sourceLink] 
+/// * [title]
+/// * [description]
+/// * [calendarId]
+/// * [startDate]
+/// * [endDate]
+/// * [allDay]
+/// * [location]
+/// * [attendees]
+/// * [sourceCode]
+/// * [sourceLink]
 @BuiltValue()
 abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEventGetBuilder> {
   @BuiltValueField(wireName: r'title')
@@ -61,8 +61,8 @@ abstract class CalendarEventGet implements Built<CalendarEventGet, CalendarEvent
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CalendarEventGetBuilder b) => b
-      ..allDay = false
-      ..attendees = ListBuilder();
+    ..allDay = false
+    ..attendees = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<CalendarEventGet> get serializer => _$CalendarEventGetSerializer();
@@ -263,4 +263,3 @@ class _$CalendarEventGetSerializer implements PrimitiveSerializer<CalendarEventG
     return result.build();
   }
 }
-

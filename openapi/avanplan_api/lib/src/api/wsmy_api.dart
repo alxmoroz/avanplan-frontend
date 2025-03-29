@@ -4,17 +4,14 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/task_get.dart';
 import 'package:built_collection/built_collection.dart';
 
 class WSMyApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -25,10 +22,10 @@ class WSMyApi {
   /// Мои проекты, куда у меня есть доступ, в том числе Входящие
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [closed] 
-  /// * [imported] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [closed]
+  /// * [imported]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,7 +35,7 @@ class WSMyApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> myProjects({ 
+  Future<Response<BuiltList<TaskGet>>> myProjects({
     required int wsId,
     bool? closed,
     bool? imported,
@@ -50,7 +47,8 @@ class WSMyApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/my/projects'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path =
+        r'/v1/workspaces/{ws_id}/my/projects'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -63,7 +61,8 @@ class WSMyApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -92,11 +91,12 @@ class WSMyApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-      ) as BuiltList<TaskGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+            ) as BuiltList<TaskGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -123,9 +123,9 @@ class WSMyApi {
   /// Мои задачи
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [projectId] 
-  /// * [taskId] 
+  /// * [wsId]
+  /// * [projectId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -135,7 +135,7 @@ class WSMyApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> myTasks({ 
+  Future<Response<BuiltList<TaskGet>>> myTasks({
     required int wsId,
     int? projectId,
     int? taskId,
@@ -146,7 +146,8 @@ class WSMyApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/my/tasks'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path =
+        r'/v1/workspaces/{ws_id}/my/tasks'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -159,7 +160,8 @@ class WSMyApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -187,11 +189,12 @@ class WSMyApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-      ) as BuiltList<TaskGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+            ) as BuiltList<TaskGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -213,5 +216,4 @@ class WSMyApi {
       extra: _response.extra,
     );
   }
-
 }

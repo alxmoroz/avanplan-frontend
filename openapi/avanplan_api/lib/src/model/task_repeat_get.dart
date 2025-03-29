@@ -11,11 +11,11 @@ part 'task_repeat_get.g.dart';
 /// TaskRepeatGet
 ///
 /// Properties:
-/// * [id] 
-/// * [taskId] 
-/// * [periodType] 
-/// * [periodLength] 
-/// * [daysList] 
+/// * [id]
+/// * [taskId]
+/// * [periodType]
+/// * [periodLength]
+/// * [daysList]
 @BuiltValue()
 abstract class TaskRepeatGet implements Built<TaskRepeatGet, TaskRepeatGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -167,4 +167,3 @@ class _$TaskRepeatGetSerializer implements PrimitiveSerializer<TaskRepeatGet> {
     return result.build();
   }
 }
-

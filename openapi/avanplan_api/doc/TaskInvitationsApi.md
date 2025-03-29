@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createInvitation_1**](TaskInvitationsApi.md#createinvitation_1) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
-[**getInvitations_1**](TaskInvitationsApi.md#getinvitations_1) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
+[**createInvitation**](TaskInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
+[**getInvitations**](TaskInvitationsApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 
 
-# **createInvitation_1**
-> InvitationGet createInvitation_1(wsId, taskId, invitation)
+# **createInvitation**
+> InvitationGet createInvitation(wsId, taskId, invitation)
 
 Create
 
@@ -34,10 +34,10 @@ final int taskId = 56; // int |
 final Invitation invitation = ; // Invitation | 
 
 try {
-    final response = api.createInvitation_1(wsId, taskId, invitation);
+    final response = api.createInvitation(wsId, taskId, invitation);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskInvitationsApi->createInvitation_1: $e\n');
+    print('Exception when calling TaskInvitationsApi->createInvitation: $e\n');
 }
 ```
 
@@ -64,8 +64,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getInvitations_1**
-> BuiltList<InvitationGet> getInvitations_1(taskId, wsId, roleId)
+# **getInvitations**
+> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId)
 
 Invitations
 
@@ -85,10 +85,10 @@ final int wsId = 56; // int |
 final int roleId = 56; // int | 
 
 try {
-    final response = api.getInvitations_1(taskId, wsId, roleId);
+    final response = api.getInvitations(taskId, wsId, roleId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TaskInvitationsApi->getInvitations_1: $e\n');
+    print('Exception when calling TaskInvitationsApi->getInvitations: $e\n');
 }
 ```
 

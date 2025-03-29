@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/model/body_my_calendar_sources_upsert.dart';
 import 'package:avanplan_api/src/model/calendar_source_get.dart';
 import 'package:avanplan_api/src/model/calendars_events.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:built_collection/built_collection.dart';
 
 class MyCalendarApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,7 +20,7 @@ class MyCalendarApi {
   const MyCalendarApi(this._dio, this._serializers);
 
   /// Sources
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -35,7 +32,7 @@ class MyCalendarApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<CalendarSourceGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<CalendarSourceGet>>> myCalendarSources({ 
+  Future<Response<BuiltList<CalendarSourceGet>>> myCalendarSources({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -56,7 +53,8 @@ class MyCalendarApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -78,11 +76,12 @@ class MyCalendarApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(CalendarSourceGet)]),
-      ) as BuiltList<CalendarSourceGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(CalendarSourceGet)]),
+            ) as BuiltList<CalendarSourceGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -106,10 +105,10 @@ class MyCalendarApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [bodyMyCalendarSourcesUpsert] 
+  /// * [bodyMyCalendarSourcesUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -119,7 +118,7 @@ class MyCalendarApi {
   ///
   /// Returns a [Future] containing a [Response] with a [CalendarSourceGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<CalendarSourceGet>> myCalendarSourcesUpsert({ 
+  Future<Response<CalendarSourceGet>> myCalendarSourcesUpsert({
     required BodyMyCalendarSourcesUpsert bodyMyCalendarSourcesUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -141,7 +140,8 @@ class MyCalendarApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -157,10 +157,9 @@ class MyCalendarApi {
     try {
       const _type = FullType(BodyMyCalendarSourcesUpsert);
       _bodyData = _serializers.serialize(bodyMyCalendarSourcesUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -183,11 +182,12 @@ class MyCalendarApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(CalendarSourceGet),
-      ) as CalendarSourceGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(CalendarSourceGet),
+            ) as CalendarSourceGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -211,7 +211,7 @@ class MyCalendarApi {
   }
 
   /// Calendars Events
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -223,7 +223,7 @@ class MyCalendarApi {
   ///
   /// Returns a [Future] containing a [Response] with a [CalendarsEvents] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<CalendarsEvents>> myCalendarsEvents({ 
+  Future<Response<CalendarsEvents>> myCalendarsEvents({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -244,7 +244,8 @@ class MyCalendarApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -266,11 +267,12 @@ class MyCalendarApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(CalendarsEvents),
-      ) as CalendarsEvents;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(CalendarsEvents),
+            ) as CalendarsEvents;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -292,5 +294,4 @@ class MyCalendarApi {
       extra: _response.extra,
     );
   }
-
 }

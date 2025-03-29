@@ -4,16 +4,13 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/invoice_get.dart';
 
 class WSTariffOptionsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -21,13 +18,13 @@ class WSTariffOptionsApi {
   const WSTariffOptionsApi(this._dio, this._serializers);
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [tariffId] 
-  /// * [optionId] 
-  /// * [subscribe] 
+  /// * [wsId]
+  /// * [tariffId]
+  /// * [optionId]
+  /// * [subscribe]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -37,7 +34,7 @@ class WSTariffOptionsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [InvoiceGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<InvoiceGet>> upsertOption({ 
+  Future<Response<InvoiceGet>> upsertOption({
     required int wsId,
     required int tariffId,
     required int optionId,
@@ -49,7 +46,10 @@ class WSTariffOptionsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString()).replaceAll('{' r'option_id' '}', encodeQueryParameter(_serializers, optionId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id}'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'tariff_id' '}', encodeQueryParameter(_serializers, tariffId, const FullType(int)).toString())
+        .replaceAll('{' r'option_id' '}', encodeQueryParameter(_serializers, optionId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -62,7 +62,8 @@ class WSTariffOptionsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -89,11 +90,12 @@ class WSTariffOptionsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(InvoiceGet),
-      ) as InvoiceGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(InvoiceGet),
+            ) as InvoiceGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -115,5 +117,4 @@ class WSTariffOptionsApi {
       extra: _response.extra,
     );
   }
-
 }

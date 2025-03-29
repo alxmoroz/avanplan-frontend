@@ -4,17 +4,14 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/task_transaction_upsert.dart';
 import 'package:avanplan_api/src/model/tasks_changes.dart';
 
 class TaskTransactionsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -22,12 +19,12 @@ class TaskTransactionsApi {
   const TaskTransactionsApi(this._dio, this._serializers);
 
   /// Delete
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [transactionId] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [transactionId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -37,7 +34,7 @@ class TaskTransactionsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [TasksChanges] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<TasksChanges>> deleteTransaction({ 
+  Future<Response<TasksChanges>> deleteTransaction({
     required int wsId,
     required int taskId,
     required int transactionId,
@@ -48,7 +45,10 @@ class TaskTransactionsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'transaction_id' '}', encodeQueryParameter(_serializers, transactionId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/transactions/{transaction_id}'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString())
+        .replaceAll('{' r'transaction_id' '}', encodeQueryParameter(_serializers, transactionId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -61,7 +61,8 @@ class TaskTransactionsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -83,11 +84,12 @@ class TaskTransactionsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(TasksChanges),
-      ) as TasksChanges;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(TasksChanges),
+            ) as TasksChanges;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -111,12 +113,12 @@ class TaskTransactionsApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [taskTransactionUpsert] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [taskTransactionUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -126,7 +128,7 @@ class TaskTransactionsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [TasksChanges] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<TasksChanges>> upsertTransaction({ 
+  Future<Response<TasksChanges>> upsertTransaction({
     required int wsId,
     required int taskId,
     required TaskTransactionUpsert taskTransactionUpsert,
@@ -137,7 +139,9 @@ class TaskTransactionsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/transactions'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/transactions'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -150,7 +154,8 @@ class TaskTransactionsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -166,10 +171,9 @@ class TaskTransactionsApi {
     try {
       const _type = FullType(TaskTransactionUpsert);
       _bodyData = _serializers.serialize(taskTransactionUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -192,11 +196,12 @@ class TaskTransactionsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(TasksChanges),
-      ) as TasksChanges;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(TasksChanges),
+            ) as TasksChanges;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -218,5 +223,4 @@ class TaskTransactionsApi {
       extra: _response.extra,
     );
   }
-
 }

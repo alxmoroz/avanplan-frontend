@@ -13,9 +13,9 @@ part 'role_get.g.dart';
 /// RoleGet
 ///
 /// Properties:
-/// * [id] 
-/// * [code] 
-/// * [permissionRoles] 
+/// * [id]
+/// * [code]
+/// * [permissionRoles]
 @BuiltValue()
 abstract class RoleGet implements Built<RoleGet, RoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -137,4 +137,3 @@ class _$RoleGetSerializer implements PrimitiveSerializer<RoleGet> {
     return result.build();
   }
 }
-

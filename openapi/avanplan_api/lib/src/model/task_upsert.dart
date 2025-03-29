@@ -11,24 +11,24 @@ part 'task_upsert.g.dart';
 /// TaskUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [type] 
-/// * [category] 
-/// * [icon] 
-/// * [closed] 
-/// * [startDate] 
-/// * [dueDate] 
-/// * [closedDate] 
-/// * [estimate] 
-/// * [createdOn] 
-/// * [updatedOn] 
-/// * [parentId] 
-/// * [assigneeId] 
-/// * [authorId] 
-/// * [projectStatusId] 
-/// * [taskSourceId] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [type]
+/// * [category]
+/// * [icon]
+/// * [closed]
+/// * [startDate]
+/// * [dueDate]
+/// * [closedDate]
+/// * [estimate]
+/// * [createdOn]
+/// * [updatedOn]
+/// * [parentId]
+/// * [assigneeId]
+/// * [authorId]
+/// * [projectStatusId]
+/// * [taskSourceId]
 @BuiltValue()
 abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -91,8 +91,8 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskUpsertBuilder b) => b
-      ..type = 'TASK'
-      ..closed = false;
+    ..type = 'TASK'
+    ..closed = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskUpsert> get serializer => _$TaskUpsertSerializer();
@@ -411,4 +411,3 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
     return result.build();
   }
 }
-

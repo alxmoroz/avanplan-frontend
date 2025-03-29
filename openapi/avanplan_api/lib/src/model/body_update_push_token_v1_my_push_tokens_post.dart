@@ -11,11 +11,12 @@ part 'body_update_push_token_v1_my_push_tokens_post.g.dart';
 /// BodyUpdatePushTokenV1MyPushTokensPost
 ///
 /// Properties:
-/// * [code] 
-/// * [platform] 
-/// * [hasPermission] 
+/// * [code]
+/// * [platform]
+/// * [hasPermission]
 @BuiltValue()
-abstract class BodyUpdatePushTokenV1MyPushTokensPost implements Built<BodyUpdatePushTokenV1MyPushTokensPost, BodyUpdatePushTokenV1MyPushTokensPostBuilder> {
+abstract class BodyUpdatePushTokenV1MyPushTokensPost
+    implements Built<BodyUpdatePushTokenV1MyPushTokensPost, BodyUpdatePushTokenV1MyPushTokensPostBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
@@ -27,7 +28,8 @@ abstract class BodyUpdatePushTokenV1MyPushTokensPost implements Built<BodyUpdate
 
   BodyUpdatePushTokenV1MyPushTokensPost._();
 
-  factory BodyUpdatePushTokenV1MyPushTokensPost([void updates(BodyUpdatePushTokenV1MyPushTokensPostBuilder b)]) = _$BodyUpdatePushTokenV1MyPushTokensPost;
+  factory BodyUpdatePushTokenV1MyPushTokensPost([void updates(BodyUpdatePushTokenV1MyPushTokensPostBuilder b)]) =
+      _$BodyUpdatePushTokenV1MyPushTokensPost;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BodyUpdatePushTokenV1MyPushTokensPostBuilder b) => b;
@@ -135,4 +137,3 @@ class _$BodyUpdatePushTokenV1MyPushTokensPostSerializer implements PrimitiveSeri
     return result.build();
   }
 }
-

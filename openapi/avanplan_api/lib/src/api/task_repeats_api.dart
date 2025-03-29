@@ -4,17 +4,14 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/task_repeat_get.dart';
 import 'package:avanplan_api/src/model/task_repeat_upsert.dart';
 
 class TaskRepeatsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -22,12 +19,12 @@ class TaskRepeatsApi {
   const TaskRepeatsApi(this._dio, this._serializers);
 
   /// Delete
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [repeatId] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [repeatId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -37,7 +34,7 @@ class TaskRepeatsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteRepeat({ 
+  Future<Response<bool>> deleteRepeat({
     required int wsId,
     required int taskId,
     required int repeatId,
@@ -48,7 +45,10 @@ class TaskRepeatsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id}'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'repeat_id' '}', encodeQueryParameter(_serializers, repeatId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/repeats/{repeat_id}'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString())
+        .replaceAll('{' r'repeat_id' '}', encodeQueryParameter(_serializers, repeatId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -61,7 +61,8 @@ class TaskRepeatsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -84,7 +85,6 @@ class TaskRepeatsApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -108,12 +108,12 @@ class TaskRepeatsApi {
   }
 
   /// Upsert
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [taskRepeatUpsert] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [taskRepeatUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -123,7 +123,7 @@ class TaskRepeatsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [TaskRepeatGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<TaskRepeatGet>> upsertRepeat({ 
+  Future<Response<TaskRepeatGet>> upsertRepeat({
     required int wsId,
     required int taskId,
     required TaskRepeatUpsert taskRepeatUpsert,
@@ -134,7 +134,9 @@ class TaskRepeatsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/repeats'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/repeats'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -147,7 +149,8 @@ class TaskRepeatsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -163,10 +166,9 @@ class TaskRepeatsApi {
     try {
       const _type = FullType(TaskRepeatUpsert);
       _bodyData = _serializers.serialize(taskRepeatUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -189,11 +191,12 @@ class TaskRepeatsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(TaskRepeatGet),
-      ) as TaskRepeatGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(TaskRepeatGet),
+            ) as TaskRepeatGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -215,5 +218,4 @@ class TaskRepeatsApi {
       extra: _response.extra,
     );
   }
-
 }

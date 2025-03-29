@@ -11,12 +11,12 @@ part 'project_status_get.g.dart';
 /// ProjectStatusGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [position] 
-/// * [closed] 
-/// * [projectId] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [position]
+/// * [closed]
+/// * [projectId]
 @BuiltValue()
 abstract class ProjectStatusGet implements Built<ProjectStatusGet, ProjectStatusGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -185,4 +185,3 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
     return result.build();
   }
 }
-

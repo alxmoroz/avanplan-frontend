@@ -11,10 +11,10 @@ part 'user_contact_upsert.g.dart';
 /// UserContactUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [value] 
-/// * [description] 
-/// * [userId] 
+/// * [id]
+/// * [value]
+/// * [description]
+/// * [userId]
 @BuiltValue()
 abstract class UserContactUpsert implements Built<UserContactUpsert, UserContactUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -155,4 +155,3 @@ class _$UserContactUpsertSerializer implements PrimitiveSerializer<UserContactUp
     return result.build();
   }
 }
-

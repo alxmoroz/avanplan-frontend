@@ -13,9 +13,9 @@ part 'task_node.g.dart';
 /// TaskNode
 ///
 /// Properties:
-/// * [task] 
-/// * [parents] 
-/// * [subtasks] 
+/// * [task]
+/// * [parents]
+/// * [subtasks]
 @BuiltValue()
 abstract class TaskNode implements Built<TaskNode, TaskNodeBuilder> {
   @BuiltValueField(wireName: r'task')
@@ -137,4 +137,3 @@ class _$TaskNodeSerializer implements PrimitiveSerializer<TaskNode> {
     return result.build();
   }
 }
-

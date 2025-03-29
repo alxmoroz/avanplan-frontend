@@ -19,23 +19,23 @@ part 'workspace_get.g.dart';
 /// WorkspaceGet
 ///
 /// Properties:
-/// * [id] 
-/// * [expiresOn] 
-/// * [createdOn] 
-/// * [title] 
-/// * [description] 
-/// * [code] 
-/// * [type] 
-/// * [users] 
-/// * [members] 
-/// * [roles] 
-/// * [invoice] 
-/// * [balance] 
-/// * [settings] 
-/// * [estimateValues] 
-/// * [sources] 
-/// * [fsVolume] 
-/// * [tasksCount] 
+/// * [id]
+/// * [expiresOn]
+/// * [createdOn]
+/// * [title]
+/// * [description]
+/// * [code]
+/// * [type]
+/// * [users]
+/// * [members]
+/// * [roles]
+/// * [invoice]
+/// * [balance]
+/// * [settings]
+/// * [estimateValues]
+/// * [sources]
+/// * [fsVolume]
+/// * [tasksCount]
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -95,15 +95,15 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
-      ..type = 'PRIVATE'
-      ..users = ListBuilder()
-      ..members = ListBuilder()
-      ..roles = ListBuilder()
-      ..balance = 0
-      ..estimateValues = ListBuilder()
-      ..sources = ListBuilder()
-      ..fsVolume = 0
-      ..tasksCount = 0;
+    ..type = 'PRIVATE'
+    ..users = ListBuilder()
+    ..members = ListBuilder()
+    ..roles = ListBuilder()
+    ..balance = 0
+    ..estimateValues = ListBuilder()
+    ..sources = ListBuilder()
+    ..fsVolume = 0
+    ..tasksCount = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -402,4 +402,3 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
     return result.build();
   }
 }
-

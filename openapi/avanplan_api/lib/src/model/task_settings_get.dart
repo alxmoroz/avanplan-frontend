@@ -11,10 +11,10 @@ part 'task_settings_get.g.dart';
 /// TaskSettingsGet
 ///
 /// Properties:
-/// * [id] 
-/// * [taskId] 
-/// * [code] 
-/// * [value] 
+/// * [id]
+/// * [taskId]
+/// * [code]
+/// * [value]
 @BuiltValue()
 abstract class TaskSettingsGet implements Built<TaskSettingsGet, TaskSettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -151,4 +151,3 @@ class _$TaskSettingsGetSerializer implements PrimitiveSerializer<TaskSettingsGet
     return result.build();
   }
 }
-

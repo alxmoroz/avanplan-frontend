@@ -4,16 +4,13 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/model/body_register_v1_my_activities_register_post.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/my_user.dart';
 
 class MyActivitiesApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -21,10 +18,10 @@ class MyActivitiesApi {
   const MyActivitiesApi(this._dio, this._serializers);
 
   /// Register
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [bodyRegisterV1MyActivitiesRegisterPost] 
+  /// * [bodyRegisterV1MyActivitiesRegisterPost]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -34,7 +31,7 @@ class MyActivitiesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MyUser>> registerV1MyActivitiesRegisterPost({ 
+  Future<Response<MyUser>> registerV1MyActivitiesRegisterPost({
     required BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -56,7 +53,8 @@ class MyActivitiesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -72,10 +70,9 @@ class MyActivitiesApi {
     try {
       const _type = FullType(BodyRegisterV1MyActivitiesRegisterPost);
       _bodyData = _serializers.serialize(bodyRegisterV1MyActivitiesRegisterPost, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -98,11 +95,12 @@ class MyActivitiesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(MyUser),
-      ) as MyUser;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(MyUser),
+            ) as MyUser;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -124,5 +122,4 @@ class MyActivitiesApi {
       extra: _response.extra,
     );
   }
-
 }

@@ -14,8 +14,8 @@ part 'calendars_events.g.dart';
 /// CalendarsEvents
 ///
 /// Properties:
-/// * [calendars] 
-/// * [events] 
+/// * [calendars]
+/// * [events]
 @BuiltValue()
 abstract class CalendarsEvents implements Built<CalendarsEvents, CalendarsEventsBuilder> {
   @BuiltValueField(wireName: r'calendars')
@@ -122,4 +122,3 @@ class _$CalendarsEventsSerializer implements PrimitiveSerializer<CalendarsEvents
     return result.build();
   }
 }
-

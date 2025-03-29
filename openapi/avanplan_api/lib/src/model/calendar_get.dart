@@ -11,14 +11,14 @@ part 'calendar_get.g.dart';
 /// CalendarGet
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [calendarSourceId] 
-/// * [sourceCode] 
-/// * [enabled] 
-/// * [backgroundColor] 
-/// * [foregroundColor] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [calendarSourceId]
+/// * [sourceCode]
+/// * [enabled]
+/// * [backgroundColor]
+/// * [foregroundColor]
 @BuiltValue()
 abstract class CalendarGet implements Built<CalendarGet, CalendarGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -50,8 +50,7 @@ abstract class CalendarGet implements Built<CalendarGet, CalendarGetBuilder> {
   factory CalendarGet([void updates(CalendarGetBuilder b)]) = _$CalendarGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(CalendarGetBuilder b) => b
-      ..enabled = true;
+  static void _defaults(CalendarGetBuilder b) => b..enabled = true;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<CalendarGet> get serializer => _$CalendarGetSerializer();
@@ -224,4 +223,3 @@ class _$CalendarGetSerializer implements PrimitiveSerializer<CalendarGet> {
     return result.build();
   }
 }
-

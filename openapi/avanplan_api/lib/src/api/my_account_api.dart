@@ -4,15 +4,12 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/my_user.dart';
 
 class MyAccountApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -20,7 +17,7 @@ class MyAccountApi {
   const MyAccountApi(this._dio, this._serializers);
 
   /// Account
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -32,7 +29,7 @@ class MyAccountApi {
   ///
   /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MyUser>> accountV1MyAccountGet({ 
+  Future<Response<MyUser>> accountV1MyAccountGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -53,7 +50,8 @@ class MyAccountApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -75,11 +73,12 @@ class MyAccountApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(MyUser),
-      ) as MyUser;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(MyUser),
+            ) as MyUser;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -103,7 +102,7 @@ class MyAccountApi {
   }
 
   /// Delete Account
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -115,7 +114,7 @@ class MyAccountApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteAccountV1MyAccountDelete({ 
+  Future<Response<bool>> deleteAccountV1MyAccountDelete({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -136,7 +135,8 @@ class MyAccountApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -159,7 +159,6 @@ class MyAccountApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -181,5 +180,4 @@ class MyAccountApi {
       extra: _response.extra,
     );
   }
-
 }

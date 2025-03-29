@@ -11,10 +11,10 @@ part 'invitation.g.dart';
 /// Invitation
 ///
 /// Properties:
-/// * [expiresOn] 
-/// * [taskId] 
-/// * [roleId] 
-/// * [url] 
+/// * [expiresOn]
+/// * [taskId]
+/// * [roleId]
+/// * [url]
 @BuiltValue()
 abstract class Invitation implements Built<Invitation, InvitationBuilder> {
   @BuiltValueField(wireName: r'expires_on')
@@ -153,4 +153,3 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
     return result.build();
   }
 }
-

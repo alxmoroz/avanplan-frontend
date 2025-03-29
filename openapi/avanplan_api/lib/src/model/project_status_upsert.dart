@@ -11,12 +11,12 @@ part 'project_status_upsert.g.dart';
 /// ProjectStatusUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [position] 
-/// * [closed] 
-/// * [projectId] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [position]
+/// * [closed]
+/// * [projectId]
 @BuiltValue()
 abstract class ProjectStatusUpsert implements Built<ProjectStatusUpsert, ProjectStatusUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -187,4 +187,3 @@ class _$ProjectStatusUpsertSerializer implements PrimitiveSerializer<ProjectStat
     return result.build();
   }
 }
-

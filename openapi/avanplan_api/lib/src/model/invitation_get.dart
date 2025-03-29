@@ -11,12 +11,12 @@ part 'invitation_get.g.dart';
 /// InvitationGet
 ///
 /// Properties:
-/// * [id] 
-/// * [expiresOn] 
-/// * [taskId] 
-/// * [roleId] 
-/// * [url] 
-/// * [userId] 
+/// * [id]
+/// * [expiresOn]
+/// * [taskId]
+/// * [roleId]
+/// * [url]
+/// * [userId]
 @BuiltValue()
 abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -185,4 +185,3 @@ class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
     return result.build();
   }
 }
-

@@ -34,12 +34,7 @@ class _$ValidationErrorLocInnerSerializer implements PrimitiveSerializer<Validat
   @override
   final String wireName = r'ValidationErrorLocInner';
 
-  Iterable<Object?> _serializeProperties(
-    Serializers serializers,
-    ValidationErrorLocInner object, {
-    FullType specifiedType = FullType.unspecified,
-  }) sync* {
-  }
+  Iterable<Object?> _serializeProperties(Serializers serializers, ValidationErrorLocInner object) sync* {}
 
   @override
   Object serialize(
@@ -59,10 +54,12 @@ class _$ValidationErrorLocInnerSerializer implements PrimitiveSerializer<Validat
   }) {
     final result = ValidationErrorLocInnerBuilder();
     Object? anyOfDataSrc;
-    final targetType = const FullType(AnyOf, [FullType(String), FullType(int), ]);
+    final targetType = const FullType(AnyOf, [
+      FullType(String),
+      FullType(int),
+    ]);
     anyOfDataSrc = serialized;
     result.anyOf = serializers.deserialize(anyOfDataSrc, specifiedType: targetType) as AnyOf;
     return result.build();
   }
 }
-

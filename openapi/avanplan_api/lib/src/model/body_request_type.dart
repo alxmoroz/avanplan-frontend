@@ -11,7 +11,7 @@ part 'body_request_type.g.dart';
 /// BodyRequestType
 ///
 /// Properties:
-/// * [code] 
+/// * [code]
 @BuiltValue()
 abstract class BodyRequestType implements Built<BodyRequestType, BodyRequestTypeBuilder> {
   @BuiltValueField(wireName: r'code')
@@ -103,4 +103,3 @@ class _$BodyRequestTypeSerializer implements PrimitiveSerializer<BodyRequestType
     return result.build();
   }
 }
-

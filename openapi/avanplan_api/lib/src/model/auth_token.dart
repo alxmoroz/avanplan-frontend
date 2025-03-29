@@ -11,8 +11,8 @@ part 'auth_token.g.dart';
 /// AuthToken
 ///
 /// Properties:
-/// * [accessToken] 
-/// * [tokenType] 
+/// * [accessToken]
+/// * [tokenType]
 @BuiltValue()
 abstract class AuthToken implements Built<AuthToken, AuthTokenBuilder> {
   @BuiltValueField(wireName: r'access_token')
@@ -119,4 +119,3 @@ class _$AuthTokenSerializer implements PrimitiveSerializer<AuthToken> {
     return result.build();
   }
 }
-

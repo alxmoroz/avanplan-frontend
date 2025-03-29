@@ -11,13 +11,13 @@ part 'task_transaction_upsert.g.dart';
 /// TaskTransactionUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [taskId] 
-/// * [authorId] 
-/// * [amount] 
-/// * [category] 
-/// * [description] 
-/// * [createdOn] 
+/// * [id]
+/// * [taskId]
+/// * [authorId]
+/// * [amount]
+/// * [category]
+/// * [description]
+/// * [createdOn]
 @BuiltValue()
 abstract class TaskTransactionUpsert implements Built<TaskTransactionUpsert, TaskTransactionUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -209,4 +209,3 @@ class _$TaskTransactionUpsertSerializer implements PrimitiveSerializer<TaskTrans
     return result.build();
   }
 }
-

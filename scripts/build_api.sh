@@ -17,9 +17,10 @@ do
   cd "$service_folder"
 
   dart run build_runner build -d
-  dart format ./**/*.dart
-
   cd ../
 done
+
+dart fix --apply
+dart format --line-length 150 .
 
 cd ../

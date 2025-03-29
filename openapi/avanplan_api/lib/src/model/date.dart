@@ -45,12 +45,7 @@ class Date implements Comparable<Date> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Date &&
-          runtimeType == other.runtimeType &&
-          year == other.year &&
-          month == other.month &&
-          day == other.day;
+      identical(this, other) || other is Date && runtimeType == other.runtimeType && year == other.year && month == other.month && day == other.day;
 
   @override
   int get hashCode => year.hashCode ^ month.hashCode ^ day.hashCode;

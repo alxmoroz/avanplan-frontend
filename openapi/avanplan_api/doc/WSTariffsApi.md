@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**availableTariffs_0**](WSTariffsApi.md#availabletariffs_0) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
-[**sign_0**](WSTariffsApi.md#sign_0) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
-[**upsertOption_0**](WSTariffsApi.md#upsertoption_0) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
+[**availableTariffs**](WSTariffsApi.md#availabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
+[**sign**](WSTariffsApi.md#sign) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/sign | Sign
+[**upsertOption**](WSTariffsApi.md#upsertoption) | **POST** /v1/workspaces/{ws_id}/tariffs/{tariff_id}/options/{option_id} | Upsert
 
 
-# **availableTariffs_0**
-> BuiltList<TariffGet> availableTariffs_0(wsId)
+# **availableTariffs**
+> BuiltList<TariffGet> availableTariffs(wsId)
 
 Available Tariffs
 
@@ -31,10 +31,10 @@ final api = AvanplanApi().getWSTariffsApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.availableTariffs_0(wsId);
+    final response = api.availableTariffs(wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTariffsApi->availableTariffs_0: $e\n');
+    print('Exception when calling WSTariffsApi->availableTariffs: $e\n');
 }
 ```
 
@@ -59,8 +59,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **sign_0**
-> InvoiceGet sign_0(tariffId, wsId)
+# **sign**
+> InvoiceGet sign(tariffId, wsId)
 
 Sign
 
@@ -79,10 +79,10 @@ final int tariffId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.sign_0(tariffId, wsId);
+    final response = api.sign(tariffId, wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTariffsApi->sign_0: $e\n');
+    print('Exception when calling WSTariffsApi->sign: $e\n');
 }
 ```
 
@@ -108,8 +108,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertOption_0**
-> InvoiceGet upsertOption_0(wsId, tariffId, optionId, subscribe)
+# **upsertOption**
+> InvoiceGet upsertOption(wsId, tariffId, optionId, subscribe)
 
 Upsert
 
@@ -130,10 +130,10 @@ final int optionId = 56; // int |
 final bool subscribe = true; // bool | 
 
 try {
-    final response = api.upsertOption_0(wsId, tariffId, optionId, subscribe);
+    final response = api.upsertOption(wsId, tariffId, optionId, subscribe);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling WSTariffsApi->upsertOption_0: $e\n');
+    print('Exception when calling WSTariffsApi->upsertOption: $e\n');
 }
 ```
 

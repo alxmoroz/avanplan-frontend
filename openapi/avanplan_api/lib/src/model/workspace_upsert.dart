@@ -11,12 +11,12 @@ part 'workspace_upsert.g.dart';
 /// WorkspaceUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [code] 
-/// * [type] 
-/// * [expiresOn] 
+/// * [id]
+/// * [title]
+/// * [description]
+/// * [code]
+/// * [type]
+/// * [expiresOn]
 @BuiltValue()
 abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -42,8 +42,7 @@ abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsert
   factory WorkspaceUpsert([void updates(WorkspaceUpsertBuilder b)]) = _$WorkspaceUpsert;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WorkspaceUpsertBuilder b) => b
-      ..type = 'PRIVATE';
+  static void _defaults(WorkspaceUpsertBuilder b) => b..type = 'PRIVATE';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceUpsert> get serializer => _$WorkspaceUpsertSerializer();
@@ -192,4 +191,3 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
     return result.build();
   }
 }
-

@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/member_contact_get.dart';
 import 'package:avanplan_api/src/model/member_get.dart';
 import 'package:built_collection/built_collection.dart';
 
 class ProjectMembersApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,13 +20,13 @@ class ProjectMembersApi {
   const ProjectMembersApi(this._dio, this._serializers);
 
   /// Assign Project Member Roles
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [taskId] 
-  /// * [memberId] 
-  /// * [wsId] 
-  /// * [requestBody] 
+  /// * [taskId]
+  /// * [memberId]
+  /// * [wsId]
+  /// * [requestBody]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,7 +36,7 @@ class ProjectMembersApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignProjectMemberRoles({ 
+  Future<Response<BuiltList<MemberGet>>> assignProjectMemberRoles({
     required int taskId,
     required int memberId,
     required int wsId,
@@ -51,7 +48,10 @@ class ProjectMembersApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/roles'
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString())
+        .replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString())
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -64,7 +64,8 @@ class ProjectMembersApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -80,10 +81,9 @@ class ProjectMembersApi {
     try {
       const _type = FullType(BuiltList, [FullType(int)]);
       _bodyData = _serializers.serialize(requestBody, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -106,11 +106,12 @@ class ProjectMembersApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
-      ) as BuiltList<MemberGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
+            ) as BuiltList<MemberGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -137,9 +138,9 @@ class ProjectMembersApi {
   /// Способы связи участника РП в проекте
   ///
   /// Parameters:
-  /// * [memberId] 
-  /// * [wsId] 
-  /// * [taskId] 
+  /// * [memberId]
+  /// * [wsId]
+  /// * [taskId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -149,7 +150,7 @@ class ProjectMembersApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberContactGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberContactGet>>> projectMemberContacts({ 
+  Future<Response<BuiltList<MemberContactGet>>> projectMemberContacts({
     required int memberId,
     required int wsId,
     required int taskId,
@@ -160,7 +161,10 @@ class ProjectMembersApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts'.replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/members/{member_id}/contacts'
+        .replaceAll('{' r'member_id' '}', encodeQueryParameter(_serializers, memberId, const FullType(int)).toString())
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -173,7 +177,8 @@ class ProjectMembersApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -195,11 +200,12 @@ class ProjectMembersApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(MemberContactGet)]),
-      ) as BuiltList<MemberContactGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(MemberContactGet)]),
+            ) as BuiltList<MemberContactGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -221,5 +227,4 @@ class ProjectMembersApi {
       extra: _response.extra,
     );
   }
-
 }

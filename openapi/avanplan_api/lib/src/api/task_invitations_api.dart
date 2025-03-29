@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/api_util.dart';
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/invitation.dart';
 import 'package:avanplan_api/src/model/invitation_get.dart';
 import 'package:built_collection/built_collection.dart';
 
 class TaskInvitationsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,12 +20,12 @@ class TaskInvitationsApi {
   const TaskInvitationsApi(this._dio, this._serializers);
 
   /// Create
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [taskId] 
-  /// * [invitation] 
+  /// * [wsId]
+  /// * [taskId]
+  /// * [invitation]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,7 +35,7 @@ class TaskInvitationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [InvitationGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<InvitationGet>> createInvitation({ 
+  Future<Response<InvitationGet>> createInvitation({
     required int wsId,
     required int taskId,
     required Invitation invitation,
@@ -49,7 +46,9 @@ class TaskInvitationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/invitations'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/invitations'
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString())
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -62,7 +61,8 @@ class TaskInvitationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -78,10 +78,9 @@ class TaskInvitationsApi {
     try {
       const _type = FullType(Invitation);
       _bodyData = _serializers.serialize(invitation, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -104,11 +103,12 @@ class TaskInvitationsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(InvitationGet),
-      ) as InvitationGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(InvitationGet),
+            ) as InvitationGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -132,12 +132,12 @@ class TaskInvitationsApi {
   }
 
   /// Invitations
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [taskId] 
-  /// * [wsId] 
-  /// * [roleId] 
+  /// * [taskId]
+  /// * [wsId]
+  /// * [roleId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -147,7 +147,7 @@ class TaskInvitationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<InvitationGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<InvitationGet>>> getInvitations({ 
+  Future<Response<BuiltList<InvitationGet>>> getInvitations({
     required int taskId,
     required int wsId,
     required int roleId,
@@ -158,7 +158,9 @@ class TaskInvitationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/invitations'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/invitations'
+        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString())
+        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -171,7 +173,8 @@ class TaskInvitationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -198,11 +201,12 @@ class TaskInvitationsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(InvitationGet)]),
-      ) as BuiltList<InvitationGet>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(InvitationGet)]),
+            ) as BuiltList<InvitationGet>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -224,5 +228,4 @@ class TaskInvitationsApi {
       extra: _response.extra,
     );
   }
-
 }

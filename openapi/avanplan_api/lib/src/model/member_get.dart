@@ -12,13 +12,13 @@ part 'member_get.g.dart';
 /// MemberGet
 ///
 /// Properties:
-/// * [id] 
-/// * [email] 
-/// * [fullName] 
-/// * [nickName] 
-/// * [userId] 
-/// * [roleCodes] 
-/// * [permissionCodes] 
+/// * [id]
+/// * [email]
+/// * [fullName]
+/// * [nickName]
+/// * [userId]
+/// * [roleCodes]
+/// * [permissionCodes]
 @BuiltValue()
 abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -210,4 +210,3 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
     return result.build();
   }
 }
-

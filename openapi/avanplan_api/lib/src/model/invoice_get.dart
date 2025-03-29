@@ -15,13 +15,13 @@ part 'invoice_get.g.dart';
 /// InvoiceGet
 ///
 /// Properties:
-/// * [id] 
-/// * [createdOn] 
-/// * [billedOn] 
-/// * [closedOn] 
-/// * [details] 
-/// * [contract] 
-/// * [tariff] 
+/// * [id]
+/// * [createdOn]
+/// * [billedOn]
+/// * [closedOn]
+/// * [details]
+/// * [contract]
+/// * [tariff]
 @BuiltValue()
 abstract class InvoiceGet implements Built<InvoiceGet, InvoiceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -209,4 +209,3 @@ class _$InvoiceGetSerializer implements PrimitiveSerializer<InvoiceGet> {
     return result.build();
   }
 }
-

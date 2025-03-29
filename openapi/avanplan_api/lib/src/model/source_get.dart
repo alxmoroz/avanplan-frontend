@@ -11,12 +11,12 @@ part 'source_get.g.dart';
 /// SourceGet
 ///
 /// Properties:
-/// * [id] 
-/// * [type] 
-/// * [url] 
-/// * [apiKey] 
-/// * [username] 
-/// * [description] 
+/// * [id]
+/// * [type]
+/// * [url]
+/// * [apiKey]
+/// * [username]
+/// * [description]
 @BuiltValue()
 abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -189,4 +189,3 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
     return result.build();
   }
 }
-

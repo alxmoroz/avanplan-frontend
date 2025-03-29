@@ -11,7 +11,7 @@ part 'body_registration_token.g.dart';
 /// BodyRegistrationToken
 ///
 /// Properties:
-/// * [token] 
+/// * [token]
 @BuiltValue()
 abstract class BodyRegistrationToken implements Built<BodyRegistrationToken, BodyRegistrationTokenBuilder> {
   @BuiltValueField(wireName: r'token')
@@ -103,4 +103,3 @@ class _$BodyRegistrationTokenSerializer implements PrimitiveSerializer<BodyRegis
     return result.build();
   }
 }
-

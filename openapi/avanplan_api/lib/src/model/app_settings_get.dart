@@ -11,17 +11,17 @@ part 'app_settings_get.g.dart';
 /// AppSettingsGet
 ///
 /// Properties:
-/// * [id] 
-/// * [frontendFlags] 
-/// * [wsOwnerRoleId] 
-/// * [welcomeGiftAmount] 
-/// * [lowStartThresholdDays] 
-/// * [riskThresholdDays] 
-/// * [estimateReliabilityDays] 
-/// * [estimateReliabilityClosedRatioThreshold] 
-/// * [estimateAvgDefault] 
-/// * [frontendVersion] 
-/// * [frontendLtsVersion] 
+/// * [id]
+/// * [frontendFlags]
+/// * [wsOwnerRoleId]
+/// * [welcomeGiftAmount]
+/// * [lowStartThresholdDays]
+/// * [riskThresholdDays]
+/// * [estimateReliabilityDays]
+/// * [estimateReliabilityClosedRatioThreshold]
+/// * [estimateAvgDefault]
+/// * [frontendVersion]
+/// * [frontendLtsVersion]
 @BuiltValue()
 abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -62,8 +62,7 @@ abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBui
   factory AppSettingsGet([void updates(AppSettingsGetBuilder b)]) = _$AppSettingsGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AppSettingsGetBuilder b) => b
-      ..estimateAvgDefault = 1;
+  static void _defaults(AppSettingsGetBuilder b) => b..estimateAvgDefault = 1;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<AppSettingsGet> get serializer => _$AppSettingsGetSerializer();
@@ -284,4 +283,3 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
     return result.build();
   }
 }
-

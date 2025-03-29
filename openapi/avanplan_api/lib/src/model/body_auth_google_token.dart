@@ -11,7 +11,7 @@ part 'body_auth_google_token.g.dart';
 /// BodyAuthGoogleToken
 ///
 /// Properties:
-/// * [token] 
+/// * [token]
 @BuiltValue()
 abstract class BodyAuthGoogleToken implements Built<BodyAuthGoogleToken, BodyAuthGoogleTokenBuilder> {
   @BuiltValueField(wireName: r'token')
@@ -103,4 +103,3 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
     return result.build();
   }
 }
-

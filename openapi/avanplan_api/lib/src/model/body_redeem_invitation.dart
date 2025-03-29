@@ -11,7 +11,7 @@ part 'body_redeem_invitation.g.dart';
 /// BodyRedeemInvitation
 ///
 /// Properties:
-/// * [invitationToken] 
+/// * [invitationToken]
 @BuiltValue()
 abstract class BodyRedeemInvitation implements Built<BodyRedeemInvitation, BodyRedeemInvitationBuilder> {
   @BuiltValueField(wireName: r'invitation_token')
@@ -103,4 +103,3 @@ class _$BodyRedeemInvitationSerializer implements PrimitiveSerializer<BodyRedeem
     return result.build();
   }
 }
-

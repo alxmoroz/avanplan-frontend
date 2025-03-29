@@ -11,15 +11,15 @@ part 'note_get.g.dart';
 /// NoteGet
 ///
 /// Properties:
-/// * [id] 
-/// * [createdOn] 
-/// * [text] 
-/// * [type] 
-/// * [sourceCode] 
-/// * [taskId] 
-/// * [authorId] 
-/// * [parentId] 
-/// * [updatedOn] 
+/// * [id]
+/// * [createdOn]
+/// * [text]
+/// * [type]
+/// * [sourceCode]
+/// * [taskId]
+/// * [authorId]
+/// * [parentId]
+/// * [updatedOn]
 @BuiltValue()
 abstract class NoteGet implements Built<NoteGet, NoteGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -239,4 +239,3 @@ class _$NoteGetSerializer implements PrimitiveSerializer<NoteGet> {
     return result.build();
   }
 }
-

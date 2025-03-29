@@ -11,10 +11,10 @@ part 'promo_action_get.g.dart';
 /// PromoActionGet
 ///
 /// Properties:
-/// * [id] 
-/// * [code] 
-/// * [discount] 
-/// * [durationDays] 
+/// * [id]
+/// * [code]
+/// * [discount]
+/// * [durationDays]
 @BuiltValue()
 abstract class PromoActionGet implements Built<PromoActionGet, PromoActionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -151,4 +151,3 @@ class _$PromoActionGetSerializer implements PrimitiveSerializer<PromoActionGet> 
     return result.build();
   }
 }
-

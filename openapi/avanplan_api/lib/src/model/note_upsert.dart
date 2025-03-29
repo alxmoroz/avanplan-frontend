@@ -11,15 +11,15 @@ part 'note_upsert.g.dart';
 /// NoteUpsert
 ///
 /// Properties:
-/// * [id] 
-/// * [text] 
-/// * [type] 
-/// * [sourceCode] 
-/// * [taskId] 
-/// * [authorId] 
-/// * [parentId] 
-/// * [createdOn] 
-/// * [updatedOn] 
+/// * [id]
+/// * [text]
+/// * [type]
+/// * [sourceCode]
+/// * [taskId]
+/// * [authorId]
+/// * [parentId]
+/// * [createdOn]
+/// * [updatedOn]
 @BuiltValue()
 abstract class NoteUpsert implements Built<NoteUpsert, NoteUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -245,4 +245,3 @@ class _$NoteUpsertSerializer implements PrimitiveSerializer<NoteUpsert> {
     return result.build();
   }
 }
-

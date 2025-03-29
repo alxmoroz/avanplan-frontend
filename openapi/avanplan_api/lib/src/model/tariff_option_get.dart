@@ -12,13 +12,13 @@ part 'tariff_option_get.g.dart';
 /// TariffOptionGet
 ///
 /// Properties:
-/// * [id] 
-/// * [code] 
-/// * [price] 
-/// * [tariffQuantity] 
-/// * [freeLimit] 
-/// * [userManageable] 
-/// * [promoAction] 
+/// * [id]
+/// * [code]
+/// * [price]
+/// * [tariffQuantity]
+/// * [freeLimit]
+/// * [userManageable]
+/// * [promoAction]
 @BuiltValue()
 abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -48,10 +48,10 @@ abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGet
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TariffOptionGetBuilder b) => b
-      ..price = 0
-      ..tariffQuantity = 1
-      ..freeLimit = 0
-      ..userManageable = false;
+    ..price = 0
+    ..tariffQuantity = 1
+    ..freeLimit = 0
+    ..userManageable = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TariffOptionGet> get serializer => _$TariffOptionGetSerializer();
@@ -214,4 +214,3 @@ class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet
     return result.build();
   }
 }
-

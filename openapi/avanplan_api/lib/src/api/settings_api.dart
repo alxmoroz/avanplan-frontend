@@ -4,14 +4,12 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:avanplan_api/src/model/app_settings_get.dart';
 
 class SettingsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -19,7 +17,7 @@ class SettingsApi {
   const SettingsApi(this._dio, this._serializers);
 
   /// Settings
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -31,7 +29,7 @@ class SettingsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [AppSettingsGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<AppSettingsGet>> settingsV1SettingsGet({ 
+  Future<Response<AppSettingsGet>> settingsV1SettingsGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -71,11 +69,12 @@ class SettingsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(AppSettingsGet),
-      ) as AppSettingsGet;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(AppSettingsGet),
+            ) as AppSettingsGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -97,5 +96,4 @@ class SettingsApi {
       extra: _response.extra,
     );
   }
-
 }

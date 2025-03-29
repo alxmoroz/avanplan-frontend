@@ -11,10 +11,10 @@ part 'task_relation_get.g.dart';
 /// TaskRelationGet
 ///
 /// Properties:
-/// * [id] 
-/// * [srcId] 
-/// * [dstId] 
-/// * [type] 
+/// * [id]
+/// * [srcId]
+/// * [dstId]
+/// * [type]
 @BuiltValue()
 abstract class TaskRelationGet implements Built<TaskRelationGet, TaskRelationGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -151,4 +151,3 @@ class _$TaskRelationGetSerializer implements PrimitiveSerializer<TaskRelationGet
     return result.build();
   }
 }
-

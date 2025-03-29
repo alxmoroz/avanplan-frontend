@@ -4,16 +4,13 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:avanplan_api/src/model/http_validation_error.dart';
 import 'package:avanplan_api/src/model/notification.dart';
 import 'package:built_collection/built_collection.dart';
 
 class MyNotificationsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -21,10 +18,10 @@ class MyNotificationsApi {
   const MyNotificationsApi(this._dio, this._serializers);
 
   /// Mark Read
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [requestBody] 
+  /// * [requestBody]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -34,7 +31,7 @@ class MyNotificationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> markReadV1MyNotificationsPost({ 
+  Future<Response<bool>> markReadV1MyNotificationsPost({
     required BuiltList<int> requestBody,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -56,7 +53,8 @@ class MyNotificationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -72,10 +70,9 @@ class MyNotificationsApi {
     try {
       const _type = FullType(BuiltList, [FullType(int)]);
       _bodyData = _serializers.serialize(requestBody, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -99,7 +96,6 @@ class MyNotificationsApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as bool;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -123,7 +119,7 @@ class MyNotificationsApi {
   }
 
   /// My Notifications
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -135,7 +131,7 @@ class MyNotificationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Notification>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<Notification>>> myNotificationsV1MyNotificationsGet({ 
+  Future<Response<BuiltList<Notification>>> myNotificationsV1MyNotificationsGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -156,7 +152,8 @@ class MyNotificationsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
+          },
+          {
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -178,11 +175,12 @@ class MyNotificationsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(Notification)]),
-      ) as BuiltList<Notification>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList, [FullType(Notification)]),
+            ) as BuiltList<Notification>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -204,5 +202,4 @@ class MyNotificationsApi {
       extra: _response.extra,
     );
   }
-
 }

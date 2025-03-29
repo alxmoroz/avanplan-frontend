@@ -11,7 +11,7 @@ part 'body_auth_yandex_token.g.dart';
 /// BodyAuthYandexToken
 ///
 /// Properties:
-/// * [serverAuthCode] 
+/// * [serverAuthCode]
 @BuiltValue()
 abstract class BodyAuthYandexToken implements Built<BodyAuthYandexToken, BodyAuthYandexTokenBuilder> {
   @BuiltValueField(wireName: r'server_auth_code')
@@ -103,4 +103,3 @@ class _$BodyAuthYandexTokenSerializer implements PrimitiveSerializer<BodyAuthYan
     return result.build();
   }
 }
-

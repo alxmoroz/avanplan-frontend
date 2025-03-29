@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -23,25 +22,12 @@ class NoTasks extends StatelessWidget {
   const NoTasks(this._tc, {super.key});
   final TaskController _tc;
 
-  Widget _addBtn({bool goal = false, double leftMargin = 0}) {
-    return MTButton.main(
-      leading: const PlusIcon(color: mainBtnTitleColor),
-      margin: EdgeInsets.only(left: leftMargin, top: P3),
-      titleText: goal
-          ? loc.goal_title
-          : leftMargin > 0
-              ? loc.task_title
-              : addTaskActionTitle(),
-      constrained: false,
-      onTap: () => _tc.addSubtask(type: goal ? TType.GOAL : TType.TASK),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final t = _tc.task;
       final canCreate = _tc.canCreate;
+      final isProjectView = _tc.settingsController.viewMode.isProject;
       return ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -62,15 +48,12 @@ class NoTasks extends StatelessWidget {
                 titleText: loc.action_transfer_import_tasks_title,
                 onTap: () => localImportDialog(_tc),
               ),
-            MTAdaptive.xxs(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (t.isProject) Expanded(child: _addBtn(goal: true)),
-                  Expanded(child: _addBtn(leftMargin: t.isProject ? P2 : 0)),
-                ],
-              ),
-            )
+            MTButton.main(
+              leading: const PlusIcon(color: mainBtnTitleColor),
+              margin: const EdgeInsets.only(top: P3),
+              titleText: isProjectView ? loc.goal_title : addTaskActionTitle(),
+              onTap: () => _tc.addSubtask(type: isProjectView ? TType.GOAL : TType.TASK),
+            ),
           ],
         ],
       );

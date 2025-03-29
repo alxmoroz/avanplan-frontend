@@ -1,3 +1,3 @@
 # Avanplan
 
-./scripts/build_runner_watch.sh или ./scripts/build_runner_build.sh
+./scripts/build.sh или ./scripts/build_full.sh

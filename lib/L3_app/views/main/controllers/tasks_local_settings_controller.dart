@@ -23,8 +23,6 @@ class TasksLocalSettingsController extends _Base with _$TasksLocalSettingsContro
     return _tsMap[wsId]?[taskId];
   }
 
-  bool exists(TaskDescriptor td) => _taskSettings(td) != null;
-
   TaskLocalSettings taskSettings(Task t) =>
       _taskSettings(t) ??
       TaskLocalSettings(

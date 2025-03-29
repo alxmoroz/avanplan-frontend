@@ -78,7 +78,7 @@ abstract class _Base with Store {
   TaskLocalSettings settings = TaskLocalSettings(wsId: -1, taskId: -1);
 
   @computed
-  TaskViewMode get viewMode => settings.viewMode;
+  TaskViewMode get viewMode => task.isGoal ? settings.subtasksViewMode : settings.viewMode;
 
   @computed
   bool get hasFilters => settings.filters?.isNotEmpty == true;
@@ -112,21 +112,22 @@ abstract class _Base with Store {
   void reload() {
     // зачитать из проекта, если там есть настройки и если это цель
     final t = task;
-    final p = t.project;
-    settings = tasksLocalSettingsController.taskSettings(t.isGoal && tasksLocalSettingsController.exists(p) ? p : t);
+    settings = tasksLocalSettingsController.taskSettings(t.isGoal ? t.project : t);
     _reloadChecks();
   }
 
   @action
-  void _saveSettings({TaskViewMode? viewMode, List<TaskViewFilter>? filters}) {
+  Future _saveSettings({TaskViewMode? viewMode, List<TaskViewFilter>? filters}) async {
     final t = task;
-    // если мы находимся в цели, то нужно перезаписать настройки вида в проекте
+    // если мы находимся в цели, то нужно перезаписать настройки вида в проекте для всех целей
     if (t.isGoal) {
-      settings.taskId = t.project.id!;
+      settings = settings.copyWith(subtasksViewMode: viewMode, filters: filters);
+    } else {
+      settings = settings.copyWith(viewMode: viewMode, filters: filters);
     }
-    settings = settings.copyWith(viewMode: viewMode, filters: filters);
+
     _reloadChecks();
-    tasksLocalSettingsController.updateTS(settings);
+    await tasksLocalSettingsController.updateTS(settings);
     tasksMainController.refreshUI();
   }
 

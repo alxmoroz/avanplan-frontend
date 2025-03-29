@@ -37,17 +37,25 @@ class TaskLocalSettings extends LocalPersistable {
     required this.wsId,
     required this.taskId,
     this.viewMode = TaskViewMode.BOARD,
+    this.subtasksViewMode = TaskViewMode.BOARD,
     this.filters,
   });
   final int wsId;
   int taskId;
   TaskViewMode viewMode;
+  TaskViewMode subtasksViewMode;
   Iterable<TaskViewFilter>? filters;
 
-  TaskLocalSettings copyWith({TaskViewMode? viewMode, Iterable<TaskViewFilter>? filters}) => TaskLocalSettings(
+  TaskLocalSettings copyWith({
+    TaskViewMode? viewMode,
+    TaskViewMode? subtasksViewMode,
+    Iterable<TaskViewFilter>? filters,
+  }) =>
+      TaskLocalSettings(
         wsId: wsId,
         taskId: taskId,
         viewMode: viewMode ?? this.viewMode,
+        subtasksViewMode: subtasksViewMode ?? this.subtasksViewMode,
         filters: filters ?? this.filters,
       );
 }

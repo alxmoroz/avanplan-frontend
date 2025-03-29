@@ -38,17 +38,21 @@ class TaskLocalSettingsHO extends BaseModel<TaskLocalSettings> {
   @HiveField(1, defaultValue: -1)
   int taskId = -1;
 
-  @HiveField(2)
+  @HiveField(2, defaultValue: 'BOARD')
   String viewMode = TaskViewMode.BOARD.name;
 
   @HiveField(3, defaultValue: <TaskViewFilterHO>[])
   List<TaskViewFilterHO> filters = [];
+
+  @HiveField(4, defaultValue: 'BOARD')
+  String subtasksViewMode = TaskViewMode.BOARD.name;
 
   @override
   TaskLocalSettings toEntity() => TaskLocalSettings(
         wsId: wsId,
         taskId: taskId,
         viewMode: TaskViewMode.fromString(viewMode),
+        subtasksViewMode: TaskViewMode.fromString(subtasksViewMode),
         filters: filters.map((m) => m.toEntity()),
       );
 
@@ -57,6 +61,7 @@ class TaskLocalSettingsHO extends BaseModel<TaskLocalSettings> {
     wsId = entity.wsId;
     taskId = entity.taskId;
     viewMode = entity.viewMode.name;
+    subtasksViewMode = entity.subtasksViewMode.name;
 
     filters.clear();
     final eFilters = entity.filters ?? [];

@@ -493,7 +493,7 @@
   "task_go2source_title": "Перейти к источнику",
 
   "task_list_empty_hint": "Добавьте задачи, чтобы начать работу",
-  "task_list_empty_in_project_hint": "Группируйте задачи в цели, работайте со списком задач или перенесите их из другой цели, проекта",
+  "task_list_empty_in_project_hint": "Группируйте задачи в цели",
   "task_list_empty_title": "Отдыхаем от дел",
   "task_list_schedule_action_title": "Запланировать",
   "task_list_schedule_hint": "Запланируйте задачи, чтобы продолжить работу",

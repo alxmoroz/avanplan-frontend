@@ -294,7 +294,9 @@ class TaskViewState<T extends TaskView> extends State<T> with WidgetsBindingObse
       if (tc.canComment) {
         _bottomTBNFController.calculateHeight(context, ignoreBottomInsets: false);
         bottomToolBar = NoteFieldToolbar(tc, _bottomTBNFController);
-      } else if (!bigGroup && t.hasSubtasks && (t.canLocalImport || t.canCreateSubtask || (t.isGroup && !tc.settingsController.viewMode.isProject))) {
+      } else if (!bigGroup &&
+          t.hasSubtasks &&
+          (tc.canLocalImport || t.canCreateSubtask || (t.isGroup && !tc.settingsController.viewMode.isProject))) {
         bottomToolBar = TaskBottomToolbar(tc, _bottomTBController);
       }
 

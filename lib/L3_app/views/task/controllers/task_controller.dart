@@ -167,8 +167,14 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get _canClose => !_isPreview && task.canClose;
   bool get _canReopen => !_isPreview && task.canReopen;
   bool get _canLocalExport => !_isPreview && task.canLocalExport;
-  bool get _canLocalImport => !_isPreview && task.canLocalImport;
   bool get _canDuplicate => !_isPreview && task.canDuplicate;
+
+  bool get viewModeIsProject => settingsController.viewMode.isProject;
+  bool get canLocalImport {
+    final t = task;
+    return !_isPreview && canEdit && (t.isGoalOrBacklog || (t.isProject && !viewModeIsProject));
+  }
+
   bool get canDelete => !_isPreview && task.canDelete;
   bool get canCreateChecklist => !_isPreview && task.canCreateChecklist;
   bool get canSetStatus => !_isPreview && task.canSetStatus;
@@ -176,12 +182,20 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   bool get canShowDateField => task.hasDatesOrRepeat || canEdit;
   bool get canShowDueDateField => task.hasDueDate || canEdit;
   bool get canShowStartDateField => task.hasStartDate || canEdit;
-  bool get canShowRepeatField => task.hasRepeat || (task.isTask && canEdit);
+  bool get canShowRepeatField {
+    final t = task;
+    return t.hasRepeat || (t.isTask && canEdit);
+  }
+
   bool get canEstimate => canEdit && task.ws.estimateValues.isNotEmpty;
   bool get canShowAttachmentsField => !_isPreview && task.attachments.isNotEmpty;
   bool get canEditFinance => !_isPreview && task.canEditFinance;
   bool get canEditRelations => !_isPreview && task.canEditRelations;
   bool get canComment => !_isPreview && task.canComment;
+  bool get canShowViewSettings {
+    final t = task;
+    return t.isGroup && (t.canShowAssigneeFilter || !viewModeIsProject);
+  }
 
   Iterable<TaskAction> actions(BuildContext context, {bool inToolbar = false}) {
     final t = task;
@@ -208,7 +222,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     final showClose = !t.isTask && _canClose;
     final showReopen = !t.isTask && _canReopen;
     final showLocalExport = _canLocalExport;
-    final showLocalImport = _canLocalImport;
+    final showLocalImport = canLocalImport;
     final showDuplicate = _canDuplicate;
     final hasActions = showClose || showReopen || showLocalExport || showLocalImport || showDuplicate;
 

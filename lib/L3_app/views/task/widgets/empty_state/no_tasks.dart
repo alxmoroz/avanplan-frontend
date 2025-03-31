@@ -4,14 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
-import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
@@ -25,7 +23,6 @@ class NoTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      final t = _tc.task;
       final canCreate = _tc.canCreate;
       final isProjectView = _tc.settingsController.viewMode.isProject;
       return ListView(
@@ -37,11 +34,11 @@ class NoTasks extends StatelessWidget {
           H2(loc.task_list_empty_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
           if (canCreate) ...[
             BaseText(
-              t.isProject ? loc.task_list_empty_in_project_hint : loc.task_list_empty_hint,
+              isProjectView ? loc.task_list_empty_in_project_hint : loc.task_list_empty_hint,
               align: TextAlign.center,
               padding: const EdgeInsets.symmetric(horizontal: P6),
             ),
-            if (t.canLocalImport)
+            if (_tc.canLocalImport)
               MTButton.secondary(
                 margin: const EdgeInsets.only(top: P3),
                 leading: const LocalImportIcon(),

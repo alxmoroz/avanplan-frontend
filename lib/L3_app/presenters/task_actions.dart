@@ -82,7 +82,6 @@ extension TaskActionsUC on Task {
 
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
   bool get canLocalExport => canEdit && !isProject && !isInbox;
-  bool get canLocalImport => canEdit && (isGoal || isBacklog || isProjectWithoutGroups);
 
   bool get canComment => !closed && _canEditTask;
 

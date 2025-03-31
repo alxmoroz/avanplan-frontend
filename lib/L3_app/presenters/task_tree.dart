@@ -17,7 +17,7 @@ extension TaskTreeUC on Task {
   Task? get goal => isGoal ? this : parent?.goal;
   Task? get backlog => isBacklog ? this : parent?.backlog;
 
-  Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
+  Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => id != null && parentId == id && t.wsId == wsId);
 
   // считает только открытые задачи в группах
   int get subtasksCount => subtasksCountIn ?? subtasks.length;

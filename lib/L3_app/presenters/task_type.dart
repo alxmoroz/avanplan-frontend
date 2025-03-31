@@ -1,9 +1,9 @@
 // Copyright (c) 2024. Alexandr Moroz
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_settings.dart';
 import '../../L1_domain/entities_extensions/task_type.dart';
 import '../views/app/services.dart';
+import 'task_settings.dart';
 import 'task_tree.dart';
 import 'workspace.dart';
 

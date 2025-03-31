@@ -29,7 +29,7 @@ extension TaskTreeUC on Task {
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);
   int get closedSubtasksCount => closedSubtasksCountIn ?? closedSubtasks.length;
 
-  bool get hasSubgroups => subtasks.any((st) => st.isGroup) || hasSubgroupsIn;
+  bool get hasSubgroups => subtasks.any((st) => st.isGoalOrBacklog) || hasSubgroupsIn;
   bool get isProjectWithGroups => isProject && hasSubgroups;
   bool get isProjectWithoutGroups => isProject && !hasSubgroups;
 

@@ -110,17 +110,17 @@ abstract class _Base with Store {
 
   @action
   void reload() {
-    // зачитать из проекта, если там есть настройки и если это цель
+    // зачитать из проекта, если там есть настройки и если это цель / бэклог
     final t = task;
-    settings = tasksLocalSettingsController.taskSettings(t.isGoal ? t.project : t);
+    settings = tasksLocalSettingsController.taskSettings(t.isGoalOrBacklog ? t.project : t);
     _reloadChecks();
   }
 
   @action
   Future _saveSettings({TaskViewMode? viewMode, List<TaskViewFilter>? filters}) async {
     final t = task;
-    // если мы находимся в цели, то нужно перезаписать настройки вида в проекте для всех целей
-    if (t.isGoal) {
+    // если мы находимся в группе, то нужно перезаписать настройки вида в проекте для всех целей
+    if (t.isGoalOrBacklog) {
       settings = settings.copyWith(subtasksViewMode: viewMode, filters: filters);
     } else {
       settings = settings.copyWith(viewMode: viewMode, filters: filters);

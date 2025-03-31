@@ -5,8 +5,8 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_local_settings.dart';
-import '../../../../L1_domain/entities_extensions/task_settings.dart';
 import '../../../../L1_domain/entities_extensions/task_type.dart';
+import '../../../presenters/task_settings.dart';
 import '../../app/services.dart';
 
 part 'tasks_local_settings_controller.g.dart';

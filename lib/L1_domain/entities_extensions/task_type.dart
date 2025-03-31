@@ -11,6 +11,7 @@ extension TDTypeExt on TaskDescriptor {
   bool get isProjectOrGoal => isProject || isGoal;
   bool get isBacklog => type == TType.BACKLOG;
   bool get isGroup => isProjectOrGoal || isBacklog;
+  bool get isGoalOrBacklog => isGoal || isBacklog;
   bool get isTask => type == TType.TASK;
   bool get isCheckItem => type == TType.CHECKLIST_ITEM;
   bool get isForbidden => type == TType.FORBIDDEN_TASK;

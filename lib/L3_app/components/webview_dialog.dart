@@ -1,5 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -25,17 +27,19 @@ class _MTWebViewDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = (this.bgColor ?? b3Color).resolve(context);
     return MTDialog(
-      topBar: const MTTopBar(color: b3Color),
+      topBar: MTTopBar(color: bgColor),
+      bgColor: bgColor,
       body: SafeArea(
-        bottom: false,
         child: Stack(
           children: [
-            Container(color: b3Color, child: const Center(child: MTCircularProgress(size: P10))),
+            Container(color: bgColor, child: const Center(child: MTCircularProgress(size: P10))),
             WebViewWidget(
+              gestureRecognizers: const {Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new)},
               controller: WebViewController()
                 ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                ..setBackgroundColor((bgColor ?? Colors.transparent).resolve(context))
+                ..setBackgroundColor(bgColor)
                 ..setNavigationDelegate(
                   NavigationDelegate(onPageStarted: (url) {
                     if (onPageStartedExit != null) {

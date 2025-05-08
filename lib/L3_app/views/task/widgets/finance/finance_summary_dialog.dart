@@ -5,16 +5,16 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../../L1_domain/utils/dates.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import 'transactions_empty_info.dart';
 
@@ -34,12 +34,11 @@ class _FinanceSummaryDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           if (_task.hasTransactions) ...[
-            MTListGroupTitle(
-              margin: const EdgeInsets.symmetric(vertical: P),
-              middle: BaseText(
-                '${loc.total_title} ${loc.dates_period(_task.calculatedStartDate.strMedium, (_task.closedDate ?? now).strMedium)}',
-                align: TextAlign.center,
-              ),
+            MTListText(
+              '${loc.total_title} ${loc.dates_period(_task.calculatedStartDate.strMedium, (_task.closedDate ?? now).strMedium)}',
+              titleTextAlign: TextAlign.center,
+              topMargin: 0,
+              verticalPadding: P,
             ),
             if (hasIncome)
               MTListTile(

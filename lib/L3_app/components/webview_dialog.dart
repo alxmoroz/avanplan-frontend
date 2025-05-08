@@ -5,8 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../theme/colors.dart';
 import 'circular_progress.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'toolbar.dart';

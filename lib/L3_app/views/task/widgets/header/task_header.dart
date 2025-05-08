@@ -5,14 +5,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/linkify/linkify.dart';
-import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/title.dart';
 import '../toolbars/done_button.dart';

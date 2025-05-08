@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 
 import '../components/button.dart';
-import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
+import '../theme/colors.dart';
 import '../usecases/communications.dart';
 import '../views/app/services.dart';
 

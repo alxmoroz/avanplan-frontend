@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../presenters/task_type.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import 'create_project_controller.dart';
 
 class CreateProjectButton extends StatelessWidget {

@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/relations_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'relations_dialog.dart';

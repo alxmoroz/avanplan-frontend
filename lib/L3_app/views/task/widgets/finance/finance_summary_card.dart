@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/number.dart';
 import '../../../../presenters/task_finance.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import 'finance_summary_dialog.dart';
 

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/date.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/notes_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'note.dart';

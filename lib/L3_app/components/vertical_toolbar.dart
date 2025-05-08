@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../L2_data/services/platform.dart';
-import 'colors.dart';
+import '../theme/colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'list_tile.dart';

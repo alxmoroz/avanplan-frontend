@@ -17,7 +17,7 @@ abstract class AbstractAuthRepo {
     await _lsRepo.update((_) => true, la);
   }
 
-  Future signOut() async => throw UnimplementedError();
+  Future signOut({bool disconnect = false}) async => throw UnimplementedError();
   Future<bool> signInIsAvailable() async => throw UnimplementedError();
   Future<String> refreshToken() async => throw UnimplementedError();
 }

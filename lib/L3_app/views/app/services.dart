@@ -175,6 +175,8 @@ void setup() {
     () async => await setupApi([apiInterceptor], localSettingsController.settings),
     dependsOn: [LocalSettingsController],
   );
+
+  // остальные контроллеры
   getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [AvanplanApi]);
   getIt.registerSingleton<AppController>(AppController());
   getIt.registerSingleton<ReferencesController>(ReferencesController());

@@ -11,8 +11,8 @@ BaseDeviceInfo get deviceInfo => GetIt.I<BaseDeviceInfo>();
 PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 bool get isWeb => kIsWeb;
-bool get isIOS => deviceInfo is IosDeviceInfo;
-bool get isAndroid => deviceInfo is AndroidDeviceInfo;
+bool get isIOS => !isWeb && Platform.isIOS;
+bool get isAndroid => !isWeb && Platform.isAndroid;
 
 String get platformCode => isIOS
     ? 'ios'

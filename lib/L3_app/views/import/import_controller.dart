@@ -112,7 +112,7 @@ abstract class _ImportControllerBase with Store, Loadable {
       }
 
       if (connected) {
-        if (await ws.checkBalance(loc.import_action_title)) {
+        if (await ws.checkBalance(loc.create_import_action_title)) {
           setLoaderScreen(
             titleText: loc.loader_source_listing,
             descriptionText: loaderDescription,
@@ -134,7 +134,7 @@ abstract class _ImportControllerBase with Store, Loadable {
 
   @action
   Future startImport(BuildContext context) async {
-    if (await ws.checkBalance(loc.import_action_title)) {
+    if (await ws.checkBalance(loc.create_import_action_title)) {
       setLoaderScreen(
         titleText: loc.loader_importing_title,
         imageName: ImageName.import.name,

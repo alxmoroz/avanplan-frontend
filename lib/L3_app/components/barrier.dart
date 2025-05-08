@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../theme/colors.dart';
 import 'adaptive.dart';
 import 'background.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'gesture.dart';
 

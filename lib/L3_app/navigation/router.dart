@@ -12,7 +12,6 @@ import '../views/auth/auth_view.dart';
 import '../views/main/main_view.dart';
 import '../views/my_account/my_account_dialog.dart';
 import '../views/notification/notifications_dialog.dart';
-import '../views/onboarding/onboarding_view.dart';
 import '../views/projects/projects_view.dart';
 import '../views/source/sources_dialog.dart';
 import '../views/task/widgets/empty_state/task_404_dialog.dart';
@@ -29,7 +28,6 @@ final router = GoRouter(
       invitationTokenRoute,
       yandexOauthWebRedirectRoute,
       mainRoute,
-      onboardingRoute,
     ],
     initialLocation: '/',
     initialExtra: 'local',
@@ -156,9 +154,6 @@ extension MTRouterHelper on GoRouter {
   }
 
   void goTask404(MTRoute? parent) => _go(taskNotFoundLocation(parent));
-
-  // главный онбординг
-  Future pushOnboarding({TaskDescriptor? hostProject}) async => await pushNamed(onboardingRoute.name, extra: hostProject ?? 'local');
 
   Future goInner(Uri uri) async {
     String location = uri.path;

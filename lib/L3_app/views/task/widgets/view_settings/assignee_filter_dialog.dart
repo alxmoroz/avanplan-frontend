@@ -5,11 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../presenters/ws_member.dart';
+import '../../../../theme/colors.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_settings_controller.dart';
 

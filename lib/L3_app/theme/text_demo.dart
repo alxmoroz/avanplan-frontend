@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'constants.dart';
+import '../components/constants.dart';
 import 'text.dart';
 
 class TextDemo extends StatelessWidget {

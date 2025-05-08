@@ -10,9 +10,10 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../navigation/router.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../usecases/ws_actions.dart';
 import '../_base/loader_screen.dart';
 import '../app/services.dart';
@@ -23,7 +24,7 @@ Future createFromTemplate(Workspace ws) async {
   controller.reload();
   final template = await showMTDialog<Project?>(_TemplateSelectorDialog(controller));
 
-  if (template != null && await ws.checkBalance(loc.create_from_template_action_title)) {
+  if (template != null && await ws.checkBalance(loc.create_template_action_title)) {
     controller.setLoaderScreenSaving();
     controller.load(() async {
       final changes = await wsTransferUC.createFromTemplate(template.wsId, template.id!, ws.id!);
@@ -52,7 +53,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        MTListGroupTitle(titleText: Intl.message(group.key), topMargin: gIndex == 0 ? P : null),
+        MTListText(Intl.message(group.key), topMargin: gIndex == 0 ? P : DEF_VP, titleTextColor: f2Color),
         ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

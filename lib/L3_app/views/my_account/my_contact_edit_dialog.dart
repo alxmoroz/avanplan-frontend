@@ -5,14 +5,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user_contact.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/field.dart';
 import '../../components/icons.dart';
-import '../../components/text.dart';
 import '../../components/text_field.dart';
 import '../../components/toolbar.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 import 'my_contact_edit_controller.dart';
 

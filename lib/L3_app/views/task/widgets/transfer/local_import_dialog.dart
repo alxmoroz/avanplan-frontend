@@ -6,14 +6,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import 'local_import_controller.dart';
@@ -64,7 +64,7 @@ class _LocalImportDialog extends StatelessWidget {
                   ),
                   margin: EdgeInsets.only(top: _lic.singleSourceFlag ? 0 : P),
                   padding: EdgeInsets.symmetric(vertical: _lic.singleSourceFlag ? 0 : P2, horizontal: P3),
-                  color: _lic.singleSourceFlag ? Colors.transparent : null,
+                  color: _lic.singleSourceFlag ? Colors.transparent : b3Color,
                   bottomDivider: false,
                   onTap: _lic.singleSourceFlag ? null : _lic.selectSourceForMove,
                 ),

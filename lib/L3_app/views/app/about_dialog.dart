@@ -5,15 +5,15 @@ import 'package:flutter/foundation.dart';
 
 import '../../../L1_domain/utils/dates.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/divider.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../usecases/communications.dart';
 import 'app_title.dart';
 import 'app_version.dart';
@@ -38,7 +38,7 @@ class _AboutDialog extends StatelessWidget {
           const AppVersion(),
 
           /// юр. документы
-          MTListGroupTitle(titleText: loc.app_legal_docs_title),
+          MTListText(loc.app_legal_docs_title, titleTextColor: f2Color),
           MTListTile(
             leading: const DocumentIcon(),
             titleText: loc.app_legal_rules_title,
@@ -55,7 +55,7 @@ class _AboutDialog extends StatelessWidget {
           ),
 
           /// о приложении
-          MTListGroupTitle(titleText: loc.app_about_title),
+          MTListText(loc.app_about_title, titleTextColor: f2Color),
           MTListTile(
             leading: const ReleaseNotesIcon(),
             titleText: loc.app_release_notes_title,

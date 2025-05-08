@@ -6,11 +6,11 @@ import '../../L1_domain/entities/remote_source.dart';
 import '../../L1_domain/entities/remote_source_type.dart';
 import '../components/circle.dart';
 import '../components/circular_progress.dart';
-import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/list_tile.dart';
-import '../components/text.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import '../views/app/services.dart';
 
 extension RemoteSourceTypePresenter on RemoteSourceType {
@@ -58,7 +58,7 @@ extension RemoteSourcePresenter on RemoteSource {
       bottomDivider: bottomBorder,
       minHeight: standAlone ? null : 0,
       onTap: onTap,
-      color: standAlone ? null : Colors.transparent,
+      color: standAlone ? b3Color : Colors.transparent,
     );
   }
 }

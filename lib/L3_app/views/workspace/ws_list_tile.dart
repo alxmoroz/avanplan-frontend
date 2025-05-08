@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../usecases/ws_actions.dart';
 import '../app/services.dart';
 

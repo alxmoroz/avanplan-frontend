@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../components/colors.dart';
 import '../presenters/number.dart';
+import '../theme/colors.dart';
 import '../views/app/services.dart';
 
 extension TaskFinancePresenter on Task {

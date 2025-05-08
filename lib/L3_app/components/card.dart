@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
 import 'constants.dart';
 
 class MTCard extends StatelessWidget {

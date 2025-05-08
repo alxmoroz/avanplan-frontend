@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
-import '../../../../components/text.dart';
 import '../../../../navigation/route.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 
 class Task404Route extends MTRoute {

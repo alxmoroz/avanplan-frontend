@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../presenters/mime_type.dart';
+import '../theme/colors.dart';
 import 'circle.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'painters.dart';
 

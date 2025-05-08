@@ -3,14 +3,14 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/base_entity.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'button.dart';
 import 'circle.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'icons.dart';
 import 'list_tile.dart';
-import 'text.dart';
 import 'toolbar.dart';
 
 Future<T?> showMTSelectDialog<T extends RPersistable>(

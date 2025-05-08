@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'constants.dart';
 import 'field_data.dart';
 import 'list_tile.dart';
-import 'text.dart';
 
 class MTField extends StatelessWidget {
   const MTField(
@@ -20,9 +20,10 @@ class MTField extends StatelessWidget {
     this.dividerEndIndent,
     this.margin,
     this.padding,
-    this.color,
-    this.minHeight,
-    this.crossAxisAlignment,
+    this.color = b3Color,
+    this.minHeight = DEF_TAPPABLE_ICON_SIZE,
+    this.leadingWidth = DEF_TAPPABLE_ICON_SIZE,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.loading = false,
     this.onTap,
     this.onHover,
@@ -42,9 +43,10 @@ class MTField extends StatelessWidget {
   final double? dividerEndIndent;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
-  final Color? color;
+  final Color color;
   final double? minHeight;
-  final CrossAxisAlignment? crossAxisAlignment;
+  final double? leadingWidth;
+  final CrossAxisAlignment crossAxisAlignment;
   final bool loading;
   final bool compact;
   final bool showLabel;

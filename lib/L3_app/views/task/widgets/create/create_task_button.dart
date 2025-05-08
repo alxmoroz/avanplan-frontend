@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/edit.dart';
 

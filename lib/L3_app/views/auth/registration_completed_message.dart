@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/images.dart';
-import '../../components/text.dart';
 import '../../navigation/router.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../usecases/communications.dart';
 import '../app/services.dart';
 import 'registration_request_controller.dart';

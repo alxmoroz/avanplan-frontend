@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
-import '../../components/text.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 class TariffBasePrice extends StatelessWidget {

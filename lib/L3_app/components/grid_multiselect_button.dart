@@ -4,11 +4,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'constants.dart';
 import 'grid_button.dart';
 import 'list_tile.dart';
-import 'text.dart';
 
 class MTGridMultiselectButton extends StatelessWidget {
   const MTGridMultiselectButton(

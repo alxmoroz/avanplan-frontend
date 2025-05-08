@@ -114,9 +114,9 @@ abstract class _Base with Store, Loadable {
   }
 
   @action
-  Future signOut() async {
+  Future signOut({bool disconnect = false}) async {
     router.goAuth();
-    await authUC.signOut();
+    await authUC.signOut(disconnect: disconnect);
     authorized = false;
     mainController.clear();
   }

@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'icons.dart';
 import 'list_tile.dart';
-import 'text.dart';
 
 class MTCheckBoxTile extends StatelessWidget {
   const MTCheckBoxTile({
@@ -19,6 +19,7 @@ class MTCheckBoxTile extends StatelessWidget {
     this.leading,
     this.bottomDivider = true,
     this.dividerIndent,
+    this.uf = true,
   });
 
   final String title;
@@ -30,6 +31,7 @@ class MTCheckBoxTile extends StatelessWidget {
   final Function(bool?)? onChanged;
   final bool bottomDivider;
   final double? dividerIndent;
+  final bool uf;
 
   bool get _disabled => onChanged == null;
 
@@ -39,9 +41,10 @@ class MTCheckBoxTile extends StatelessWidget {
         middle: BaseText(title, color: _disabled ? f3Color : titleColor, maxLines: 2),
         subtitle: description != null && description!.isNotEmpty ? SmallText(description!, color: _disabled ? f3Color : null, maxLines: 1) : null,
         trailing: CheckboxIcon(value, solid: value, color: _disabled ? f3Color : mainColor),
-        color: color,
+        color: color ?? b3Color,
         bottomDivider: bottomDivider,
         dividerIndent: dividerIndent,
+        uf: uf,
         onTap: onChanged != null ? () => onChanged!(!value) : null,
       );
 }

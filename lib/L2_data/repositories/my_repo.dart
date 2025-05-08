@@ -57,15 +57,14 @@ class MyRepo extends AbstractMyRepo {
     return response.data?.project;
   }
 
-  o_api.MyActivitiesApi get _activitiesApi => avanplanApi.getMyActivitiesApi();
-
-  @override
-  Future<User?> registerActivity(String code, {int? wsId}) async {
-    final body = (o_api.BodyRegisterV1MyActivitiesRegisterPostBuilder()
-          ..code = code
-          ..wsId = wsId)
-        .build();
-    final response = await _activitiesApi.registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost: body);
-    return response.data?.myUser(-1);
-  }
+  // o_api.MyActivitiesApi get _activitiesApi => avanplanApi.getMyActivitiesApi();
+  // @override
+  // Future<User?> registerActivity(String code, {int? wsId}) async {
+  //   final body = (o_api.BodyRegisterV1MyActivitiesRegisterPostBuilder()
+  //         ..code = code
+  //         ..wsId = wsId)
+  //       .build();
+  //   final response = await _activitiesApi.registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost: body);
+  //   return response.data?.myUser(-1);
+  // }
 }

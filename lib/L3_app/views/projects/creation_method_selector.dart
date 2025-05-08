@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
-import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
+import '../../presenters/task_create_method.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 Future<TaskCreationMethod?> selectProjectCreationMethod() async => await showMTDialog<TaskCreationMethod?>(const _ProjectCreationMethodDialog());
@@ -16,52 +17,30 @@ class _ProjectCreationMethodDialog extends StatelessWidget {
   const _ProjectCreationMethodDialog();
 
   static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
+
+  Widget _tileButton(BuildContext context, TaskCreationMethod method, bool bottomDivider) => MTListTile(
+        leading: method.btnIcon(),
+        titleText: method.actionTitle,
+        dividerIndent: _dividerIndent,
+        subtitle: SmallText(method.actionDescription),
+        bottomDivider: bottomDivider,
+        onTap: () => Navigator.of(context).pop(method),
+      );
+
   @override
   Widget build(BuildContext context) {
     return MTDialog(
       body: ListView(
         shrinkWrap: true,
         children: [
-          MTListGroupTitle(titleText: loc.create_from_scratch_title, topMargin: 0),
-          MTListTile(
-            leading: const BoardIcon(size: DEF_TAPPABLE_ICON_SIZE),
-            titleText: loc.tasks_view_mode_board,
-            dividerIndent: _dividerIndent,
-            subtitle: SmallText(loc.create_board_action_description),
-            onTap: () => Navigator.of(context).pop(TaskCreationMethod.BOARD),
-          ),
-          MTListTile(
-            leading: const ListIcon(size: DEF_TAPPABLE_ICON_SIZE),
-            titleText: loc.tasks_view_mode_list,
-            dividerIndent: _dividerIndent,
-            subtitle: SmallText(loc.create_list_action_description),
-            onTap: () => Navigator.of(context).pop(TaskCreationMethod.LIST),
-          ),
-          MTListTile(
-            leading: const ProjectsIcon(size: DEF_TAPPABLE_ICON_SIZE),
-            titleText: loc.project_title,
-            bottomDivider: false,
-            subtitle: SmallText(loc.create_project_action_description),
-            onTap: () => Navigator.of(context).pop(TaskCreationMethod.PROJECT),
-          ),
+          /// с нуля
+          MTListText(loc.create_from_scratch_title, topMargin: 0, titleTextColor: f2Color),
+          for (var m in [TaskCreationMethod.BOARD, TaskCreationMethod.LIST, TaskCreationMethod.PROJECT])
+            _tileButton(context, m, m != TaskCreationMethod.PROJECT),
 
           /// готовые проекты (шаблон, импорт)
-          MTListGroupTitle(titleText: loc.create_from_ready_made),
-          MTListTile(
-            leading: const TemplateIcon(),
-            titleText: loc.create_from_template_action_title,
-            dividerIndent: _dividerIndent,
-            subtitle: SmallText(loc.create_from_template_action_description),
-            onTap: () => Navigator.of(context).pop(TaskCreationMethod.TEMPLATE),
-          ),
-          MTListTile(
-            leading: const ImportIcon(),
-            titleText: loc.import_action_title,
-            dividerIndent: _dividerIndent,
-            subtitle: SmallText(loc.import_action_description),
-            bottomDivider: false,
-            onTap: () => Navigator.of(context).pop(TaskCreationMethod.IMPORT),
-          ),
+          MTListText(loc.create_from_ready_made, titleTextColor: f2Color),
+          for (var m in [TaskCreationMethod.TEMPLATE, TaskCreationMethod.IMPORT]) _tileButton(context, m, m != TaskCreationMethod.IMPORT),
         ],
       ),
     );

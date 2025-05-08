@@ -7,12 +7,12 @@ import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_tariff.dart';
 import '../../components/adaptive.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
-import '../../components/text.dart';
 import '../../presenters/tariff_option.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import 'tariff_option.dart';
 
 class TariffOptions extends StatelessWidget {
@@ -46,7 +46,7 @@ class TariffOptions extends StatelessWidget {
             final term = endDate != null ? endDate.priceDurationSuffix : f.priceDurationSuffix;
 
             return MTListTile(
-              leading: f.icon,
+              leading: f.icon(),
               middle: BaseText(f.title, align: TextAlign.left),
               subtitle: Row(
                 children: [

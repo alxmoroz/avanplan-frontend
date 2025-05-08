@@ -7,9 +7,9 @@ import '../../../L1_domain/entities/user.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../navigation/router.dart';
 import '../../presenters/user.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 class AccountButton extends StatelessWidget {

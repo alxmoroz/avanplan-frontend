@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../navigation/router.dart';
-import '../colors.dart';
-import '../text.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import 'element.dart';
 import 'parser.dart';
 

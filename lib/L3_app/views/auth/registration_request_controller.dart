@@ -5,11 +5,11 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/registration.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/field_data.dart';
 import '../../components/icons.dart';
 import '../../components/text_field.dart';
+import '../../theme/colors.dart';
 import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
 import '../app/services.dart';

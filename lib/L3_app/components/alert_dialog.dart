@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../theme/text.dart';
 import 'button.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'images.dart';
-import 'text.dart';
 
 class MTDialogAction<T> {
   MTDialogAction({

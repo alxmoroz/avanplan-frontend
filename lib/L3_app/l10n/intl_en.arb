@@ -120,14 +120,23 @@
   "millions_short": "M",
   "thousands_short": "k",
 
-  "create_board_action_description": "Status columns with tasks cards",
-  "create_list_action_description": "Simple task list",
-  "create_project_action_description": "Tasks and goals",
-
   "create_from_scratch_title": "Create from scratch",
   "create_from_ready_made": "Choose ready-made",
-  "create_from_template_action_title": "Create from template",
-  "create_from_template_action_description": "Choose a ready-made one from the library",
+
+  "create_board_action_title": "Board",
+  "create_board_action_description": "Status columns with tasks cards",
+
+  "create_list_action_title": "Task list",
+  "create_list_action_description": "Simple task list without statuses and goals",
+
+  "create_project_action_title": "Project",
+  "create_project_action_description": "Tasks grouped by goals, stages or groups",
+
+  "create_template_action_title": "Create from template",
+  "create_template_action_description": "Choose a ready-made one from the library",
+
+  "create_import_action_title": "Import",
+  "create_import_action_description": "Load projects from import source",
 
   "dates_period": "from {date1} to {date2}",
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
@@ -188,8 +197,6 @@
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
 
-  "import_action_description": "Load projects from import source",
-  "import_action_title": "Import",
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_menu_action_title": "Import from",
   "import_custom_request_mail_body_text": "Hello!\r\nI need help with import my projects into Avanplan.",
@@ -253,24 +260,6 @@
   "notification_push_ios_denied_dialog_title": "Do you allow Avanplan to send you Push Notifications?",
   "notification_push_ios_denied_dialog_description": "No spam. Only useful notifications about changes in your tasks",
   "notification_title": "Notification",
-
-  "onboarding_where_we_go_step_title": "Where do we start?",
-
-  "onboarding_step_1_title": "All your tasks are in one place",
-  "onboarding_step_1_text": "Manage your personal and work matters: tasks, projects, meetings",
-  "onboarding_step_2_title": "You can make plans for every day",
-  "onboarding_step_2_text": "Set deadlines and plan tasks for the day, week, and beyond",
-  "onboarding_step_3_title": "Available on any device",
-  "onboarding_step_3_text": "Use it in the mobile app or web version",
-
-  "onboarding_start_with_host_project_title": "And you also have an invitation",
-  "onboarding_start_with_host_project_action_title": "Go to the project",
-  "onboarding_start_with_host_project_action_description": "{title} awaits you",
-
-  "onboarding_start_with_project_title": "Start with a project",
-  "onboarding_start_with_project_text": "Import or create a project. Connect your team and other modules",
-  "onboarding_start_with_tasks_title": "Start with tasks",
-  "onboarding_start_with_tasks_text": "Simply manage your task list without a team or unnecessary settings",
 
   "ok": "Ok",
 

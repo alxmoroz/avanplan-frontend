@@ -1,6 +1,5 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'user_activity.dart';
 import 'ws_member.dart';
 
 class User extends WSMember {
@@ -11,12 +10,12 @@ class User extends WSMember {
     required super.roles,
     required super.permissions,
     required super.wsId,
-    required this.activities,
+    // required this.activities,
     required this.hasAvatar,
     super.updatedOn,
   });
 
-  final Iterable<UActivity> activities;
+  // final Iterable<UActivity> activities;
   final bool hasAvatar;
 
   static User get dummy => User(
@@ -27,7 +26,7 @@ class User extends WSMember {
         roles: [],
         permissions: [],
         wsId: -1,
-        activities: [],
+        // activities: [],
         hasAvatar: false,
       );
 }

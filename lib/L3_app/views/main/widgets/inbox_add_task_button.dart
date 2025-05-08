@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
 import '../../../components/circle.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
-import '../../../components/text.dart';
 import '../../../navigation/router.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/text.dart';
 import '../../app/services.dart';
 import '../../task/widgets/create/create_task_dialog.dart';
 

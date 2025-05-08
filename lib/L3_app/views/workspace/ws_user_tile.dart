@@ -8,9 +8,9 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../presenters/user.dart';
 import '../../presenters/ws_member.dart';
+import '../../theme/text.dart';
 import 'ws_user_dialog.dart';
 
 class WSUserTile extends StatelessWidget {

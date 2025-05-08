@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/note.dart';

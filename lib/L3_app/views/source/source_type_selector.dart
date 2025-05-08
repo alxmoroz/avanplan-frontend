@@ -3,8 +3,8 @@
 import '../../../L1_domain/entities/remote_source_type.dart';
 import '../../components/constants.dart';
 import '../../components/select_dialog.dart';
-import '../../components/text.dart';
 import '../../presenters/remote_source.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 Future<RemoteSourceType?> selectSourceType({int? selectedId}) async => await showMTSelectDialog(

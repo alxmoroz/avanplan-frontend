@@ -5,12 +5,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../presenters/number.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../views/_base/loader_screen.dart';
 import '../app/services.dart';
 import '../workspace/ws_controller.dart';

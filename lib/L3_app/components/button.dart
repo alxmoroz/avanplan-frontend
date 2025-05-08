@@ -3,14 +3,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'adaptive.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'gesture.dart';
 import 'icons.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
-import 'text.dart';
 
 enum MTButtonType { text, main, secondary, danger, safe, icon, card }
 

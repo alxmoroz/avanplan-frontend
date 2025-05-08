@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 import 'registration_form.dart';
 import 'sign_in_email_dialog.dart';

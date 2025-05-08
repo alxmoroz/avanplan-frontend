@@ -1,4 +1,4 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 

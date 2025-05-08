@@ -3,7 +3,6 @@
 import 'package:avanplan_api/avanplan_api.dart' as api;
 
 import '../../L1_domain/entities/user.dart';
-import 'user_activity.dart';
 
 extension UserMapper on api.User {
   User user(int wsId) => User(
@@ -14,7 +13,7 @@ extension UserMapper on api.User {
         fullName: fullName ?? '',
         roles: roleCodes ?? [],
         permissions: permissionCodes ?? [],
-        activities: [],
+        // activities: [],
         hasAvatar: hasAvatar ?? false,
       );
 }
@@ -28,7 +27,7 @@ extension MyUserMapper on api.MyUser {
         fullName: fullName ?? '',
         roles: [],
         permissions: [],
-        activities: activities.map((a) => a.activity),
+        // activities: activities.map((a) => a.activity),
         hasAvatar: hasAvatar ?? false,
       );
 }

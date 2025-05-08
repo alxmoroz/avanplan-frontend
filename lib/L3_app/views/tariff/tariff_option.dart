@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff_option.dart';
 import '../../components/adaptive.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
-import '../../components/text.dart';
 import '../../presenters/bytes.dart';
 import '../../presenters/number.dart';
 import '../../presenters/tariff_option.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 class TariffOptionTile extends StatelessWidget {
@@ -44,7 +44,7 @@ class TariffOptionTile extends StatelessWidget {
     final freeLimitHuman = '${(_to.freeLimit / _to.tariffQuantity).round()} ';
 
     return MTListTile(
-      leading: _to.icon,
+      leading: _to.icon(),
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

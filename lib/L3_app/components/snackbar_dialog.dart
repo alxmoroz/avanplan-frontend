@@ -4,10 +4,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'constants.dart';
 import 'dialog.dart';
-import 'text.dart';
 
 Future showMTSnackbar(String text) async {
   await showMTDialog(

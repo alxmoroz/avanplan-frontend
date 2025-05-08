@@ -4,7 +4,7 @@ import '../../../L1_domain/entities/abs_contact.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
+import '../../theme/text.dart';
 import '../app/clipboard.dart';
 
 class PersonContactNoTypeDetailsDialog extends StatelessWidget {

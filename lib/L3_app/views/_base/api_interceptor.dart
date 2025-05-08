@@ -26,22 +26,6 @@ final apiInterceptor = InterceptorsWrapper(onRequest: (options, handler) {
     //   action: Container(),
     // );
 
-    // void _setNetworkError(String? errorText) => set(
-    //   imageName: ImageName.network_error.name,
-    //   titleText: loc.error_network_title,
-    //   descriptionText: loc.error_network_description,
-    //   action: Column(
-    //     mainAxisSize: MainAxisSize.min,
-    //     crossAxisAlignment: CrossAxisAlignment.stretch,
-    //     children: [
-    //       _stopAction(loc.ok),
-    //       ReportErrorButton(errorText ?? 'LoaderNetworkError'),
-    //     ],
-    //   ),
-    // );
-
-    // _setNetworkError('${e.error}');
-
     if (kDebugMode) {
       print('SocketException $e');
     }

@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';

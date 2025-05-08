@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 

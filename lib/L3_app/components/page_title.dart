@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'constants.dart';
-import 'text.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle(this.pageTitle, {super.key, this.parentPageTitle});

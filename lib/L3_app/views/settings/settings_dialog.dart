@@ -10,6 +10,7 @@ import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../navigation/router.dart';
+import '../../theme/colors.dart';
 import '../app/about_dialog.dart';
 import '../app/services.dart';
 import '../workspace/ws_list_tile.dart';
@@ -26,7 +27,7 @@ class _SettingsDialog extends StatelessWidget {
   Widget _workspaces(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MTListGroupTitle(titleText: loc.workspaces_title),
+          MTListText(loc.workspaces_title, titleTextColor: f2Color),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

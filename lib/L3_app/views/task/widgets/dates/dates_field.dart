@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/date_repeat.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import 'dates_dialog.dart';

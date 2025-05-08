@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/attachments_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'attachments_dialog.dart';

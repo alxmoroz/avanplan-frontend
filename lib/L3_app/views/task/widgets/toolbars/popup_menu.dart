@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/gesture.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/task_actions.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import 'action_item.dart';

@@ -2,12 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/date_repeat.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 import 'repeat_dialog.dart';
 

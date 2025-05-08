@@ -7,14 +7,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../_base/loader_screen.dart';
 import '../../../app/services.dart';
 import 'tasks_selector_controller.dart';
@@ -39,8 +39,9 @@ class TasksSelectorDialog extends StatelessWidget {
     return Column(
       children: [
         if (groupTitle.isNotEmpty)
-          MTListGroupTitle(
-            titleText: groupTitle == AVANPLAN_KEY_OTHER_PROJECTS ? loc.projects_group_other_title : groupTitle,
+          MTListText(
+            groupTitle == AVANPLAN_KEY_OTHER_PROJECTS ? loc.projects_group_other_title : groupTitle,
+            titleTextColor: f2Color,
           ),
         ListView.builder(
           shrinkWrap: true,

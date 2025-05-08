@@ -1,17 +1,18 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/date.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/invoice_detail.dart';
 import '../../../L1_domain/entities/tariff_option.dart';
 import '../../components/adaptive.dart';
-import '../../components/colors.dart';
 import '../../components/list_tile.dart';
 import '../../components/price.dart';
-import '../../components/text.dart';
 import '../../presenters/bytes.dart';
+import '../../presenters/date.dart';
 import '../../presenters/number.dart';
+import '../../presenters/tariff_option.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 
 class TariffExpenseTile extends StatelessWidget {
   const TariffExpenseTile(this._to, this._d, {this.bottomDivider = true, super.key});

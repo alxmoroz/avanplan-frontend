@@ -7,9 +7,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../L2_data/services/platform.dart';
 import '../components/adaptive.dart';
-import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/dialog.dart';
+import '../theme/colors.dart';
 import '../views/_base/loadable.dart';
 import '../views/_base/loader_screen.dart';
 import '../views/app/services.dart';

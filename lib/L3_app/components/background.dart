@@ -2,8 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../theme/colors.dart';
 import 'adaptive.dart';
-import 'colors.dart';
 
 Decoration? backgroundDecoration(BuildContext context, {Color? bg1Color, Color? bg2Color}) => BoxDecoration(
       gradient: LinearGradient(

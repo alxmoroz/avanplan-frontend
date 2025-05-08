@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'constants.dart';
-import 'text.dart';
 
 InputDecoration tfDecoration(
   BuildContext context, {

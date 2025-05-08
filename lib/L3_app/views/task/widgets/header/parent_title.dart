@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
-import '../../../../components/text.dart';
 import '../../../../navigation/router.dart';
 import '../../../../presenters/task_tree.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskParentTitle extends StatelessWidget {

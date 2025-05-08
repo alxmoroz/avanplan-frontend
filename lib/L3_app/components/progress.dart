@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
 
 class MTProgressMark {
   const MTProgressMark(

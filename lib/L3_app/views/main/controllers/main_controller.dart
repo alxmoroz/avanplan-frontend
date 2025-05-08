@@ -12,7 +12,6 @@ import '../../../components/images.dart';
 import '../../../navigation/route.dart';
 import '../../../navigation/router.dart';
 import '../../../views/_base/loadable.dart';
-import '../../../views/onboarding/onboarding_controller.dart';
 import '../../../views/task/widgets/team/host_project_dialog.dart';
 import '../../app/services.dart';
 
@@ -46,24 +45,8 @@ class MainController extends _Base with _$MainController {
 
     await authController.checkLocalAuth();
     if (authController.authorized) {
-      TaskDescriptor? hostProject;
       // удаляем инфу о переходе по рекламе (передали в хедере)
       if (localSettingsController.hasUTM) await localSettingsController.deleteUTM();
-
-      // определение возможного погашения приглашения для подключения к проекту
-      if (localSettingsController.hasInvitation) {
-        await load(() async {
-          setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
-          // TODO: на бэке предусмотрена логика погашения приглашения, сохраненного при регистрации.
-          //  Т.е. если на фронте токена нет (другое устройство или сеанс), то это не помешает реализовать приглашение в проект после первой авторизации
-          // TODO: в связи с этим вопрос: почему бы сразу не прикрепить человечка к проекту в момент запроса регистрации? Проблема безопасности?
-          try {
-            hostProject = await myUC.redeemInvitation(localSettingsController.invitationToken);
-          } catch (_) {}
-
-          await localSettingsController.deleteInvitationToken();
-        });
-      }
 
       // обновление данных
       final isTimeToUpdate = _updatedDate == null; // || _updatedDate!.add(_updatePeriod).isBefore(now);
@@ -71,15 +54,24 @@ class MainController extends _Base with _$MainController {
         await reload();
       }
 
-      // Онбординг
-      String? onbPassedStepCode;
-      if (!myAccountController.onboardingPassed) {
-        onbPassedStepCode = await router.pushOnboarding(hostProject: hostProject);
-      }
+      // определение возможного погашения приглашения для подключения к проекту
+      if (localSettingsController.hasInvitation) {
+        setLoaderScreen(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
+        TaskDescriptor? hostProject;
+        await load(() async {
+          // TODO: на бэке предусмотрена логика погашения приглашения, сохраненного при регистрации.
+          //  Т.е. если на фронте токена нет (другое устройство или сеанс), то это не помешает реализовать приглашение в проект после первой авторизации
+          // TODO: в связи с этим вопрос: почему бы сразу не прикрепить человечка к проекту в момент запроса регистрации? Проблема безопасности?
+          try {
+            hostProject = await myUC.redeemInvitation(localSettingsController.invitationToken);
+          } catch (_) {}
+          await localSettingsController.deleteInvitationToken();
+        });
 
-      // при наличии приглашения показываем диалог перехода к приглашающему проекту, если не было такого шага в онбординге
-      if (hostProject != null && onbPassedStepCode != OnboardingStepCode.where_we_go.name) {
-        await startWithHostProjectDialog(hostProject!);
+        // при наличии приглашения показываем диалог перехода к приглашающему проекту, если не было такого шага в онбординге
+        if (hostProject != null) {
+          await startWithHostProjectDialog(hostProject!);
+        }
       }
 
       // TODO: тут происходит запрос на отправку уведомлений. Наверное, это нужно перенести в онбординг

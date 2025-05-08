@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'linkify/linkify.dart';
-import 'text.dart';
 import 'text_field.dart';
 
 class MTTextFieldInline extends StatelessWidget {

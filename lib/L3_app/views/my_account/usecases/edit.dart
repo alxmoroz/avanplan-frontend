@@ -23,7 +23,7 @@ extension AccountEditUC on MyAccountController {
       setLoaderScreenDeleting();
       await load(() async {
         await myUC.deleteAccount();
-        await authController.signOut();
+        await authController.signOut(disconnect: true);
       });
     }
   }

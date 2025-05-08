@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/avatar.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/linkify/linkify.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../presenters/user.dart';
 import '../../presenters/ws_member.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 Future wsUserDialog(Workspace ws, User user) async => await showMTDialog(_WSUserDialog(ws, user));

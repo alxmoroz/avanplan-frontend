@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/task_state.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 
 enum StateTitlePlace { groupHeader, card }
 
@@ -20,7 +20,8 @@ class StateTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return place == StateTitlePlace.groupHeader
-        ? MTListGroupTitle(
+        ? MTListTile(
+            topMargin: DEF_VP,
             leading: Padding(padding: const EdgeInsets.only(top: P2), child: stateIconGroup(context, state)),
             middle: SmallText(text, maxLines: 1, weight: FontWeight.w500, color: f3Color),
             padding: EdgeInsets.zero,

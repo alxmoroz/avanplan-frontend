@@ -6,13 +6,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../_base/loader_screen.dart';
 import '../../../app/services.dart';
 import '../../task_view.dart';
@@ -43,7 +43,7 @@ class _State extends TaskViewState<RelatedTaskPreview> {
       bottomBar: MTBottomBar(
         innerHeight: 100,
         middle: Column(children: [
-          MTListGroupTitle(
+          MTListTile(
             leading: const InfoIcon(color: warningColor),
             middle: SmallText(loc.related_task_preview_hint),
             padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P2),

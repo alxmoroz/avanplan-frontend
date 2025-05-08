@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 
 import '../presenters/number.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'adaptive.dart';
-import 'colors.dart';
 import 'constants.dart';
-import 'text.dart';
 
 class MTPrice extends StatelessWidget {
   const MTPrice(

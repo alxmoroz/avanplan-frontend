@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../components/adaptive.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
-import '../../../components/text.dart';
 import '../../../components/toolbar_controller.dart';
 import '../../../components/vertical_toolbar.dart';
 import '../../../navigation/router.dart';
 import '../../../presenters/user.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/text.dart';
 import '../../app/services.dart';
 import '../../projects/projects_view.dart';
 import '../../settings/settings_dialog.dart';

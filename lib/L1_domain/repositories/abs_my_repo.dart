@@ -8,7 +8,7 @@ abstract class AbstractMyRepo {
   Future<User?> getAccount();
   Future deleteAccount();
 
-  Future<User?> registerActivity(String code, {int? wsId});
+  // Future<User?> registerActivity(String code, {int? wsId});
 
   Future<Iterable<MTNotification>> getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds);

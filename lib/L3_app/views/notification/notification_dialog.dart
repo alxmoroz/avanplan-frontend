@@ -9,10 +9,10 @@ import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../navigation/router.dart';
 import '../../presenters/date.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 Future notificationDialog() async => await showMTDialog(const _NotificationDialog(), maxWidth: SCR_M_WIDTH);

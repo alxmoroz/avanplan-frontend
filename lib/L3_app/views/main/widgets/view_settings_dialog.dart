@@ -12,6 +12,7 @@ import '../../../components/icons.dart';
 import '../../../components/images.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
+import '../../../theme/colors.dart';
 import '../../../views/_base/loader_screen.dart';
 import '../../app/services.dart';
 
@@ -31,7 +32,7 @@ class _ViewSettingsDialog extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   if (calendarController.sources.isNotEmpty) ...[
-                    MTListGroupTitle(titleText: loc.calendar_connected_list_title),
+                    MTListText(loc.calendar_connected_list_title, titleTextColor: f2Color),
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

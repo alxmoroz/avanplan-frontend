@@ -10,16 +10,16 @@ import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../navigation/route.dart';
 import '../../presenters/date.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 import 'notification_controller.dart';
 

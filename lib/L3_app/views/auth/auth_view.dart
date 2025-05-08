@@ -6,15 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/divider.dart';
 import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/page.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../navigation/route.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../usecases/communications.dart';
 import '../_base/loader_screen.dart';
 import '../app/about_dialog.dart';
@@ -30,6 +30,7 @@ final authRoute = MTRoute(
 );
 
 class _AuthView extends StatefulWidget {
+  // TODO: зачем здесь key?
   const _AuthView({super.key});
 
   @override

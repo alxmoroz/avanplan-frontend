@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/base_entity.dart';
-import 'colors.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'text.dart';
 import 'text_field.dart';
 
 class MTDropdown<T extends RPersistable> extends StatelessWidget {

@@ -1,7 +1,7 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:avanplan_api/avanplan_api.dart' as o_api;
+import 'package:flutter/foundation.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../L1_domain/entities/errors.dart';
@@ -67,5 +67,5 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
   }
 
   @override
-  Future signOut() async {}
+  Future signOut({bool disconnect = false}) async {}
 }

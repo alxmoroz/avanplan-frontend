@@ -87,7 +87,7 @@ class TaskDetails extends StatelessWidget {
             MTListTile(
               margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
               leading: t.source?.type.icon(size: DEF_TAPPABLE_ICON_SIZE),
-              titleText: !compact ? loc.task_go2source_title : null,
+              titleText: !compact ? loc.task_go2source_title : '',
               trailing: !compact ? const LinkOutIcon() : null,
               bottomDivider: false,
               onTap: () => launchUrlString(t.taskSource!.urlString),

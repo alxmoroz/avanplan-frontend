@@ -10,13 +10,13 @@ import '../../../../../L1_domain/utils/dates.dart';
 import '../../../L1_domain/entities/calendar.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/circle.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../presenters/date.dart';
 import '../../presenters/task_state.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 import 'event_dialog.dart';
 

@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../navigation/router.dart';
+import '../theme/colors.dart';
 import 'adaptive.dart';
 import 'close_dialog_button.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'page_title.dart';
 import 'toolbar_controller.dart';

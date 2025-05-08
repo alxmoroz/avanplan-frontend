@@ -8,15 +8,15 @@ import '../../../L1_domain/entities/remote_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
 import '../../components/checkbox.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/dropdown.dart';
 import '../../components/shadowed.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../presenters/remote_source.dart';
 import '../../presenters/workspace.dart';
+import '../../theme/colors.dart';
+import '../../theme/text.dart';
 import '../../usecases/ws_sources.dart';
 import '../_base/loader_screen.dart';
 import '../app/services.dart';
@@ -128,7 +128,7 @@ class _ImportDialog extends StatelessWidget {
       ? MTBottomBar(
           middle: MTButton.main(
             padding: const EdgeInsets.symmetric(horizontal: P3),
-            titleText: '${loc.import_action_title}$_importBtnCountHint',
+            titleText: '${loc.create_import_action_title}$_importBtnCountHint',
             onTap: _validated ? () => ic.startImport(context) : null,
           ),
         )

@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/images.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/task_actions.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import 'invitation_button.dart';
 

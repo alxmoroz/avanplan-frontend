@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../components/circle.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar.dart';
 import '../../../navigation/router.dart';
+import '../../../theme/colors.dart';
 import '../../app/services.dart';
 import 'inbox_add_task_button.dart';
 

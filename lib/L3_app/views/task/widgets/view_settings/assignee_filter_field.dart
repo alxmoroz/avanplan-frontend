@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../components/field.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_settings_controller.dart';
 import 'assignee_filter_dialog.dart';

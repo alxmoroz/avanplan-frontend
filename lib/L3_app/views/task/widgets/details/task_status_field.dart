@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../../usecases/task_status.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/status.dart';

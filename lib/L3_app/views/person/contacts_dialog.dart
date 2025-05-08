@@ -8,9 +8,9 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../presenters/contact.dart';
+import '../../theme/text.dart';
 import '../app/clipboard.dart';
 import '../app/services.dart';
 

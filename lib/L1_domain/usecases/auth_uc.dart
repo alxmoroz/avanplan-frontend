@@ -67,8 +67,8 @@ class AuthUC {
   Uri get yandexServerAuthCodeUri => yandexRepo.serverAuthCodeUri;
   Future<bool> signInYandex(String serverAuthCode) async => await _signInOAuth(yandexRepo, serverAuthCode: serverAuthCode);
 
-  Future signOut() async {
-    await _currentRepo.signOut();
-    _setToken('');
+  Future signOut({bool disconnect = false}) async {
+    await _currentRepo.signOut(disconnect: disconnect);
+    await _setToken('');
   }
 }

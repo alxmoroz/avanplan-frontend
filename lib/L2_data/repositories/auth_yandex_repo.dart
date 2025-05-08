@@ -43,5 +43,5 @@ class AuthYandexRepo extends AbstractOAuthRepo with AuthMixin {
   }
 
   @override
-  Future signOut() async => {};
+  Future signOut({bool disconnect = false}) async => {};
 }

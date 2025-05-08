@@ -7,11 +7,11 @@ import '../../L1_domain/entities/ws_member.dart';
 import '../../L2_data/services/api.dart';
 import '../presenters/person.dart';
 import '../presenters/ws_member.dart';
+import '../theme/colors.dart';
+import '../theme/text.dart';
 import 'circle.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'text.dart';
 
 const double MAX_AVATAR_RADIUS = SCR_S_WIDTH / 4;
 

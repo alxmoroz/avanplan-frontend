@@ -13,7 +13,7 @@ part 'ws_controller.g.dart';
 
 enum WSFCode { code, title, description }
 
-class WSController extends _WSControllerBase with _$WSController {
+class WSController extends _Base with _$WSController {
   WSController({Workspace? wsIn}) {
     if (wsIn != null) initWithWS(wsIn);
   }
@@ -57,7 +57,7 @@ class WSController extends _WSControllerBase with _$WSController {
       ]);
 }
 
-abstract class _WSControllerBase extends EditController with Store, Loadable {
+abstract class _Base extends EditController with Store, Loadable {
   late Workspace wsDescriptor;
 
   Workspace get ws => wsMainController.ws(wsDescriptor.id) ?? wsDescriptor;

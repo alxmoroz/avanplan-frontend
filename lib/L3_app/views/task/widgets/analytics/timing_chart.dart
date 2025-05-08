@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_dates.dart';
 import '../../../../../L1_domain/entities_extensions/task_state.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/progress.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/task_state.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/state.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/text.dart';
+import '../../../../theme/text.dart';
 
 class MTDashboardCard extends StatelessWidget {
   const MTDashboardCard(

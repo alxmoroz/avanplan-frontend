@@ -1,13 +1,10 @@
 // Copyright (c) 2024. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
-import '../../../L1_domain/entities/user_activity.dart';
 import '../../../L1_domain/entities/user_contact.dart';
-import '../_base/edit_controller.dart';
 import '../_base/loadable.dart';
 import '../app/services.dart';
 
@@ -15,18 +12,9 @@ part 'my_account_controller.g.dart';
 
 class MyAccountController extends _Base with _$MyAccountController {}
 
-abstract class _Base extends EditController with Store, Loadable {
+abstract class _Base with Store, Loadable {
   @observable
   User? me;
-
-  @computed
-  Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(me?.activities ?? [], (a) => a.code);
-
-  @computed
-  bool get onboardingPassed => me?.activities.where((a) => a.code.startsWith(UACode.ONBOARDING_PASSED)).isNotEmpty == true;
-
-  @computed
-  bool get promoFeaturesViewed => me?.activities.where((a) => a.code.startsWith(UACode.PROMO_FEATURES_VIEWED)).isNotEmpty == true;
 
   @observable
   ObservableList<UserContact> contacts = ObservableList();
@@ -43,8 +31,8 @@ abstract class _Base extends EditController with Store, Loadable {
     stopLoading();
   }
 
-  @action
-  Future registerActivity(String code, {int? wsId}) async => me = await myUC.registerActivity(code, wsId: wsId);
+  // @action
+  // Future registerActivity(String code, {int? wsId}) async => me = await myUC.registerActivity(code, wsId: wsId);
 
   @action
   Future uploadAvatar(XFile file) async {

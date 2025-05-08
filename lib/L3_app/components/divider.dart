@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
 
 class MTDivider extends StatelessWidget {
   const MTDivider({super.key, this.color, this.height, this.indent, this.endIndent, this.verticalIndent});

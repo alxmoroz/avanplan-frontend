@@ -6,8 +6,8 @@ import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
-import '../../components/text.dart';
 import '../../navigation/router.dart';
+import '../../theme/text.dart';
 import '../../usecases/communications.dart';
 import 'services.dart';
 

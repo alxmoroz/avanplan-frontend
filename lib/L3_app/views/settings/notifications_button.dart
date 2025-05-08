@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/text.dart';
 import '../../navigation/router.dart';
+import '../../theme/text.dart';
 import '../app/services.dart';
 
 class NotificationsButton extends StatelessWidget {

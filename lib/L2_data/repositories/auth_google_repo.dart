@@ -1,8 +1,8 @@
 // Copyright (c) 2024. Alexandr Moroz
 
+import 'package:avanplan_api/avanplan_api.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:avanplan_api/avanplan_api.dart';
 
 import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
@@ -22,7 +22,7 @@ GoogleSignIn gSI({Iterable<String> scopes = const []}) => GoogleSignIn(
       ],
       //
       serverClientId: isWeb ? null : _webServerClientId,
-      forceCodeForRefreshToken: true,
+      forceCodeForRefreshToken: isWeb,
     );
 
 GoogleSignIn mainGSI = gSI();
@@ -33,9 +33,11 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
   @override
   Future<bool> signInIsAvailable() async {
     //TODO: костыль для возможности открывать popup для гугловой авторизации при первом посещении accounts.google.com в вебе
-    final acc = await mainGSI.signInSilently();
-    if (acc != null) {
-      await mainGSI.signOut();
+    if (isWeb) {
+      final acc = await mainGSI.signInSilently();
+      if (acc != null) {
+        await mainGSI.signOut();
+      }
     }
     return true;
   }
@@ -43,7 +45,7 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
   @override
   Future<String> signIn({String? serverAuthCode}) async {
     try {
-      final user = await mainGSI.signInSilently() ?? await mainGSI.signIn();
+      final user = (await mainGSI.signInSilently()) ?? (await mainGSI.signIn());
       final idToken = (await user?.authentication)?.idToken;
       if (idToken != null) {
         final response = await authApi.authGoogleToken(
@@ -64,5 +66,11 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
   }
 
   @override
-  Future signOut() async => await mainGSI.disconnect();
+  Future signOut({bool disconnect = false}) async {
+    if (disconnect) {
+      await mainGSI.disconnect();
+    } else {
+      await mainGSI.signOut();
+    }
+  }
 }

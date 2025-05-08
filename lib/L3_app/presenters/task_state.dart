@@ -6,9 +6,8 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_dates.dart';
 import '../components/circle.dart';
 import '../components/circular_progress.dart';
-import '../components/colors.dart';
 import '../components/constants.dart';
-import '../components/images.dart';
+import '../theme/colors.dart';
 import '../views/app/services.dart';
 import 'duration.dart';
 import 'task_tree.dart';
@@ -31,26 +30,6 @@ Color stateColor(TaskState state, {Color? defaultColor}) {
     default:
       return defaultColor ?? f2Color;
   }
-}
-
-Widget imageForState(TaskState state, {double? size}) {
-  String name = ImageName.no_info.name;
-  switch (state) {
-    case TaskState.OVERDUE:
-      name = ImageName.overdue.name;
-      break;
-    case TaskState.RISK:
-      name = ImageName.risk.name;
-      break;
-    case TaskState.CLOSABLE:
-    case TaskState.OK:
-    case TaskState.AHEAD:
-    case TaskState.CLOSED:
-      name = ImageName.ok.name;
-      break;
-    default:
-  }
-  return MTImage(name, height: size);
 }
 
 LinearGradient stateGradient(BuildContext context, TaskState state) {

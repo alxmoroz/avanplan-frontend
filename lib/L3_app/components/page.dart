@@ -5,9 +5,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../theme/colors.dart';
 import 'adaptive.dart';
 import 'background.dart';
-import 'colors.dart';
 import 'constants.dart';
 import 'gesture.dart';
 import 'material_wrapper.dart';

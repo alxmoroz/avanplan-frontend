@@ -6,14 +6,14 @@ import 'package:intl/intl.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/task_finance.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_transactions_controller.dart';
 import 'finance_summary_card.dart';

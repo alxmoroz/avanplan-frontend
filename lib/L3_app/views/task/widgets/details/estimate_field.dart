@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities_extensions/task_params.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/text.dart';
 import '../../../../presenters/task_estimate.dart';
+import '../../../../theme/colors.dart';
+import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/estimate.dart';
 

@@ -19,7 +19,7 @@ class AuthAvanplanRepo extends AbstractAuthAvanplanRepo with AuthMixin {
   }
 
   @override
-  Future signOut() async {}
+  Future signOut({bool disconnect = false}) async {}
 
   @override
   Future<bool> signInIsAvailable() async => true;

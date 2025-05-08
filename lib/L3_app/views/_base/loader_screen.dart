@@ -9,7 +9,7 @@ import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/images.dart';
 import '../../components/page.dart';
-import '../../components/text.dart';
+import '../../theme/text.dart';
 import 'loadable.dart';
 
 class LoaderScreen extends StatelessWidget {

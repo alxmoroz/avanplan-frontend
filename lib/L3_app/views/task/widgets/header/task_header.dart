@@ -57,7 +57,7 @@ class TaskHeader extends StatelessWidget {
                         hintStyle: const H1('', color: f3Color).style(context),
                       ),
                       style: roStyle,
-                      onChanged: _tc.setTitle,
+                      onChange: _tc.setTitle,
                     ),
                     padding: EdgeInsets.zero,
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,3 @@
-// Copyright (c) 2022. Alexandr Moroz
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,22 +6,22 @@ import '../theme/text.dart';
 import 'constants.dart';
 
 InputDecoration tfDecoration(
-  BuildContext context, {
-  String? label,
-  String? hint,
-  String? helper,
-  String? error,
-  Widget? prefixIcon,
-  Widget? suffixIcon,
-  EdgeInsets? contentPadding,
-  TextStyle? hintStyle,
-  bool readOnly = false,
-}) {
+    BuildContext context, {
+      String? label,
+      String? hint,
+      String? helper,
+      String? error,
+      Widget? prefixIcon,
+      Widget? suffixIcon,
+      EdgeInsets? contentPadding,
+      TextStyle? hintStyle,
+      bool readOnly = false,
+    }) {
   final bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
-  final OutlineInputBorder dangerBorder = OutlineInputBorder(borderSide: BorderSide(color: dangerColor.resolve(context)), borderRadius: bRadius);
+  final OutlineInputBorder warningBorder = OutlineInputBorder(borderSide: BorderSide(color: warningColor.resolve(context)), borderRadius: bRadius);
   final OutlineInputBorder border = OutlineInputBorder(borderSide: BorderSide(color: f3Color.resolve(context)), borderRadius: bRadius);
   final OutlineInputBorder focusedBorder =
-      OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)), borderRadius: bRadius);
+  OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)), borderRadius: bRadius);
 
   return InputDecoration(
     labelText: label,
@@ -34,25 +32,23 @@ InputDecoration tfDecoration(
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
     errorText: error,
-    errorStyle: const SmallText('', color: dangerColor).style(context),
+    errorStyle: const SmallText('', color: warningColor).style(context),
     errorMaxLines: 3,
-    contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P3),
+    contentPadding: contentPadding ?? DEF_PADDING,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: border,
     focusedBorder: readOnly ? border : focusedBorder,
     enabledBorder: border,
     disabledBorder: border,
-    errorBorder: dangerBorder,
-    focusedErrorBorder: dangerBorder,
+    errorBorder: warningBorder,
+    focusedErrorBorder: warningBorder,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,
     fillColor: b3Color.resolve(context),
   );
 }
-
-EdgeInsets get tfMargin => const EdgeInsets.fromLTRB(P2, P3, P2, 0);
 
 class MTTextField extends StatelessWidget {
   const MTTextField({
@@ -65,7 +61,9 @@ class MTTextField extends StatelessWidget {
     this.keyboardType,
     this.textInputAction,
     this.maxLines,
+    this.minLines,
     this.autofocus = true,
+    this.autofillHints,
     this.margin,
     this.contentPadding,
     this.obscureText = false,
@@ -76,8 +74,8 @@ class MTTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onTap,
-    this.onChanged,
-    this.onSubmitted,
+    this.onChange,
+    this.onSubmit,
     this.style,
     this.hintStyle,
     this.textAlign,
@@ -101,6 +99,7 @@ class MTTextField extends StatelessWidget {
     this.onTap,
     this.decoration,
     this.maxLines = 1,
+    this.minLines = 1,
     this.textAlign,
     this.focusNode,
   })  : autofocus = false,
@@ -109,14 +108,15 @@ class MTTextField extends StatelessWidget {
         autocorrect = false,
         suggestions = false,
         keyboardType = null,
-        onChanged = null,
-        onSubmitted = null,
+        onChange = null,
+        onSubmit = null,
         style = null,
         inputFormatters = null,
         hintStyle = null,
         cursorColor = null,
         textInputAction = null,
-        readOnly = true;
+        readOnly = true,
+        autofillHints = null;
 
   final TextEditingController? controller;
   final String? label;
@@ -126,7 +126,9 @@ class MTTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final int? maxLines;
+  final int? minLines;
   final bool autofocus;
+  final Iterable<String>? autofillHints;
   final EdgeInsets? margin;
   final EdgeInsets? contentPadding;
   final bool obscureText;
@@ -140,8 +142,8 @@ class MTTextField extends StatelessWidget {
   final TextStyle? style;
   final TextStyle? hintStyle;
   final VoidCallback? onTap;
-  final Function(String)? onChanged;
-  final Function(String)? onSubmitted;
+  final Function(String)? onChange;
+  final Function(String)? onSubmit;
   final FocusNode? focusNode;
   final TextAlign? textAlign;
   final List<TextInputFormatter>? inputFormatters;
@@ -150,7 +152,7 @@ class MTTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? tfMargin,
+      padding: margin ?? DEF_MARGIN,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -174,7 +176,8 @@ class MTTextField extends StatelessWidget {
               ),
           cursorColor: (cursorColor ?? mainColor).resolve(context),
           autofocus: autofocus,
-          minLines: maxLines != null ? 1 : null,
+          autofillHints: autofillHints,
+          minLines: maxLines != null ? (minLines ?? 1) : null,
           maxLines: maxLines,
           controller: controller,
           keyboardType: keyboardType,
@@ -185,8 +188,8 @@ class MTTextField extends StatelessWidget {
           enableSuggestions: suggestions,
           readOnly: readOnly,
           onTap: onTap,
-          onChanged: onChanged,
-          onSubmitted: onSubmitted,
+          onChanged: onChange,
+          onSubmitted: onSubmit,
           focusNode: focusNode,
           textAlign: textAlign ?? TextAlign.start,
           inputFormatters: inputFormatters,

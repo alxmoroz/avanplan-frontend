@@ -76,7 +76,7 @@ class _State extends State<_ProjectStatusEditDialog> {
                   hintStyle: const H1('', color: f3Color, maxLines: 2).style(context),
                 ),
                 style: const H1('', maxLines: 2).style(context),
-                onChanged: _psec.editTitle,
+                onChange: _psec.editTitle,
               ),
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
               color: b2Color,

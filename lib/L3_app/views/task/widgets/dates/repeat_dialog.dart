@@ -106,7 +106,7 @@ class _RepeatDialog extends StatelessWidget {
                               return newValue;
                             }),
                           ],
-                          onChanged: _repeatController.setPeriodLength,
+                          onChange: _repeatController.setPeriodLength,
                         ),
                       ],
                     ),

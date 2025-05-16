@@ -133,7 +133,7 @@ abstract class _Base extends EditController with Store, Loadable {
       obscureText: code == SourceFCode.password,
       maxLines: 1,
       capitalization: TextCapitalization.none,
-      margin: tfMargin.copyWith(top: first ? P : tfMargin.top),
+      margin: DEF_MARGIN.copyWith(top: first ? P : DEF_MARGIN.top),
     );
   }
 

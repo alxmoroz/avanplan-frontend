@@ -46,7 +46,7 @@ abstract class _RegistrationControllerBase extends EditController with Store, Lo
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword, color: mainColor), onTap: _toggleShowPassword, uf: false) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
-      margin: tfMargin.copyWith(top: first ? P : tfMargin.top),
+      margin: DEF_MARGIN.copyWith(top: first ? P : DEF_MARGIN.top),
     );
   }
 

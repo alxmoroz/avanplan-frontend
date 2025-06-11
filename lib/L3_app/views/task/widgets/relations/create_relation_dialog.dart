@@ -50,18 +50,20 @@ class _CreateRelationDialog extends StatelessWidget {
           topBar: MTTopBar(
             pageTitle: loc.relation_create_dialog_title,
             parentPageTitle: _crc.srcTask.title,
-            innerHeight: P * 14 + (_crc.singleSourceFlag ? 0 : P5),
-            bottomWidget: MTListTile(
-              middle: BaseText.medium(_crc.dstSelected ? '$_dstGroup' : loc.transfer_select_source_hint, maxLines: 1, color: f2Color),
-              trailing: SizedBox(
-                width: P4,
-                child: Align(child: CaretIcon(size: const Size(P2, P2), color: _crc.singleSourceFlag ? f3Color : mainColor)),
+            bottomWidget: PreferredSize(
+              preferredSize: Size.fromHeight(P6 + (_crc.singleSourceFlag ? 0 : P5)),
+              child: MTListTile(
+                middle: BaseText.medium(_crc.dstSelected ? '$_dstGroup' : loc.transfer_select_source_hint, maxLines: 1, color: f2Color),
+                trailing: SizedBox(
+                  width: P4,
+                  child: Align(child: CaretIcon(size: const Size.square(P2), color: _crc.singleSourceFlag ? f3Color : mainColor)),
+                ),
+                margin: EdgeInsets.only(top: _crc.singleSourceFlag ? 0 : P),
+                padding: EdgeInsets.symmetric(vertical: _crc.singleSourceFlag ? 0 : P2, horizontal: P3),
+                color: _crc.singleSourceFlag ? Colors.transparent : b3Color,
+                bottomDivider: false,
+                onTap: _crc.singleSourceFlag ? null : _crc.selectDstGroup,
               ),
-              margin: EdgeInsets.only(top: _crc.singleSourceFlag ? 0 : P),
-              padding: EdgeInsets.symmetric(vertical: _crc.singleSourceFlag ? 0 : P2, horizontal: P3),
-              color: _crc.singleSourceFlag ? Colors.transparent : b3Color,
-              bottomDivider: false,
-              onTap: _crc.singleSourceFlag ? null : _crc.selectDstGroup,
             ),
           ),
           body: MTShadowed(

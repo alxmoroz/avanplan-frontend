@@ -52,32 +52,34 @@ class _LocalImportDialog extends StatelessWidget {
           topBar: MTTopBar(
             pageTitle: loc.transfer_tasks_title,
             parentPageTitle: _dst.title,
-            innerHeight: P * 14 + (_lic.singleSourceFlag ? 0 : P5) + (_showSelectAll ? P8 : 0),
-            bottomWidget: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MTListTile(
-                  middle: BaseText.medium(_lic.srcSelected ? '$_src' : loc.transfer_select_source_hint, color: f2Color, maxLines: 1),
-                  trailing: SizedBox(
-                    width: P4,
-                    child: Align(child: CaretIcon(size: const Size(P2, P2), color: _lic.singleSourceFlag ? f3Color : mainColor)),
-                  ),
-                  margin: EdgeInsets.only(top: _lic.singleSourceFlag ? 0 : P),
-                  padding: EdgeInsets.symmetric(vertical: _lic.singleSourceFlag ? 0 : P2, horizontal: P3),
-                  color: _lic.singleSourceFlag ? Colors.transparent : b3Color,
-                  bottomDivider: false,
-                  onTap: _lic.singleSourceFlag ? null : _lic.selectSourceForMove,
-                ),
-                if (_showSelectAll)
-                  MTCheckBoxTile(
-                    title: '${loc.action_select_all_title} (${_lic.checks.length})',
-                    titleColor: mainColor,
-                    color: b2Color,
-                    value: _lic.selectedAll,
+            bottomWidget: PreferredSize(
+              preferredSize: Size.fromHeight(P6 + (_lic.singleSourceFlag ? 0 : P5) + (_showSelectAll ? P8 : 0)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MTListTile(
+                    middle: BaseText.medium(_lic.srcSelected ? '$_src' : loc.transfer_select_source_hint, color: f2Color, maxLines: 1),
+                    trailing: SizedBox(
+                      width: P4,
+                      child: Align(child: CaretIcon(size: const Size(P2, P2), color: _lic.singleSourceFlag ? f3Color : mainColor)),
+                    ),
+                    margin: EdgeInsets.only(top: _lic.singleSourceFlag ? 0 : P),
+                    padding: EdgeInsets.symmetric(vertical: _lic.singleSourceFlag ? 0 : P2, horizontal: P3),
+                    color: _lic.singleSourceFlag ? Colors.transparent : b3Color,
                     bottomDivider: false,
-                    onChanged: _lic.toggleAll,
-                  )
-              ],
+                    onTap: _lic.singleSourceFlag ? null : _lic.selectSourceForMove,
+                  ),
+                  if (_showSelectAll)
+                    MTCheckBoxTile(
+                      title: '${loc.action_select_all_title} (${_lic.checks.length})',
+                      titleColor: mainColor,
+                      color: b2Color,
+                      value: _lic.selectedAll,
+                      bottomDivider: false,
+                      onChanged: _lic.toggleAll,
+                    )
+                ],
+              ),
             ),
           ),
           body: MTShadowed(

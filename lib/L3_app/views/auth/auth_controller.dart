@@ -92,14 +92,15 @@ abstract class _Base with Store, Loadable {
             );
           }
         }
-
+        // NB: тут проверяем, выставился ли на пред. шаге _yandexRedirectUri. либо если он уже есть (в случае веба), но не обработан
         if (_yandexRedirectUri != null) {
           final serverAuthCode = _yandexRedirectUri!.queryParameters['code'] ?? '';
-          authorized = await authUC.signInYandex(serverAuthCode);
           _yandexRedirectUri = null;
+          authorized = await authUC.signInYandex(serverAuthCode);
         }
       },
     );
+
     if (authorized) router.goMain();
   }
 

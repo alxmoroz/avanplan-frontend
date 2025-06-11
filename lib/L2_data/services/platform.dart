@@ -13,6 +13,7 @@ PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 bool get isWeb => kIsWeb;
 bool get isIOS => !isWeb && Platform.isIOS;
 bool get isAndroid => !isWeb && Platform.isAndroid;
+bool get isSimulator => (isIOS && !_iosDevInfo.isPhysicalDevice) || (isAndroid && !_androidDevInfo.isPhysicalDevice);
 
 String get platformCode => isIOS
     ? 'ios'

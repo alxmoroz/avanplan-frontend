@@ -78,8 +78,10 @@ class _MainView extends StatefulWidget {
   State<StatefulWidget> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
+class _MainViewState extends State<_MainView> {
+  AppLifecycleListener? _appstateListener;
   late final ScrollController _scrollController;
+
   bool _hasScrolled = false;
 
   bool get _hasTasks => tasksMainController.myTasks.isNotEmpty;
@@ -90,16 +92,27 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    mainController.startup();
-    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+
+    if (isWeb || isSimulator) {
+      mainController.startup();
+    }
+    if (!isWeb) {
+      _appstateListener = AppLifecycleListener(
+        onStateChange: (state) {
+          if (state == AppLifecycleState.resumed) {
+            mainController.startup();
+          }
+        },
+      );
+    }
+
     _scrollController = ScrollController();
 
     rightToolbarController = MTToolbarController(isCompact: true, wideWidth: 220);
     groupRightToolbarController = MTToolbarController(isCompact: true);
     taskRightToolbarController = MTToolbarController();
     leftMenuController = MTToolbarController(wideWidth: 242.0);
-
-    super.initState();
   }
 
   @override
@@ -109,15 +122,8 @@ class _MainViewState extends State<_MainView> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (!isWeb && state == AppLifecycleState.resumed) {
-      mainController.startup();
-    }
-  }
-
-  @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    _appstateListener?.dispose();
     _scrollController.dispose();
     super.dispose();
   }

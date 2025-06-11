@@ -72,12 +72,16 @@ abstract class _InvitationControllerBase with Store {
   String get _invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - $task';
   String get invitationText => '$_invitationSubject\n\n${loc.invitation_share_text('https://moroz.team/avanplan/install', _url)}';
 
+  // NB: без await – чтобы в андроиде открывалось в отдельном окне
   Future _share(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    await Share.share(
-      invitationText,
-      subject: _invitationSubject,
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    // для веба
+    final box = context.findRenderObject() as RenderBox;
+    SharePlus.instance.share(
+      ShareParams(
+        text: invitationText,
+        subject: _invitationSubject,
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+      ),
     );
   }
 }

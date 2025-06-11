@@ -141,10 +141,11 @@ class _ImportDialog extends StatelessWidget {
           ? LoaderScreen(ic, isDialog: true)
           : MTDialog(
               topBar: MTTopBar(
-                innerHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
                 pageTitle: loc.import_title,
                 parentPageTitle: ic.ws.title,
-                bottomWidget: _hasSources ? _header : null,
+                bottomWidget: _hasSources
+                    ? PreferredSize(preferredSize: Size.fromHeight(P * 15 + (_showSelectAll ? DEF_BAR_HEIGHT : 0)), child: _header)
+                    : null,
               ),
               body: _body(context),
               bottomBar: _bottomBar(context),

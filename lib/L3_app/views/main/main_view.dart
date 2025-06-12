@@ -80,6 +80,17 @@ class _MainView extends StatefulWidget {
 
 class _MainViewState extends State<_MainView> {
   AppLifecycleListener? _appstateListener;
+  AppLifecycleState? _currentLifecycleState;
+
+  void _lifecycleChanged(AppLifecycleState state) {
+    if (_currentLifecycleState != state) {
+      _currentLifecycleState = state;
+      if (state == AppLifecycleState.resumed) {
+        mainController.startup();
+      }
+    }
+  }
+
   late final ScrollController _scrollController;
 
   bool _hasScrolled = false;
@@ -94,17 +105,9 @@ class _MainViewState extends State<_MainView> {
   void initState() {
     super.initState();
 
-    if (isWeb || isSimulator) {
-      mainController.startup();
-    }
+    _lifecycleChanged(AppLifecycleState.resumed);
     if (!isWeb) {
-      _appstateListener = AppLifecycleListener(
-        onStateChange: (state) {
-          if (state == AppLifecycleState.resumed) {
-            mainController.startup();
-          }
-        },
-      );
+      _appstateListener = AppLifecycleListener(onStateChange: _lifecycleChanged);
     }
 
     _scrollController = ScrollController();

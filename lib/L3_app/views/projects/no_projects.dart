@@ -18,7 +18,21 @@ class NoProjects extends StatelessWidget {
 
   bool get _isAllProjectsClosed => tasksMainController.isAllProjectsClosed;
 
-  Future _tapShowClosed(BuildContext context) async => _controller.setShowClosedProjects();
+  Widget _showClosedProjectsButton(BuildContext context) {
+    final h2TS = const H2('', maxLines: 1).style(context);
+    final h2MainColorTS = h2TS.copyWith(color: mainColor.resolve(context));
+
+    return MTButton(
+      middle: RichText(
+        text: TextSpan(children: [
+          TextSpan(text: loc.project_list_title, style: h2MainColorTS),
+          TextSpan(text: ' ${loc.are_closed_suffix}', style: h2TS),
+        ]),
+        textAlign: TextAlign.center,
+      ),
+      onTap: () => _controller.setShowClosedProjects,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +43,8 @@ class NoProjects extends StatelessWidget {
         children: [
           const SizedBox(height: P12),
           MTImage((_isAllProjectsClosed ? ImageName.ok : ImageName.empty_tasks).name),
-          const SizedBox(height: P3),
           if (_isAllProjectsClosed)
-            MTButton(
-              leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
-              middle: H2(loc.are_closed_suffix, maxLines: 1),
-              onTap: () => _tapShowClosed(context),
-            )
+            _showClosedProjectsButton(context)
           else
             H2(
               loc.project_list_empty_title,

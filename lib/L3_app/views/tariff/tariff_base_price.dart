@@ -17,10 +17,10 @@ class TariffBasePrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
+      color: b3Color,
       middle: MTPrice(_tariff.basePrice, color: mainColor),
       subtitle: BaseText.f2(loc.per_month_suffix, align: TextAlign.center, maxLines: 1),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
-      bottomDivider: false,
     );
   }
 }

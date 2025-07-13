@@ -12,6 +12,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/ws_member.dart';
+import '../../../../theme/colors.dart';
 import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 import 'invitation_button.dart';
@@ -38,6 +39,7 @@ class ProjectTeam extends StatelessWidget {
   Widget _projectMemberBuilder(BuildContext context, int index) {
     final projectMember = _activeMembers[index];
     return MTListTile(
+      color: b3Color,
       leading: projectMember.icon(_iconSize / 2),
       middle: BaseText('$projectMember', maxLines: 1),
       subtitle: SmallText(projectMember.rolesTitles, maxLines: 1),

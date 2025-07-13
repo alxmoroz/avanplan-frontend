@@ -69,7 +69,7 @@ class MTGridMultiselectButton extends StatelessWidget {
         ),
         minHeight: MIN_BTN_HEIGHT,
         padding: EdgeInsets.zero,
-        bottomDivider: false,
+        color: b3Color,
         onTap: onChanged != null ? () => onChanged!(item.value) : null,
       ),
     );

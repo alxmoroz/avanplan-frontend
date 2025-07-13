@@ -44,6 +44,7 @@ class TariffOptionTile extends StatelessWidget {
     final freeLimitHuman = '${(_to.freeLimit / _to.tariffQuantity).round()} ';
 
     return MTListTile(
+      color: b3Color,
       leading: _to.icon(),
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -59,7 +60,6 @@ class TariffOptionTile extends StatelessWidget {
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
-      bottomDivider: false,
     );
   }
 }

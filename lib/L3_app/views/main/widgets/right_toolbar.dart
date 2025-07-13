@@ -9,6 +9,7 @@ import '../../../components/icons.dart';
 import '../../../components/list_tile.dart';
 import '../../../components/toolbar_controller.dart';
 import '../../../components/vertical_toolbar.dart';
+import '../../../theme/colors.dart';
 import '../../../theme/text.dart';
 import '../../app/services.dart';
 import 'inbox_add_task_button.dart';
@@ -31,9 +32,9 @@ class MainRightToolbar extends StatelessWidget implements PreferredSizeWidget {
             // TODO: управление календарем в вебе
             if (!isWeb)
               MTListTile(
+                color: b3Color,
                 leading: const SettingsIcon(),
                 middle: _tbc.compact ? null : BaseText(loc.view_settings_title, maxLines: 1),
-                bottomDivider: false,
                 onTap: showViewSettingsDialog,
               ),
             const Spacer(),

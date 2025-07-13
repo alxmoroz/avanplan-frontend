@@ -61,7 +61,6 @@ class _CreateRelationDialog extends StatelessWidget {
                 margin: EdgeInsets.only(top: _crc.singleSourceFlag ? 0 : P),
                 padding: EdgeInsets.symmetric(vertical: _crc.singleSourceFlag ? 0 : P2, horizontal: P3),
                 color: _crc.singleSourceFlag ? Colors.transparent : b3Color,
-                bottomDivider: false,
                 onTap: _crc.singleSourceFlag ? null : _crc.selectDstGroup,
               ),
             ),

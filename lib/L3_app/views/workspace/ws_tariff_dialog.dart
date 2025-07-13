@@ -45,6 +45,7 @@ class _WSTariffDialog extends StatelessWidget {
   Widget? get _chevronMaybe => kIsWeb ? null : const ChevronIcon();
 
   Widget get _features => MTListTile(
+        color: b3Color,
         leading: const FeaturesIcon(),
         titleText: loc.tariff_features_title,
         subtitle: SmallText(
@@ -57,13 +58,13 @@ class _WSTariffDialog extends StatelessWidget {
       );
 
   Widget get _tariffExpenses => MTListTile(
+        color: b3Color,
         leading: const BankCardIcon(),
         titleText: loc.tariff_current_expenses_title,
         subtitle: _hasExpenses
             ? DSmallText('${_expectedDailyCharge.currency} $CURRENCY_SYMBOL_ROUBLE ${loc.per_day_suffix}', align: TextAlign.left, color: f2Color)
             : SmallText(loc.tariff_current_expenses_zero_title, maxLines: 1),
         trailing: _chevronMaybe,
-        bottomDivider: false,
         onTap: () => showWSExpenses(_ws),
       );
 
@@ -88,6 +89,7 @@ class _WSTariffDialog extends StatelessWidget {
                         TariffOptions(_ws, _tariff),
                         const SizedBox(height: P3),
                         MTListTile(
+                          color: b3Color,
                           middle: MTPrice(_tariff.basePrice, color: mainColor, rowAlign: MainAxisAlignment.start),
                           subtitle: BaseText.f2(loc.per_month_suffix, maxLines: 1),
                           trailing: MTButton.secondary(
@@ -96,7 +98,6 @@ class _WSTariffDialog extends StatelessWidget {
                             constrained: false,
                             onTap: () => selectTariff(_wsc),
                           ),
-                          bottomDivider: false,
                         ),
                       ],
                     ),

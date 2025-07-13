@@ -53,12 +53,15 @@ class _MyAvatarEditDialog extends StatelessWidget {
         children: [
           if (!isWeb)
             MTListTile(
+              color: b3Color,
               leading: MimeTypeIcon('image'),
               middle: BaseText(loc.file_source_gallery_title, color: mainColor, maxLines: 1),
               dividerIndent: _dividerIndent,
+              bottomDivider: true,
               onTap: () => _upload(context, _FileSource.gallery),
             ),
           MTListTile(
+            color: b3Color,
             leading: const ProjectsIcon(),
             middle: BaseText(loc.file_source_files_title, color: mainColor, maxLines: 1),
             dividerIndent: _dividerIndent,
@@ -67,17 +70,17 @@ class _MyAvatarEditDialog extends StatelessWidget {
           ),
           if (!isWeb)
             MTListTile(
+              color: b3Color,
               leading: const CameraIcon(),
               middle: BaseText(loc.file_source_camera_title, color: mainColor),
-              bottomDivider: false,
               onTap: () => _upload(context, _FileSource.camera),
             ),
           if (myAccountController.me!.hasAvatar)
             MTListTile(
+              color: b3Color,
               leading: const DeleteIcon(size: DEF_TAPPABLE_ICON_SIZE),
               middle: BaseText(loc.action_delete_title, color: dangerColor),
               margin: const EdgeInsets.only(top: P3),
-              bottomDivider: false,
               onTap: () => _deleteAvatar(context),
             ),
         ],

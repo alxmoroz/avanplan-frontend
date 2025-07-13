@@ -38,36 +38,40 @@ class _AboutDialog extends StatelessWidget {
           const AppVersion(),
 
           /// юр. документы
-          MTListText(loc.app_legal_docs_title, titleTextColor: f2Color),
+          MTSectionTitle(loc.app_legal_docs_title),
           MTListTile(
+            color: b3Color,
             leading: const DocumentIcon(),
             titleText: loc.app_legal_rules_title,
             trailing: const LinkOutIcon(),
             dividerIndent: _dividerIndent,
+            bottomDivider: true,
             onTap: go2LegalRules,
           ),
           MTListTile(
+            color: b3Color,
             leading: const PrivacyIcon(),
             titleText: loc.app_legal_privacy_policy_title,
             trailing: const LinkOutIcon(),
-            bottomDivider: false,
             onTap: go2LegalConfidential,
           ),
 
           /// о приложении
-          MTListText(loc.app_about_title, titleTextColor: f2Color),
+          MTSectionTitle(loc.app_about_title),
           MTListTile(
+            color: b3Color,
             leading: const ReleaseNotesIcon(),
             titleText: loc.app_release_notes_title,
             trailing: const LinkOutIcon(),
             dividerIndent: _dividerIndent,
+            bottomDivider: true,
             onTap: go2ReleaseNotes,
           ),
           MTListTile(
+            color: b3Color,
             leading: const FeedbackIcon(),
             titleText: loc.app_feedback_action_title,
             trailing: const LinkOutIcon(),
-            bottomDivider: false,
             onTap: go2Feedback,
           ),
 

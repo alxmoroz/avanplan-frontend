@@ -53,7 +53,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        MTListText(Intl.message(group.key), topMargin: gIndex == 0 ? P : DEF_VP, titleTextColor: f2Color),
+        MTSectionTitle(Intl.message(group.key), topMargin: gIndex == 0 ? P : DEF_VP),
         ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -61,6 +61,7 @@ class _TemplateSelectorDialog extends StatelessWidget {
             itemBuilder: (_, tIndex) {
               final template = templates[tIndex];
               return MTListTile(
+                color: b3Color,
                 leading: MTImage(template.icon, fallbackName: 'tmpl_task_list', height: _iconSize, width: _iconSize),
                 middle: BaseText.medium(template.title, maxLines: 2),
                 subtitle: template.description.isNotEmpty ? SmallText(template.description, maxLines: 2) : null,

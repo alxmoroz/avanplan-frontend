@@ -89,8 +89,6 @@ class VerticalToolbar extends StatelessWidget implements PreferredSizeWidget {
         child: MTListTile(
           padding: EdgeInsets.symmetric(horizontal: _btnDx),
           minHeight: _tgBtnSize,
-          bottomDivider: false,
-          color: Colors.transparent,
           leading: rightSide ? icon : null,
           trailing: rightSide ? null : icon,
           onTap: _tbc.toggleWidth,

@@ -39,9 +39,9 @@ class ToolbarCreateTaskButton extends StatelessWidget {
     final title = addTaskActionTitle(resolvedType);
     return buttonType == null
         ? MTListTile(
+            color: b3Color,
             leading: plusIcon,
             middle: !compact ? BaseText(title, maxLines: 1, color: mainColor) : null,
-            bottomDivider: false,
             onTap: () => _tc.addSubtask(type: resolvedType),
           )
         : MTButton(

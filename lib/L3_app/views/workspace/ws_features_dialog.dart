@@ -41,13 +41,14 @@ class _WSFeaturesDialog extends StatelessWidget {
             final f = features[index];
             final subscribed = ws.hasExpense(f.code);
             return MTListTile(
+              color: b3Color,
               leading: f.image,
               middle: Row(
                 children: [
                   Expanded(child: BaseText(f.title, maxLines: 1)),
                   SmallText(
                     subscribed ? loc.tariff_feature_subscribed_title : loc.tariff_feature_no_subscribed_title,
-                    color: subscribed ? greenColor : f3Color,
+                    color: subscribed ? safeColor : f3Color,
                   ),
                 ],
               ),

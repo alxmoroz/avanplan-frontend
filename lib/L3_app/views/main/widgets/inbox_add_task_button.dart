@@ -34,13 +34,13 @@ class InboxAddTaskButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return isBigScreen(context) && !standalone
         ? MTListTile(
+            color: b3Color,
             leading: const MTCircle(
               size: DEF_TAPPABLE_ICON_SIZE,
               color: mainColor,
               child: InboxAddIcon(size: DEF_TAPPABLE_ICON_SIZE - P2, color: mainBtnTitleColor),
             ),
             middle: compact ? null : BaseText(addTaskActionTitle(), color: mainColor, maxLines: 1),
-            bottomDivider: false,
             onTap: _onTap,
           )
         : MTButton.main(

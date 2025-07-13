@@ -13,7 +13,6 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../presenters/task_actions.dart';
-import '../../../../theme/colors.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../../controllers/task_settings_controller.dart';
@@ -42,7 +41,7 @@ class _TaskSettingsDialog extends StatelessWidget {
           shrinkWrap: true,
           children: [
             if (showViewMode) ...[
-              MTListText(loc.view_mode_title, titleTextColor: f2Color),
+              MTSectionTitle(loc.view_mode_title),
               MTGridButton(
                 [
                   for (TaskViewMode vm in [TaskViewMode.BOARD, TaskViewMode.LIST])
@@ -58,7 +57,7 @@ class _TaskSettingsDialog extends StatelessWidget {
               ),
             ],
             if (showAssigneeFilter) ...[
-              MTListText(loc.view_filters_title, topMargin: showViewMode ? DEF_VP : 0, titleTextColor: f2Color),
+              MTSectionTitle(loc.view_filters_title, topMargin: showViewMode ? DEF_VP : 0),
               TasksAssigneeFilterField(_tsc),
             ]
           ],

@@ -27,7 +27,7 @@ class _SettingsDialog extends StatelessWidget {
   Widget _workspaces(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MTListText(loc.workspaces_title, titleTextColor: f2Color),
+          MTSectionTitle(loc.workspaces_title),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -48,11 +48,11 @@ class _SettingsDialog extends StatelessWidget {
       );
 
   Widget get _about => MTListTile(
+        color: b3Color,
         leading: const QuestionIcon(),
         titleText: loc.about_service_title,
         margin: const EdgeInsets.only(top: P3),
         trailing: kIsWeb ? null : const ChevronIcon(),
-        bottomDivider: false,
         onTap: () => showAboutServiceDialog(),
       );
 

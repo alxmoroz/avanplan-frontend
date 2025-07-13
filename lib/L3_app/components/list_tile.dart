@@ -18,7 +18,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
     this.trailing,
     this.onTap,
     this.onHover,
-    this.color = b3Color,
+    this.color = Colors.transparent,
     this.padding,
     this.verticalPadding = P2,
     this.margin,
@@ -32,9 +32,11 @@ class MTListTile extends StatelessWidget with GestureManaging {
     this.loading,
     this.minHeight = DEF_TAPPABLE_ICON_SIZE,
     this.titleTextColor,
+    this.splashColor = mainColor,
     this.titleTextMaxLines,
     this.titleTextAlign,
     this.decoration,
+    this.leadingSpacing,
   });
   final Widget? leading;
   final Widget? middle;
@@ -57,10 +59,12 @@ class MTListTile extends StatelessWidget with GestureManaging {
   final bool uf;
   final bool? loading;
   final double? minHeight;
+  final Color splashColor;
   final Color? titleTextColor;
   final int? titleTextMaxLines;
   final TextAlign? titleTextAlign;
   final BoxDecoration? decoration;
+  final double? leadingSpacing;
 
   Widget get _divider => MTDivider(
         indent: dividerIndent ?? padding?.left ?? DEF_HP,
@@ -71,7 +75,6 @@ class MTListTile extends StatelessWidget with GestureManaging {
 
   @override
   Widget build(BuildContext context) {
-    final splashColor = mainColor.resolve(context).withAlpha(15);
     final hoverColor = mainColor.resolve(context).withAlpha(7);
 
     final hasMiddle = middle != null || titleText.isNotEmpty;
@@ -90,7 +93,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
               onHover: onHover,
               hoverColor: hoverColor,
               highlightColor: hoverColor,
-              splashColor: splashColor,
+              splashColor: splashColor.resolve(context).withAlpha(15),
               canRequestFocus: false,
               focusColor: Colors.transparent,
               child: Column(
@@ -106,7 +109,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                         SizedBox(height: minHeight),
                         if (leading != null) ...[
                           leading!,
-                          if (hasMiddle || hasSubtitle) const SizedBox(width: P2),
+                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? P2),
                         ],
                         Expanded(
                           child: Column(
@@ -136,6 +139,23 @@ class MTListTile extends StatelessWidget with GestureManaging {
   }
 }
 
+class MTSectionTitle extends MTListTile {
+  const MTSectionTitle(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    super.verticalPadding = DEF_VP / 2,
+    super.topMargin = DEF_VP / 2,
+    super.titleTextColor = f2Color,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = P,
+    super.minHeight = 0,
+    super.onTap,
+  }) : super(titleText: text);
+}
+
 class MTListText extends MTListTile {
   const MTListText(
     String text, {
@@ -143,12 +163,29 @@ class MTListText extends MTListTile {
     super.leading,
     super.trailing,
     super.verticalPadding = 0,
-    super.topMargin = DEF_VP,
+    super.topMargin = DEF_VP / 2,
     super.titleTextColor,
     super.titleTextAlign,
     super.titleTextMaxLines,
+    super.leadingSpacing = P,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(titleText: text, minHeight: 0, color: Colors.transparent);
+  }) : super(titleText: text);
+
+  MTListText.medium(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    super.verticalPadding = 0,
+    super.topMargin = DEF_VP / 2,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = P,
+    super.minHeight = 0,
+    super.onTap,
+  }) : super(middle: BaseText.medium(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h2(
     String text, {
@@ -160,8 +197,10 @@ class MTListText extends MTListTile {
     super.titleTextColor,
     super.titleTextAlign,
     super.titleTextMaxLines,
+    super.leadingSpacing = P,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(middle: H2(text, maxLines: titleTextMaxLines, align: titleTextAlign), minHeight: 0, color: Colors.transparent);
+  }) : super(middle: H2(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h3(
     String text, {
@@ -173,8 +212,10 @@ class MTListText extends MTListTile {
     super.titleTextColor,
     super.titleTextAlign,
     super.titleTextMaxLines,
+    super.leadingSpacing = P,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(middle: H3(text, maxLines: titleTextMaxLines, align: titleTextAlign), minHeight: 0, color: Colors.transparent);
+  }) : super(middle: H3(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.small(
     String text, {
@@ -183,9 +224,11 @@ class MTListText extends MTListTile {
     super.trailing,
     super.topMargin = DEF_VP / 2,
     super.verticalPadding = 0,
-    super.titleTextColor,
+    super.titleTextColor = f2Color,
     super.titleTextAlign,
     super.titleTextMaxLines,
+    super.leadingSpacing = P,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(middle: SmallText(text, maxLines: titleTextMaxLines, align: titleTextAlign), minHeight: 0, color: Colors.transparent);
+  }) : super(middle: SmallText(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 }

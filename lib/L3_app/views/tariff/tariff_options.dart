@@ -46,6 +46,7 @@ class TariffOptions extends StatelessWidget {
             final term = endDate != null ? endDate.priceDurationSuffix : f.priceDurationSuffix;
 
             return MTListTile(
+              color: b3Color,
               leading: f.icon(),
               middle: BaseText(f.title, align: TextAlign.left),
               subtitle: Row(
@@ -55,7 +56,6 @@ class TariffOptions extends StatelessWidget {
                 ],
               ),
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
-              bottomDivider: false,
             );
           },
           itemCount: _tariff.features.length,

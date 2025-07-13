@@ -42,6 +42,7 @@ class TariffExpenseTile extends StatelessWidget {
     }
 
     return MTListTile(
+      color: b3Color,
       titleText: _to.title,
       subtitle: Row(
         children: [

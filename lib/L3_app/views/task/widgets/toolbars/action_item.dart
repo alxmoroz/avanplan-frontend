@@ -32,10 +32,10 @@ class TaskActionItem extends StatelessWidget {
   final bool inToolbar;
 
   Widget _tile({Widget? leading, String? title, Color? color, Function()? onTap}) => MTListTile(
+        color: b3Color,
         leading: leading,
         middle: !compact && title != null ? BaseText(title, color: color ?? mainColor, maxLines: 1) : null,
         minHeight: P4,
-        bottomDivider: false,
         onTap: () {
           if (menuController != null) menuController!.close();
           if (onTap != null) onTap();
@@ -90,9 +90,9 @@ class TaskActionItem extends StatelessWidget {
         );
       case TaskAction.close:
         return _tile(
-          leading: DoneIcon(true, size: iconSize, color: greenColor),
+          leading: DoneIcon(true, size: iconSize, color: safeColor),
           title: loc.action_close_title,
-          color: greenColor,
+          color: safeColor,
           onTap: () => _tc.setClosed(true, canPop: true),
         );
       case TaskAction.reopen:

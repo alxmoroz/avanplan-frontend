@@ -23,7 +23,7 @@ class StateTitle extends StatelessWidget {
         ? MTListTile(
             topMargin: DEF_VP,
             leading: Padding(padding: const EdgeInsets.only(top: P2), child: stateIconGroup(context, state)),
-            middle: SmallText(text, maxLines: 1, weight: FontWeight.w500, color: f3Color),
+            middle: SmallText.medium(text, maxLines: 1, color: f3Color),
             padding: EdgeInsets.zero,
           )
         : SmallText(text);

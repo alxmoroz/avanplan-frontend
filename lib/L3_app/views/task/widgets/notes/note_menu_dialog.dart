@@ -29,18 +29,20 @@ class _NoteMenuDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MTListTile(
+            color: b3Color,
             leading: const EditIcon(),
             middle: BaseText(loc.edit_action_title, color: mainColor, maxLines: 1),
             dividerIndent: P4 + P5,
+            bottomDivider: true,
             onTap: () {
               Navigator.of(context).pop();
               _tc.editNote(_note);
             },
           ),
           MTListTile(
+            color: b3Color,
             leading: const DeleteIcon(),
             middle: BaseText(loc.action_delete_title, color: dangerColor, maxLines: 1),
-            bottomDivider: false,
             onTap: () async {
               Navigator.of(context).pop();
               _tc.deleteNote(_note);

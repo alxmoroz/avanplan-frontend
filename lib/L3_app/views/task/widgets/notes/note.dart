@@ -46,7 +46,7 @@ class NoteCard extends StatelessWidget {
             margin: EdgeInsets.only(left: mine ? P12 : 0, right: mine ? 0 : P8, bottom: P2),
             padding: EdgeInsets.zero,
             loading: _note.loading,
-            child: Column(
+            middle: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 /// заголовок - автор (при наличии) и кнопка меню
@@ -57,11 +57,10 @@ class NoteCard extends StatelessWidget {
                       SizedBox(
                         height: P5,
                         child: Align(
-                          child: SmallText(
+                          child: SmallText.medium(
                             authorName,
                             padding: const EdgeInsets.symmetric(horizontal: P2),
                             maxLines: 1,
-                            weight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -91,12 +90,12 @@ class NoteCard extends StatelessWidget {
                     itemBuilder: (_, index) {
                       final a = _note.attachments[index];
                       return MTListTile(
+                        color: b3Color,
                         leading: MimeTypeIcon(a.type),
                         middle: BaseText(a.title, maxLines: 1),
                         subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
                         padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
                         dividerIndent: P8,
-                        bottomDivider: false,
                         onTap: () => _tc.attachmentsController.download(a),
                       );
                     },

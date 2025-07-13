@@ -147,30 +147,32 @@ class _ProjectMemberDialog extends StatelessWidget {
 
                   /// Ответственный в задачах в проекте
                   MTListTile(
+                    color: b3Color,
                     margin: const EdgeInsets.only(top: P3),
                     leading: const PersonIcon(),
                     middle: BaseText(loc.task_assignee_placeholder, maxLines: 1),
                     trailing: kIsWeb ? null : const ChevronIcon(),
                     dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
+                    bottomDivider: true,
                     onTap: () => _assigneeFilterSet(context),
                   ),
 
                   /// Права в проекте
                   MTListTile(
+                    color: b3Color,
                     leading: const PrivacyIcon(),
                     middle: BaseText(loc.role_title, maxLines: 1),
                     subtitle: SmallText(_projectMember!.rolesTitles, maxLines: 1),
                     trailing: _project.canEditTeam ? const EditIcon() : null,
-                    bottomDivider: false,
                     loading: _project.loading,
                     onTap: _project.canEditTeam ? () => _editRoles(context) : null,
                   ),
 
                   /// Отключение от проекта
                   MTListTile(
+                    color: b3Color,
                     middle: BaseText(loc.project_member_unlink_action_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
                     margin: const EdgeInsets.only(top: P6),
-                    bottomDivider: false,
                     onTap: () => _unlinkMember(context),
                   ),
                 ],

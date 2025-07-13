@@ -73,6 +73,7 @@ class EventCard extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           MTListTile(
+            color: b3Color,
             leading: showStateMark ? const SizedBox(width: P) : null,
             middle: _content,
             trailing: Row(

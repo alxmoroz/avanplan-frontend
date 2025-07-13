@@ -274,7 +274,7 @@ class _State extends State<TaskCard> {
       padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
       loading: _t.loading,
       onTap: _ro || widget.dragging ? null : () => _tap(_t),
-      child: _taskContent(false),
+      middle: _taskContent(false),
     );
   }
 
@@ -283,6 +283,7 @@ class _State extends State<TaskCard> {
     final content = Stack(
       children: [
         MTListTile(
+          color: b3Color,
           leading: showStateMark ? const SizedBox(width: P) : null,
           middle: LayoutBuilder(builder: (_, size) => _taskContent(size.maxWidth > SCR_S_WIDTH)),
           bottomDivider: widget.bottomDivider,

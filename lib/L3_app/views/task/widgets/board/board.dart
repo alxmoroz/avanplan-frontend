@@ -102,12 +102,12 @@ class TasksBoard extends StatelessWidget {
         hasTarget: false,
         canDrag: false,
         header: MTListTile(
+          color: b3Color,
           middle: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [const PlusIcon(size: P3), const SizedBox(width: P), BaseText.medium(loc.status_title, color: mainColor, maxLines: 1)],
           ),
           minHeight: P4,
-          bottomDivider: false,
           onTap: _psController.create,
         ),
       );

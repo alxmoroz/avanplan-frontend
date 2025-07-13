@@ -172,6 +172,7 @@ class _MainViewState extends State<_MainView> {
               ? MTTopBar(leading: const SizedBox(), middle: _bigTitle)
               : null
           : MTTopBar(
+              fullScreen: true,
               color: navbarColor,
               leading: myAccountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P10),
               pageTitle: _hasScrolled && !_freshStart ? loc.my_tasks_upcoming_title : '',

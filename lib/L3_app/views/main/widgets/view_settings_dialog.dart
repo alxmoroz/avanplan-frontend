@@ -32,7 +32,7 @@ class _ViewSettingsDialog extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   if (calendarController.sources.isNotEmpty) ...[
-                    MTListText(loc.calendar_connected_list_title, titleTextColor: f2Color),
+                    MTSectionTitle(loc.calendar_connected_list_title),
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -40,6 +40,7 @@ class _ViewSettingsDialog extends StatelessWidget {
                         itemBuilder: (_, index) {
                           final cs = calendarController.sources.elementAt(index);
                           return MTListTile(
+                            color: b3Color,
                             leading: cs.type == CalendarSourceType.GOOGLE ? MTImage(ImageName.google_calendar.name, height: P6) : null,
                             titleText: cs.email,
                             bottomDivider: index < calendarController.sources.length - 1,

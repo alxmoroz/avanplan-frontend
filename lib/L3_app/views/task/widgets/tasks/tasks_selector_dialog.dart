@@ -38,11 +38,7 @@ class TasksSelectorDialog extends StatelessWidget {
     final groupTitle = group.key;
     return Column(
       children: [
-        if (groupTitle.isNotEmpty)
-          MTListText(
-            groupTitle == AVANPLAN_KEY_OTHER_PROJECTS ? loc.projects_group_other_title : groupTitle,
-            titleTextColor: f2Color,
-          ),
+        if (groupTitle.isNotEmpty) MTSectionTitle(groupTitle == AVANPLAN_KEY_OTHER_PROJECTS ? loc.projects_group_other_title : groupTitle),
         ListView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.zero,
@@ -51,6 +47,7 @@ class TasksSelectorDialog extends StatelessWidget {
           itemBuilder: (_, index) {
             final t = tasks[index];
             return MTListTile(
+              color: b3Color,
               leading: t.isInbox ? const InboxIcon(color: f2Color, size: P5) : null,
               titleText: t.title,
               subtitle: t.description.isNotEmpty ? SmallText(t.description, maxLines: 1) : null,

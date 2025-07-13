@@ -28,8 +28,8 @@ class WSListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
+      color: b3Color,
       leading: ws.isMine ? const HomeIcon() : WSPublicIcon(color: _disabled ? f2Color : mainColor),
-      dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
       middle: Row(children: [
         Expanded(child: BaseText(ws.title, maxLines: 1)),
         if (ws.code.isNotEmpty && wsMainController.multiWS) SmallText(ws.code, maxLines: 1, color: f3Color),
@@ -41,6 +41,7 @@ class WSListTile extends StatelessWidget {
       ]),
       subtitle: ws.description.isNotEmpty ? SmallText(ws.description, maxLines: 2) : null,
       bottomDivider: bottomDivider,
+      dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
       onTap: onTap,
     );
   }

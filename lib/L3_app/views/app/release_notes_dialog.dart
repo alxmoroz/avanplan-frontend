@@ -9,7 +9,6 @@ import '../../components/dialog.dart';
 import '../../components/list_tile.dart';
 import '../../components/toolbar.dart';
 import '../../navigation/router.dart';
-import '../../theme/text.dart';
 import 'services.dart';
 
 Future showReleaseNotesDialog(List<ReleaseNote> rNotes) async => await showMTDialog(_ReleaseNotesDialog(rNotes));
@@ -22,10 +21,7 @@ class _ReleaseNotesDialog extends StatelessWidget {
     final rn = _releaseNotes[index];
     return Column(mainAxisSize: MainAxisSize.min, children: [
       MTListText.h3(rn.title, topMargin: 0),
-      MTListTile(
-        middle: BaseText(rn.description),
-        bottomDivider: false,
-      ),
+      MTListText(rn.description),
       const SizedBox(height: P2),
     ]);
   }

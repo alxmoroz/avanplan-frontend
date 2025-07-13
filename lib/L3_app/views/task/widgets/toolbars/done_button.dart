@@ -41,8 +41,8 @@ class _TaskDoneButtonState extends State<TaskDoneButton> {
         color: !_tc.canEdit
             ? f3Color
             : _t.closed
-                ? (hover ? mainColor : greenLightColor)
-                : (hover ? greenColor : mainColor),
+                ? (hover ? mainColor : safeLightColor)
+                : (hover ? safeColor : mainColor),
         solid: _t.closed,
       ),
       padding: const EdgeInsets.symmetric(vertical: (P8 - DEF_TAPPABLE_ICON_SIZE) / 2),

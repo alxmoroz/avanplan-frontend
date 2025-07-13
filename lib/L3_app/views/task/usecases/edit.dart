@@ -109,10 +109,10 @@ extension TaskEditUC on TaskController {
     return hasNotLoadedTasks
         ? board
             ? MTListTile(
+                color: b3Color,
                 middle: BaseText.medium(loc.action_show_closed_title, color: mainColor, align: TextAlign.center),
                 padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
                 loading: loading,
-                bottomDivider: false,
                 onTap: reload,
               )
             : MTButton.secondary(

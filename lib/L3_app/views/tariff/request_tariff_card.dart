@@ -9,6 +9,7 @@ import '../../components/card.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
+import '../../theme/colors.dart';
 import '../../theme/text.dart';
 import '../../usecases/communications.dart';
 import '../app/services.dart';
@@ -29,10 +30,10 @@ class RequestTariffCard extends StatelessWidget {
           else
             for (var n in [1, 2, 3, 4])
               MTListTile(
+                color: b3Color,
                 leading: const StarIcon(),
                 middle: BaseText(Intl.message('tariff_special_conditions_title$n'), maxLines: 2),
                 padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P4),
-                bottomDivider: false,
               ),
           const Spacer(),
           BaseText.f2(

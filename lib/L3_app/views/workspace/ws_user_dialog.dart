@@ -44,10 +44,10 @@ class _WSUserDialog extends StatelessWidget {
           /// Права в РП
           const SizedBox(height: P3),
           MTListTile(
+            color: b3Color,
             leading: const PrivacyIcon(color: f2Color),
             middle: BaseText(loc.role_title, maxLines: 1),
             subtitle: SmallText(_user.rolesTitles, maxLines: 1),
-            bottomDivider: false,
           ),
         ],
       ),

@@ -82,6 +82,7 @@ class _InvitationDialog extends StatelessWidget {
                   itemBuilder: (_, index) {
                     final r = _controller.roles.elementAt(index);
                     return MTListTile(
+                      color: b3Color,
                       middle: BaseText.medium(r.title, maxLines: 1),
                       subtitle: SmallText(r.description, maxLines: 1),
                       trailing: const MemberAddIcon(),

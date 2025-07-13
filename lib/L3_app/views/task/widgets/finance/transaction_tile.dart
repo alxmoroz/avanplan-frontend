@@ -18,12 +18,13 @@ class TaskTransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasDescription = _transaction.description.isNotEmpty;
-    final color = _transaction.amount > 0 ? greenColor : dangerColor;
+    final color = _transaction.amount > 0 ? safeColor : dangerColor;
     final decimalSep = NumberSeparators().decimalSep;
     final numParts = _transaction.amount.financeTransaction.split(decimalSep);
     final decimals = numParts[1].startsWith('0') ? '' : numParts[1];
 
     return MTListTile(
+      color: b3Color,
       titleText: hasDescription ? _transaction.description : _transaction.category,
       subtitle: hasDescription && _transaction.category.isNotEmpty ? SmallText(_transaction.category, maxLines: 1) : null,
       trailing: Row(children: [

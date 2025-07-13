@@ -35,9 +35,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
               Flexible(
                 child: MTListTile(
                   middle: const InboxIcon(size: P6),
-                  color: Colors.transparent,
                   padding: _btnPadding,
-                  bottomDivider: false,
                   onTap: () => router.goTask(tasksMainController.inbox!, direct: true),
                 ),
               ),
@@ -45,9 +43,7 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
               Flexible(
                 child: MTListTile(
                   middle: const ProjectsIcon(size: P6),
-                  color: Colors.transparent,
                   padding: _btnPadding,
-                  bottomDivider: false,
                   onTap: router.goProjects,
                 ),
               ),

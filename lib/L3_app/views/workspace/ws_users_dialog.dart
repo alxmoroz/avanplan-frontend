@@ -50,7 +50,7 @@ class _WSUsersDialog extends StatelessWidget {
           itemBuilder: (_, int index) => WSUserTile(
             _ws,
             _ws.sortedUsers[index],
-            bottomBorder: index < _ws.sortedUsers.length - 1,
+            bottomDivider: index < _ws.sortedUsers.length - 1,
           ),
           itemCount: _ws.users.length,
         ),

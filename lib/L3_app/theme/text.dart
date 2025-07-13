@@ -148,7 +148,6 @@ class SmallText extends BaseText {
     super.color = f2Color,
     super.align,
     super.padding,
-    super.weight,
   }) : super(sizeScale: _scale);
 
   const SmallText.medium(

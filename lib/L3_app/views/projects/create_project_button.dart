@@ -36,9 +36,9 @@ class CreateProjectButton extends StatelessWidget {
     final title = addTaskActionTitle(TType.PROJECT);
     return canShowVerticalBars(context) && type == null
         ? MTListTile(
+            color: b3Color,
             leading: plusIcon,
             middle: !compact ? BaseText(title, maxLines: 1, color: mainColor) : null,
-            bottomDivider: false,
             onTap: _controller.startCreate,
           )
         : MTButton(

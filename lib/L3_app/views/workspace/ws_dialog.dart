@@ -72,7 +72,7 @@ class WSDialog extends StatelessWidget {
         child: MTCardButton(
           margin: const EdgeInsets.only(top: P3),
           onTap: () => replenishBalanceDialog(_wsc),
-          child: Column(
+          middle: Column(
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
@@ -96,6 +96,7 @@ class WSDialog extends StatelessWidget {
   Widget? get _chevronMaybe => kIsWeb ? null : const ChevronIcon();
 
   Widget get _tariffRow => MTListTile(
+        color: b3Color,
         leading: const StarIcon(),
         middle: Row(
           children: [
@@ -110,13 +111,13 @@ class WSDialog extends StatelessWidget {
         ),
         subtitle: SmallText(ws.tariff.title, maxLines: 1),
         trailing: _chevronMaybe,
-        bottomDivider: false,
         onTap: () => showWSTariff(_wsc),
       );
 
   Widget get _wsMembers {
     final membersCountMoreStr = ws.wsUsersCountMoreStr;
     return MTListTile(
+      color: b3Color,
       leading: const PeopleIcon(),
       middle: Row(
         children: [
@@ -134,12 +135,14 @@ class WSDialog extends StatelessWidget {
           )
       ]),
       trailing: _chevronMaybe,
+      bottomDivider: true,
       dividerIndent: _dividerIndent,
       onTap: () => router.goWSUsers(wsd.id!),
     );
   }
 
   Widget get _tasks => MTListTile(
+        color: b3Color,
         leading: const TasksIcon(color: f2Color),
         middle: Row(
           children: [
@@ -147,10 +150,12 @@ class WSDialog extends StatelessWidget {
             BaseText.f2(' ${loc.task_plural(_tasksCount)}', maxLines: 1),
           ],
         ),
+        bottomDivider: true,
         dividerIndent: _dividerIndent,
       );
 
   Widget get _storage => MTListTile(
+        color: b3Color,
         leading: const FileStorageIcon(color: f2Color),
         middle: Row(
           children: [
@@ -163,10 +168,10 @@ class WSDialog extends StatelessWidget {
       );
 
   Widget get _sources => MTListTile(
+      color: b3Color,
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${ws.sources.isNotEmpty ? '(${ws.sources.length})' : ''}',
       trailing: _chevronMaybe,
-      bottomDivider: false,
       onTap: () {
         ws.checkSources();
         router.goWSSources(wsd.id!);

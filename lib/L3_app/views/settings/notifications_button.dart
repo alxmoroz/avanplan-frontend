@@ -7,6 +7,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../navigation/router.dart';
+import '../../theme/colors.dart';
 import '../../theme/text.dart';
 import '../app/services.dart';
 
@@ -16,6 +17,7 @@ class NotificationsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
+      color: b3Color,
       leading: BellIcon(hasUnread: notificationController.hasUnread),
       titleText: loc.notification_list_title,
       trailing: Row(children: [
@@ -27,7 +29,6 @@ class NotificationsButton extends StatelessWidget {
           ),
         if (!kIsWeb) const ChevronIcon(),
       ]),
-      bottomDivider: false,
       onTap: () {
         Navigator.of(context).pop();
         router.goNotifications();

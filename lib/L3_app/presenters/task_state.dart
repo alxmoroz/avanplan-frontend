@@ -24,7 +24,7 @@ Color stateColor(TaskState state, {Color? defaultColor}) {
     case TaskState.OK:
     case TaskState.AHEAD:
     case TaskState.THIS_WEEK:
-      return greenColor;
+      return safeColor;
     case TaskState.IMPORTING:
       return mainColor;
     default:

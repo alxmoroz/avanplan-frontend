@@ -40,9 +40,9 @@ class TasksViewSettingsButton extends StatelessWidget {
       final icon = _icon(big);
       return big
           ? MTListTile(
+              color: b3Color,
               leading: icon,
               middle: compact ? null : BaseText(loc.view_settings_title, color: mainColor, maxLines: 1),
-              bottomDivider: false,
               onTap: _tap,
             )
           : MTButton.secondary(middle: icon, onTap: _tap, constrained: false);

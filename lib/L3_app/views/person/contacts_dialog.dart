@@ -10,6 +10,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/toolbar.dart';
 import '../../presenters/contact.dart';
+import '../../theme/colors.dart';
 import '../../theme/text.dart';
 import '../app/clipboard.dart';
 import '../app/services.dart';
@@ -48,6 +49,7 @@ class _PersonContactsDialog extends StatelessWidget {
           final c = _contacts[index];
           final value = BaseText(c.value, maxLines: 1);
           return MTListTile(
+            color: b3Color,
             leading: c.icon,
             middle: c.hasDescription ? SmallText(c.description, maxLines: 1) : value,
             subtitle: c.hasDescription ? value : null,

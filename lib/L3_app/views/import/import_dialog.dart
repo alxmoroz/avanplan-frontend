@@ -80,7 +80,6 @@ class _ImportDialog extends StatelessWidget {
                   color: b2Color,
                   value: _selectedAll,
                   onChanged: ic.toggleSelectedAll,
-                  bottomDivider: false,
                 ),
             ]
           ]

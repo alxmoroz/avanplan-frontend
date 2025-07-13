@@ -19,7 +19,7 @@ extension TaskFinancePresenter on Task {
       ? mainColor
       : balance < 0
           ? dangerColor
-          : greenColor;
+          : safeColor;
 
   num get _profitLossRatio => expenses != 0 ? (balance / expenses).abs() : 0;
 

@@ -89,10 +89,10 @@ class _TransactionsDialog extends StatelessWidget {
                 ),
                 const Spacer(),
                 MTButton(
-                  leading: const PlusIcon(color: greenColor),
+                  leading: const PlusIcon(color: safeColor),
                   titleText: loc.finance_transactions_income_title(1),
                   type: MTButtonType.secondary,
-                  titleColor: greenColor,
+                  titleColor: safeColor,
                   padding: const EdgeInsets.symmetric(horizontal: P7),
                   onTap: _trc.addIncome,
                 ),

@@ -42,25 +42,26 @@ class _FinanceSummaryDialog extends StatelessWidget {
             ),
             if (hasIncome)
               MTListTile(
+                color: b3Color,
                 leading: const FinanceIncomeIcon(),
                 titleText: loc.finance_transactions_income_title(2),
-                trailing: DText(_task.income.currencyRouble, color: greenColor),
+                trailing: DText(_task.income.currencyRouble, color: safeColor),
                 dividerIndent: P4 + P5,
                 bottomDivider: hasExpenses,
               ),
             if (hasExpenses)
               MTListTile(
+                color: b3Color,
                 leading: const FinanceExpensesIcon(),
                 titleText: loc.finance_transactions_expenses_title(2),
                 trailing: DText(_task.expenses.abs().currencyRouble, color: dangerColor),
-                bottomDivider: false,
               ),
             if (_task.hasProfitOrLoss)
               MTListTile(
+                color: b3Color,
                 middle: BaseText.medium(_task.summaryTitle),
                 trailing: D3.medium(_task.balance.abs().currencyRouble, color: _task.balanceColor),
                 margin: const EdgeInsets.only(top: P3),
-                bottomDivider: false,
               ),
           ] else
             TransactionsEmptyInfo(_task),

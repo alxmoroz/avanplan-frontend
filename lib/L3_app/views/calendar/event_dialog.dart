@@ -51,11 +51,11 @@ class _EventDialog extends StatelessWidget {
       );
 
   Widget _description(BuildContext context) => MTListTile(
+        color: b3Color,
         leading: const DescriptionIcon(color: f2Color),
         middle: MTLinkify(event.description, maxLines: _descriptionMaxLines),
         margin: const EdgeInsets.only(top: P3),
         crossAxisAlignment: CrossAxisAlignment.start,
-        bottomDivider: false,
       );
 
   Widget _date(DateTime date) => Row(children: [

@@ -66,6 +66,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
   Widget itemBuilder(BuildContext context, int index) {
     final item = items[index];
     return MTListTile(
+      color: b3Color,
       leading: leadingBuilder != null ? leadingBuilder!(context, item) : null,
       middle: valueBuilder != null ? valueBuilder!(context, item) : BaseText('$item', maxLines: 2),
       subtitle: subtitleBuilder != null ? subtitleBuilder!(context, item) : null,

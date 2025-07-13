@@ -48,7 +48,6 @@ class MTGridButton extends StatelessWidget {
         minHeight: MIN_BTN_HEIGHT,
         padding: EdgeInsets.zero,
         color: f3Color.withOpacity(0.2),
-        bottomDivider: false,
         onTap: onChanged != null ? () => onChanged!(item.value) : null,
       ),
     );

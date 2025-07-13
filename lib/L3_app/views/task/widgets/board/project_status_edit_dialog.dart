@@ -83,6 +83,7 @@ class _State extends State<_ProjectStatusEditDialog> {
             ),
             if (_psec.canMoveLeft)
               MTListTile(
+                color: b3Color,
                 leading: const MoveLeftIcon(),
                 middle: BaseText.medium(loc.status_move_left_action_title, maxLines: 1, color: mainColor),
                 subtitle: SmallText('${_psec.leftStatus}', maxLines: 1),
@@ -93,6 +94,7 @@ class _State extends State<_ProjectStatusEditDialog> {
               ),
             if (_psec.canMoveRight)
               MTListTile(
+                color: b3Color,
                 leading: const MoveRightIcon(),
                 middle: BaseText.medium(loc.status_move_right_action_title, maxLines: 1, color: mainColor),
                 subtitle: SmallText('${_psec.rightStatus}', maxLines: 1),
@@ -108,6 +110,7 @@ class _State extends State<_ProjectStatusEditDialog> {
                 padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
               ),
             MTListTile(
+              color: b3Color,
               leading: DoneIcon(true, color: _used ? f3Color : mainColor, size: DEF_TAPPABLE_ICON_SIZE),
               middle: BaseText.medium(
                 loc.status_means_closed_title,
@@ -127,9 +130,9 @@ class _State extends State<_ProjectStatusEditDialog> {
               onTap: _used ? null : _psec.toggleClosed,
             ),
             MTListTile(
+              color: b3Color,
               leading: DeleteIcon(size: DEF_TAPPABLE_ICON_SIZE, color: _used ? f3Color : dangerColor),
               middle: BaseText.medium(loc.action_delete_title, maxLines: 1, color: _used ? f3Color : dangerColor),
-              bottomDivider: false,
               onTap: _used ? null : () => _psec.delete(context),
             ),
           ],

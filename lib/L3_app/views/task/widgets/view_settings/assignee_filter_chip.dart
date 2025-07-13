@@ -30,7 +30,7 @@ class TaskAssigneeFilterChip extends StatelessWidget {
             const FilterIcon(color: f2Color),
             const SizedBox(width: P_2),
             SmallText('${loc.task_assignee_label.toLowerCase()}: ', maxLines: 1),
-            Flexible(child: SmallText(_tc.settingsController.filteredAssigneesStr, maxLines: 1, weight: FontWeight.w500)),
+            Flexible(child: SmallText.medium(_tc.settingsController.filteredAssigneesStr, maxLines: 1)),
             const SizedBox(width: P),
             const CloseIcon(color: f2Color, size: P3),
             const SizedBox(width: P_2),

@@ -107,6 +107,7 @@ class _State extends State<TaskDescriptionField> {
             ),
             if (exceedROMaxLines && !hasFocus)
               MTListTile(
+                color: b3Color,
                 minHeight: _expandButtonHeight,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -124,7 +125,6 @@ class _State extends State<TaskDescriptionField> {
                   ),
                 ),
                 padding: EdgeInsets.zero,
-                bottomDivider: false,
                 onTap: () => setState(() => _expanded = !_expanded),
               ),
           ],

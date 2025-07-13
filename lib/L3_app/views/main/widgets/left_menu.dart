@@ -46,6 +46,7 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
   static const _unselectedSize = P4;
 
   Widget _menuButton(BuildContext context, Widget icon, String title, bool selected, Function()? onTap) => MTListTile(
+        color: b3Color,
         middle: Row(
           mainAxisAlignment: _compact ? MainAxisAlignment.center : MainAxisAlignment.start,
           children: [
@@ -62,7 +63,6 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         decoration: selected ? _selectedDecoration(context) : null,
-        bottomDivider: false,
         onTap: onTap,
       );
 
@@ -108,9 +108,9 @@ class LeftMenu extends StatelessWidget implements PreferredSizeWidget {
                   const Spacer(),
                   if (me != null)
                     MTListTile(
+                      color: b3Color,
                       leading: me.icon(DEF_TAPPABLE_ICON_SIZE / 2, borderColor: mainColor),
                       middle: _compact ? null : BaseText('$me', maxLines: 1, color: f2Color, weight: FontWeight.w300),
-                      bottomDivider: false,
                       onTap: settingsDialog,
                     )
                 ],

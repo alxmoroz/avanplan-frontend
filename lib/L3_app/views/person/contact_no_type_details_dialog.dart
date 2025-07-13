@@ -4,6 +4,7 @@ import '../../../L1_domain/entities/abs_contact.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
+import '../../theme/colors.dart';
 import '../../theme/text.dart';
 import '../app/clipboard.dart';
 
@@ -24,9 +25,9 @@ class PersonContactNoTypeDetailsDialog extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           MTListTile(
+            color: b3Color,
             middle: H3(_contact.value, maxLines: 2),
             trailing: const CopyIcon(),
-            bottomDivider: false,
             onTap: () => _tap(context),
           ),
         ],

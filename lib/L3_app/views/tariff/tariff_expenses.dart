@@ -31,8 +31,10 @@ class TariffExpenses extends StatelessWidget {
       children: [
         /// базовая цена
         MTListTile(
+          color: b3Color,
           middle: Row(children: [BaseText.f2(loc.tariff_title, maxLines: 1), BaseText(' ${_tariff.title}', maxLines: 1)]),
           trailing: DText(_tariff.basePrice.currencyRouble),
+          bottomDivider: true,
         ),
 
         /// опции с затратами
@@ -61,10 +63,10 @@ class TariffExpenses extends StatelessWidget {
 
         /// всего
         MTListTile(
+          color: b3Color,
           middle: BaseText.medium(loc.total_title),
           trailing: D3.medium(_ws.overallExpectedMonthlyCharge(_tariff).currencyRouble),
           margin: const EdgeInsets.only(top: P3),
-          bottomDivider: false,
         ),
 
         /// информация о тарифе - ссылка

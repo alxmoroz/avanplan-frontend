@@ -131,7 +131,6 @@ class _SourceEditDialogState extends State<_SourceEditDialog> {
                 children: [
                   if (_sec.showUrl) _sec.tf(SourceFCode.url, first: true),
                   if (_sec.showUsername) _sec.tf(SourceFCode.username, first: !_sec.showUrl),
-                  if (_sec.showUrl || _sec.showUsername) const SizedBox(height: P3),
                   if (_sec.selectedType?.hasApiKey == true) ...[
                     _sec.selectedType?.isTrello == true
                         ? MTButton(

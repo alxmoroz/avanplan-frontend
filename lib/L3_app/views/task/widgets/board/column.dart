@@ -115,6 +115,7 @@ class TaskBoardColumn {
       ? _tc.loadClosedButton(board: true)
       : parent.canCreate
           ? MTListTile(
+              color: b3Color,
               middle: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -124,7 +125,6 @@ class TaskBoardColumn {
                 ],
               ),
               padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-              bottomDivider: false,
               onTap: () => _tc.addSubtask(statusId: _status.id!),
             )
           : null;

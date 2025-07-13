@@ -50,9 +50,9 @@ class TaskPopupMenu extends StatelessWidget {
       onOpen: unfocusAll,
       builder: (_, MenuController mc, Widget? child) => big
           ? MTListTile(
+              color: b3Color,
               leading: const MenuIcon(circled: true, size: DEF_TAPPABLE_ICON_SIZE),
               middle: compact ? null : BaseText(loc.task_actions_menu_title, color: mainColor, maxLines: 1),
-              bottomDivider: false,
               onTap: () => _toggle(mc),
             )
           : MTButton.icon(

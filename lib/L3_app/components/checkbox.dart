@@ -17,7 +17,7 @@ class MTCheckBoxTile extends StatelessWidget {
     this.titleColor,
     this.color,
     this.leading,
-    this.bottomDivider = true,
+    this.bottomDivider = false,
     this.dividerIndent,
     this.uf = true,
   });

@@ -19,6 +19,7 @@ class _ProjectCreationMethodDialog extends StatelessWidget {
   static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
 
   Widget _tileButton(BuildContext context, TaskCreationMethod method, bool bottomDivider) => MTListTile(
+        color: b3Color,
         leading: method.btnIcon(),
         titleText: method.actionTitle,
         dividerIndent: _dividerIndent,
@@ -34,12 +35,12 @@ class _ProjectCreationMethodDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           /// с нуля
-          MTListText(loc.create_from_scratch_title, topMargin: 0, titleTextColor: f2Color),
+          MTSectionTitle(loc.create_from_scratch_title, topMargin: 0),
           for (var m in [TaskCreationMethod.BOARD, TaskCreationMethod.LIST, TaskCreationMethod.PROJECT])
             _tileButton(context, m, m != TaskCreationMethod.PROJECT),
 
           /// готовые проекты (шаблон, импорт)
-          MTListText(loc.create_from_ready_made, titleTextColor: f2Color),
+          MTSectionTitle(loc.create_from_ready_made),
           for (var m in [TaskCreationMethod.TEMPLATE, TaskCreationMethod.IMPORT]) _tileButton(context, m, m != TaskCreationMethod.IMPORT),
         ],
       ),

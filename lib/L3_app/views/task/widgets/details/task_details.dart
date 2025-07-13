@@ -16,6 +16,7 @@ import '../../../../presenters/remote_source.dart';
 import '../../../../presenters/task_actions.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/task_tree.dart';
+import '../../../../theme/colors.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments_field.dart';
@@ -85,11 +86,11 @@ class TaskDetails extends StatelessWidget {
           /// Связь с источником импорта
           if (t.didImported)
             MTListTile(
+              color: b3Color,
               margin: EdgeInsets.only(top: hasMargins ? P3 : 0),
               leading: t.source?.type.icon(size: DEF_TAPPABLE_ICON_SIZE),
               titleText: !compact ? loc.task_go2source_title : '',
               trailing: !compact ? const LinkOutIcon() : null,
-              bottomDivider: false,
               onTap: () => launchUrlString(t.taskSource!.urlString),
             ),
 

@@ -55,6 +55,7 @@ class _NotificationsDialog extends StatelessWidget {
       final time = n.scheduledDate.strTime;
       final title = n.title;
       return MTListTile(
+        color: b3Color,
         middle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -64,7 +65,7 @@ class _NotificationsDialog extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SmallText(title, weight: FontWeight.w500, maxLines: 1),
+                      SmallText.medium(title, maxLines: 1),
                       if (n.description.isNotEmpty)
                         BaseText(
                           n.description,
@@ -128,11 +129,11 @@ class _NotificationsDialog extends StatelessWidget {
                 children: [
                   if (!isWeb && !_controller.pushAuthorized)
                     MTListTile(
+                      color: b3Color,
                       margin: const EdgeInsets.only(bottom: P3),
                       leading: const BellIcon(size: P5),
                       middle: SmallText(loc.notification_push_ios_denied_btn_title, maxLines: 2),
                       trailing: const ChevronIcon(),
-                      bottomDivider: false,
                       onTap: _showGotoSystemSettingsDialog,
                     ),
                   ListView.builder(

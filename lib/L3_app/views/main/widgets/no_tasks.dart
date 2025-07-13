@@ -8,6 +8,7 @@ import '../../../components/button.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/images.dart';
+import '../../../components/list_tile.dart';
 import '../../../navigation/router.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/text.dart';
@@ -41,14 +42,14 @@ class NoTasks extends StatelessWidget {
                         ? ImageName.ok
                         : ImageName.empty_tasks)
                 .name),
-            const SizedBox(height: P3),
-            H2(_freshStart ? loc.lets_get_started : loc.task_list_empty_title, align: TextAlign.center),
-            const SizedBox(height: P3),
-            BaseText(
+            MTListText.h2(
+              _freshStart ? loc.lets_get_started : loc.task_list_empty_title,
+              titleTextAlign: TextAlign.center,
+            ),
+            MTListText(
               _freshStart ? loc.project_list_empty_hint : loc.task_list_schedule_hint,
-              align: TextAlign.center,
-              padding: const EdgeInsets.symmetric(horizontal: P6),
-              maxLines: 5,
+              titleTextAlign: TextAlign.center,
+              titleTextMaxLines: 5,
             ),
             if (_canPlan)
               MTButton.secondary(

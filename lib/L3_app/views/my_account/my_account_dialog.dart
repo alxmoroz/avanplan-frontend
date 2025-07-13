@@ -89,11 +89,13 @@ class _MyAccountDialog extends StatelessWidget {
                       final c = myAccountController.contacts[index];
                       final value = BaseText(c.value, maxLines: 1);
                       return MTListTile(
+                        color: b3Color,
                         leading: c.icon,
                         middle: c.hasDescription ? SmallText(c.description, maxLines: 1) : value,
                         subtitle: c.hasDescription ? value : null,
                         trailing: const EditIcon(),
                         dividerIndent: P5 + DEF_TAPPABLE_ICON_SIZE,
+                        bottomDivider: true,
                         loading: c.loading,
                         onTap: () => showMyContactEditDialog(contact: c),
                       );
@@ -101,17 +103,17 @@ class _MyAccountDialog extends StatelessWidget {
                   ),
 
                   MTListTile(
+                    color: b3Color,
                     leading: const PlusIcon(circled: true, size: DEF_TAPPABLE_ICON_SIZE),
                     middle: BaseText('${loc.action_add_title} ${loc.person_contact_title.toLowerCase()}', maxLines: 1, color: mainColor),
-                    bottomDivider: false,
                     onTap: showMyContactEditDialog,
                   ),
 
                   /// Выход из системы
                   MTListTile(
+                    color: b3Color,
                     middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
                     margin: const EdgeInsets.only(top: P6),
-                    bottomDivider: false,
                     onTap: authController.signOut,
                   ),
                 ],

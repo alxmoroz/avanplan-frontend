@@ -64,7 +64,7 @@ class _TransactionEditDialog extends StatelessWidget {
     final seps = NumberSeparators();
     final groupSep = seps.groupSep;
     final decimalSep = seps.decimalSep;
-    final textColor = _trEditC.sign > 0 ? greenColor : dangerColor;
+    final textColor = _trEditC.sign > 0 ? safeColor : dangerColor;
     return MTDialog(
       topBar: MTTopBar(
         pageTitle:

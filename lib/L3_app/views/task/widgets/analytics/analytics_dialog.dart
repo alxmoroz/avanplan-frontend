@@ -30,6 +30,7 @@ class _AnalyticsDialog extends StatelessWidget {
   final TaskController _tc;
 
   Widget _details(String t1, String t2, {String? unit, Color? color, bool divider = true}) => MTListTile(
+        color: b3Color,
         middle: BaseText.f3(t1, maxLines: 1),
         subtitle: Row(
           crossAxisAlignment: CrossAxisAlignment.end,

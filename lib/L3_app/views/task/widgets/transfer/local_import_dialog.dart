@@ -66,7 +66,6 @@ class _LocalImportDialog extends StatelessWidget {
                     margin: EdgeInsets.only(top: _lic.singleSourceFlag ? 0 : P),
                     padding: EdgeInsets.symmetric(vertical: _lic.singleSourceFlag ? 0 : P2, horizontal: P3),
                     color: _lic.singleSourceFlag ? Colors.transparent : b3Color,
-                    bottomDivider: false,
                     onTap: _lic.singleSourceFlag ? null : _lic.selectSourceForMove,
                   ),
                   if (_showSelectAll)
@@ -75,7 +74,6 @@ class _LocalImportDialog extends StatelessWidget {
                       titleColor: mainColor,
                       color: b2Color,
                       value: _lic.selectedAll,
-                      bottomDivider: false,
                       onChanged: _lic.toggleAll,
                     )
                 ],

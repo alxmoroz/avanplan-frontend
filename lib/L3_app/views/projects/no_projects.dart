@@ -30,7 +30,7 @@ class NoProjects extends StatelessWidget {
         ]),
         textAlign: TextAlign.center,
       ),
-      onTap: () => _controller.setShowClosedProjects,
+      onTap: _controller.setShowClosedProjects,
     );
   }
 

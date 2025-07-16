@@ -171,11 +171,9 @@ abstract class _TasksMainControllerBase with Store {
   bool get hasOpenedTasks => openedTasks.isNotEmpty;
 
   @computed
-  Iterable<Task> get myTasks => openedTasks.where((t) => t.assignedToMe);
+  Iterable<Task> get myOpenedTasks => openedTasks.where((t) => t.assignedToMe);
 
   /// логика экрана Ближайшие дела
   @computed
-  bool get freshStart => !hasOpenedProjects && !hasOpenedTasks;
-  @computed
-  bool get canPlan => hasOpenedProjects || hasOpenedTasks;
+  bool get freshStart => projects.isEmpty && inbox?.hasSubtasks == false;
 }

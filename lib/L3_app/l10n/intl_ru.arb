@@ -52,8 +52,6 @@
   "app_title": "Аванплан",
   "app_whats_new": "Что нового",
 
-  "are_closed_suffix": "закрыты",
-
   "attachment_add_action_title": "Прикрепить файлы",
   "attachments_label": "Вложения",
 
@@ -125,18 +123,24 @@
 
   "create_board_action_title": "Доска",
   "create_board_action_description": "Колонки-статусы с карточками задач",
+  "create_board_action_description_short": "",
 
   "create_list_action_title": "Список",
   "create_list_action_description": "Простой список задач без статусов и целей",
+  "create_list_action_description_short": "",
 
   "create_project_action_title": "Проект",
   "create_project_action_description": "Задачи с разбивкой по целям, этапам или группам",
+  "create_project_action_description_short": "с целями",
 
   "create_template_action_title": "Создать по шаблону",
   "create_template_action_description": "Выбрать из библиотеки",
 
   "create_import_action_title": "Импортировать",
   "create_import_action_description": "Загрузить проекты из источника импорта",
+
+  "create_more_action_title": "Ещё",
+  "create_more_action_description_short": "шаблоны, импорт",
 
   "dates_period": "с {date1} по {date2}",
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
@@ -216,7 +220,7 @@
 
   "later": "Позже",
 
-  "lets_get_started": "Начните работу",
+  "lets_get_started": "С чего начнём?",
   "lets_go_action_title": "Поехали!",
 
   "loader_auth_title": "Проверяем доступ...",
@@ -243,7 +247,7 @@
   "my_account_delete_dialog_description": "Ваше рабочее пространство также будет удалено вместе с задачами, если в нём нет других пользователей",
   "my_account_title": "Моя учётная запись",
 
-  "my_tasks_add_action_hint": "Или просто добавьте задачи",
+  "my_tasks_add_action_hint": "Или просто добавим задачу",
   "my_tasks_future_title": "Будущие",
   "my_tasks_no_due_title": "Без срока",
   "my_tasks_this_week_title": "На этой неделе",
@@ -274,8 +278,7 @@
   "price_duration_prefix": "{duration} за",
   "price_duration_suffix": "ещё {duration}",
 
-  "project_list_empty_title": "Добавьте проект",
-  "project_list_empty_hint": "Выходите на новый уровень продуктивности с проектами",
+  "project_list_empty_all_closed_title": "Все проекты завершены\nПродолжим с новым?",
   "project_list_title": "Проекты",
 
   "project_member_title": "Участник проекта",
@@ -481,11 +484,9 @@
 
   "task_go2source_title": "Перейти к источнику",
 
-  "task_list_empty_hint": "Добавьте задачи, чтобы начать работу",
+  "task_list_empty_hint": "Добавьте задачу и продолжайте работу",
   "task_list_empty_in_project_hint": "Группируйте задачи в цели",
   "task_list_empty_title": "Отдыхаем от дел",
-  "task_list_schedule_action_title": "Запланировать",
-  "task_list_schedule_hint": "Запланируйте задачи, чтобы продолжить работу",
   "task_list_title": "Задачи",
   "task_multi_create_quiz_title": "Добавьте задачи",
 

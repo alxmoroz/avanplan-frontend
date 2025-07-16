@@ -10,6 +10,7 @@ import '../components/icons.dart';
 extension TaskCreationMethodPresenter on TaskCreationMethod {
   String get actionTitle => Intl.message('create_${name.toLowerCase()}_action_title');
   String get actionDescription => Intl.message('create_${name.toLowerCase()}_action_description');
+  String get actionDescriptionShort => Intl.message('create_${name.toLowerCase()}_action_description_short');
 
   Widget btnIcon({double size = DEF_TAPPABLE_ICON_SIZE}) =>
       {

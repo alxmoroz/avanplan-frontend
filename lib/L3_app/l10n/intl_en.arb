@@ -52,8 +52,6 @@
   "app_title": "Avanplan",
   "app_whats_new": "What's New",
 
-  "are_closed_suffix": "are closed",
-
   "attachment_add_action_title": "Attach files",
   "attachments_label": "Attachments",
 
@@ -125,18 +123,24 @@
 
   "create_board_action_title": "Board",
   "create_board_action_description": "Status columns with tasks cards",
+  "create_board_action_description_short": "",
 
   "create_list_action_title": "Task list",
   "create_list_action_description": "Simple task list without statuses and goals",
+  "create_list_action_description_short": "",
 
   "create_project_action_title": "Project",
   "create_project_action_description": "Tasks grouped by goals, stages or groups",
+  "create_project_action_description_short": "with goals",
 
   "create_template_action_title": "Create from template",
   "create_template_action_description": "Choose a ready-made one from the library",
 
   "create_import_action_title": "Import",
   "create_import_action_description": "Load projects from import source",
+
+  "create_more_action_title": "More",
+  "create_more_action_description_short": "templates, import",
 
   "dates_period": "from {date1} to {date2}",
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
@@ -216,7 +220,7 @@
 
   "later": "Later",
 
-  "lets_get_started": "Let's get started",
+  "lets_get_started": "Where to start?",
   "lets_go_action_title": "Let's go!",
 
   "loader_auth_title": "Checking access...",
@@ -274,8 +278,7 @@
   "price_duration_prefix": "{duration} for",
   "price_duration_suffix": "for another {duration}",
 
-  "project_list_empty_title": "Add a project",
-  "project_list_empty_hint": "Achieve new levels of productivity while working on projects.",
+  "project_list_empty_all_closed_title": "All projects are closed\nContinue with a new one?",
   "project_list_title": "Projects",
 
   "project_member_title": "Project Member",
@@ -484,8 +487,6 @@
   "task_list_empty_hint": "Add tasks to get started",
   "task_list_empty_in_project_hint": "Group tasks into goals",
   "task_list_empty_title": "Taking a break from tasks",
-  "task_list_schedule_action_title": "Schedule",
-  "task_list_schedule_hint": "Schedule tasks to keep working",
   "task_list_title": "Tasks",
   "task_multi_create_quiz_title": "Add tasks",
 

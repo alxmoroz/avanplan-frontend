@@ -7,7 +7,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/toolbar_controller.dart';
 import '../../components/vertical_toolbar.dart';
 import 'create_project_button.dart';
-import 'create_project_controller.dart';
 
 class ProjectsRightToolbar extends StatelessWidget implements PreferredSizeWidget {
   const ProjectsRightToolbar(this._tbc, {super.key});
@@ -24,7 +23,7 @@ class ProjectsRightToolbar extends StatelessWidget implements PreferredSizeWidge
         child: Column(
           children: [
             const Spacer(),
-            CreateProjectButton(CreateProjectController(), compact: _tbc.compact),
+            CreateProjectButton(compact: _tbc.compact),
           ],
         ),
       ),

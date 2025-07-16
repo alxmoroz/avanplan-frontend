@@ -11,16 +11,10 @@ import '../../components/list_tile.dart';
 import '../../presenters/task_type.dart';
 import '../../theme/colors.dart';
 import '../../theme/text.dart';
-import 'create_project_controller.dart';
+import 'creation_dialog.dart';
 
 class CreateProjectButton extends StatelessWidget {
-  const CreateProjectButton(
-    this._controller, {
-    super.key,
-    this.compact = false,
-    this.type,
-  });
-  final CreateProjectController _controller;
+  const CreateProjectButton({super.key, this.compact = false, this.type});
   final bool compact;
   final MTButtonType? type;
 
@@ -39,7 +33,7 @@ class CreateProjectButton extends StatelessWidget {
             color: b3Color,
             leading: plusIcon,
             middle: !compact ? BaseText(title, maxLines: 1, color: mainColor) : null,
-            onTap: _controller.startCreate,
+            onTap: ProjectCreationDialog.startCreateProject,
           )
         : MTButton(
             margin: EdgeInsets.only(right: compact ? P2 : 0),
@@ -48,7 +42,7 @@ class CreateProjectButton extends StatelessWidget {
             titleText: compact ? null : title,
             middle: compact ? plusIcon : null,
             constrained: !compact,
-            onTap: _controller.startCreate,
+            onTap: ProjectCreationDialog.startCreateProject,
           );
   }
 }

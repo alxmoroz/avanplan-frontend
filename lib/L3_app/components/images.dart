@@ -20,8 +20,6 @@ enum ImageName {
   no_info,
   not_found,
   notifications,
-  ok,
-  ok_blue,
   privacy,
   purchase,
   relations,

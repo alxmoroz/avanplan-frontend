@@ -8,8 +8,10 @@ import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
+import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/refresh.dart';
+import '../../components/scrollable_centered.dart';
 import '../../components/toolbar.dart';
 import '../../navigation/route.dart';
 import '../../theme/colors.dart';
@@ -20,8 +22,7 @@ import '../main/widgets/left_menu.dart';
 import '../task/task_route.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 import 'create_project_button.dart';
-import 'create_project_controller.dart';
-import 'no_projects.dart';
+import 'creation_big_buttons.dart';
 import 'right_toolbar.dart';
 
 class ProjectsRoute extends MTRoute {
@@ -53,13 +54,13 @@ class ProjectsView extends StatefulWidget {
 
 class _ProjectsViewState extends State<ProjectsView> {
   late final ScrollController _scrollController;
-  late final CreateProjectController _createProjectController;
+
   bool _hasScrolled = false;
+  bool _showClosedProjects = false;
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    _createProjectController = CreateProjectController();
     super.initState();
   }
 
@@ -78,39 +79,58 @@ class _ProjectsViewState extends State<ProjectsView> {
         ),
       );
 
-  bool get _showProjects =>
-      tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _createProjectController.showClosedProjects);
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final big = isBigScreen(context);
-      final body = MTRefresh(
-        onRefresh: tasksMainController.reload,
-        child: ListView(
-          controller: isWeb ? _scrollController : null,
-          children: [
-            _bigTitle,
-            _showProjects ? TasksListView(tasksMainController.projectsGroups) : NoProjects(_createProjectController),
-          ],
-        ),
-      );
+      final showProjects = tasksMainController.hasOpenedProjects || (tasksMainController.projects.isNotEmpty && _showClosedProjects);
+      final hasVertBars = showProjects && canShowVerticalBars(context);
+
       return MTPage(
         key: widget.key,
         navBar: big
             ? _hasScrolled
                 ? MTTopBar(leading: const SizedBox(), middle: _bigTitle)
                 : null
-            : MTNavBar(pageTitle: _hasScrolled ? loc.project_list_title : null),
+            : MTNavBar(pageTitle: _hasScrolled || !showProjects ? loc.project_list_title : null),
         leftBar: big ? LeftMenu(leftMenuController) : null,
-        body: body,
-        bottomBar: _showProjects
-            ? canShowVerticalBars(context)
+        body: MTRefresh(
+          onRefresh: tasksMainController.reload,
+          child: showProjects
+              ? ListView(
+                  controller: isWeb ? _scrollController : null,
+                  children: [_bigTitle, TasksListView(tasksMainController.projectsGroups)],
+                )
+              : MTScrollableCentered(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MTListText.h2(
+                        tasksMainController.isAllProjectsClosed ? loc.project_list_empty_all_closed_title : loc.lets_get_started,
+                        titleTextAlign: TextAlign.center,
+                        titleTextColor: f2Color,
+                      ),
+                      const SizedBox(height: DEF_VP * 3),
+                      const CreationProjectBigButtons(),
+                      if (tasksMainController.isAllProjectsClosed)
+                        MTButton.secondary(
+                          titleText: loc.action_show_closed_title,
+                          margin: const EdgeInsets.only(top: DEF_VP * 3),
+                          onTap: () => setState(() => _showClosedProjects = true),
+                        )
+                      else
+                        const SizedBox(height: DEF_BAR_HEIGHT),
+                    ],
+                  ),
+                ),
+        ),
+        bottomBar: showProjects
+            ? hasVertBars
                 ? null
-                : MTBottomBar(trailing: CreateProjectButton(_createProjectController, compact: true, type: MTButtonType.secondary))
+                : const MTBottomBar(trailing: CreateProjectButton(compact: true, type: MTButtonType.secondary))
             : null,
-        rightBar: _showProjects
-            ? canShowVerticalBars(context)
+        rightBar: showProjects
+            ? hasVertBars
                 ? ProjectsRightToolbar(rightToolbarController)
                 : null
             : null,

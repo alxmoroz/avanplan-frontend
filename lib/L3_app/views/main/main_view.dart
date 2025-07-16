@@ -11,6 +11,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/refresh.dart';
+import '../../components/scrollable_centered.dart';
 import '../../components/toolbar.dart';
 import '../../components/toolbar_controller.dart';
 import '../../navigation/route.dart';
@@ -22,7 +23,6 @@ import '../app/services.dart';
 import '../auth/auth_view.dart';
 import '../my_account/my_account_dialog.dart';
 import '../notification/notifications_dialog.dart';
-import '../projects/create_project_controller.dart';
 import '../projects/projects_view.dart';
 import '../settings/settings_dialog.dart';
 import '../task/task_route.dart';
@@ -95,11 +95,10 @@ class _MainViewState extends State<_MainView> {
 
   bool _hasScrolled = false;
 
-  bool get _hasTasks => tasksMainController.myTasks.isNotEmpty;
+  bool get _hasMyOpenedTasks => tasksMainController.myOpenedTasks.isNotEmpty;
   bool get _hasEvents => calendarController.events.isNotEmpty;
   bool get _freshStart => tasksMainController.freshStart;
-
-  bool get _showTasks => _hasTasks || _hasEvents;
+  bool get _showTasks => _hasMyOpenedTasks || _hasEvents;
 
   @override
   void initState() {
@@ -152,19 +151,29 @@ class _MainViewState extends State<_MainView> {
         onTap: showViewSettingsDialog,
       );
 
+  String get _hintArrowText => _showTasks
+      ? ''
+      : _freshStart
+          ? loc.my_tasks_add_action_hint
+          : loc.task_list_empty_hint;
+
   Widget _page(BuildContext context) {
     final big = isBigScreen(context);
     final canShowVertBars = canShowVerticalBars(context);
     final body = MTRefresh(
       onRefresh: mainController.reload,
-      child: ListView(
-        controller: isWeb ? _scrollController : null,
-        children: [
-          if (!_freshStart) _bigTitle,
-          _showTasks ? const NextTasks() : NoTasks(CreateProjectController()),
-        ],
-      ),
+      child: _showTasks
+          ? ListView(
+              // controller: isWeb ? _scrollController : null,
+              primary: true,
+              children: [
+                _bigTitle,
+                const NextTasks(),
+              ],
+            )
+          : MTScrollableCentered(NoTasks(hintArrowText: big ? _hintArrowText : '')),
     );
+
     return MTPage(
       key: widget.key,
       navBar: big
@@ -175,13 +184,13 @@ class _MainViewState extends State<_MainView> {
               fullScreen: true,
               color: navbarColor,
               leading: myAccountController.me != null && !canShowVertBars ? _settingsButton : const SizedBox(height: P10),
-              pageTitle: _hasScrolled && !_freshStart ? loc.my_tasks_upcoming_title : '',
-              trailing: isWeb ? null : _appBarTrailing,
+              pageTitle: _hasScrolled || (!_freshStart && !_showTasks) ? loc.my_tasks_upcoming_title : '',
+              trailing: isWeb || _freshStart ? null : _appBarTrailing,
             ),
       body: body,
       leftBar: canShowVertBars ? LeftMenu(leftMenuController) : null,
       rightBar: big && !_freshStart ? MainRightToolbar(rightToolbarController) : null,
-      bottomBar: canShowVertBars ? null : const BottomMenu(),
+      bottomBar: canShowVertBars ? null : BottomMenu(full: !_freshStart, hintArrowText: _hintArrowText),
       scrollController: _scrollController,
       scrollOffsetTop: big ? P4 : P8,
       onScrolled: (scrolled) => setState(() => _hasScrolled = scrolled),

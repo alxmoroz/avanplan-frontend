@@ -120,8 +120,14 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                             ),
                             const SizedBox(height: P4),
                             MTButton(
-                              leading: SmallText('${loc.auth_help_title}?'),
-                              middle: SmallText.medium(loc.action_email_support_title, color: mainColor),
+                              middle: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SmallText('${loc.auth_help_title}?'),
+                                  const SizedBox(width: DEF_VP),
+                                  SmallText.medium(loc.action_email_support_title, color: mainColor),
+                                ],
+                              ),
                               onTap: () => mailUs(subject: loc.auth_help_title),
                             ),
                             const SizedBox(height: P4),
@@ -133,15 +139,17 @@ class _AuthViewState extends State<_AuthView> with WidgetsBindingObserver {
                   bottomBar: MTBottomBar(
                     topPadding: 0,
                     color: navbarColor,
-                    innerHeight: P6,
-                    middle: Column(children: [
-                      const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3)),
-                      const SizedBox(height: P2),
-                      MTButton(
-                        middle: SmallText.medium(loc.about_service_title, color: mainColor),
-                        onTap: showAboutServiceDialog,
-                      ),
-                    ]),
+                    innerHeight: P8 + 1,
+                    middle: Column(
+                      children: [
+                        const MTAdaptive.xs(child: MTDivider(indent: P3, endIndent: P3)),
+                        MTButton(
+                          titleText: loc.about_service_title,
+                          middle: SmallText.medium(loc.about_service_title, color: mainColor, align: TextAlign.center),
+                          onTap: showAboutServiceDialog,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
     );

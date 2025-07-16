@@ -320,7 +320,7 @@ class MTButton extends StatelessWidget with GestureManaging {
                         align: titleTextAlign ?? TextAlign.center,
                       )
                     : const SizedBox()),
-            padding: padding,
+            padding: padding ?? const EdgeInsets.symmetric(vertical: P),
             margin: margin,
             trailing: trailing,
             onHover: onHover,

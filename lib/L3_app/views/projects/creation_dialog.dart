@@ -11,10 +11,15 @@ import '../../theme/colors.dart';
 import '../../theme/text.dart';
 import '../app/services.dart';
 
-Future<TaskCreationMethod?> selectProjectCreationMethod() async => await showMTDialog<TaskCreationMethod?>(const _ProjectCreationMethodDialog());
+class ProjectCreationDialog extends StatelessWidget {
+  const ProjectCreationDialog._();
 
-class _ProjectCreationMethodDialog extends StatelessWidget {
-  const _ProjectCreationMethodDialog();
+  static Future startCreateProject() async {
+    final method = await showMTDialog(const ProjectCreationDialog._());
+    if (method != null) {
+      await wsMainController.startCreateProject(method);
+    }
+  }
 
   static const _dividerIndent = P5 + DEF_TAPPABLE_ICON_SIZE;
 

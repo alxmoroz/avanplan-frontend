@@ -96,7 +96,7 @@ class MainController extends _Base with _$MainController {
 
   List<MapEntry<TaskState, List<NextTaskOrEvent>>> get nextTasksOrEventsDateGroups {
     final nextTasksOrEvents = [
-      ...tasksMainController.myTasks.map((t) => NextTaskOrEvent(t.dueDate, t)),
+      ...tasksMainController.myOpenedTasks.map((t) => NextTaskOrEvent(t.dueDate, t)),
       ...calendarController.events.map((e) => NextTaskOrEvent(e.startDate, e)),
     ].sorted((n1, n2) => n1.compareTo(n2));
 

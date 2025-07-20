@@ -156,26 +156,26 @@ extension TaskEditUC on TaskController {
     return et;
   }
 
-  Future move(Task dst) async => await editWrapper(() async {
+  Future move(Task parent) async => await editWrapper(() async {
         setLoaderScreenSaving();
         final src = task;
         // перенос внутри одного РП - просто меняем родителя
         // перенос между РП - новая задача в новом месте, старая удаляется
-        final sameWS = dst.wsId == taskDescriptor.wsId;
+        final sameWS = parent.wsId == taskDescriptor.wsId;
 
         TasksChanges? changes;
 
         if (sameWS) {
           // статус в другом проекте
           int? dstProjectStatusId = src.projectStatusId;
-          if (dst.project.id != src.project.id) {
-            final psc = TaskController(taskIn: dst).projectStatusesController;
+          if (parent.project.id != src.project.id) {
+            final psc = TaskController(taskIn: parent).projectStatusesController;
             psc.reload();
             dstProjectStatusId = psc.firstOpenedStatusId;
           }
-          changes = await taskUC.save(src.copyWith(parentId: dst.id, projectStatusId: dstProjectStatusId));
+          changes = await taskUC.save(src.copyWith(parentId: parent.id, projectStatusId: dstProjectStatusId));
         } else {
-          changes = await taskUC.move(src, dst);
+          changes = await taskUC.move(src, parent);
         }
 
         if (changes != null) {

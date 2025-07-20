@@ -467,6 +467,8 @@
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
   "task_count_genitive": "{count, plural, one{{count} задачи} other{{count} задач}}",
 
+  "task_create_select_parent_dialog_title": "Выберите, куда добавить задачу",
+
   "task_dates": "Даты",
   "task_dates_repeat": "Даты и повтор",
 

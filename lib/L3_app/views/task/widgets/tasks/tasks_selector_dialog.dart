@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_type.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
@@ -20,17 +21,13 @@ import '../../../app/services.dart';
 import 'tasks_selector_controller.dart';
 
 class TasksSelectorDialog extends StatelessWidget {
-  const TasksSelectorDialog(
-    this._tsc,
-    this._pageTitle,
-    this._emptyText, {
-    this.parentPageTitle,
-    super.key,
-  });
+  const TasksSelectorDialog._(this._tsc, this._pageTitle, this._emptyText);
   final TasksSelectorController _tsc;
   final String _pageTitle;
-  final String? parentPageTitle;
   final String _emptyText;
+
+  static Future<Task?> show(TasksSelectorController tsc, String pageTitle, String emptyText) async =>
+      await showMTDialog(TasksSelectorDialog._(tsc, pageTitle, emptyText));
 
   Widget _groupBuilder(BuildContext context, int groupIndex) {
     final group = _tsc.groups[groupIndex];
@@ -68,10 +65,7 @@ class TasksSelectorDialog extends StatelessWidget {
       return _tsc.loading
           ? LoaderScreen(_tsc, isDialog: true)
           : MTDialog(
-              topBar: MTTopBar(
-                pageTitle: empty ? '' : _pageTitle,
-                parentPageTitle: empty ? '' : parentPageTitle,
-              ),
+              topBar: MTTopBar(pageTitle: empty ? '' : _pageTitle),
               body: empty
                   ? ListView(
                       shrinkWrap: true,

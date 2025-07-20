@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
-import '../../../../components/dialog.dart';
 import '../../../../navigation/router.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
@@ -46,11 +45,11 @@ class LocalImportController extends _Base with _$LocalImportController {
         }
       });
 
-      final srcGroup = await showMTDialog<Task>(TasksSelectorDialog(
+      final srcGroup = await TasksSelectorDialog.show(
         tsc,
         loc.transfer_select_source_hint,
         loc.transfer_import_empty_title,
-      ));
+      );
 
       if (srcGroup != null) {
         _setSrc(srcGroup);

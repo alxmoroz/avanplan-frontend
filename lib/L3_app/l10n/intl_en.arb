@@ -467,6 +467,8 @@
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
   "task_count_genitive": "{count, plural, one{{count} task} other{{count} tasks}}",
 
+  "task_create_select_parent_dialog_title": "Select where to add the task",
+
   "task_dates": "Dates settings",
   "task_dates_repeat": "Dates and repeat settings",
 

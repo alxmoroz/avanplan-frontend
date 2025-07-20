@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/task_relation.dart';
-import '../../../../components/dialog.dart';
 import '../../../../navigation/router.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
@@ -40,11 +39,7 @@ class CreateRelationsController extends _Base with _$CreateRelationsController {
         }
       });
 
-      final dstGroup = await showMTDialog<Task>(TasksSelectorDialog(
-        tsc,
-        loc.relation_create_dialog_title,
-        '',
-      ));
+      final dstGroup = await TasksSelectorDialog.show(tsc, loc.relation_create_dialog_title, '');
       if (dstGroup != null) {
         _setDstGroup(dstGroup);
       }

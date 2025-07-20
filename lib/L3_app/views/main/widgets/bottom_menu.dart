@@ -10,7 +10,7 @@ import '../../../components/toolbar.dart';
 import '../../../navigation/router.dart';
 import '../../../theme/colors.dart';
 import '../../app/services.dart';
-import 'inbox_add_task_button.dart';
+import 'main_add_task_button.dart';
 
 class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
   const BottomMenu({this.hintArrowText = '', this.full = true, super.key});
@@ -74,9 +74,9 @@ class BottomMenu extends StatelessWidget implements PreferredSizeWidget {
                   ? const MTCircle(
                       size: P12 + P,
                       color: b3Color,
-                      child: UnconstrainedBox(child: InboxAddTaskButton()),
+                      child: UnconstrainedBox(child: MainAddTaskButton()),
                     )
-                  : const InboxAddTaskButton(),
+                  : const MainAddTaskButton(),
             ),
           ],
         ),

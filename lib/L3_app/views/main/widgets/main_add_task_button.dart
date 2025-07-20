@@ -14,18 +14,21 @@ import '../../../presenters/task_type.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/text.dart';
 import '../../app/services.dart';
+import '../../task/usecases/transfer.dart';
 import '../../task/widgets/create/create_task_dialog.dart';
 
-class InboxAddTaskButton extends StatelessWidget {
-  const InboxAddTaskButton({super.key, this.standalone = false, this.compact = true});
+class MainAddTaskButton extends StatelessWidget {
+  const MainAddTaskButton({super.key, this.standalone = false, this.compact = true});
 
   final bool standalone;
   final bool compact;
 
   Future _onTap() async {
-    final inbox = tasksMainController.inbox;
-    if (inbox != null) {
-      final newTC = await createTask(inbox.ws, parent: inbox);
+    final parent = tasksMainController.hasOpenedProjects
+        ? await selectTaskNewParent(pageTitle: loc.task_create_select_parent_dialog_title)
+        : tasksMainController.inbox;
+    if (parent != null) {
+      final newTC = await createTask(parent.ws, parent: parent);
       if (newTC != null) router.goTask(newTC.taskDescriptor);
     }
   }
@@ -38,13 +41,13 @@ class InboxAddTaskButton extends StatelessWidget {
             leading: const MTCircle(
               size: DEF_TAPPABLE_ICON_SIZE,
               color: mainColor,
-              child: InboxAddIcon(size: DEF_TAPPABLE_ICON_SIZE - P2, color: mainBtnTitleColor),
+              child: PlusIcon(size: DEF_TAPPABLE_ICON_SIZE - P2, color: mainBtnTitleColor),
             ),
             middle: compact ? null : BaseText(addTaskActionTitle(), color: mainColor, maxLines: 1),
             onTap: _onTap,
           )
         : MTButton.main(
-            middle: const InboxAddIcon(color: mainBtnTitleColor, size: P6),
+            middle: const PlusIcon(color: mainBtnTitleColor, size: P6),
             constrained: false,
             minSize: const Size(P11, P11),
             onTap: _onTap,

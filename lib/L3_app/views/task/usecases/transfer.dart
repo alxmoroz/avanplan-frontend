@@ -4,7 +4,6 @@ import 'dart:async';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/workspace.dart';
-import '../../../components/dialog.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/ws_actions.dart';
 import '../../app/services.dart';
@@ -14,32 +13,48 @@ import '../widgets/tasks/tasks_selector_dialog.dart';
 import '../widgets/transfer/transfer_unlink_relations_confirm_dialog.dart';
 import 'edit.dart';
 
+Future<Task?> selectTaskNewParent({
+  TType srcType = TType.TASK,
+  int? srcWsId,
+  int? srcParentId,
+  String pageTitle = '',
+  String emptyText = '',
+}) async {
+  final tsc = TasksSelectorController();
+  tsc.load(() async {
+    final tasks = <Task>[];
+    for (Workspace ws in wsMainController.workspaces) {
+      tasks.addAll(await wsTransferUC.destinationsForMove(ws.id!, srcType));
+    }
+    tasks.removeWhere((t) => t.wsId == srcWsId && t.id == srcParentId);
+    tasks.sort();
+    tsc.setTasks(tasks);
+  });
+
+  final newParent = await TasksSelectorDialog.show(tsc, pageTitle, emptyText);
+
+  // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
+  if (newParent != null && await newParent.ws.checkBalance(loc.action_transfer_title)) {
+    return newParent;
+  } else {
+    return null;
+  }
+}
+
 extension LocalTransferUC on TaskController {
   // перенос в другую цель, проект
   Future localExport() async {
     final src = task;
-    final tsc = TasksSelectorController();
-    tsc.load(() async {
-      final tasks = <Task>[];
-      for (Workspace ws in wsMainController.workspaces) {
-        tasks.addAll(await wsTransferUC.destinationsForMove(ws.id!, src.type));
-      }
-      tasks.removeWhere((t) => t.wsId == src.parent?.wsId && t.id == src.parentId);
-      tasks.sort();
-      tsc.setTasks(tasks);
-    });
-
-    final dst = await showMTDialog<Task>(TasksSelectorDialog(
-      tsc,
-      loc.transfer_select_destination_hint,
-      loc.transfer_export_empty_title,
-    ));
-
-    // TODO: проверяем баланс в РП назначения. Хотя, в исходном тоже надо бы проверять...
-    if (dst != null &&
-        await dst.ws.checkBalance(loc.action_transfer_title) &&
-        (src.relations.isEmpty || dst.wsId == src.wsId || await confirmTransferAndUnlinkRelations)) {
-      await move(dst);
+    final srcWsId = src.wsId;
+    final parent = await selectTaskNewParent(
+      srcType: src.type,
+      srcWsId: srcWsId,
+      srcParentId: src.parentId,
+      pageTitle: loc.transfer_select_destination_hint,
+      emptyText: loc.transfer_export_empty_title,
+    );
+    if (parent != null && (src.relations.isEmpty || parent.wsId == srcWsId || await confirmTransferAndUnlinkRelations)) {
+      await move(parent);
     }
   }
 }

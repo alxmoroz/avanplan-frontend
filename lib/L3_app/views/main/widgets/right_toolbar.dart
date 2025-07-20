@@ -12,7 +12,7 @@ import '../../../components/vertical_toolbar.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/text.dart';
 import '../../app/services.dart';
-import 'inbox_add_task_button.dart';
+import 'main_add_task_button.dart';
 import 'view_settings_dialog.dart';
 
 class MainRightToolbar extends StatelessWidget implements PreferredSizeWidget {
@@ -38,7 +38,7 @@ class MainRightToolbar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: showViewSettingsDialog,
               ),
             const Spacer(),
-            InboxAddTaskButton(compact: _tbc.compact),
+            MainAddTaskButton(compact: _tbc.compact),
           ],
         ),
       ),

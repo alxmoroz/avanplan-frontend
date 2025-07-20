@@ -10,7 +10,7 @@ import '../../../components/list_tile.dart';
 import '../../../theme/colors.dart';
 import '../../app/services.dart';
 import '../../projects/creation_big_buttons.dart';
-import 'inbox_add_task_button.dart';
+import 'main_add_task_button.dart';
 
 class NoTasks extends StatelessWidget {
   const NoTasks({this.hintArrowText = '', super.key});
@@ -45,7 +45,7 @@ class NoTasks extends StatelessWidget {
                 const SizedBox(height: DEF_VP),
                 const ArrowDownIcon(size: P6, color: f2Color),
                 const SizedBox(height: DEF_VP),
-                const Align(child: InboxAddTaskButton(standalone: true)),
+                const MainAddTaskButton(standalone: true),
               ] else
                 const SizedBox(height: DEF_BAR_HEIGHT),
             ],

@@ -64,6 +64,10 @@ class MainController extends _Base with _$MainController {
           // TODO: в связи с этим вопрос: почему бы сразу не прикрепить человечка к проекту в момент запроса регистрации? Проблема безопасности?
           try {
             hostProject = await myUC.redeemInvitation(localSettingsController.invitationToken);
+            if (hostProject != null) {
+              await wsMainController.reload();
+              await tasksMainController.reload();
+            }
           } catch (_) {}
           await localSettingsController.deleteInvitationToken();
         });

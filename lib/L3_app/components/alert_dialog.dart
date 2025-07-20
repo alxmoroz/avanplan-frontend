@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../theme/text.dart';
 import 'button.dart';
 import 'constants.dart';
 import 'dialog.dart';
 import 'images.dart';
+import 'list_tile.dart';
 
 class MTDialogAction<T> {
   MTDialogAction({
@@ -66,14 +66,13 @@ class _MTAlertDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           if (imageName.isNotEmpty) MTImage(imageName),
-          H2(title, padding: const EdgeInsets.all(P3), align: TextAlign.center),
-          if (description.isNotEmpty)
-            BaseText(description, maxLines: 20, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+          MTListText.h2(title, titleTextAlign: TextAlign.center),
+          if (description.isNotEmpty) MTListText(description, titleTextMaxLines: 20, titleTextAlign: TextAlign.center),
           for (final a in actions)
             MTButton(
               titleText: a.title,
               type: a.type,
-              margin: const EdgeInsets.only(top: P3),
+              margin: EdgeInsets.only(top: a.type != MTButtonType.text ? DEF_HP : DEF_VP / 2),
               constrained: true,
               onTap: () => _tap(context, a),
             ),

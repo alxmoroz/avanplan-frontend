@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
@@ -12,18 +13,19 @@ import '../../../../theme/text.dart';
 import '../../controllers/task_controller.dart';
 import '../../usecases/dates.dart';
 
-class TaskDueDateField extends StatelessWidget {
-  const TaskDueDateField(this._tc, {super.key});
+class TaskDateField extends StatelessWidget {
+  const TaskDateField(this._tc, this._fCode, {super.key});
   final TaskController _tc;
+  final TaskFCode _fCode;
 
   @override
   Widget build(BuildContext context) {
     final t = _tc.task;
-    final date = t.dueDate;
+    final date = _fCode == TaskFCode.startDate ? t.startDate : t.dueDate;
     final canEdit = _tc.canEdit;
 
     return MTField(
-      _tc.fData(TaskFCode.dueDate.index),
+      _tc.fData(_fCode.index),
       showLabel: true,
       leading: CalendarIcon(color: canEdit ? mainColor : f2Color),
       value: date != null
@@ -35,7 +37,14 @@ class TaskDueDateField extends StatelessWidget {
             )
           : null,
       margin: const EdgeInsets.only(top: P3),
-      onTap: canEdit ? () => _tc.selectDate(context, TaskFCode.dueDate) : null,
+      trailing: date != null
+          ? MTButton.icon(
+              const CloseIcon(color: warningColor),
+              padding: const EdgeInsets.symmetric(vertical: DEF_VP / 2).copyWith(left: DEF_VP, right: 0),
+              onTap: () => _tc.resetDate(_fCode),
+            )
+          : null,
+      onTap: canEdit ? () => _tc.selectDate(context, _fCode) : null,
     );
   }
 }

@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task_repeat.dart';
 import '../../../../L1_domain/utils/dates.dart';
-import '../../../components/button.dart';
 import '../../../presenters/task_tree.dart';
-import '../../../theme/colors.dart';
-import '../../../theme/text.dart';
 import '../../../usecases/ws_actions.dart';
 import '../../app/services.dart';
 import '../controllers/task_controller.dart';
@@ -36,7 +33,7 @@ extension DatesUC on TaskController {
     }
   }
 
-  void _reset(TaskFCode code) {
+  void resetDate(TaskFCode code) {
     if (code == TaskFCode.startDate) {
       _setStartDate(null);
     } else if (code == TaskFCode.dueDate) {
@@ -60,38 +57,12 @@ extension DatesUC on TaskController {
     final firstDate = isStart ? pastDate : startDate ?? (initialDate?.isBefore(today) == true ? initialDate! : today);
     final lastDate = (isStart ? dueDate : null) ?? futureDate;
 
-    // !! Нельзя давать менять способ ввода - поплывёт кнопка "Сбросить".
-    // Если нужен ввод с клавиатуры, то нужно доработать позиционирование кнопки "Сбросить"
-    // final entryMode = isWeb ? DatePickerEntryMode.input : DatePickerEntryMode.calendar;
-    const entryMode = DatePickerEntryMode.calendarOnly;
-
     final date = await showDatePicker(
       context: context,
-      initialEntryMode: entryMode,
+      initialEntryMode: DatePickerEntryMode.calendar,
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
-      builder: (_, child) => LayoutBuilder(
-        builder: (ctx, size) {
-          final isPortrait = size.maxHeight > size.maxWidth;
-          return Stack(
-            children: [
-              child!,
-              if (selectedDate != null)
-                Positioned(
-                  left: size.maxWidth / 2 - (isPortrait ? 140 : 60),
-                  top: size.maxHeight / 2 + (isPortrait ? 220 : 126),
-                  child: MTButton(
-                      middle: SmallText(loc.action_clear_title, color: dangerColor),
-                      onTap: () {
-                        Navigator.of(ctx).pop();
-                        _reset(code);
-                      }),
-                ),
-            ],
-          );
-        },
-      ),
     );
 
     if (date != null) {

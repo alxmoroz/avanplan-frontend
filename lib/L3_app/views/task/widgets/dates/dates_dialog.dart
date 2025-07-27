@@ -8,9 +8,8 @@ import '../../../../components/toolbar.dart';
 import '../../../_base/loader_screen.dart';
 import '../../../app/services.dart';
 import '../../controllers/task_controller.dart';
-import 'due_date_field.dart';
+import 'date_field.dart';
 import 'repeat_field.dart';
-import 'start_date_field.dart';
 
 Future showTaskDatesDialog(TaskController tc) async => await showMTDialog(_DatesDialog(tc));
 
@@ -26,8 +25,8 @@ class _DatesDialog extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          if (_tc.canShowStartDateField) TaskStartDateField(_tc),
-          if (_tc.canShowDueDateField) TaskDueDateField(_tc),
+          if (_tc.canShowStartDateField) TaskDateField(_tc, TaskFCode.startDate),
+          if (_tc.canShowDueDateField) TaskDateField(_tc, TaskFCode.dueDate),
           if (canShowRepeat) TaskRepeatField(_tc),
         ],
       ),

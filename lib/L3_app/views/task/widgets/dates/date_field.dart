@@ -39,7 +39,7 @@ class TaskDateField extends StatelessWidget {
       margin: const EdgeInsets.only(top: P3),
       trailing: date != null
           ? MTButton.icon(
-              const CloseIcon(color: warningColor),
+              const DeleteIcon(color: f3Color),
               padding: const EdgeInsets.symmetric(vertical: DEF_VP / 2).copyWith(left: DEF_VP, right: 0),
               onTap: () => _tc.resetDate(_fCode),
             )
